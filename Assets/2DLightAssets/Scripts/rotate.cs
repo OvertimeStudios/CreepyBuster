@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class rotate : MonoBehaviour {
+public class rotate : MonoBehaviour 
+{
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 	
 	}
 	

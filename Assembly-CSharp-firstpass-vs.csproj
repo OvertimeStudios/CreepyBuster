@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{FF338191-3968-889B-0A9D-40858EECA363}</ProjectGuid>
+	<ProjectGuid>{77FBF8BB-DAE6-0633-C051-EE8705A0D79C}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -156,7 +156,7 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="pseudoSinCos">
- <HintPath>/Users/jota/GitHub/OvertimeStudios/Creepy Buster/Assets/2DLightAssets/Scripts/Helpers/pseudoSinCos.dll</HintPath>
+ <HintPath>/Users/jota/GitHub/OvertimeStudios/CreepyBuster/Assets/2DLightAssets/Scripts/Helpers/pseudoSinCos.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
