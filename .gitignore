@@ -1,0 +1,21 @@
+#Unity3D .gitignore file.
+#Store this file at the root of your local repository with the name .gitignore
+#Folders
+/Library
+/Temp
+/Builds
+#Project/User Preference Files
+*.sln
+*.csproj
+*.booproj
+*.pidb
+*.userprefs
+*.user
+*.suo
+*.unityproj
+#OS Junk
+Thumbs.db
+.DS_Store*
+ehthumbs.db
+Icon7
+#.dll
