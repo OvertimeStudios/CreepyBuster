@@ -153,6 +153,8 @@ MonoBehaviour:
   bossBattleCondition:
     points: 0
     killStreak: 0
+  backgrounds:
+  - {fileID: 115040, guid: ffb8cc434b85d4423b6e2a579770b4d9, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

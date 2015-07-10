@@ -31,6 +31,9 @@ public class LevelDesign : MonoBehaviour
 	[Header("Boss Battle")]
 	public BossLevelUpCondition bossBattleCondition;
 
+	[Header("Backgrounds")]
+	public List<GameObject> backgrounds;
+
 
 	#region levels properties
 	private static int playerLevel = 0;

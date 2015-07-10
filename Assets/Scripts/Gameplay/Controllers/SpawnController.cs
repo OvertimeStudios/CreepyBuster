@@ -54,6 +54,8 @@ public class SpawnController : MonoBehaviour
 	void Start () 
 	{
 		enemiesInGame = new List<Transform> ();
+
+		SpawnBackground ();
 	}
 
 	public void StartSpawn()
@@ -254,6 +256,15 @@ public class SpawnController : MonoBehaviour
 			rot = -90f;
 
 		return rot;
+	}
+
+	private void SpawnBackground()
+	{
+		//TODO: Spawn according to players choice
+
+		int rnd = (int)UnityEngine.Random.Range (0, LevelDesign.Instance.backgrounds.Count);
+
+		Instantiate (LevelDesign.Instance.backgrounds [rnd]);
 	}
 
 	private void AddEnemy(GameObject obj)
