@@ -24,6 +24,11 @@ public class EnemyLife : MonoBehaviour
 	public Color basicColor = Color.yellow;
 	public Color damageColor = Color.red;
 
+
+	[Header("Item")]
+	public float chanceToDrop;
+	public List<ItemPercent> itens;
+
 	public List<EventDelegate> onDeadEvent;
 
 	#region get / set

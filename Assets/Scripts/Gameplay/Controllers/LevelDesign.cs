@@ -34,7 +34,10 @@ public class LevelDesign : MonoBehaviour
 	[Header("Backgrounds")]
 	public List<GameObject> backgrounds;
 
-
+	[Header("Item")]
+	public RandomBetweenTwoConst itemSpawnTime;
+	public ItemLevelUpCondition[] itensLevelUpCondition;
+	
 	#region levels properties
 	private static int playerLevel = 0;
 	private static int enemiesSpawnLevel = 0;
@@ -505,4 +508,18 @@ public class EnemiesAttributesLevelUpCondition
 [System.Serializable]
 public class BossLevelUpCondition : LevelUpCondition
 {
+}
+
+[System.Serializable]
+public class ItemLevelUpCondition : LevelUpCondition
+{
+	public float chanceToSpawn;
+	public List<ItemPercent> itens;
+}
+
+[System.Serializable]
+public class ItemPercent
+{
+	public GameObject item;
+	public float percent;
 }

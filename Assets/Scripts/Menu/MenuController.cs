@@ -89,7 +89,7 @@ public class MenuController : MonoBehaviour
 	IEnumerator CountdownBeginGame(GameObject selection)
 	{
 		timeCounter = timeToStartGame;
-		float maxY = selection.transform.GetChild (0).localPosition.y;
+		//float maxY = selection.transform.GetChild (0).localPosition.y;
 		trailRenderer = selection;
 
 		Rotate rotate = tapAndHold.GetComponent<Rotate> ();
