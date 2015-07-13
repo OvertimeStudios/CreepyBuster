@@ -317,8 +317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfc92982b8a547d4a5b34e032701a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: 1.20000005
-  rotVel: 2.4000001
+  vel: 1.29999995
+  rotVel: 2.29999995
   centerRadius: .200000003
 --- !u!114 &11454360
 MonoBehaviour:
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fb129be3c344c8fb8620152ff63c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1.60000002
+  life: 1.70000005
   score: 1
   countAsStreak: 1
   inLight: 0
@@ -433,7 +433,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: life
-      value: 1.60000002
+      value: 1.70000005
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score
@@ -449,11 +449,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rotVel
-      value: 2.4000001
+      value: 2.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: vel
-      value: 1.20000005
+      value: 1.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y

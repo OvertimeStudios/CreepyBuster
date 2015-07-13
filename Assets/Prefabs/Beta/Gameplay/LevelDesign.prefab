@@ -67,20 +67,20 @@ MonoBehaviour:
     killStreak: 5
     enemies:
     - enemy: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
-      percent: .600000024
+      percent: .5
     - enemy: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
-      percent: .400000006
-  - points: 15
-    killStreak: 13
+      percent: .5
+  - points: 17
+    killStreak: 14
     enemies:
     - enemy: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
-      percent: .5
+      percent: .300000012
     - enemy: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
       percent: .200000003
     - enemy: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
-      percent: .400000006
-  - points: 22
-    killStreak: 18
+      percent: .5
+  - points: 25
+    killStreak: 19
     enemies:
     - enemy: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
       percent: .200000003
@@ -90,59 +90,86 @@ MonoBehaviour:
       percent: .300000012
     - enemy: {fileID: 148940, guid: f9400ab3e460348a297ea7029c7aa5b0, type: 2}
       percent: .200000003
-  - points: 35
-    killStreak: 30
+  - points: 40
+    killStreak: 28
     enemies:
     - enemy: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
       percent: .100000001
-    - enemy: {fileID: 123628, guid: 7d8938e875dc341328b710f5cfce31d4, type: 2}
-      percent: 0
-    - enemy: {fileID: 180780, guid: 01621a5a08e0b44e68df84c41609e0cb, type: 2}
-      percent: 0
-    - enemy: {fileID: 180780, guid: 01621a5a08e0b44e68df84c41609e0cb, type: 2}
-      percent: 0
-  - points: 150
-    killStreak: 100
+    - enemy: {fileID: 130434, guid: 8beb1887f48634da9b3485c2a5c5abbc, type: 2}
+      percent: .5
+    - enemy: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+      percent: .100000001
+    - enemy: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
+      percent: .300000012
+  - points: 65
+    killStreak: 42
     enemies:
-    - enemy: {fileID: 131450, guid: 47cbc316d56ea4d1489a0d1eb4689d90, type: 2}
-      percent: 0
-    - enemy: {fileID: 123628, guid: 7d8938e875dc341328b710f5cfce31d4, type: 2}
-      percent: 0
-    - enemy: {fileID: 180780, guid: 01621a5a08e0b44e68df84c41609e0cb, type: 2}
-      percent: 0
+    - enemy: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
+      percent: .100000001
+    - enemy: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
+      percent: .200000003
+    - enemy: {fileID: 130434, guid: 8beb1887f48634da9b3485c2a5c5abbc, type: 2}
+      percent: .100000001
+    - enemy: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+      percent: .100000001
+    - enemy: {fileID: 196216, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+      percent: .5
+  - points: 65
+    killStreak: 42
+    enemies:
+    - enemy: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
+      percent: .200000003
+    - enemy: {fileID: 148940, guid: f9400ab3e460348a297ea7029c7aa5b0, type: 2}
+      percent: .100000001
+    - enemy: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+      percent: .100000001
+    - enemy: {fileID: 130434, guid: 8beb1887f48634da9b3485c2a5c5abbc, type: 2}
+      percent: .200000003
+    - enemy: {fileID: 196216, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+      percent: .100000001
+    - enemy: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
+      percent: .300000012
   enemiesSpawnLevelUpCondition:
   - points: 0
     killStreak: 0
-    time: 3.20000005
+    time: 3.0999999
     quantity: 1
-  - points: 15
+  - points: 10
     killStreak: 10
-    time: 2.5
+    time: 2.70000005
     quantity: 1
-  - points: 30
+  - points: 25
     killStreak: 20
-    time: 2
+    time: 2.29999995
     quantity: 1
   - points: 50
     killStreak: 30
-    time: 1.60000002
+    time: 2
     quantity: 1
-  - points: 60
+  - points: 75
     killStreak: 50
-    time: 1.20000005
-    quantity: 2
+    time: 1.79999995
+    quantity: 1
   - points: 100
     killStreak: 60
-    time: 1
-    quantity: 2
-  - points: 140
+    time: 1.5
+    quantity: 1
+  - points: 125
     killStreak: 80
-    time: 1
-    quantity: 3
-  - points: 200
+    time: 1.20000005
+    quantity: 1
+  - points: 150
     killStreak: 120
     time: 1
-    quantity: 4
+    quantity: 1
+  - points: 200
+    killStreak: 140
+    time: 1
+    quantity: 2
+  - points: 300
+    killStreak: 160
+    time: 1
+    quantity: 3
   enemiesAttributesLevelUpCondition:
     points: 15
     vel: .200000003
@@ -169,6 +196,14 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[0].enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -187,6 +222,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[4].enemies.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].enemies.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[6].enemies.Array.size
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[0].enemies.Array.data[0].enemy
@@ -218,7 +261,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[1].enemies.Array.data[0].percent
-      value: .600000024
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[1].enemies.Array.data[2].percent
@@ -234,7 +277,7 @@ Prefab:
       objectReference: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[1].enemies.Array.data[1].percent
-      value: .400000006
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[2].enemies.Array.data[0].enemy
@@ -250,7 +293,7 @@ Prefab:
       objectReference: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[2].enemies.Array.data[0].percent
-      value: .5
+      value: .300000012
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[2].enemies.Array.data[1].percent
@@ -258,7 +301,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[2].enemies.Array.data[2].percent
-      value: .400000006
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[3].enemies.Array.data[0].enemy
@@ -302,47 +345,47 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[0].time
-      value: 3.20000005
+      value: 3.0999999
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[1].time
-      value: 2
+      value: 2.70000005
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[2].points
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[2].killStreak
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[3].points
-      value: 22
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[3].killStreak
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[4].points
-      value: 35
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[4].killStreak
-      value: 30
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[2].time
-      value: 2
+      value: 2.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[3].time
-      value: 1.60000002
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[4].time
-      value: 1.20000005
+      value: 1.79999995
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[4].enemies.Array.data[0].enemy
@@ -351,6 +394,178 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[4].enemies.Array.data[0].percent
       value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[4].enemies.Array.data[1].enemy
+      value: 
+      objectReference: {fileID: 130434, guid: 8beb1887f48634da9b3485c2a5c5abbc, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[4].enemies.Array.data[2].enemy
+      value: 
+      objectReference: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[4].enemies.Array.data[3].enemy
+      value: 
+      objectReference: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[4].enemies.Array.data[3].percent
+      value: .300000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[4].enemies.Array.data[1].percent
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[4].enemies.Array.data[2].percent
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[5].time
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[6].time
+      value: 1.20000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[4].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[5].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[6].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[7].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[8].quantity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[9].quantity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[1].points
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[2].points
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[4].points
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[6].points
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[7].points
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[9].points
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[8].killStreak
+      value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesSpawnLevelUpCondition.Array.data[9].killStreak
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].enemies.Array.data[0].enemy
+      value: 
+      objectReference: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].enemies.Array.data[1].enemy
+      value: 
+      objectReference: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].enemies.Array.data[2].enemy
+      value: 
+      objectReference: {fileID: 130434, guid: 8beb1887f48634da9b3485c2a5c5abbc, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].enemies.Array.data[4].enemy
+      value: 
+      objectReference: {fileID: 196216, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].enemies.Array.data[3].enemy
+      value: 
+      objectReference: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].enemies.Array.data[0].percent
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].enemies.Array.data[4].percent
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].enemies.Array.data[1].percent
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].enemies.Array.data[2].percent
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].enemies.Array.data[3].percent
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].points
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[5].killStreak
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[6].enemies.Array.data[1].enemy
+      value: 
+      objectReference: {fileID: 148940, guid: f9400ab3e460348a297ea7029c7aa5b0, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[6].enemies.Array.data[2].enemy
+      value: 
+      objectReference: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[6].enemies.Array.data[3].enemy
+      value: 
+      objectReference: {fileID: 130434, guid: 8beb1887f48634da9b3485c2a5c5abbc, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[6].enemies.Array.data[5].enemy
+      value: 
+      objectReference: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[6].enemies.Array.data[1].percent
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[6].enemies.Array.data[4].percent
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[6].enemies.Array.data[5].percent
+      value: .300000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[6].enemies.Array.data[0].percent
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[6].enemies.Array.data[3].percent
+      value: .200000003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
