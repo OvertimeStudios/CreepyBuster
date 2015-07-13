@@ -24,11 +24,20 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	public static event Action OnPanelClosing;
 
+	public GameObject tapAndHold;
+	public GameObject hud;
 	public TweenPosition wallTop;
 	public TweenPosition wallBottom;
 	public UILabel highScore;
 	public UILabel sessionsScore;
 	public UILabel currentScore;
+
+	public float timeToStartGame = 3f;
+	private float timeCounter;
+	private float initialTapAndHoldRotation;
+	public float maxTapAndHoldRotation;
+
+	private GameObject trailRenderer;
 
 	#region singleton
 	private static MenuController instance;
@@ -59,6 +68,9 @@ public class MenuController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		initialTapAndHoldRotation = tapAndHold.GetComponent<Rotate> ().rotVel;
+
+		hud.SetActive (false);
 		UpdateScore ();
 	}
 
@@ -66,10 +78,60 @@ public class MenuController : MonoBehaviour
 	{
 		if(!GameController.isGameRunning && !wallTop.enabled)
 		{
-			OpenPanel();
+			if(e.Selection)
+			{
+				StopCoroutine("CountdownAborted");
+				StartCoroutine("CountdownBeginGame", e.Selection);
+			}
+		}
+	}
 
-			if(OnPanelOpening != null)
-				OnPanelOpening();
+	IEnumerator CountdownBeginGame(GameObject selection)
+	{
+		timeCounter = timeToStartGame;
+		float maxY = selection.transform.GetChild (0).localPosition.y;
+		trailRenderer = selection;
+
+		Rotate rotate = tapAndHold.GetComponent<Rotate> ();
+
+		while(timeCounter > 0)
+		{
+			timeCounter -= Time.deltaTime;
+
+			rotate.rotVel = initialTapAndHoldRotation + ((maxTapAndHoldRotation - initialTapAndHoldRotation) * ((timeToStartGame - timeCounter) / timeCounter));
+
+			yield return null;
+		}
+
+		rotate.rotVel = initialTapAndHoldRotation;
+		trailRenderer.SetActive(false);
+
+		OpenPanel();
+		
+		if(OnPanelOpening != null)
+			OnPanelOpening();
+	}
+
+	void OnFingerUp(FingerUpEvent e)
+	{
+		if(!GameController.isGameRunning && !wallTop.enabled)
+		{
+			StopCoroutine("CountdownBeginGame");
+			StartCoroutine("CountdownAborted");
+		}
+	}
+
+	private IEnumerator CountdownAborted()
+	{
+		Rotate rotate = tapAndHold.GetComponent<Rotate> ();
+
+		while(timeCounter < timeToStartGame)
+		{
+			timeCounter += Time.deltaTime;
+			
+			rotate.rotVel = initialTapAndHoldRotation + ((maxTapAndHoldRotation - initialTapAndHoldRotation) * ((timeToStartGame - timeCounter) / timeCounter));
+			
+			yield return null;
 		}
 	}
 
@@ -81,11 +143,15 @@ public class MenuController : MonoBehaviour
 		{
 			GameController.Instance.StartGame ();
 
+			hud.SetActive (true);
+
 			if(OnPanelOpened != null)
 				OnPanelOpened();
 		}
 		else
 		{
+			trailRenderer.SetActive(true);
+
 			if(OnPanelClosed != null)
 				OnPanelClosed();
 		}
@@ -105,6 +171,8 @@ public class MenuController : MonoBehaviour
 		
 		wallTop.PlayReverse();
 		wallBottom.PlayReverse();
+
+		hud.SetActive (false);
 
 		if (OnPanelClosing != null)
 			OnPanelClosing ();
