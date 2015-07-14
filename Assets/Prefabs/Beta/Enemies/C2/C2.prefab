@@ -317,8 +317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfc92982b8a547d4a5b34e032701a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: 1.29999995
-  rotVel: 2.29999995
+  vel: 1.39999998
+  rotVel: 2.5999999
   centerRadius: .200000003
 --- !u!114 &11454360
 MonoBehaviour:
@@ -361,6 +361,8 @@ MonoBehaviour:
   inLight: 0
   basicColor: {r: 1, g: .921568632, b: .0156862754, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
+  chanceToDrop: 0
+  itens: []
   onDeadEvent:
   - mTarget: {fileID: 11468378}
     mMethodName: Stop
@@ -449,11 +451,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rotVel
-      value: 2.29999995
+      value: 2.5999999
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: vel
-      value: 1.29999995
+      value: 1.39999998
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y

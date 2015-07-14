@@ -501,7 +501,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 2.5
 --- !u!61 &6116758
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -549,6 +549,8 @@ MonoBehaviour:
   inLight: 0
   basicColor: {r: 1, g: .729411781, b: .0156862754, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
+  chanceToDrop: 0
+  itens: []
   onDeadEvent: []
 --- !u!114 &11413132
 MonoBehaviour:
@@ -578,7 +580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065a9e6d3ba244dae84f561a26a34e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: 1
+  vel: 1.5
   timeToChangeVel:
     min: 2
     max: 3
@@ -598,8 +600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37293a0103acb428199a785f0fab0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToCharge: 3
-  vel: 12
+  timeToCharge: 2.70000005
+  vel: 14
 --- !u!212 &21204598
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -908,6 +910,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: score
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: timeToCharge
+      value: 2.70000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: vel
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Radius
+      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
