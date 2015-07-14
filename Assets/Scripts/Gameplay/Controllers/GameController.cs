@@ -88,6 +88,7 @@ public class GameController : MonoBehaviour
 		EnemyLife.OnDied += OnEnemyDied;
 		MenuController.OnPanelOpening += Reset;
 		LevelDesign.OnPlayerLevelUp += PlayerLevelUp;
+		Item.OnCollected += OnItemCollected;
 	}
 
 	void OnDisable()
@@ -95,6 +96,7 @@ public class GameController : MonoBehaviour
 		EnemyLife.OnDied -= OnEnemyDied;
 		MenuController.OnPanelOpening -= Reset;
 		LevelDesign.OnPlayerLevelUp -= PlayerLevelUp;
+		Item.OnCollected -= OnItemCollected;
 	}
 
 	void OnEnemyDied(GameObject enemy)
@@ -197,5 +199,10 @@ public class GameController : MonoBehaviour
 	void OnFingerUp(FingerUpEvent e)
 	{
 		GameOver ();
+	}
+
+	private void OnItemCollected(Item.Type itemType)
+	{
+		Debug.Log("Collected " + itemType.ToString());
 	}
 }

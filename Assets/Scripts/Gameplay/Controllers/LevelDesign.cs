@@ -45,6 +45,7 @@ public class LevelDesign : MonoBehaviour
 	private static int enemiesAttributeLevel = 0;
 	private static int tierLevel = 0;
 	private static int bossLevel = 0;
+	private static int itemLevel = 0;
 	#endregion
 
 	#region get / set
@@ -249,6 +250,23 @@ public class LevelDesign : MonoBehaviour
 	}
 	#endregion
 
+	#region Item
+	public static float ItemSpawnTime
+	{
+		get { return Instance.itemSpawnTime.Random (); }
+	}
+
+	public static float SpawnItemPercent
+	{
+		get { return Instance.itensLevelUpCondition[itemLevel].chanceToSpawn; }
+	}
+
+	public static List<ItemPercent> CurrentItens
+	{
+		get { return Instance.itensLevelUpCondition[itemLevel].itens; }
+	}
+	#endregion
+
 	#endregion
 
 	public static List<EnemiesPercent> CurrentEnemies
@@ -256,7 +274,7 @@ public class LevelDesign : MonoBehaviour
 		get { return Instance.enemiesTypesLevelUpCondition[LevelDesign.EnemiesTypesLevel].enemies; }
 	}
 
-	public static float SpawnTime
+	public static float EnemiesSpawnTime
 	{
 		get { return Instance.enemiesSpawnLevelUpCondition[LevelDesign.EnemiesSpawnLevel].time; }
 	}
@@ -295,6 +313,11 @@ public class LevelDesign : MonoBehaviour
 	{
 		get { return playerLevel; }
 		set { playerLevel = value; }
+	}
+
+	public static int ItemLevel
+	{
+		get { return itemLevel; }
 	}
 	
 	public static int EnemiesTypesLevel
