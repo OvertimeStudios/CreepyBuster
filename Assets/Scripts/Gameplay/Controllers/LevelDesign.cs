@@ -11,6 +11,7 @@ public class LevelDesign : MonoBehaviour
 	public static event Action OnEnemiesSpawnLevelUp;
 	public static event Action OnEnemiesAttributesLevelUp;
 	public static event Action OnTierLevelUp;
+	public static event Action OnItensLevelUp;
 	#endregion
 
 	[Header("Player Level")]
@@ -45,6 +46,7 @@ public class LevelDesign : MonoBehaviour
 	private static int enemiesAttributeLevel = 0;
 	private static int tierLevel = 0;
 	private static int bossLevel = 0;
+	private static int itemLevel = 0;
 	#endregion
 
 	#region get / set
@@ -249,6 +251,70 @@ public class LevelDesign : MonoBehaviour
 	}
 	#endregion
 
+	#region Item
+	public static float ItemSpawnTime
+	{
+		get { return Instance.itemSpawnTime.Random (); }
+	}
+
+	/// <summary>
+	/// The probability of spawning an item
+	/// </summary>
+	public static float SpawnItemPercent
+	{
+		get { return Instance.itensLevelUpCondition[itemLevel].chanceToSpawn; }
+	}
+
+	public static List<ItemPercent> CurrentItens
+	{
+		get { return Instance.itensLevelUpCondition[itemLevel].itens; }
+	}
+
+	/// <summary>
+	/// Gets a value indicating is item max level.
+	/// </summary>
+	public static bool IsItemMaxLevel
+	{
+		get { return LevelDesign.itemLevel == MaxItemLevel; }
+	}
+	
+	/// <summary>
+	/// Gets the max item level.
+	/// </summary>
+	public static int MaxItemLevel
+	{
+		get { return Instance.itensLevelUpCondition.Length - 1; }
+	}
+	
+	/// <summary>
+	/// Gets the next streak to item level up.
+	/// </summary>
+	public static int NextStreakToItemLevelUp
+	{
+		get 
+		{
+			if(!LevelDesign.IsItemMaxLevel)
+				return Instance.itensLevelUpCondition[itemLevel + 1].killStreak;
+			
+			return 0;
+		}
+	}
+	
+	/// <summary>
+	/// Gets the next score to item level up.
+	/// </summary>
+	public static int NextScoreToItemLevelUp
+	{
+		get 
+		{
+			if(!LevelDesign.IsItemMaxLevel)
+				return Instance.itensLevelUpCondition[itemLevel + 1].points;
+			
+			return 0;
+		}
+	}
+	#endregion
+
 	#endregion
 
 	public static List<EnemiesPercent> CurrentEnemies
@@ -256,7 +322,7 @@ public class LevelDesign : MonoBehaviour
 		get { return Instance.enemiesTypesLevelUpCondition[LevelDesign.EnemiesTypesLevel].enemies; }
 	}
 
-	public static float SpawnTime
+	public static float EnemiesSpawnTime
 	{
 		get { return Instance.enemiesSpawnLevelUpCondition[LevelDesign.EnemiesSpawnLevel].time; }
 	}
@@ -294,7 +360,24 @@ public class LevelDesign : MonoBehaviour
 	public static int PlayerLevel
 	{
 		get { return playerLevel; }
-		set { playerLevel = value; }
+
+		set 
+		{ 
+			bool levelUp = value > playerLevel;
+
+			playerLevel = value; 
+
+			if(levelUp)
+			{
+				if(OnPlayerLevelUp != null)
+					OnPlayerLevelUp();
+			}
+		}
+	}
+
+	public static int ItemLevel
+	{
+		get { return itemLevel; }
 	}
 	
 	public static int EnemiesTypesLevel
@@ -341,10 +424,11 @@ public class LevelDesign : MonoBehaviour
 	void OnEnable()
 	{
 		GameController.OnStreakUpdated += PlayerLevelUp;
-		GameController.OnStreakUpdated += EnemiesTypesLevelUp;
-		GameController.OnStreakUpdated += EnemiesSpawnLevelUp;
-		GameController.OnStreakUpdated += EnemiesAttributesLevelUp;
-		GameController.OnStreakUpdated += TierLevelUp;
+		GameController.OnRealStreakUpdated += EnemiesTypesLevelUp;
+		GameController.OnRealStreakUpdated += EnemiesSpawnLevelUp;
+		GameController.OnRealStreakUpdated += EnemiesAttributesLevelUp;
+		GameController.OnRealStreakUpdated += TierLevelUp;
+		GameController.OnRealStreakUpdated += ItensLevelUp;
 
 		GameController.OnGameStart += Reset;
 	}
@@ -352,10 +436,11 @@ public class LevelDesign : MonoBehaviour
 	void OnDisable()
 	{
 		GameController.OnStreakUpdated -= PlayerLevelUp;
-		GameController.OnStreakUpdated -= EnemiesTypesLevelUp;
-		GameController.OnStreakUpdated -= EnemiesSpawnLevelUp;
-		GameController.OnStreakUpdated -= EnemiesAttributesLevelUp;
-		GameController.OnStreakUpdated -= TierLevelUp;
+		GameController.OnRealStreakUpdated -= EnemiesTypesLevelUp;
+		GameController.OnRealStreakUpdated -= EnemiesSpawnLevelUp;
+		GameController.OnRealStreakUpdated -= EnemiesAttributesLevelUp;
+		GameController.OnRealStreakUpdated -= TierLevelUp;
+		GameController.OnRealStreakUpdated -= ItensLevelUp;
 
 		GameController.OnGameStart -= Reset;
 	}
@@ -364,10 +449,8 @@ public class LevelDesign : MonoBehaviour
 	{
 		if(GameController.StreakCount >= LevelDesign.NextStreakToPlayerLevelUp)
 		{
-			playerLevel = Mathf.Clamp(playerLevel + 1, 0, MaxPlayerLevel);
-
-			if(OnPlayerLevelUp != null)
-				OnPlayerLevelUp();
+			//call Action on set method
+			PlayerLevel = Mathf.Clamp(PlayerLevel + 1, 0, MaxPlayerLevel);
 		}
 	}
 
@@ -376,7 +459,7 @@ public class LevelDesign : MonoBehaviour
 		if(!IsEnemyTypesMaxLevel)
 		{
 			if(GameController.Score >= LevelDesign.NextScoreToEnemyTypesLevelUp ||
-			   GameController.StreakCount >= LevelDesign.NextStreakToEnemyTypesLevelUp)
+			   GameController.RealStreakCount >= LevelDesign.NextStreakToEnemyTypesLevelUp)
 			{
 				enemiesTypesLevel++;
 
@@ -391,7 +474,7 @@ public class LevelDesign : MonoBehaviour
 		if(!IsEnemySpawnMaxLevel)
 		{
 			if(GameController.Score >= LevelDesign.NextScoreToEnemySpawnLevelUp ||
-			   GameController.StreakCount >= LevelDesign.NextStreakToEnemySpawnLevelUp)
+			   GameController.RealStreakCount >= LevelDesign.NextStreakToEnemySpawnLevelUp)
 			{
 				enemiesSpawnLevel++;
 				
@@ -417,12 +500,27 @@ public class LevelDesign : MonoBehaviour
 		if(!IsTierMaxLevel)
 		{
 			if(GameController.Score >= LevelDesign.NextScoreToTierLevelUp ||
-			   GameController.StreakCount >= LevelDesign.NextStreakToTierLevelUp)
+			   GameController.RealStreakCount >= LevelDesign.NextStreakToTierLevelUp)
 			{
 				tierLevel++;
 
 				if(OnTierLevelUp != null)
 					OnTierLevelUp();
+			}
+		}
+	}
+
+	private void ItensLevelUp()
+	{
+		if(!IsItemMaxLevel)
+		{
+			if(GameController.Score >= LevelDesign.NextScoreToItemLevelUp ||
+			   GameController.RealStreakCount >= LevelDesign.NextStreakToItemLevelUp)
+			{
+				itemLevel++;
+				
+				if(OnItensLevelUp != null)
+					OnItensLevelUp();
 			}
 		}
 	}
@@ -456,7 +554,8 @@ public class LevelDesign : MonoBehaviour
 		string text = "Enemy Type: " + (EnemiesTypesLevel + 1) + "\n" +
 					  "Enemy Spawn: " + (EnemiesSpawnLevel + 1) + "\n" +
 					  "Enemy Attr.: " + (EnemiesAttributesLevel + 1) + "\n" +
-					  "Tier: " + (TierLevel + 1);
+					  "Tier: " + (TierLevel + 1) + "\n" +
+					  "Item: " + (ItemLevel + 1);
 		GUI.Label(rect, text, style);
 		#endif 
 	}

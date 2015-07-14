@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class ChargeBehaviour : EnemyMovement 
 {
 	private Rigidbody2D myRigidbody;
-	private Animator myAnimator;
 
 	private List<GameObject> brilhos;
 
@@ -16,6 +15,7 @@ public class ChargeBehaviour : EnemyMovement
 	private Transform player;
 
 	private bool charging;
+	private bool isSlowed;
 
 	public bool ChargeReleased
 	{
@@ -27,7 +27,7 @@ public class ChargeBehaviour : EnemyMovement
 	{
 		base.Start ();
 
-		myAnimator = transform.FindChild ("Sprite").GetComponent<Animator> ();
+		isSlowed = GameController.IsSlowedDown;
 
 		myRigidbody = GetComponent<Rigidbody2D> ();
 
@@ -52,6 +52,8 @@ public class ChargeBehaviour : EnemyMovement
 		StartCoroutine (LightNextBrilho ());
 
 		EnemyLife.OnDied += OnDied;
+		GameController.OnSlowDownCollected += ApplySlow;
+		GameController.OnSlowDownFade += RemoveSlow;
 	}
 
 	void OnDisable()
@@ -59,6 +61,8 @@ public class ChargeBehaviour : EnemyMovement
 		StopAllCoroutines ();
 
 		EnemyLife.OnDied -= OnDied;
+		GameController.OnSlowDownCollected -= ApplySlow;
+		GameController.OnSlowDownFade -= RemoveSlow;
 	}
 
 	private IEnumerator LightNextBrilho()
@@ -108,13 +112,28 @@ public class ChargeBehaviour : EnemyMovement
 		}
 	}
 
+	private void ApplySlow()
+	{
+		isSlowed = true;
+		myAnimator.speed *= SlowDown.SlowAmount;
+	}
+	
+	private void RemoveSlow()
+	{
+		isSlowed = false;
+		myAnimator.speed *= 1 / SlowDown.SlowAmount;
+	}
+
 	private void Charge()
 	{
 		charging = false;
 
 		myAnimator.SetInteger ("State", 1);
 
-		myRigidbody.velocity = transform.right * vel;
+		if(isSlowed)
+			myRigidbody.velocity = transform.right * vel * SlowDown.SlowAmount;
+		else
+			myRigidbody.velocity = transform.right * vel;
 
 		foreach (GameObject go in brilhos)
 			go.SetActive (false);

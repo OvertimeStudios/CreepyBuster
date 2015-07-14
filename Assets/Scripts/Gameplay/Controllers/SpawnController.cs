@@ -8,6 +8,7 @@ public class SpawnController : MonoBehaviour
 	public static event Action OnSpawn;
 
 	public static List<Transform> enemiesInGame;
+	public static List<Transform> itensInGame;
 
 	//viewport coordinates outside of screen
 	private const float bottom = -0.2f;
@@ -54,67 +55,73 @@ public class SpawnController : MonoBehaviour
 	void Start () 
 	{
 		enemiesInGame = new List<Transform> ();
+		itensInGame = new List<Transform> ();
 
 		SpawnBackground ();
 	}
 
 	public void StartSpawn()
 	{
-		StartCoroutine ("Spawn", LevelDesign.SpawnTime);
+		StartCoroutine ("SpawnEnemies", LevelDesign.EnemiesSpawnTime);
+		StartCoroutine ("SpawnItens", LevelDesign.ItemSpawnTime);
 	}
 
 	public void StopSpawn()
 	{
-		StopCoroutine ("Spawn");
+		StopCoroutine ("SpawnEnemies");
+		StopCoroutine ("SpawnItens");
 	}
 	
-	private IEnumerator Spawn(float waitTime)
+	private IEnumerator SpawnEnemies(float waitTime)
 	{
 		yield return new WaitForSeconds(waitTime);
 
-		Spawn ();
+		SpawnEnemies ();
 	}
 
-	private void Spawn()
+	private void SpawnEnemies()
 	{
-		//spawn some monsters according to LevelDesign (can be more than 1)
-		for(byte i = 0; i < LevelDesign.SpawnQuantity; i++)
+		if(!GameController.IsSlowedDown)
 		{
-			Vector3 pos = GetSpawnPosition();
-			float rot = GetRotation(pos);
-
-			List<EnemiesPercent> monsters = LevelDesign.CurrentEnemies;
-
-			//max %
-			float maxPercent = 0f;
-			foreach(EnemiesPercent ep in monsters)
-				maxPercent += ep.percent;
-
-			float rnd = UnityEngine.Random.Range(0f, maxPercent);
-
-			float currentPercent = 0f;
-			GameObject objToSpawn =  null;
-
-			foreach(EnemiesPercent ep in monsters)
+			//spawn some monsters according to LevelDesign (can be more than 1)
+			for(byte i = 0; i < LevelDesign.SpawnQuantity; i++)
 			{
-				currentPercent += ep.percent;
+				Vector3 pos = GetSpawnPosition();
+				float rot = GetRotation(pos);
 
-				if(rnd <= currentPercent)
+				List<EnemiesPercent> monsters = LevelDesign.CurrentEnemies;
+
+				//max %
+				float maxPercent = 0f;
+				foreach(EnemiesPercent ep in monsters)
+					maxPercent += ep.percent;
+
+				float rnd = UnityEngine.Random.Range(0f, maxPercent);
+
+				float currentPercent = 0f;
+				GameObject objToSpawn =  null;
+
+				foreach(EnemiesPercent ep in monsters)
 				{
-					objToSpawn = ep.enemy;
-					break;
+					currentPercent += ep.percent;
+
+					if(rnd <= currentPercent)
+					{
+						objToSpawn = ep.enemy;
+						break;
+					}
 				}
+				 
+				GameObject enemy = Instantiate (objToSpawn, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
+
+				enemiesInGame.Add (enemy.transform);
+
+				if(OnSpawn != null)
+					OnSpawn();
 			}
-			 
-			GameObject enemy = Instantiate (objToSpawn, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
-
-			enemiesInGame.Add (enemy.transform);
-
-			if(OnSpawn != null)
-				OnSpawn();
 		}
 
-		StartCoroutine ("Spawn", LevelDesign.SpawnTime);
+		StartCoroutine ("SpawnEnemies", LevelDesign.EnemiesSpawnTime);
 	}
 
 	private Vector3 GetSpawnPosition()
@@ -267,6 +274,87 @@ public class SpawnController : MonoBehaviour
 		Instantiate (LevelDesign.Instance.backgrounds [rnd]);
 	}
 
+	private IEnumerator SpawnItens(float waitTime)
+	{
+		yield return new WaitForSeconds(waitTime);
+		
+		SpawnItens ();
+	}
+
+	private void SpawnItens()
+	{
+		float rnd = UnityEngine.Random.Range (0f, 1f);
+
+		if(rnd < LevelDesign.SpawnItemPercent)
+		{
+			//max %
+			float maxPercent = 0f;
+			foreach(ItemPercent ip in LevelDesign.CurrentItens)
+				maxPercent += ip.percent;
+
+			rnd = UnityEngine.Random.Range (0f, maxPercent);
+
+			float currentPercent = 0f;
+			GameObject objToSpawn =  null;
+			
+			foreach(ItemPercent ip in LevelDesign.CurrentItens)
+			{
+				currentPercent += ip.percent;
+				
+				if(rnd <= currentPercent)
+				{
+					objToSpawn = ip.item;
+					break;
+				}
+			}
+
+			//get any side to spawn
+			rnd = UnityEngine.Random.Range (0f, 1f);
+			float posX = 0f;
+			float posY = 0f;
+			
+			if(rnd < 0.25f)//UP
+			{
+				posY = up;
+				
+				//random pos x
+				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+			}
+			else if(rnd < 0.5f)//RIGHT
+			{
+				posX = right;
+				
+				//random  pos Y
+				posY = UnityEngine.Random.Range(0.1f, 0.9f);
+			}
+			else if(rnd < 0.75f)//LEFT
+			{
+				posX = left;
+				
+				//random  pos Y
+				posY = UnityEngine.Random.Range(0.1f, 0.9f);
+			}
+			else//BOTTOM
+			{
+				posY = bottom;
+				
+				//random pos x
+				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+			}
+
+			Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3(posX, posY));
+			pos.z = 0;
+
+			float rot = GetRotation (pos);
+
+			GameObject item = Instantiate (objToSpawn, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
+
+			itensInGame.Add(item.transform);
+		}
+
+		StartCoroutine ("SpawnItens", LevelDesign.ItemSpawnTime);
+	}
+
 	private void AddEnemy(GameObject obj)
 	{
 		enemiesInGame.Add (obj.transform);
@@ -290,12 +378,13 @@ public class SpawnController : MonoBehaviour
 				Destroy (t.gameObject);
 		}
 
+		foreach (Transform t in itensInGame)
+		{
+			if(t != null)
+				Destroy (t.gameObject);
+		}
+
+		itensInGame = new List<Transform> ();
 		enemiesInGame = new List<Transform> ();
 	}
-}
-
-[System.Serializable]
-public class Wave
-{
-	public List<GameObject> monsters;
 }

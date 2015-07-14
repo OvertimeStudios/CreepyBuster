@@ -6,21 +6,28 @@ public class Follow : EnemyMovement
 	public float vel;
 
 	private Transform player;
+	private bool isSlowed;
 
 	void OnEnable()
 	{
 		EnemyLife.OnDied += OnDied;
+		GameController.OnSlowDownCollected += ApplySlow;
+		GameController.OnSlowDownFade += RemoveSlow;
 	}
 	
 	void OnDisable()
 	{
 		EnemyLife.OnDied -= OnDied;
+		GameController.OnSlowDownCollected -= ApplySlow;
+		GameController.OnSlowDownFade -= RemoveSlow;
 	}
 
 	// Use this for initialization
 	protected override void Start () 
 	{
 		base.Start ();
+
+		isSlowed = GameController.IsSlowedDown;
 
 		player = LightBehaviour.Instance.transform;
 
@@ -36,7 +43,24 @@ public class Follow : EnemyMovement
 
 		transform.rotation = Quaternion.Euler (0, 0, angle * Mathf.Rad2Deg);
 
-		GetComponent<Rigidbody2D> ().velocity = new Vector2 (Mathf.Cos (angle), Mathf.Sin (angle)) * vel;
+		if(isSlowed)
+			GetComponent<Rigidbody2D> ().velocity = new Vector2 (Mathf.Cos (angle), Mathf.Sin (angle)) * vel * SlowDown.SlowAmount;
+		else
+			GetComponent<Rigidbody2D> ().velocity = new Vector2 (Mathf.Cos (angle), Mathf.Sin (angle)) * vel;
+	}
+
+	private void ApplySlow()
+	{
+		isSlowed = true;
+
+		myAnimator.speed *= SlowDown.SlowAmount;
+	}
+	
+	private void RemoveSlow()
+	{
+		isSlowed = false;
+
+		myAnimator.speed *= 1 / SlowDown.SlowAmount;
 	}
 
 	void OnDied(GameObject enemy)

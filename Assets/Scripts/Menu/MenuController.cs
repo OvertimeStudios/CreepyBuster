@@ -29,8 +29,7 @@ public class MenuController : MonoBehaviour
 	public TweenPosition wallTop;
 	public TweenPosition wallBottom;
 	public UILabel highScore;
-	public UILabel sessionsScore;
-	public UILabel currentScore;
+	public UILabel orbs;
 
 	public float timeToStartGame = 3f;
 	private float timeCounter;
@@ -186,8 +185,7 @@ public class MenuController : MonoBehaviour
 		if (GameController.Score > Global.SessionScore)
 			Global.SessionScore = GameController.Score;
 
-		currentScore.text = GameController.Score.ToString ();
-		sessionsScore.text = Global.SessionScore.ToString();
 		highScore.text = Global.HighScore.ToString ();
+		orbs.text = Global.TotalOrbs.ToString ();
 	}
 }
