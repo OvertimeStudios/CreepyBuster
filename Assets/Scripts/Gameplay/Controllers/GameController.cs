@@ -225,24 +225,12 @@ public class GameController : MonoBehaviour
 		GameOver ();
 	}
 
-	private void OnItemCollected(Item.Type itemType)
+	private void OnItemCollected(Item.Type itemType, GameObject gameObject)
 	{
 		switch(itemType)
 		{
 			case Item.Type.PlasmaOrb:
-				orbsCollected += 1;
-			break;
-
-			case Item.Type.PlasmaOrb5:
-				orbsCollected += 5;
-			break;
-
-			case Item.Type.PlasmaOrb15:
-				orbsCollected += 15;
-			break;
-
-			case Item.Type.PlasmaOrb50:
-				orbsCollected += 50;
+				orbsCollected += gameObject.GetComponent<PlasmaOrbItem>().orbs;
 			break;
 
 			case Item.Type.LevelUp:
