@@ -28,9 +28,9 @@ GameObject:
   - 4: {fileID: 497562}
   - 50: {fileID: 5007790}
   - 114: {fileID: 11486968}
-  - 114: {fileID: 11453874}
   - 114: {fileID: 11432256}
   - 114: {fileID: 11468378}
+  - 114: {fileID: 11423682}
   m_Layer: 11
   m_Name: C2
   m_TagString: Untagged
@@ -294,6 +294,17 @@ MonoBehaviour:
   scale: 1.5
   startLight: {fileID: 0}
   endLight: {fileID: 0}
+--- !u!114 &11423682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2917966862054bf3800017b201204fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11432256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -306,20 +317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vel: 1.20000005
---- !u!114 &11453874
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 148940}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecfc92982b8a547d4a5b34e032701a89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vel: 1.29999995
-  rotVel: 2.29999995
-  centerRadius: .200000003
 --- !u!114 &11454360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -361,6 +358,8 @@ MonoBehaviour:
   inLight: 0
   basicColor: {r: 1, g: .921568632, b: .0156862754, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
+  chanceToDrop: 0
+  itens: []
   onDeadEvent:
   - mTarget: {fileID: 11468378}
     mMethodName: Stop

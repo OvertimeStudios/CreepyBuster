@@ -23,10 +23,10 @@ public class HUDController : MonoBehaviour
 
 	void OnEnable()
 	{
-		MenuController.OnPanelOpening += OnScoreUpdated;
-		MenuController.OnPanelOpening += OnStreakUpdated;
-		MenuController.OnPanelOpening += UpdateColor;
-		MenuController.OnPanelOpening += UpdateLevelNumber;
+		MenuController.OnPanelOpened += OnScoreUpdated;
+		MenuController.OnPanelOpened += OnStreakUpdated;
+		MenuController.OnPanelOpened += UpdateColor;
+		MenuController.OnPanelOpened += UpdateLevelNumber;
 		GameController.OnScoreUpdated += OnScoreUpdated;
 		GameController.OnStreakUpdated += OnStreakUpdated;
 		LevelDesign.OnPlayerLevelUp += UpdateColor;
@@ -38,10 +38,10 @@ public class HUDController : MonoBehaviour
 
 	void OnDisable()
 	{
-		MenuController.OnPanelOpening -= OnScoreUpdated;
-		MenuController.OnPanelOpening -= OnStreakUpdated;
-		MenuController.OnPanelOpening -= UpdateColor;
-		MenuController.OnPanelOpening -= UpdateLevelNumber;
+		MenuController.OnPanelOpened -= OnScoreUpdated;
+		MenuController.OnPanelOpened -= OnStreakUpdated;
+		MenuController.OnPanelOpened -= UpdateColor;
+		MenuController.OnPanelOpened -= UpdateLevelNumber;
 		GameController.OnScoreUpdated -= OnScoreUpdated;
 		GameController.OnStreakUpdated -= OnStreakUpdated;
 		LevelDesign.OnPlayerLevelUp -= UpdateColor;

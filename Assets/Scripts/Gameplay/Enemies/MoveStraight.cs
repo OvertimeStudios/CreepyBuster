@@ -9,11 +9,15 @@ public class MoveStraight : EnemyMovement
 	void OnEnable()
 	{
 		EnemyLife.OnDied += OnDied;
+		GameController.OnSlowDownCollected += ApplySlow;
+		GameController.OnSlowDownFade += RemoveSlow;
 	}
 	
 	void OnDisable()
 	{
 		EnemyLife.OnDied -= OnDied;
+		GameController.OnSlowDownCollected -= ApplySlow;
+		GameController.OnSlowDownFade -= RemoveSlow;
 	}
 
 	// Use this for initialization
@@ -24,6 +28,23 @@ public class MoveStraight : EnemyMovement
 		vel += LevelDesign.EnemiesBonusVel;
 
 		GetComponent<Rigidbody2D> ().velocity = transform.right * vel;
+
+		if (GameController.IsSlowedDown)
+			ApplySlow ();
+	}
+
+	private void ApplySlow()
+	{
+		GetComponent<Rigidbody2D> ().velocity = transform.right * vel * SlowDown.SlowAmount;
+
+		myAnimator.speed *= SlowDown.SlowAmount;
+	}
+	
+	private void RemoveSlow()
+	{
+		GetComponent<Rigidbody2D> ().velocity = transform.right * vel;
+
+		myAnimator.speed *= 1 / SlowDown.SlowAmount;
 	}
 
 	void OnDied(GameObject enemy)

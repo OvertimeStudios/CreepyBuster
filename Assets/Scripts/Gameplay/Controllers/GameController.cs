@@ -15,11 +15,16 @@ public class GameController : MonoBehaviour
 	/// Occurs when on streak updated - after OnScoreUpdated
 	/// </summary>
 	public static event Action OnStreakUpdated;
+	public static event Action OnRealStreakUpdated;
 	public static event Action OnGameOver;
 	public static event Action OnLoseStacks;
+	public static event Action OnSlowDownCollected;
+	public static event Action OnSlowDownFade;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
+	private static bool slowedDown;
+	private static bool invencible;
 
 	/// <summary>
 	/// Total score for session
@@ -27,9 +32,14 @@ public class GameController : MonoBehaviour
 	private static int score;
 
 	/// <summary>
-	/// Current streak count
+	/// Current streak count (can be increased by items)
 	/// </summary>
 	private static int streakCount;
+
+	/// <summary>
+	/// Sometimes player increase streakCount by itens (i.e. Item.Type.LevelUp). This propertie count only kill streak
+	/// </summary>
+	private static int realStreakCount;
 
 	/// <summary>
 	/// Total enemies kill count
@@ -40,6 +50,8 @@ public class GameController : MonoBehaviour
 	/// How many times player used special without take damage.
 	/// </summary>
 	public static int specialStreak;
+
+	public static int orbsCollected;
 
 	#region get / set
 	public static int StreakCount
@@ -53,6 +65,29 @@ public class GameController : MonoBehaviour
 			if(OnStreakUpdated != null)
 				OnStreakUpdated();
 		}
+	}
+
+	public static int RealStreakCount
+	{
+		get { return realStreakCount; }
+
+		set
+		{
+			realStreakCount = value;
+			
+			if(OnRealStreakUpdated != null)
+				OnRealStreakUpdated();
+		}
+	}
+
+	public static bool IsSlowedDown
+	{
+		get { return slowedDown; }
+	}
+
+	public static bool IsInvencible
+	{
+		get { return invencible; }
 	}
 
 	public static int Score
@@ -109,10 +144,10 @@ public class GameController : MonoBehaviour
 		//only count streak outside special
 		if(!AttackTargets.IsSpecialActive && enemy.GetComponent<EnemyLife>().countAsStreak)
 		{
+			//call Action on set method
 			StreakCount++;
 
-			if(OnStreakUpdated != null)
-				OnStreakUpdated();
+			RealStreakCount++;
 		}
 	}
 
@@ -124,28 +159,10 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	private void EnemiesSpawnLevelUp ()
-	{
-
-	}
-
-	private void EnemiesTypesLevelUp ()
-	{
-		
-	}
-
-	private void EnemiesAttributesLevelUp ()
-	{
-		
-	}
-	
-	private void TierLevelUp ()
-	{
-		
-	}
-
 	public void FingerHit()
 	{
+		if(IsInvencible) return;
+
 		if (LevelDesign.PlayerLevel > 0)
 			LoseStacks ();
 		else
@@ -156,6 +173,7 @@ public class GameController : MonoBehaviour
 	{
 		StreakCount = 0;
 		LevelDesign.PlayerLevel = 0;
+		realStreakCount = 0;
 
 		AttackTargets.Instance.StopSpecial ();
 
@@ -167,6 +185,7 @@ public class GameController : MonoBehaviour
 	{
 		isGameRunning = false;
 		gameOver = true;
+		Global.TotalOrbs += orbsCollected;
 
 		if (OnGameOver != null)
 			OnGameOver ();
@@ -177,6 +196,8 @@ public class GameController : MonoBehaviour
 		enemiesKillCount = 0;
 		score = 0;
 		specialStreak = 0;
+		orbsCollected = 0;
+		realStreakCount = 0;
 
 		gameOver = false;
 		isGameRunning = true;
@@ -190,6 +211,9 @@ public class GameController : MonoBehaviour
 		enemiesKillCount = 0;
 		score = 0;
 		StreakCount = 0;
+		orbsCollected = 0;
+		realStreakCount = 0;
+
 		gameOver = false;
 
 		if(OnScoreUpdated != null)
@@ -203,6 +227,78 @@ public class GameController : MonoBehaviour
 
 	private void OnItemCollected(Item.Type itemType)
 	{
+		switch(itemType)
+		{
+			case Item.Type.PlasmaOrb:
+				orbsCollected += 1;
+			break;
+
+			case Item.Type.PlasmaOrb5:
+				orbsCollected += 5;
+			break;
+
+			case Item.Type.PlasmaOrb15:
+				orbsCollected += 15;
+			break;
+
+			case Item.Type.PlasmaOrb50:
+				orbsCollected += 50;
+			break;
+
+			case Item.Type.LevelUp:
+				StreakCount = LevelDesign.NextStreakToPlayerLevelUp;
+			break;
+
+			case Item.Type.SlowDown:
+
+				if(OnSlowDownCollected != null)
+					OnSlowDownCollected();
+				
+				slowedDown = true;
+				
+				StopCoroutine("FadeSlowDown");
+				StartCoroutine("FadeSlowDown");
+
+			break;
+
+			case Item.Type.Invecibility:
+				invencible = true;
+
+				StopCoroutine("FadeInvencible");
+				StartCoroutine("FadeInvencible");
+			break;
+
+			case Item.Type.DeathRay:
+				for(int i = SpawnController.enemiesInGame.Count - 1; i >= 0; i--)
+				{
+					EnemyLife enemyLife = SpawnController.enemiesInGame[i].GetComponent<EnemyLife>();
+					
+					enemyLife.Dead();
+				}
+			break;
+		}
+
 		Debug.Log("Collected " + itemType.ToString());
+	}
+
+	private IEnumerator FadeSlowDown()
+	{
+		yield return new WaitForSeconds(SlowDown.SlowTime);
+
+		Debug.Log ("Slow Down Faded");
+
+		slowedDown = false;
+
+		if(OnSlowDownFade != null)
+			OnSlowDownFade ();
+	}
+
+	private IEnumerator FadeInvencible()
+	{
+		yield return new WaitForSeconds(Invencible.Time);
+
+		Debug.Log ("Invencible Faded");
+
+		invencible = false;
 	}
 }

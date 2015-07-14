@@ -9,9 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 401940}
   - 212: {fileID: 21219142}
-  - 114: {fileID: 11429190}
   - 58: {fileID: 5803354}
   - 50: {fileID: 5099728}
+  - 114: {fileID: 11480726}
   m_Layer: 0
   m_Name: SlowDown
   m_TagString: Untagged
@@ -60,7 +60,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: .389999986}
   serializedVersion: 2
   m_Radius: 5.57999992
---- !u!114 &11429190
+--- !u!114 &11480726
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -68,11 +68,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 190274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac56c030dd02845d4b5821d38b40b2da, type: 3}
+  m_Script: {fileID: 11500000, guid: fb41419c9eaaf41419d5b8d295587c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
   vel: 2
+  slowAmount: .5
+  slowTime: 5
 --- !u!212 &21219142
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -109,6 +111,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: vel
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: slowAmount
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: slowTime
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

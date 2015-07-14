@@ -29,7 +29,7 @@ public class EnemyLife : MonoBehaviour
 	public float chanceToDrop;
 	public List<ItemPercent> itens;
 
-	public List<EventDelegate> onDeadEvent;
+	//public List<EventDelegate> onDeadEvent;
 
 	#region get / set
 	public bool IsOffscreen
@@ -135,19 +135,20 @@ public class EnemyLife : MonoBehaviour
 
 	public void Dead()
 	{
-		if (OnDied != null)
-			OnDied (gameObject);
-
 		foreach(SpriteRenderer brilho in brilhos)
 			brilho.color = damageColor;
 
 		foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
 			col.enabled = false;
 
-		EventDelegate.Execute (onDeadEvent);
+		//EventDelegate.Execute (onDeadEvent);
 
 		StartCoroutine (FadeAway (deathTime));
-		//Destroy (gameObject);
+
+		SpawnItem ();
+
+		if (OnDied != null)
+			OnDied (gameObject);
 	}
 
 	private IEnumerator FadeAway (float deathTime)
@@ -174,5 +175,40 @@ public class EnemyLife : MonoBehaviour
 		}
 
 		Destroy (gameObject);
+	}
+
+	private void SpawnItem()
+	{
+		float rnd = UnityEngine.Random.Range (0f, 1f);
+
+		if(rnd < chanceToDrop)
+		{
+			float maxPercent = 0;
+
+			foreach(ItemPercent ip in itens)
+				maxPercent += ip.percent;
+
+			rnd = UnityEngine.Random.Range(0f, maxPercent);
+
+			float currentPercent = 0f;
+			GameObject objToSpawn =  null;
+			
+			foreach(ItemPercent ip in itens)
+			{
+				currentPercent += ip.percent;
+				
+				if(rnd <= currentPercent)
+				{
+					objToSpawn = ip.item;
+					break;
+				}
+			}
+
+			float angle = UnityEngine.Random.Range(0f, 360f);
+
+			GameObject item = Instantiate (objToSpawn, transform.position, Quaternion.Euler(0f, 0f, angle)) as GameObject;
+
+			SpawnController.itensInGame.Add(item.transform);
+		}
 	}
 }

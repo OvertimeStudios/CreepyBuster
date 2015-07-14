@@ -15,10 +15,13 @@ public class RandomMovement : EnemyMovement
 
 	private bool gotAngle = false;
 	private float angle;
+	private bool isSlowed;
 
 	void OnEnable()
 	{
 		EnemyLife.OnDied += OnDied;
+		GameController.OnSlowDownCollected += ApplySlow;
+		GameController.OnSlowDownFade += RemoveSlow;
 
 		GetComponent<Rigidbody2D>().isKinematic = false;
 		StartCoroutine (ChangeVelocity (timeToChangeVel.Random ()));
@@ -27,6 +30,8 @@ public class RandomMovement : EnemyMovement
 	void OnDisable()
 	{
 		EnemyLife.OnDied -= OnDied;
+		GameController.OnSlowDownCollected -= ApplySlow;
+		GameController.OnSlowDownFade -= RemoveSlow;
 
 		StopAllCoroutines();
 	}
@@ -36,11 +41,16 @@ public class RandomMovement : EnemyMovement
 	{
 		base.Start ();
 
+		isSlowed = GameController.IsSlowedDown;
+
 		vel += LevelDesign.EnemiesBonusVel;
 
 		myRigidbody2D = GetComponent<Rigidbody2D> ();
 
 		myRigidbody2D.velocity = transform.right * vel;
+
+		if (GameController.IsSlowedDown)
+			ApplySlow ();
 
 		StartCoroutine (WaitForPosition ());
 
@@ -81,8 +91,23 @@ public class RandomMovement : EnemyMovement
 			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.05f);
 			transform.eulerAngles = eulerAngle;
 
-			myRigidbody2D.velocity = transform.right * vel;
+			if(isSlowed)
+				myRigidbody2D.velocity = transform.right * vel * SlowDown.SlowAmount;
+			else
+				myRigidbody2D.velocity = transform.right * vel;
 		}
+	}
+
+	private void ApplySlow()
+	{
+		isSlowed = true;
+		myAnimator.speed *= SlowDown.SlowAmount;
+	}
+	
+	private void RemoveSlow()
+	{
+		isSlowed = false;
+		myAnimator.speed *= 1 / SlowDown.SlowAmount;
 	}
 
 	void OnDied(GameObject enemy)
