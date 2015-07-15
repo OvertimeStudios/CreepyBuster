@@ -26,10 +26,9 @@ public class MenuController : MonoBehaviour
 
 	public GameObject tapAndHold;
 	public GameObject hud;
-	public TweenPosition wallTop;
-	public TweenPosition wallBottom;
-	public UILabel highScore;
-	public UILabel orbs;
+	private TweenPosition wallTop;
+	private TweenPosition wallBottom;
+	private UILabel highScore;
 
 	public float timeToStartGame = 3f;
 	private float timeCounter;
@@ -38,6 +37,11 @@ public class MenuController : MonoBehaviour
 
 	private GameObject trailRenderer;
 
+	[Header("Telas Tween")]
+	public TweenPosition menuTween;
+	public Transform mainScreen;
+	public Transform shopScreen;
+	
 	#region singleton
 	private static MenuController instance;
 	public static MenuController Instance
@@ -65,9 +69,15 @@ public class MenuController : MonoBehaviour
 	}
 
 	// Use this for initialization
-	void Start () 
+	void Start ()
 	{
+		wallTop = mainScreen.FindChild ("WallTop").GetComponent<TweenPosition> ();
+		wallBottom = mainScreen.FindChild ("WallBottom").GetComponent<TweenPosition> ();
+		highScore = wallTop.transform.FindChild ("High Score").FindChild ("Score").GetComponent<UILabel> ();
+
 		initialTapAndHoldRotation = tapAndHold.GetComponent<Rotate> ().rotVel;
+
+		timeCounter = timeToStartGame;
 
 		hud.SetActive (false);
 		UpdateScore ();
@@ -79,6 +89,7 @@ public class MenuController : MonoBehaviour
 		{
 			if(e.Selection)
 			{
+				Debug.Log("OnFingerDown!");
 				StopCoroutine("CountdownAborted");
 				StartCoroutine("CountdownBeginGame", e.Selection);
 			}
@@ -113,7 +124,7 @@ public class MenuController : MonoBehaviour
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		if(!GameController.isGameRunning && !wallTop.enabled)
+		if(!GameController.isGameRunning && !wallTop.enabled && timeCounter < timeToStartGame)
 		{
 			StopCoroutine("CountdownBeginGame");
 			StartCoroutine("CountdownAborted");
@@ -186,6 +197,31 @@ public class MenuController : MonoBehaviour
 			Global.SessionScore = GameController.Score;
 
 		highScore.text = Global.HighScore.ToString ();
-		orbs.text = Global.TotalOrbs.ToString ();
+	}
+
+	public void MoveToMain()
+	{
+		Vector3 from = menuTween.transform.localPosition;
+		Vector3 to = -mainScreen.localPosition;
+
+		menuTween.ResetToBeginning ();
+		
+		menuTween.from = from;
+		menuTween.to = to;
+
+		menuTween.PlayForward ();
+	}
+
+	public void MoveToShop()
+	{
+		Vector3 from = menuTween.transform.localPosition;
+		Vector3 to = -shopScreen.localPosition;
+		
+		menuTween.ResetToBeginning ();
+		
+		menuTween.from = from;
+		menuTween.to = to;
+		
+		menuTween.PlayForward ();
 	}
 }

@@ -16,7 +16,7 @@ public class BrilhoGalaxia : MonoBehaviour
 		EnemyLife.OnDied -= RemoveEnemy;
 	}
 
-	void Start()
+	void Awake()
 	{
 		objectsInFront = new List<Collider2D> ();
 	}

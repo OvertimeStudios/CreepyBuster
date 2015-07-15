@@ -5,7 +5,7 @@ using System;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Item : MonoBehaviour 
 {
-	public static event Action<Type> OnCollected;
+	public static event Action<Type, GameObject> OnCollected;
 
 	public enum Type
 	{
@@ -14,9 +14,6 @@ public class Item : MonoBehaviour
 		DeathRay,
 		SlowDown,
 		PlasmaOrb,
-		PlasmaOrb5,
-		PlasmaOrb15,
-		PlasmaOrb50,
 	}
 	
 	public Type type;
@@ -48,7 +45,7 @@ public class Item : MonoBehaviour
 		if(col.gameObject.tag == "Player" && !col.isTrigger)
 		{
 			if(OnCollected != null)
-				OnCollected(type);
+				OnCollected(type, gameObject);
 
 			Destroy(gameObject);
 		}

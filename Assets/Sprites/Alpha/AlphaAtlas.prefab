@@ -41,9 +41,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 4c7268ae06d8a47beaad6576273e7735, type: 2}
   mSprites:
+  - name: back_button
+    x: 0
+    y: 711
+    width: 256
+    height: 256
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: bar_holder
     x: 0
-    y: 917
+    y: 153
     width: 128
     height: 31
     borderLeft: 15
@@ -54,9 +67,61 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 1
+  - name: button
+    x: 0
+    y: 454
+    width: 256
+    height: 256
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: damage+
+    x: 257
+    y: 2
+    width: 229
+    height: 232
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 14
+    paddingRight: 13
+    paddingTop: 3
+    paddingBottom: 21
+  - name: damage++
+    x: 257
+    y: 471
+    width: 229
+    height: 243
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 14
+    paddingRight: 13
+    paddingTop: 3
+    paddingBottom: 10
+  - name: damage+++
+    x: 257
+    y: 715
+    width: 229
+    height: 252
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 14
+    paddingRight: 13
+    paddingTop: 3
+    paddingBottom: 1
   - name: Healthbar
     x: 0
-    y: 949
+    y: 185
     width: 242
     height: 18
     borderLeft: 15
@@ -67,6 +132,97 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: range+
+    x: 729
+    y: 750
+    width: 202
+    height: 217
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 18
+    paddingRight: 36
+    paddingTop: 8
+    paddingBottom: 31
+  - name: range++
+    x: 487
+    y: 26
+    width: 202
+    height: 228
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 18
+    paddingRight: 36
+    paddingTop: 8
+    paddingBottom: 20
+  - name: range+++
+    x: 487
+    y: 255
+    width: 202
+    height: 237
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 18
+    paddingRight: 36
+    paddingTop: 8
+    paddingBottom: 11
+  - name: ray3
+    x: 257
+    y: 235
+    width: 228
+    height: 235
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 14
+    paddingRight: 14
+    paddingTop: 10
+    paddingBottom: 11
+  - name: ray4
+    x: 487
+    y: 493
+    width: 228
+    height: 235
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 14
+    paddingRight: 14
+    paddingTop: 10
+    paddingBottom: 11
+  - name: ray5
+    x: 487
+    y: 729
+    width: 241
+    height: 238
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 12
+    paddingTop: 10
+    paddingBottom: 8
+  - name: shop_icon
+    x: 0
+    y: 204
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 5
+    paddingTop: 2
+    paddingBottom: 5
   - name: wall
     x: 0
     y: 968
