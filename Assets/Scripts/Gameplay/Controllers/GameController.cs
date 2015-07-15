@@ -154,7 +154,6 @@ public class GameController : MonoBehaviour
 
 	private void PlayerLevelUp()
 	{
-		Debug.Log (LevelDesign.IsSpecialReady);
 		if(LevelDesign.IsSpecialReady)
 		{
 			AttackTargets.Instance.UseSpecial();

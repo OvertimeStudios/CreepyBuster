@@ -89,10 +89,17 @@ public class MenuController : MonoBehaviour
 		{
 			if(e.Selection)
 			{
-				Debug.Log("OnFingerDown!");
 				StopCoroutine("CountdownAborted");
 				StartCoroutine("CountdownBeginGame", e.Selection);
 			}
+		}
+	}
+
+	void Update()
+	{
+		if (Input.GetKey (KeyCode.LeftControl) && Input.GetKey (KeyCode.Escape))
+		{
+			Global.ClearPurchasedOnly();
 		}
 	}
 

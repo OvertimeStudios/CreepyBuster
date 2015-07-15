@@ -38,7 +38,11 @@ public class LevelDesign : MonoBehaviour
 	[Header("Item")]
 	public RandomBetweenTwoConst itemSpawnTime;
 	public ItemLevelUpCondition[] itensLevelUpCondition;
-	
+
+	[Header("Shop Itens")]
+	public LevelFloatList[] rangeUpgrade;
+	public LevelFloatList[] damageUpgrade;
+
 	#region levels properties
 	private static int playerLevel = 0;
 	private static int enemiesSpawnLevel = 0;
@@ -98,7 +102,7 @@ public class LevelDesign : MonoBehaviour
 
 	public static int MaxPlayerLevel
 	{
-		get { return Instance.playerLevelUpCondition.Length - 1; }
+		get { return (Global.Ray5Purchased) ? Instance.playerLevelUpCondition.Length - 1 : (Global.Ray4Purchased) ? 3 : (Global.Ray3Purchased) ? 2 : 1; }
 	}
 
 	public static bool IsPlayerMaxLevel
@@ -315,6 +319,47 @@ public class LevelDesign : MonoBehaviour
 	}
 	#endregion
 
+	#region Shop Upgrades
+	public static float CurrentDamage
+	{
+		get
+		{
+			int up = 0;
+
+			if(Global.SuperDamagePurchased)
+				up++;
+
+			if(Global.MegaDamagePurchased)
+				up++;
+
+			if(Global.UltraDamagePurchased)
+				up++;
+
+			return Instance.damageUpgrade[up].value;
+		}
+	}
+
+	public static float CurrentRange
+	{
+		get
+		{
+			int up = 0;
+			
+			if(Global.SuperRangePurchased)
+				up++;
+			
+			if(Global.MegaRangePurchased)
+				up++;
+			
+			if(Global.MasterRangePurchased)
+				up++;
+			
+			return Instance.rangeUpgrade[up].value;
+		}
+	}
+
+	#endregion
+
 	#endregion
 
 	public static List<EnemiesPercent> CurrentEnemies
@@ -355,6 +400,11 @@ public class LevelDesign : MonoBehaviour
 	public static bool IsSpecialReady
 	{
 		get { return LevelDesign.PlayerLevel >= Instance.playerLevelUpCondition.Length - 1 && GameController.StreakCount >= NextStreakToPlayerLevelUp; }
+	}
+
+	public static bool IsPlayerFullyUpgraded
+	{
+		get { return Global.Ray5Purchased; }
 	}
 
 	public static int PlayerLevel
@@ -447,6 +497,9 @@ public class LevelDesign : MonoBehaviour
 
 	private void PlayerLevelUp()
 	{
+		//don't level up anymore if it's not fully upgraded
+		if(IsPlayerMaxLevel && !IsPlayerFullyUpgraded) return;
+
 		if(GameController.StreakCount >= LevelDesign.NextStreakToPlayerLevelUp)
 		{
 			//call Action on set method
@@ -621,4 +674,10 @@ public class ItemPercent
 {
 	public GameObject item;
 	public float percent;
+}
+
+[System.Serializable]
+public class LevelFloatList
+{
+	public float value;
 }

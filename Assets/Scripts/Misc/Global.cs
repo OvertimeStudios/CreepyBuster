@@ -6,6 +6,7 @@ public class Global : MonoBehaviour
 {
 	#region Action
 	public static event Action OnOrbUpdated;
+	public static event Action OnPurchasesCleared;
 	#endregion
 
 	#region keys
@@ -293,6 +294,24 @@ public class Global : MonoBehaviour
 
 			Save();
 		}
+	}
+
+	public static void ClearPurchasedOnly()
+	{
+		ray3 = 0;
+		ray4 = 0;
+		ray5 = 0;
+		superRange = 0;
+		megaRange = 0;
+		masterRange = 0;
+		superDamage = 0;
+		megaDamage = 0;
+		ultraDamage = 0;
+
+		Save ();
+
+		if(OnPurchasesCleared != null)
+			OnPurchasesCleared();
 	}
 
 	private static void Save()

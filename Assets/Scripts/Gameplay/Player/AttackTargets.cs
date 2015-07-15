@@ -46,6 +46,8 @@ public class AttackTargets : MonoBehaviour
 		MenuController.OnPanelClosed += Reset;
 		EnemyLife.OnDied += RemoveEnemyFromList;
 		MoveStraight.OnOutOfScreen += RemoveEnemyFromList;
+		GameController.OnGameStart += GetDamage;
+		GameController.OnGameStart += GetRange;
 	}
 
 	void OnDisable()
@@ -53,6 +55,8 @@ public class AttackTargets : MonoBehaviour
 		MenuController.OnPanelClosed -= Reset;
 		EnemyLife.OnDied -= RemoveEnemyFromList;
 		MoveStraight.OnOutOfScreen -= RemoveEnemyFromList;
+		GameController.OnGameStart -= GetDamage;
+		GameController.OnGameStart -= GetRange;
 	}
 
 	// Use this for initialization
@@ -64,6 +68,23 @@ public class AttackTargets : MonoBehaviour
 
 		targets = new List<Transform> ();
 		enemiesInRange = new List<Transform> ();
+	}
+
+	private void GetDamage()
+	{
+		damage = LevelDesign.CurrentDamage;
+	}
+
+	private void GetRange()
+	{
+		foreach(CircleCollider2D col in GetComponents<CircleCollider2D>())
+		{
+			if(col.isTrigger)
+			{
+				col.radius = LevelDesign.CurrentRange;
+				break;
+			}
+		}
 	}
 	
 	// Update is called once per frame

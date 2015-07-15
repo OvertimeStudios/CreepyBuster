@@ -71,7 +71,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleIdentifier: com.overtimestudio.lighttest
+  bundleIdentifier: com.overtimestudios.creepybuster
   bundleVersion: 0.1
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
@@ -257,7 +257,7 @@ PlayerSettings:
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
   scriptingDefineSymbols:
-    7: SHOW_GUI
+    7: SHOW_GUI;INFINITY_ORBS
   metroPackageName: LightTests
   metroPackageLogo: 
   metroPackageLogo140: 

@@ -64,7 +64,10 @@ public class HUDController : MonoBehaviour
 
 	void OnStreakUpdated()
 	{
-		levelBar.fillAmount = ((float)GameController.StreakCount - LevelDesign.CurrentPlayerLevelUnlockStreak) / (float)LevelDesign.StreakDifferenceToNextPlayerLevel;
+		if (LevelDesign.IsPlayerMaxLevel && LevelDesign.PlayerLevel != 4)
+			levelBar.fillAmount = 1;
+		else
+			levelBar.fillAmount = ((float)GameController.StreakCount - LevelDesign.CurrentPlayerLevelUnlockStreak) / (float)LevelDesign.StreakDifferenceToNextPlayerLevel;
 	}
 
 	void OnSpecialTimerUpdated(float percent)

@@ -28,6 +28,7 @@ GameObject:
   - 114: {fileID: 11419124}
   - 114: {fileID: 11408080}
   - 114: {fileID: 11440330}
+  - 114: {fileID: 11419528}
   - 65: {fileID: 6562152}
   - 114: {fileID: 11478316}
   m_Layer: 5
@@ -380,6 +381,31 @@ MonoBehaviour:
     mMethodName: Purchase
     mParameters: []
     oneShot: 0
+--- !u!114 &11419528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenTarget: {fileID: 105206}
+  hover: {r: 1, g: 0, b: .847058892, a: 1}
+  pressed: {r: 1, g: 0, b: .847058892, a: 1}
+  disabledColor: {r: .352941155, g: 0, b: .313995898, a: 1}
+  duration: .200000003
+  dragHighlight: 0
+  hoverSprite: 
+  pressedSprite: 
+  disabledSprite: 
+  hoverSprite2D: {fileID: 0}
+  pressedSprite2D: {fileID: 0}
+  disabledSprite2D: {fileID: 0}
+  pixelSnap: 0
+  onClick: []
 --- !u!114 &11437234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -526,6 +552,46 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Size.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: tweenTarget
+      value: 
+      objectReference: {fileID: 105206}
+    - target: {fileID: 0}
+      propertyPath: hover.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hover.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hover.b
+      value: .847058892
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pressed.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pressed.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pressed.b
+      value: .847058892
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: disabledColor.r
+      value: .352941155
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: disabledColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: disabledColor.b
+      value: .313995898
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
