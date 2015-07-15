@@ -363,7 +363,7 @@ public class LevelDesign : MonoBehaviour
 
 		set 
 		{ 
-			bool levelUp = value > playerLevel;
+			bool levelUp = value >= playerLevel;
 
 			playerLevel = value; 
 

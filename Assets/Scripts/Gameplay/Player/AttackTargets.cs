@@ -86,7 +86,7 @@ public class AttackTargets : MonoBehaviour
 		else if (isSpecial)
 		{
 			//get all damagable targets
-			foreach(Transform t in enemiesInRange)
+			foreach(Transform t in SpawnController.enemiesInGame)
 			{
 				//don't apply damage to those enemies who doesn't show up yet
 				if(t.GetComponent<EnemyLife>().IsDamagable)
@@ -139,8 +139,6 @@ public class AttackTargets : MonoBehaviour
 		isSpecial = true;
 		specialCounter = LevelDesign.Instance.specialTime;
 		GameController.specialStreak++;
-
-		//StartCoroutine (StopSpecial (specialTime));
 	}
 
 	private void RunTimer()

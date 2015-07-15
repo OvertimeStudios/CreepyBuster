@@ -142,17 +142,19 @@ public class GameController : MonoBehaviour
 			OnScoreUpdated();
 
 		//only count streak outside special
-		if(!AttackTargets.IsSpecialActive && enemy.GetComponent<EnemyLife>().countAsStreak)
+		if(enemy.GetComponent<EnemyLife>().countAsStreak)
 		{
-			//call Action on set method
-			StreakCount++;
-
 			RealStreakCount++;
+
+			//call Action on set method
+			if(!AttackTargets.IsSpecialActive)
+				StreakCount++;
 		}
 	}
 
 	private void PlayerLevelUp()
 	{
+		Debug.Log (LevelDesign.IsSpecialReady);
 		if(LevelDesign.IsSpecialReady)
 		{
 			AttackTargets.Instance.UseSpecial();
