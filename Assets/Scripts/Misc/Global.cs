@@ -1,11 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Global : MonoBehaviour 
 {
+	#region Action
+	public static event Action OnOrbUpdated;
+	#endregion
+
 	#region keys
 	public const string TOTAL_ORBS = "totalOrbs";
 	public const string HIGH_SCORE = "highScore";
+	public const string RAY3 = "ray3";
+	public const string RAY4 = "ray4";
+	public const string RAY5 = "ray5";
+	public const string RANGE_SUPER = "superRange";
+	public const string RANGE_MEGA = "megaRange";
+	public const string RANGE_MASTER = "masterRange";
+	public const string DAMAGE_SUPER = "superDamage";
+	public const string DAMAGE_MEGA = "megaDamage";
+	public const string DAMAGE_ULTRA = "masterDamage";
 	#endregion
 
 	private static bool isLoaded;
@@ -14,6 +28,15 @@ public class Global : MonoBehaviour
 	private static int highScore;
 	private static int sessionsScore;
 	private static int totalOrbs;
+	private static int ray3;
+	private static int ray4;
+	private static int ray5;
+	private static int superRange;
+	private static int megaRange;
+	private static int masterRange;
+	private static int superDamage;
+	private static int megaDamage;
+	private static int ultraDamage;
 	#endregion
 
 	#region get/set
@@ -73,9 +96,164 @@ public class Global : MonoBehaviour
 			totalOrbs = value;
 			
 			Save ();
+
+			if(OnOrbUpdated != null)
+				OnOrbUpdated();
 		}
 	}
 
+	public static bool Ray3Purchased
+	{
+		get 
+		{
+			if(!isLoaded)
+				Load ();
+
+			return ray3 == 1;
+		}
+		set
+		{
+			ray3 = (value == true) ? 1 : 0;
+
+			Save ();
+		}
+	}
+
+	public static bool Ray4Purchased
+	{
+		get 
+		{
+			if(!isLoaded)
+				Load ();
+			
+			return ray4 == 1;
+		}
+		set
+		{
+			ray4 = (value == true) ? 1 : 0;
+			
+			Save ();
+		}
+	}
+
+	public static bool Ray5Purchased
+	{
+		get 
+		{
+			if(!isLoaded)
+				Load ();
+			
+			return ray5 == 1;
+		}
+		set
+		{
+			ray5 = (value == true) ? 1 : 0;
+			
+			Save ();
+		}
+	}
+
+	public static bool SuperRangePurchased
+	{
+		get 
+		{
+			if(!isLoaded)
+				Load ();
+			
+			return superRange == 1;
+		}
+		set
+		{
+			superRange = (value == true) ? 1 : 0;
+			
+			Save ();
+		}
+	}
+
+	public static bool MegaRangePurchased
+	{
+		get 
+		{
+			if(!isLoaded)
+				Load ();
+			
+			return megaRange == 1;
+		}
+		set
+		{
+			megaRange = (value == true) ? 1 : 0;
+			
+			Save ();
+		}
+	}
+
+	public static bool MasterRangePurchased
+	{
+		get 
+		{
+			if(!isLoaded)
+				Load ();
+			
+			return masterRange == 1;
+		}
+		set
+		{
+			masterRange = (value == true) ? 1 : 0;
+			
+			Save ();
+		}
+	}
+
+	public static bool SuperDamagePurchased
+	{
+		get 
+		{
+			if(!isLoaded)
+				Load ();
+			
+			return superDamage == 1;
+		}
+		set
+		{
+			superDamage = (value == true) ? 1 : 0;
+			
+			Save ();
+		}
+	}
+
+	public static bool MegaDamagePurchased
+	{
+		get 
+		{
+			if(!isLoaded)
+				Load ();
+			
+			return megaDamage == 1;
+		}
+		set
+		{
+			megaDamage = (value == true) ? 1 : 0;
+			
+			Save ();
+		}
+	}
+
+	public static bool UltraDamagePurchased
+	{
+		get 
+		{
+			if(!isLoaded)
+				Load ();
+			
+			return ultraDamage == 1;
+		}
+		set
+		{
+			ultraDamage = (value == true) ? 1 : 0;
+			
+			Save ();
+		}
+	}
 	#endregion
 
 	private static void Load()
@@ -88,12 +266,30 @@ public class Global : MonoBehaviour
 		{
 			highScore = PlayerPrefs.GetInt(HIGH_SCORE);
 			totalOrbs = PlayerPrefs.GetInt(TOTAL_ORBS);
+			ray3 = PlayerPrefs.GetInt(RAY3);
+			ray4 = PlayerPrefs.GetInt(RAY4);
+			ray5 = PlayerPrefs.GetInt(RAY5);
+			superRange = PlayerPrefs.GetInt(RANGE_SUPER);
+			megaRange = PlayerPrefs.GetInt(RANGE_MEGA);
+			masterRange = PlayerPrefs.GetInt(RANGE_MASTER);
+			superDamage = PlayerPrefs.GetInt(DAMAGE_SUPER);
+			megaDamage = PlayerPrefs.GetInt(DAMAGE_MEGA);
+			ultraDamage = PlayerPrefs.GetInt(DAMAGE_ULTRA);
 		}
 		else
 		{
 			//initialize
 			highScore = 0;
 			totalOrbs = 0;
+			ray3 = 0;
+			ray4 = 0;
+			ray5 = 0;
+			superRange = 0;
+			megaRange = 0;
+			masterRange = 0;
+			superDamage = 0;
+			megaDamage = 0;
+			ultraDamage = 0;
 
 			Save();
 		}
@@ -103,6 +299,15 @@ public class Global : MonoBehaviour
 	{
 		PlayerPrefs.SetInt (HIGH_SCORE, highScore);
 		PlayerPrefs.SetInt (TOTAL_ORBS, totalOrbs);
+		PlayerPrefs.SetInt (RAY3, ray3);
+		PlayerPrefs.SetInt (RAY4, ray4);
+		PlayerPrefs.SetInt (RAY5, ray5);
+		PlayerPrefs.SetInt (RANGE_SUPER, superRange);
+		PlayerPrefs.SetInt (RANGE_MEGA, megaRange);
+		PlayerPrefs.SetInt (RANGE_MASTER, masterRange);
+		PlayerPrefs.SetInt (DAMAGE_SUPER, superDamage);
+		PlayerPrefs.SetInt (DAMAGE_MEGA, megaDamage);
+		PlayerPrefs.SetInt (DAMAGE_ULTRA, ultraDamage);
 
 		PlayerPrefs.Save ();
 	}

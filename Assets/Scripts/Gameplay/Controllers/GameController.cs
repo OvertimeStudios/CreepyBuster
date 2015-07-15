@@ -222,7 +222,8 @@ public class GameController : MonoBehaviour
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		GameOver ();
+		if(GameController.isGameRunning)
+			GameOver ();
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)
