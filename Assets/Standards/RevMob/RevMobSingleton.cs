@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,8 +10,12 @@ public class RevMobAdType
 
 public class RevMobSingleton : MonoBehaviour, IRevMobListener
 {
-	private static RevMob revmob;
+	#region Action
+	private static event Action OnRewardedVideoComplete;
+	#endregion
 
+	private static RevMob revmob;
+	
 	//RevMob Init parameters
 	private static Dictionary<string, string> appIds;
 	private static string gameObjectName;
@@ -26,6 +31,9 @@ public class RevMobSingleton : MonoBehaviour, IRevMobListener
 	private static bool fullscreenReceived = false;
 	private static bool bannerShowed = false;
 
+	private static bool rewardedVideoCompleted = false;
+
+	private static bool revmobSuccessfulyStarted = false;
 
 	#region singleton
 	private static RevMobSingleton instance;
@@ -50,6 +58,11 @@ public class RevMobSingleton : MonoBehaviour, IRevMobListener
 	public static bool IsBannerShowing
 	{
 		get { return bannerShowed; }
+	}
+
+	public static bool IsRevmobStarted
+	{
+		get { return revmobSuccessfulyStarted; }
 	}
 	#endregion
 
@@ -103,27 +116,48 @@ public class RevMobSingleton : MonoBehaviour, IRevMobListener
 	public static void ShowFullscreen()
 	{
 		#if UNITY_ANDROID || UNITY_IPHONE
-		if(fullscreenReceived)
+
+		if(!IsRevmobStarted)
+		{
+			Debug.LogError("Revmob wasn't started correctly");
+			return;
+		}
+
+		Instance.StartCoroutine(ShowFullscreenCoroutine());
+		/*if(fullscreenReceived)
 		{
 			fullscreen.Show();
 			fullscreenReceived = false;
 		}
 		else
-			Debug.LogWarning("Fullscreen ads not loaded yet!");
+			Debug.LogWarning("Fullscreen ads not loaded yet!");*/
 		#endif
 	}
+
+	private static IEnumerator ShowFullscreenCoroutine()
+	{
+		yield return fullscreenReceived;
+
+		fullscreen.Show();
+		fullscreenReceived = false;
+	}
+
 	#endregion
 
 	#region banner
 	public static void ShowBanner(RevMob.Position position)
 	{
-		#if UNITY_ANDROID || UNITY_IPHONE
+		#if UNITY_EDITOR
+
+		#elif UNITY_ANDROID
 		if(!bannerShowed)
 		{
 			banner = revmob.CreateBanner (position);
 			banner.Show ();
 			bannerShowed = true;
 		}
+		#elif UNITY_IPHONE
+
 		#endif
 	}
 
@@ -146,6 +180,8 @@ public class RevMobSingleton : MonoBehaviour, IRevMobListener
 	public void SessionIsStarted () 
 	{
 		Debug.Log("Session started.");
+
+		revmobSuccessfulyStarted = true;
 
 		//once session is started successfuly, we start to create all kind of desired ads
 
@@ -171,6 +207,9 @@ public class RevMobSingleton : MonoBehaviour, IRevMobListener
 	public void RewardedVideoNotCompletelyLoaded () 
 	{
 		Debug.Log("RewardedVideoNotCompletelyLoaded.");
+		
+		rewardedVideo.Release ();
+		rewardedVideo = revmob.CreateRewardedVideo ();
 	}
 	
 	public void RewardedVideoStarted () 
@@ -206,8 +245,6 @@ public class RevMobSingleton : MonoBehaviour, IRevMobListener
 	public void VideoReceived()
 	{
 		Debug.Log("VideoReceived.");
-		
-		//videoReceived = true;
 	}
 	
 	public void VideoStarted () 

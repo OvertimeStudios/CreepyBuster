@@ -82,6 +82,10 @@ public class Global : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Gets or sets the total orbs. Use this method to increment and Update orbs on game.
+	/// </summary>
+	/// <value>The total orbs of player.</value>
 	public static int TotalOrbs
 	{
 		get

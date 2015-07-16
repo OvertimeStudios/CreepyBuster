@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.Advertisements;
 using System;
+using System.Collections;
 
 public class MenuController : MonoBehaviour 
 {
@@ -47,6 +48,10 @@ public class MenuController : MonoBehaviour
 
 	private GameObject trailRenderer;
 
+	//ADS
+	public int gamesToShowAd;
+	private int gamesCount;
+
 	[Header("Telas Tween")]
 	public TweenPosition menuTween;
 	public Transform mainScreen;
@@ -70,12 +75,14 @@ public class MenuController : MonoBehaviour
 	{
 		GameController.OnGameOver += ClosePanel;
 		GameController.OnGameOver += UpdateScore;
+		MenuController.OnPanelClosed += ShowAds;
 	}
 
 	void OnDisable()
 	{
 		GameController.OnGameOver -= ClosePanel;
 		GameController.OnGameOver -= UpdateScore;
+		MenuController.OnPanelClosed -= ShowAds;
 	}
 
 	// Use this for initialization
@@ -268,5 +275,13 @@ public class MenuController : MonoBehaviour
 				shopScreen.gameObject.SetActive(false);
 			break;
 		}
+	}
+
+	private void ShowAds()
+	{
+		gamesCount++;
+
+		if(gamesCount % gamesToShowAd == 0)
+			UnityAdsHelper.ShowAd();
 	}
 }

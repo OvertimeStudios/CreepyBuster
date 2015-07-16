@@ -257,7 +257,7 @@ PlayerSettings:
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
   scriptingDefineSymbols:
-    7: SHOW_GUI;INFINITY_ORBS
+    7: SHOW_GUI;INFINITY_ORBS;REVMOB_IMPLEMENTED;UNITYADS_IMPLEMENTED
   metroPackageName: LightTests
   metroPackageLogo: 
   metroPackageLogo140: 

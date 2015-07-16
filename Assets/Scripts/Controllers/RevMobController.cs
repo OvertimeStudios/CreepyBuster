@@ -64,21 +64,27 @@ public class RevMobController : MonoBehaviour
 
 	void OnEnable()
 	{
-		MenuController.OnPanelClosed += RevMobSingleton.ShowFullscreen;
+		//MenuController.OnPanelClosed += RevMobSingleton.ShowFullscreen;
 		MenuController.OnPanelOpened += ShowBanner;
-		MenuController.OnPanelClosing += RevMobSingleton.HideBanner;
+		//MenuController.OnPanelClosing += RevMobSingleton.HideBanner;
 	}
 	
 	void OnDisable()
 	{
-		MenuController.OnPanelClosed -= RevMobSingleton.ShowFullscreen;
+		//MenuController.OnPanelClosed -= RevMobSingleton.ShowFullscreen;
 		MenuController.OnPanelOpened -= ShowBanner;
-		MenuController.OnPanelClosing -= RevMobSingleton.HideBanner;
+		//MenuController.OnPanelClosing -= RevMobSingleton.HideBanner;
 	}
 
 	void ShowBanner()
 	{
+		#if UNITY_EDITOR
+		//can't show nothing
+		#elif UNITY_ANDROID
 		RevMobSingleton.ShowBanner (RevMob.Position.BOTTOM);
+		#elif UNITY_IPHONE
+
+		#endif
 	}
 
 	#endif
