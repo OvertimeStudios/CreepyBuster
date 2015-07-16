@@ -273,7 +273,8 @@ MonoBehaviour:
   inLight: 0
   basicColor: {r: 1, g: .793103456, b: 0, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
-  onDeadEvent: []
+  chanceToDrop: 0
+  itens: []
 --- !u!114 &11425928
 MonoBehaviour:
   m_ObjectHideFlags: 1
