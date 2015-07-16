@@ -28,13 +28,12 @@ public class BrilhoGalaxia : MonoBehaviour
 		if (!objectsInFront.Contains (col))
 			objectsInFront.Add (col);
 
-		GetComponent<SpriteRenderer> ().enabled = false;
+		if(objectsInFront.Count > 0)
+			GetComponent<SpriteRenderer> ().enabled = false;
 	}
 
 	void OnTriggerExit2D(Collider2D col)
 	{
-		if(col.isTrigger) return;
-
 		if (objectsInFront.Contains (col))
 			objectsInFront.Remove (col);
 

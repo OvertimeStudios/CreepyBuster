@@ -6,6 +6,7 @@ public class SlowDown : Item
 	public float slowAmount;
 	public float slowTime;
 
+	
 	public static float SlowAmount
 	{
 		get { return Instance.slowAmount; }
@@ -26,5 +27,10 @@ public class SlowDown : Item
 
 			return instance;
 		}
+	}
+
+	void Start()
+	{
+		instance = this;
 	}
 }
