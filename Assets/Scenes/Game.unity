@@ -1738,7 +1738,11 @@ MonoBehaviour:
   duration: 1
   steeperCurves: 0
   tweenGroup: 0
-  onFinished: []
+  onFinished:
+  - mTarget: {fileID: 1492870978}
+    mMethodName: OnMenuTransitionFinished
+    mParameters: []
+    oneShot: 0
   eventReceiver: {fileID: 0}
   callWhenFinished: 
   from: {x: 0, y: 0, z: 0}

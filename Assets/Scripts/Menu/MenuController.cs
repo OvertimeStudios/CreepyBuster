@@ -4,6 +4,16 @@ using System;
 
 public class MenuController : MonoBehaviour 
 {
+	enum Menus
+	{
+		None,
+		Main,
+		Shop,
+	}
+
+	private static Menus lastMenu;
+	private static Menus activeMenu;
+
 	/// <summary>
 	/// Occurs when on panel fully open.
 	/// </summary>
@@ -71,6 +81,12 @@ public class MenuController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		lastMenu = Menus.None;
+		activeMenu = Menus.Main;
+
+		//hide all others menus
+		shopScreen.gameObject.SetActive (false);
+
 		wallTop = mainScreen.FindChild ("WallTop").GetComponent<TweenPosition> ();
 		wallBottom = mainScreen.FindChild ("WallBottom").GetComponent<TweenPosition> ();
 		highScore = wallTop.transform.FindChild ("High Score").FindChild ("Score").GetComponent<UILabel> ();
@@ -208,6 +224,10 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToMain()
 	{
+		mainScreen.gameObject.SetActive (true);
+		lastMenu = activeMenu;
+		activeMenu = Menus.Main;
+
 		Vector3 from = menuTween.transform.localPosition;
 		Vector3 to = -mainScreen.localPosition;
 
@@ -221,6 +241,10 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToShop()
 	{
+		shopScreen.gameObject.SetActive (true);
+		lastMenu = activeMenu;
+		activeMenu = Menus.Shop;
+
 		Vector3 from = menuTween.transform.localPosition;
 		Vector3 to = -shopScreen.localPosition;
 		
@@ -230,5 +254,19 @@ public class MenuController : MonoBehaviour
 		menuTween.to = to;
 		
 		menuTween.PlayForward ();
+	}
+
+	public void OnMenuTransitionFinished()
+	{
+		switch (lastMenu)
+		{
+			case Menus.Main:
+				mainScreen.gameObject.SetActive(false);
+			break;
+
+			case Menus.Shop:
+				shopScreen.gameObject.SetActive(false);
+			break;
+		}
 	}
 }
