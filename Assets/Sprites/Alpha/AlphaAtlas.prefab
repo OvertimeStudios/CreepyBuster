@@ -56,7 +56,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: bar_holder
     x: 0
-    y: 153
+    y: 154
     width: 128
     height: 31
     borderLeft: 15
@@ -81,8 +81,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: damage+
-    x: 749
-    y: 735
+    x: 757
+    y: 2
     width: 229
     height: 232
     borderLeft: 0
@@ -94,8 +94,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 21
   - name: damage++
-    x: 507
-    y: 485
+    x: 757
+    y: 471
     width: 229
     height: 243
     borderLeft: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 10
   - name: damage+++
-    x: 257
-    y: 215
+    x: 757
+    y: 715
     width: 229
     height: 252
     borderLeft: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: Healthbar
     x: 0
-    y: 185
+    y: 186
     width: 242
     height: 18
     borderLeft: 15
@@ -132,98 +132,20 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: play
-    x: 257
-    y: 718
-    width: 249
-    height: 249
+  - name: More games
+    x: 0
+    y: 205
+    width: 253
+    height: 248
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 3
-    paddingRight: 4
-    paddingTop: 3
-    paddingBottom: 4
-  - name: range+
-    x: 749
-    y: 50
-    width: 202
-    height: 217
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 18
-    paddingRight: 36
-    paddingTop: 8
-    paddingBottom: 31
-  - name: range++
-    x: 749
-    y: 268
-    width: 202
-    height: 228
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 18
-    paddingRight: 36
-    paddingTop: 8
-    paddingBottom: 20
-  - name: range+++
-    x: 749
-    y: 497
-    width: 202
-    height: 237
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 18
-    paddingRight: 36
-    paddingTop: 8
-    paddingBottom: 11
-  - name: ray3
-    x: 507
-    y: 249
-    width: 228
-    height: 235
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 14
-    paddingRight: 14
-    paddingTop: 10
-    paddingBottom: 11
-  - name: ray4
-    x: 507
-    y: 13
-    width: 228
-    height: 235
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 14
-    paddingRight: 14
-    paddingTop: 10
-    paddingBottom: 11
-  - name: ray5
-    x: 507
-    y: 729
-    width: 241
-    height: 238
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 3
-    paddingRight: 12
-    paddingTop: 10
+    paddingLeft: 2
+    paddingRight: 1
+    paddingTop: 0
     paddingBottom: 8
-  - name: settings
+  - name: Off
     x: 257
     y: 468
     width: 249
@@ -236,9 +158,139 @@ MonoBehaviour:
     paddingRight: 4
     paddingTop: 3
     paddingBottom: 4
+  - name: On
+    x: 257
+    y: 218
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 3
+    paddingBottom: 4
+  - name: play
+    x: 507
+    y: 718
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 3
+    paddingBottom: 4
+  - name: range+
+    x: 1229
+    y: 750
+    width: 202
+    height: 217
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 18
+    paddingRight: 36
+    paddingTop: 8
+    paddingBottom: 31
+  - name: range++
+    x: 987
+    y: 26
+    width: 202
+    height: 228
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 18
+    paddingRight: 36
+    paddingTop: 8
+    paddingBottom: 20
+  - name: range+++
+    x: 987
+    y: 255
+    width: 202
+    height: 237
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 18
+    paddingRight: 36
+    paddingTop: 8
+    paddingBottom: 11
+  - name: ray3
+    x: 757
+    y: 235
+    width: 228
+    height: 235
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 14
+    paddingRight: 14
+    paddingTop: 10
+    paddingBottom: 11
+  - name: ray4
+    x: 987
+    y: 493
+    width: 228
+    height: 235
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 14
+    paddingRight: 14
+    paddingTop: 10
+    paddingBottom: 11
+  - name: ray5
+    x: 987
+    y: 729
+    width: 241
+    height: 238
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 12
+    paddingTop: 10
+    paddingBottom: 8
+  - name: Selection
+    x: 507
+    y: 218
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 3
+    paddingBottom: 4
+  - name: settings
+    x: 507
+    y: 468
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 3
+    paddingBottom: 4
   - name: shop_icon
-    x: 0
-    y: 204
+    x: 257
+    y: 718
     width: 249
     height: 249
     borderLeft: 0

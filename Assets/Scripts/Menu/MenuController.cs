@@ -98,6 +98,7 @@ public class MenuController : MonoBehaviour
 		//hide all others menus
 		shopScreen.gameObject.SetActive (false);
 		settingsScreen.gameObject.SetActive (false);
+		creditsScreen.gameObject.SetActive (false);
 
 		wallTop = mainScreen.FindChild ("WallTop").GetComponent<TweenPosition> ();
 		wallBottom = mainScreen.FindChild ("WallBottom").GetComponent<TweenPosition> ();
@@ -313,6 +314,14 @@ public class MenuController : MonoBehaviour
 			case Menus.Shop:
 				shopScreen.gameObject.SetActive(false);
 			break;
+
+			case Menus.Settings:
+				settingsScreen.gameObject.SetActive(false);
+			break;
+
+			case Menus.Credits:
+				creditsScreen.gameObject.SetActive(false);
+			break;
 		}
 	}
 
@@ -322,5 +331,20 @@ public class MenuController : MonoBehaviour
 
 		if(gamesCount % gamesToShowAd == 0)
 			UnityAdsHelper.ShowAd();
+	}
+
+	public void MoreGames()
+	{
+		Application.OpenURL ("http://www.overtimestudios.com/games.php");
+	}
+
+	public void FacebookLogin()
+	{
+
+	}
+
+	public void FacebookLogout()
+	{
+
 	}
 }

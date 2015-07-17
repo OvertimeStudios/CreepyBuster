@@ -72,7 +72,7 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.overtimestudios.creepybuster
-  bundleVersion: 0.1
+  bundleVersion: 0.2
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
@@ -135,7 +135,7 @@ PlayerSettings:
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
-    - m_Icon: {fileID: 2800000, guid: d2aeb526bd9f04e6992f99cc5e62711e, type: 3}
+    - m_Icon: {fileID: 2800000, guid: c34b4911ea1a549298161b613a79de51, type: 3}
       m_Size: 128
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []
