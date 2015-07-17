@@ -81,8 +81,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: damage+
-    x: 507
-    y: 19
+    x: 749
+    y: 735
     width: 229
     height: 232
     borderLeft: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
     paddingBottom: 21
   - name: damage++
     x: 507
-    y: 724
+    y: 485
     width: 229
     height: 243
     borderLeft: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
     paddingBottom: 10
   - name: damage+++
     x: 257
-    y: 465
+    y: 215
     width: 229
     height: 252
     borderLeft: 0
@@ -133,8 +133,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: play
-    x: 0
-    y: 204
+    x: 257
+    y: 718
     width: 249
     height: 249
     borderLeft: 0
@@ -146,8 +146,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: range+
-    x: 257
-    y: 8
+    x: 749
+    y: 50
     width: 202
     height: 217
     borderLeft: 0
@@ -159,8 +159,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 31
   - name: range++
-    x: 737
-    y: 501
+    x: 749
+    y: 268
     width: 202
     height: 228
     borderLeft: 0
@@ -172,8 +172,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 20
   - name: range+++
-    x: 737
-    y: 730
+    x: 749
+    y: 497
     width: 202
     height: 237
     borderLeft: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
     paddingBottom: 11
   - name: ray3
     x: 507
-    y: 488
+    y: 249
     width: 228
     height: 235
     borderLeft: 0
@@ -199,7 +199,7 @@ MonoBehaviour:
     paddingBottom: 11
   - name: ray4
     x: 507
-    y: 252
+    y: 13
     width: 228
     height: 235
     borderLeft: 0
@@ -211,8 +211,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 11
   - name: ray5
-    x: 257
-    y: 226
+    x: 507
+    y: 729
     width: 241
     height: 238
     borderLeft: 0
@@ -223,9 +223,22 @@ MonoBehaviour:
     paddingRight: 12
     paddingTop: 10
     paddingBottom: 8
-  - name: shop_icon
+  - name: settings
     x: 257
-    y: 718
+    y: 468
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 3
+    paddingBottom: 4
+  - name: shop_icon
+    x: 0
+    y: 204
     width: 249
     height: 249
     borderLeft: 0

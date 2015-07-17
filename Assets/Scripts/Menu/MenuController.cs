@@ -10,6 +10,8 @@ public class MenuController : MonoBehaviour
 		None,
 		Main,
 		Shop,
+		Settings,
+		Credits,
 	}
 
 	private static Menus lastMenu;
@@ -56,6 +58,8 @@ public class MenuController : MonoBehaviour
 	public TweenPosition menuTween;
 	public Transform mainScreen;
 	public Transform shopScreen;
+	public Transform settingsScreen;
+	public Transform creditsScreen;
 	
 	#region singleton
 	private static MenuController instance;
@@ -93,6 +97,7 @@ public class MenuController : MonoBehaviour
 
 		//hide all others menus
 		shopScreen.gameObject.SetActive (false);
+		settingsScreen.gameObject.SetActive (false);
 
 		wallTop = mainScreen.FindChild ("WallTop").GetComponent<TweenPosition> ();
 		wallBottom = mainScreen.FindChild ("WallBottom").GetComponent<TweenPosition> ();
@@ -254,6 +259,40 @@ public class MenuController : MonoBehaviour
 
 		Vector3 from = menuTween.transform.localPosition;
 		Vector3 to = -shopScreen.localPosition;
+		
+		menuTween.ResetToBeginning ();
+		
+		menuTween.from = from;
+		menuTween.to = to;
+		
+		menuTween.PlayForward ();
+	}
+
+	public void MoveToSettings()
+	{
+		settingsScreen.gameObject.SetActive (true);
+		lastMenu = activeMenu;
+		activeMenu = Menus.Settings;
+		
+		Vector3 from = menuTween.transform.localPosition;
+		Vector3 to = -settingsScreen.localPosition;
+		
+		menuTween.ResetToBeginning ();
+		
+		menuTween.from = from;
+		menuTween.to = to;
+		
+		menuTween.PlayForward ();
+	}
+
+	public void MoveToCredits()
+	{
+		creditsScreen.gameObject.SetActive (true);
+		lastMenu = activeMenu;
+		activeMenu = Menus.Settings;
+		
+		Vector3 from = menuTween.transform.localPosition;
+		Vector3 to = -creditsScreen.localPosition;
 		
 		menuTween.ResetToBeginning ();
 		

@@ -10,10 +10,6 @@ public class RevMobAdType
 
 public class RevMobSingleton : MonoBehaviour, IRevMobListener
 {
-	#region Action
-	private static event Action OnRewardedVideoComplete;
-	#endregion
-
 	private static RevMob revmob;
 	
 	//RevMob Init parameters
@@ -30,8 +26,6 @@ public class RevMobSingleton : MonoBehaviour, IRevMobListener
 	//private static bool videoReceived = false;
 	private static bool fullscreenReceived = false;
 	private static bool bannerShowed = false;
-
-	private static bool rewardedVideoCompleted = false;
 
 	private static bool revmobSuccessfulyStarted = false;
 
