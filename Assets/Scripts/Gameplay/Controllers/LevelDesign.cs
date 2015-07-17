@@ -596,20 +596,23 @@ public class LevelDesign : MonoBehaviour
 	void OnGUI()
 	{
 		#if SHOW_GUI
-		int w = Screen.width, h = Screen.height;
+		if(GameController.isGameRunning)
+		{
+			int w = Screen.width, h = Screen.height;
 
-		GUIStyle style = new GUIStyle();
-		
-		Rect rect = new Rect(0, h * 10 / 100, w, h * 2 / 100);
-		style.alignment = TextAnchor.UpperLeft;
-		style.fontSize = h * 3 / 100;
-		style.normal.textColor = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-		string text = "Enemy Type: " + (EnemiesTypesLevel + 1) + "\n" +
-					  "Enemy Spawn: " + (EnemiesSpawnLevel + 1) + "\n" +
-					  "Enemy Attr.: " + (EnemiesAttributesLevel + 1) + "\n" +
-					  "Tier: " + (TierLevel + 1) + "\n" +
-					  "Item: " + (ItemLevel + 1);
-		GUI.Label(rect, text, style);
+			GUIStyle style = new GUIStyle();
+			
+			Rect rect = new Rect(0, h * 10 / 100, w, h * 2 / 100);
+			style.alignment = TextAnchor.UpperLeft;
+			style.fontSize = h * 3 / 100;
+			style.normal.textColor = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+			string text = "Enemy Type: " + (EnemiesTypesLevel + 1) + "\n" +
+						  "Enemy Spawn: " + (EnemiesSpawnLevel + 1) + "\n" +
+						  "Enemy Attr.: " + (EnemiesAttributesLevel + 1) + "\n" +
+						  "Tier: " + (TierLevel + 1) + "\n" +
+						  "Item: " + (ItemLevel + 1);
+			GUI.Label(rect, text, style);
+		}
 		#endif 
 	}
 }
