@@ -7,6 +7,8 @@ public class Global : MonoBehaviour
 	#region Action
 	public static event Action OnOrbUpdated;
 	public static event Action OnPurchasesCleared;
+	public static event Action OnLoggedIn;
+	public static event Action OnLoggedOut;
 	#endregion
 
 	#region keys
@@ -21,6 +23,8 @@ public class Global : MonoBehaviour
 	public const string DAMAGE_SUPER = "superDamage";
 	public const string DAMAGE_MEGA = "megaDamage";
 	public const string DAMAGE_ULTRA = "masterDamage";
+	public const string MUSIC_ON = "musicOn";
+	public const string SOUNDFX_ON = "soundFX";
 	#endregion
 
 	private static bool isLoaded;
@@ -38,15 +42,32 @@ public class Global : MonoBehaviour
 	private static int superDamage;
 	private static int megaDamage;
 	private static int ultraDamage;
+
+	private static int musicOn;
+	private static int soundOn;
+	#endregion
+
+	#region session variables
+	private static bool loggedIn = false;
 	#endregion
 
 	#region get/set
+	public static FacebookUser user
+	{
+		get { return FacebookController.User; }
+	}
+
 	public static bool IsLoaded
 	{
 		get 
 		{
 			return isLoaded;
 		}
+	}
+
+	public static bool IsLoggedIn
+	{
+		get { return loggedIn; }
 	}
 
 	public static int HighScore
@@ -259,6 +280,43 @@ public class Global : MonoBehaviour
 			Save ();
 		}
 	}
+
+	public static bool IsMusicOn
+	{
+		get
+		{
+			if(!isLoaded)
+				Load ();
+
+			return musicOn == 1;
+		}
+
+		set
+		{
+			musicOn = (value == true) ? 1 : 0;
+
+			Save ();
+		}
+	}
+
+	public static bool IsSoundOn
+	{
+		get
+		{
+			if(!isLoaded)
+				Load ();
+
+			return soundOn == 1;
+		}
+		
+		set
+		{
+			soundOn = (value == true) ? 1 : 0;
+			
+			Save ();
+		}
+	}
+
 	#endregion
 
 	private static void Load()
@@ -280,6 +338,8 @@ public class Global : MonoBehaviour
 			superDamage = PlayerPrefs.GetInt(DAMAGE_SUPER);
 			megaDamage = PlayerPrefs.GetInt(DAMAGE_MEGA);
 			ultraDamage = PlayerPrefs.GetInt(DAMAGE_ULTRA);
+			musicOn = PlayerPrefs.GetInt(MUSIC_ON);
+			soundOn = PlayerPrefs.GetInt(SOUNDFX_ON);
 		}
 		else
 		{
@@ -295,6 +355,8 @@ public class Global : MonoBehaviour
 			superDamage = 0;
 			megaDamage = 0;
 			ultraDamage = 0;
+			musicOn = 1;
+			soundOn = 1;
 
 			Save();
 		}
@@ -331,7 +393,25 @@ public class Global : MonoBehaviour
 		PlayerPrefs.SetInt (DAMAGE_SUPER, superDamage);
 		PlayerPrefs.SetInt (DAMAGE_MEGA, megaDamage);
 		PlayerPrefs.SetInt (DAMAGE_ULTRA, ultraDamage);
+		PlayerPrefs.SetInt (MUSIC_ON, musicOn);
+		PlayerPrefs.SetInt (SOUNDFX_ON, soundOn);
 
 		PlayerPrefs.Save ();
+	}
+
+	public static void LogIn()
+	{
+		loggedIn = true;
+
+		if(OnLoggedIn != null)
+			OnLoggedIn();
+	}
+
+	public static void LogOut()
+	{
+		loggedIn = false;
+
+		if(OnLoggedOut != null)
+			OnLoggedOut();
 	}
 }
