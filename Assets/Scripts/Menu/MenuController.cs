@@ -17,6 +17,9 @@ public class MenuController : MonoBehaviour
 	private static Menus lastMenu;
 	private static Menus activeMenu;
 
+	private static GameObject lastScreen;
+	private static GameObject activeScreen;
+
 	/// <summary>
 	/// Occurs when on panel fully open.
 	/// </summary>
@@ -94,6 +97,8 @@ public class MenuController : MonoBehaviour
 	{
 		lastMenu = Menus.None;
 		activeMenu = Menus.Main;
+
+		activeScreen = mainScreen.gameObject;
 
 		//hide all others menus
 		shopScreen.gameObject.SetActive (false);
@@ -237,6 +242,9 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToMain()
 	{
+		lastScreen = activeScreen;
+		activeScreen = mainScreen.gameObject;
+
 		mainScreen.gameObject.SetActive (true);
 		lastMenu = activeMenu;
 		activeMenu = Menus.Main;
@@ -254,6 +262,9 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToShop()
 	{
+		lastScreen = activeScreen;
+		activeScreen = shopScreen.gameObject;
+
 		shopScreen.gameObject.SetActive (true);
 		lastMenu = activeMenu;
 		activeMenu = Menus.Shop;
@@ -271,6 +282,9 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToSettings()
 	{
+		lastScreen = activeScreen;
+		activeScreen = settingsScreen.gameObject;
+
 		settingsScreen.gameObject.SetActive (true);
 		lastMenu = activeMenu;
 		activeMenu = Menus.Settings;
@@ -288,6 +302,9 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToCredits()
 	{
+		lastScreen = activeScreen;
+		activeScreen = creditsScreen.gameObject;
+
 		creditsScreen.gameObject.SetActive (true);
 		lastMenu = activeMenu;
 		activeMenu = Menus.Settings;
@@ -305,24 +322,7 @@ public class MenuController : MonoBehaviour
 
 	public void OnMenuTransitionFinished()
 	{
-		switch (lastMenu)
-		{
-			case Menus.Main:
-				mainScreen.gameObject.SetActive(false);
-			break;
-
-			case Menus.Shop:
-				shopScreen.gameObject.SetActive(false);
-			break;
-
-			case Menus.Settings:
-				settingsScreen.gameObject.SetActive(false);
-			break;
-
-			case Menus.Credits:
-				creditsScreen.gameObject.SetActive(false);
-			break;
-		}
+		lastScreen.SetActive (false);
 	}
 
 	private void ShowAds()
