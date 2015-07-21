@@ -5,16 +5,19 @@ using System.Collections;
 
 public class MenuController : MonoBehaviour 
 {
-	enum Menus
+	public enum Menus
 	{
 		None,
 		Main,
 		Shop,
 		Settings,
 		Credits,
+		HUBConnection,
+		Achievements,
+		Creepypedia,
+		GameStats,
 	}
-
-	private static Menus lastMenu;
+	
 	private static Menus activeMenu;
 
 	private static GameObject lastScreen;
@@ -63,6 +66,10 @@ public class MenuController : MonoBehaviour
 	public Transform shopScreen;
 	public Transform settingsScreen;
 	public Transform creditsScreen;
+	public Transform hubConnectionScreen;
+	public Transform achievementsScreen;
+	public Transform creepypediaScreen;
+	public Transform gameStatsScreen;
 	
 	#region singleton
 	private static MenuController instance;
@@ -75,6 +82,25 @@ public class MenuController : MonoBehaviour
 
 			return instance;
 		}
+	}
+	#endregion
+
+	#region get / set
+	public GameObject ActiveScreen
+	{
+		get { return activeScreen; }
+
+		set
+		{
+			lastScreen = activeScreen;
+
+			activeScreen = value;
+		}
+	}
+
+	public static Menus CurrentMenu
+	{
+		get { return activeMenu; }
 	}
 	#endregion
 
@@ -95,7 +121,6 @@ public class MenuController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		lastMenu = Menus.None;
 		activeMenu = Menus.Main;
 
 		activeScreen = mainScreen.gameObject;
@@ -104,6 +129,10 @@ public class MenuController : MonoBehaviour
 		shopScreen.gameObject.SetActive (false);
 		settingsScreen.gameObject.SetActive (false);
 		creditsScreen.gameObject.SetActive (false);
+		hubConnectionScreen.gameObject.SetActive (false);
+		achievementsScreen.gameObject.SetActive (false);
+		creepypediaScreen.gameObject.SetActive (false);
+		gameStatsScreen.gameObject.SetActive (false);
 
 		wallTop = mainScreen.FindChild ("WallTop").GetComponent<TweenPosition> ();
 		wallBottom = mainScreen.FindChild ("WallBottom").GetComponent<TweenPosition> ();
@@ -242,55 +271,46 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToMain()
 	{
-		lastScreen = activeScreen;
-		activeScreen = mainScreen.gameObject;
-
-		mainScreen.gameObject.SetActive (true);
-		lastMenu = activeMenu;
-		activeMenu = Menus.Main;
-
-		Vector3 from = menuTween.transform.localPosition;
-		Vector3 to = -mainScreen.localPosition;
-
-		menuTween.ResetToBeginning ();
+		ActiveScreen = mainScreen.gameObject;
 		
-		menuTween.from = from;
-		menuTween.to = to;
-
-		menuTween.PlayForward ();
+		activeMenu = Menus.Main;
+		
+		MoveScreen ();
 	}
 
 	public void MoveToShop()
 	{
-		lastScreen = activeScreen;
-		activeScreen = shopScreen.gameObject;
+		ActiveScreen = shopScreen.gameObject;
 
-		shopScreen.gameObject.SetActive (true);
-		lastMenu = activeMenu;
 		activeMenu = Menus.Shop;
 
-		Vector3 from = menuTween.transform.localPosition;
-		Vector3 to = -shopScreen.localPosition;
-		
-		menuTween.ResetToBeginning ();
-		
-		menuTween.from = from;
-		menuTween.to = to;
-		
-		menuTween.PlayForward ();
+		MoveScreen ();
 	}
 
 	public void MoveToSettings()
 	{
-		lastScreen = activeScreen;
-		activeScreen = settingsScreen.gameObject;
+		ActiveScreen = settingsScreen.gameObject;
 
-		settingsScreen.gameObject.SetActive (true);
-		lastMenu = activeMenu;
 		activeMenu = Menus.Settings;
 		
+		MoveScreen ();
+	}
+
+	public void MoveToCredits()
+	{
+		ActiveScreen = creditsScreen.gameObject;
+
+		activeMenu = Menus.Settings;
+
+		MoveScreen ();
+	}
+
+	public void MoveScreen()
+	{
+		ActiveScreen.SetActive (true);
+
 		Vector3 from = menuTween.transform.localPosition;
-		Vector3 to = -settingsScreen.localPosition;
+		Vector3 to = -ActiveScreen.transform.localPosition;
 		
 		menuTween.ResetToBeginning ();
 		
@@ -300,24 +320,40 @@ public class MenuController : MonoBehaviour
 		menuTween.PlayForward ();
 	}
 
-	public void MoveToCredits()
+	public void MoveToHUBConnection()
 	{
-		lastScreen = activeScreen;
-		activeScreen = creditsScreen.gameObject;
+		ActiveScreen = hubConnectionScreen.gameObject;
+		
+		activeMenu = Menus.HUBConnection;
+		
+		MoveScreen ();
+	}
 
-		creditsScreen.gameObject.SetActive (true);
-		lastMenu = activeMenu;
-		activeMenu = Menus.Settings;
+	public void MoveToAchievements()
+	{
+		ActiveScreen = achievementsScreen.gameObject;
 		
-		Vector3 from = menuTween.transform.localPosition;
-		Vector3 to = -creditsScreen.localPosition;
+		activeMenu = Menus.Achievements;
 		
-		menuTween.ResetToBeginning ();
+		MoveScreen ();
+	}
+
+	public void MoveToCreepypedia()
+	{
+		ActiveScreen = creepypediaScreen.gameObject;
 		
-		menuTween.from = from;
-		menuTween.to = to;
+		activeMenu = Menus.Creepypedia;
 		
-		menuTween.PlayForward ();
+		MoveScreen ();
+	}
+
+	public void MoveToGameStats()
+	{
+		ActiveScreen = gameStatsScreen.gameObject;
+		
+		activeMenu = Menus.GameStats;
+		
+		MoveScreen ();
 	}
 
 	public void OnMenuTransitionFinished()
