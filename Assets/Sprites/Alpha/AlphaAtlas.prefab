@@ -42,7 +42,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 4c7268ae06d8a47beaad6576273e7735, type: 2}
   mSprites:
   - name: Achievement
-    x: 1039
+    x: 539
     y: 468
     width: 249
     height: 249
@@ -55,8 +55,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: Achievements
-    x: 1039
-    y: 718
+    x: 285
+    y: 469
     width: 249
     height: 249
     borderLeft: 0
@@ -250,8 +250,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: HUB Connection
-    x: 789
-    y: 468
+    x: 1039
+    y: 718
     width: 249
     height: 249
     borderLeft: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
     paddingBottom: 8
   - name: Off
     x: 789
-    y: 718
+    y: 468
     width: 249
     height: 249
     borderLeft: 0
@@ -289,8 +289,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: On
-    x: 539
-    y: 218
+    x: 789
+    y: 718
     width: 249
     height: 249
     borderLeft: 0
@@ -303,7 +303,7 @@ MonoBehaviour:
     paddingBottom: 4
   - name: play
     x: 539
-    y: 468
+    y: 218
     width: 249
     height: 249
     borderLeft: 0
@@ -323,6 +323,19 @@ MonoBehaviour:
     borderRight: 16
     borderTop: 16
     borderBottom: 16
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Popup down
+    x: 1921
+    y: 1512
+    width: 64
+    height: 64
+    borderLeft: 15
+    borderRight: 15
+    borderTop: 15
+    borderBottom: 15
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
@@ -367,7 +380,7 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 11
   - name: ray3
-    x: 1760
+    x: 1531
     y: 732
     width: 228
     height: 235
@@ -380,7 +393,7 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 11
   - name: ray4
-    x: 1531
+    x: 1760
     y: 732
     width: 228
     height: 235
@@ -419,8 +432,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: settings
-    x: 285
-    y: 219
+    x: 1039
+    y: 468
     width: 249
     height: 249
     borderLeft: 0
@@ -433,7 +446,7 @@ MonoBehaviour:
     paddingBottom: 4
   - name: shop_icon
     x: 285
-    y: 469
+    y: 219
     width: 249
     height: 249
     borderLeft: 0
@@ -495,6 +508,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: mSprites.Array.data[11].width
       value: 465
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[22].borderLeft
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[22].borderRight
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[22].borderBottom
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[22].borderTop
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

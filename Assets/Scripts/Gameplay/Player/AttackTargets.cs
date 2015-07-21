@@ -223,6 +223,6 @@ public class AttackTargets : MonoBehaviour
 	{
 		GameController.Instance.FingerHit ();
 		
-		col.gameObject.GetComponent<EnemyLife>().Dead();
+		col.gameObject.GetComponent<EnemyLife>().Dead(GameController.IsInvencible);
 	}
 }

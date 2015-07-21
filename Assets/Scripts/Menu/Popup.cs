@@ -10,14 +10,6 @@ public class Popup : MonoBehaviour
 	public static event Action OkClicked;
 	#endregion
 
-	public enum Type
-	{
-		None,
-		YesNo,
-		VideoNo,
-		Ok,
-	}
-
 	private static GameObject yes;
 	private static GameObject no;
 	private static GameObject ok;
@@ -59,19 +51,14 @@ public class Popup : MonoBehaviour
 		Hide ();
 	}
 
-	public static void Show(string description, Type type, Action yesAction, Action noAction)
+	public static void ShowYesNo(string description, Action yesAction, Action noAction)
 	{
 		Instance.gameObject.SetActive (true);
 
 		ok.SetActive (false);
-		yes.SetActive (false);
 		video.SetActive (false);
 
-		if (type == Type.VideoNo)
-			video.SetActive (true);
-		else
-			yes.SetActive (true);
-
+		yes.SetActive (true);
 		no.SetActive (true);
 
 		YesClicked += yesAction;
@@ -80,7 +67,23 @@ public class Popup : MonoBehaviour
 		descricao.text = description;
 	}
 
-	public static void Show(string description, Type type, Action okAction)
+	public static void ShowVideoNo(string description, Action videoAction, Action noAction)
+	{
+		Instance.gameObject.SetActive (true);
+		
+		ok.SetActive (false);
+		yes.SetActive (false);
+		
+		video.SetActive (true);
+		no.SetActive (true);
+		
+		YesClicked += videoAction;
+		NoClicked += noAction;
+		
+		descricao.text = description;
+	}
+
+	public static void ShowOk(string description, Action okAction)
 	{
 		Instance.gameObject.SetActive (true);
 

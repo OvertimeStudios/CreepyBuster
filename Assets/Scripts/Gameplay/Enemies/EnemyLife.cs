@@ -12,6 +12,8 @@ public class EnemyLife : MonoBehaviour
 	public float life;
 	public int score;
 	public bool countAsStreak = true;
+	[HideInInspector]
+	public bool countAsKill = true;
 
 	public static float deathTime = 1f;
 
@@ -23,7 +25,6 @@ public class EnemyLife : MonoBehaviour
 	private List<SpriteRenderer> brilhos;
 	public Color basicColor = Color.yellow;
 	public Color damageColor = Color.red;
-
 
 	[Header("Item")]
 	public float chanceToDrop;
@@ -75,7 +76,6 @@ public class EnemyLife : MonoBehaviour
 	void Start () 
 	{
 		spriteRenderer = transform.FindChild ("Sprite").GetComponent<SpriteRenderer> ();
-
 
 		brilhos = new List<SpriteRenderer> ();
 
@@ -135,16 +135,21 @@ public class EnemyLife : MonoBehaviour
 
 	public void Dead()
 	{
+		Dead (true);
+	}
+
+	public void Dead(bool countPoints)
+	{
 		foreach(SpriteRenderer brilho in brilhos)
 			brilho.color = damageColor;
-
+		
 		foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
 			col.enabled = false;
 
-		//EventDelegate.Execute (onDeadEvent);
-
+		countAsKill = countPoints;
+		
 		StartCoroutine (FadeAway (deathTime));
-
+		
 		SpawnItem ();
 
 		if (OnDied != null)

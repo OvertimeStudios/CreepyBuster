@@ -2,6 +2,8 @@
 using System.Collections;
 using System;
 
+using UnityEngine.Advertisements;
+
 public class GameController : MonoBehaviour 
 {
 	public static event Action OnGameStart;
@@ -25,6 +27,11 @@ public class GameController : MonoBehaviour
 	public static bool gameOver;
 	private static bool slowedDown;
 	private static bool invencible;
+	private static int continues;
+
+	public float timeToShowGameOverScreen;
+	public int orbsToContinue;
+	public int pointsPerOrb = 10;
 
 	/// <summary>
 	/// Total score for session
@@ -52,6 +59,8 @@ public class GameController : MonoBehaviour
 	public static int specialStreak;
 
 	public static int orbsCollected;
+
+	private static bool fingerDown;
 
 	#region get / set
 	public static int StreakCount
@@ -102,6 +111,11 @@ public class GameController : MonoBehaviour
 				OnScoreUpdated ();
 		}
 	}
+
+	public static bool IsFingerDown
+	{
+		get { return fingerDown; }
+	}
 	#endregion
 
 	#region singleton
@@ -124,6 +138,7 @@ public class GameController : MonoBehaviour
 		MenuController.OnPanelOpening += Reset;
 		LevelDesign.OnPlayerLevelUp += PlayerLevelUp;
 		Item.OnCollected += OnItemCollected;
+		RewardedVideoPlayer.OnRevivePlayer += VideoWatched;
 	}
 
 	void OnDisable()
@@ -132,23 +147,34 @@ public class GameController : MonoBehaviour
 		MenuController.OnPanelOpening -= Reset;
 		LevelDesign.OnPlayerLevelUp -= PlayerLevelUp;
 		Item.OnCollected -= OnItemCollected;
+		RewardedVideoPlayer.OnRevivePlayer -= VideoWatched;
+	}
+
+	void Start()
+	{
+		instance = this;
+
+		gameObject.SetActive(false);
 	}
 
 	void OnEnemyDied(GameObject enemy)
 	{
-		score += enemy.GetComponent<EnemyLife>().score;
-
-		if(OnScoreUpdated != null)
-			OnScoreUpdated();
-
-		//only count streak outside special
-		if(enemy.GetComponent<EnemyLife>().countAsStreak)
+		if(enemy.GetComponent<EnemyLife>().countAsKill)
 		{
-			RealStreakCount++;
+			score += enemy.GetComponent<EnemyLife>().score;
 
-			//call Action on set method
-			if(!AttackTargets.IsSpecialActive)
-				StreakCount++;
+			if(OnScoreUpdated != null)
+				OnScoreUpdated();
+
+			//only count streak outside special
+			if(enemy.GetComponent<EnemyLife>().countAsStreak)
+			{
+				RealStreakCount++;
+
+				//call Action on set method
+				if(!AttackTargets.IsSpecialActive)
+					StreakCount++;
+			}
 		}
 	}
 
@@ -167,7 +193,7 @@ public class GameController : MonoBehaviour
 		if (LevelDesign.PlayerLevel > 0)
 			LoseStacks ();
 		else
-			GameOver ();
+			NoMoreLifes ();
 	}
 
 	private void LoseStacks()
@@ -182,23 +208,104 @@ public class GameController : MonoBehaviour
 			OnLoseStacks ();
 	}
 
+	private void NoMoreLifes()
+	{
+		isGameRunning = false;
+		gameOver = true;
+
+		StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen));
+	}
+
 	public void GameOver()
 	{
 		isGameRunning = false;
 		gameOver = true;
-		Global.TotalOrbs += orbsCollected;
+
+		MenuController.Instance.gameObject.SetActive(true);
 
 		if (OnGameOver != null)
 			OnGameOver ();
+
+		gameObject.SetActive(false);
+	}
+
+	private IEnumerator ShowContinueScreen(float waitTime)
+	{
+		yield return new WaitForSeconds (waitTime);
+
+		if (continues == 0 && Advertisement.IsReady ())
+			Popup.ShowVideoNo("You got hit! \n \n Do you want to watch 1 video to continue playing?", null, ShowEndScreen);
+		else
+		{
+			#if INFINITY_ORBS
+			Popup.ShowYesNo("You got hit! \n \n But you have infinity orbs cheat. Do you want to continue, m'lord?", PayContinueOrbs, ShowEndScreen);
+			#else
+			float orbsToPay = (orbsToContinue * Mathf.Pow(2, continues));
+
+			if(Global.TotalOrbs >= orbsToPay)
+				Popup.ShowYesNo("You got hit! \n \n Do you want to spent " + orbsToPay + " orbs to continue playing? \n \n (You have " + Global.TotalOrbs + " orbs.)", PayContinueOrbs, ShowEndScreen);
+			else
+				Popup.ShowOk("You got hit! \n \n You don't have enough orbs to continue playing", ShowEndScreen);
+			#endif
+		}
+	}
+
+	private void ShowEndScreen()
+	{
+		//TODO: show end screen
+		Global.TotalOrbs += orbsCollected;
+
+		HUDController.Instance.ShowEndScreen ();
+	}
+
+	private void VideoWatched()
+	{
+		ContinuePlaying ();
+	}
+
+	private void PayContinueOrbs()
+	{
+		#if !INFINITY_ORBS
+		Global.TotalOrbs -= (int)(orbsToContinue * Mathf.Pow (2, continues));
+		#endif
+		ContinuePlaying ();
+	}
+
+	private void ContinuePlaying()
+	{
+		continues++;
+
+		Debug.Log ("ContinuePlaying");
+
+		StartCoroutine (WaitForFingerDown ());
+	}
+
+	private IEnumerator WaitForFingerDown()
+	{
+		Debug.Log ("WaitForFingerDown");
+
+		while (IsFingerDown)
+			yield return null;
+
+		while(!IsFingerDown)
+			yield return null;
+
+		Debug.Log ("Continue");
+
+		isGameRunning = true;
+		gameOver = false;
 	}
 
 	public void StartGame()
 	{
+		fingerDown = true;
+
 		enemiesKillCount = 0;
 		score = 0;
 		specialStreak = 0;
 		orbsCollected = 0;
 		realStreakCount = 0;
+		continues = 0;
 
 		gameOver = false;
 		isGameRunning = true;
@@ -214,6 +321,7 @@ public class GameController : MonoBehaviour
 		StreakCount = 0;
 		orbsCollected = 0;
 		realStreakCount = 0;
+		continues = 0;
 
 		gameOver = false;
 
@@ -221,10 +329,19 @@ public class GameController : MonoBehaviour
 			OnScoreUpdated();
 	}
 
+	void OnFingerDown(FingerDownEvent e)
+	{
+		Debug.Log ("OnFingerDown");
+		fingerDown = true;
+	}
+
 	void OnFingerUp(FingerUpEvent e)
 	{
+		Debug.Log ("OnFingerUp");
+		fingerDown = false;
+
 		if(GameController.isGameRunning)
-			GameOver ();
+			ShowEndScreen ();
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)

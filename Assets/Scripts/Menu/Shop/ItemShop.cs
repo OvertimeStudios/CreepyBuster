@@ -124,14 +124,14 @@ public class ItemShop : MonoBehaviour
 
 		#if INFINITY_ORBS
 		if (Global.TotalOrbs >= price)
-			Popup.Show ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price) + " orbs?", Popup.Type.YesNo, PurchaseAccepted, PurchaseDeclined);
+			Popup.ShowYesNo ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price) + " orbs?", PurchaseAccepted, PurchaseDeclined);
 		else
-			Popup.Show ("You may don't have enough orbs, but you are cheating, who cares? Wanna buy?", Popup.Type.YesNo, PurchaseAccepted, PurchaseDeclined);
+			Popup.ShowYesNo ("You may don't have enough orbs, but you are cheating, who cares? Wanna buy?", PurchaseAccepted, PurchaseDeclined);
 		#else
 		if (Global.TotalOrbs >= price)
-			Popup.Show ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price) + " orbs?", Popup.Type.YesNo, PurchaseAccepted, PurchaseDeclined);
+			Popup.ShowYesNo ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price) + " orbs?", PurchaseAccepted, PurchaseDeclined);
 		else
-			Popup.Show ("You don't have enough orbs. You must have " + string.Format ("{0:0,0}", (price - Global.TotalOrbs)) + " more orbs to buy this item.", Popup.Type.Ok, null);
+			Popup.ShowOk ("You don't have enough orbs. You must have " + string.Format ("{0:0,0}", (price - Global.TotalOrbs)) + " more orbs to buy this item.", null);
 		#endif
 	}
 
@@ -146,7 +146,7 @@ public class ItemShop : MonoBehaviour
 		}
 
 		#if INFINITY_ORBS
-		Popup.Show("Bad, bad cheating boy. Here is your 'purchase'. Humpf.", Popup.Type.Ok, null);
+		Popup.ShowOk("Bad, bad cheating boy. Here is your 'purchase'. Humpf.", null);
 		UnlockProperty();
 		#endif
 	}

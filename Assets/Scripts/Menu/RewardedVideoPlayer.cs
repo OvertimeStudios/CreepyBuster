@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class RewardedVideoPlayer : MonoBehaviour 
 {
+	#region Action
+	public static event Action OnRevivePlayer;
+	#endregion
+
 	public enum Rewards
 	{
 		Orbs,
@@ -31,10 +36,13 @@ public class RewardedVideoPlayer : MonoBehaviour
 	private void GiveOrbs()
 	{
 		Global.TotalOrbs += orbsToGive;
+
+		Popup.ShowOk ("You received " + orbsToGive + " orbs.", null);
 	}
 
 	private void RevivePlayer()
 	{
-
+		if (OnRevivePlayer != null)
+			OnRevivePlayer ();
 	}
 }

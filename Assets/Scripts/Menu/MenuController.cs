@@ -121,6 +121,8 @@ public class MenuController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		instance = this;
+
 		activeMenu = Menus.Main;
 
 		activeScreen = mainScreen.gameObject;
@@ -148,7 +150,7 @@ public class MenuController : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
-		if(!GameController.isGameRunning && !wallTop.enabled)
+		if(!wallTop.enabled)
 		{
 			if(e.Selection)
 			{
@@ -186,6 +188,7 @@ public class MenuController : MonoBehaviour
 		rotate.rotVel = initialTapAndHoldRotation;
 		trailRenderer.SetActive(false);
 
+
 		OpenPanel();
 		
 		if(OnPanelOpening != null)
@@ -194,7 +197,7 @@ public class MenuController : MonoBehaviour
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		if(!GameController.isGameRunning && !wallTop.enabled && timeCounter < timeToStartGame)
+		if(!wallTop.enabled && timeCounter < timeToStartGame)
 		{
 			StopCoroutine("CountdownBeginGame");
 			StartCoroutine("CountdownAborted");
@@ -225,8 +228,12 @@ public class MenuController : MonoBehaviour
 
 			hud.SetActive (true);
 
+			GameController.Instance.gameObject.SetActive(true);
+
 			if(OnPanelOpened != null)
 				OnPanelOpened();
+
+			gameObject.SetActive(false);
 		}
 		else
 		{
