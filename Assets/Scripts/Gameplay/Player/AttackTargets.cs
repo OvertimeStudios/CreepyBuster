@@ -73,8 +73,6 @@ public class AttackTargets : MonoBehaviour
 		targets = new List<Transform> ();
 		enemiesInRange = new List<Transform> ();
 
-		gameObject.SetActive (false);
-
 		foreach(CircleCollider2D col in GetComponents<CircleCollider2D>())
 		{
 			if(col.isTrigger)
@@ -83,6 +81,8 @@ public class AttackTargets : MonoBehaviour
 				break;
 			}
 		}
+
+		gameObject.SetActive (false);
 	}
 
 	private void GetDamage()

@@ -9065,10 +9065,8 @@ GameObject:
   - 4: {fileID: 1036437449}
   - 114: {fileID: 1036437450}
   - 114: {fileID: 1036437451}
-  - 114: {fileID: 1036437452}
   - 58: {fileID: 1036437453}
   - 58: {fileID: 1036437454}
-  - 114: {fileID: 1036437456}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -9112,26 +9110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c458725f4ce4d5cb44fc39f60bae75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1036437452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1036437448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3aeaa6af5a2574dbc0c14ed591b5b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FingerIndexFilter: -1
-  Raycaster: {fileID: 0}
-  UseSendMessage: 1
-  SendMessageToSelection: 1
-  MessageTarget: {fileID: 0}
-  MoveMessageName: OnFingerMove
-  StationaryMessageName: OnFingerStationary
-  TrackMove: 1
-  TrackStationary: 1
 --- !u!58 &1036437453
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -9158,23 +9136,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: .300000012
---- !u!114 &1036437456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1036437448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a4762978c2447048aacc02a04592aaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FingerIndexFilter: -1
-  Raycaster: {fileID: 0}
-  UseSendMessage: 1
-  SendMessageToSelection: 1
-  MessageTarget: {fileID: 0}
-  MessageName: OnFingerUp
 --- !u!1 &1037057024
 GameObject:
   m_ObjectHideFlags: 0
@@ -12891,7 +12852,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1492870976}
   - 114: {fileID: 1492870978}
-  - 114: {fileID: 1492870979}
   m_Layer: 0
   m_Name: MenuController
   m_TagString: Untagged
@@ -12936,25 +12896,6 @@ MonoBehaviour:
   achievementsScreen: {fileID: 1465751921}
   creepypediaScreen: {fileID: 1572991426}
   gameStatsScreen: {fileID: 899799222}
---- !u!114 &1492870979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1492870975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf945d278a7402a4cb9cd26aec5c0fe7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Cameras:
-  - {fileID: 860026963}
-  IgnoreLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294963199
-  RayThickness: 0
-  VisualizeRaycasts: 1
-  UsePhysics2D: 1
 --- !u!1 &1495402062
 GameObject:
   m_ObjectHideFlags: 0

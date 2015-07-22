@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
 	public static event Action OnSlowDownFade;
 	public static event Action OnShowContinueScreen;
 	public static event Action OnShowEndScreen;
+	public static event Action OnReset;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
@@ -226,6 +227,7 @@ public class GameController : MonoBehaviour
 		if (OnGameOver != null)
 			OnGameOver ();
 
+		player.SetActive (false);
 		gameObject.SetActive(false);
 	}
 
@@ -306,10 +308,15 @@ public class GameController : MonoBehaviour
 
 	public void StartGame()
 	{
+		Reset ();
 		gameObject.SetActive (true);
 
+		Debug.Log ("FingerDetector.IsFingerDown: " + FingerDetector.IsFingerDown);
 		if (FingerDetector.IsFingerDown)
+		{
+			Debug.Log("Active Player");
 			player.SetActive (true);
+		}
 
 		StartCoroutine (WaitForPlayer ());
 	}
@@ -346,10 +353,14 @@ public class GameController : MonoBehaviour
 
 		if(OnScoreUpdated != null)
 			OnScoreUpdated();
+
+		if (OnReset != null)
+			OnReset ();
 	}
 
 	void OnFingerDown(FingerDownEvent e)
 	{
+		Debug.Log ("Activate by finger down");
 		player.SetActive (true);
 	}
 
