@@ -6,31 +6,24 @@ public class SlowDown : Item
 	public float slowAmount;
 	public float slowTime;
 
-	
+	private static float staticSlowAmout;
+	private static float staticSlowTime;
+
 	public static float SlowAmount
 	{
-		get { return Instance.slowAmount; }
+		get { return staticSlowAmout; }
 	}
 
 	public static float SlowTime
 	{
-		get { return Instance.slowTime; }
+		get { return staticSlowTime; }
 	}
 
-	private static SlowDown instance;
-	private static SlowDown Instance
+	protected override void Start ()
 	{
-		get 
-		{
-			if(instance == null)
-				instance = GameObject.FindObjectOfType<SlowDown>();
+		base.Start ();
 
-			return instance;
-		}
-	}
-
-	void Start()
-	{
-		instance = this;
+		staticSlowAmout = slowAmount;
+		staticSlowTime = slowTime;
 	}
 }

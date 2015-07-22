@@ -5,17 +5,23 @@ using System.Collections;
 
 public class MenuController : MonoBehaviour 
 {
-	enum Menus
+	public enum Menus
 	{
 		None,
 		Main,
 		Shop,
 		Settings,
 		Credits,
+		HUBConnection,
+		Achievements,
+		Creepypedia,
+		GameStats,
 	}
-
-	private static Menus lastMenu;
+	
 	private static Menus activeMenu;
+
+	private static GameObject lastScreen;
+	private static GameObject activeScreen;
 
 	/// <summary>
 	/// Occurs when on panel fully open.
@@ -60,6 +66,10 @@ public class MenuController : MonoBehaviour
 	public Transform shopScreen;
 	public Transform settingsScreen;
 	public Transform creditsScreen;
+	public Transform hubConnectionScreen;
+	public Transform achievementsScreen;
+	public Transform creepypediaScreen;
+	public Transform gameStatsScreen;
 	
 	#region singleton
 	private static MenuController instance;
@@ -75,11 +85,32 @@ public class MenuController : MonoBehaviour
 	}
 	#endregion
 
+	#region get / set
+	public GameObject ActiveScreen
+	{
+		get { return activeScreen; }
+
+		set
+		{
+			lastScreen = activeScreen;
+
+			activeScreen = value;
+		}
+	}
+
+	public static Menus CurrentMenu
+	{
+		get { return activeMenu; }
+	}
+	#endregion
+
 	void OnEnable()
 	{
 		GameController.OnGameOver += ClosePanel;
 		GameController.OnGameOver += UpdateScore;
 		MenuController.OnPanelClosed += ShowAds;
+		FingerDetector.OnFingerDownEvent += OnFingerDown;
+		FingerDetector.OnFingerUpEvent += OnFingerUp;
 	}
 
 	void OnDisable()
@@ -87,18 +118,27 @@ public class MenuController : MonoBehaviour
 		GameController.OnGameOver -= ClosePanel;
 		GameController.OnGameOver -= UpdateScore;
 		MenuController.OnPanelClosed -= ShowAds;
+		FingerDetector.OnFingerDownEvent -= OnFingerDown;
+		FingerDetector.OnFingerUpEvent -= OnFingerUp;
 	}
 
 	// Use this for initialization
 	void Start ()
 	{
-		lastMenu = Menus.None;
+		instance = this;
+
 		activeMenu = Menus.Main;
+
+		activeScreen = mainScreen.gameObject;
 
 		//hide all others menus
 		shopScreen.gameObject.SetActive (false);
 		settingsScreen.gameObject.SetActive (false);
 		creditsScreen.gameObject.SetActive (false);
+		hubConnectionScreen.gameObject.SetActive (false);
+		achievementsScreen.gameObject.SetActive (false);
+		creepypediaScreen.gameObject.SetActive (false);
+		gameStatsScreen.gameObject.SetActive (false);
 
 		wallTop = mainScreen.FindChild ("WallTop").GetComponent<TweenPosition> ();
 		wallBottom = mainScreen.FindChild ("WallBottom").GetComponent<TweenPosition> ();
@@ -114,7 +154,7 @@ public class MenuController : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
-		if(!GameController.isGameRunning && !wallTop.enabled)
+		if(!wallTop.enabled)
 		{
 			if(e.Selection)
 			{
@@ -152,6 +192,7 @@ public class MenuController : MonoBehaviour
 		rotate.rotVel = initialTapAndHoldRotation;
 		trailRenderer.SetActive(false);
 
+
 		OpenPanel();
 		
 		if(OnPanelOpening != null)
@@ -160,7 +201,7 @@ public class MenuController : MonoBehaviour
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		if(!GameController.isGameRunning && !wallTop.enabled && timeCounter < timeToStartGame)
+		if(!wallTop.enabled && timeCounter < timeToStartGame)
 		{
 			StopCoroutine("CountdownBeginGame");
 			StartCoroutine("CountdownAborted");
@@ -193,6 +234,8 @@ public class MenuController : MonoBehaviour
 
 			if(OnPanelOpened != null)
 				OnPanelOpened();
+
+			gameObject.SetActive(false);
 		}
 		else
 		{
@@ -237,63 +280,46 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToMain()
 	{
-		mainScreen.gameObject.SetActive (true);
-		lastMenu = activeMenu;
-		activeMenu = Menus.Main;
-
-		Vector3 from = menuTween.transform.localPosition;
-		Vector3 to = -mainScreen.localPosition;
-
-		menuTween.ResetToBeginning ();
+		ActiveScreen = mainScreen.gameObject;
 		
-		menuTween.from = from;
-		menuTween.to = to;
-
-		menuTween.PlayForward ();
+		activeMenu = Menus.Main;
+		
+		MoveScreen ();
 	}
 
 	public void MoveToShop()
 	{
-		shopScreen.gameObject.SetActive (true);
-		lastMenu = activeMenu;
+		ActiveScreen = shopScreen.gameObject;
+
 		activeMenu = Menus.Shop;
 
-		Vector3 from = menuTween.transform.localPosition;
-		Vector3 to = -shopScreen.localPosition;
-		
-		menuTween.ResetToBeginning ();
-		
-		menuTween.from = from;
-		menuTween.to = to;
-		
-		menuTween.PlayForward ();
+		MoveScreen ();
 	}
 
 	public void MoveToSettings()
 	{
-		settingsScreen.gameObject.SetActive (true);
-		lastMenu = activeMenu;
+		ActiveScreen = settingsScreen.gameObject;
+
 		activeMenu = Menus.Settings;
 		
-		Vector3 from = menuTween.transform.localPosition;
-		Vector3 to = -settingsScreen.localPosition;
-		
-		menuTween.ResetToBeginning ();
-		
-		menuTween.from = from;
-		menuTween.to = to;
-		
-		menuTween.PlayForward ();
+		MoveScreen ();
 	}
 
 	public void MoveToCredits()
 	{
-		creditsScreen.gameObject.SetActive (true);
-		lastMenu = activeMenu;
+		ActiveScreen = creditsScreen.gameObject;
+
 		activeMenu = Menus.Settings;
-		
+
+		MoveScreen ();
+	}
+
+	public void MoveScreen()
+	{
+		ActiveScreen.SetActive (true);
+
 		Vector3 from = menuTween.transform.localPosition;
-		Vector3 to = -creditsScreen.localPosition;
+		Vector3 to = -ActiveScreen.transform.localPosition;
 		
 		menuTween.ResetToBeginning ();
 		
@@ -303,26 +329,45 @@ public class MenuController : MonoBehaviour
 		menuTween.PlayForward ();
 	}
 
+	public void MoveToHUBConnection()
+	{
+		ActiveScreen = hubConnectionScreen.gameObject;
+		
+		activeMenu = Menus.HUBConnection;
+		
+		MoveScreen ();
+	}
+
+	public void MoveToAchievements()
+	{
+		ActiveScreen = achievementsScreen.gameObject;
+		
+		activeMenu = Menus.Achievements;
+		
+		MoveScreen ();
+	}
+
+	public void MoveToCreepypedia()
+	{
+		ActiveScreen = creepypediaScreen.gameObject;
+		
+		activeMenu = Menus.Creepypedia;
+		
+		MoveScreen ();
+	}
+
+	public void MoveToGameStats()
+	{
+		ActiveScreen = gameStatsScreen.gameObject;
+		
+		activeMenu = Menus.GameStats;
+		
+		MoveScreen ();
+	}
+
 	public void OnMenuTransitionFinished()
 	{
-		switch (lastMenu)
-		{
-			case Menus.Main:
-				mainScreen.gameObject.SetActive(false);
-			break;
-
-			case Menus.Shop:
-				shopScreen.gameObject.SetActive(false);
-			break;
-
-			case Menus.Settings:
-				settingsScreen.gameObject.SetActive(false);
-			break;
-
-			case Menus.Credits:
-				creditsScreen.gameObject.SetActive(false);
-			break;
-		}
+		lastScreen.SetActive (false);
 	}
 
 	private void ShowAds()

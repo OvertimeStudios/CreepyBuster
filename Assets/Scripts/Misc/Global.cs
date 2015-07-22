@@ -12,19 +12,20 @@ public class Global : MonoBehaviour
 	#endregion
 
 	#region keys
-	public const string TOTAL_ORBS = "totalOrbs";
-	public const string HIGH_SCORE = "highScore";
-	public const string RAY3 = "ray3";
-	public const string RAY4 = "ray4";
-	public const string RAY5 = "ray5";
-	public const string RANGE_SUPER = "superRange";
-	public const string RANGE_MEGA = "megaRange";
-	public const string RANGE_MASTER = "masterRange";
-	public const string DAMAGE_SUPER = "superDamage";
-	public const string DAMAGE_MEGA = "megaDamage";
-	public const string DAMAGE_ULTRA = "masterDamage";
-	public const string MUSIC_ON = "musicOn";
-	public const string SOUNDFX_ON = "soundFX";
+	public const string REWARDED_VIDEO_COOLDOWN = "rewardedVideoCooldown";
+	private const string TOTAL_ORBS = "totalOrbs";
+	private const string HIGH_SCORE = "highScore";
+	private const string RAY3 = "ray3";
+	private const string RAY4 = "ray4";
+	private const string RAY5 = "ray5";
+	private const string RANGE_SUPER = "superRange";
+	private const string RANGE_MEGA = "megaRange";
+	private const string RANGE_MASTER = "masterRange";
+	private const string DAMAGE_SUPER = "superDamage";
+	private const string DAMAGE_MEGA = "megaDamage";
+	private const string DAMAGE_ULTRA = "masterDamage";
+	private const string MUSIC_ON = "musicOn";
+	private const string SOUNDFX_ON = "soundFX";
 	#endregion
 
 	private static bool isLoaded;
@@ -84,7 +85,8 @@ public class Global : MonoBehaviour
 		{
 			highScore = value;
 
-			Save ();
+			PlayerPrefs.SetInt (HIGH_SCORE, highScore);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -121,7 +123,8 @@ public class Global : MonoBehaviour
 		{
 			totalOrbs = value;
 			
-			Save ();
+			PlayerPrefs.SetInt (TOTAL_ORBS, totalOrbs);
+			PlayerPrefs.Save ();
 
 			if(OnOrbUpdated != null)
 				OnOrbUpdated();
@@ -141,7 +144,8 @@ public class Global : MonoBehaviour
 		{
 			ray3 = (value == true) ? 1 : 0;
 
-			Save ();
+			PlayerPrefs.SetInt (RAY3, ray3);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -158,7 +162,8 @@ public class Global : MonoBehaviour
 		{
 			ray4 = (value == true) ? 1 : 0;
 			
-			Save ();
+			PlayerPrefs.SetInt (RAY4, ray4);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -175,7 +180,8 @@ public class Global : MonoBehaviour
 		{
 			ray5 = (value == true) ? 1 : 0;
 			
-			Save ();
+			PlayerPrefs.SetInt (RAY5, ray5);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -192,7 +198,8 @@ public class Global : MonoBehaviour
 		{
 			superRange = (value == true) ? 1 : 0;
 			
-			Save ();
+			PlayerPrefs.SetInt (RANGE_SUPER, superRange);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -209,7 +216,8 @@ public class Global : MonoBehaviour
 		{
 			megaRange = (value == true) ? 1 : 0;
 			
-			Save ();
+			PlayerPrefs.SetInt (RANGE_MEGA, megaRange);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -226,7 +234,8 @@ public class Global : MonoBehaviour
 		{
 			masterRange = (value == true) ? 1 : 0;
 			
-			Save ();
+			PlayerPrefs.SetInt (RANGE_MASTER, masterRange);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -243,7 +252,8 @@ public class Global : MonoBehaviour
 		{
 			superDamage = (value == true) ? 1 : 0;
 			
-			Save ();
+			PlayerPrefs.SetInt (DAMAGE_SUPER, superDamage);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -260,7 +270,8 @@ public class Global : MonoBehaviour
 		{
 			megaDamage = (value == true) ? 1 : 0;
 			
-			Save ();
+			PlayerPrefs.SetInt (DAMAGE_MEGA, megaDamage);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -277,7 +288,8 @@ public class Global : MonoBehaviour
 		{
 			ultraDamage = (value == true) ? 1 : 0;
 			
-			Save ();
+			PlayerPrefs.SetInt (DAMAGE_ULTRA, ultraDamage);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -295,7 +307,8 @@ public class Global : MonoBehaviour
 		{
 			musicOn = (value == true) ? 1 : 0;
 
-			Save ();
+			PlayerPrefs.SetInt (MUSIC_ON, musicOn);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -313,7 +326,8 @@ public class Global : MonoBehaviour
 		{
 			soundOn = (value == true) ? 1 : 0;
 			
-			Save ();
+			PlayerPrefs.SetInt (SOUNDFX_ON, soundOn);
+			PlayerPrefs.Save ();
 		}
 	}
 
@@ -358,7 +372,7 @@ public class Global : MonoBehaviour
 			musicOn = 1;
 			soundOn = 1;
 
-			Save();
+			SaveAll();
 		}
 	}
 
@@ -374,13 +388,13 @@ public class Global : MonoBehaviour
 		megaDamage = 0;
 		ultraDamage = 0;
 
-		Save ();
+		SaveAll ();
 
 		if(OnPurchasesCleared != null)
 			OnPurchasesCleared();
 	}
 
-	private static void Save()
+	private static void SaveAll()
 	{
 		PlayerPrefs.SetInt (HIGH_SCORE, highScore);
 		PlayerPrefs.SetInt (TOTAL_ORBS, totalOrbs);

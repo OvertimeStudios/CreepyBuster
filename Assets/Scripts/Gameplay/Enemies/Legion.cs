@@ -5,6 +5,7 @@ using System;
 public class Legion : EnemyMovement 
 {
 	public static Action<GameObject> OnMinionReleased;
+	public static Action<GameObject> OnMinionSpawned;
 
 	public GameObject minion;
 	public int minionsQty;
@@ -18,11 +19,13 @@ public class Legion : EnemyMovement
 	void OnEnable()
 	{
 		EnemyLife.OnDied += OnDied;
+		EnemyMovement.OnOutOfScreen += RemoveMinions;
 	}
 	
 	void OnDisable()
 	{
 		EnemyLife.OnDied -= OnDied;
+		EnemyMovement.OnOutOfScreen -= RemoveMinions;
 	}
 
 	// Use this for initialization
@@ -51,6 +54,9 @@ public class Legion : EnemyMovement
 				obj.transform.parent = transform.FindChild("Minions");
 				obj.transform.localPosition = pos;
 				obj.transform.rotation = rot;
+
+				if(OnMinionSpawned != null)
+					OnMinionSpawned(obj);
 			}
 		}
 	}
@@ -80,9 +86,28 @@ public class Legion : EnemyMovement
 						OnMinionReleased(t.gameObject);
 				}
 			}
+			else
+			{
+				RemoveMinions(gameObject);
+			}
 		}
 	}
-	
+
+	private void RemoveMinions(GameObject obj)
+	{
+		if(obj == gameObject)
+			RemoveMinions();
+	}
+
+	private void RemoveMinions()
+	{
+		foreach(Transform t in transform.FindChild("Minions"))
+		{
+			if(!t.GetComponent<EnemyLife>().IsDead)
+				t.GetComponent<EnemyLife>().Dead(false);
+		}
+	}
+
 	private IEnumerator StopSpinning(float waitTime)
 	{
 		float maxRotVel = rotVel;

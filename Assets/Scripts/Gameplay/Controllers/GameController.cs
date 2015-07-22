@@ -2,6 +2,8 @@
 using System.Collections;
 using System;
 
+using UnityEngine.Advertisements;
+
 public class GameController : MonoBehaviour 
 {
 	public static event Action OnGameStart;
@@ -20,11 +22,19 @@ public class GameController : MonoBehaviour
 	public static event Action OnLoseStacks;
 	public static event Action OnSlowDownCollected;
 	public static event Action OnSlowDownFade;
+	public static event Action OnShowContinueScreen;
+	public static event Action OnShowEndScreen;
+	public static event Action OnReset;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
 	private static bool slowedDown;
 	private static bool invencible;
+	private static int continues;
+
+	public float timeToShowGameOverScreen;
+	public int orbsToContinue;
+	public int pointsPerOrb = 10;
 
 	/// <summary>
 	/// Total score for session
@@ -52,6 +62,8 @@ public class GameController : MonoBehaviour
 	public static int specialStreak;
 
 	public static int orbsCollected;
+	
+	private static GameObject player;
 
 	#region get / set
 	public static int StreakCount
@@ -124,6 +136,9 @@ public class GameController : MonoBehaviour
 		MenuController.OnPanelOpening += Reset;
 		LevelDesign.OnPlayerLevelUp += PlayerLevelUp;
 		Item.OnCollected += OnItemCollected;
+		RewardedVideoPlayer.OnRevivePlayer += VideoWatched;
+		FingerDetector.OnFingerDownEvent += OnFingerDown;
+		FingerDetector.OnFingerUpEvent += OnFingerUp;
 	}
 
 	void OnDisable()
@@ -132,23 +147,38 @@ public class GameController : MonoBehaviour
 		MenuController.OnPanelOpening -= Reset;
 		LevelDesign.OnPlayerLevelUp -= PlayerLevelUp;
 		Item.OnCollected -= OnItemCollected;
+		RewardedVideoPlayer.OnRevivePlayer -= VideoWatched;
+		FingerDetector.OnFingerDownEvent -= OnFingerDown;
+		FingerDetector.OnFingerUpEvent -= OnFingerUp;
+	}
+
+	void Start()
+	{
+		instance = this;
+
+		gameObject.SetActive(false);
+
+		player = GameObject.FindWithTag ("Player");
 	}
 
 	void OnEnemyDied(GameObject enemy)
 	{
-		score += enemy.GetComponent<EnemyLife>().score;
-
-		if(OnScoreUpdated != null)
-			OnScoreUpdated();
-
-		//only count streak outside special
-		if(enemy.GetComponent<EnemyLife>().countAsStreak)
+		if(enemy.GetComponent<EnemyLife>().countAsKill)
 		{
-			RealStreakCount++;
+			score += enemy.GetComponent<EnemyLife>().score;
 
-			//call Action on set method
-			if(!AttackTargets.IsSpecialActive)
-				StreakCount++;
+			if(OnScoreUpdated != null)
+				OnScoreUpdated();
+
+			//only count streak outside special
+			if(enemy.GetComponent<EnemyLife>().countAsStreak)
+			{
+				RealStreakCount++;
+
+				//call Action on set method
+				if(!AttackTargets.IsSpecialActive)
+					StreakCount++;
+			}
 		}
 	}
 
@@ -167,7 +197,7 @@ public class GameController : MonoBehaviour
 		if (LevelDesign.PlayerLevel > 0)
 			LoseStacks ();
 		else
-			GameOver ();
+			NoMoreLifes ();
 	}
 
 	private void LoseStacks()
@@ -182,27 +212,130 @@ public class GameController : MonoBehaviour
 			OnLoseStacks ();
 	}
 
+	private void NoMoreLifes()
+	{
+		StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen));
+	}
+
 	public void GameOver()
 	{
 		isGameRunning = false;
 		gameOver = true;
-		Global.TotalOrbs += orbsCollected;
+
+		MenuController.Instance.gameObject.SetActive(true);
 
 		if (OnGameOver != null)
 			OnGameOver ();
+
+		player.SetActive (false);
+		gameObject.SetActive(false);
+	}
+
+	private IEnumerator ShowContinueScreen(float waitTime)
+	{
+		isGameRunning = false;
+		gameOver = true;
+
+		yield return new WaitForSeconds (waitTime);
+
+		if (continues == 0 && Advertisement.IsReady ())
+			Popup.ShowVideoNo("You got hit! \n \n Do you want to watch 1 video to continue playing?", null, ShowEndScreen);
+		else
+		{
+			#if INFINITY_ORBS
+			Popup.ShowYesNo("You got hit! \n \n But you have infinity orbs cheat. Do you want to continue, m'lord?", PayContinueOrbs, ShowEndScreen);
+			#else
+			float orbsToPay = (orbsToContinue * Mathf.Pow(2, continues));
+
+			if(Global.TotalOrbs >= orbsToPay)
+				Popup.ShowYesNo("You got hit! \n \n Do you want to spent " + orbsToPay + " orbs to continue playing? \n \n (You have " + Global.TotalOrbs + " orbs.)", PayContinueOrbs, ShowEndScreen);
+			else
+				Popup.ShowOk("You got hit! \n \n You don't have enough orbs to continue playing", ShowEndScreen);
+			#endif
+		}
+
+		if (OnShowContinueScreen != null)
+			OnShowContinueScreen ();
+	}
+
+	private void ShowEndScreen()
+	{
+		Global.TotalOrbs += orbsCollected;
+
+		HUDController.Instance.ShowEndScreen ();
+
+		if (OnShowEndScreen != null)
+			OnShowEndScreen ();
+	}
+
+	private void VideoWatched()
+	{
+		ContinuePlaying ();
+	}
+
+	private void PayContinueOrbs()
+	{
+		#if !INFINITY_ORBS
+		Global.TotalOrbs -= (int)(orbsToContinue * Mathf.Pow (2, continues));
+		#endif
+		ContinuePlaying ();
+	}
+
+	private void ContinuePlaying()
+	{
+		continues++;
+
+		Debug.Log ("ContinuePlaying");
+
+		StartCoroutine (WaitForFingerDown ());
+	}
+
+	private IEnumerator WaitForFingerDown()
+	{
+		Debug.Log ("WaitForFingerDown");
+
+		while (FingerDetector.IsFingerDown)
+			yield return null;
+
+		while(!FingerDetector.IsFingerDown)
+			yield return null;
+
+		Debug.Log ("Continue");
+
+		isGameRunning = true;
+		gameOver = false;
 	}
 
 	public void StartGame()
 	{
+		Reset ();
+		gameObject.SetActive (true);
+
+		Debug.Log ("FingerDetector.IsFingerDown: " + FingerDetector.IsFingerDown);
+		if (FingerDetector.IsFingerDown)
+		{
+			Debug.Log("Active Player");
+			player.SetActive (true);
+		}
+
+		StartCoroutine (WaitForPlayer ());
+	}
+
+	private IEnumerator WaitForPlayer()
+	{
+		while (!player.activeSelf)
+			yield return null;
+
 		enemiesKillCount = 0;
 		score = 0;
 		specialStreak = 0;
 		orbsCollected = 0;
 		realStreakCount = 0;
-
+		continues = 0;
+		
 		gameOver = false;
 		isGameRunning = true;
-
+		
 		if (OnGameStart != null)
 			OnGameStart ();
 	}
@@ -214,17 +347,27 @@ public class GameController : MonoBehaviour
 		StreakCount = 0;
 		orbsCollected = 0;
 		realStreakCount = 0;
+		continues = 0;
 
 		gameOver = false;
 
 		if(OnScoreUpdated != null)
 			OnScoreUpdated();
+
+		if (OnReset != null)
+			OnReset ();
+	}
+
+	void OnFingerDown(FingerDownEvent e)
+	{
+		Debug.Log ("Activate by finger down");
+		player.SetActive (true);
 	}
 
 	void OnFingerUp(FingerUpEvent e)
 	{
 		if(GameController.isGameRunning)
-			GameOver ();
+			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen));
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)

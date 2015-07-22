@@ -7,7 +7,7 @@ public class AttackTargets : MonoBehaviour
 {
 	public static event Action<float> OnSpecialTimerUpdated;
 
-	private List<Transform> targets;
+	private static List<Transform> targets;
 
 	private static List<Transform> enemiesInRange;
 	
@@ -18,6 +18,8 @@ public class AttackTargets : MonoBehaviour
 	private int layerMask;
 
 	public float damage;
+
+	private CircleCollider2D range;
 
 	#region get / set
 	public static bool IsSpecialActive
@@ -45,18 +47,20 @@ public class AttackTargets : MonoBehaviour
 	{
 		MenuController.OnPanelClosed += Reset;
 		EnemyLife.OnDied += RemoveEnemyFromList;
-		MoveStraight.OnOutOfScreen += RemoveEnemyFromList;
+		EnemyMovement.OnOutOfScreen += RemoveEnemyFromList;
 		GameController.OnGameStart += GetDamage;
 		GameController.OnGameStart += GetRange;
+		GameController.OnShowContinueScreen += LoseAllTargets;
 	}
 
 	void OnDisable()
 	{
 		MenuController.OnPanelClosed -= Reset;
 		EnemyLife.OnDied -= RemoveEnemyFromList;
-		MoveStraight.OnOutOfScreen -= RemoveEnemyFromList;
+		EnemyMovement.OnOutOfScreen -= RemoveEnemyFromList;
 		GameController.OnGameStart -= GetDamage;
 		GameController.OnGameStart -= GetRange;
+		GameController.OnShowContinueScreen -= LoseAllTargets;
 	}
 
 	// Use this for initialization
@@ -68,6 +72,17 @@ public class AttackTargets : MonoBehaviour
 
 		targets = new List<Transform> ();
 		enemiesInRange = new List<Transform> ();
+
+		foreach(CircleCollider2D col in GetComponents<CircleCollider2D>())
+		{
+			if(col.isTrigger)
+			{
+				range = col;
+				break;
+			}
+		}
+
+		gameObject.SetActive (false);
 	}
 
 	private void GetDamage()
@@ -77,14 +92,7 @@ public class AttackTargets : MonoBehaviour
 
 	private void GetRange()
 	{
-		foreach(CircleCollider2D col in GetComponents<CircleCollider2D>())
-		{
-			if(col.isTrigger)
-			{
-				col.radius = LevelDesign.CurrentRange;
-				break;
-			}
-		}
+		range.radius = LevelDesign.CurrentRange;
 	}
 	
 	// Update is called once per frame
@@ -173,6 +181,16 @@ public class AttackTargets : MonoBehaviour
 			OnSpecialTimerUpdated (specialCounter / LevelDesign.Instance.specialTime);
 	}
 
+	private void LoseAllTargets()
+	{
+		Debug.Log ("LoseAllTargets");
+
+		foreach (Transform t in targets)
+			t.GetComponent<EnemyLife> ().OnLightExit ();
+
+		targets = new List<Transform> ();
+	}
+
 	private IEnumerator StopSpecial(float waitTime)
 	{
 		yield return new WaitForSeconds (waitTime);
@@ -223,6 +241,6 @@ public class AttackTargets : MonoBehaviour
 	{
 		GameController.Instance.FingerHit ();
 		
-		col.gameObject.GetComponent<EnemyLife>().Dead();
+		col.gameObject.GetComponent<EnemyLife>().Dead(GameController.IsInvencible);
 	}
 }

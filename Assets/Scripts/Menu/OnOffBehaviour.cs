@@ -35,8 +35,6 @@ public class OnOffBehaviour : MonoBehaviour
 		else if (type == Type.SoundFX)
 			state = (State)Global.IsSoundOn.GetHashCode();
 
-		Debug.Log (type + ": " + state);
-
 		//turn selection to 'off' or 
 		if (state == State.OFF)
 				selection.transform.localPosition = offButton.localPosition;

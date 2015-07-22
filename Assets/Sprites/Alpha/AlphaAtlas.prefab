@@ -41,9 +41,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 4c7268ae06d8a47beaad6576273e7735, type: 2}
   mSprites:
+  - name: Achievement
+    x: 539
+    y: 468
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 3
+    paddingBottom: 4
+  - name: Achievements
+    x: 285
+    y: 469
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 3
+    paddingBottom: 4
   - name: back_button
     x: 0
-    y: 711
+    y: 425
     width: 256
     height: 256
     borderLeft: 0
@@ -56,7 +82,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: bar_holder
     x: 0
-    y: 154
+    y: 117
     width: 128
     height: 31
     borderLeft: 15
@@ -69,7 +95,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: button
     x: 0
-    y: 454
+    y: 168
     width: 256
     height: 256
     borderLeft: 0
@@ -80,9 +106,100 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: C1 01
+    x: 1722
+    y: 217
+    width: 136
+    height: 273
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 15
+    paddingTop: 8
+    paddingBottom: 9
+  - name: C2 01
+    x: 285
+    y: 12
+    width: 240
+    height: 206
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 48
+    paddingTop: 32
+    paddingBottom: 2
+  - name: C3 01
+    x: 0
+    y: 682
+    width: 284
+    height: 285
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 64
+    paddingRight: 164
+    paddingTop: 97
+    paddingBottom: 74
+  - name: C4 1
+    x: 1921
+    y: 1811
+    width: 95
+    height: 237
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 3
+    paddingTop: 9
+    paddingBottom: 4
+  - name: C5 01
+    x: 1289
+    y: 20
+    width: 229
+    height: 231
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 20
+    paddingTop: 22
+    paddingBottom: 27
+  - name: C7 01
+    x: 1921
+    y: 1642
+    width: 85
+    height: 168
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 17
+    paddingRight: 16
+    paddingTop: 5
+    paddingBottom: 5
+  - name: Creepypedia
+    x: 789
+    y: 218
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 3
+    paddingBottom: 4
   - name: damage+
-    x: 757
-    y: 2
+    x: 1289
+    y: 252
     width: 229
     height: 232
     borderLeft: 0
@@ -94,8 +211,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 21
   - name: damage++
-    x: 757
-    y: 471
+    x: 1289
+    y: 485
     width: 229
     height: 243
     borderLeft: 0
@@ -107,8 +224,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 10
   - name: damage+++
-    x: 757
-    y: 715
+    x: 1039
+    y: 215
     width: 229
     height: 252
     borderLeft: 0
@@ -121,7 +238,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: Healthbar
     x: 0
-    y: 186
+    y: 149
     width: 242
     height: 18
     borderLeft: 15
@@ -132,9 +249,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: HUB Connection
+    x: 1039
+    y: 718
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 3
+    paddingBottom: 4
   - name: More games
-    x: 0
-    y: 205
+    x: 285
+    y: 719
     width: 253
     height: 248
     borderLeft: 0
@@ -146,7 +276,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 8
   - name: Off
-    x: 257
+    x: 789
     y: 468
     width: 249
     height: 249
@@ -159,20 +289,7 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: On
-    x: 257
-    y: 218
-    width: 249
-    height: 249
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 3
-    paddingRight: 4
-    paddingTop: 3
-    paddingBottom: 4
-  - name: play
-    x: 507
+    x: 789
     y: 718
     width: 249
     height: 249
@@ -184,9 +301,48 @@ MonoBehaviour:
     paddingRight: 4
     paddingTop: 3
     paddingBottom: 4
+  - name: play
+    x: 539
+    y: 218
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 3
+    paddingBottom: 4
+  - name: Popup
+    x: 1921
+    y: 1577
+    width: 64
+    height: 64
+    borderLeft: 16
+    borderRight: 16
+    borderTop: 16
+    borderBottom: 16
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Popup down
+    x: 1921
+    y: 1512
+    width: 64
+    height: 64
+    borderLeft: 15
+    borderRight: 15
+    borderTop: 15
+    borderBottom: 15
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: range+
-    x: 1229
-    y: 750
+    x: 1519
+    y: 273
     width: 202
     height: 217
     borderLeft: 0
@@ -198,8 +354,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 31
   - name: range++
-    x: 987
-    y: 26
+    x: 1722
+    y: 500
     width: 202
     height: 228
     borderLeft: 0
@@ -211,8 +367,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 20
   - name: range+++
-    x: 987
-    y: 255
+    x: 1519
+    y: 491
     width: 202
     height: 237
     borderLeft: 0
@@ -224,8 +380,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 11
   - name: ray3
-    x: 757
-    y: 235
+    x: 1531
+    y: 732
     width: 228
     height: 235
     borderLeft: 0
@@ -237,8 +393,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 11
   - name: ray4
-    x: 987
-    y: 493
+    x: 1760
+    y: 732
     width: 228
     height: 235
     borderLeft: 0
@@ -250,7 +406,7 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 11
   - name: ray5
-    x: 987
+    x: 1289
     y: 729
     width: 241
     height: 238
@@ -263,8 +419,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 8
   - name: Selection
-    x: 507
-    y: 218
+    x: 539
+    y: 718
     width: 249
     height: 249
     borderLeft: 0
@@ -276,7 +432,7 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: settings
-    x: 507
+    x: 1039
     y: 468
     width: 249
     height: 249
@@ -289,8 +445,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: shop_icon
-    x: 257
-    y: 718
+    x: 285
+    y: 219
     width: 249
     height: 249
     borderLeft: 0
@@ -324,7 +480,51 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[11].borderLeft
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[11].borderRight
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[11].borderBottom
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[11].borderTop
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[11].paddingLeft
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[11].paddingTop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[11].width
+      value: 465
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[22].borderLeft
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[22].borderRight
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[22].borderBottom
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[22].borderTop
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 166924}

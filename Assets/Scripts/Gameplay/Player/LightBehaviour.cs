@@ -24,12 +24,18 @@ public class LightBehaviour : MonoBehaviour
 
 	void OnEnable()
 	{
+		Vector3 pos = Camera.main.ScreenToWorldPoint ((Vector3)FingerDetector.FingerPosition);
+		pos.z = 0;
+		transform.position = pos;
+
 		MenuController.OnPanelClosed += Reset;
+		FingerDetector.OnFingerMotionEvent += OnFingerMove;
 	}
 
 	void OnDisable()
 	{
 		MenuController.OnPanelClosed -= Reset;
+		FingerDetector.OnFingerMotionEvent -= OnFingerMove;
 	}
 
 	// Use this for initialization

@@ -16,6 +16,9 @@ public class SpawnController : MonoBehaviour
 	private const float up = 1.2f;
 	private const float right = 1.2f;
 
+	private static float lastPosX = 0;
+	private static float lastPosY = 0;
+
 	#region singleton
 	private static SpawnController instance;
 
@@ -31,14 +34,25 @@ public class SpawnController : MonoBehaviour
 	}
 	#endregion
 
+	#region get / set
+	private static bool CanSpawn
+	{
+		get 
+		{
+			return !GameController.IsSlowedDown && GameController.isGameRunning;
+		}
+	}
+	#endregion
+
 	void OnEnable()
 	{
 		MenuController.OnPanelClosed += Reset;
 		GameController.OnGameStart += StartSpawn;
 		GameController.OnGameOver += GameOver;
-		MoveStraight.OnOutOfScreen += RemoveEnemy;
+		EnemyMovement.OnOutOfScreen += RemoveEnemy;
 		EnemyLife.OnDied += RemoveEnemy;
-		Legion.OnMinionReleased += AddEnemy;
+		Legion.OnMinionSpawned += AddEnemy;	
+		//Legion.OnMinionReleased += AddEnemy;
 	}
 
 	void OnDisable()
@@ -46,9 +60,10 @@ public class SpawnController : MonoBehaviour
 		MenuController.OnPanelClosed -= Reset;
 		GameController.OnGameStart -= StartSpawn;
 		GameController.OnGameOver -= GameOver;
-		MoveStraight.OnOutOfScreen -= RemoveEnemy;
+		EnemyMovement.OnOutOfScreen -= RemoveEnemy;
 		EnemyLife.OnDied -= RemoveEnemy;
-		Legion.OnMinionReleased -= AddEnemy;
+		Legion.OnMinionSpawned -= AddEnemy;	
+		//Legion.OnMinionReleased -= AddEnemy;
 	}
 
 	// Use this for initialization
@@ -81,7 +96,7 @@ public class SpawnController : MonoBehaviour
 
 	private void SpawnEnemies()
 	{
-		if(!GameController.IsSlowedDown)
+		if(CanSpawn)
 		{
 			//spawn some monsters according to LevelDesign (can be more than 1)
 			for(byte i = 0; i < LevelDesign.SpawnQuantity; i++)
@@ -114,7 +129,7 @@ public class SpawnController : MonoBehaviour
 				 
 				GameObject enemy = Instantiate (objToSpawn, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
 
-				enemiesInGame.Add (enemy.transform);
+				AddEnemy(enemy);
 
 				if(OnSpawn != null)
 					OnSpawn();
@@ -136,7 +151,14 @@ public class SpawnController : MonoBehaviour
 			posY = up;
 
 			//random x
-			posX = UnityEngine.Random.Range(0.1f, 0.9f);
+			do
+			{
+				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+			}
+			while(Mathf.Abs(posX - lastPosX) < 0.1f);
+
+			lastPosX = posX;
+
 		}
 		#endregion
 
@@ -150,21 +172,39 @@ public class SpawnController : MonoBehaviour
 				posY = up;
 
 				//random pos x
-				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+				
+				lastPosX = posX;
 			}
 			else if(rnd < 0.66f)//RIGHT
 			{
 				posX = right;
 
 				//random only top 1/3 of pos Y
-				posY = UnityEngine.Random.Range(0.7f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.7f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+				
+				lastPosY = posY;
 			}
 			else//LEFT
 			{
 				posX = left;
 
 				//random only top 1/3 of pos Y
-				posY = UnityEngine.Random.Range(0.7f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.7f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+				
+				lastPosY = posY;
 			}
 		}
 		#endregion
@@ -179,28 +219,52 @@ public class SpawnController : MonoBehaviour
 				posY = up;
 				
 				//random pos x
-				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posX - lastPosX) < 0.1f);
+				
+				lastPosX = posX;
 			}
 			else if(rnd < 0.5f)//RIGHT
 			{
 				posX = right;
 				
 				//random only top 1/2 of pos Y
-				posY = UnityEngine.Random.Range(0.5f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.5f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+				
+				lastPosY = posY;
 			}
 			else if(rnd < 0.75f)//LEFT
 			{
 				posX = left;
 				
 				//random only top 1/2 of pos Y
-				posY = UnityEngine.Random.Range(0.5f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.5f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+
+				lastPosY = posY;
 			}
 			else//BOTTOM
 			{
 				posY = bottom;
 
 				//random only center 1/2 of pos X
-				posX = UnityEngine.Random.Range(0.25f, 0.75f);
+				do
+				{
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posX - lastPosX) < 0.3f);
+				
+				lastPosX = posX;
 			}
 		}
 		#endregion
@@ -215,28 +279,52 @@ public class SpawnController : MonoBehaviour
 				posY = up;
 				
 				//random pos x
-				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posX - lastPosX) < 0.3f);
+				
+				lastPosX = posX;
 			}
 			else if(rnd < 0.5f)//RIGHT
 			{
 				posX = right;
 				
 				//random  pos Y
-				posY = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+				
+				lastPosY = posY;
 			}
 			else if(rnd < 0.75f)//LEFT
 			{
 				posX = left;
 				
 				//random  pos Y
-				posY = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+
+				lastPosY = posY;
 			}
 			else//BOTTOM
 			{
 				posY = bottom;
 				
 				//random pos x
-				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posX - lastPosX) < 0.3f);
+				
+				lastPosX = posX;
 			}
 		}
 		#endregion
@@ -283,73 +371,76 @@ public class SpawnController : MonoBehaviour
 
 	private void SpawnItens()
 	{
-		float rnd = UnityEngine.Random.Range (0f, 1f);
-
-		if(rnd < LevelDesign.SpawnItemPercent)
+		if(CanSpawn)
 		{
-			//max %
-			float maxPercent = 0f;
-			foreach(ItemPercent ip in LevelDesign.CurrentItens)
-				maxPercent += ip.percent;
+			float rnd = UnityEngine.Random.Range (0f, 1f);
 
-			rnd = UnityEngine.Random.Range (0f, maxPercent);
-
-			float currentPercent = 0f;
-			GameObject objToSpawn =  null;
-			
-			foreach(ItemPercent ip in LevelDesign.CurrentItens)
+			if(rnd < LevelDesign.SpawnItemPercent)
 			{
-				currentPercent += ip.percent;
+				//max %
+				float maxPercent = 0f;
+				foreach(ItemPercent ip in LevelDesign.CurrentItens)
+					maxPercent += ip.percent;
+
+				rnd = UnityEngine.Random.Range (0f, maxPercent);
+
+				float currentPercent = 0f;
+				GameObject objToSpawn =  null;
 				
-				if(rnd <= currentPercent)
+				foreach(ItemPercent ip in LevelDesign.CurrentItens)
 				{
-					objToSpawn = ip.item;
-					break;
+					currentPercent += ip.percent;
+					
+					if(rnd <= currentPercent)
+					{
+						objToSpawn = ip.item;
+						break;
+					}
 				}
-			}
 
-			//get any side to spawn
-			rnd = UnityEngine.Random.Range (0f, 1f);
-			float posX = 0f;
-			float posY = 0f;
-			
-			if(rnd < 0.25f)//UP
-			{
-				posY = up;
+				//get any side to spawn
+				rnd = UnityEngine.Random.Range (0f, 1f);
+				float posX = 0f;
+				float posY = 0f;
 				
-				//random pos x
-				posX = UnityEngine.Random.Range(0.1f, 0.9f);
-			}
-			else if(rnd < 0.5f)//RIGHT
-			{
-				posX = right;
-				
-				//random  pos Y
-				posY = UnityEngine.Random.Range(0.1f, 0.9f);
-			}
-			else if(rnd < 0.75f)//LEFT
-			{
-				posX = left;
-				
-				//random  pos Y
-				posY = UnityEngine.Random.Range(0.1f, 0.9f);
-			}
-			else//BOTTOM
-			{
-				posY = bottom;
-				
-				//random pos x
-				posX = UnityEngine.Random.Range(0.1f, 0.9f);
-			}
+				if(rnd < 0.25f)//UP
+				{
+					posY = up;
+					
+					//random pos x
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				else if(rnd < 0.5f)//RIGHT
+				{
+					posX = right;
+					
+					//random  pos Y
+					posY = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				else if(rnd < 0.75f)//LEFT
+				{
+					posX = left;
+					
+					//random  pos Y
+					posY = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				else//BOTTOM
+				{
+					posY = bottom;
+					
+					//random pos x
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
 
-			Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3(posX, posY));
-			pos.z = 0;
+				Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3(posX, posY));
+				pos.z = 0;
 
-			float rot = GetRotation (pos);
+				float rot = GetRotation (pos);
 
-			GameObject item = Instantiate (objToSpawn, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
+				GameObject item = Instantiate (objToSpawn, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
 
-			itensInGame.Add(item.transform);
+				itensInGame.Add(item.transform);
+			}
 		}
 
 		StartCoroutine ("SpawnItens", LevelDesign.ItemSpawnTime);
