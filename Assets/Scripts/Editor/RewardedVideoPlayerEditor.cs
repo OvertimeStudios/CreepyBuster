@@ -13,6 +13,8 @@ public class RewardedVideoPlayerEditor : Editor
 
 		if (myScript.reward == RewardedVideoPlayer.Rewards.Orbs)
 			myScript.orbsToGive = EditorGUILayout.IntField ("Orbs to give", myScript.orbsToGive);
+
+		myScript.rewardCooldown = EditorGUILayout.IntField ("Reward Cooldown (sec)", myScript.rewardCooldown);
 	}
 
 }

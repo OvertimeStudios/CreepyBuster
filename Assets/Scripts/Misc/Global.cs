@@ -12,6 +12,7 @@ public class Global : MonoBehaviour
 	#endregion
 
 	#region keys
+	public const string REWARDED_VIDEO_COOLDOWN = "rewardedVideoCooldown";
 	private const string TOTAL_ORBS = "totalOrbs";
 	private const string HIGH_SCORE = "highScore";
 	private const string RAY3 = "ray3";

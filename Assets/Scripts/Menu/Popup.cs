@@ -83,6 +83,11 @@ public class Popup : MonoBehaviour
 		descricao.text = description;
 	}
 
+	public static void ShowOk(string description)
+	{
+		ShowOk (description, null);
+	}
+
 	public static void ShowOk(string description, Action okAction)
 	{
 		Instance.gameObject.SetActive (true);
