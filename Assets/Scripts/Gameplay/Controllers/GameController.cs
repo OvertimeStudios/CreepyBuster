@@ -210,9 +210,6 @@ public class GameController : MonoBehaviour
 
 	private void NoMoreLifes()
 	{
-		isGameRunning = false;
-		gameOver = true;
-
 		StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen));
 	}
 
@@ -231,6 +228,9 @@ public class GameController : MonoBehaviour
 
 	private IEnumerator ShowContinueScreen(float waitTime)
 	{
+		isGameRunning = false;
+		gameOver = true;
+
 		yield return new WaitForSeconds (waitTime);
 
 		if (continues == 0 && Advertisement.IsReady ())
@@ -252,7 +252,6 @@ public class GameController : MonoBehaviour
 
 	private void ShowEndScreen()
 	{
-		//TODO: show end screen
 		Global.TotalOrbs += orbsCollected;
 
 		HUDController.Instance.ShowEndScreen ();
@@ -341,7 +340,7 @@ public class GameController : MonoBehaviour
 		fingerDown = false;
 
 		if(GameController.isGameRunning)
-			ShowEndScreen ();
+			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen));
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)
