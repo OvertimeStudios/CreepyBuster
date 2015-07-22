@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
 	public Type type;
 	public float vel;
 
-	void Start()
+	protected virtual void Start()
 	{
 		GetComponent<Rigidbody2D> ().velocity = transform.right * vel;
 
