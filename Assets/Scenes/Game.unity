@@ -311,6 +311,122 @@ MonoBehaviour:
   mDepth: 3
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 26.2900009}
+--- !u!1 &28363931
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 28363932}
+  - 114: {fileID: 28363935}
+  - 114: {fileID: 28363934}
+  - 114: {fileID: 28363933}
+  - 114: {fileID: 28363937}
+  - 114: {fileID: 28363936}
+  m_Layer: 0
+  m_Name: FingerDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &28363932
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 28363931}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .449999928, y: -1.28000021, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1913536882}
+  m_RootOrder: 0
+--- !u!114 &28363933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 28363931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4762978c2447048aacc02a04592aaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FingerIndexFilter: -1
+  Raycaster: {fileID: 0}
+  UseSendMessage: 1
+  SendMessageToSelection: 1
+  MessageTarget: {fileID: 0}
+  MessageName: OnFingerUp
+--- !u!114 &28363934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 28363931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c71470e58dece45a990c1eaafbd474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FingerIndexFilter: -1
+  Raycaster: {fileID: 0}
+  UseSendMessage: 1
+  SendMessageToSelection: 1
+  MessageTarget: {fileID: 0}
+  MessageName: OnFingerDown
+--- !u!114 &28363935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 28363931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e74851cf3314b898624eea3bc165b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &28363936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 28363931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf945d278a7402a4cb9cd26aec5c0fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cameras:
+  - {fileID: 860026963}
+  IgnoreLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294963199
+  RayThickness: 0
+  VisualizeRaycasts: 1
+  UsePhysics2D: 1
+--- !u!114 &28363937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 28363931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3aeaa6af5a2574dbc0c14ed591b5b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FingerIndexFilter: -1
+  Raycaster: {fileID: 0}
+  UseSendMessage: 1
+  SendMessageToSelection: 1
+  MessageTarget: {fileID: 0}
+  MoveMessageName: OnFingerMove
+  StationaryMessageName: OnFingerStationary
+  TrackMove: 1
+  TrackStationary: 1
 --- !u!1 &40009600
 GameObject:
   m_ObjectHideFlags: 0
@@ -2385,7 +2501,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 458352, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
@@ -6388,7 +6504,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!114 &715852788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6847,8 +6963,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 786454614}
   - 114: {fileID: 786454613}
-  - 114: {fileID: 786454615}
-  - 114: {fileID: 786454616}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -6881,41 +6995,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 0
---- !u!114 &786454615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 786454612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a4762978c2447048aacc02a04592aaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FingerIndexFilter: -1
-  Raycaster: {fileID: 0}
-  UseSendMessage: 1
-  SendMessageToSelection: 1
-  MessageTarget: {fileID: 0}
-  MessageName: OnFingerUp
---- !u!114 &786454616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 786454612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06c71470e58dece45a990c1eaafbd474, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FingerIndexFilter: -1
-  Raycaster: {fileID: 0}
-  UseSendMessage: 1
-  SendMessageToSelection: 1
-  MessageTarget: {fileID: 0}
-  MessageName: OnFingerDown
+  m_RootOrder: 1
 --- !u!1 &803944398
 GameObject:
   m_ObjectHideFlags: 0
@@ -8988,6 +9068,7 @@ GameObject:
   - 114: {fileID: 1036437452}
   - 58: {fileID: 1036437453}
   - 58: {fileID: 1036437454}
+  - 114: {fileID: 1036437456}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -9077,6 +9158,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: .300000012
+--- !u!114 &1036437456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1036437448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4762978c2447048aacc02a04592aaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FingerIndexFilter: -1
+  Raycaster: {fileID: 0}
+  UseSendMessage: 1
+  SendMessageToSelection: 1
+  MessageTarget: {fileID: 0}
+  MessageName: OnFingerUp
 --- !u!1 &1037057024
 GameObject:
   m_ObjectHideFlags: 0
@@ -11053,7 +11151,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 412946, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itemSpawnTime.min
@@ -12010,7 +12108,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1 &1373325447
 GameObject:
   m_ObjectHideFlags: 0
@@ -12049,7 +12147,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &1380548587
 GameObject:
   m_ObjectHideFlags: 0
@@ -12793,8 +12891,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1492870976}
   - 114: {fileID: 1492870978}
-  - 114: {fileID: 1492870977}
-  - 114: {fileID: 1492870980}
   - 114: {fileID: 1492870979}
   m_Layer: 0
   m_Name: MenuController
@@ -12814,24 +12910,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 3
---- !u!114 &1492870977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1492870975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06c71470e58dece45a990c1eaafbd474, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FingerIndexFilter: -1
-  Raycaster: {fileID: 0}
-  UseSendMessage: 1
-  SendMessageToSelection: 1
-  MessageTarget: {fileID: 0}
-  MessageName: OnFingerDown
+  m_RootOrder: 4
 --- !u!114 &1492870978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12876,23 +12955,6 @@ MonoBehaviour:
   RayThickness: 0
   VisualizeRaycasts: 1
   UsePhysics2D: 1
---- !u!114 &1492870980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1492870975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a4762978c2447048aacc02a04592aaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FingerIndexFilter: -1
-  Raycaster: {fileID: 0}
-  UseSendMessage: 1
-  SendMessageToSelection: 1
-  MessageTarget: {fileID: 0}
-  MessageName: OnFingerUp
 --- !u!1 &1495402062
 GameObject:
   m_ObjectHideFlags: 0
@@ -13598,7 +13660,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 472706, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
@@ -16384,6 +16446,7 @@ Transform:
   m_LocalPosition: {x: -.449999928, y: 1.28000021, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 28363932}
   - {fileID: 786454614}
   - {fileID: 1373325449}
   - {fileID: 1921670938}
@@ -16392,8 +16455,8 @@ Transform:
   - {fileID: 1364650170}
   - {fileID: 1274715915}
   - {fileID: 823222898}
-  - {fileID: 1799130763}
   - {fileID: 682680332}
+  - {fileID: 1799130763}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1 &1915931142
@@ -16544,7 +16607,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!114 &1921670939
 MonoBehaviour:
   m_ObjectHideFlags: 0

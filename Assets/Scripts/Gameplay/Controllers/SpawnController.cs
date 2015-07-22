@@ -46,9 +46,10 @@ public class SpawnController : MonoBehaviour
 		MenuController.OnPanelClosed += Reset;
 		GameController.OnGameStart += StartSpawn;
 		GameController.OnGameOver += GameOver;
-		MoveStraight.OnOutOfScreen += RemoveEnemy;
+		EnemyMovement.OnOutOfScreen += RemoveEnemy;
 		EnemyLife.OnDied += RemoveEnemy;
-		Legion.OnMinionReleased += AddEnemy;
+		Legion.OnMinionSpawned += AddEnemy;	
+		//Legion.OnMinionReleased += AddEnemy;
 	}
 
 	void OnDisable()
@@ -56,9 +57,10 @@ public class SpawnController : MonoBehaviour
 		MenuController.OnPanelClosed -= Reset;
 		GameController.OnGameStart -= StartSpawn;
 		GameController.OnGameOver -= GameOver;
-		MoveStraight.OnOutOfScreen -= RemoveEnemy;
+		EnemyMovement.OnOutOfScreen -= RemoveEnemy;
 		EnemyLife.OnDied -= RemoveEnemy;
-		Legion.OnMinionReleased -= AddEnemy;
+		Legion.OnMinionSpawned -= AddEnemy;	
+		//Legion.OnMinionReleased -= AddEnemy;
 	}
 
 	// Use this for initialization
@@ -124,7 +126,7 @@ public class SpawnController : MonoBehaviour
 				 
 				GameObject enemy = Instantiate (objToSpawn, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
 
-				enemiesInGame.Add (enemy.transform);
+				AddEnemy(enemy);
 
 				if(OnSpawn != null)
 					OnSpawn();

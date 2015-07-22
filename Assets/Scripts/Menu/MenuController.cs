@@ -109,6 +109,8 @@ public class MenuController : MonoBehaviour
 		GameController.OnGameOver += ClosePanel;
 		GameController.OnGameOver += UpdateScore;
 		MenuController.OnPanelClosed += ShowAds;
+		FingerDetector.OnFingerDownEvent += OnFingerDown;
+		FingerDetector.OnFingerUpEvent += OnFingerUp;
 	}
 
 	void OnDisable()
@@ -116,6 +118,8 @@ public class MenuController : MonoBehaviour
 		GameController.OnGameOver -= ClosePanel;
 		GameController.OnGameOver -= UpdateScore;
 		MenuController.OnPanelClosed -= ShowAds;
+		FingerDetector.OnFingerDownEvent -= OnFingerDown;
+		FingerDetector.OnFingerUpEvent -= OnFingerUp;
 	}
 
 	// Use this for initialization
@@ -227,8 +231,6 @@ public class MenuController : MonoBehaviour
 			GameController.Instance.StartGame ();
 
 			hud.SetActive (true);
-
-			GameController.Instance.gameObject.SetActive(true);
 
 			if(OnPanelOpened != null)
 				OnPanelOpened();

@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour
 	public static event Action OnLoseStacks;
 	public static event Action OnSlowDownCollected;
 	public static event Action OnSlowDownFade;
+	public static event Action OnShowContinueScreen;
+	public static event Action OnShowEndScreen;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
@@ -59,8 +61,8 @@ public class GameController : MonoBehaviour
 	public static int specialStreak;
 
 	public static int orbsCollected;
-
-	private static bool fingerDown;
+	
+	private static GameObject player;
 
 	#region get / set
 	public static int StreakCount
@@ -111,11 +113,6 @@ public class GameController : MonoBehaviour
 				OnScoreUpdated ();
 		}
 	}
-
-	public static bool IsFingerDown
-	{
-		get { return fingerDown; }
-	}
 	#endregion
 
 	#region singleton
@@ -139,6 +136,8 @@ public class GameController : MonoBehaviour
 		LevelDesign.OnPlayerLevelUp += PlayerLevelUp;
 		Item.OnCollected += OnItemCollected;
 		RewardedVideoPlayer.OnRevivePlayer += VideoWatched;
+		FingerDetector.OnFingerDownEvent += OnFingerDown;
+		FingerDetector.OnFingerUpEvent += OnFingerUp;
 	}
 
 	void OnDisable()
@@ -148,6 +147,8 @@ public class GameController : MonoBehaviour
 		LevelDesign.OnPlayerLevelUp -= PlayerLevelUp;
 		Item.OnCollected -= OnItemCollected;
 		RewardedVideoPlayer.OnRevivePlayer -= VideoWatched;
+		FingerDetector.OnFingerDownEvent -= OnFingerDown;
+		FingerDetector.OnFingerUpEvent -= OnFingerUp;
 	}
 
 	void Start()
@@ -155,6 +156,8 @@ public class GameController : MonoBehaviour
 		instance = this;
 
 		gameObject.SetActive(false);
+
+		player = GameObject.FindWithTag ("Player");
 	}
 
 	void OnEnemyDied(GameObject enemy)
@@ -248,6 +251,9 @@ public class GameController : MonoBehaviour
 				Popup.ShowOk("You got hit! \n \n You don't have enough orbs to continue playing", ShowEndScreen);
 			#endif
 		}
+
+		if (OnShowContinueScreen != null)
+			OnShowContinueScreen ();
 	}
 
 	private void ShowEndScreen()
@@ -255,6 +261,9 @@ public class GameController : MonoBehaviour
 		Global.TotalOrbs += orbsCollected;
 
 		HUDController.Instance.ShowEndScreen ();
+
+		if (OnShowEndScreen != null)
+			OnShowEndScreen ();
 	}
 
 	private void VideoWatched()
@@ -283,10 +292,10 @@ public class GameController : MonoBehaviour
 	{
 		Debug.Log ("WaitForFingerDown");
 
-		while (IsFingerDown)
+		while (FingerDetector.IsFingerDown)
 			yield return null;
 
-		while(!IsFingerDown)
+		while(!FingerDetector.IsFingerDown)
 			yield return null;
 
 		Debug.Log ("Continue");
@@ -297,7 +306,18 @@ public class GameController : MonoBehaviour
 
 	public void StartGame()
 	{
-		fingerDown = true;
+		gameObject.SetActive (true);
+
+		if (FingerDetector.IsFingerDown)
+			player.SetActive (true);
+
+		StartCoroutine (WaitForPlayer ());
+	}
+
+	private IEnumerator WaitForPlayer()
+	{
+		while (!player.activeSelf)
+			yield return null;
 
 		enemiesKillCount = 0;
 		score = 0;
@@ -305,10 +325,10 @@ public class GameController : MonoBehaviour
 		orbsCollected = 0;
 		realStreakCount = 0;
 		continues = 0;
-
+		
 		gameOver = false;
 		isGameRunning = true;
-
+		
 		if (OnGameStart != null)
 			OnGameStart ();
 	}
@@ -330,15 +350,11 @@ public class GameController : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
-		Debug.Log ("OnFingerDown");
-		fingerDown = true;
+		player.SetActive (true);
 	}
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		Debug.Log ("OnFingerUp");
-		fingerDown = false;
-
 		if(GameController.isGameRunning)
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen));
 	}
