@@ -107,15 +107,23 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	void Update()
 	{
-		button.isEnabled = RewardCooldownLeft < 0;
-		countdown.enabled = RewardCooldownLeft >= 0;
-
-		if(RewardCooldownLeft >= 0)
+		if(rewardCooldown > 0)
 		{
-			int seconds = (int)RewardCooldownLeft % 60;
-			int minutes = (int)RewardCooldownLeft / 60;
+			button.isEnabled = RewardCooldownLeft < 0;
+			countdown.enabled = RewardCooldownLeft >= 0;
 
-			countdown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+			if(RewardCooldownLeft >= 0)
+			{
+				int seconds = (int)RewardCooldownLeft % 60;
+				int minutes = (int)RewardCooldownLeft / 60;
+
+				countdown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+			}
+		}
+		else
+		{
+			button.isEnabled = true;
+			countdown.enabled = false;
 		}
 	}
 
