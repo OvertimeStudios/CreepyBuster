@@ -16,6 +16,9 @@ public class SpawnController : MonoBehaviour
 	private const float up = 1.2f;
 	private const float right = 1.2f;
 
+	private static float lastPosX = 0;
+	private static float lastPosY = 0;
+
 	#region singleton
 	private static SpawnController instance;
 
@@ -148,7 +151,14 @@ public class SpawnController : MonoBehaviour
 			posY = up;
 
 			//random x
-			posX = UnityEngine.Random.Range(0.1f, 0.9f);
+			do
+			{
+				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+			}
+			while(Mathf.Abs(posX - lastPosX) < 0.1f);
+
+			lastPosX = posX;
+
 		}
 		#endregion
 
@@ -162,21 +172,39 @@ public class SpawnController : MonoBehaviour
 				posY = up;
 
 				//random pos x
-				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+				
+				lastPosX = posX;
 			}
 			else if(rnd < 0.66f)//RIGHT
 			{
 				posX = right;
 
 				//random only top 1/3 of pos Y
-				posY = UnityEngine.Random.Range(0.7f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.7f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+				
+				lastPosY = posY;
 			}
 			else//LEFT
 			{
 				posX = left;
 
 				//random only top 1/3 of pos Y
-				posY = UnityEngine.Random.Range(0.7f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.7f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+				
+				lastPosY = posY;
 			}
 		}
 		#endregion
@@ -191,28 +219,52 @@ public class SpawnController : MonoBehaviour
 				posY = up;
 				
 				//random pos x
-				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posX - lastPosX) < 0.1f);
+				
+				lastPosX = posX;
 			}
 			else if(rnd < 0.5f)//RIGHT
 			{
 				posX = right;
 				
 				//random only top 1/2 of pos Y
-				posY = UnityEngine.Random.Range(0.5f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.5f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+				
+				lastPosY = posY;
 			}
 			else if(rnd < 0.75f)//LEFT
 			{
 				posX = left;
 				
 				//random only top 1/2 of pos Y
-				posY = UnityEngine.Random.Range(0.5f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.5f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+
+				lastPosY = posY;
 			}
 			else//BOTTOM
 			{
 				posY = bottom;
 
 				//random only center 1/2 of pos X
-				posX = UnityEngine.Random.Range(0.25f, 0.75f);
+				do
+				{
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posX - lastPosX) < 0.3f);
+				
+				lastPosX = posX;
 			}
 		}
 		#endregion
@@ -227,28 +279,52 @@ public class SpawnController : MonoBehaviour
 				posY = up;
 				
 				//random pos x
-				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posX - lastPosX) < 0.3f);
+				
+				lastPosX = posX;
 			}
 			else if(rnd < 0.5f)//RIGHT
 			{
 				posX = right;
 				
 				//random  pos Y
-				posY = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+				
+				lastPosY = posY;
 			}
 			else if(rnd < 0.75f)//LEFT
 			{
 				posX = left;
 				
 				//random  pos Y
-				posY = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posY = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posY - lastPosY) < 0.1f);
+
+				lastPosY = posY;
 			}
 			else//BOTTOM
 			{
 				posY = bottom;
 				
 				//random pos x
-				posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				do
+				{
+					posX = UnityEngine.Random.Range(0.1f, 0.9f);
+				}
+				while(Mathf.Abs(posX - lastPosX) < 0.3f);
+				
+				lastPosX = posX;
 			}
 		}
 		#endregion
