@@ -974,6 +974,52 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!1001 &59454744
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: .0799999982
+      objectReference: {fileID: 0}
+    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.61999989
+      objectReference: {fileID: 0}
+    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: .707106829
+      objectReference: {fileID: 0}
+    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: .707106709
+      objectReference: {fileID: 0}
+    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 196216, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &63442804
 GameObject:
   m_ObjectHideFlags: 0
@@ -4420,6 +4466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotVel: -5
+  originalVel: 0
 --- !u!4 &424449530
 Transform:
   m_ObjectHideFlags: 0
@@ -11323,7 +11370,7 @@ Prefab:
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[3].item
       value: 
-      objectReference: {fileID: 190274, guid: 93d679e907b2f4f3eae4c5b6151bf75e, type: 2}
+      objectReference: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[4].item
       value: 
@@ -11354,7 +11401,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[3].percent
-      value: .125
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[4].percent
@@ -11374,7 +11421,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].chanceToSpawn
-      value: .100000001
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: playerLevelUpCondition.Array.data[1].killStreak
@@ -11428,6 +11475,10 @@ Prefab:
       propertyPath: damageUpgrade.Array.data[3].value
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[0].enemies.Array.data[0].enemy
+      value: 
+      objectReference: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
   m_IsPrefabParent: 0

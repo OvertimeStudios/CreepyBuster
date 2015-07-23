@@ -4,7 +4,15 @@ using System.Collections;
 public class Rotate : MonoBehaviour 
 {
 	public float rotVel;
-	
+
+	[HideInInspector]
+	public float originalVel;
+
+	void Start()
+	{
+		originalVel = rotVel;
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{

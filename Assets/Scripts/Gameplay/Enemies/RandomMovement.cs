@@ -16,22 +16,31 @@ public class RandomMovement : EnemyMovement
 	private bool gotAngle = false;
 	private float angle;
 	private bool isSlowed;
+	private bool isFrozen;
 
-	void OnEnable()
+	protected override void OnEnable()
 	{
+		base.OnEnable ();
+
 		EnemyLife.OnDied += OnDied;
 		GameController.OnSlowDownCollected += ApplySlow;
 		GameController.OnSlowDownFade += RemoveSlow;
+		GameController.OnFrozenCollected += ApplyFrozen;
+		GameController.OnFrozenFade += RemoveFrozen;
 
 		GetComponent<Rigidbody2D>().isKinematic = false;
 		StartCoroutine (ChangeVelocity (timeToChangeVel.Random ()));
 	}
 	
-	void OnDisable()
+	protected override void OnDisable()
 	{
+		base.OnDisable ();
+
 		EnemyLife.OnDied -= OnDied;
 		GameController.OnSlowDownCollected -= ApplySlow;
 		GameController.OnSlowDownFade -= RemoveSlow;
+		GameController.OnFrozenCollected -= ApplyFrozen;
+		GameController.OnFrozenFade -= RemoveFrozen;
 
 		StopAllCoroutines();
 	}
@@ -85,6 +94,8 @@ public class RandomMovement : EnemyMovement
 	{
 		base.Update ();
 
+		if(isFrozen) return;
+
 		if (gotAngle)
 		{
 			Vector3 eulerAngle = transform.eulerAngles;
@@ -130,11 +141,23 @@ public class RandomMovement : EnemyMovement
 		enabled = false;
 	}
 
-	void OnTriggerEnter2D(Collider2D col)
+	void OnTriggerStay2D(Collider2D col)
 	{
-		if(!this.enabled) return;
+		if(!this.enabled || isFrozen) return;
 
 		if(col.gameObject.name == AttackTargets.Instance.gameObject.name && !col.isTrigger)
 			EventDelegate.Execute(onEnterRangeList);
+	}
+
+	private void ApplyFrozen()
+	{
+		isFrozen = true;
+		GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+	}
+	
+	private void RemoveFrozen()
+	{
+		isFrozen = false;
+		GetComponent<Rigidbody2D> ().velocity = transform.right * vel;
 	}
 }

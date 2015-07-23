@@ -9,10 +9,29 @@ public class EnemyMovement : MonoBehaviour
 	protected EnemyLife enemyLife;
 	protected Animator myAnimator;
 
+	private float originalAnimatorSpeed;
+
+	protected virtual void OnEnable()
+	{
+		GameController.OnSlowDownCollected += OnSlowDownCollected;
+		GameController.OnSlowDownFade += OnSlowDownFade;
+		GameController.OnFrozenCollected += OnFrozenCollected;
+		GameController.OnFrozenFade += OnFrozenFade;
+	}
+
+	protected virtual void OnDisable()
+	{
+		GameController.OnSlowDownCollected -= OnSlowDownCollected;
+		GameController.OnSlowDownFade -= OnSlowDownFade;
+		GameController.OnFrozenCollected -= OnFrozenCollected;
+		GameController.OnFrozenFade -= OnFrozenFade;
+	}
+
 	protected virtual void Start()
 	{
 		enemyLife = GetComponent<EnemyLife> ();
 		myAnimator = transform.FindChild ("Sprite").GetComponent<Animator> ();
+		originalAnimatorSpeed = myAnimator.speed;
 	}
 
 	// Update is called once per frame
@@ -30,5 +49,25 @@ public class EnemyMovement : MonoBehaviour
 			OnOutOfScreen(gameObject);
 		
 		Destroy (gameObject);
+	}
+
+	private void OnFrozenCollected()
+	{
+		myAnimator.speed = 0;
+	}
+
+	private void OnFrozenFade()
+	{
+		myAnimator.speed = originalAnimatorSpeed;
+	}
+
+	private void OnSlowDownCollected()
+	{
+		myAnimator.speed *= SlowDown.SlowAmount;
+	}
+	
+	private void OnSlowDownFade()
+	{
+		myAnimator.speed = originalAnimatorSpeed;
 	}
 }

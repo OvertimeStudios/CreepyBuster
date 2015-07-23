@@ -62,6 +62,7 @@ GameObject:
   - 114: {fileID: 11438032}
   - 50: {fileID: 5065668}
   - 114: {fileID: 11415116}
+  - 114: {fileID: 11435360}
   m_Layer: 0
   m_Name: C5 Minion
   m_TagString: Untagged
@@ -293,6 +294,17 @@ MonoBehaviour:
     mMethodName: 
     mParameters: []
     oneShot: 0
+--- !u!114 &11435360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 824bf98c881294b749916461aafb5cf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11438032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,10 +319,12 @@ MonoBehaviour:
   life: .699999988
   score: 0
   countAsStreak: 0
+  countAsKill: 1
   inLight: 0
   basicColor: {r: .0156862736, g: .633428156, b: 1, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
-  onDeadEvent: []
+  chanceToDrop: 0
+  itens: []
 --- !u!212 &21212836
 SpriteRenderer:
   m_ObjectHideFlags: 1

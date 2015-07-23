@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour
 	public static event Action OnLoseStacks;
 	public static event Action OnSlowDownCollected;
 	public static event Action OnSlowDownFade;
+	public static event Action OnFrozenCollected;
+	public static event Action OnFrozenFade;
 	public static event Action OnShowContinueScreen;
 	public static event Action OnShowEndScreen;
 	public static event Action OnReset;
@@ -29,6 +31,7 @@ public class GameController : MonoBehaviour
 	public static bool isGameRunning = false;
 	public static bool gameOver;
 	private static bool slowedDown;
+	private static bool frozen;
 	private static bool invencible;
 	private static int continues;
 
@@ -95,6 +98,11 @@ public class GameController : MonoBehaviour
 	public static bool IsSlowedDown
 	{
 		get { return slowedDown; }
+	}
+
+	public static bool IsFrozen
+	{
+		get { return frozen; }
 	}
 
 	public static bool IsInvencible
@@ -409,6 +417,16 @@ public class GameController : MonoBehaviour
 					enemyLife.Dead();
 				}
 			break;
+
+			case Item.Type.Frozen:
+				if(OnFrozenCollected != null)
+					OnFrozenCollected();
+				
+				frozen = true;
+				
+				StopCoroutine("FadeFrozen");
+				StartCoroutine("FadeFrozen");
+			break;
 		}
 
 		Debug.Log("Collected " + itemType.ToString());
@@ -424,6 +442,18 @@ public class GameController : MonoBehaviour
 
 		if(OnSlowDownFade != null)
 			OnSlowDownFade ();
+	}
+
+	private IEnumerator FadeFrozen()
+	{
+		yield return new WaitForSeconds(Frozen.FrozenTime);
+		
+		Debug.Log ("Frozen Faded");
+		
+		frozen = false;
+		
+		if(OnFrozenFade != null)
+			OnFrozenFade ();
 	}
 
 	private IEnumerator FadeInvencible()

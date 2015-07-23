@@ -16,6 +16,9 @@ public class ChargeBehaviour : EnemyMovement
 
 	private bool charging;
 	private bool isSlowed;
+	private bool isFrozen;
+
+	private Vector2 lastVelocityBeforeFrozen;
 
 	public bool ChargeReleased
 	{
@@ -46,28 +49,44 @@ public class ChargeBehaviour : EnemyMovement
 		enabled = false;
 	}
 
-	void OnEnable()
+	protected override void OnEnable()
 	{
+		base.OnEnable ();
+
 		charging = true;
 		StartCoroutine (LightNextBrilho ());
 
 		EnemyLife.OnDied += OnDied;
 		GameController.OnSlowDownCollected += ApplySlow;
 		GameController.OnSlowDownFade += RemoveSlow;
+		GameController.OnFrozenCollected += ApplyFrozen;
+		GameController.OnFrozenFade += RemoveFrozen;
 	}
 
-	void OnDisable()
+	protected override void OnDisable()
 	{
+		base.OnDisable ();
+
 		StopAllCoroutines ();
 
 		EnemyLife.OnDied -= OnDied;
 		GameController.OnSlowDownCollected -= ApplySlow;
 		GameController.OnSlowDownFade -= RemoveSlow;
+		GameController.OnFrozenCollected -= ApplyFrozen;
+		GameController.OnFrozenFade -= RemoveFrozen;
 	}
 
 	private IEnumerator LightNextBrilho()
 	{
-		yield return new WaitForSeconds (timeToCharge / 4);
+		float counter = 0f;
+
+		while(counter < timeToCharge / 4)
+		{
+			if(!isFrozen)
+				counter += Time.deltaTime;
+
+			yield return null;
+		}
 
 		//length - 1
 		if (brilhosActive < brilhos.Count)
@@ -85,6 +104,8 @@ public class ChargeBehaviour : EnemyMovement
 	protected override void Update()
 	{
 		base.Update ();
+
+		if(isFrozen) return;
 
 		if(brilhosActive <= 3)
 		{
@@ -115,13 +136,11 @@ public class ChargeBehaviour : EnemyMovement
 	private void ApplySlow()
 	{
 		isSlowed = true;
-		myAnimator.speed *= SlowDown.SlowAmount;
 	}
 	
 	private void RemoveSlow()
 	{
 		isSlowed = false;
-		myAnimator.speed *= 1 / SlowDown.SlowAmount;
 	}
 
 	private void Charge()
@@ -149,5 +168,20 @@ public class ChargeBehaviour : EnemyMovement
 			
 			enabled = false;
 		}
+	}
+
+	private void ApplyFrozen()
+	{
+		isFrozen = true;
+		lastVelocityBeforeFrozen = myRigidbody.velocity;
+
+		myRigidbody.velocity = Vector2.zero;
+	}
+	
+	private void RemoveFrozen()
+	{
+		isFrozen = false;
+
+		myRigidbody.velocity = lastVelocityBeforeFrozen;
 	}
 }

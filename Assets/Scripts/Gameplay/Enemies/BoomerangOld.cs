@@ -155,12 +155,12 @@ public class BoomerangOld : EnemyMovement
 		myRigidbody2D.velocity = (forceForward + forceSideway).normalized * vel;
 	}
 	
-	void OnEnable()
+	protected override void OnEnable()
 	{
 		EnemyLife.OnDied += OnDied;
 	}
 	
-	void OnDisable()
+	protected override void OnDisable()
 	{
 		EnemyLife.OnDied -= OnDied;
 	}
