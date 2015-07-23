@@ -16,6 +16,8 @@ public class Popup : MonoBehaviour
 	private static GameObject video;
 	private static UILabel descricao;
 
+	private static bool autoHide;
+
 	#region singleton
 	private static Popup instance;
 	public static Popup Instance
@@ -51,7 +53,22 @@ public class Popup : MonoBehaviour
 		Hide ();
 	}
 
+	public static void ShowYesNo(string description)
+	{
+		ShowYesNo (description, true);
+	}
+
+	public static void ShowYesNo(string description, bool autoHide)
+	{
+		ShowYesNo (description, null, null, autoHide);
+	}
+
 	public static void ShowYesNo(string description, Action yesAction, Action noAction)
+	{
+		ShowYesNo (description, yesAction, noAction, true);
+	}
+
+	public static void ShowYesNo(string description, Action yesAction, Action noAction, bool autoHide)
 	{
 		Instance.gameObject.SetActive (true);
 
@@ -65,9 +82,26 @@ public class Popup : MonoBehaviour
 		NoClicked += noAction;
 
 		descricao.text = description;
+
+		Popup.autoHide = autoHide;
+	}
+
+	public static void ShowVideoNo(string description)
+	{
+		ShowVideoNo (description, true);
+	}
+
+	public static void ShowVideoNo(string description, bool autoHide)
+	{
+		ShowVideoNo (description, null, null, autoHide);
 	}
 
 	public static void ShowVideoNo(string description, Action videoAction, Action noAction)
+	{
+		ShowVideoNo (description, videoAction, noAction, true);
+	}
+
+	public static void ShowVideoNo(string description, Action videoAction, Action noAction, bool autoHide)
 	{
 		Instance.gameObject.SetActive (true);
 		
@@ -81,14 +115,21 @@ public class Popup : MonoBehaviour
 		NoClicked += noAction;
 		
 		descricao.text = description;
+
+		Popup.autoHide = autoHide;
 	}
 
 	public static void ShowOk(string description)
 	{
-		ShowOk (description, null);
+		ShowOk (description, null, true);
 	}
 
-	public static void ShowOk(string description, Action okAction)
+	public static void ShowOk(string description, bool autoHide)
+	{
+		ShowOk (description, null, autoHide);
+	}
+
+	public static void ShowOk(string description, Action okAction, bool autoHide)
 	{
 		Instance.gameObject.SetActive (true);
 
@@ -100,11 +141,14 @@ public class Popup : MonoBehaviour
 		OkClicked += okAction;
 
 		descricao.text = description;
+
+		Popup.autoHide = autoHide;
 	}
 
 	public void YesAnswer()
 	{
-		Hide ();
+		if(autoHide)
+			Hide ();
 
 		if (YesClicked != null)
 			YesClicked ();
@@ -115,7 +159,8 @@ public class Popup : MonoBehaviour
 
 	public void NoAnswer()
 	{
-		Hide ();
+		if(autoHide)
+			Hide ();
 
 		if (NoClicked != null)
 			NoClicked ();
@@ -126,7 +171,8 @@ public class Popup : MonoBehaviour
 
 	public void OkAnswer()
 	{
-		Hide ();
+		if(autoHide)
+			Hide ();
 
 		if (OkClicked != null)
 			OkClicked ();
@@ -134,8 +180,8 @@ public class Popup : MonoBehaviour
 		OkClicked = null;
 	}
 
-	public void Hide()
+	public static void Hide()
 	{
-		gameObject.SetActive (false);
+		Instance.gameObject.SetActive (false);
 	}
 }

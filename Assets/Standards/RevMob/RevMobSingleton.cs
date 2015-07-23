@@ -278,6 +278,10 @@ public class RevMobSingleton : MonoBehaviour, IRevMobListener
 			fullscreen.Release();
 			fullscreen = revmob.CreateFullscreen();
 		}
+
+		//só tem banner implementado, funciona só desse jeito!!1
+		HideBanner ();
+		ShowBanner ();
 	}
 	
 	public void UserClosedTheAd (string revMobAdType) 

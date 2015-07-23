@@ -252,7 +252,7 @@ public class GameController : MonoBehaviour
 		yield return new WaitForSeconds (waitTime);
 
 		if (continues == 0 && Advertisement.IsReady ())
-			Popup.ShowVideoNo("You got hit! \n \n Do you want to watch 1 video to continue playing?", null, ShowEndScreen);
+			Popup.ShowVideoNo("You got hit! \n \n Do you want to watch 1 video to continue playing?", null, ShowEndScreen, false);
 		else
 		{
 			#if INFINITY_ORBS
@@ -284,6 +284,8 @@ public class GameController : MonoBehaviour
 	private void VideoWatched()
 	{
 		ContinuePlaying ();
+
+		Popup.Hide ();
 	}
 
 	private void PayContinueOrbs()

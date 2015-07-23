@@ -96,7 +96,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		Global.TotalOrbs += orbsToGive;
 		
-		Popup.ShowOk ("You received " + orbsToGive + " orbs.", null);
+		Popup.ShowOk ("You received " + orbsToGive + " orbs.");
 	}
 	
 	private void RevivePlayer()
