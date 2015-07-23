@@ -124,6 +124,11 @@ public class Popup : MonoBehaviour
 		ShowOk (description, null, true);
 	}
 
+	public static void ShowOk(string description, Action okAction)
+	{
+		ShowOk (description, okAction, true);
+	}
+
 	public static void ShowOk(string description, bool autoHide)
 	{
 		ShowOk (description, null, autoHide);
