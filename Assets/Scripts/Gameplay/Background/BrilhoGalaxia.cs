@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class BrilhoGalaxia : MonoBehaviour 
 {
 	private List<Collider2D> objectsInFront;
+	GameObject player;
 
 	void OnEnable()
 	{
@@ -21,6 +22,19 @@ public class BrilhoGalaxia : MonoBehaviour
 	void Awake()
 	{
 		objectsInFront = new List<Collider2D> ();
+	}
+
+	void Start()
+	{
+		StartCoroutine (WaitForPlayer ());
+	}
+
+	private IEnumerator WaitForPlayer()
+	{
+		while (GameObject.FindWithTag ("Player") == null)
+			yield return null;
+
+		player = GameObject.FindWithTag ("Player");
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
@@ -54,8 +68,6 @@ public class BrilhoGalaxia : MonoBehaviour
 
 	void RemovePlayer()
 	{
-		GameObject player = GameObject.FindWithTag ("Player");
-
 		foreach(Collider2D col in player.GetComponents<Collider2D>())
 		{
 			if(objectsInFront.Contains(col))

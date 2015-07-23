@@ -41,6 +41,7 @@ public class HUDController : MonoBehaviour
 		LevelDesign.OnPlayerLevelUp += UpdateLevelNumber;
 		GameController.OnLoseStacks += UpdateColor;
 		GameController.OnLoseStacks += UpdateLevelNumber;
+		GameController.OnLoseStacks += OnStreakUpdated;
 		AttackTargets.OnSpecialTimerUpdated += OnSpecialTimerUpdated;
 	}
 
@@ -57,6 +58,7 @@ public class HUDController : MonoBehaviour
 		LevelDesign.OnPlayerLevelUp -= UpdateLevelNumber;
 		GameController.OnLoseStacks -= UpdateColor;
 		GameController.OnLoseStacks -= UpdateLevelNumber;
+		GameController.OnLoseStacks -= OnStreakUpdated;
 		AttackTargets.OnSpecialTimerUpdated -= OnSpecialTimerUpdated;
 	}
 

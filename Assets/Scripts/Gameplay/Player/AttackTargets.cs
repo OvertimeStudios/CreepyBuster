@@ -52,7 +52,9 @@ public class AttackTargets : MonoBehaviour
 		EnemyMovement.OnOutOfScreen += RemoveEnemyFromList;
 		GameController.OnGameStart += GetDamage;
 		GameController.OnGameStart += GetRange;
-		GameController.OnShowContinueScreen += LoseAllTargets;
+		//GameController.OnShowContinueScreen += LoseAllTargets;
+		GameController.OnFingerHit += OnFingerHit;
+		FingerDetector.OnFingerUpEvent += OnFingerUp;
 	}
 
 	void OnDisable()
@@ -62,7 +64,9 @@ public class AttackTargets : MonoBehaviour
 		EnemyMovement.OnOutOfScreen -= RemoveEnemyFromList;
 		GameController.OnGameStart -= GetDamage;
 		GameController.OnGameStart -= GetRange;
-		GameController.OnShowContinueScreen -= LoseAllTargets;
+		//GameController.OnShowContinueScreen -= LoseAllTargets;
+		GameController.OnFingerHit -= OnFingerHit;
+		FingerDetector.OnFingerUpEvent -= OnFingerUp;
 	}
 
 	// Use this for initialization
@@ -203,6 +207,21 @@ public class AttackTargets : MonoBehaviour
 	public void StopSpecial()
 	{
 		isSpecial = false;
+	}
+
+	private void OnFingerHit()
+	{
+		if(LevelDesign.PlayerLevel == 0)
+		{
+			LoseAllTargets();
+			gameObject.SetActive (false);
+		}
+	}
+
+	private void OnFingerUp(FingerUpEvent e)
+	{
+		LoseAllTargets ();
+		gameObject.SetActive (false);
 	}
 
 	private void Reset()

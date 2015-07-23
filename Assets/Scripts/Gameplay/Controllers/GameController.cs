@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
 	public static event Action OnShowContinueScreen;
 	public static event Action OnShowEndScreen;
 	public static event Action OnReset;
+	public static event Action OnFingerHit;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
@@ -202,6 +203,9 @@ public class GameController : MonoBehaviour
 	{
 		if(IsInvencible) return;
 
+		if (OnFingerHit != null)
+			OnFingerHit ();
+
 		if (LevelDesign.PlayerLevel > 0)
 			LoseStacks ();
 		else
@@ -222,6 +226,8 @@ public class GameController : MonoBehaviour
 
 	private void NoMoreLifes()
 	{
+		isGameRunning = false;
+
 		StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen));
 	}
 
@@ -234,8 +240,7 @@ public class GameController : MonoBehaviour
 
 		if (OnGameOver != null)
 			OnGameOver ();
-
-		player.SetActive (false);
+		
 		gameObject.SetActive(false);
 	}
 
@@ -310,8 +315,11 @@ public class GameController : MonoBehaviour
 
 		Debug.Log ("Continue");
 
+		KillAllEnemies(false);
+
 		isGameRunning = true;
 		gameOver = false;
+		player.SetActive (true);
 	}
 
 	public void StartGame()
@@ -331,6 +339,9 @@ public class GameController : MonoBehaviour
 
 	private IEnumerator WaitForPlayer()
 	{
+		Debug.Log ("WaitForPlayer");
+		isGameRunning = true;
+
 		while (!player.activeSelf)
 			yield return null;
 
@@ -342,7 +353,6 @@ public class GameController : MonoBehaviour
 		continues = 0;
 		
 		gameOver = false;
-		isGameRunning = true;
 		
 		if (OnGameStart != null)
 			OnGameStart ();
@@ -369,7 +379,9 @@ public class GameController : MonoBehaviour
 	void OnFingerDown(FingerDownEvent e)
 	{
 		Debug.Log ("Activate by finger down");
-		player.SetActive (true);
+
+		if(isGameRunning)
+			player.SetActive (true);
 	}
 
 	void OnFingerUp(FingerUpEvent e)
@@ -410,12 +422,7 @@ public class GameController : MonoBehaviour
 			break;
 
 			case Item.Type.DeathRay:
-				for(int i = SpawnController.enemiesInGame.Count - 1; i >= 0; i--)
-				{
-					EnemyLife enemyLife = SpawnController.enemiesInGame[i].GetComponent<EnemyLife>();
-					
-					enemyLife.Dead();
-				}
+				KillAllEnemies(true);
 			break;
 
 			case Item.Type.Frozen:
@@ -463,5 +470,15 @@ public class GameController : MonoBehaviour
 		Debug.Log ("Invencible Faded");
 
 		invencible = false;
+	}
+
+	private void KillAllEnemies(bool countPoints)
+	{
+		for(int i = SpawnController.enemiesInGame.Count - 1; i >= 0; i--)
+		{
+			EnemyLife enemyLife = SpawnController.enemiesInGame[i].GetComponent<EnemyLife>();
+			
+			enemyLife.Dead(countPoints);
+		}
 	}
 }
