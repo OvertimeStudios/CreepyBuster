@@ -15,17 +15,31 @@ public class Legion : EnemyMovement
 	public bool dropMinionsOnDeath;
 
 	private Transform spriteTransform;
+	private Rotate innerRotate;
+	private Rotate outterRotate;
 
-	void OnEnable()
+	protected override void OnEnable()
 	{
+		base.OnEnable ();
+
 		EnemyLife.OnDied += OnDied;
 		EnemyMovement.OnOutOfScreen += RemoveMinions;
+		GameController.OnSlowDownCollected += ApplySlow;
+		GameController.OnSlowDownFade += RemoveSlow;
+		GameController.OnFrozenCollected += ApplyFrozen;
+		GameController.OnFrozenFade += RemoveFrozen;
 	}
 	
-	void OnDisable()
+	protected override void OnDisable()
 	{
+		base.OnDisable ();
+
 		EnemyLife.OnDied -= OnDied;
 		EnemyMovement.OnOutOfScreen -= RemoveMinions;
+		GameController.OnSlowDownCollected += ApplySlow;
+		GameController.OnSlowDownFade += RemoveSlow;
+		GameController.OnFrozenCollected += ApplyFrozen;
+		GameController.OnFrozenFade += RemoveFrozen;
 	}
 
 	// Use this for initialization
@@ -33,7 +47,8 @@ public class Legion : EnemyMovement
 	{
 		base.Start ();
 
-		spriteTransform = transform;//.FindChild ("Sprite");
+		innerRotate = transform.FindChild ("Sprite").GetComponent<Rotate> ();
+		outterRotate = GetComponent<Rotate> ();
 
 		int totalRows = Mathf.Min(minionsQty / minionsPerRow);
 
@@ -60,26 +75,20 @@ public class Legion : EnemyMovement
 			}
 		}
 	}
-	
-	// Update is called once per frame
-	protected override void Update () 
-	{
-		base.Update ();
-
-		spriteTransform.Rotate (Vector3.forward * rotVel);
-	}
 
 	void OnDied(GameObject enemy)
 	{
 		if (enemy.Equals (gameObject)) 
 		{
-			StartCoroutine (StopSpinning (EnemyLife.deathTime));
+			innerRotate.StopSmooth();
+			outterRotate.StopSmooth();
 
 			if(dropMinionsOnDeath)
 			{
 				foreach(Transform t in transform.FindChild("Minions"))
 				{
 					t.parent = transform.parent;
+					t.GetComponent<EnemyMovement>().enabled = false;
 					t.GetComponent<RandomMovement>().enabled = true;
 
 					if(OnMinionReleased != null)
@@ -108,15 +117,27 @@ public class Legion : EnemyMovement
 		}
 	}
 
-	private IEnumerator StopSpinning(float waitTime)
+	private void ApplySlow()
 	{
-		float maxRotVel = rotVel;
-		
-		while(rotVel > 0)
-		{
-			rotVel -= Time.deltaTime * EnemyLife.deathTime * maxRotVel;
-			
-			yield return null;
-		}
+		innerRotate.rotVel *= SlowDown.SlowAmount;
+		outterRotate.rotVel *= SlowDown.SlowAmount;
+	}
+	
+	private void RemoveSlow()
+	{
+		innerRotate.rotVel = innerRotate.originalVel;
+		outterRotate.rotVel = innerRotate.originalVel;
+	}
+
+	private void ApplyFrozen()
+	{
+		innerRotate.rotVel = 0;
+		outterRotate.rotVel = 0;
+	}
+	
+	private void RemoveFrozen()
+	{
+		innerRotate.rotVel = innerRotate.originalVel;
+		outterRotate.rotVel = innerRotate.originalVel;
 	}
 }

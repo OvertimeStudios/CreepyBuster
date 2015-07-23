@@ -45,12 +45,16 @@ public class AttackTargets : MonoBehaviour
 
 	void OnEnable()
 	{
+		Reset ();
+
 		MenuController.OnPanelClosed += Reset;
 		EnemyLife.OnDied += RemoveEnemyFromList;
 		EnemyMovement.OnOutOfScreen += RemoveEnemyFromList;
 		GameController.OnGameStart += GetDamage;
 		GameController.OnGameStart += GetRange;
-		GameController.OnShowContinueScreen += LoseAllTargets;
+		//GameController.OnShowContinueScreen += LoseAllTargets;
+		GameController.OnFingerHit += OnFingerHit;
+		FingerDetector.OnFingerUpEvent += OnFingerUp;
 	}
 
 	void OnDisable()
@@ -60,7 +64,9 @@ public class AttackTargets : MonoBehaviour
 		EnemyMovement.OnOutOfScreen -= RemoveEnemyFromList;
 		GameController.OnGameStart -= GetDamage;
 		GameController.OnGameStart -= GetRange;
-		GameController.OnShowContinueScreen -= LoseAllTargets;
+		//GameController.OnShowContinueScreen -= LoseAllTargets;
+		GameController.OnFingerHit -= OnFingerHit;
+		FingerDetector.OnFingerUpEvent -= OnFingerUp;
 	}
 
 	// Use this for initialization
@@ -203,10 +209,26 @@ public class AttackTargets : MonoBehaviour
 		isSpecial = false;
 	}
 
+	private void OnFingerHit()
+	{
+		if(LevelDesign.PlayerLevel == 0)
+		{
+			LoseAllTargets();
+			gameObject.SetActive (false);
+		}
+	}
+
+	private void OnFingerUp(FingerUpEvent e)
+	{
+		LoseAllTargets ();
+		gameObject.SetActive (false);
+	}
+
 	private void Reset()
 	{
+		Debug.Log ("Attack Targets clear enemies");
 		isSpecial = false;
-		
+
 		targets = new List<Transform> ();
 		enemiesInRange = new List<Transform> ();
 	}

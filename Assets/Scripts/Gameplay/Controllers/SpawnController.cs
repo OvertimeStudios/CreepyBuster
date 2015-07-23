@@ -39,7 +39,7 @@ public class SpawnController : MonoBehaviour
 	{
 		get 
 		{
-			return !GameController.IsSlowedDown && GameController.isGameRunning;
+			return !GameController.IsFrozen && !GameController.IsSlowedDown && GameController.isGameRunning;
 		}
 	}
 	#endregion
@@ -463,6 +463,7 @@ public class SpawnController : MonoBehaviour
 
 	private void Reset()
 	{
+		Debug.Log ("Clear all enemies");
 		foreach (Transform t in enemiesInGame)
 		{
 			if(t != null)

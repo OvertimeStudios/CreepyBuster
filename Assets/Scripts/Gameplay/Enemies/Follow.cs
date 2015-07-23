@@ -7,19 +7,28 @@ public class Follow : EnemyMovement
 
 	private Transform player;
 	private bool isSlowed;
+	private bool isFrozen;
 
-	void OnEnable()
+	protected override void OnEnable()
 	{
+		base.OnEnable ();
+
 		EnemyLife.OnDied += OnDied;
 		GameController.OnSlowDownCollected += ApplySlow;
 		GameController.OnSlowDownFade += RemoveSlow;
+		GameController.OnFrozenCollected += ApplyFrozen;
+		GameController.OnFrozenFade += RemoveFrozen;
 	}
 	
-	void OnDisable()
+	protected override void OnDisable()
 	{
+		base.OnDisable ();
+
 		EnemyLife.OnDied -= OnDied;
 		GameController.OnSlowDownCollected -= ApplySlow;
 		GameController.OnSlowDownFade -= RemoveSlow;
+		GameController.OnFrozenCollected -= ApplyFrozen;
+		GameController.OnFrozenFade -= RemoveFrozen;
 	}
 
 	// Use this for initialization
@@ -39,6 +48,8 @@ public class Follow : EnemyMovement
 	{
 		base.Update ();
 
+		if(isFrozen) return;
+
 		float angle = Mathf.Atan2(player.position.y - transform.position.y, player.position.x - transform.position.x);
 
 		transform.rotation = Quaternion.Euler (0, 0, angle * Mathf.Rad2Deg);
@@ -52,15 +63,11 @@ public class Follow : EnemyMovement
 	private void ApplySlow()
 	{
 		isSlowed = true;
-
-		myAnimator.speed *= SlowDown.SlowAmount;
 	}
 	
 	private void RemoveSlow()
 	{
 		isSlowed = false;
-
-		myAnimator.speed *= 1 / SlowDown.SlowAmount;
 	}
 
 	void OnDied(GameObject enemy)
@@ -71,5 +78,17 @@ public class Follow : EnemyMovement
 			
 			enabled = false;
 		}
+	}
+
+	private void ApplyFrozen()
+	{
+		isFrozen = true;
+
+		GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+	}
+	
+	private void RemoveFrozen()
+	{
+		isFrozen = false;
 	}
 }

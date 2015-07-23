@@ -146,7 +146,7 @@ public class ItemShop : MonoBehaviour
 		}
 
 		#if INFINITY_ORBS
-		Popup.ShowOk("Bad, bad cheating boy. Here is your 'purchase'. Humpf.", null);
+		Popup.ShowOk("Bad, bad cheating boy. Here is your 'purchase'. Humpf.");
 		UnlockProperty();
 		#endif
 	}

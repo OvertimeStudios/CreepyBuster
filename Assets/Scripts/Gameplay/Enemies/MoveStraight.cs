@@ -5,19 +5,28 @@ using System;
 public class MoveStraight : EnemyMovement 
 {
 	public float vel;
+	private Vector2 lastVelocityBeforeFrozen;
 
-	void OnEnable()
+	protected override void OnEnable()
 	{
+		base.OnEnable ();
+
 		EnemyLife.OnDied += OnDied;
 		GameController.OnSlowDownCollected += ApplySlow;
 		GameController.OnSlowDownFade += RemoveSlow;
+		GameController.OnFrozenCollected += ApplyFrozen;
+		GameController.OnFrozenFade += RemoveFrozen;
 	}
 	
-	void OnDisable()
+	protected override void OnDisable()
 	{
+		base.OnDisable ();
+
 		EnemyLife.OnDied -= OnDied;
 		GameController.OnSlowDownCollected -= ApplySlow;
 		GameController.OnSlowDownFade -= RemoveSlow;
+		GameController.OnFrozenCollected -= ApplyFrozen;
+		GameController.OnFrozenFade -= RemoveFrozen;
 	}
 
 	// Use this for initialization
@@ -36,15 +45,11 @@ public class MoveStraight : EnemyMovement
 	private void ApplySlow()
 	{
 		GetComponent<Rigidbody2D> ().velocity = transform.right * vel * SlowDown.SlowAmount;
-
-		myAnimator.speed *= SlowDown.SlowAmount;
 	}
 	
 	private void RemoveSlow()
 	{
 		GetComponent<Rigidbody2D> ().velocity = transform.right * vel;
-
-		myAnimator.speed *= 1 / SlowDown.SlowAmount;
 	}
 
 	void OnDied(GameObject enemy)
@@ -55,5 +60,16 @@ public class MoveStraight : EnemyMovement
 			
 			enabled = false;
 		}
+	}
+
+	private void ApplyFrozen()
+	{
+		lastVelocityBeforeFrozen = GetComponent<Rigidbody2D> ().velocity;
+		GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+	}
+	
+	private void RemoveFrozen()
+	{
+		GetComponent<Rigidbody2D> ().velocity = lastVelocityBeforeFrozen;
 	}
 }

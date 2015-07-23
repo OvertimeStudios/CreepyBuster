@@ -13,6 +13,7 @@ public class Item : MonoBehaviour
 		LevelUp,
 		DeathRay,
 		SlowDown,
+		Frozen,
 		PlasmaOrb,
 	}
 	

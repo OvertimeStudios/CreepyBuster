@@ -15,19 +15,27 @@ public class ZigZag : EnemyMovement
 	private Vector2 finalVelocity;
 
 	private bool isSlowed;
+	private bool isFrozen;
 
-	void OnEnable()
+	protected override void OnEnable()
 	{
+		base.OnEnable ();
+
 		EnemyLife.OnDied += OnDied;
 		GameController.OnSlowDownCollected += ApplySlow;
 		GameController.OnSlowDownFade += RemoveSlow;
+		GameController.OnFrozenCollected += ApplyFrozen;
+		GameController.OnFrozenFade += RemoveFrozen;
 	}
 	
-	void OnDisable()
+	protected override void OnDisable()
 	{
+		base.OnDisable ();
 		EnemyLife.OnDied -= OnDied;
 		GameController.OnSlowDownCollected -= ApplySlow;
 		GameController.OnSlowDownFade -= RemoveSlow;
+		GameController.OnFrozenCollected -= ApplyFrozen;
+		GameController.OnFrozenFade -= RemoveFrozen;
 		
 		StopAllCoroutines();
 	}
@@ -56,7 +64,8 @@ public class ZigZag : EnemyMovement
 	{
 		yield return new WaitForSeconds (waitTime);
 
-		ChangeDirection ();
+		if(!isFrozen)
+			ChangeDirection ();
 
 		StartCoroutine (ChangeDirection (timeToChangeDirection.Random ()));
 	}
@@ -76,26 +85,39 @@ public class ZigZag : EnemyMovement
 	{
 		base.Update ();
 
-		Vector3 eulerAngle = transform.eulerAngles;
-		eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.05f);
-		transform.eulerAngles = eulerAngle;
-
-		if(isSlowed)
-			myRigidbody2D.velocity = transform.right * vel * SlowDown.SlowAmount;
+		if (isFrozen)
+			myRigidbody2D.velocity = Vector2.zero;
 		else
-			myRigidbody2D.velocity = transform.right * vel;
+		{
+			Vector3 eulerAngle = transform.eulerAngles;
+			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.05f);
+			transform.eulerAngles = eulerAngle;
+
+			if(isSlowed)
+				myRigidbody2D.velocity = transform.right * vel * SlowDown.SlowAmount;
+			else
+				myRigidbody2D.velocity = transform.right * vel;
+		}
 	}
 
 	private void ApplySlow()
 	{
 		isSlowed = true;
-		myAnimator.speed *= SlowDown.SlowAmount;
 	}
 
 	private void RemoveSlow()
 	{
 		isSlowed = false;
-		myAnimator.speed *= 1 / SlowDown.SlowAmount;
+	}
+
+	private void ApplyFrozen()
+	{
+		isFrozen = true;
+	}
+	
+	private void RemoveFrozen()
+	{
+		isFrozen = false;
 	}
 
 	void OnDied(GameObject enemy)

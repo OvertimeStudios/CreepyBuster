@@ -8,17 +8,13 @@ public class OrbCounter : MonoBehaviour
 	void OnEnable()
 	{
 		Global.OnOrbUpdated += UpdateLabel;
+
+		UpdateLabel ();
 	}
 
 	void OnDisable()
 	{
 		Global.OnOrbUpdated -= UpdateLabel;
-	}
-
-	// Use this for initialization
-	void Start () 
-	{
-		UpdateLabel ();
 	}
 	
 	void UpdateLabel()
