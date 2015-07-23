@@ -281,7 +281,7 @@ public class RevMobSingleton : MonoBehaviour, IRevMobListener
 
 		//só tem banner implementado, funciona só desse jeito!!1
 		HideBanner ();
-		ShowBanner ();
+		ShowBanner (RevMob.Position.BOTTOM);
 	}
 	
 	public void UserClosedTheAd (string revMobAdType) 
