@@ -6,8 +6,6 @@ public class LightBehaviour : MonoBehaviour
 {
 	private ParticleRenderer[] particleRenderers;
 
-	//public Color[] colors;
-
 	#region singleton
 	private static LightBehaviour instance;
 	public static LightBehaviour Instance

@@ -9,11 +9,13 @@ public class BrilhoGalaxia : MonoBehaviour
 	void OnEnable()
 	{
 		EnemyLife.OnDied += RemoveEnemy;
+		GameController.OnGameOver += RemovePlayer;
 	}
 
 	void OnDisable()
 	{
 		EnemyLife.OnDied -= RemoveEnemy;
+		GameController.OnGameOver -= RemovePlayer;
 	}
 
 	void Awake()
@@ -48,5 +50,31 @@ public class BrilhoGalaxia : MonoBehaviour
 
 		if(objectsInFront.Count == 0)
 			GetComponent<SpriteRenderer> ().enabled = true;
+	}
+
+	void RemovePlayer()
+	{
+		GameObject player = GameObject.FindWithTag ("Player");
+
+		foreach(Collider2D col in player.GetComponents<Collider2D>())
+		{
+			if(objectsInFront.Contains(col))
+				objectsInFront.Remove(col);
+		}
+
+		if(objectsInFront.Count == 0)
+			GetComponent<SpriteRenderer> ().enabled = true;
+	}
+
+	void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			Debug.Log("List of objects in front of galaxy: (" + objectsInFront.Count + ")");
+			foreach(Collider2D col in objectsInFront)
+			{
+				Debug.Log(col.gameObject.name);
+			}
+		}
 	}
 }

@@ -463,6 +463,7 @@ public class SpawnController : MonoBehaviour
 
 	private void Reset()
 	{
+		Debug.Log ("Clear all enemies");
 		foreach (Transform t in enemiesInGame)
 		{
 			if(t != null)

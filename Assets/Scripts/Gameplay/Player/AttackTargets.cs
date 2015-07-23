@@ -45,6 +45,8 @@ public class AttackTargets : MonoBehaviour
 
 	void OnEnable()
 	{
+		Reset ();
+
 		MenuController.OnPanelClosed += Reset;
 		EnemyLife.OnDied += RemoveEnemyFromList;
 		EnemyMovement.OnOutOfScreen += RemoveEnemyFromList;
@@ -205,8 +207,9 @@ public class AttackTargets : MonoBehaviour
 
 	private void Reset()
 	{
+		Debug.Log ("Attack Targets clear enemies");
 		isSpecial = false;
-		
+
 		targets = new List<Transform> ();
 		enemiesInRange = new List<Transform> ();
 	}
