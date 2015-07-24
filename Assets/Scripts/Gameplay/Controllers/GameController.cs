@@ -273,6 +273,8 @@ public class GameController : MonoBehaviour
 
 	private void ShowEndScreen()
 	{
+		Popup.Hide ();
+
 		Global.TotalOrbs += orbsCollected;
 
 		HUDController.Instance.ShowEndScreen ();
