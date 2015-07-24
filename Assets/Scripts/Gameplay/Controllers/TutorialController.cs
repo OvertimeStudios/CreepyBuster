@@ -15,6 +15,8 @@ public class TutorialController : MonoBehaviour
 	public TutorialText[] texts;
 	private int textsNumber = 0;
 
+	public bool runTutorial = true;
+
 	#region singleton
 	private static TutorialController instance;
 	public static TutorialController Instance
@@ -41,7 +43,13 @@ public class TutorialController : MonoBehaviour
 		tutorial.gameObject.SetActive (true);
 		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
 
-		StartCoroutine (Run ());
+		if(runTutorial && !Debug.isDebugBuild)
+			StartCoroutine (Run ());
+		else
+		{
+			Global.RunTutorial = false;
+			gameObject.SetActive (false);
+		}
 
 		EnemyLife.OnDied += EnemyDied;
 		EnemyMovement.OnOutOfScreen += EnemyOutOfScreen;
