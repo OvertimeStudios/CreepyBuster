@@ -43,13 +43,13 @@ public class TutorialController : MonoBehaviour
 		tutorial.gameObject.SetActive (true);
 		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
 
-		if(runTutorial && !Debug.isDebugBuild)
-			StartCoroutine (Run ());
-		else
+		if(Debug.isDebugBuild && !runTutorial)
 		{
 			Global.RunTutorial = false;
 			gameObject.SetActive (false);
 		}
+		else
+			StartCoroutine (Run ());
 
 		EnemyLife.OnDied += EnemyDied;
 		EnemyMovement.OnOutOfScreen += EnemyOutOfScreen;
