@@ -30,7 +30,6 @@ public class FingerDetector : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
-		Debug.Log ("OnFingerDown");
 		fingerDown = true;
 
 		position = e.Position;
@@ -41,7 +40,6 @@ public class FingerDetector : MonoBehaviour
 	
 	void OnFingerUp(FingerUpEvent e)
 	{
-		Debug.Log ("OnFingerUp");
 		fingerDown = false;
 
 		position = e.Position;

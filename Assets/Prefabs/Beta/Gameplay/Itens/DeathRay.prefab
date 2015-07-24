@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 477642}
   - 212: {fileID: 21214404}
   - 114: {fileID: 11451116}
-  - 58: {fileID: 5866446}
   - 50: {fileID: 5060450}
+  - 61: {fileID: 6150150}
   m_Layer: 0
   m_Name: DeathRay
   m_TagString: Untagged
@@ -26,8 +26,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193254}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .200000003, y: .200000003, z: .200000003}
+  m_LocalPosition: {x: .540000021, y: -2.20000005, z: 0}
+  m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,8 +47,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &5866446
-CircleCollider2D:
+--- !u!61 &6150150
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -59,7 +59,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.65499997
+  m_Size: {x: 3.08999991, y: 3.08999991}
 --- !u!114 &11451116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,7 +97,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dda112082b9a9419988611a118d37615, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8fe1786f23bc84ec9aaea0f91598ab02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -109,6 +109,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: vel
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

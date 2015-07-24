@@ -31,14 +31,14 @@ public class Settings : MonoBehaviour
 		if(Global.IsLoggedIn)
 		{
 			greeting.text = "Hello" + ", " + Global.user.firstname;
-			greeting.gameObject.GetComponent<Collider>().enabled = false;
+			greeting.gameObject.GetComponent<Collider2D>().enabled = false;
 			greeting.gameObject.GetComponent<UIButton>().enabled = false;
 			logout.SetActive(true);
 		}
 		else
 		{
 			greeting.text = "Login";
-			greeting.gameObject.GetComponent<Collider>().enabled = true;
+			greeting.gameObject.GetComponent<Collider2D>().enabled = true;
 			greeting.gameObject.GetComponent<UIButton>().enabled = true;
 			logout.SetActive(false);
 		}

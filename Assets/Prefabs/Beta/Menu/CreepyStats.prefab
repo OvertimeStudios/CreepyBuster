@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 408580}
   - 114: {fileID: 11488810}
-  - 65: {fileID: 6535330}
+  - 61: {fileID: 6172900}
   m_Layer: 5
   m_Name: CreepyStats
   m_TagString: Untagged
@@ -261,18 +261,19 @@ Transform:
   - {fileID: 465424}
   m_Father: {fileID: 408580}
   m_RootOrder: 1
---- !u!65 &6535330
-BoxCollider:
+--- !u!61 &6172900
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143536}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -.300003111, y: -10}
   serializedVersion: 2
-  m_Size: {x: 402, y: 464, z: 0}
-  m_Center: {x: -.300003052, y: -10.0000153, z: 0}
+  m_Size: {x: 402, y: 464}
 --- !u!114 &11429014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -797,7 +798,23 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Offset.x
+      value: -.300003111
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Offset.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Size.x
+      value: 402
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Size.y
+      value: 464
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 143536}

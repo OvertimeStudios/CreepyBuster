@@ -26,6 +26,11 @@ public class AttackTargets : MonoBehaviour
 	{
 		get { return isSpecial; }
 	}
+
+	public static bool IsAttacking
+	{
+		get { return targets.Count > 0; }
+	}
 	#endregion
 
 	#region singleton
@@ -189,8 +194,6 @@ public class AttackTargets : MonoBehaviour
 
 	private void LoseAllTargets()
 	{
-		Debug.Log ("LoseAllTargets");
-
 		foreach (Transform t in targets)
 			t.GetComponent<EnemyLife> ().OnLightExit ();
 

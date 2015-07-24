@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
 	private static bool invencible;
 	private static int continues;
 
+	public float timeInvencibleAfterDamage;
 	public float timeToShowGameOverScreen;
 	public int orbsToContinue;
 	public int pointsPerOrb = 10;
@@ -123,6 +124,11 @@ public class GameController : MonoBehaviour
 				OnScoreUpdated ();
 		}
 	}
+
+	public static bool IsTutorialRunning
+	{
+		get { return TutorialController.Instance.gameObject.activeInHierarchy; }
+	}
 	#endregion
 
 	#region singleton
@@ -148,6 +154,9 @@ public class GameController : MonoBehaviour
 		RewardedVideoPlayer.OnRevivePlayer += VideoWatched;
 		FingerDetector.OnFingerDownEvent += OnFingerDown;
 		FingerDetector.OnFingerUpEvent += OnFingerUp;
+
+		if (Global.RunTutorial)
+			TutorialController.Instance.gameObject.SetActive (true);
 	}
 
 	void OnDisable()
@@ -159,6 +168,8 @@ public class GameController : MonoBehaviour
 		RewardedVideoPlayer.OnRevivePlayer -= VideoWatched;
 		FingerDetector.OnFingerDownEvent -= OnFingerDown;
 		FingerDetector.OnFingerUpEvent -= OnFingerUp;
+
+		TutorialController.Instance.gameObject.SetActive (false);
 	}
 
 	void Start()
@@ -202,6 +213,8 @@ public class GameController : MonoBehaviour
 	public void FingerHit()
 	{
 		if(IsInvencible) return;
+
+		ScreenFeedback.ShowDamage (timeInvencibleAfterDamage);
 
 		if (OnFingerHit != null)
 			OnFingerHit ();
@@ -349,6 +362,8 @@ public class GameController : MonoBehaviour
 		while (!player.activeSelf)
 			yield return null;
 
+		Debug.Log ("Player found");
+
 		enemiesKillCount = 0;
 		score = 0;
 		specialStreak = 0;
@@ -364,6 +379,7 @@ public class GameController : MonoBehaviour
 
 	private void Reset()
 	{
+		Debug.Log ("Reset");
 		enemiesKillCount = 0;
 		score = 0;
 		StreakCount = 0;
@@ -382,8 +398,6 @@ public class GameController : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
-		Debug.Log ("Activate by finger down");
-
 		if(isGameRunning)
 			player.SetActive (true);
 	}
@@ -400,6 +414,7 @@ public class GameController : MonoBehaviour
 		{
 			case Item.Type.PlasmaOrb:
 				orbsCollected += gameObject.GetComponent<PlasmaOrbItem>().orbs;
+				Debug.Log("Orbs collected: " + gameObject.GetComponent<PlasmaOrbItem>().orbs + ". Total: " + orbsCollected);
 			break;
 
 			case Item.Type.LevelUp:
@@ -420,6 +435,8 @@ public class GameController : MonoBehaviour
 
 			case Item.Type.Invecibility:
 				invencible = true;
+				
+				ScreenFeedback.ShowInvencibility(Invencible.Time);
 
 				StopCoroutine("FadeInvencible");
 				StartCoroutine("FadeInvencible");
@@ -435,6 +452,8 @@ public class GameController : MonoBehaviour
 				
 				frozen = true;
 				
+				ScreenFeedback.ShowFrozen(Frozen.FrozenTime);
+
 				StopCoroutine("FadeFrozen");
 				StartCoroutine("FadeFrozen");
 			break;

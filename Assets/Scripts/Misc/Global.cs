@@ -50,6 +50,7 @@ public class Global : MonoBehaviour
 
 	#region session variables
 	private static bool loggedIn = false;
+	private static bool tutorial = true;
 	#endregion
 
 	#region get/set
@@ -103,6 +104,13 @@ public class Global : MonoBehaviour
 		{
 			sessionsScore = value;
 		}
+	}
+
+	public static bool RunTutorial
+	{
+		get { return tutorial; }
+
+		set { tutorial = value; }
 	}
 
 	/// <summary>
