@@ -48,7 +48,7 @@ public class Follow : EnemyMovement
 	{
 		base.Update ();
 
-		if(isFrozen) return;
+		if(isFrozen || !player.gameObject.activeInHierarchy) return;
 
 		float angle = Mathf.Atan2(player.position.y - transform.position.y, player.position.x - transform.position.x);
 

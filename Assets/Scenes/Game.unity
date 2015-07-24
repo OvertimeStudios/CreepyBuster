@@ -302,7 +302,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3017
+  startingRenderQueue: 3013
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -437,7 +437,7 @@ GameObject:
   - 4: {fileID: 40009601}
   - 114: {fileID: 40009602}
   - 114: {fileID: 40009604}
-  - 65: {fileID: 40009603}
+  - 61: {fileID: 40009603}
   m_Layer: 5
   m_Name: On
   m_TagString: Untagged
@@ -507,18 +507,19 @@ MonoBehaviour:
   mAtlas: {fileID: 11471508, guid: 829cd253702d44a54b8b33878612db47, type: 2}
   mSpriteName: On
   mFillCenter: 1
---- !u!65 &40009603
-BoxCollider:
+--- !u!61 &40009603
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 40009600}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 60, y: 60, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &40009604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3027,7 +3028,7 @@ GameObject:
   - 4: {fileID: 242838213}
   - 114: {fileID: 242838214}
   - 114: {fileID: 242838215}
-  - 65: {fileID: 242838216}
+  - 61: {fileID: 242838216}
   m_Layer: 5
   m_Name: Achievements
   m_TagString: Untagged
@@ -3126,18 +3127,19 @@ MonoBehaviour:
     mMethodName: MoveToAchievements
     mParameters: []
     oneShot: 0
---- !u!65 &242838216
-BoxCollider:
+--- !u!61 &242838216
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 242838212}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 150, y: 150, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 150, y: 150}
 --- !u!1 &250071925
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,7 +3563,7 @@ GameObject:
   - 4: {fileID: 288227409}
   - 114: {fileID: 288227412}
   - 114: {fileID: 288227411}
-  - 65: {fileID: 288227410}
+  - 61: {fileID: 288227410}
   m_Layer: 5
   m_Name: Ok
   m_TagString: Untagged
@@ -3582,18 +3584,19 @@ Transform:
   - {fileID: 43944562}
   m_Father: {fileID: 820286131}
   m_RootOrder: 1
---- !u!65 &288227410
-BoxCollider:
+--- !u!61 &288227410
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 288227408}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 100, y: 62, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 100, y: 62}
 --- !u!114 &288227411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4456,8 +4459,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 440227201}
   - 114: {fileID: 440227204}
-  - 65: {fileID: 440227203}
   - 114: {fileID: 440227202}
+  - 61: {fileID: 440227203}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -4506,18 +4509,19 @@ MonoBehaviour:
     mMethodName: MoveToHUBConnection
     mParameters: []
     oneShot: 0
---- !u!65 &440227203
-BoxCollider:
+--- !u!61 &440227203
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 440227200}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 60, y: 60, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &440227204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5118,7 +5122,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3019
+  startingRenderQueue: 3015
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -5221,7 +5225,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3018
+  startingRenderQueue: 3014
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -5400,7 +5404,7 @@ GameObject:
   - 4: {fileID: 558080144}
   - 114: {fileID: 558080147}
   - 114: {fileID: 558080146}
-  - 65: {fileID: 558080145}
+  - 61: {fileID: 558080145}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -5420,18 +5424,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 590002187}
   m_RootOrder: 2
---- !u!65 &558080145
-BoxCollider:
+--- !u!61 &558080145
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 558080143}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 80, y: 80, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 80, y: 80}
 --- !u!114 &558080146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6021,7 +6026,7 @@ GameObject:
   - 4: {fileID: 636626838}
   - 114: {fileID: 636626839}
   - 114: {fileID: 636626841}
-  - 65: {fileID: 636626840}
+  - 61: {fileID: 636626840}
   m_Layer: 5
   m_Name: Login
   m_TagString: Untagged
@@ -6106,18 +6111,19 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
---- !u!65 &636626840
-BoxCollider:
+--- !u!61 &636626840
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 636626837}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 350, y: 69, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 350, y: 69}
 --- !u!114 &636626841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6459,7 +6465,7 @@ GameObject:
   - 4: {fileID: 703777200}
   - 114: {fileID: 703777203}
   - 114: {fileID: 703777202}
-  - 65: {fileID: 703777201}
+  - 61: {fileID: 703777201}
   m_Layer: 5
   m_Name: No
   m_TagString: Untagged
@@ -6480,18 +6486,19 @@ Transform:
   - {fileID: 918091867}
   m_Father: {fileID: 500414555}
   m_RootOrder: 2
---- !u!65 &703777201
-BoxCollider:
+--- !u!61 &703777201
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 703777199}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 102, y: 64, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 102, y: 64}
 --- !u!114 &703777202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7015,7 +7022,7 @@ GameObject:
   - 4: {fileID: 785197127}
   - 114: {fileID: 785197130}
   - 114: {fileID: 785197129}
-  - 65: {fileID: 785197128}
+  - 61: {fileID: 785197128}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -7035,18 +7042,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 67642260}
   m_RootOrder: 6
---- !u!65 &785197128
-BoxCollider:
+--- !u!61 &785197128
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 785197126}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 222, y: 70, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 222, y: 70}
 --- !u!114 &785197129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7415,8 +7423,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 825346751}
   - 114: {fileID: 825346754}
-  - 65: {fileID: 825346753}
   - 114: {fileID: 825346752}
+  - 61: {fileID: 825346753}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -7465,18 +7473,19 @@ MonoBehaviour:
     mMethodName: MoveToHUBConnection
     mParameters: []
     oneShot: 0
---- !u!65 &825346753
-BoxCollider:
+--- !u!61 &825346753
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 825346750}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 60, y: 60, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &825346754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8354,7 +8363,7 @@ GameObject:
   - 4: {fileID: 940923292}
   - 114: {fileID: 940923293}
   - 114: {fileID: 940923295}
-  - 65: {fileID: 940923294}
+  - 61: {fileID: 940923294}
   m_Layer: 5
   m_Name: GameStats
   m_TagString: Untagged
@@ -8425,18 +8434,19 @@ MonoBehaviour:
   mAtlas: {fileID: 11471508, guid: 829cd253702d44a54b8b33878612db47, type: 2}
   mSpriteName: Popup
   mFillCenter: 1
---- !u!65 &940923294
-BoxCollider:
+--- !u!61 &940923294
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 940923291}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 314, y: 64, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 314, y: 64}
 --- !u!114 &940923295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10035,7 +10045,7 @@ GameObject:
   - 4: {fileID: 1079486090}
   - 114: {fileID: 1079486093}
   - 114: {fileID: 1079486092}
-  - 65: {fileID: 1079486091}
+  - 61: {fileID: 1079486091}
   m_Layer: 5
   m_Name: On
   m_TagString: Untagged
@@ -10055,18 +10065,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 769066209}
   m_RootOrder: 1
---- !u!65 &1079486091
-BoxCollider:
+--- !u!61 &1079486091
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1079486089}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 60, y: 60, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &1079486092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11218,7 +11229,7 @@ GameObject:
   - 4: {fileID: 1263641959}
   - 114: {fileID: 1263641962}
   - 114: {fileID: 1263641961}
-  - 65: {fileID: 1263641960}
+  - 61: {fileID: 1263641960}
   m_Layer: 5
   m_Name: Yes
   m_TagString: Untagged
@@ -11239,18 +11250,19 @@ Transform:
   - {fileID: 1614464696}
   m_Father: {fileID: 500414555}
   m_RootOrder: 1
---- !u!65 &1263641960
-BoxCollider:
+--- !u!61 &1263641960
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1263641958}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 102, y: 64, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 102, y: 64}
 --- !u!114 &1263641961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11541,8 +11553,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1292365270}
   - 114: {fileID: 1292365273}
-  - 65: {fileID: 1292365272}
   - 114: {fileID: 1292365271}
+  - 61: {fileID: 1292365272}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -11591,18 +11603,19 @@ MonoBehaviour:
     mMethodName: MoveToMain
     mParameters: []
     oneShot: 0
---- !u!65 &1292365272
-BoxCollider:
+--- !u!61 &1292365272
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1292365269}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 60, y: 60, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &1292365273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12601,8 +12614,8 @@ GameObject:
   - 4: {fileID: 1419480194}
   - 114: {fileID: 1419480196}
   - 114: {fileID: 1419480195}
-  - 65: {fileID: 1419480197}
   - 114: {fileID: 1419480198}
+  - 61: {fileID: 1419480197}
   m_Layer: 5
   m_Name: Play Advertise
   m_TagString: Untagged
@@ -12702,18 +12715,19 @@ MonoBehaviour:
   mAtlas: {fileID: 11471508, guid: 829cd253702d44a54b8b33878612db47, type: 2}
   mSpriteName: play
   mFillCenter: 1
---- !u!65 &1419480197
-BoxCollider:
+--- !u!61 &1419480197
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1419480193}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 80, y: 80, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 80, y: 80}
 --- !u!114 &1419480198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12831,8 +12845,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1445785029}
   - 114: {fileID: 1445785031}
-  - 65: {fileID: 1445785030}
   - 114: {fileID: 1445785032}
+  - 61: {fileID: 1445785030}
   m_Layer: 5
   m_Name: People
   m_TagString: Untagged
@@ -12857,18 +12871,19 @@ Transform:
   - {fileID: 1422261574}
   m_Father: {fileID: 21420317}
   m_RootOrder: 0
---- !u!65 &1445785030
-BoxCollider:
+--- !u!61 &1445785030
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1445785028}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -146.499985, y: 8.99998474}
   serializedVersion: 2
-  m_Size: {x: 343, y: 506.720001, z: 0}
-  m_Center: {x: -149.889999, y: -10.0000305, z: 0}
+  m_Size: {x: 343.000031, y: 502}
 --- !u!114 &1445785031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13076,7 +13091,7 @@ GameObject:
   - 4: {fileID: 1492746435}
   - 114: {fileID: 1492746438}
   - 114: {fileID: 1492746437}
-  - 65: {fileID: 1492746436}
+  - 61: {fileID: 1492746436}
   m_Layer: 5
   m_Name: Ok
   m_TagString: Untagged
@@ -13097,18 +13112,19 @@ Transform:
   - {fileID: 694396324}
   m_Father: {fileID: 500414555}
   m_RootOrder: 3
---- !u!65 &1492746436
-BoxCollider:
+--- !u!61 &1492746436
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1492746434}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 102, y: 64, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 102, y: 64}
 --- !u!114 &1492746437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13329,7 +13345,7 @@ GameObject:
   - 4: {fileID: 1503466800}
   - 114: {fileID: 1503466801}
   - 114: {fileID: 1503466802}
-  - 65: {fileID: 1503466803}
+  - 61: {fileID: 1503466803}
   m_Layer: 5
   m_Name: Creepypedia
   m_TagString: Untagged
@@ -13428,18 +13444,19 @@ MonoBehaviour:
     mMethodName: MoveToCreepypedia
     mParameters: []
     oneShot: 0
---- !u!65 &1503466803
-BoxCollider:
+--- !u!61 &1503466803
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1503466799}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 150, y: 150, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 150, y: 150}
 --- !u!1 &1505264800
 GameObject:
   m_ObjectHideFlags: 0
@@ -13960,8 +13977,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1590628363}
   - 114: {fileID: 1590628366}
-  - 65: {fileID: 1590628365}
   - 114: {fileID: 1590628364}
+  - 61: {fileID: 1590628365}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -14010,18 +14027,19 @@ MonoBehaviour:
     mMethodName: MoveToSettings
     mParameters: []
     oneShot: 0
---- !u!65 &1590628365
-BoxCollider:
+--- !u!61 &1590628365
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1590628362}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 60, y: 60, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &1590628366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14560,7 +14578,7 @@ GameObject:
   - 114: {fileID: 1678580042}
   - 114: {fileID: 1678580039}
   - 114: {fileID: 1678580041}
-  - 65: {fileID: 1678580038}
+  - 61: {fileID: 1678580038}
   m_Layer: 5
   m_Name: Video
   m_TagString: Untagged
@@ -14581,18 +14599,19 @@ Transform:
   - {fileID: 441599212}
   m_Father: {fileID: 500414555}
   m_RootOrder: 5
---- !u!65 &1678580038
-BoxCollider:
+--- !u!61 &1678580038
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1678580036}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 102, y: 102, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 102, y: 102}
 --- !u!114 &1678580039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14902,7 +14921,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3018
+  startingRenderQueue: 3014
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -14920,8 +14939,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1698342107}
   - 114: {fileID: 1698342110}
-  - 65: {fileID: 1698342109}
   - 114: {fileID: 1698342108}
+  - 61: {fileID: 1698342109}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -14970,18 +14989,19 @@ MonoBehaviour:
     mMethodName: MoveToHUBConnection
     mParameters: []
     oneShot: 0
---- !u!65 &1698342109
-BoxCollider:
+--- !u!61 &1698342109
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1698342106}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 60, y: 60, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &1698342110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15485,7 +15505,7 @@ GameObject:
   - 4: {fileID: 1742058559}
   - 114: {fileID: 1742058562}
   - 114: {fileID: 1742058561}
-  - 65: {fileID: 1742058560}
+  - 61: {fileID: 1742058560}
   m_Layer: 5
   m_Name: Off
   m_TagString: Untagged
@@ -15505,18 +15525,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 769066209}
   m_RootOrder: 2
---- !u!65 &1742058560
-BoxCollider:
+--- !u!61 &1742058560
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1742058558}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 60, y: 60, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &1742058561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15970,8 +15991,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1774068995}
   - 114: {fileID: 1774068998}
-  - 65: {fileID: 1774068997}
   - 114: {fileID: 1774068996}
+  - 61: {fileID: 1774068997}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -16020,18 +16041,19 @@ MonoBehaviour:
     mMethodName: MoveToMain
     mParameters: []
     oneShot: 0
---- !u!65 &1774068997
-BoxCollider:
+--- !u!61 &1774068997
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1774068994}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 60, y: 60, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &1774068998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16379,7 +16401,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3018
+  startingRenderQueue: 3014
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -16398,7 +16420,7 @@ GameObject:
   - 4: {fileID: 1874133744}
   - 114: {fileID: 1874133747}
   - 114: {fileID: 1874133746}
-  - 65: {fileID: 1874133745}
+  - 61: {fileID: 1874133745}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -16418,18 +16440,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 590002187}
   m_RootOrder: 0
---- !u!65 &1874133745
-BoxCollider:
+--- !u!61 &1874133745
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1874133743}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 80, y: 80, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 80, y: 80}
 --- !u!114 &1874133746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16645,7 +16668,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1906170570}
   - 96: {fileID: 1906170569}
-  m_Layer: 12
+  m_Layer: 5
   m_Name: Line Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16922,7 +16945,7 @@ GameObject:
   - 4: {fileID: 1924013452}
   - 114: {fileID: 1924013455}
   - 114: {fileID: 1924013454}
-  - 65: {fileID: 1924013453}
+  - 61: {fileID: 1924013453}
   m_Layer: 5
   m_Name: More Games
   m_TagString: Untagged
@@ -16942,18 +16965,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 67642260}
   m_RootOrder: 7
---- !u!65 &1924013453
-BoxCollider:
+--- !u!61 &1924013453
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1924013451}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 80, y: 80, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 80, y: 80}
 --- !u!114 &1924013454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17147,7 +17171,7 @@ GameObject:
   - 4: {fileID: 1962883507}
   - 114: {fileID: 1962883510}
   - 114: {fileID: 1962883509}
-  - 65: {fileID: 1962883508}
+  - 61: {fileID: 1962883508}
   m_Layer: 5
   m_Name: Off
   m_TagString: Untagged
@@ -17167,18 +17191,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1621202581}
   m_RootOrder: 2
---- !u!65 &1962883508
-BoxCollider:
+--- !u!61 &1962883508
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1962883506}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 60, y: 60, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &1962883509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17347,8 +17372,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 2004806797}
   - 114: {fileID: 2004806800}
-  - 65: {fileID: 2004806799}
   - 114: {fileID: 2004806798}
+  - 61: {fileID: 2004806799}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -17397,18 +17422,19 @@ MonoBehaviour:
     mMethodName: MoveToMain
     mParameters: []
     oneShot: 0
---- !u!65 &2004806799
-BoxCollider:
+--- !u!61 &2004806799
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2004806796}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 60, y: 60, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &2004806800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17606,7 +17632,7 @@ MonoBehaviour:
   mPivot: 7
   mWidth: 392
   mHeight: 220
-  mDepth: 3
+  mDepth: -1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -17742,7 +17768,7 @@ GameObject:
   - 4: {fileID: 2063173015}
   - 114: {fileID: 2063173018}
   - 114: {fileID: 2063173017}
-  - 65: {fileID: 2063173016}
+  - 61: {fileID: 2063173016}
   m_Layer: 5
   m_Name: HUB Connection
   m_TagString: Untagged
@@ -17762,18 +17788,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 590002187}
   m_RootOrder: 3
---- !u!65 &2063173016
-BoxCollider:
+--- !u!61 &2063173016
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2063173014}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 80, y: 80, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 80, y: 80}
 --- !u!114 &2063173017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18101,7 +18128,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3015
+  startingRenderQueue: 3011
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3

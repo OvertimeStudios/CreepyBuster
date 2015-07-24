@@ -359,6 +359,8 @@ public class GameController : MonoBehaviour
 		while (!player.activeSelf)
 			yield return null;
 
+		Debug.Log ("Player found");
+
 		enemiesKillCount = 0;
 		score = 0;
 		specialStreak = 0;
@@ -392,8 +394,6 @@ public class GameController : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
-		Debug.Log ("Activate by finger down");
-
 		if(isGameRunning)
 			player.SetActive (true);
 	}

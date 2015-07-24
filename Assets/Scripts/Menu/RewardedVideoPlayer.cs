@@ -109,8 +109,8 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		if(rewardCooldown > 0)
 		{
-			button.isEnabled = RewardCooldownLeft < 0;
-			countdown.enabled = RewardCooldownLeft >= 0;
+			button.isEnabled = RewardCooldownLeft <= 0;
+			countdown.enabled = RewardCooldownLeft > 0;
 
 			if(RewardCooldownLeft >= 0)
 			{

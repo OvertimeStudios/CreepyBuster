@@ -194,8 +194,6 @@ public class AttackTargets : MonoBehaviour
 
 	private void LoseAllTargets()
 	{
-		Debug.Log ("LoseAllTargets");
-
 		foreach (Transform t in targets)
 			t.GetComponent<EnemyLife> ().OnLightExit ();
 
