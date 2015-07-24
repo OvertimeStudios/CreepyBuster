@@ -6,6 +6,7 @@ public class TutorialController : MonoBehaviour
 	public GameObject basicEnemy;
 	public GameObject followerEnemy;
 	private int enemyCounter;
+	private bool doubleEnemy;
 
 	public Camera hudCamera;
 	public Transform tutorial;
@@ -33,10 +34,13 @@ public class TutorialController : MonoBehaviour
 	{
 		enemyCounter = 0;
 		textsNumber = 0;
+		doubleEnemy = false;
 
 		Debug.Log ("Enabled Tutorial");
 
 		tutorial.gameObject.SetActive (true);
+		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
+
 		StartCoroutine (Run ());
 
 		EnemyLife.OnDied += EnemyDied;
@@ -59,9 +63,11 @@ public class TutorialController : MonoBehaviour
 	void Start()
 	{
 		instance = this;
-		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
-		
-		gameObject.SetActive (false);
+	}
+
+	void Update()
+	{
+		tutorialText.enabled = !AttackTargets.IsAttacking;
 	}
 
 	private IEnumerator Run()
@@ -108,6 +114,7 @@ public class TutorialController : MonoBehaviour
 		//2 rays
 		yield return new WaitForSeconds(ShowNextText());
 
+		doubleEnemy = true;
 		SpawnEnemy (basicEnemy);
 		SpawnEnemy (basicEnemy);
 
@@ -168,9 +175,25 @@ public class TutorialController : MonoBehaviour
 
 	private void EnemyOutOfScreen(GameObject enemy)
 	{
+		if(doubleEnemy)
+		{
+			if(enemyCounter == 1)
+			{
+				SpawnEnemy (basicEnemy);
+				SpawnEnemy (basicEnemy);
+			}
+		}
+		else
+		{
+			SpawnEnemy (basicEnemy);
+
+
+		}
+
 		enemyCounter--;
 
-		tutorialText.text = "Try again! \n" + tutorialText.text;
+		if(!tutorialText.text.Contains("Try again"))
+			tutorialText.text = "Try again! \n" + tutorialText.text;
 	}
 }
 

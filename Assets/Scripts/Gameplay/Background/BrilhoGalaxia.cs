@@ -11,12 +11,14 @@ public class BrilhoGalaxia : MonoBehaviour
 	{
 		EnemyLife.OnDied += RemoveEnemy;
 		GameController.OnGameOver += RemovePlayer;
+		MenuController.OnPanelClosed += Reset;
 	}
 
 	void OnDisable()
 	{
 		EnemyLife.OnDied -= RemoveEnemy;
 		GameController.OnGameOver -= RemovePlayer;
+		MenuController.OnPanelClosed -= Reset;
 	}
 
 	void Awake()
@@ -76,6 +78,12 @@ public class BrilhoGalaxia : MonoBehaviour
 
 		if(objectsInFront.Count == 0)
 			GetComponent<SpriteRenderer> ().enabled = true;
+	}
+
+	void Reset()
+	{
+		objectsInFront = new List<Collider2D> ();
+		GetComponent<SpriteRenderer> ().enabled = true;
 	}
 
 	void Update()
