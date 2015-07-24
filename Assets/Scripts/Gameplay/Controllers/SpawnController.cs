@@ -39,7 +39,7 @@ public class SpawnController : MonoBehaviour
 	{
 		get 
 		{
-			return !GameController.IsFrozen && !GameController.IsSlowedDown && GameController.isGameRunning;
+			return !GameController.IsFrozen && !GameController.IsSlowedDown && GameController.isGameRunning && !GameController.IsTutorialRunning;
 		}
 	}
 	#endregion
@@ -94,6 +94,21 @@ public class SpawnController : MonoBehaviour
 		SpawnEnemies ();
 	}
 
+	public static void SpawnEnemy(GameObject enemy)
+	{
+		Debug.Log ("SpawnController.SpawnEnemy");
+
+		Vector3 pos = GetSpawnPosition();
+		float rot = GetRotation(pos);
+
+		GameObject e = Instantiate (enemy, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
+		
+		AddEnemy(e);
+		
+		if(OnSpawn != null)
+			OnSpawn();
+	}
+
 	private void SpawnEnemies()
 	{
 		if(CanSpawn)
@@ -101,9 +116,6 @@ public class SpawnController : MonoBehaviour
 			//spawn some monsters according to LevelDesign (can be more than 1)
 			for(byte i = 0; i < LevelDesign.SpawnQuantity; i++)
 			{
-				Vector3 pos = GetSpawnPosition();
-				float rot = GetRotation(pos);
-
 				List<EnemiesPercent> monsters = LevelDesign.CurrentEnemies;
 
 				//max %
@@ -127,19 +139,14 @@ public class SpawnController : MonoBehaviour
 					}
 				}
 				 
-				GameObject enemy = Instantiate (objToSpawn, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
-
-				AddEnemy(enemy);
-
-				if(OnSpawn != null)
-					OnSpawn();
+				SpawnEnemy(objToSpawn);
 			}
 		}
 
 		StartCoroutine ("SpawnEnemies", LevelDesign.EnemiesSpawnTime);
 	}
 
-	private Vector3 GetSpawnPosition()
+	public static Vector3 GetSpawnPosition()
 	{
 		float posX = 0f;
 		float posY = 0f;
@@ -335,7 +342,7 @@ public class SpawnController : MonoBehaviour
 		return pos;
 	}
 
-	private float GetRotation(Vector3 pos)
+	public static float GetRotation(Vector3 pos)
 	{
 		Vector3 viewportPosition = Camera.main.WorldToViewportPoint (pos);
 
@@ -446,7 +453,7 @@ public class SpawnController : MonoBehaviour
 		StartCoroutine ("SpawnItens", LevelDesign.ItemSpawnTime);
 	}
 
-	private void AddEnemy(GameObject obj)
+	public static void AddEnemy(GameObject obj)
 	{
 		enemiesInGame.Add (obj.transform);
 	}

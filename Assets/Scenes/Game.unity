@@ -974,52 +974,6 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
---- !u!1001 &59454744
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: .0799999982
-      objectReference: {fileID: 0}
-    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -3.61999989
-      objectReference: {fileID: 0}
-    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: .707106829
-      objectReference: {fileID: 0}
-    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: .707106709
-      objectReference: {fileID: 0}
-    - target: {fileID: 411418, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 196216, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &63442804
 GameObject:
   m_ObjectHideFlags: 0
@@ -9979,6 +9933,34 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!1 &1074819522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1074819523}
+  m_Layer: 5
+  m_Name: Tutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1074819523
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1074819522}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2022122645}
+  m_Father: {fileID: 2010442021}
+  m_RootOrder: 5
 --- !u!1 &1079486089
 GameObject:
   m_ObjectHideFlags: 0
@@ -12439,6 +12421,70 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!1 &1393580361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1393580362}
+  - 114: {fileID: 1393580363}
+  m_Layer: 0
+  m_Name: TutorialController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1393580362
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1393580361}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1913536882}
+  m_RootOrder: 11
+--- !u!114 &1393580363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1393580361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9ee2aa4d218d466cb9fb188bf1ce9fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicEnemy: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
+  followerEnemy: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
+  hudCamera: {fileID: 860026963}
+  tutorial: {fileID: 1074819523}
+  texts:
+  - text: Welcome to the training session!
+    time: 3
+  - text: 'First rule: Never take your finger off screen, otherwise you''ll lose'
+    time: 6
+  - text: 'Second rule: don''t let enemies hit your finger'
+    time: 4
+  - text: Look, an enemy! Approach and burn him to death!
+    time: 2
+  - text: Great! There are some different kind of enemies though.
+    time: 4
+  - text: Look, another one! This one will follow you 'til the end.
+    time: 2
+  - text: Excelent! Whenever you kill an enemy, your level will grow up. Try to reach
+      level 2.
+    time: 0
+  - text: On level 2, you have 2 rays. Try it out.
+    time: 2
+  - text: 'Nice! One more thing: if you got hit, you''ll lose your level. If you are
+      already level 1, it''s game over. Good luck!'
+    time: 7
 --- !u!1001 &1407085546
 Prefab:
   m_ObjectHideFlags: 0
@@ -13840,7 +13886,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 472706, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
@@ -16639,6 +16685,7 @@ Transform:
   - {fileID: 823222898}
   - {fileID: 682680332}
   - {fileID: 1799130763}
+  - {fileID: 1393580362}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1 &1915931142
@@ -17382,6 +17429,7 @@ Transform:
   - {fileID: 1249564092}
   - {fileID: 2026271916}
   - {fileID: 820286131}
+  - {fileID: 1074819523}
   m_Father: {fileID: 1555461794}
   m_RootOrder: 2
 --- !u!1 &2021102708
@@ -17438,6 +17486,99 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7b4e73fda75554a7d884d79c44ceb9ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &2022122644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2022122645}
+  - 114: {fileID: 2022122646}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2022122645
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2022122644}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 77, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1074819523}
+  m_RootOrder: 0
+--- !u!114 &2022122646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2022122644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d0b5f3bbe925a408bd595c79d0bf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  updateAnchors: 1
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 7
+  mWidth: 392
+  mHeight: 220
+  mDepth: 3
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: 1.78181815
+  keepCrispWhenShrunk: 1
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 16a2d4ace59bac64dbcf4085964b38eb, type: 2}
+  mText: This is a example on how tutorial will show on screen
+  mFontSize: 50
+  mFontStyle: 0
+  mAlignment: 0
+  mEncoding: 1
+  mMaxLineCount: 0
+  mEffectStyle: 0
+  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
+  mSymbols: 1
+  mEffectDistance: {x: 1, y: 1}
+  mOverflow: 0
+  mMaterial: {fileID: 0}
+  mApplyGradient: 0
+  mGradientTop: {r: 1, g: 1, b: 1, a: 1}
+  mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
+  mSpacingX: 0
+  mSpacingY: -8
+  mUseFloatSpacing: 0
+  mFloatSpacingX: 0
+  mFloatSpacingY: 0
+  mShrinkToFit: 0
+  mMaxLineWidth: 0
+  mMaxLineHeight: 0
+  mLineWidth: 0
+  mMultiline: 1
 --- !u!1 &2026271915
 GameObject:
   m_ObjectHideFlags: 0
