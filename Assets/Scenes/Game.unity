@@ -7738,7 +7738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a92b5d748695fd44aac9feef17ba415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventType: 1
+  eventType: 3
   eventsGoToColliders: 0
   eventReceiverMask:
     serializedVersion: 2
@@ -9941,6 +9941,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1074819523}
+  - 114: {fileID: 1074819525}
+  - 114: {fileID: 1074819524}
   m_Layer: 5
   m_Name: Tutorial
   m_TagString: Untagged
@@ -9961,6 +9963,68 @@ Transform:
   - {fileID: 2022122645}
   m_Father: {fileID: 2010442021}
   m_RootOrder: 5
+--- !u!114 &1074819524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1074819522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60dfda9b1153fd4ca035013c64cf495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiCamera: {fileID: 860026963}
+--- !u!114 &1074819525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1074819522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  updateAnchors: 1
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 100
+  mHeight: 100
+  mDepth: 0
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+  mFlip: 0
+  centerType: 1
+  leftType: 1
+  rightType: 1
+  bottomType: 1
+  topType: 1
+  mAtlas: {fileID: 0}
+  mSpriteName: 
+  mFillCenter: 1
 --- !u!1 &1079486089
 GameObject:
   m_ObjectHideFlags: 0
@@ -12465,18 +12529,14 @@ MonoBehaviour:
   hudCamera: {fileID: 860026963}
   tutorial: {fileID: 1074819523}
   texts:
-  - text: Welcome to the training session!
-    time: 3
   - text: 'First rule: Never take your finger off screen, otherwise you''ll lose'
     time: 6
   - text: 'Second rule: don''t let enemies hit your finger'
     time: 4
   - text: Look, an enemy! Approach and burn him to death!
     time: 2
-  - text: Great! There are some different kind of enemies though.
-    time: 4
-  - text: Look, another one! This one will follow you 'til the end.
-    time: 2
+  - text: Great! Try this one.
+    time: 0
   - text: Excelent! Whenever you kill an enemy, your level will grow up. Try to reach
       level 2.
     time: 3

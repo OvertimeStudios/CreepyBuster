@@ -45,19 +45,17 @@ public class TutorialController : MonoBehaviour
 
 		EnemyLife.OnDied += EnemyDied;
 		EnemyMovement.OnOutOfScreen += EnemyOutOfScreen;
-		FingerDetector.OnFingerDownEvent += OnFingerDown;
-		FingerDetector.OnFingerMotionEvent += OnFingerMove;
 	}
 
 	void OnDisable()
 	{
-		tutorial.gameObject.SetActive (false);
+		if(tutorial != null)
+			tutorial.gameObject.SetActive (false);
+
 		StopAllCoroutines ();
 
 		EnemyLife.OnDied -= EnemyDied;
 		EnemyMovement.OnOutOfScreen -= EnemyOutOfScreen;
-		FingerDetector.OnFingerDownEvent -= OnFingerDown;
-		FingerDetector.OnFingerMotionEvent -= OnFingerMove;
 	}
 
 	void Start()
@@ -72,9 +70,6 @@ public class TutorialController : MonoBehaviour
 
 	private IEnumerator Run()
 	{
-		//welcome!
-		yield return new WaitForSeconds(ShowNextText());
-
 		//first rule
 		yield return new WaitForSeconds(ShowNextText());
 
@@ -90,9 +85,6 @@ public class TutorialController : MonoBehaviour
 			yield return null;
 
 		//Great! 
-		yield return new WaitForSeconds(ShowNextText());
-
-		//Another one (follower)
 		yield return new WaitForSeconds(ShowNextText());
 
 		SpawnEnemy (followerEnemy);
@@ -126,28 +118,6 @@ public class TutorialController : MonoBehaviour
 
 		Global.RunTutorial = false;
 		gameObject.SetActive (false);
-	}
-
-	private void OnFingerDown(FingerDownEvent e)
-	{
-		RepositionText (e.Position);
-	}
-
-	private void OnFingerMove(FingerMotionEvent e)
-	{
-		RepositionText (e.Position);
-	}
-
-	private void RepositionText(Vector2 position)
-	{
-		/*Vector3 pos = Camera.main.ScreenToViewportPoint ((Vector3)position);
-		pos = hudCamera.ViewportToScreenPoint(pos);
-		tutorial.localPosition = position;*/
-
-		float posX = (position.x * 2f) - Screen.width;
-		float posY = (position.y * 2f) - Screen.height;
-
-		tutorial.localPosition = new Vector3(posX, posY, 0f);
 	}
 
 	private float ShowNextText()
