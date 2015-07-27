@@ -302,7 +302,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3017
+  startingRenderQueue: 3015
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -5353,7 +5353,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3019
+  startingRenderQueue: 3017
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -5456,7 +5456,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3018
+  startingRenderQueue: 3016
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -5910,6 +5910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7171498dc38d742838b789843ad9a907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraShake: {fileID: 628395155}
 --- !u!1 &579353646
 GameObject:
   m_ObjectHideFlags: 0
@@ -6248,6 +6249,7 @@ GameObject:
   - 124: {fileID: 628395150}
   - 81: {fileID: 628395149}
   - 114: {fileID: 628395154}
+  - 114: {fileID: 628395155}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6332,6 +6334,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31eeb6ca332a549adb9f6eb16460d4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &628395155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 628395148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93156bdb215741168b71d48787cff5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: .600000024
+  magnitude: .400000006
 --- !u!1 &636626837
 GameObject:
   m_ObjectHideFlags: 0
@@ -15196,7 +15211,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3018
+  startingRenderQueue: 3016
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -16676,7 +16691,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3018
+  startingRenderQueue: 3016
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -18404,7 +18419,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3015
+  startingRenderQueue: 3013
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3

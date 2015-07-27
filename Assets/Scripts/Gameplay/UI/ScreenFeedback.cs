@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ScreenFeedback : MonoBehaviour 
 {
+	public CameraShake cameraShake;
+
 	#region singleton
 	private static ScreenFeedback instance;
 	public static ScreenFeedback Instance
@@ -52,6 +54,9 @@ public class ScreenFeedback : MonoBehaviour
 	{
 		Instance.damage.enabled = true;
 		Instance.damage.alpha = 1;
+
+		if(Instance.cameraShake != null)
+			Instance.cameraShake.Shake ();
 
 		if (Instance.damageCoroutine != null)
 			Instance.StopCoroutine (Instance.damageCoroutine);
