@@ -77,10 +77,6 @@ public class FollowFinger : MonoBehaviour
 			pos = uiCamera.ViewportToWorldPoint(pos);
 			pos = uiCamera.transform.InverseTransformPoint(pos);
 
-			Debug.Log("pos: " + pos);
-			Debug.Log("cameraBounds: " + cameraBounds.max);
-			Debug.Log("widgetBounds: " + widgetBounds.max);
-
 			pos.x = Mathf.Clamp(pos.x, cameraBounds.min.x + widgetBounds.extents.x, cameraBounds.max.x - widgetBounds.extents.x);
 			pos.y = Mathf.Clamp(pos.y, cameraBounds.min.y + widget.transform.localPosition.y, cameraBounds.max.y - widgetBounds.size.y - widget.transform.localPosition.y);
 

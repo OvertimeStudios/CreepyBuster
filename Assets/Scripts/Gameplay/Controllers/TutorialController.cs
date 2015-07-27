@@ -80,14 +80,14 @@ public class TutorialController : MonoBehaviour
 
 	private void OnFingerDown(FingerDownEvent e)
 	{
-		Time.timeScale = 1f;
 		Popup.Hide ();
+		Time.timeScale = 1f;
 	}
 
 	private void OnFingerUp(FingerUpEvent e)
 	{
-		Time.timeScale = 0f;
 		Popup.ShowBlank ("Put your finger back into screen!");
+		Time.timeScale = 0f;
 	}
 
 	private IEnumerator Run()
