@@ -11825,7 +11825,7 @@ Prefab:
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[0].enemies.Array.data[0].enemy
       value: 
-      objectReference: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
+      objectReference: {fileID: 130434, guid: 8beb1887f48634da9b3485c2a5c5abbc, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
   m_IsPrefabParent: 0
@@ -11965,7 +11965,7 @@ GameObject:
   - 4: {fileID: 1300374644}
   - 114: {fileID: 1300374645}
   - 114: {fileID: 1300374646}
-  - 65: {fileID: 1300374647}
+  - 61: {fileID: 1300374647}
   m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
@@ -12028,18 +12028,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollView: {fileID: 0}
   draggablePanel: {fileID: 0}
---- !u!65 &1300374647
-BoxCollider:
+--- !u!61 &1300374647
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1300374643}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 120, y: -174.400024}
   serializedVersion: 2
-  m_Size: {x: 400, y: 551.460022, z: 1}
-  m_Center: {x: 119.370003, y: -173.979996, z: 5}
+  m_Size: {x: 353.599976, y: 537.600037}
 --- !u!1 &1303422331
 GameObject:
   m_ObjectHideFlags: 0

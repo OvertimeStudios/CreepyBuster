@@ -30,7 +30,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		get
 		{
-			return RewardCooldownTime.Subtract(DateTime.UtcNow).Seconds;
+			return (int)RewardCooldownTime.Subtract(DateTime.UtcNow).TotalSeconds;
 		}
 	}
 
@@ -146,6 +146,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		rewardCooldownTime = dateTime;
 		PlayerPrefs.SetString(Global.REWARDED_VIDEO_COOLDOWN,dateTime.ToString());
+		PlayerPrefs.Save ();
 	}
 	
 	public static void ResetRewardCooldownTime ()

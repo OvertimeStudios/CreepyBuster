@@ -34,8 +34,6 @@ public class ScreenFeedback : MonoBehaviour
 	private Coroutine damageCoroutine;
 	private Coroutine invencibilityCoroutine;
 
-
-
 	// Use this for initialization
 	void Start () 
 	{
