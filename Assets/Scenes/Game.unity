@@ -302,7 +302,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3015
+  startingRenderQueue: 3017
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -2543,48 +2543,6 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
---- !u!1001 &171743227
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1913536882}
-    m_Modifications:
-    - target: {fileID: 458352, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -.49000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 458352, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 3.30999994
-      objectReference: {fileID: 0}
-    - target: {fileID: 458352, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -1.38124299
-      objectReference: {fileID: 0}
-    - target: {fileID: 458352, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 458352, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 458352, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 458352, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 458352, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &178942390
 GameObject:
   m_ObjectHideFlags: 0
@@ -5356,7 +5314,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3017
+  startingRenderQueue: 3019
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -5459,7 +5417,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3016
+  startingRenderQueue: 3018
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -6626,7 +6584,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!114 &682680333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6854,46 +6812,6 @@ MonoBehaviour:
   mAtlas: {fileID: 11471508, guid: 829cd253702d44a54b8b33878612db47, type: 2}
   mSpriteName: Popup
   mFillCenter: 1
---- !u!1 &715852786
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 715852787}
-  - 114: {fileID: 715852788}
-  m_Layer: 0
-  m_Name: RevMobController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &715852787
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 715852786}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .277777702, y: -.418889105, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1913536882}
-  m_RootOrder: 5
---- !u!114 &715852788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 715852786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 002932f1ebfb74b5a8a50d3292c31d8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToReconnect: 5
 --- !u!1001 &722603905
 Prefab:
   m_ObjectHideFlags: 0
@@ -7687,10 +7605,6 @@ Transform:
   - {fileID: 1975779663}
   m_Father: {fileID: 2010442021}
   m_RootOrder: 4
---- !u!4 &823222898 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 458352, guid: 7649fc018b6984a58b398577b23d1012, type: 2}
-  m_PrefabInternal: {fileID: 171743227}
 --- !u!1 &825346750
 GameObject:
   m_ObjectHideFlags: 0
@@ -11681,7 +11595,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 412946, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itemSpawnTime.min
@@ -12643,7 +12557,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!1 &1373325447
 GameObject:
   m_ObjectHideFlags: 0
@@ -12803,7 +12717,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 11
+  m_RootOrder: 9
 --- !u!114 &1393580363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14242,7 +14156,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 472706, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
@@ -15200,7 +15114,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3016
+  startingRenderQueue: 3018
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -16680,7 +16594,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3016
+  startingRenderQueue: 3018
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -17041,12 +16955,10 @@ Transform:
   - {fileID: 1373325449}
   - {fileID: 1921670938}
   - {fileID: 1492870976}
-  - {fileID: 715852787}
   - {fileID: 1364650170}
   - {fileID: 1274715915}
-  - {fileID: 823222898}
-  - {fileID: 682680332}
   - {fileID: 1799130763}
+  - {fileID: 682680332}
   - {fileID: 1393580362}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -18408,7 +18320,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3013
+  startingRenderQueue: 3015
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
