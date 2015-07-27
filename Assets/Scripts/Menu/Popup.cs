@@ -53,6 +53,26 @@ public class Popup : MonoBehaviour
 		Hide ();
 	}
 
+	public static void ShowBlank(string description)
+	{
+		ShowBlank (description, 0f);
+	}
+
+	public static void ShowBlank(string description, float hideInTime)
+	{
+		Instance.gameObject.SetActive (true);
+		
+		ok.SetActive (false);
+		video.SetActive (false);
+		yes.SetActive (false);
+		no.SetActive (false);
+
+		descricao.text = description;
+
+		if(hideInTime > 0)
+			Instance.StartCoroutine(Hide (hideInTime));
+	}
+
 	public static void ShowYesNo(string description)
 	{
 		ShowYesNo (description, true);
@@ -184,7 +204,14 @@ public class Popup : MonoBehaviour
 		
 		OkClicked = null;
 	}
+	
 
+	private static IEnumerator Hide(float waitTime)
+	{
+		yield return new WaitForSeconds(waitTime);
+
+		Hide ();
+	}
 	public static void Hide()
 	{
 		Instance.gameObject.SetActive (false);

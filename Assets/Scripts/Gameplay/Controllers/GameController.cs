@@ -404,7 +404,7 @@ public class GameController : MonoBehaviour
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		if(GameController.isGameRunning)
+		if(GameController.isGameRunning && !GameController.IsTutorialRunning)
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen));
 	}
 

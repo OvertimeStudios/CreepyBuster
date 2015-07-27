@@ -54,6 +54,8 @@ public class TutorialController : MonoBehaviour
 
 		EnemyLife.OnDied += EnemyDied;
 		EnemyMovement.OnOutOfScreen += EnemyOutOfScreen;
+		FingerDetector.OnFingerDownEvent += OnFingerDown;
+		FingerDetector.OnFingerUpEvent += OnFingerUp;
 	}
 
 	void OnDisable()
@@ -65,6 +67,8 @@ public class TutorialController : MonoBehaviour
 
 		EnemyLife.OnDied -= EnemyDied;
 		EnemyMovement.OnOutOfScreen -= EnemyOutOfScreen;
+		FingerDetector.OnFingerDownEvent -= OnFingerDown;
+		FingerDetector.OnFingerUpEvent -= OnFingerUp;
 	}
 
 	void Start()
@@ -75,6 +79,18 @@ public class TutorialController : MonoBehaviour
 	void Update()
 	{
 		tutorialText.enabled = !AttackTargets.IsAttacking;
+	}
+
+	private void OnFingerDown(FingerDownEvent e)
+	{
+		Time.timeScale = 1f;
+		Popup.Hide ();
+	}
+
+	private void OnFingerUp(FingerUpEvent e)
+	{
+		Time.timeScale = 0f;
+		Popup.ShowBlank ("Put your finger back into screen!");
 	}
 
 	private IEnumerator Run()
