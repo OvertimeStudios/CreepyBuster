@@ -34,11 +34,14 @@ public class TutorialController : MonoBehaviour
 	// Use this for initialization
 	void OnEnable () 
 	{
+		EnemyLife.OnDied += EnemyDied;
+		EnemyMovement.OnOutOfScreen += EnemyOutOfScreen;
+		FingerDetector.OnFingerDownEvent += OnFingerDown;
+		FingerDetector.OnFingerUpEvent += OnFingerUp;
+
 		enemyCounter = 0;
 		textsNumber = 0;
 		doubleEnemy = false;
-
-		Debug.Log ("Enabled Tutorial");
 
 		tutorial.gameObject.SetActive (true);
 		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
@@ -50,23 +53,22 @@ public class TutorialController : MonoBehaviour
 		}
 		else
 			StartCoroutine (Run ());
-
-		EnemyLife.OnDied += EnemyDied;
-		EnemyMovement.OnOutOfScreen += EnemyOutOfScreen;
 	}
 
 	void OnDisable()
 	{
+		EnemyLife.OnDied -= EnemyDied;
+		EnemyMovement.OnOutOfScreen -= EnemyOutOfScreen;
+		FingerDetector.OnFingerDownEvent -= OnFingerDown;
+		FingerDetector.OnFingerUpEvent -= OnFingerUp;
+
 		if(tutorial != null)
 			tutorial.gameObject.SetActive (false);
 
 		StopAllCoroutines ();
-
-		EnemyLife.OnDied -= EnemyDied;
-		EnemyMovement.OnOutOfScreen -= EnemyOutOfScreen;
 	}
 
-	void Start()
+	void Awake()
 	{
 		instance = this;
 	}
@@ -74,6 +76,18 @@ public class TutorialController : MonoBehaviour
 	void Update()
 	{
 		tutorialText.enabled = !AttackTargets.IsAttacking;
+	}
+
+	private void OnFingerDown(FingerDownEvent e)
+	{
+		Popup.Hide ();
+		Time.timeScale = 1f;
+	}
+
+	private void OnFingerUp(FingerUpEvent e)
+	{
+		Popup.ShowBlank ("Put your finger back into screen!");
+		Time.timeScale = 0f;
 	}
 
 	private IEnumerator Run()
