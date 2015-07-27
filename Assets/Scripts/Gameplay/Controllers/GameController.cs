@@ -418,7 +418,10 @@ public class GameController : MonoBehaviour
 	void OnFingerUp(FingerUpEvent e)
 	{
 		if(GameController.isGameRunning && !GameController.IsTutorialRunning)
+		{
+			ScreenFeedback.ShowDamage(timeInvencibleAfterDamage);
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.FingerOff));
+		}
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)

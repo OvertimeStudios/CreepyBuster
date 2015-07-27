@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 #if ADMOB_IMPLEMENTED
+using GoogleMobileAds;
 using GoogleMobileAds.Api;
 #endif
 
 public class AdMobHelper : MonoBehaviour 
 {
-	#if ADMOB_IMPLEMENTED
 	#region singleton
 	private static AdMobHelper instance;
 	private static AdMobHelper Instance
@@ -40,12 +41,14 @@ public class AdMobHelper : MonoBehaviour
 	private static BannerView bannerView;
 	private static bool bannerShowing = false;
 
+	#if ADMOB_IMPLEMENTED
 	void Start()
 	{
 		if(preloadBanner)
 			RequestBanner ();
 	}
 
+	#region Banner
 	private void RequestBanner()
 	{
 		#if UNITY_ANDROID
@@ -57,7 +60,7 @@ public class AdMobHelper : MonoBehaviour
 		#endif
 		
 		// Create a 320x50 banner at the top of the screen.
-		bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
+		bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
 		// Create an empty ad request.
 		AdRequest request;
 		if(Debug.isDebugBuild && Instance.isTest)
@@ -72,17 +75,25 @@ public class AdMobHelper : MonoBehaviour
 
 			Debug.Log(devicesIDs);
 
-			request = new AdRequest.Builder().AddTestDevice(AdRequest.TestDeviceSimulator).AddTestDevice(devicesIDs).Build();
+			request = new AdRequest.Builder().AddTestDevice(AdRequest.TestDeviceSimulator).AddKeyword("game").AddTestDevice(devicesIDs).Build();
 		}
 		else
 			request = new AdRequest.Builder().Build();
 		// Load the banner with the request.
-		bannerView.LoadAd(request);
+
+		bannerView.AdLoaded += HandleAdLoaded;
+		bannerView.AdOpened += HandleAdOpened;
+		bannerView.AdClosed += HandleAdClosed;
+		bannerView.AdClosing += HandleAdClosed;
+		bannerView.AdLeftApplication += HandleAdLeftApplication;
+		bannerView.AdFailedToLoad += HandleAdFailedToLoad;
+
+		//bannerView.LoadAd(request);
 	}
 
 	public static void ShowBanner()
 	{
-		if(bannerShowing) return;
+		if(bannerShowing || bannerView == null) return;
 
 		bannerView.Show ();
 
@@ -95,5 +106,37 @@ public class AdMobHelper : MonoBehaviour
 
 		bannerShowing = false;
 	}
+	
+	public void HandleAdLoaded(object sender, EventArgs args)
+	{
+		print("HandleAdLoaded event received.");
+	}
+	
+	public void HandleAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+	{
+		print("HandleFailedToReceiveAd event received with message: " + args.Message);
+	}
+	
+	public void HandleAdOpened(object sender, EventArgs args)
+	{
+		print("HandleAdOpened event received");
+	}
+	
+	void HandleAdClosing(object sender, EventArgs args)
+	{
+		print("HandleAdClosing event received");
+	}
+	
+	public void HandleAdClosed(object sender, EventArgs args)
+	{
+		print("HandleAdClosed event received");
+	}
+	
+	public void HandleAdLeftApplication(object sender, EventArgs args)
+	{
+		print("HandleAdLeftApplication event received");
+	}
+	#endregion
+	
 	#endif
 }

@@ -1015,21 +1015,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 0
-    absolute: 0
+    absolute: -2
   rightAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 1
-    absolute: 0
+    absolute: 2
   bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 0
-    absolute: 0
+    absolute: -2
   topAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 1
-    absolute: 0
+    absolute: 3
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
@@ -3752,21 +3752,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 0
-    absolute: 0
+    absolute: -2
   rightAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 1
-    absolute: 0
+    absolute: 2
   bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 0
-    absolute: 0
+    absolute: -2
   topAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 1
-    absolute: 0
+    absolute: 3
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
@@ -5105,21 +5105,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 0
-    absolute: 0
+    absolute: -2
   rightAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 1
-    absolute: 0
+    absolute: 2
   bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 0
-    absolute: 0
+    absolute: -2
   topAnchor:
-    target: {fileID: 0}
+    target: {fileID: 1555461794}
     relative: 1
-    absolute: 0
+    absolute: 3
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
@@ -5949,7 +5949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d444488210140dfb3528dcf5240cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTest: 1
+  isTest: 0
   testDeviceIDs:
   - 1C967D74607B37126D35A7024094E5D9
   preloadBanner: 1
@@ -11733,7 +11733,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[3].percent
-      value: .125
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[4].percent
@@ -11753,7 +11753,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].chanceToSpawn
-      value: .100000001
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: playerLevelUpCondition.Array.data[1].killStreak
