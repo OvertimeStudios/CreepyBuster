@@ -39,6 +39,7 @@ public class LightBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		instance = this;
 		particleRenderers = GetComponentsInChildren<ParticleRenderer> ();
 
 		UpdateParticleColor ();

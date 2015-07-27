@@ -86,8 +86,11 @@ public class TutorialController : MonoBehaviour
 
 	private void OnFingerUp(FingerUpEvent e)
 	{
-		Popup.ShowBlank ("Put your finger back into screen!");
-		Time.timeScale = 0f;
+		if(GameController.isGameRunning)
+		{
+			Popup.ShowBlank ("Put your finger back into screen!");
+			Time.timeScale = 0f;
+		}
 	}
 
 	private IEnumerator Run()

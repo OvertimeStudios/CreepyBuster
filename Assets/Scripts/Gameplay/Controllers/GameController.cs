@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
 	public static event Action OnShowEndScreen;
 	public static event Action OnReset;
 	public static event Action OnFingerHit;
+	public static event Action OnGameEnding;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
@@ -265,6 +266,9 @@ public class GameController : MonoBehaviour
 		isGameRunning = false;
 		gameOver = true;
 		player.SetActive (false);
+
+		if (OnGameEnding != null)
+			OnGameEnding ();
 
 		yield return new WaitForSeconds (waitTime);
 
