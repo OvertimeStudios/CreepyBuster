@@ -118,11 +118,14 @@ public class EnemyLife : MonoBehaviour
 
 	public void OnLightExit()
 	{
-		//Debug.Log ("OnLightExit");
 		inLight = false;
 
-		foreach(SpriteRenderer brilho in brilhos)
-			brilho.color = basicColor;
+		if(!IsDead)
+		{
+			//return back to normal color
+			foreach(SpriteRenderer brilho in brilhos)
+				brilho.color = basicColor;
+		}
 
 		lightning.SetActive (false);
 	}
@@ -142,7 +145,7 @@ public class EnemyLife : MonoBehaviour
 	{
 		foreach(SpriteRenderer brilho in brilhos)
 			brilho.color = damageColor;
-		
+
 		foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
 			col.enabled = false;
 
