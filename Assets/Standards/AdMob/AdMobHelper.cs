@@ -61,25 +61,6 @@ public class AdMobHelper : MonoBehaviour
 		
 		// Create a 320x50 banner at the top of the screen.
 		bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
-		// Create an empty ad request.
-		AdRequest request;
-		if(Debug.isDebugBuild && Instance.isTest)
-		{
-			Debug.Log("Request test");
-			string devicesIDs = "";
-
-			foreach(string testDeviceId in testDeviceIDs)
-				devicesIDs += testDeviceId + ",";
-
-			devicesIDs = devicesIDs.Substring(0, devicesIDs.Length - 1);
-
-			Debug.Log(devicesIDs);
-
-			request = new AdRequest.Builder().AddTestDevice(AdRequest.TestDeviceSimulator).AddKeyword("game").AddTestDevice(devicesIDs).Build();
-		}
-		else
-			request = new AdRequest.Builder().Build();
-		// Load the banner with the request.
 
 		bannerView.AdLoaded += HandleAdLoaded;
 		bannerView.AdOpened += HandleAdOpened;
@@ -88,7 +69,8 @@ public class AdMobHelper : MonoBehaviour
 		bannerView.AdLeftApplication += HandleAdLeftApplication;
 		bannerView.AdFailedToLoad += HandleAdFailedToLoad;
 
-		//bannerView.LoadAd(request);
+		// Load the banner with the request.
+		bannerView.LoadAd(createAdRequest());
 	}
 
 	public static void ShowBanner()
@@ -106,7 +88,41 @@ public class AdMobHelper : MonoBehaviour
 
 		bannerShowing = false;
 	}
-	
+
+	// Returns an ad request with custom ad targeting.
+	private AdRequest createAdRequest()
+	{
+		// Create an empty ad request.
+		AdRequest request;
+		if(Debug.isDebugBuild && Instance.isTest)
+		{
+			Debug.Log("Test Banner Request");
+			string devicesIDs = "";
+			
+			foreach(string testDeviceId in testDeviceIDs)
+				devicesIDs += testDeviceId + ",";
+			
+			devicesIDs = devicesIDs.Substring(0, devicesIDs.Length - 1);
+			
+			request = new AdRequest.Builder()
+					.AddTestDevice(AdRequest.TestDeviceSimulator)
+					.AddTestDevice(devicesIDs)
+					.AddKeyword("game")
+					.SetGender(Gender.Male)
+					.SetBirthday(new DateTime(1985, 1, 1))
+					.TagForChildDirectedTreatment(false)
+					.AddExtra("color_bg", "9B30FF")
+					.Build();
+		}
+		else
+		{
+			Debug.Log("Normal Banner Request");
+			request = new AdRequest.Builder().Build();
+		}
+
+		return request;
+	}
+
 	public void HandleAdLoaded(object sender, EventArgs args)
 	{
 		print("HandleAdLoaded event received.");
