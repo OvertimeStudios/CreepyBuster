@@ -30,6 +30,8 @@ public class FingerDetector : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
+		if(e.Finger.Index != 0) return;
+
 		fingerDown = true;
 
 		position = e.Position;
@@ -40,6 +42,8 @@ public class FingerDetector : MonoBehaviour
 	
 	void OnFingerUp(FingerUpEvent e)
 	{
+		if(e.Finger.Index != 0) return;
+
 		fingerDown = false;
 
 		position = e.Position;
@@ -50,6 +54,8 @@ public class FingerDetector : MonoBehaviour
 
 	void OnFingerMove(FingerMotionEvent e)
 	{
+		if(e.Finger.Index != 0) return;
+
 		position = e.Position;
 
 		if (OnFingerMotionEvent != null)

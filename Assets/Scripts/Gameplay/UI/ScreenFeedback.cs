@@ -17,6 +17,13 @@ public class ScreenFeedback : MonoBehaviour
 	}
 	#endregion
 
+	#region get /set
+	public static bool IsDamageActive
+	{
+		get { return Instance.damage.enabled; }
+	}
+	#endregion
+
 	private UISprite frozen;
 	private UISprite damage;
 	private UISprite invencibility;
@@ -24,6 +31,8 @@ public class ScreenFeedback : MonoBehaviour
 	private Coroutine frozenCoroutine;
 	private Coroutine damageCoroutine;
 	private Coroutine invencibilityCoroutine;
+
+
 
 	// Use this for initialization
 	void Start () 

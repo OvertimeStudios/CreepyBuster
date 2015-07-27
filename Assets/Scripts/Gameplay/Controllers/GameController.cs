@@ -6,6 +6,12 @@ using UnityEngine.Advertisements;
 
 public class GameController : MonoBehaviour 
 {
+	enum CauseOfDeath
+	{
+		FingerOff,
+		Life,
+	}
+
 	public static event Action OnGameStart;
 
 	/// <summary>
@@ -109,7 +115,7 @@ public class GameController : MonoBehaviour
 
 	public static bool IsInvencible
 	{
-		get { return invencible; }
+		get { return invencible || ScreenFeedback.IsDamageActive; }
 	}
 
 	public static int Score
@@ -238,7 +244,7 @@ public class GameController : MonoBehaviour
 	{
 		isGameRunning = false;
 
-		StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen));
+		StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.Life));
 	}
 
 	public void GameOver()
@@ -254,26 +260,33 @@ public class GameController : MonoBehaviour
 		gameObject.SetActive(false);
 	}
 
-	private IEnumerator ShowContinueScreen(float waitTime)
+	private IEnumerator ShowContinueScreen(float waitTime, CauseOfDeath causeOfDeath)
 	{
 		isGameRunning = false;
 		gameOver = true;
+		player.SetActive (false);
 
 		yield return new WaitForSeconds (waitTime);
 
+		string cause = "";
+		if (causeOfDeath == CauseOfDeath.FingerOff)
+			cause = "You took your finger out of screen";
+		else if (causeOfDeath == CauseOfDeath.Life)
+			cause = "You got hit!";
+
 		if (continues == 0 && Advertisement.IsReady ())
-			Popup.ShowVideoNo("You got hit! \n \n Do you want to watch 1 video to continue playing?", null, ShowEndScreen, false);
+			Popup.ShowVideoNo(cause + " \n \n Do you want to watch 1 video to continue playing?", null, ShowEndScreen, false);
 		else
 		{
 			#if INFINITY_ORBS
-			Popup.ShowYesNo("You got hit! \n \n But you have infinity orbs cheat. Do you want to continue, m'lord?", PayContinueOrbs, ShowEndScreen);
+			Popup.ShowYesNo(cause + " \n \n But you have infinity orbs cheat. Do you want to continue, m'lord?", PayContinueOrbs, ShowEndScreen);
 			#else
 			float orbsToPay = (orbsToContinue * Mathf.Pow(2, continues));
 
 			if(Global.TotalOrbs >= orbsToPay)
-				Popup.ShowYesNo("You got hit! \n \n Do you want to spent " + orbsToPay + " orbs to continue playing? \n \n (You have " + Global.TotalOrbs + " orbs.)", PayContinueOrbs, ShowEndScreen);
+				Popup.ShowYesNo(cause + " \n \n Do you want to spent " + orbsToPay + " orbs to continue playing? \n \n (You have " + Global.TotalOrbs + " orbs.)", PayContinueOrbs, ShowEndScreen);
 			else
-				Popup.ShowOk("You got hit! \n \n You don't have enough orbs to continue playing", ShowEndScreen);
+				Popup.ShowOk(cause + " \n \n You don't have enough orbs to continue playing", ShowEndScreen);
 			#endif
 		}
 
@@ -405,7 +418,7 @@ public class GameController : MonoBehaviour
 	void OnFingerUp(FingerUpEvent e)
 	{
 		if(GameController.isGameRunning && !GameController.IsTutorialRunning)
-			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen));
+			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.FingerOff));
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)

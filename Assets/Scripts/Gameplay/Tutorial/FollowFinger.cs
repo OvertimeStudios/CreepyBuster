@@ -54,23 +54,37 @@ public class FollowFinger : MonoBehaviour
 	
 	void Update ()
 	{
-		Vector3 pos = Input.mousePosition;
+		Vector3 pos;
+		if (Input.touches.Length > 0)//mobile
+			pos = (Vector3)Input.GetTouch (0).position;
+		else
+			pos = Input.mousePosition;
 		
 		if (uiCamera != null)
 		{
-			Bounds bounds = widget.CalculateBounds();
-			float halfVieportWidth = (bounds.extents.x * 0.5f) / Screen.width;
-			float halfVieportHeight = (bounds.extents.y * 0.5f) / Screen.height;
+			Bounds widgetBounds = widget.CalculateBounds(uiCamera.transform);
 
 			// Since the screen can be of different than expected size, we want to convert
 			// mouse coordinates to view space, then convert that to world position.
-			//pos.x = Mathf.Clamp01(pos.x / Screen.width);
-			//pos.y = Mathf.Clamp01(pos.y / Screen.height);
-			pos.x = Mathf.Clamp(pos.x / Screen.width, halfVieportWidth, 1 - halfVieportWidth);
-			pos.y = Mathf.Clamp(pos.y / Screen.height, halfVieportHeight, 1 - halfVieportHeight - (widget.transform.localPosition.y / Screen.height));
+			pos.x = Mathf.Clamp01(pos.x / Screen.width);
+			pos.y = Mathf.Clamp01(pos.y / Screen.height);
 
-			mTrans.position = uiCamera.ViewportToWorldPoint(pos);
+			Vector3 cameraPoint = uiCamera.ViewportToWorldPoint(new Vector3(1f, 1f, 0));
+			cameraPoint = uiCamera.transform.InverseTransformPoint(cameraPoint);
 
+			Bounds cameraBounds = new Bounds(Vector3.zero, cameraPoint * 2f);
+
+			pos = uiCamera.ViewportToWorldPoint(pos);
+			pos = uiCamera.transform.InverseTransformPoint(pos);
+
+			Debug.Log("pos: " + pos);
+			Debug.Log("cameraBounds: " + cameraBounds.max);
+			Debug.Log("widgetBounds: " + widgetBounds.max);
+
+			pos.x = Mathf.Clamp(pos.x, cameraBounds.min.x + widgetBounds.extents.x, cameraBounds.max.x - widgetBounds.extents.x);
+			pos.y = Mathf.Clamp(pos.y, cameraBounds.min.y + widget.transform.localPosition.y, cameraBounds.max.y - widgetBounds.size.y - widget.transform.localPosition.y);
+
+			mTrans.position = uiCamera.transform.TransformPoint(pos);
 
 			// For pixel-perfect results
 			#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6

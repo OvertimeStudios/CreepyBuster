@@ -7453,7 +7453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeInvencibleAfterDamage: .800000012
-  timeToShowGameOverScreen: 0
+  timeToShowGameOverScreen: 1
   orbsToContinue: 100
   pointsPerOrb: 10
 --- !u!4 &786454614
@@ -8032,7 +8032,7 @@ MonoBehaviour:
   debug: 0
   useMouse: 1
   useTouch: 1
-  allowMultiTouch: 1
+  allowMultiTouch: 0
   useKeyboard: 1
   useController: 1
   stickyTooltip: 1
@@ -12834,9 +12834,9 @@ MonoBehaviour:
   - text: On level 2, you have 2 rays. Try it out.
     time: 2
   - text: 'Nice! One more thing: if you got hit, you''ll lose your level. If you are
-      already level 1, it''s game over. Good luck!'
+      already at level 1, it''s GAME OVER. Good luck!'
     time: 7
-  runTutorial: 1
+  runTutorial: 0
 --- !u!1001 &1407085546
 Prefab:
   m_ObjectHideFlags: 0
@@ -13020,7 +13020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reward: 0
   orbsToGive: 100
-  rewardCooldown: 60
+  rewardCooldown: 600
 --- !u!1 &1422261573
 GameObject:
   m_ObjectHideFlags: 0
@@ -13975,7 +13975,7 @@ MonoBehaviour:
   generateNormals: 0
   widgetsAreStatic: 0
   cullWhileDragging: 1
-  alwaysOnScreen: 0
+  alwaysOnScreen: 1
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
@@ -17910,13 +17910,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 7
-  mWidth: 392
+  mWidth: 360
   mHeight: 220
   mDepth: -1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.78181815
+  aspectRatio: 1.63636363
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 16a2d4ace59bac64dbcf4085964b38eb, type: 2}
