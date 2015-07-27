@@ -154,9 +154,6 @@ public class GameController : MonoBehaviour
 		RewardedVideoPlayer.OnRevivePlayer += VideoWatched;
 		FingerDetector.OnFingerDownEvent += OnFingerDown;
 		FingerDetector.OnFingerUpEvent += OnFingerUp;
-
-		if (Global.RunTutorial)
-			TutorialController.Instance.gameObject.SetActive (true);
 	}
 
 	void OnDisable()
@@ -375,6 +372,9 @@ public class GameController : MonoBehaviour
 		
 		if (OnGameStart != null)
 			OnGameStart ();
+
+		if (Global.RunTutorial)
+			TutorialController.Instance.gameObject.SetActive (true);
 	}
 
 	private void Reset()

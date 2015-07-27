@@ -302,7 +302,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3015
+  startingRenderQueue: 3013
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -5356,7 +5356,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3017
+  startingRenderQueue: 3015
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -5459,7 +5459,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3016
+  startingRenderQueue: 3014
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -10258,10 +10258,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1074819522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a60dfda9b1153fd4ca035013c64cf495, type: 3}
+  m_Script: {fileID: 11500000, guid: 839c65748297c43f2b8f11b819eb2161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiCamera: {fileID: 860026963}
+  widget: {fileID: 2022122646}
 --- !u!114 &1074819525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12835,7 +12836,7 @@ MonoBehaviour:
   - text: 'Nice! One more thing: if you got hit, you''ll lose your level. If you are
       already level 1, it''s game over. Good luck!'
     time: 7
-  runTutorial: 0
+  runTutorial: 1
 --- !u!1001 &1407085546
 Prefab:
   m_ObjectHideFlags: 0
@@ -15199,7 +15200,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3016
+  startingRenderQueue: 3014
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -16679,7 +16680,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3016
+  startingRenderQueue: 3014
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -18407,7 +18408,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3013
+  startingRenderQueue: 3011
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
