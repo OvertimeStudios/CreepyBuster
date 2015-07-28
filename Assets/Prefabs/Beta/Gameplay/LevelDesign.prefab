@@ -231,7 +231,7 @@ MonoBehaviour:
   itensLevelUpCondition:
   - points: 0
     killStreak: 0
-    chanceToSpawn: 50
+    chanceToSpawn: .5
     itens:
     - item: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
       percent: .699999988
@@ -239,7 +239,7 @@ MonoBehaviour:
       percent: .300000012
   - points: 15
     killStreak: 15
-    chanceToSpawn: 50
+    chanceToSpawn: .5
     itens:
     - item: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
       percent: .300000012
@@ -251,7 +251,7 @@ MonoBehaviour:
       percent: .300000012
   - points: 30
     killStreak: 30
-    chanceToSpawn: 50
+    chanceToSpawn: .5
     itens:
     - item: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
       percent: .200000003
@@ -259,23 +259,23 @@ MonoBehaviour:
       percent: .200000003
     - item: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
       percent: .200000003
-    - item: {fileID: 190274, guid: 93d679e907b2f4f3eae4c5b6151bf75e, type: 2}
+    - item: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
       percent: .100000001
     - item: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
       percent: .300000012
   - points: 60
     killStreak: 60
-    chanceToSpawn: 50
+    chanceToSpawn: .5
     itens:
     - item: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
       percent: .400000006
-    - item: {fileID: 190274, guid: 93d679e907b2f4f3eae4c5b6151bf75e, type: 2}
+    - item: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
       percent: .300000012
     - item: {fileID: 193254, guid: 2e742f82ef5604d40ad26f5041c4a5a4, type: 2}
       percent: .300000012
   - points: 90
     killStreak: 90
-    chanceToSpawn: 50
+    chanceToSpawn: .5
     itens:
     - item: {fileID: 182814, guid: 67895c14af5e846e4bdcfd012046df13, type: 2}
       percent: .100000001
@@ -283,10 +283,20 @@ MonoBehaviour:
       percent: .200000003
     - item: {fileID: 193254, guid: 2e742f82ef5604d40ad26f5041c4a5a4, type: 2}
       percent: .200000003
-    - item: {fileID: 190274, guid: 93d679e907b2f4f3eae4c5b6151bf75e, type: 2}
+    - item: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
       percent: .200000003
     - item: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
       percent: .300000012
+  rangeUpgrade:
+  - value: 2.5
+  - value: 2.75
+  - value: 3
+  - value: 3.25
+  damageUpgrade:
+  - value: 1
+  - value: 1.5
+  - value: 2
+  - value: 2.5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
