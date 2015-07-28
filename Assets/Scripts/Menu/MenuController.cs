@@ -102,6 +102,7 @@ public class MenuController : MonoBehaviour
 	{
 		get { return activeMenu; }
 	}
+
 	#endregion
 
 	void OnEnable()

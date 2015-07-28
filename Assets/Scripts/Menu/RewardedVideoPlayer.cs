@@ -57,21 +57,24 @@ public class RewardedVideoPlayer : MonoBehaviour
 	private static DateTime rewardCooldownTime;
 	
 	private UILabel countdown;
-	private UIButton button;
 	
 	void Start()
 	{
 		rewardCooldownTime = RewardCooldownTime;
 
 		countdown = transform.FindChild ("Countdown").GetComponent<UILabel> ();
-		button = GetComponent<UIButton> ();
 	}
 	
 	public void Play()
 	{
 		#if UNITYADS_IMPLEMENTED
 		if(IsReady)
-			UnityAdsHelper.ShowAd (null, GiveReward);
+		{
+			if(reward == Rewards.PlayAgain)
+				ShowAd();
+			else
+				Ask();
+		}
 		else if(UnityAdsHelper.isSupported)
 			Popup.ShowOk("Ads not supported");
 		else if(UnityAdsHelper.isInitialized)
@@ -79,6 +82,16 @@ public class RewardedVideoPlayer : MonoBehaviour
 		else
 			Popup.ShowOk("Ads failed");
 		#endif
+	}
+
+	private void Ask()
+	{
+		Popup.ShowYesNo(Localization.Get("VIDEO_TO_ORBS") + " " + orbsToGive + " orbs?", ShowAd, null);
+	}
+
+	private void ShowAd()
+	{
+		UnityAdsHelper.ShowAd (null, GiveReward);
 	}
 	
 	private void GiveReward()
@@ -96,7 +109,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		Global.TotalOrbs += orbsToGive;
 		
-		Popup.ShowOk ("You received " + orbsToGive + " orbs.");
+		Popup.ShowOk (Localization.Get("YOU_RECEIVED") + " " + orbsToGive + " orbs.");
 	}
 	
 	private void RevivePlayer()
@@ -109,7 +122,9 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		if(rewardCooldown > 0)
 		{
-			button.isEnabled = RewardCooldownLeft <= 0;
+			foreach(UIButton button in GetComponents<UIButton>())
+				button.isEnabled = RewardCooldownLeft <= 0;
+
 			countdown.enabled = RewardCooldownLeft > 0;
 
 			if(RewardCooldownLeft >= 0)
@@ -122,7 +137,9 @@ public class RewardedVideoPlayer : MonoBehaviour
 		}
 		else
 		{
-			button.isEnabled = true;
+			foreach(UIButton button in GetComponents<UIButton>())
+				button.isEnabled = true;
+
 			countdown.enabled = false;
 		}
 	}

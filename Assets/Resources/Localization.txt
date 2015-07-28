@@ -1,0 +1,67 @@
+KEY,English,Portuguese
+Sound,Sound,Som
+Music,Music,Musica
+TAP&HOLD,Tap and hold to play,Toque e segure para jogar
+SOLD_OUT,Soul Out, Vendido
+RAY3,3rd Ray,3º raio
+RAY4,4rd Ray,4º raio
+RAY5,5rd Ray,5º raio
+SUPER_RANGE,Super Range,Super Alcance
+MEGA_RANGE,Mega Range,Mega Alcance
+MASTER_RANGE,Master Range,Alcance Master
+SUPER_DAMAGE,Super Damage, Super Dano
+MEGA_DAMAGE,Mega Damage, Mega Dano
+ULTRA_DAMAGE,Ultra Damage, Ultra Dano
+GAME_STATS,Game Stats,Estatísticas
+DAILY_MISSIONS,Daily Missions,Missões Diárias
+WORLD_RANKING,World Ranking,Ranking Global
+HEIGHT,Height:,Altura:
+WEIGHT,Weight:,Peso:
+DESCRIPTION,Description:,Descrição:
+C1_DESCRIPTION,"Watch for his special ability: wait... he doesn't have a special ability.",Cuidado com sua habilidade especial: pera... ele não tem nenhuma.
+C2_DESCRIPTION,"He tries to get you rotating, rotating, rotatin...","Ele tentará te pegar rodando, rodando, rodando..."
+C3_DESCRIPTION,"Zig from here, zag from there, zigzag from everywhere.","Zig aqui, zag acolá, zigzag em todo lugar."
+C4_DESCRIPTION,Charging in 5.. 4.. 3.. 2.. 1.. and... Gotcha!,Carregando em 5.. 4.. 3.. 2.. 1.. e.. Pegou!
+C5_DESCRIPTION,"He'll never be alone. His minions will protecte and fight 'till death.",Ele nunca virá sozinho. Seus servos o protegerão até o fim.
+C7_DESCRIPTION,Guess who will never let you go?,Adivinhe quem nunca te deixará partir?
+NEWBIE,Newbie,Novato
+NEWBIE_DESCRIPTION,Play your first game!,Jogue seu primeiro jogo!
+SKILLED,Skilled,Habilidoso
+SKILLED_DESCRIPTION,Play for 10 minutes straight,Jogue por 10 minutos seguidos
+SICK,Sick,Doente
+SICK_DESCRIPTION,Play for 30 minutes straight,Jogue por 30 minutos seguidos
+DOCTOR,Better see a doctor,Melhor procurar um médico
+DOCTOR_DESCRIPTION,Play for 2 hours straight,Jogue por 2 horas seguidas
+FIRST_BLOOD,First Blood,Primeiro Sangue
+FIRST_BLOOD_DESCRIPTION,Kill your first monster,Mate seu primeiro monstro
+RESTORE,Restore Purchase,Restaurar Compras
+CREDITS,Credits,Créditos
+LOGOUT,Not you? Logout,Não é você? Logout
+SETTINGS,Settings,Opções
+ACHIEVEMENTS,Achievements,Conquistas
+FingerOff,You took your finger out of screen,Você tirou o dedo da tela
+LifeOut,You got hit!,Você foi atingido!
+VIDEO_TO_PLAY,Do you want to watch 1 video to continue playing?,Você quer assistir 1 vídeo para continuar jogando?
+VIDEO_TO_ORBS,Do you want to watch 1 video to earn,Você quer assistir 1 vídeo para ganhar
+INFINITY_ORBS_TO_PLAY,"But you have infinity orbs cheat. Do you want to continue, m'lord?","Mas você tem o cheat de orbs infinitas. Quer continuar, mestre?"
+WANT_TO_SPEND,Do you want to spent,Você quer gastar
+CONTINUE_PLAYING,orbs to continue playing?, orbs para continuar a jogar?
+YOU_HAVE,You Have,Você tem
+NOT_ENOUGH_ORBS,"You don't have enough orbs to continue playing",Você não tem orbs suficientes para continuar jogando
+YOU_RECEIVED,You received,Você recebeu
+FINGER_BACK_ON_SCREEN,Put your finger back into screen!,Coloque seu dedo de volta na tela
+TUTORIAL_1,"First rule: Never take your finger off screen, otherwise you'll lose","Primeira regra: nunca tire seu dedo da tela, senão você perderá"
+TUTORIAL_2,"Second rule: don't let enemies hit your finger",Segunda regra: não deixe os inimigos pegarem seu dedo
+TUTORIAL_3,"Look, an enemy! Approach and burn him to death!","Olhe, um inimigo! Aproxime-se e queime-o até morrer"
+TUTORIAL_4,Great! Try this one.,Ótimo! Tente este agora.
+TUTORIAL_5,"Excelent! Whenever you kill an enemy, your level will grow up. Try to reach level 2.","Excelente! Sempre que matar um inimigo, você aumentará seu nível. Tente chegar ao nível 2"
+TUTORIAL_6,"On level 2, you have 2 rays. Try it out.","No nível 2, você tem 2 raios. Teste-os."
+TUTORIAL_7,"Nice! One more thing: if you got hit, you'll lose your level. If you are already at level 1, it's GAME OVER. Good luck!","Legal! Mais uma coisa: se você for pego, você perderá seu nível. Se você já estiver no nível 1, é FIM DE JOGO. Boa sorte!"
+ORBS_COLLECTED,Orbs Collected,Orbs Coletadas
+POINTS,Points,Pontos
+ORBS_FROM_POINTS,Orbs from points,Orbs de pontos
+TOTAL_ORBS,Total Orbs,Orbs Totais
+YES,Yes,Sim
+NO,No,Não
+LANGUAGE,Language,Linguagem
+Paragraph,"This example shows how to ""implement"" localization using NGUI. In order to localize a widget, simply attach [000000]UILocalize[-] script to it. The script will localize the sprite if it's a [000000]UISprite[-], or the text if it's a [000000]UILabel[-]. If you want to localize something else, just implement the [000000]OnLocalize[-] function. Either way, the actual data is defined via text assets specified on the [000000]Localization[-] script which must be present in the scene.","Cet exemple montre comment implémenter la localisation en utilisant NGUI. Pour localiser un widget, il suffit d'y attacher le script [000000]UILocalize[-]. Ce script localisera le sprite si c'est un [000000]UISprite[-], ou le texte si c'est un [000000]UILabel[-]. Si vous voulez localiser autre chose, il suffit d'implémenter la fonction [000000]OnLocalize[-]. Dans tous les cas, les données sont définies par l'intermédiaire de documents texte spécifiés dans le script [000000]Localization[-] qui doit être présent dans la scène."

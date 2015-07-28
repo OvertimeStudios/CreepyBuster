@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 	enum CauseOfDeath
 	{
 		FingerOff,
-		Life,
+		LifeOut,
 	}
 
 	public static event Action OnGameStart;
@@ -134,7 +134,7 @@ public class GameController : MonoBehaviour
 
 	public static bool IsTutorialRunning
 	{
-		get { return TutorialController.Instance.gameObject.activeInHierarchy; }
+		get { return TutorialController.IsRunning; }
 	}
 	#endregion
 
@@ -243,15 +243,20 @@ public class GameController : MonoBehaviour
 
 	private void NoMoreLifes()
 	{
-		isGameRunning = false;
+		if(GameController.IsTutorialRunning)
+			StartCoroutine (ShowEndScreen (timeToShowGameOverScreen));
+		else
+			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.LifeOut));
 
-		StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.Life));
+		if(OnGameEnding != null)
+			OnGameEnding();
 	}
 
 	public void GameOver()
 	{
 		isGameRunning = false;
 		gameOver = true;
+		player.SetActive (false);
 
 		MenuController.Instance.gameObject.SetActive(true);
 
@@ -261,7 +266,7 @@ public class GameController : MonoBehaviour
 		gameObject.SetActive(false);
 	}
 
-	private IEnumerator ShowContinueScreen(float waitTime, CauseOfDeath causeOfDeath)
+	private IEnumerator ShowEndScreen(float waitTime)
 	{
 		isGameRunning = false;
 		gameOver = true;
@@ -272,25 +277,30 @@ public class GameController : MonoBehaviour
 
 		yield return new WaitForSeconds (waitTime);
 
-		string cause = "";
-		if (causeOfDeath == CauseOfDeath.FingerOff)
-			cause = "You took your finger out of screen";
-		else if (causeOfDeath == CauseOfDeath.Life)
-			cause = "You got hit!";
+		ShowEndScreen ();
+	}
+
+	private IEnumerator ShowContinueScreen(float waitTime, CauseOfDeath causeOfDeath)
+	{
+		isGameRunning = false;
+		gameOver = true;
+		player.SetActive (false);
+
+		yield return new WaitForSeconds (waitTime);
 
 		if (continues == 0 && Advertisement.IsReady ())
-			Popup.ShowVideoNo(cause + " \n \n Do you want to watch 1 video to continue playing?", null, ShowEndScreen, false);
+			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), null, ShowEndScreen, false);
 		else
 		{
 			#if INFINITY_ORBS
-			Popup.ShowYesNo(cause + " \n \n But you have infinity orbs cheat. Do you want to continue, m'lord?", PayContinueOrbs, ShowEndScreen);
+			Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("INFINITY_ORBS_TO_PLAY"), PayContinueOrbs, ShowEndScreen);
 			#else
 			float orbsToPay = (orbsToContinue * Mathf.Pow(2, continues));
 
 			if(Global.TotalOrbs >= orbsToPay)
-				Popup.ShowYesNo(cause + " \n \n Do you want to spent " + orbsToPay + " orbs to continue playing? \n \n (You have " + Global.TotalOrbs + " orbs.)", PayContinueOrbs, ShowEndScreen);
+				Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.GetType ("WANT_TO_SPEND") + " " + orbsToPay + " " + Localization.GetType ("CONTINUE_PLAYING") + "\n \n (" + Localization.GetType ("YOU_HAVE") + " " + Global.TotalOrbs + " orbs.)", PayContinueOrbs, ShowEndScreen);
 			else
-				Popup.ShowOk(cause + " \n \n You don't have enough orbs to continue playing", ShowEndScreen);
+				Popup.ShowOk(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.GetType ("NOT_ENOUGH_ORBS"), ShowEndScreen);
 			#endif
 		}
 
@@ -358,7 +368,6 @@ public class GameController : MonoBehaviour
 		Reset ();
 		gameObject.SetActive (true);
 
-		Debug.Log ("FingerDetector.IsFingerDown: " + FingerDetector.IsFingerDown);
 		if (FingerDetector.IsFingerDown)
 		{
 			Debug.Log("Active Player");
@@ -425,6 +434,17 @@ public class GameController : MonoBehaviour
 		{
 			ScreenFeedback.ShowDamage(timeInvencibleAfterDamage);
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.FingerOff));
+
+			if(OnGameEnding != null)
+				OnGameEnding();
+		}
+		else if(GameController.IsTutorialRunning && TutorialController.CanLose)
+		{
+			ScreenFeedback.ShowDamage(timeInvencibleAfterDamage);
+			StartCoroutine (ShowEndScreen (timeToShowGameOverScreen));
+
+			if(OnGameEnding != null)
+				OnGameEnding();
 		}
 	}
 

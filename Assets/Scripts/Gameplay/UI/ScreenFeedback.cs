@@ -53,6 +53,8 @@ public class ScreenFeedback : MonoBehaviour
 		Instance.damage.enabled = true;
 		Instance.damage.alpha = 1;
 
+		Handheld.Vibrate ();
+
 		if(Instance.cameraShake != null)
 			Instance.cameraShake.Shake ();
 
