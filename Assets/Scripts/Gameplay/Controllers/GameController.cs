@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
 	public static event Action OnShowEndScreen;
 	public static event Action OnReset;
 	public static event Action OnFingerHit;
+	public static event Action OnGameEnding;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
@@ -133,7 +134,7 @@ public class GameController : MonoBehaviour
 
 	public static bool IsTutorialRunning
 	{
-		get { return TutorialController.Instance.gameObject.activeInHierarchy; }
+		get { return TutorialController.IsRunning; }
 	}
 	#endregion
 
@@ -242,15 +243,20 @@ public class GameController : MonoBehaviour
 
 	private void NoMoreLifes()
 	{
-		isGameRunning = false;
+		if(GameController.IsTutorialRunning)
+			StartCoroutine (ShowEndScreen (timeToShowGameOverScreen));
+		else
+			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.Life));
 
-		StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.Life));
+		if(OnGameEnding != null)
+			OnGameEnding();
 	}
 
 	public void GameOver()
 	{
 		isGameRunning = false;
 		gameOver = true;
+		player.SetActive (false);
 
 		MenuController.Instance.gameObject.SetActive(true);
 
@@ -258,6 +264,17 @@ public class GameController : MonoBehaviour
 			OnGameOver ();
 		
 		gameObject.SetActive(false);
+	}
+
+	private IEnumerator ShowEndScreen(float waitTime)
+	{
+		isGameRunning = false;
+		gameOver = true;
+		player.SetActive (false);
+
+		yield return new WaitForSeconds (waitTime);
+
+		ShowEndScreen ();
 	}
 
 	private IEnumerator ShowContinueScreen(float waitTime, CauseOfDeath causeOfDeath)
@@ -421,6 +438,17 @@ public class GameController : MonoBehaviour
 		{
 			ScreenFeedback.ShowDamage(timeInvencibleAfterDamage);
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.FingerOff));
+
+			if(OnGameEnding != null)
+				OnGameEnding();
+		}
+		else if(GameController.IsTutorialRunning && TutorialController.CanLose)
+		{
+			ScreenFeedback.ShowDamage(timeInvencibleAfterDamage);
+			StartCoroutine (ShowEndScreen (timeToShowGameOverScreen));
+
+			if(OnGameEnding != null)
+				OnGameEnding();
 		}
 	}
 

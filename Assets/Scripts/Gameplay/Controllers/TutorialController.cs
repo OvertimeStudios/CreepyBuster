@@ -16,6 +16,8 @@ public class TutorialController : MonoBehaviour
 	private int textsNumber = 0;
 
 	public bool runTutorial = true;
+	public static bool running;
+	public static bool canTakeOffFinger;
 
 	#region singleton
 	private static TutorialController instance;
@@ -31,6 +33,18 @@ public class TutorialController : MonoBehaviour
 	}
 	#endregion
 
+	#region get / set
+	public static bool CanLose
+	{
+		get { return canTakeOffFinger; }
+	}
+
+	public static bool IsRunning
+	{
+		get { return running; }
+	}
+	#endregion
+
 	// Use this for initialization
 	void OnEnable () 
 	{
@@ -38,10 +52,12 @@ public class TutorialController : MonoBehaviour
 		EnemyMovement.OnOutOfScreen += EnemyOutOfScreen;
 		FingerDetector.OnFingerDownEvent += OnFingerDown;
 		FingerDetector.OnFingerUpEvent += OnFingerUp;
+		GameController.OnGameEnding += GameEnding;
 
 		enemyCounter = 0;
 		textsNumber = 0;
 		doubleEnemy = false;
+		canTakeOffFinger = false;
 
 		tutorial.gameObject.SetActive (true);
 		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
@@ -61,6 +77,7 @@ public class TutorialController : MonoBehaviour
 		EnemyMovement.OnOutOfScreen -= EnemyOutOfScreen;
 		FingerDetector.OnFingerDownEvent -= OnFingerDown;
 		FingerDetector.OnFingerUpEvent -= OnFingerUp;
+		GameController.OnGameEnding -= GameEnding;
 
 		if(tutorial != null)
 			tutorial.gameObject.SetActive (false);
@@ -86,14 +103,21 @@ public class TutorialController : MonoBehaviour
 
 	private void OnFingerUp(FingerUpEvent e)
 	{
-		Popup.ShowBlank ("Put your finger back into screen!");
-		Time.timeScale = 0f;
+		if(!canTakeOffFinger)
+		{
+			Popup.ShowBlank ("Put your finger back into screen!");
+			Time.timeScale = 0f;
+		}
 	}
 
 	private IEnumerator Run()
 	{
+		running = true;
+
 		//first rule
 		yield return new WaitForSeconds(ShowNextText());
+
+		canTakeOffFinger = true;
 
 		//second rule
 		yield return new WaitForSeconds(ShowNextText());
@@ -138,8 +162,10 @@ public class TutorialController : MonoBehaviour
 		//One more thing: got hit
 		yield return new WaitForSeconds(ShowNextText());
 
+		running = false;
+
 		Global.RunTutorial = false;
-		gameObject.SetActive (false);
+		Hide ();
 	}
 
 	private float ShowNextText()
@@ -186,6 +212,17 @@ public class TutorialController : MonoBehaviour
 
 		if(!tutorialText.text.Contains("Try again"))
 			tutorialText.text = "Try again! \n" + tutorialText.text;
+	}
+
+	private void GameEnding()
+	{
+		running = false;
+		Hide ();
+	}
+
+	public static void Hide()
+	{
+		Instance.gameObject.SetActive (false);
 	}
 }
 
