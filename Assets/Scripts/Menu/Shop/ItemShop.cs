@@ -89,8 +89,8 @@ public class ItemShop : MonoBehaviour
 			break;
 		}
 
-		transform.FindChild ("Price").GetComponent<UILabel> ().text = (purchased) ? "SOLD OUT" : string.Format("{0:0,0}", price);
-		transform.FindChild ("Description").GetComponent<UILabel> ().text = description;
+		transform.FindChild ("Price").GetComponent<UILabel> ().text = (purchased) ? Localization.Get("SOLD_OUT") : string.Format("{0:0,0}", price);
+		transform.FindChild ("Description").GetComponent<UILabel> ().text = Localization.Get(description);
 
 		if (OnItemLoaded != null)
 			OnItemLoaded (this);

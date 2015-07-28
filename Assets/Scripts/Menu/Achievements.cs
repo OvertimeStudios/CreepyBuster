@@ -19,8 +19,8 @@ public class Achievements : MonoBehaviour
 			newAchievement.parent = grid;
 			newAchievement.localScale = Vector3.one;
 
-			newAchievement.FindChild("Title").GetComponent<UILabel>().text = (achievement.hidden && !achievement.unlocked) ? "???????" : achievement.title;
-			newAchievement.FindChild("Description").GetComponent<UILabel>().text = (achievement.hidden && !achievement.unlocked) ? " ?????? \n ??????" : achievement.description;
+			newAchievement.FindChild("Title").GetComponent<UILabel>().text = (achievement.hidden && !achievement.unlocked) ? "???????" : Localization.Get(achievement.title);
+			newAchievement.FindChild("Description").GetComponent<UILabel>().text = (achievement.hidden && !achievement.unlocked) ? " ?????? \n ??????" : Localization.Get(achievement.description);
 			newAchievement.FindChild("Icon").GetComponent<UISprite>().spriteName = achievement.iconName;
 
 			if(!achievement.unlocked)

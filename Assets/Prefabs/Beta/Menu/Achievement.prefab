@@ -126,8 +126,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 369, y: 100.500015, z: 0}
-  m_Center: {x: 152.5, y: -29.7499695, z: 0}
+  m_Size: {x: 369, y: 100, z: 0}
+  m_Center: {x: 154.220001, y: -30.9099998, z: 0}
 --- !u!114 &11420534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -329,7 +329,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Size.x
+      value: 369
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Size.y
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 152090}

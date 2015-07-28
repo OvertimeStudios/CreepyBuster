@@ -12,6 +12,7 @@ public class Global : MonoBehaviour
 	#endregion
 
 	#region keys
+	private const string FIRST_PLAY = "firstPlay";
 	public const string REWARDED_VIDEO_COOLDOWN = "rewardedVideoCooldown";
 	private const string TOTAL_ORBS = "totalOrbs";
 	private const string HIGH_SCORE = "highScore";
@@ -26,6 +27,7 @@ public class Global : MonoBehaviour
 	private const string DAMAGE_ULTRA = "masterDamage";
 	private const string MUSIC_ON = "musicOn";
 	private const string SOUNDFX_ON = "soundFX";
+	private const string LANGUAGE = "language";
 	#endregion
 
 	private static bool isLoaded;
@@ -46,6 +48,8 @@ public class Global : MonoBehaviour
 
 	private static int musicOn;
 	private static int soundOn;
+
+	private static string language;
 	#endregion
 
 	#region session variables
@@ -339,15 +343,39 @@ public class Global : MonoBehaviour
 		}
 	}
 
+	public static string Language
+	{
+		get
+		{
+			if(!isLoaded)
+				Load();
+
+			return language;
+		}
+
+		set
+		{
+			language = value;
+
+			PlayerPrefs.SetString(LANGUAGE, language);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static bool FirstPlay
+	{
+		get { return !PlayerPrefs.HasKey (FIRST_PLAY); }
+	}
+
 	#endregion
 
 	private static void Load()
 	{
-		isLoaded = true;
+		if(isLoaded) return;
 
 		sessionsScore = 0;
 
-		if(PlayerPrefs.HasKey(HIGH_SCORE))
+		if(!FirstPlay)
 		{
 			highScore = PlayerPrefs.GetInt(HIGH_SCORE);
 			totalOrbs = PlayerPrefs.GetInt(TOTAL_ORBS);
@@ -362,9 +390,13 @@ public class Global : MonoBehaviour
 			ultraDamage = PlayerPrefs.GetInt(DAMAGE_ULTRA);
 			musicOn = PlayerPrefs.GetInt(MUSIC_ON);
 			soundOn = PlayerPrefs.GetInt(SOUNDFX_ON);
+
+			language = PlayerPrefs.GetString(LANGUAGE);
 		}
 		else
 		{
+			PlayerPrefs.SetInt(FIRST_PLAY, 1);
+
 			//initialize
 			highScore = 0;
 			totalOrbs = 0;
@@ -380,8 +412,15 @@ public class Global : MonoBehaviour
 			musicOn = 1;
 			soundOn = 1;
 
+			if(Application.systemLanguage == SystemLanguage.Portuguese)
+				language = LocalizationController.Language.Portuguese.ToString();
+			else
+				language = LocalizationController.Language.English.ToString();
+
 			SaveAll();
 		}
+
+		isLoaded = true;
 	}
 
 	public static void ClearPurchasedOnly()
@@ -417,7 +456,14 @@ public class Global : MonoBehaviour
 		PlayerPrefs.SetInt (DAMAGE_ULTRA, ultraDamage);
 		PlayerPrefs.SetInt (MUSIC_ON, musicOn);
 		PlayerPrefs.SetInt (SOUNDFX_ON, soundOn);
+		PlayerPrefs.SetString (LANGUAGE, language);
 
+		PlayerPrefs.Save ();
+	}
+
+	private static void Reset()
+	{
+		PlayerPrefs.DeleteAll ();
 		PlayerPrefs.Save ();
 	}
 

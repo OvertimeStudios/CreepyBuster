@@ -42,8 +42,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 4c7268ae06d8a47beaad6576273e7735, type: 2}
   mSprites:
   - name: Achievement
-    x: 1041
-    y: 218
+    x: 1039
+    y: 718
     width: 249
     height: 249
     borderLeft: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: Achievements
-    x: 1041
+    x: 1289
     y: 468
     width: 249
     height: 249
@@ -68,8 +68,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: back_button
-    x: 0
-    y: 168
+    x: 486
+    y: 131
     width: 256
     height: 256
     borderLeft: 0
@@ -82,7 +82,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: bar_holder
     x: 0
-    y: 117
+    y: 23
     width: 128
     height: 31
     borderLeft: 15
@@ -93,9 +93,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 1
-  - name: button
+  - name: brazil
     x: 0
-    y: 425
+    y: 521
+    width: 485
+    height: 446
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 77
+    paddingRight: 78
+    paddingTop: 12
+    paddingBottom: 22
+  - name: button
+    x: 782
+    y: 711
     width: 256
     height: 256
     borderLeft: 0
@@ -107,8 +120,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: C1 01
-    x: 1723
-    y: 208
+    x: 2171
+    y: 1537
     width: 136
     height: 273
     borderLeft: 0
@@ -120,8 +133,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 9
   - name: C2 01
-    x: 285
-    y: 6
+    x: 1039
+    y: 11
     width: 240
     height: 206
     borderLeft: 0
@@ -133,8 +146,8 @@ MonoBehaviour:
     paddingTop: 32
     paddingBottom: 2
   - name: C3 01
-    x: 0
-    y: 682
+    x: 486
+    y: 388
     width: 284
     height: 285
     borderLeft: 0
@@ -146,8 +159,8 @@ MonoBehaviour:
     paddingTop: 97
     paddingBottom: 74
   - name: C4 1
-    x: 1921
-    y: 1811
+    x: 1789
+    y: 730
     width: 95
     height: 237
     borderLeft: 0
@@ -159,8 +172,8 @@ MonoBehaviour:
     paddingTop: 9
     paddingBottom: 4
   - name: C5 01
-    x: 1750
-    y: 483
+    x: 1921
+    y: 126
     width: 229
     height: 231
     borderLeft: 0
@@ -172,8 +185,8 @@ MonoBehaviour:
     paddingTop: 22
     paddingBottom: 27
   - name: C7 01
-    x: 1921
-    y: 1642
+    x: 782
+    y: 37
     width: 85
     height: 168
     borderLeft: 0
@@ -185,8 +198,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 5
   - name: Creepypedia
-    x: 1041
-    y: 718
+    x: 1921
+    y: 1799
     width: 249
     height: 249
     borderLeft: 0
@@ -198,8 +211,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: damage+
-    x: 1520
-    y: 482
+    x: 1921
+    y: 358
     width: 229
     height: 232
     borderLeft: 0
@@ -211,8 +224,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 21
   - name: damage++
-    x: 1763
-    y: 724
+    x: 1921
+    y: 1063
     width: 229
     height: 243
     borderLeft: 0
@@ -224,8 +237,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 10
   - name: damage+++
-    x: 1291
-    y: 715
+    x: 1921
+    y: 1546
     width: 229
     height: 252
     borderLeft: 0
@@ -236,9 +249,22 @@ MonoBehaviour:
     paddingRight: 13
     paddingTop: 3
     paddingBottom: 1
+  - name: eua
+    x: 0
+    y: 74
+    width: 485
+    height: 446
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 77
+    paddingRight: 78
+    paddingTop: 12
+    paddingBottom: 22
   - name: Healthbar
     x: 0
-    y: 149
+    y: 55
     width: 242
     height: 18
     borderLeft: 15
@@ -250,7 +276,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: HUB Connection
-    x: 791
+    x: 1539
     y: 218
     width: 249
     height: 249
@@ -263,8 +289,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: Invencibility Feedback
-    x: 285
-    y: 712
+    x: 782
+    y: 455
     width: 255
     height: 255
     borderLeft: 35
@@ -276,8 +302,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: More games
-    x: 285
-    y: 463
+    x: 782
+    y: 206
     width: 253
     height: 248
     borderLeft: 0
@@ -289,8 +315,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 8
   - name: Off
-    x: 791
-    y: 468
+    x: 1289
+    y: 218
     width: 249
     height: 249
     borderLeft: 0
@@ -302,8 +328,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: On
-    x: 791
-    y: 718
+    x: 1539
+    y: 468
     width: 249
     height: 249
     borderLeft: 0
@@ -314,8 +340,21 @@ MonoBehaviour:
     paddingRight: 4
     paddingTop: 3
     paddingBottom: 4
+  - name: Plasma Orb
+    x: 486
+    y: 674
+    width: 295
+    height: 293
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 3
+    paddingTop: 1
+    paddingBottom: 6
   - name: play
-    x: 541
+    x: 1039
     y: 218
     width: 249
     height: 249
@@ -328,8 +367,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: Popup
-    x: 1921
-    y: 1512
+    x: 308
+    y: 9
     width: 64
     height: 64
     borderLeft: 16
@@ -341,8 +380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Popup down
-    x: 1921
-    y: 1577
+    x: 243
+    y: 9
     width: 64
     height: 64
     borderLeft: 15
@@ -354,8 +393,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: range+
-    x: 1520
-    y: 35
+    x: 2577
+    y: 1831
     width: 202
     height: 217
     borderLeft: 0
@@ -367,8 +406,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 31
   - name: range++
-    x: 1520
-    y: 253
+    x: 2374
+    y: 1820
     width: 202
     height: 228
     borderLeft: 0
@@ -380,8 +419,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 20
   - name: range+++
-    x: 1291
-    y: 5
+    x: 2171
+    y: 1811
     width: 202
     height: 237
     borderLeft: 0
@@ -393,8 +432,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 11
   - name: ray3
-    x: 1291
-    y: 243
+    x: 1921
+    y: 591
     width: 228
     height: 235
     borderLeft: 0
@@ -406,8 +445,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 11
   - name: ray4
-    x: 1291
-    y: 479
+    x: 1921
+    y: 827
     width: 228
     height: 235
     borderLeft: 0
@@ -419,8 +458,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 11
   - name: ray5
-    x: 1521
-    y: 729
+    x: 1921
+    y: 1307
     width: 241
     height: 238
     borderLeft: 0
@@ -432,7 +471,7 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 8
   - name: Selection
-    x: 541
+    x: 1039
     y: 468
     width: 249
     height: 249
@@ -445,7 +484,7 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: settings
-    x: 541
+    x: 1539
     y: 718
     width: 249
     height: 249
@@ -458,8 +497,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: shop_icon
-    x: 285
-    y: 213
+    x: 1289
+    y: 718
     width: 249
     height: 249
     borderLeft: 0

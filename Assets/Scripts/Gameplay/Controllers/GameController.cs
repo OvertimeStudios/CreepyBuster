@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 	enum CauseOfDeath
 	{
 		FingerOff,
-		Life,
+		LifeOut,
 	}
 
 	public static event Action OnGameStart;
@@ -246,7 +246,7 @@ public class GameController : MonoBehaviour
 		if(GameController.IsTutorialRunning)
 			StartCoroutine (ShowEndScreen (timeToShowGameOverScreen));
 		else
-			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.Life));
+			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.LifeOut));
 
 		if(OnGameEnding != null)
 			OnGameEnding();
@@ -285,25 +285,19 @@ public class GameController : MonoBehaviour
 
 		yield return new WaitForSeconds (waitTime);
 
-		string cause = "";
-		if (causeOfDeath == CauseOfDeath.FingerOff)
-			cause = "You took your finger out of screen";
-		else if (causeOfDeath == CauseOfDeath.Life)
-			cause = "You got hit!";
-
 		if (continues == 0 && Advertisement.IsReady ())
-			Popup.ShowVideoNo(cause + " \n \n Do you want to watch 1 video to continue playing?", null, ShowEndScreen, false);
+			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), null, ShowEndScreen, false);
 		else
 		{
 			#if INFINITY_ORBS
-			Popup.ShowYesNo(cause + " \n \n But you have infinity orbs cheat. Do you want to continue, m'lord?", PayContinueOrbs, ShowEndScreen);
+			Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("INFINITY_ORBS_TO_PLAY"), PayContinueOrbs, ShowEndScreen);
 			#else
 			float orbsToPay = (orbsToContinue * Mathf.Pow(2, continues));
 
 			if(Global.TotalOrbs >= orbsToPay)
-				Popup.ShowYesNo(cause + " \n \n Do you want to spent " + orbsToPay + " orbs to continue playing? \n \n (You have " + Global.TotalOrbs + " orbs.)", PayContinueOrbs, ShowEndScreen);
+				Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.GetType ("WANT_TO_SPEND") + " " + orbsToPay + " " + Localization.GetType ("CONTINUE_PLAYING") + "\n \n (" + Localization.GetType ("YOU_HAVE") + " " + Global.TotalOrbs + " orbs.)", PayContinueOrbs, ShowEndScreen);
 			else
-				Popup.ShowOk(cause + " \n \n You don't have enough orbs to continue playing", ShowEndScreen);
+				Popup.ShowOk(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.GetType ("NOT_ENOUGH_ORBS"), ShowEndScreen);
 			#endif
 		}
 
@@ -371,7 +365,6 @@ public class GameController : MonoBehaviour
 		Reset ();
 		gameObject.SetActive (true);
 
-		Debug.Log ("FingerDetector.IsFingerDown: " + FingerDetector.IsFingerDown);
 		if (FingerDetector.IsFingerDown)
 		{
 			Debug.Log("Active Player");

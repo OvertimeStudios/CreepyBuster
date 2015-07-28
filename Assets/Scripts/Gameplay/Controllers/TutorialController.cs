@@ -105,7 +105,7 @@ public class TutorialController : MonoBehaviour
 	{
 		if(!canTakeOffFinger)
 		{
-			Popup.ShowBlank ("Put your finger back into screen!");
+			Popup.ShowBlank (Localization.Get("FINGER_BACK_ON_SCREEN"));
 			Time.timeScale = 0f;
 		}
 	}
@@ -172,7 +172,7 @@ public class TutorialController : MonoBehaviour
 	{
 		TutorialText tText = texts [textsNumber];
 
-		tutorialText.text = tText.text;
+		tutorialText.text = Localization.Get(tText.text);
 
 		textsNumber++;
 
