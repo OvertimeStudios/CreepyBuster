@@ -11679,6 +11679,38 @@ Prefab:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[0].chanceToSpawn
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[1].chanceToSpawn
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[2].chanceToSpawn
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[3].chanceToSpawn
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[4].chanceToSpawn
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[2].itens.Array.data[3].item
+      value: 
+      objectReference: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[3].itens.Array.data[1].item
+      value: 
+      objectReference: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[4].itens.Array.data[3].item
+      value: 
+      objectReference: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: rangeUpgrade.Array.data[0].value
       value: 2.5
       objectReference: {fileID: 0}
