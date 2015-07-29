@@ -119,6 +119,16 @@ public class GameController : MonoBehaviour
 		get { return invencible || ScreenFeedback.IsDamageActive; }
 	}
 
+	public static bool IsTakingDamage
+	{
+		get { return ScreenFeedback.IsDamageActive; }
+	}
+
+	public static bool IsInvencibleByItem
+	{
+		get { return invencible; }
+	}
+
 	public static int Score
 	{
 		get { return score; }
@@ -285,7 +295,7 @@ public class GameController : MonoBehaviour
 
 		yield return new WaitForSeconds (waitTime);
 
-		if (continues == 0 && Advertisement.IsReady ())
+		if (continues == 0 && Advertisement.IsReady () && Advertisement.isInitialized && Advertisement.isSupported)
 			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), null, ShowEndScreen, false);
 		else
 		{
@@ -320,8 +330,6 @@ public class GameController : MonoBehaviour
 	private void VideoWatched()
 	{
 		ContinuePlaying ();
-
-		Popup.Hide ();
 	}
 
 	private void PayContinueOrbs()
@@ -337,6 +345,8 @@ public class GameController : MonoBehaviour
 		continues++;
 
 		Debug.Log ("ContinuePlaying");
+
+		Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
 
 		StartCoroutine (WaitForFingerDown ());
 	}
@@ -358,6 +368,8 @@ public class GameController : MonoBehaviour
 		isGameRunning = true;
 		gameOver = false;
 		player.SetActive (true);
+
+		Popup.Hide ();
 	}
 
 	public void StartGame()
@@ -369,6 +381,10 @@ public class GameController : MonoBehaviour
 		{
 			Debug.Log("Active Player");
 			player.SetActive (true);
+		}
+		else
+		{
+			Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
 		}
 
 		StartCoroutine (WaitForPlayer ());
@@ -383,16 +399,8 @@ public class GameController : MonoBehaviour
 			yield return null;
 
 		Debug.Log ("Player found");
+		Popup.Hide ();
 
-		enemiesKillCount = 0;
-		score = 0;
-		specialStreak = 0;
-		orbsCollected = 0;
-		realStreakCount = 0;
-		continues = 0;
-		
-		gameOver = false;
-		
 		if (OnGameStart != null)
 			OnGameStart ();
 
@@ -409,6 +417,9 @@ public class GameController : MonoBehaviour
 		orbsCollected = 0;
 		realStreakCount = 0;
 		continues = 0;
+		frozen = false;
+		slowedDown = false;
+		invencible = false;
 
 		gameOver = false;
 

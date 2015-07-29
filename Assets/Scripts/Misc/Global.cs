@@ -28,6 +28,7 @@ public class Global : MonoBehaviour
 	private const string MUSIC_ON = "musicOn";
 	private const string SOUNDFX_ON = "soundFX";
 	private const string LANGUAGE = "language";
+	private const string VIBRATE = "vibrate";
 	#endregion
 
 	private static bool isLoaded;
@@ -48,6 +49,7 @@ public class Global : MonoBehaviour
 
 	private static int musicOn;
 	private static int soundOn;
+	private static int vibrate;
 
 	private static string language;
 	#endregion
@@ -362,6 +364,25 @@ public class Global : MonoBehaviour
 		}
 	}
 
+	public static bool CanVibrate
+	{
+		get
+		{
+			if(!isLoaded)
+				Load ();
+			
+			return vibrate == 1;
+		}
+		
+		set
+		{
+			vibrate = (value == true) ? 1 : 0;
+			
+			PlayerPrefs.SetInt (VIBRATE, vibrate);
+			PlayerPrefs.Save ();
+		}
+	}
+
 	public static bool FirstPlay
 	{
 		get { return !PlayerPrefs.HasKey (FIRST_PLAY); }
@@ -390,6 +411,7 @@ public class Global : MonoBehaviour
 			ultraDamage = PlayerPrefs.GetInt(DAMAGE_ULTRA);
 			musicOn = PlayerPrefs.GetInt(MUSIC_ON);
 			soundOn = PlayerPrefs.GetInt(SOUNDFX_ON);
+			vibrate = PlayerPrefs.GetInt(VIBRATE);
 
 			language = PlayerPrefs.GetString(LANGUAGE);
 		}
@@ -411,6 +433,7 @@ public class Global : MonoBehaviour
 			ultraDamage = 0;
 			musicOn = 1;
 			soundOn = 1;
+			vibrate = 1;
 
 			if(Application.systemLanguage == SystemLanguage.Portuguese)
 				language = LocalizationController.Language.Portuguese.ToString();
@@ -457,6 +480,7 @@ public class Global : MonoBehaviour
 		PlayerPrefs.SetInt (MUSIC_ON, musicOn);
 		PlayerPrefs.SetInt (SOUNDFX_ON, soundOn);
 		PlayerPrefs.SetString (LANGUAGE, language);
+		PlayerPrefs.SetInt (VIBRATE, vibrate);
 
 		PlayerPrefs.Save ();
 	}

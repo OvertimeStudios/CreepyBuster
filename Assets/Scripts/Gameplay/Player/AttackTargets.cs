@@ -31,6 +31,7 @@ public class AttackTargets : MonoBehaviour
 	{
 		get { return targets.Count > 0; }
 	}
+
 	#endregion
 
 	#region singleton
@@ -266,6 +267,6 @@ public class AttackTargets : MonoBehaviour
 	{
 		GameController.Instance.FingerHit ();
 		
-		col.gameObject.GetComponent<EnemyLife>().Dead(GameController.IsInvencible);
+		col.gameObject.GetComponent<EnemyLife>().Dead(false);
 	}
 }

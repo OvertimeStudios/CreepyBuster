@@ -97,22 +97,20 @@ public class AdMobHelper : MonoBehaviour
 		if(Debug.isDebugBuild && Instance.isTest)
 		{
 			Debug.Log("Test Banner Request");
-			string devicesIDs = "";
+
+			AdRequest.Builder builder = new AdRequest.Builder().AddTestDevice(AdRequest.TestDeviceSimulator);
 			
 			foreach(string testDeviceId in testDeviceIDs)
-				devicesIDs += testDeviceId + ",";
+				builder = builder.AddTestDevice(testDeviceId);
 			
-			devicesIDs = devicesIDs.Substring(0, devicesIDs.Length - 1);
-			
-			request = new AdRequest.Builder()
-					.AddTestDevice(AdRequest.TestDeviceSimulator)
-					.AddTestDevice(devicesIDs)
-					.AddKeyword("game")
-					.SetGender(Gender.Male)
+			builder = builder.AddKeyword("game")
+				.SetGender(Gender.Male)
 					.SetBirthday(new DateTime(1985, 1, 1))
 					.TagForChildDirectedTreatment(false)
-					.AddExtra("color_bg", "9B30FF")
-					.Build();
+					.AddExtra("color_bg", "9B30FF");
+			
+			request = builder.Build();
+
 		}
 		else
 		{
