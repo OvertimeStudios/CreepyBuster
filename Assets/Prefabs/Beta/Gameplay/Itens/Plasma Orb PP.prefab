@@ -92,6 +92,8 @@ MonoBehaviour:
   type: 5
   vel: 2
   orbs: 1
+  label: {fileID: 157898, guid: 2a99f641bd73045d1aa6ac9bfec3e978, type: 2}
+  textColor: {r: 0, g: .852999985, b: 0, a: 1}
 --- !u!212 &21242162
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -148,6 +150,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalScale.z
       value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: label
+      value: 
+      objectReference: {fileID: 157898, guid: 2a99f641bd73045d1aa6ac9bfec3e978, type: 2}
+    - target: {fileID: 0}
+      propertyPath: textColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: textColor.g
+      value: .852999985
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -12471,10 +12471,6 @@ Prefab:
     m_TransformParent: {fileID: 1913536882}
     m_Modifications:
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: items.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: rangeUpgrade.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -12485,10 +12481,6 @@ Prefab:
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.size
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: items.Array.data[0].itens.Array.size
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.size
@@ -12527,45 +12519,73 @@ Prefab:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itemSpawnTime.min
+      propertyPath: rangeUpgrade.Array.data[0].value
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: rangeUpgrade.Array.data[1].value
+      value: 2.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: rangeUpgrade.Array.data[2].value
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: rangeUpgrade.Array.data[3].value
+      value: 3.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: damageUpgrade.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itemSpawnTime.max
+      propertyPath: damageUpgrade.Array.data[1].value
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: damageUpgrade.Array.data[2].value
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: damageUpgrade.Array.data[3].value
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[0].chanceToSpawn
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[0].item
       value: 
-      objectReference: {fileID: 193254, guid: 2e742f82ef5604d40ad26f5041c4a5a4, type: 2}
+      objectReference: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[1].item
       value: 
-      objectReference: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
+      objectReference: {fileID: 142570, guid: 373cc9dc78a6e4e55a88461bb01cf653, type: 2}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[2].item
       value: 
-      objectReference: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
+      objectReference: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[3].item
       value: 
-      objectReference: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
+      objectReference: {fileID: 182814, guid: 67895c14af5e846e4bdcfd012046df13, type: 2}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[4].item
       value: 
-      objectReference: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
+      objectReference: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[5].item
       value: 
-      objectReference: {fileID: 142570, guid: 373cc9dc78a6e4e55a88461bb01cf653, type: 2}
+      objectReference: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[6].item
       value: 
-      objectReference: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
+      objectReference: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[7].item
       value: 
-      objectReference: {fileID: 182814, guid: 67895c14af5e846e4bdcfd012046df13, type: 2}
+      objectReference: {fileID: 193254, guid: 2e742f82ef5604d40ad26f5041c4a5a4, type: 2}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[0].percent
       value: 1
@@ -12599,85 +12619,17 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].chanceToSpawn
-      value: .100000001
+      propertyPath: itemSpawnTime.min
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itemSpawnTime.max
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: playerLevelUpCondition.Array.data[1].killStreak
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: playerLevelUpCondition.Array.data[2].killStreak
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: playerLevelUpCondition.Array.data[3].killStreak
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: playerLevelUpCondition.Array.data[4].killStreak
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: streakToSpecial
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: rangeUpgrade.Array.data[0].value
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: damageUpgrade.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: rangeUpgrade.Array.data[1].value
-      value: 2.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: rangeUpgrade.Array.data[2].value
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: rangeUpgrade.Array.data[3].value
-      value: 3.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: damageUpgrade.Array.data[1].value
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: damageUpgrade.Array.data[2].value
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: damageUpgrade.Array.data[3].value
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: enemiesTypesLevelUpCondition.Array.data[0].enemies.Array.data[0].enemy
-      value: 
-      objectReference: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: enemiesTypesLevelUpCondition.Array.data[1].enemies.Array.data[0].enemy
-      value: 
-      objectReference: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: enemiesTypesLevelUpCondition.Array.data[1].enemies.Array.data[1].enemy
-      value: 
-      objectReference: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: enemiesTypesLevelUpCondition.Array.data[2].enemies.Array.data[0].enemy
-      value: 
-      objectReference: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: enemiesTypesLevelUpCondition.Array.data[2].enemies.Array.data[1].enemy
-      value: 
-      objectReference: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: enemiesTypesLevelUpCondition.Array.data[2].enemies.Array.data[2].enemy
-      value: 
-      objectReference: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
   m_IsPrefabParent: 0
@@ -14416,52 +14368,6 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
---- !u!1001 &1478682133
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -1.59000003
-      objectReference: {fileID: 0}
-    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -3.1400001
-      objectReference: {fileID: 0}
-    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: .707106829
-      objectReference: {fileID: 0}
-    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: .707106709
-      objectReference: {fileID: 0}
-    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: d0d2097b3a8df468696be8129398376a, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1492746434
 GameObject:
   m_ObjectHideFlags: 0

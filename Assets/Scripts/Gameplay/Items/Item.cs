@@ -41,7 +41,7 @@ public class Item : MonoBehaviour
 		Destroy (gameObject);
 	}
 
-	void OnTriggerEnter2D(Collider2D col)
+	protected virtual void OnTriggerEnter2D(Collider2D col)
 	{
 		if(col.gameObject.tag == "Player" && !col.isTrigger)
 		{

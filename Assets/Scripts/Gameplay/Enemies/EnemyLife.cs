@@ -95,10 +95,11 @@ public class EnemyLife : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void FixedUpdate () 
 	{
 		if(inLight)
 		{
+			Debug.Log("Life drain: " + Time.time);
 			life -= AttackTargets.Instance.damage * Time.deltaTime;
 
 			if(life <= 0)
