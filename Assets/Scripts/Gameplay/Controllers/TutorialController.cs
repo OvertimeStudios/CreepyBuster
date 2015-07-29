@@ -105,7 +105,7 @@ public class TutorialController : MonoBehaviour
 	{
 		if(!canTakeOffFinger)
 		{
-			Popup.ShowBlank (Localization.Get("FINGER_BACK_ON_SCREEN"));
+			Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
 			Time.timeScale = 0f;
 		}
 	}

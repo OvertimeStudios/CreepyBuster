@@ -281,6 +281,8 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToMain()
 	{
+		if(menuTween.isActiveAndEnabled) return;
+
 		ActiveScreen = mainScreen.gameObject;
 		
 		activeMenu = Menus.Main;
@@ -290,6 +292,8 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToShop()
 	{
+		if(menuTween.isActiveAndEnabled) return;
+
 		ActiveScreen = shopScreen.gameObject;
 
 		activeMenu = Menus.Shop;
@@ -299,6 +303,8 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToSettings()
 	{
+		if(menuTween.isActiveAndEnabled) return;
+
 		ActiveScreen = settingsScreen.gameObject;
 
 		activeMenu = Menus.Settings;
@@ -308,6 +314,8 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToCredits()
 	{
+		if(menuTween.isActiveAndEnabled) return;
+
 		ActiveScreen = creditsScreen.gameObject;
 
 		activeMenu = Menus.Settings;
@@ -332,6 +340,8 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToHUBConnection()
 	{
+		if(menuTween.isActiveAndEnabled) return;
+
 		ActiveScreen = hubConnectionScreen.gameObject;
 		
 		activeMenu = Menus.HUBConnection;
@@ -341,6 +351,8 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToAchievements()
 	{
+		if(menuTween.isActiveAndEnabled) return;
+
 		ActiveScreen = achievementsScreen.gameObject;
 		
 		activeMenu = Menus.Achievements;
@@ -350,6 +362,8 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToCreepypedia()
 	{
+		if(menuTween.isActiveAndEnabled) return;
+
 		ActiveScreen = creepypediaScreen.gameObject;
 		
 		activeMenu = Menus.Creepypedia;
@@ -359,6 +373,8 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToGameStats()
 	{
+		if(menuTween.isActiveAndEnabled) return;
+
 		ActiveScreen = gameStatsScreen.gameObject;
 		
 		activeMenu = Menus.GameStats;

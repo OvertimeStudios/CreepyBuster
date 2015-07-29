@@ -96,8 +96,6 @@ public class SpawnController : MonoBehaviour
 
 	public static void SpawnEnemy(GameObject enemy)
 	{
-		Debug.Log ("SpawnController.SpawnEnemy");
-
 		Vector3 pos = GetSpawnPosition();
 		float rot = GetRotation(pos);
 

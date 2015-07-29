@@ -34,6 +34,11 @@ public class ScreenFeedback : MonoBehaviour
 	private Coroutine damageCoroutine;
 	private Coroutine invencibilityCoroutine;
 
+	void OnDisable()
+	{
+		StopAllCoroutines ();
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -46,6 +51,8 @@ public class ScreenFeedback : MonoBehaviour
 		frozen.enabled = false;
 		damage.enabled = false;
 		invencibility.enabled = false;
+
+		GameController.OnReset += Reset;
 	}
 
 	public static void ShowDamage(float time)
@@ -53,7 +60,8 @@ public class ScreenFeedback : MonoBehaviour
 		Instance.damage.enabled = true;
 		Instance.damage.alpha = 1;
 
-		Handheld.Vibrate ();
+		if(Global.CanVibrate)
+			Handheld.Vibrate ();
 
 		if(Instance.cameraShake != null)
 			Instance.cameraShake.Shake ();
@@ -116,5 +124,15 @@ public class ScreenFeedback : MonoBehaviour
 		}
 
 		sprite.enabled = false;
+	}
+
+	private void Reset()
+	{
+		frozen.enabled = false;
+		damage.enabled = false;
+		invencibility.enabled = false;
+
+		frozen.alpha = 0;
+		damage.alpha = 0;
 	}
 }

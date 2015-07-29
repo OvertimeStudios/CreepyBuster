@@ -49,7 +49,8 @@ CONTINUE_PLAYING,orbs to continue playing?, orbs para continuar a jogar?
 YOU_HAVE,You Have,Você tem
 NOT_ENOUGH_ORBS,"You don't have enough orbs to continue playing",Você não tem orbs suficientes para continuar jogando
 YOU_RECEIVED,You received,Você recebeu
-FINGER_BACK_ON_SCREEN,Put your finger back into screen!,Coloque seu dedo de volta na tela
+TRY_AGAIN,Try again,Tente novamente
+FINGER_ON_SCREEN,Put your finger on screen,Coloque seu dedo na tela
 TUTORIAL_1,"First rule: Never take your finger off screen, otherwise you'll lose","Primeira regra: nunca tire seu dedo da tela, senão você perderá"
 TUTORIAL_2,"Second rule: don't let enemies hit your finger",Segunda regra: não deixe os inimigos pegarem seu dedo
 TUTORIAL_3,"Look, an enemy! Approach and burn him to death!","Olhe, um inimigo! Aproxime-se e queime-o até morrer"

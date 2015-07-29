@@ -122,6 +122,12 @@ public class ItemShop : MonoBehaviour
 	{
 		Debug.Log("Trying to buy: " + type.ToString() + " for " + string.Format("{0:0,0}", price) + " orbs.");
 
+		if(purchased) 
+		{
+			Debug.Log("Already Purchased");
+			return;
+		}
+
 		#if INFINITY_ORBS
 		if (Global.TotalOrbs >= price)
 			Popup.ShowYesNo ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price) + " orbs?", PurchaseAccepted, PurchaseDeclined);
