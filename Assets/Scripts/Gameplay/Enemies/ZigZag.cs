@@ -51,12 +51,32 @@ public class ZigZag : EnemyMovement
 
 		vel += LevelDesign.EnemiesBonusVel;
 
-		sideVelocity = -(Vector2)transform.up;
+		StartCoroutine (WaitForPosition ());
+	}
+
+	private IEnumerator WaitForPosition()
+	{
+		yield return new WaitForEndOfFrame();
+
+		int dir = 1;
+
+		Vector3 viewportPosition = Camera.main.WorldToViewportPoint (transform.position);
+		if((viewportPosition.x < 0 && viewportPosition.y > 0.5f) ||
+		   (viewportPosition.x > 1 && viewportPosition.y < 0.5f) ||
+		   (viewportPosition.y < 0 && viewportPosition.x < 0.5f) ||
+		   (viewportPosition.y > 1 && viewportPosition.x > 0.5f))
+		{
+			dir = -1;
+		}
+
+		sideVelocity = (Vector2)transform.up * dir;
 		frontVelocity = (Vector2)transform.right;
 		finalVelocity = (frontVelocity + sideVelocity).normalized;
 
-		angle = Mathf.Atan2 (finalVelocity.y, finalVelocity.x) * Mathf.Rad2Deg;
+		myAnimator.SetInteger ("State", (myAnimator.GetInteger("State") == 1) ? 0 : 1);
 
+		angle = Mathf.Atan2 (finalVelocity.y, finalVelocity.x) * Mathf.Rad2Deg;
+		
 		StartCoroutine (ChangeDirection (timeToChangeDirection.Random ()));
 	}
 

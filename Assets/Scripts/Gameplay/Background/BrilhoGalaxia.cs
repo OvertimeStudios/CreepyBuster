@@ -13,7 +13,7 @@ public class BrilhoGalaxia : MonoBehaviour
 		objectsInFront++;
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if(objectsInFront > 0)
 			GetComponent<SpriteRenderer> ().enabled = false;

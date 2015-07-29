@@ -104,7 +104,7 @@ public class AttackTargets : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void FixedUpdate () 
 	{
 		GetTargets ();
 
