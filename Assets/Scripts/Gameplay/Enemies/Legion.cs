@@ -88,8 +88,17 @@ public class Legion : EnemyMovement
 				foreach(Transform t in transform.FindChild("Minions"))
 				{
 					t.parent = transform.parent;
-					t.GetComponent<EnemyMovement>().enabled = false;
-					t.GetComponent<RandomMovement>().enabled = true;
+
+					foreach(EnemyMovement enemyMovement in t.GetComponents<EnemyMovement>())
+					{
+						if(enemyMovement.GetType() == typeof(RandomMovement))
+							enemyMovement.enabled = true;
+						else
+							enemyMovement.enabled = false;
+					}
+
+					//collider was disabled when parent changed
+					t.GetComponentInChildren<Collider2D>().enabled = true;
 
 					if(OnMinionReleased != null)
 						OnMinionReleased(t.gameObject);

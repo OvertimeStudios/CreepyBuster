@@ -54,8 +54,6 @@ public class AttackTargets : MonoBehaviour
 		Reset ();
 
 		MenuController.OnPanelClosed += Reset;
-		EnemyLife.OnDied += RemoveEnemyFromList;
-		EnemyMovement.OnOutOfScreen += RemoveEnemyFromList;
 		GameController.OnGameStart += GetDamage;
 		GameController.OnGameStart += GetRange;
 		//GameController.OnShowContinueScreen += LoseAllTargets;
@@ -66,8 +64,6 @@ public class AttackTargets : MonoBehaviour
 	void OnDisable()
 	{
 		MenuController.OnPanelClosed -= Reset;
-		EnemyLife.OnDied -= RemoveEnemyFromList;
-		EnemyMovement.OnOutOfScreen -= RemoveEnemyFromList;
 		GameController.OnGameStart -= GetDamage;
 		GameController.OnGameStart -= GetRange;
 		//GameController.OnShowContinueScreen -= LoseAllTargets;
@@ -114,6 +110,8 @@ public class AttackTargets : MonoBehaviour
 
 		if (isSpecial)
 			RunTimer ();
+
+		enemiesInRange.Clear ();
 	}
 
 	private void GetTargets ()
@@ -230,36 +228,18 @@ public class AttackTargets : MonoBehaviour
 
 	private void Reset()
 	{
-		Debug.Log ("Attack Targets clear enemies");
 		isSpecial = false;
 
-		targets = new List<Transform> ();
-		enemiesInRange = new List<Transform> ();
+		targets.Clear ();
+		enemiesInRange.Clear ();
 	}
+	
 
-	void OnTriggerEnter2D(Collider2D col)
+	void OnTriggerStay2D(Collider2D col)
 	{
 		if(col.gameObject.layer != layerMask) return;
 
-		if(!enemiesInRange.Contains(col.transform.parent))
-		{
-			enemiesInRange.Add (col.transform.parent);
-		}
-	}
-
-	void OnTriggerExit2D(Collider2D col)
-	{
-		if(col.gameObject.layer != layerMask) return;
-
-		RemoveEnemyFromList (col.transform.parent.gameObject);
-	}
-
-	void RemoveEnemyFromList(GameObject enemy)
-	{
-		enemiesInRange.Remove (enemy.transform);
-
-		if (targets.Remove (enemy.transform)) 
-			enemy.GetComponent<EnemyLife>().OnLightExit();
+		enemiesInRange.Add (col.transform.parent);
 	}
 
 	//enemy collided with player finger
