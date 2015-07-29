@@ -586,6 +586,7 @@ public class LevelDesign : MonoBehaviour
 		enemiesAttributeLevel = 0;
 		tierLevel = 0;
 		bossLevel = 0;
+		itemLevel = 0;
 	}
 
 	private void OnLoseStacks()
