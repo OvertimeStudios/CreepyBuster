@@ -13786,7 +13786,7 @@ MonoBehaviour:
     time: 2
   - text: TUTORIAL_7
     time: 7
-  runTutorial: 0
+  runTutorial: 1
 --- !u!1001 &1407085546
 Prefab:
   m_ObjectHideFlags: 0

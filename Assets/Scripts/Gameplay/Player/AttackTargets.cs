@@ -56,7 +56,6 @@ public class AttackTargets : MonoBehaviour
 		MenuController.OnPanelClosed += Reset;
 		GameController.OnGameStart += GetDamage;
 		GameController.OnGameStart += GetRange;
-		//GameController.OnShowContinueScreen += LoseAllTargets;
 		GameController.OnFingerHit += OnFingerHit;
 		FingerDetector.OnFingerUpEvent += OnFingerUp;
 	}
@@ -66,7 +65,6 @@ public class AttackTargets : MonoBehaviour
 		MenuController.OnPanelClosed -= Reset;
 		GameController.OnGameStart -= GetDamage;
 		GameController.OnGameStart -= GetRange;
-		//GameController.OnShowContinueScreen -= LoseAllTargets;
 		GameController.OnFingerHit -= OnFingerHit;
 		FingerDetector.OnFingerUpEvent -= OnFingerUp;
 	}
@@ -127,6 +125,8 @@ public class AttackTargets : MonoBehaviour
 			//get all damagable targets
 			foreach(Transform t in SpawnController.enemiesInGame)
 			{
+				if(t == null) continue;
+
 				//don't apply damage to those enemies who doesn't show up yet
 				if(t.GetComponent<EnemyLife>().IsDamagable)
 					newTargets.Add(t);
@@ -137,6 +137,8 @@ public class AttackTargets : MonoBehaviour
 			//get closest targets
 			foreach(Transform t in enemiesInRange)
 			{
+				if(t == null) continue;
+
 				//don't apply damage to those enemies who doesn't show up yet
 				if(!t.GetComponent<EnemyLife>().IsDamagable) continue;
 
@@ -146,6 +148,8 @@ public class AttackTargets : MonoBehaviour
 				{
 					foreach(Transform nt in newTargets)
 					{
+						if(nt == null) continue;
+
 						if(Vector3.Distance(transform.position, t.position) < Vector3.Distance(transform.position, nt.position))
 						{
 							newTargets.Remove(nt);
@@ -160,12 +164,16 @@ public class AttackTargets : MonoBehaviour
 		//see if they are new
 		foreach(Transform nt in newTargets)
 		{
+			if(nt == null) continue;
+
 			if(!nt.GetComponent<EnemyLife>().inLight)
 				nt.GetComponent<EnemyLife>().OnLightEnter();
 		}
 
 		foreach(Transform t in targets)
 		{
+			if(t == null) continue;
+
 			if(!newTargets.Contains(t))
 				t.GetComponent<EnemyLife>().OnLightExit();
 		}
@@ -194,7 +202,11 @@ public class AttackTargets : MonoBehaviour
 	private void LoseAllTargets()
 	{
 		foreach (Transform t in targets)
+		{
+			if(t == null) continue;
+
 			t.GetComponent<EnemyLife> ().OnLightExit ();
+		}
 
 		targets = new List<Transform> ();
 	}
