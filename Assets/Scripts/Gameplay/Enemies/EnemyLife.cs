@@ -99,7 +99,6 @@ public class EnemyLife : MonoBehaviour
 	{
 		if(inLight)
 		{
-			Debug.Log("Life drain: " + Time.time);
 			life -= AttackTargets.Instance.damage * Time.deltaTime;
 
 			if(life <= 0)

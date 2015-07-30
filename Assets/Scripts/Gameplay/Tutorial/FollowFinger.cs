@@ -46,6 +46,8 @@ public class FollowFinger : MonoBehaviour
 			mSpriteName = mSprite.spriteName;
 			if (mSprite.depth < 100) mSprite.depth = 100;
 		}
+
+		Reposition ();
 	}
 	
 	/// <summary>
@@ -53,6 +55,11 @@ public class FollowFinger : MonoBehaviour
 	/// </summary>
 	
 	void Update ()
+	{
+		Reposition ();
+	}
+	
+	private void Reposition()
 	{
 		Vector3 pos;
 		if (Input.touches.Length > 0)//mobile
@@ -63,25 +70,25 @@ public class FollowFinger : MonoBehaviour
 		if (uiCamera != null)
 		{
 			Bounds widgetBounds = widget.CalculateBounds(uiCamera.transform);
-
+			
 			// Since the screen can be of different than expected size, we want to convert
 			// mouse coordinates to view space, then convert that to world position.
 			pos.x = Mathf.Clamp01(pos.x / Screen.width);
 			pos.y = Mathf.Clamp01(pos.y / Screen.height);
-
+			
 			Vector3 cameraPoint = uiCamera.ViewportToWorldPoint(new Vector3(1f, 1f, 0));
 			cameraPoint = uiCamera.transform.InverseTransformPoint(cameraPoint);
-
+			
 			Bounds cameraBounds = new Bounds(Vector3.zero, cameraPoint * 2f);
-
+			
 			pos = uiCamera.ViewportToWorldPoint(pos);
 			pos = uiCamera.transform.InverseTransformPoint(pos);
-
+			
 			pos.x = Mathf.Clamp(pos.x, cameraBounds.min.x + widgetBounds.extents.x, cameraBounds.max.x - widgetBounds.extents.x);
 			pos.y = Mathf.Clamp(pos.y, cameraBounds.min.y + widget.transform.localPosition.y, cameraBounds.max.y - widgetBounds.size.y - widget.transform.localPosition.y);
-
+			
 			mTrans.position = uiCamera.transform.TransformPoint(pos);
-
+			
 			// For pixel-perfect results
 			#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
 			if (uiCamera.isOrthoGraphic)

@@ -230,13 +230,13 @@ public class GameController : MonoBehaviour
 
 		ScreenFeedback.ShowDamage (timeInvencibleAfterDamage);
 
+		LoseStacks ();
+		
+		if (LevelDesign.PlayerLevel == 0)
+			NoMoreLifes ();
+		
 		if (OnFingerHit != null)
 			OnFingerHit ();
-
-		if (LevelDesign.PlayerLevel > 0)
-			LoseStacks ();
-		else
-			NoMoreLifes ();
 	}
 
 	private void LoseStacks()
@@ -244,6 +244,7 @@ public class GameController : MonoBehaviour
 		StreakCount = 0;
 		LevelDesign.PlayerLevel = 0;
 		realStreakCount = 0;
+		specialStreak = 0;
 
 		AttackTargets.Instance.StopSpecial ();
 
@@ -419,6 +420,7 @@ public class GameController : MonoBehaviour
 		StreakCount = 0;
 		orbsCollected = 0;
 		realStreakCount = 0;
+		specialStreak = 0;
 		continues = 0;
 		frozen = false;
 		slowedDown = false;
@@ -550,7 +552,11 @@ public class GameController : MonoBehaviour
 	{
 		for(int i = SpawnController.enemiesInGame.Count - 1; i >= 0; i--)
 		{
-			EnemyLife enemyLife = SpawnController.enemiesInGame[i].GetComponent<EnemyLife>();
+			Transform enemy = SpawnController.enemiesInGame[i];
+			
+			if(enemy == null) continue;
+			
+			EnemyLife enemyLife = enemy.GetComponent<EnemyLife>();
 			
 			enemyLife.Dead(countPoints);
 		}
