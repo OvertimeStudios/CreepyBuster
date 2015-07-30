@@ -229,14 +229,14 @@ public class GameController : MonoBehaviour
 		if(IsInvencible) return;
 
 		ScreenFeedback.ShowDamage (timeInvencibleAfterDamage);
-
-		LoseStacks ();
 		
 		if (LevelDesign.PlayerLevel == 0)
 			NoMoreLifes ();
 		
 		if (OnFingerHit != null)
 			OnFingerHit ();
+
+		LoseStacks ();
 	}
 
 	private void LoseStacks()
