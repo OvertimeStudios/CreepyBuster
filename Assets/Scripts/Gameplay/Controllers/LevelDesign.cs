@@ -259,7 +259,7 @@ public class LevelDesign : MonoBehaviour
 	#region Boss
 	public static bool IsBossLevelMax
 	{
-		get { return LevelDesign.bossLevel == MaxTierLevel; }
+		get { return LevelDesign.bossLevel >= MaxTierLevel; }
 	}
 
 	public static int MaxBossLevel
@@ -272,7 +272,7 @@ public class LevelDesign : MonoBehaviour
 		get 
 		{
 			if(!LevelDesign.IsBossLevelMax)
-				return Instance.bossBattleCondition[tierLevel].kills;
+				return Instance.bossBattleCondition[bossLevel].kills;
 			
 			return 0;
 		}
