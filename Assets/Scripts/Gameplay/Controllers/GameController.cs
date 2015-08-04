@@ -586,11 +586,25 @@ public class GameController : MonoBehaviour
 		{
 			Transform enemy = SpawnController.enemiesInGame[i];
 			
+			if(enemy == null || enemy.gameObject.name.Contains("Minion")) continue;
+			
+			EnemyLife enemyLife = enemy.GetComponent<EnemyLife>();
+			
+			enemyLife.Dead(countPoints);
+		}
+
+		//kill minions after
+		for(int i = SpawnController.enemiesInGame.Count - 1; i >= 0; i--)
+		{
+			Transform enemy = SpawnController.enemiesInGame[i];
+			
 			if(enemy == null) continue;
 			
 			EnemyLife enemyLife = enemy.GetComponent<EnemyLife>();
 			
 			enemyLife.Dead(countPoints);
 		}
+
+		SpawnController.enemiesInGame.Clear ();
 	}
 }

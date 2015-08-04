@@ -9,6 +9,8 @@ public class EnemyLife : MonoBehaviour
 	public static event Action<GameObject> OnDied;
 	#endregion
 
+	private bool alreadyDead;
+
 	public float life;
 	public int score;
 	public bool countAsStreak = true;
@@ -75,6 +77,7 @@ public class EnemyLife : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		alreadyDead = false;
 		spriteRenderer = transform.FindChild ("Sprite").GetComponent<SpriteRenderer> ();
 
 		brilhos = new List<SpriteRenderer> ();
@@ -143,6 +146,10 @@ public class EnemyLife : MonoBehaviour
 
 	public void Dead(bool countPoints)
 	{
+		if(alreadyDead) return;
+
+		alreadyDead = true;
+
 		foreach(SpriteRenderer brilho in brilhos)
 			brilho.color = damageColor;
 
