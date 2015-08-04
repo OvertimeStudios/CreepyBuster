@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
 	/// <summary>
 	/// Occurs when on streak updated - after OnScoreUpdated
 	/// </summary>
+	public static event Action OnKill;
 	public static event Action OnStreakUpdated;
 	public static event Action OnRealStreakUpdated;
 	public static event Action OnGameOver;
@@ -35,6 +36,7 @@ public class GameController : MonoBehaviour
 	public static event Action OnReset;
 	public static event Action OnFingerHit;
 	public static event Action OnGameEnding;
+	public static event Action OnBossDied;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
@@ -42,6 +44,7 @@ public class GameController : MonoBehaviour
 	private static bool frozen;
 	private static bool invencible;
 	private static int continues;
+	private static bool bossTime;
 
 	public float timeInvencibleAfterDamage;
 	public float timeToShowGameOverScreen;
@@ -66,7 +69,7 @@ public class GameController : MonoBehaviour
 	/// <summary>
 	/// Total enemies kill count
 	/// </summary>
-	public static int enemiesKillCount;
+	private static int enemiesKillCount;
 
 	/// <summary>
 	/// How many times player used special without take damage.
@@ -78,6 +81,16 @@ public class GameController : MonoBehaviour
 	private static GameObject player;
 
 	#region get / set
+	public static bool IsBossTime
+	{
+		get { return bossTime; }
+	}
+
+	public static int KillCount
+	{
+		get { return enemiesKillCount; }
+	}
+
 	public static int StreakCount
 	{
 		get { return streakCount; }
@@ -171,6 +184,7 @@ public class GameController : MonoBehaviour
 		RewardedVideoPlayer.OnRevivePlayer += VideoWatched;
 		FingerDetector.OnFingerDownEvent += OnFingerDown;
 		FingerDetector.OnFingerUpEvent += OnFingerUp;
+		LevelDesign.OnBossReady += BossIsReady;
 	}
 
 	void OnDisable()
@@ -182,6 +196,7 @@ public class GameController : MonoBehaviour
 		RewardedVideoPlayer.OnRevivePlayer -= VideoWatched;
 		FingerDetector.OnFingerDownEvent -= OnFingerDown;
 		FingerDetector.OnFingerUpEvent -= OnFingerUp;
+		LevelDesign.OnBossReady -= BossIsReady;
 
 		TutorialController.Instance.gameObject.SetActive (false);
 	}
@@ -199,6 +214,11 @@ public class GameController : MonoBehaviour
 	{
 		if(enemy.GetComponent<EnemyLife>().countAsKill)
 		{
+			enemiesKillCount += 1;
+
+			if(OnKill != null)
+				OnKill();
+
 			score += enemy.GetComponent<EnemyLife>().score;
 
 			if(OnScoreUpdated != null)
@@ -456,6 +476,21 @@ public class GameController : MonoBehaviour
 			if(OnGameEnding != null)
 				OnGameEnding();
 		}
+	}
+
+	private void BossIsReady()
+	{
+		bossTime = true;
+
+		StartCoroutine (WaitForNoMoreEnemies ());
+	}
+
+	private IEnumerator WaitForNoMoreEnemies()
+	{
+		while (SpawnController.EnemiesInGame > 0)
+			yield return null;
+
+		SpawnController.SpawnBoss ();
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)

@@ -12,6 +12,7 @@ public class LevelDesign : MonoBehaviour
 	public static event Action OnEnemiesAttributesLevelUp;
 	public static event Action OnTierLevelUp;
 	public static event Action OnItensLevelUp;
+	public static event Action OnBossReady;
 	#endregion
 
 	[Header("Player Level")]
@@ -30,7 +31,7 @@ public class LevelDesign : MonoBehaviour
 	public LevelUpCondition[] tierLevelUpCondition;
 
 	[Header("Boss Battle")]
-	public BossLevelUpCondition bossBattleCondition;
+	public BossLevelUpCondition[] bossBattleCondition;
 
 	[Header("Backgrounds")]
 	public List<GameObject> backgrounds;
@@ -253,6 +254,36 @@ public class LevelDesign : MonoBehaviour
 			return 0;
 		}
 	}
+	#endregion
+
+	#region Boss
+	public static bool IsBossLevelMax
+	{
+		get { return LevelDesign.bossLevel == MaxTierLevel; }
+	}
+
+	public static int MaxBossLevel
+	{
+		get { return Instance.bossBattleCondition.Length - 1; }
+	}
+
+	public static int NextKillToBossBattle
+	{
+		get 
+		{
+			if(!LevelDesign.IsBossLevelMax)
+				return Instance.bossBattleCondition[tierLevel].kills;
+			
+			return 0;
+		}
+	}
+
+	public static GameObject CurrentBoss
+	{
+		get	{ return Instance.bossBattleCondition[tierLevel].boss; }
+	}
+
+
 	#endregion
 
 	#region Item
@@ -479,6 +510,7 @@ public class LevelDesign : MonoBehaviour
 		GameController.OnRealStreakUpdated += EnemiesAttributesLevelUp;
 		GameController.OnRealStreakUpdated += TierLevelUp;
 		GameController.OnRealStreakUpdated += ItensLevelUp;
+		GameController.OnKill += KillCountUpdated;
 
 		GameController.OnGameStart += Reset;
 	}
@@ -491,6 +523,7 @@ public class LevelDesign : MonoBehaviour
 		GameController.OnRealStreakUpdated -= EnemiesAttributesLevelUp;
 		GameController.OnRealStreakUpdated -= TierLevelUp;
 		GameController.OnRealStreakUpdated -= ItensLevelUp;
+		GameController.OnKill -= KillCountUpdated;
 
 		GameController.OnGameStart -= Reset;
 	}
@@ -578,6 +611,23 @@ public class LevelDesign : MonoBehaviour
 		}
 	}
 
+	private void KillCountUpdated()
+	{
+		if(!IsBossLevelMax)
+		{
+			if(GameController.KillCount >= LevelDesign.NextKillToBossBattle)
+			{
+				if (OnBossReady != null)
+					OnBossReady ();
+			}
+		}
+	}
+
+	private void BossLevelUp()
+	{
+
+	}
+
 	private void Reset()
 	{
 		playerLevel = 0;
@@ -662,8 +712,10 @@ public class EnemiesAttributesLevelUpCondition
 }
 
 [System.Serializable]
-public class BossLevelUpCondition : LevelUpCondition
+public class BossLevelUpCondition
 {
+	public int kills;
+	public GameObject boss;
 }
 
 [System.Serializable]
