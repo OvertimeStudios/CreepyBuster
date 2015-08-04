@@ -6,6 +6,7 @@ using System;
 public class SpawnController : MonoBehaviour 
 {
 	public static event Action OnSpawn;
+	public static event Action NoMoreEnemies;
 
 	public static List<Transform> enemiesInGame;
 	public static List<Transform> itensInGame;
@@ -39,8 +40,13 @@ public class SpawnController : MonoBehaviour
 	{
 		get 
 		{
-			return !GameController.IsFrozen && !GameController.IsSlowedDown && GameController.isGameRunning && !GameController.IsTutorialRunning;
+			return !GameController.IsFrozen && !GameController.IsSlowedDown && GameController.isGameRunning && !GameController.IsTutorialRunning && !GameController.IsBossTime;
 		}
+	}
+
+	public static int EnemiesInGame
+	{
+		get { return enemiesInGame.Count; }
 	}
 	#endregion
 
@@ -92,6 +98,11 @@ public class SpawnController : MonoBehaviour
 		yield return new WaitForSeconds(waitTime);
 
 		SpawnEnemies ();
+	}
+
+	public static void SpawnBoss()
+	{
+		Debug.Log ("Spawn Boss");
 	}
 
 	public static void SpawnEnemy(GameObject enemy)
@@ -459,6 +470,12 @@ public class SpawnController : MonoBehaviour
 	private void RemoveEnemy(GameObject obj)
 	{
 		enemiesInGame.Remove (obj.transform);
+
+		if(enemiesInGame.Count == 0)
+		{
+			if(NoMoreEnemies != null)
+				NoMoreEnemies();
+		}
 	}
 
 	private void GameOver()
