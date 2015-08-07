@@ -17,7 +17,8 @@ public class EnemyLife : MonoBehaviour
 	[HideInInspector]
 	public bool countAsKill = true;
 
-	public static float deathTime = 1f;
+	public bool destroyUponDeath = true;
+	public float deathTime = 1f;
 
 	[HideInInspector]
 	public bool inLight = false;
@@ -28,9 +29,13 @@ public class EnemyLife : MonoBehaviour
 	public Color basicColor = Color.yellow;
 	public Color damageColor = Color.red;
 
+	public GameObject explosion;
+
 	[Header("Item")]
 	public float chanceToDrop;
 	public List<ItemPercent> itens;
+
+	public List<SpriteRenderer> spritesToWhite;
 
 	//public List<EventDelegate> onDeadEvent;
 
@@ -80,6 +85,9 @@ public class EnemyLife : MonoBehaviour
 		alreadyDead = false;
 		spriteRenderer = transform.FindChild ("Sprite").GetComponent<SpriteRenderer> ();
 
+		if(!spritesToWhite.Contains(spriteRenderer))
+			spritesToWhite.Add(spriteRenderer);
+
 		brilhos = new List<SpriteRenderer> ();
 
 		//get all spriterenderer children
@@ -114,7 +122,11 @@ public class EnemyLife : MonoBehaviour
 		inLight = true;
 
 		foreach(SpriteRenderer brilho in brilhos)
-			brilho.color = damageColor;
+		{
+			Color c = damageColor;
+			c.a = brilho.color.a;
+			brilho.color = c;
+		}
 
 		lightning.SetActive (true);
 	}
@@ -127,7 +139,11 @@ public class EnemyLife : MonoBehaviour
 		{
 			//return back to normal color
 			foreach(SpriteRenderer brilho in brilhos)
-				brilho.color = basicColor;
+			{
+				Color c = basicColor;
+				c.a = brilho.color.a;
+				brilho.color = c;
+			}
 		}
 
 		lightning.SetActive (false);
@@ -144,14 +160,18 @@ public class EnemyLife : MonoBehaviour
 		Dead (true);
 	}
 
-	public void Dead(bool countPoints)
+	public virtual void Dead(bool countPoints)
 	{
 		if(alreadyDead) return;
 
 		alreadyDead = true;
 
 		foreach(SpriteRenderer brilho in brilhos)
-			brilho.color = damageColor;
+		{
+			Color c = damageColor;
+			c.a = brilho.color.a;
+			brilho.color = c;
+		}
 
 		foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
 			col.enabled = false;
@@ -172,12 +192,13 @@ public class EnemyLife : MonoBehaviour
 		Animator animator = spriteRenderer.GetComponent<Animator> ();
 		float maxAnimatorSpeed = animator.speed;
 
+		//vanish damage conter
 		while(alpha > 0)
 		{
 			foreach(SpriteRenderer brilho in brilhos)
 			{
 				Color c = brilho.color;
-				c.a -= Time.deltaTime * deathTime;
+				c.a -= Time.deltaTime / (deathTime / 2);
 				brilho.color = c;
 
 				if(animator.recorderMode != AnimatorRecorderMode.Offline)
@@ -189,7 +210,27 @@ public class EnemyLife : MonoBehaviour
 			yield return null;
 		}
 
-		Destroy (gameObject);
+		//make it white
+		while(spriteRenderer.material.GetFloat("_FlashAmount") < 1)
+		{
+			float amount = spriteRenderer.material.GetFloat("_FlashAmount");
+			amount += Time.deltaTime / (deathTime / 2);
+
+			foreach(SpriteRenderer sp in spritesToWhite)
+				sp.material.SetFloat("_FlashAmount", amount);
+
+			yield return null;
+		}
+
+		spriteRenderer.material.SetFloat("_FlashAmount", 1);
+
+		if(destroyUponDeath)
+		{
+			if(explosion != null)
+				Instantiate(explosion, transform.position, Quaternion.identity);
+
+			Destroy (gameObject);
+		}
 	}
 
 	private void SpawnItem()

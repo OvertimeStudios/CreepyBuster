@@ -229,7 +229,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &5847456
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -329,6 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotVel: 3
+  originalVel: 0
 --- !u!114 &11468378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,6 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotVel: 3
+  originalVel: 0
 --- !u!114 &11486968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -355,22 +357,16 @@ MonoBehaviour:
   life: 1.70000005
   score: 1
   countAsStreak: 1
+  countAsKill: 1
+  destroyUponDeath: 1
+  deathTime: 1
   inLight: 0
   basicColor: {r: 1, g: .921568632, b: .0156862754, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
+  explosion: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
   chanceToDrop: 0
   itens: []
-  onDeadEvent:
-  - mTarget: {fileID: 11468378}
-    mMethodName: Stop
-    mParameters:
-    - obj: {fileID: 0}
-      field: 
-    oneShot: 0
-  - mTarget: {fileID: 11454360}
-    mMethodName: StopSmooth
-    mParameters: []
-    oneShot: 0
+  spritesToWhite: []
 --- !u!212 &21204170
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -407,7 +403,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0c20cbba6f98743198c55270a33d2702, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -457,6 +453,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
       value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c20cbba6f98743198c55270a33d2702, type: 2}
+    - target: {fileID: 0}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

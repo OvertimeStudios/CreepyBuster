@@ -67,6 +67,8 @@ public class AttackTargets : MonoBehaviour
 		GameController.OnGameStart -= GetRange;
 		GameController.OnFingerHit -= OnFingerHit;
 		FingerDetector.OnFingerUpEvent -= OnFingerUp;
+
+		LoseAllTargets();
 	}
 
 	// Use this for initialization
@@ -224,7 +226,7 @@ public class AttackTargets : MonoBehaviour
 	}
 
 	private void OnFingerHit()
-	{
+	{	
 		if(LevelDesign.PlayerLevel == 0)
 		{
 			LoseAllTargets();
@@ -242,8 +244,11 @@ public class AttackTargets : MonoBehaviour
 	{
 		isSpecial = false;
 
-		targets.Clear ();
-		enemiesInRange.Clear ();
+		if(targets != null)
+			targets.Clear ();
+
+		if(enemiesInRange != null)
+			enemiesInRange.Clear ();
 	}
 	
 
@@ -258,7 +263,11 @@ public class AttackTargets : MonoBehaviour
 	void OnCollisionEnter2D(Collision2D col)
 	{
 		GameController.Instance.FingerHit ();
-		
-		col.gameObject.GetComponent<EnemyLife>().Dead(false);
+
+		if(col.gameObject.GetComponent<EnemyLife>() != null)
+		{
+			if(!GameController.IsBossTime)
+				col.gameObject.GetComponent<EnemyLife>().Dead(false);
+		}
 	}
 }

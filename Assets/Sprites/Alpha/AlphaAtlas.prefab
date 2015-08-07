@@ -42,8 +42,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 4c7268ae06d8a47beaad6576273e7735, type: 2}
   mSprites:
   - name: Achievement
-    x: 1039
-    y: 718
+    x: 1539
+    y: 218
     width: 249
     height: 249
     borderLeft: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
     paddingBottom: 4
   - name: Achievements
     x: 1289
-    y: 468
+    y: 218
     width: 249
     height: 249
     borderLeft: 0
@@ -93,6 +93,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 1
+  - name: blank
+    x: 129
+    y: 22
+    width: 32
+    height: 32
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: brazil
     x: 0
     y: 521
@@ -277,7 +290,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: HUB Connection
     x: 1539
-    y: 218
+    y: 468
     width: 249
     height: 249
     borderLeft: 0
@@ -316,7 +329,7 @@ MonoBehaviour:
     paddingBottom: 8
   - name: Off
     x: 1289
-    y: 218
+    y: 468
     width: 249
     height: 249
     borderLeft: 0
@@ -328,8 +341,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: On
-    x: 1539
-    y: 468
+    x: 1039
+    y: 218
     width: 249
     height: 249
     borderLeft: 0
@@ -355,7 +368,7 @@ MonoBehaviour:
     paddingBottom: 6
   - name: play
     x: 1039
-    y: 218
+    y: 468
     width: 249
     height: 249
     borderLeft: 0
@@ -433,7 +446,7 @@ MonoBehaviour:
     paddingBottom: 11
   - name: ray3
     x: 1921
-    y: 591
+    y: 827
     width: 228
     height: 235
     borderLeft: 0
@@ -446,7 +459,7 @@ MonoBehaviour:
     paddingBottom: 11
   - name: ray4
     x: 1921
-    y: 827
+    y: 591
     width: 228
     height: 235
     borderLeft: 0
@@ -471,19 +484,6 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 8
   - name: Selection
-    x: 1039
-    y: 468
-    width: 249
-    height: 249
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 3
-    paddingRight: 4
-    paddingTop: 3
-    paddingBottom: 4
-  - name: settings
     x: 1539
     y: 718
     width: 249
@@ -496,8 +496,21 @@ MonoBehaviour:
     paddingRight: 4
     paddingTop: 3
     paddingBottom: 4
-  - name: shop_icon
+  - name: settings
     x: 1289
+    y: 718
+    width: 249
+    height: 249
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 4
+    paddingTop: 3
+    paddingBottom: 4
+  - name: shop_icon
+    x: 1039
     y: 718
     width: 249
     height: 249

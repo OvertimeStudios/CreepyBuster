@@ -20,6 +20,8 @@ public class SpawnController : MonoBehaviour
 	private static float lastPosX = 0;
 	private static float lastPosY = 0;
 
+	private static GameObject boss;
+
 	#region singleton
 	private static SpawnController instance;
 
@@ -58,7 +60,6 @@ public class SpawnController : MonoBehaviour
 		EnemyMovement.OnOutOfScreen += RemoveEnemy;
 		EnemyLife.OnDied += RemoveEnemy;
 		Legion.OnMinionSpawned += AddEnemy;	
-		//Legion.OnMinionReleased += AddEnemy;
 	}
 
 	void OnDisable()
@@ -69,7 +70,6 @@ public class SpawnController : MonoBehaviour
 		EnemyMovement.OnOutOfScreen -= RemoveEnemy;
 		EnemyLife.OnDied -= RemoveEnemy;
 		Legion.OnMinionSpawned -= AddEnemy;	
-		//Legion.OnMinionReleased -= AddEnemy;
 	}
 
 	// Use this for initialization
@@ -102,7 +102,11 @@ public class SpawnController : MonoBehaviour
 
 	public static void SpawnBoss()
 	{
-		Debug.Log ("Spawn Boss");
+		Vector3 pos = new Vector3 (0.5f, 1.3f, 0);
+		pos = Camera.main.ViewportToWorldPoint (pos);
+		pos.z = 0f;
+		
+		boss = Instantiate (LevelDesign.CurrentBoss, pos, Quaternion.identity) as GameObject; 
 	}
 
 	public static void SpawnEnemy(GameObject enemy)
@@ -498,7 +502,11 @@ public class SpawnController : MonoBehaviour
 				Destroy (t.gameObject);
 		}
 
+		if(boss != null)
+			Destroy(boss);
+
 		itensInGame = new List<Transform> ();
 		enemiesInGame = new List<Transform> ();
+		boss = null;
 	}
 }

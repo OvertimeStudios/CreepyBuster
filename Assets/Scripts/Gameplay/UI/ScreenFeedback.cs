@@ -29,10 +29,12 @@ public class ScreenFeedback : MonoBehaviour
 	private UISprite frozen;
 	private UISprite damage;
 	private UISprite invencibility;
+	private UISprite blank;
 
 	private Coroutine frozenCoroutine;
 	private Coroutine damageCoroutine;
 	private Coroutine invencibilityCoroutine;
+	private Coroutine blankCoroutine;
 
 	void OnDisable()
 	{
@@ -47,10 +49,12 @@ public class ScreenFeedback : MonoBehaviour
 		frozen = transform.FindChild ("Frozen").GetComponent<UISprite> ();
 		damage = transform.FindChild ("Damage").GetComponent<UISprite> ();
 		invencibility = transform.FindChild ("Invencibility").GetComponent<UISprite> ();
+		blank = transform.FindChild ("Blank").GetComponent<UISprite> ();
 
 		frozen.enabled = false;
 		damage.enabled = false;
 		invencibility.enabled = false;
+		blank.enabled = false;
 
 		GameController.OnReset += Reset;
 	}
@@ -93,6 +97,14 @@ public class ScreenFeedback : MonoBehaviour
 		Instance.invencibilityCoroutine = Instance.StartCoroutine (Blink (Instance.invencibility, time, time * 0.75f, 3));
 	}
 
+	public static void ShowBlank(float fadeInTime, float fadeOutTime)
+	{
+		if(Instance.blankCoroutine != null)
+			Instance.StopCoroutine(Instance.blankCoroutine);
+
+		Instance.blankCoroutine = Instance.StartCoroutine(FadeInOut(Instance.blank, fadeInTime, fadeOutTime));
+	}
+
 	private static IEnumerator FadeOut(UISprite sprite, float time)
 	{
 		while(sprite.alpha > 0)
@@ -124,6 +136,35 @@ public class ScreenFeedback : MonoBehaviour
 		}
 
 		sprite.enabled = false;
+	}
+
+	private static IEnumerator FadeInOut(UISprite sprite, float fadeInTime, float fadeOutTime)
+	{
+		sprite.enabled = true;
+		sprite.alpha = 0;
+
+		#region fade in
+		while(sprite.alpha < 1)
+		{
+			sprite.alpha += Time.deltaTime / fadeInTime;
+			
+			yield return null;
+		}
+
+		sprite.alpha = 1;
+		#endregion
+
+		#region fade out
+		while(sprite.alpha > 0)
+		{
+			sprite.alpha -= Time.deltaTime / fadeInTime;
+			
+			yield return null;
+		}
+		
+		sprite.alpha = 0;
+		sprite.enabled = false;
+		#endregion
 	}
 
 	private void Reset()

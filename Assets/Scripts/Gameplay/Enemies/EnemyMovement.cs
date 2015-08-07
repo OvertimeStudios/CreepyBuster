@@ -30,8 +30,12 @@ public class EnemyMovement : MonoBehaviour
 	protected virtual void Start()
 	{
 		enemyLife = GetComponent<EnemyLife> ();
-		myAnimator = transform.FindChild ("Sprite").GetComponent<Animator> ();
-		originalAnimatorSpeed = myAnimator.speed;
+
+		if(transform.FindChild("Sprite") != null)
+			myAnimator = transform.FindChild ("Sprite").GetComponent<Animator> ();
+
+		if(myAnimator != null)
+			originalAnimatorSpeed = myAnimator.speed;
 	}
 
 	// Update is called once per frame
