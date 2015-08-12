@@ -221,10 +221,12 @@ MonoBehaviour:
   - points: 50
     killStreak: 40
   bossBattleCondition:
-  - kills: 9999
-    boss: {fileID: 0}
+  - kills: 50
+    boss: {fileID: 176214, guid: 7240fa1af9d86448fa15dcfe81856834, type: 2}
+  - kills: 150
+    boss: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
   backgrounds:
-  - {fileID: 115040, guid: ffb8cc434b85d4423b6e2a579770b4d9, type: 2}
+  - {fileID: 102720, guid: 527349e8b2b7542fd835a5d91a4e6e05, type: 2}
   itemSpawnTime:
     min: 3
     max: 6
