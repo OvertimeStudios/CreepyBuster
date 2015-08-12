@@ -755,7 +755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bdf7b16bafcd4bada4c0d38dab0904a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1
+  life: 32
   score: 0
   countAsStreak: 0
   countAsKill: 1
@@ -1340,7 +1340,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: life
-      value: 1
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer

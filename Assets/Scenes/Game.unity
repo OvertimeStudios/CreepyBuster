@@ -12691,6 +12691,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1913536882}
     m_Modifications:
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: bossBattleCondition.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 412946, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -12722,6 +12726,22 @@ Prefab:
     - target: {fileID: 412946, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: bossBattleCondition.Array.data[0].kills
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: bossBattleCondition.Array.data[1].kills
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: bossBattleCondition.Array.data[2].kills
+      value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: bossBattleCondition.Array.data[2].boss
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}

@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54ec8038248e5441abb7b580f3b8488c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 2
+  life: 8
   score: 0
   countAsStreak: 0
   countAsKill: 1
@@ -348,7 +348,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: life
-      value: 2
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: explosion
