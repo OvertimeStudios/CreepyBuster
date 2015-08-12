@@ -10,7 +10,7 @@ public class BossMeteoro : MonoBehaviour
 		EyesClosed,
 	}
 
-	public float deathTime;
+	//public float deathTime;
 	[HideInInspector]
 	public State state;
 
@@ -198,15 +198,15 @@ public class BossMeteoro : MonoBehaviour
 
 			Time.timeScale = 0.2f;
 
-			cameraShake.Shake(enemyLife.deathTime * 0.5f);
-			ScreenFeedback.ShowBlank(enemyLife.deathTime * 0.5f, 0.5f);
+			cameraShake.Shake(enemyLife.deathTime);
+			ScreenFeedback.ShowBlank(enemyLife.deathTime, 0.5f);
 
 			SpriteRenderer olho = brilhoOlho.GetComponent<SpriteRenderer>();
 
 			while(olho.color.a > 0)
 			{
 				Color c = olho.color;
-				c.a -= Time.deltaTime / (enemyLife.deathTime * 0.5f);
+				c.a -= Time.deltaTime / (enemyLife.deathTime);
 				olho.color = c;
 
 				yield return null;

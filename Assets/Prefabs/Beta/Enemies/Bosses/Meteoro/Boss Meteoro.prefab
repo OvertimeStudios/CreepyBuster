@@ -755,7 +755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bdf7b16bafcd4bada4c0d38dab0904a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 4
+  life: 1
   score: 0
   countAsStreak: 0
   countAsKill: 1
@@ -877,7 +877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e48ba1fff57f648b69d38cd79bb6794b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathTime: 0
   state: 0
   meteors:
   - {fileID: 143944, guid: 645533a0851d34bc4914f65cac6c7f31, type: 2}
@@ -915,6 +914,7 @@ MonoBehaviour:
     mMethodName: 
     mParameters: []
     oneShot: 0
+  spriteRenderer: {fileID: 0}
 --- !u!114 &11474986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1340,7 +1340,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: life
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer

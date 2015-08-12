@@ -74,6 +74,8 @@ public class AttackTargets : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		instance = this;
+
 		layerMask = LayerMask.NameToLayer ("AttackCollider");
 
 		isSpecial = false;

@@ -25,7 +25,7 @@ public class EnemyLife : MonoBehaviour
 
 	private GameObject lightning;
 	private SpriteRenderer spriteRenderer;
-	private List<SpriteRenderer> brilhos;
+	protected List<SpriteRenderer> brilhos;
 	public Color basicColor = Color.yellow;
 	public Color damageColor = Color.red;
 
@@ -67,20 +67,20 @@ public class EnemyLife : MonoBehaviour
 	}
 	#endregion
 
-	void OnEnable()
+	protected virtual void OnEnable()
 	{
 		LevelDesign.OnPlayerLevelUp += UpdateColor;
 		GameController.OnLoseStacks += UpdateColor;
 	}
 
-	void OnDisable()
+	protected virtual void OnDisable()
 	{
 		LevelDesign.OnPlayerLevelUp -= UpdateColor;
 		GameController.OnLoseStacks -= UpdateColor;
 	}
 
 	// Use this for initialization
-	void Start () 
+	protected virtual void Start () 
 	{
 		alreadyDead = false;
 		spriteRenderer = transform.FindChild ("Sprite").GetComponent<SpriteRenderer> ();
@@ -193,12 +193,12 @@ public class EnemyLife : MonoBehaviour
 		float maxAnimatorSpeed = animator.speed;
 
 		//vanish damage conter
-		while(alpha > 0)
+		while(spriteRenderer.material.GetFloat("_FlashAmount") < 1)
 		{
 			foreach(SpriteRenderer brilho in brilhos)
 			{
 				Color c = brilho.color;
-				c.a -= Time.deltaTime / (deathTime / 2);
+				c.a -= Time.deltaTime / (deathTime);
 				brilho.color = c;
 
 				if(animator.recorderMode != AnimatorRecorderMode.Offline)
@@ -207,11 +207,18 @@ public class EnemyLife : MonoBehaviour
 
 			alpha = brilhos[0].color.a;
 
+			//make it white
+			float amount = spriteRenderer.material.GetFloat("_FlashAmount");
+			amount += Time.deltaTime / (deathTime);
+			
+			foreach(SpriteRenderer sp in spritesToWhite)
+				sp.material.SetFloat("_FlashAmount", amount);
+
 			yield return null;
 		}
 
 		//make it white
-		while(spriteRenderer.material.GetFloat("_FlashAmount") < 1)
+		/*while(spriteRenderer.material.GetFloat("_FlashAmount") < 1)
 		{
 			float amount = spriteRenderer.material.GetFloat("_FlashAmount");
 			amount += Time.deltaTime / (deathTime / 2);
@@ -220,7 +227,7 @@ public class EnemyLife : MonoBehaviour
 				sp.material.SetFloat("_FlashAmount", amount);
 
 			yield return null;
-		}
+		}*/
 
 		spriteRenderer.material.SetFloat("_FlashAmount", 1);
 
@@ -229,7 +236,8 @@ public class EnemyLife : MonoBehaviour
 			if(explosion != null)
 				Instantiate(explosion, transform.position, Quaternion.identity);
 
-			Destroy (gameObject);
+			foreach(SpriteRenderer sp in spritesToWhite)
+				Destroy (sp.transform.parent.gameObject);
 		}
 	}
 

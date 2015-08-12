@@ -14,12 +14,13 @@ public class RandomMovement : EnemyMovement
 
 	public EventDelegate onEnterRange;
 	private List<EventDelegate> onEnterRangeList;
-	
+
 	private float angle;
 	private bool isSlowed;
 	private bool isFrozen;
 
-	private SpriteRenderer spriteRenderer;
+	[HideInInspector]
+	public SpriteRenderer spriteRenderer;
 
 	protected override void OnEnable()
 	{
@@ -59,7 +60,9 @@ public class RandomMovement : EnemyMovement
 		vel += LevelDesign.EnemiesBonusVel;
 
 		myRigidbody2D = GetComponent<Rigidbody2D> ();
-		spriteRenderer = transform.FindChild("Sprite").GetComponent<SpriteRenderer>();
+
+		if(transform.FindChild("Sprite") != null)
+			spriteRenderer = transform.FindChild("Sprite").GetComponent<SpriteRenderer>();
 
 		myRigidbody2D.velocity = transform.right * vel;
 
@@ -123,21 +126,37 @@ public class RandomMovement : EnemyMovement
 		}
 	}
 
-	private void CheckBounds()
+	private bool CheckBounds()
 	{
+		if(spriteRenderer == null) return false;
+
 		Bounds bounds = spriteRenderer.bounds;
 
 		Vector3 minPos = Camera.main.WorldToViewportPoint(bounds.min);
 		Vector3 maxPos = Camera.main.WorldToViewportPoint(bounds.max);
 
 		if(minPos.x < 0.1f)
+		{
 			angle = 0;
+			return true;
+		}
 		else if(minPos.y < 0.1f)
+		{
 			angle = 90;
+			return true;
+		}
 		else if(maxPos.x > 0.9f)
+		{
 			angle = 180;
+			return true;
+		}
 		else if(maxPos.y > 0.9f)
+		{
 			angle = -90;
+			return true;
+		}
+
+		return false;
 	}
 
 	private void ApplySlow()

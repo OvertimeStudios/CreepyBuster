@@ -496,7 +496,7 @@ public class GameController : MonoBehaviour
 		SpawnController.SpawnBoss ();
 	}
 
-	private void BossDied()
+	public static void BossDied()
 	{
 		bossTime = false;
 	}
