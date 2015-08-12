@@ -185,4 +185,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoName: 480x640.mp4
-  sceneToLoad: 
+  sceneToLoad: Loading

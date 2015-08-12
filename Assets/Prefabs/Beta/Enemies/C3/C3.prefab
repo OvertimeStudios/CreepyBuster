@@ -225,7 +225,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &5893528
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -267,14 +267,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fb129be3c344c8fb8620152ff63c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1.79999995
+  life: 1.60000002
   score: 1
   countAsStreak: 1
+  countAsKill: 1
+  destroyUponDeath: 1
+  deathTime: 1
   inLight: 0
   basicColor: {r: 1, g: .793103456, b: 0, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
+  explosion: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
   chanceToDrop: 0
   itens: []
+  spritesToWhite: []
 --- !u!114 &11425928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -286,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018fd61d0df7047aeb5c8f0e285ab447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: 2.20000005
+  vel: 1.60000002
   timeToChangeDirection:
     min: 2
     max: 3
@@ -343,7 +348,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0c20cbba6f98743198c55270a33d2702, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -376,15 +381,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: vel
-      value: 2.20000005
+      value: 1.60000002
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: life
-      value: 1.79999995
+      value: 1.60000002
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c20cbba6f98743198c55270a33d2702, type: 2}
+    - target: {fileID: 0}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

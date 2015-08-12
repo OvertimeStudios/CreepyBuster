@@ -10,13 +10,17 @@ public class RandomMovement : EnemyMovement
 	public float vel;
 	public RandomBetweenTwoConst timeToChangeVel;
 
+	public bool freezeRotation = false;
+
 	public EventDelegate onEnterRange;
 	private List<EventDelegate> onEnterRangeList;
 
-	private bool gotAngle = false;
 	private float angle;
 	private bool isSlowed;
 	private bool isFrozen;
+
+	[HideInInspector]
+	public SpriteRenderer spriteRenderer;
 
 	protected override void OnEnable()
 	{
@@ -29,6 +33,7 @@ public class RandomMovement : EnemyMovement
 		GameController.OnFrozenFade += RemoveFrozen;
 
 		GetComponent<Rigidbody2D>().isKinematic = false;
+
 		StartCoroutine (ChangeVelocity (timeToChangeVel.Random ()));
 	}
 	
@@ -56,6 +61,9 @@ public class RandomMovement : EnemyMovement
 
 		myRigidbody2D = GetComponent<Rigidbody2D> ();
 
+		if(transform.FindChild("Sprite") != null)
+			spriteRenderer = transform.FindChild("Sprite").GetComponent<SpriteRenderer>();
+
 		myRigidbody2D.velocity = transform.right * vel;
 
 		if (GameController.IsSlowedDown)
@@ -69,11 +77,9 @@ public class RandomMovement : EnemyMovement
 
 	private IEnumerator WaitForPosition()
 	{
-		yield return transform.position == Vector3.zero;
+		yield return new WaitForEndOfFrame();
 
 		angle = transform.eulerAngles.z;
-
-		gotAngle = true;
 	}
 
 	private IEnumerator ChangeVelocity(float waitTime)
@@ -96,7 +102,18 @@ public class RandomMovement : EnemyMovement
 
 		if(isFrozen) return;
 
-		if (gotAngle)
+		CheckBounds();
+
+		if (freezeRotation) 
+		{
+			Vector3 dir = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f);
+
+			if(isSlowed)
+				myRigidbody2D.velocity = dir * vel * SlowDown.SlowAmount;
+			else
+				myRigidbody2D.velocity = dir * vel;
+		}
+		else
 		{
 			Vector3 eulerAngle = transform.eulerAngles;
 			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.05f);
@@ -107,6 +124,39 @@ public class RandomMovement : EnemyMovement
 			else
 				myRigidbody2D.velocity = transform.right * vel;
 		}
+	}
+
+	private bool CheckBounds()
+	{
+		if(spriteRenderer == null) return false;
+
+		Bounds bounds = spriteRenderer.bounds;
+
+		Vector3 minPos = Camera.main.WorldToViewportPoint(bounds.min);
+		Vector3 maxPos = Camera.main.WorldToViewportPoint(bounds.max);
+
+		if(minPos.x < 0.1f)
+		{
+			angle = 0;
+			return true;
+		}
+		else if(minPos.y < 0.1f)
+		{
+			angle = 90;
+			return true;
+		}
+		else if(maxPos.x > 0.9f)
+		{
+			angle = 180;
+			return true;
+		}
+		else if(maxPos.y > 0.9f)
+		{
+			angle = -90;
+			return true;
+		}
+
+		return false;
 	}
 
 	private void ApplySlow()

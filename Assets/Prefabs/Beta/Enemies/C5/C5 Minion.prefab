@@ -226,7 +226,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &6137432
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -289,6 +289,7 @@ MonoBehaviour:
   timeToChangeVel:
     min: .5
     max: 1
+  freezeRotation: 0
   onEnterRange:
     mTarget: {fileID: 0}
     mMethodName: 
@@ -320,11 +321,15 @@ MonoBehaviour:
   score: 0
   countAsStreak: 0
   countAsKill: 1
+  destroyUponDeath: 1
+  deathTime: 1
   inLight: 0
   basicColor: {r: .0156862736, g: .633428156, b: 1, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
+  explosion: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
   chanceToDrop: 0
   itens: []
+  spritesToWhite: []
 --- !u!212 &21212836
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -414,7 +419,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Constraints
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
@@ -428,6 +433,10 @@ Prefab:
       propertyPath: vel
       value: .600000024
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 178456}

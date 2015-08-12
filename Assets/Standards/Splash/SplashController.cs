@@ -17,7 +17,11 @@ public class SplashController : MonoBehaviour
 
 	IEnumerator LoadNextLevel()
 	{
-		async = Application.LoadLevelAsync(1);
+		if (sceneToLoad != "")
+			async = Application.LoadLevelAsync (sceneToLoad);
+		else
+			async = Application.LoadLevelAsync (1);
+
 		async.allowSceneActivation = false;
 
 		yield return async;

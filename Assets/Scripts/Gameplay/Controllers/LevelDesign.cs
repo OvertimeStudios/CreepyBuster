@@ -280,7 +280,7 @@ public class LevelDesign : MonoBehaviour
 
 	public static GameObject CurrentBoss
 	{
-		get	{ return Instance.bossBattleCondition[tierLevel].boss; }
+		get	{ return Instance.bossBattleCondition[bossLevel].boss; }
 	}
 
 
@@ -513,6 +513,8 @@ public class LevelDesign : MonoBehaviour
 		GameController.OnKill += KillCountUpdated;
 
 		GameController.OnGameStart += Reset;
+
+		BossLife.OnBossDied += BossLevelUp;
 	}
 
 	void OnDisable()
@@ -526,6 +528,8 @@ public class LevelDesign : MonoBehaviour
 		GameController.OnKill -= KillCountUpdated;
 
 		GameController.OnGameStart -= Reset;
+
+		BossLife.OnBossDied -= BossLevelUp;
 	}
 
 	private void PlayerLevelUp()
@@ -615,7 +619,7 @@ public class LevelDesign : MonoBehaviour
 	{
 		if(!IsBossLevelMax)
 		{
-			if(GameController.KillCount >= LevelDesign.NextKillToBossBattle)
+			if(!GameController.IsBossTime && GameController.KillCount >= LevelDesign.NextKillToBossBattle)
 			{
 				if (OnBossReady != null)
 					OnBossReady ();
@@ -623,9 +627,9 @@ public class LevelDesign : MonoBehaviour
 		}
 	}
 
-	private void BossLevelUp()
+	public static void BossLevelUp()
 	{
-
+		bossLevel++;
 	}
 
 	private void Reset()

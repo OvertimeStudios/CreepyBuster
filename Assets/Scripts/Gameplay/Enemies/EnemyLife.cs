@@ -17,20 +17,25 @@ public class EnemyLife : MonoBehaviour
 	[HideInInspector]
 	public bool countAsKill = true;
 
-	public static float deathTime = 1f;
+	public bool destroyUponDeath = true;
+	public float deathTime = 1f;
 
 	[HideInInspector]
 	public bool inLight = false;
 
 	private GameObject lightning;
 	private SpriteRenderer spriteRenderer;
-	private List<SpriteRenderer> brilhos;
+	protected List<SpriteRenderer> brilhos;
 	public Color basicColor = Color.yellow;
 	public Color damageColor = Color.red;
+
+	public GameObject explosion;
 
 	[Header("Item")]
 	public float chanceToDrop;
 	public List<ItemPercent> itens;
+
+	public List<SpriteRenderer> spritesToWhite;
 
 	//public List<EventDelegate> onDeadEvent;
 
@@ -62,23 +67,26 @@ public class EnemyLife : MonoBehaviour
 	}
 	#endregion
 
-	void OnEnable()
+	protected virtual void OnEnable()
 	{
 		LevelDesign.OnPlayerLevelUp += UpdateColor;
 		GameController.OnLoseStacks += UpdateColor;
 	}
 
-	void OnDisable()
+	protected virtual void OnDisable()
 	{
 		LevelDesign.OnPlayerLevelUp -= UpdateColor;
 		GameController.OnLoseStacks -= UpdateColor;
 	}
 
 	// Use this for initialization
-	void Start () 
+	protected virtual void Start () 
 	{
 		alreadyDead = false;
 		spriteRenderer = transform.FindChild ("Sprite").GetComponent<SpriteRenderer> ();
+
+		if(!spritesToWhite.Contains(spriteRenderer))
+			spritesToWhite.Add(spriteRenderer);
 
 		brilhos = new List<SpriteRenderer> ();
 
@@ -114,7 +122,11 @@ public class EnemyLife : MonoBehaviour
 		inLight = true;
 
 		foreach(SpriteRenderer brilho in brilhos)
-			brilho.color = damageColor;
+		{
+			Color c = damageColor;
+			c.a = brilho.color.a;
+			brilho.color = c;
+		}
 
 		lightning.SetActive (true);
 	}
@@ -127,7 +139,11 @@ public class EnemyLife : MonoBehaviour
 		{
 			//return back to normal color
 			foreach(SpriteRenderer brilho in brilhos)
-				brilho.color = basicColor;
+			{
+				Color c = basicColor;
+				c.a = brilho.color.a;
+				brilho.color = c;
+			}
 		}
 
 		lightning.SetActive (false);
@@ -144,14 +160,18 @@ public class EnemyLife : MonoBehaviour
 		Dead (true);
 	}
 
-	public void Dead(bool countPoints)
+	public virtual void Dead(bool countPoints)
 	{
 		if(alreadyDead) return;
 
 		alreadyDead = true;
 
 		foreach(SpriteRenderer brilho in brilhos)
-			brilho.color = damageColor;
+		{
+			Color c = damageColor;
+			c.a = brilho.color.a;
+			brilho.color = c;
+		}
 
 		foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
 			col.enabled = false;
@@ -172,12 +192,13 @@ public class EnemyLife : MonoBehaviour
 		Animator animator = spriteRenderer.GetComponent<Animator> ();
 		float maxAnimatorSpeed = animator.speed;
 
-		while(alpha > 0)
+		//vanish damage conter
+		while(spriteRenderer.material.GetFloat("_FlashAmount") < 1)
 		{
 			foreach(SpriteRenderer brilho in brilhos)
 			{
 				Color c = brilho.color;
-				c.a -= Time.deltaTime * deathTime;
+				c.a -= Time.deltaTime / (deathTime);
 				brilho.color = c;
 
 				if(animator.recorderMode != AnimatorRecorderMode.Offline)
@@ -186,10 +207,38 @@ public class EnemyLife : MonoBehaviour
 
 			alpha = brilhos[0].color.a;
 
+			//make it white
+			float amount = spriteRenderer.material.GetFloat("_FlashAmount");
+			amount += Time.deltaTime / (deathTime);
+			
+			foreach(SpriteRenderer sp in spritesToWhite)
+				sp.material.SetFloat("_FlashAmount", amount);
+
 			yield return null;
 		}
 
-		Destroy (gameObject);
+		//make it white
+		/*while(spriteRenderer.material.GetFloat("_FlashAmount") < 1)
+		{
+			float amount = spriteRenderer.material.GetFloat("_FlashAmount");
+			amount += Time.deltaTime / (deathTime / 2);
+
+			foreach(SpriteRenderer sp in spritesToWhite)
+				sp.material.SetFloat("_FlashAmount", amount);
+
+			yield return null;
+		}*/
+
+		spriteRenderer.material.SetFloat("_FlashAmount", 1);
+
+		if(destroyUponDeath)
+		{
+			if(explosion != null)
+				Instantiate(explosion, transform.position, Quaternion.identity);
+
+			foreach(SpriteRenderer sp in spritesToWhite)
+				Destroy (sp.transform.parent.gameObject);
+		}
 	}
 
 	private void SpawnItem()

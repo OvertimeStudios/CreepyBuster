@@ -36,7 +36,6 @@ public class GameController : MonoBehaviour
 	public static event Action OnReset;
 	public static event Action OnFingerHit;
 	public static event Action OnGameEnding;
-	public static event Action OnBossDied;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
@@ -185,6 +184,7 @@ public class GameController : MonoBehaviour
 		FingerDetector.OnFingerDownEvent += OnFingerDown;
 		FingerDetector.OnFingerUpEvent += OnFingerUp;
 		LevelDesign.OnBossReady += BossIsReady;
+		BossLife.OnBossDied += BossDied; 
 	}
 
 	void OnDisable()
@@ -197,6 +197,7 @@ public class GameController : MonoBehaviour
 		FingerDetector.OnFingerDownEvent -= OnFingerDown;
 		FingerDetector.OnFingerUpEvent -= OnFingerUp;
 		LevelDesign.OnBossReady -= BossIsReady;
+		BossLife.OnBossDied -= BossDied;
 
 		TutorialController.Instance.gameObject.SetActive (false);
 	}
@@ -445,6 +446,7 @@ public class GameController : MonoBehaviour
 		frozen = false;
 		slowedDown = false;
 		invencible = false;
+		bossTime = false;
 
 		gameOver = false;
 
@@ -485,7 +487,8 @@ public class GameController : MonoBehaviour
 	{
 		bossTime = true;
 
-		StartCoroutine (WaitForNoMoreEnemies ());
+		StopCoroutine ("WaitForNoMoreEnemies");
+		StartCoroutine ("WaitForNoMoreEnemies");
 	}
 
 	private IEnumerator WaitForNoMoreEnemies()
@@ -494,6 +497,11 @@ public class GameController : MonoBehaviour
 			yield return null;
 
 		SpawnController.SpawnBoss ();
+	}
+
+	public static void BossDied()
+	{
+		bossTime = false;
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)

@@ -8,9 +8,16 @@ public class Rotate : MonoBehaviour
 	[HideInInspector]
 	public float originalVel;
 
+	private EnemyLife enemyLife;
+
 	void Start()
 	{
 		originalVel = rotVel;
+
+		enemyLife = GetComponent<EnemyLife>();
+
+		if(enemyLife == null)
+			enemyLife = transform.parent.GetComponent<EnemyLife>();
 	}
 
 	// Update is called once per frame
@@ -35,7 +42,7 @@ public class Rotate : MonoBehaviour
 		
 		while(rotVel > 0)
 		{
-			rotVel -= Time.deltaTime * EnemyLife.deathTime * maxRotVel;
+			rotVel -= Time.deltaTime * enemyLife.deathTime * maxRotVel;
 			
 			yield return null;
 		}
