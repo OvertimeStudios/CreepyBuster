@@ -15,8 +15,12 @@ public class LoadingScreen : MonoBehaviour
 	
 	private IEnumerator Load() 
 	{
+		float startLoadTime = Time.time;
+
 		async = Application.LoadLevelAsync(sceneToLoad);
 
 		yield return async;
+
+		Debug.Log("Loading Complete in " + (Time.time - startLoadTime) + " seconds.");
 	}
 }

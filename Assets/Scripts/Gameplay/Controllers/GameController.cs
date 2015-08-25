@@ -399,6 +399,8 @@ public class GameController : MonoBehaviour
 
 	public void StartGame()
 	{
+		SoundController.Instance.PlayMusic(SoundController.Musics.GameTheme);
+
 		Reset ();
 		gameObject.SetActive (true);
 

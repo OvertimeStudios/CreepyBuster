@@ -126,6 +126,8 @@ public class MenuController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		SoundController.Instance.PlayMusic(SoundController.Musics.MainMenuTheme);
+
 		instance = this;
 
 		activeMenu = Menus.Main;
@@ -241,6 +243,8 @@ public class MenuController : MonoBehaviour
 		else
 		{
 			trailRenderer.SetActive(true);
+
+			SoundController.Instance.PlayMusic(SoundController.Musics.MainMenuTheme);
 
 			if(OnPanelClosed != null)
 				OnPanelClosed();
