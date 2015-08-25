@@ -302,7 +302,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3020
+  startingRenderQueue: 3018
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -5656,7 +5656,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3022
+  startingRenderQueue: 3020
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -5759,7 +5759,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3021
+  startingRenderQueue: 3019
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -6368,6 +6368,7 @@ MonoBehaviour:
   testDeviceIDs:
   - 1C967D74607B37126D35A7024094E5D9
   - B00086302D5BC98D1B2FFCDB9DA7B131
+  - C553B581A24EACA9DFDA6AEE7895C83B
   preloadBanner: 1
 --- !u!1 &590002186
 GameObject:
@@ -12660,10 +12661,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1913536882}
     m_Modifications:
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 412946, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -12695,22 +12692,6 @@ Prefab:
     - target: {fileID: 412946, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[0].kills
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[1].kills
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[2].kills
-      value: 999
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[2].boss
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
@@ -13868,7 +13849,7 @@ MonoBehaviour:
     time: 2
   - text: TUTORIAL_7
     time: 7
-  runTutorial: 0
+  runTutorial: 1
 --- !u!1001 &1407085546
 Prefab:
   m_ObjectHideFlags: 0
@@ -16412,7 +16393,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3021
+  startingRenderQueue: 3019
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -17970,7 +17951,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3021
+  startingRenderQueue: 3019
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -19857,7 +19838,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3018
+  startingRenderQueue: 3016
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3

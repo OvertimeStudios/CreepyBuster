@@ -343,10 +343,14 @@ MonoBehaviour:
   - points: 50
     killStreak: 40
   bossBattleCondition:
-    points: 0
-    killStreak: 0
+  - kills: 20
+    boss: {fileID: 176214, guid: 7240fa1af9d86448fa15dcfe81856834, type: 2}
+  - kills: 50
+    boss: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
+  - kills: 0
+    boss: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
   backgrounds:
-  - {fileID: 115040, guid: ffb8cc434b85d4423b6e2a579770b4d9, type: 2}
+  - {fileID: 102720, guid: 527349e8b2b7542fd835a5d91a4e6e05, type: 2}
   itemSpawnTime:
     min: 3
     max: 6
@@ -507,6 +511,16 @@ MonoBehaviour:
       percent: .200000003
     - item: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
       percent: .300000012
+  rangeUpgrade:
+  - value: 2.5
+  - value: 2.75
+  - value: 3
+  - value: 3.25
+  damageUpgrade:
+  - value: 1
+  - value: 1.5
+  - value: 2
+  - value: 2.5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
