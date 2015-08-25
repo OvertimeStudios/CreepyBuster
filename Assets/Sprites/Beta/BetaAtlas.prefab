@@ -41,6 +41,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 47058b0b1b2304821b26c63233f2857b, type: 2}
   mSprites:
+  - name: C5 black
+    x: 1773
+    y: 3859
+    width: 235
+    height: 237
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 17
+    paddingTop: 19
+    paddingBottom: 24
+  - name: C5 Minion black
+    x: 1773
+    y: 3774
+    width: 40
+    height: 84
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: C5 Minion normal
+    x: 1814
+    y: 3775
+    width: 40
+    height: 83
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 2
+    paddingTop: 3
+    paddingBottom: 0
+  - name: CB-Logo-Oficial
+    x: 1196
+    y: 2786
+    width: 479
+    height: 285
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 17
+    paddingTop: 15
+    paddingBottom: 20
   - name: Feedback_de_Dano
     x: 0
     y: 1314
