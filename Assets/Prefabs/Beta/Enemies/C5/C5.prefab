@@ -25,7 +25,7 @@ GameObject:
   - 4: {fileID: 407094}
   - 212: {fileID: 21268148}
   - 95: {fileID: 9513232}
-  - 114: {fileID: 11419550}
+  - 114: {fileID: 11493636}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -95,7 +95,6 @@ GameObject:
   - 114: {fileID: 11414140}
   - 50: {fileID: 5019956}
   - 114: {fileID: 11499884}
-  - 114: {fileID: 11450638}
   m_Layer: 11
   m_Name: C5
   m_TagString: Untagged
@@ -256,7 +255,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!58 &5849142
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -298,33 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6eeb8c62525543cda5719299b000338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: 1.5
---- !u!114 &11419550
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 147598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1420d7dad71404e5ebc747469f9d9548, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotVel: 2
-  originalVel: 0
---- !u!114 &11450638
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 196216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1420d7dad71404e5ebc747469f9d9548, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotVel: 2
-  originalVel: 0
+  vel: .100000001
 --- !u!114 &11490050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,6 +315,17 @@ MonoBehaviour:
   scale: 1.5
   startLight: {fileID: 0}
   endLight: {fileID: 0}
+--- !u!114 &11493636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c73f43bba7e64ece94e08cb9d121a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11497910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -353,19 +337,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fb129be3c344c8fb8620152ff63c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 3
-  score: 3
+  life: 2.5
+  score: 2
   countAsStreak: 1
-  countAsKill: 1
-  destroyUponDeath: 1
-  deathTime: 1
   inLight: 0
   basicColor: {r: .291955024, g: .491468877, b: .882352948, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
-  explosion: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
   chanceToDrop: 0
   itens: []
-  spritesToWhite: []
 --- !u!114 &11499884
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -419,7 +398,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0c20cbba6f98743198c55270a33d2702, type: 2}
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -448,27 +427,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: vel
-      value: 1.5
+      value: .100000001
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: rotVel
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0c20cbba6f98743198c55270a33d2702, type: 2}
-    - target: {fileID: 0}
-      propertyPath: explosion
-      value: 
-      objectReference: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
-    - target: {fileID: 0}
-      propertyPath: m_Constraints
-      value: 4
+      propertyPath: life
+      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
