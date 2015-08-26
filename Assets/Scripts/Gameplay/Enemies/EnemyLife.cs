@@ -188,7 +188,6 @@ public class EnemyLife : MonoBehaviour
 
 	private IEnumerator FadeAway (float deathTime)
 	{
-		float alpha = brilhos[0].color.a;
 		Animator animator = spriteRenderer.GetComponent<Animator> ();
 		float maxAnimatorSpeed = animator.speed;
 
@@ -204,8 +203,6 @@ public class EnemyLife : MonoBehaviour
 				if(animator.recorderMode != AnimatorRecorderMode.Offline)
 					animator.speed -= Time.deltaTime * deathTime * maxAnimatorSpeed;
 			}
-
-			alpha = brilhos[0].color.a;
 
 			//make it white
 			float amount = spriteRenderer.material.GetFloat("_FlashAmount");

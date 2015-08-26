@@ -3,18 +3,18 @@ using System.Collections;
 
 public class Explosion : MonoBehaviour {
 
-	ParticleSystem particleSystem;
+	ParticleSystem myParticleSystem;
 
 	// Use this for initialization
 	void Start () 
 	{
-		particleSystem = GetComponent<ParticleSystem>();
+		myParticleSystem = GetComponent<ParticleSystem>();
 	}
 	
 	// Update is called once per frame
 	void LateUpdate () 
 	{
-		if(particleSystem.particleCount == 0)
+		if(myParticleSystem.particleCount == 0)
 			Destroy(gameObject);
 	}
 }
