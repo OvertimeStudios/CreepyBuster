@@ -57,10 +57,10 @@ public class UnityAdsHelper : MonoBehaviour
 		else
 		{
 			Advertisement.debugLevel = Advertisement.DebugLevel.NONE;	
-			if (showInfoLogs) Advertisement.debugLevel    |= Advertisement.DebugLevel.INFO;
-			if (showDebugLogs) Advertisement.debugLevel   |= Advertisement.DebugLevel.DEBUG;
-			if (showWarningLogs) Advertisement.debugLevel |= Advertisement.DebugLevel.WARNING;
-			if (showErrorLogs) Advertisement.debugLevel   |= Advertisement.DebugLevel.ERROR;
+			if (showInfoLogs) Advertisement.debugLevel    |= Advertisement.DebugLevel.Info;
+			if (showDebugLogs) Advertisement.debugLevel   |= Advertisement.DebugLevel.Debug;
+			if (showWarningLogs) Advertisement.debugLevel |= Advertisement.DebugLevel.Warning;
+			if (showErrorLogs) Advertisement.debugLevel   |= Advertisement.DebugLevel.Error;
 			
 			if (enableTestMode && !Debug.isDebugBuild)
 			{
