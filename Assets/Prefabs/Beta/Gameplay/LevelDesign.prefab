@@ -69,9 +69,9 @@ MonoBehaviour:
     killStreak: 5
     enemies:
     - enemy: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
-      percent: .5
+      percent: .600000024
     - enemy: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
-      percent: .5
+      percent: .400000006
   - points: 15
     killStreak: 11
     enemies:
@@ -83,9 +83,9 @@ MonoBehaviour:
     killStreak: 19
     enemies:
     - enemy: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
-      percent: .600000024
+      percent: .5
     - enemy: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
-      percent: .400000006
+      percent: .5
   - points: 45
     killStreak: 30
     enemies:
@@ -330,7 +330,7 @@ MonoBehaviour:
     time: 1.79999995
     quantity: 6
   enemiesAttributesLevelUpCondition:
-    points: 22
+    points: 25
     vel: .100000001
     life: .100000001
   tierLevelUpCondition:
@@ -343,12 +343,8 @@ MonoBehaviour:
   - points: 50
     killStreak: 40
   bossBattleCondition:
-  - kills: 20
-    boss: {fileID: 176214, guid: 7240fa1af9d86448fa15dcfe81856834, type: 2}
-  - kills: 50
-    boss: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
-  - kills: 0
-    boss: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
+    points: 0
+    killStreak: 0
   backgrounds:
   - {fileID: 102720, guid: 527349e8b2b7542fd835a5d91a4e6e05, type: 2}
   itemSpawnTime:
@@ -511,16 +507,6 @@ MonoBehaviour:
       percent: .200000003
     - item: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
       percent: .300000012
-  rangeUpgrade:
-  - value: 2.5
-  - value: 2.75
-  - value: 3
-  - value: 3.25
-  damageUpgrade:
-  - value: 1
-  - value: 1.5
-  - value: 2
-  - value: 2.5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -622,7 +608,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesAttributesLevelUpCondition.points
-      value: 22
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesAttributesLevelUpCondition.vel
@@ -634,7 +620,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[1].enemies.Array.data[0].percent
-      value: .5
+      value: .600000024
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[1].enemies.Array.data[2].percent
@@ -650,7 +636,7 @@ Prefab:
       objectReference: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[1].enemies.Array.data[1].percent
-      value: .5
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[2].enemies.Array.data[0].enemy
@@ -698,11 +684,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[3].enemies.Array.data[0].percent
-      value: .600000024
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[3].enemies.Array.data[1].percent
-      value: .400000006
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[3].enemies.Array.data[2].percent
