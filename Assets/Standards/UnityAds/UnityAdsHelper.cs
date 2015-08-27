@@ -56,7 +56,7 @@ public class UnityAdsHelper : MonoBehaviour
 		}
 		else
 		{
-			Advertisement.debugLevel = Advertisement.DebugLevel.NONE;	
+			Advertisement.debugLevel = Advertisement.DebugLevel.None;	
 			if (showInfoLogs) Advertisement.debugLevel    |= Advertisement.DebugLevel.Info;
 			if (showDebugLogs) Advertisement.debugLevel   |= Advertisement.DebugLevel.Debug;
 			if (showWarningLogs) Advertisement.debugLevel |= Advertisement.DebugLevel.Warning;
@@ -102,7 +102,7 @@ public class UnityAdsHelper : MonoBehaviour
 	{
 		if (string.IsNullOrEmpty(zoneID)) zoneID = null;
 		
-		return Advertisement.isReady(zoneID);
+		return Advertisement.IsReady(zoneID);
 	}
 	
 	public static void ShowAd () 
@@ -134,13 +134,13 @@ public class UnityAdsHelper : MonoBehaviour
 		_handleFailed = handleFailed;
 		_onContinue = onContinue;
 		
-		if (Advertisement.isReady(zoneID))
+		if (Advertisement.IsReady(zoneID))
 		{
 			Debug.Log("Showing ad now...");
 			
 			ShowOptions options = new ShowOptions();
 			options.resultCallback = HandleShowResult;
-			options.pause = true;
+			//options.pause = true;
 			
 			Advertisement.Show(zoneID,options);
 		}
