@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour
 	private static bool invencible;
 	private static int continues;
 	private static bool bossTime;
+	private static float lastTimeScale;
 
 	public float timeInvencibleAfterDamage;
 	public float timeToShowGameOverScreen;
@@ -459,12 +460,16 @@ public class GameController : MonoBehaviour
 	void OnFingerDown(FingerDownEvent e)
 	{
 		if(isGameRunning)
+		{
 			player.SetActive (true);
+			Popup.Hide();
+			Time.timeScale = lastTimeScale;
+		}
 	}
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		if(GameController.isGameRunning && !GameController.IsTutorialRunning)
+		/*if(GameController.isGameRunning && !GameController.IsTutorialRunning)
 		{
 			ScreenFeedback.ShowDamage(timeInvencibleAfterDamage);
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.FingerOff));
@@ -479,6 +484,13 @@ public class GameController : MonoBehaviour
 
 			if(OnGameEnding != null)
 				OnGameEnding();
+		}*/
+
+		if(isGameRunning)
+		{
+			Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
+			lastTimeScale = Time.timeScale;
+			Time.timeScale = 0f;
 		}
 	}
 
