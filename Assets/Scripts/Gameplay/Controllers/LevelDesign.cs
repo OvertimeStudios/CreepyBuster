@@ -17,8 +17,13 @@ public class LevelDesign : MonoBehaviour
 
 	[Header("Player Level")]
 	public PlayerLevelUpCondition[] playerLevelUpCondition;
+
+	[Header("Special")]
 	public int streakToSpecial;
 	public float specialTime = 5f;
+	public float specialBonusDamage = 1f;
+	public int specialBonusTarget = 1;
+	public Color specialColor = new Color(0, 0, 0, 0.3f);
 
 	[Header("Enemies Level")]
 	public EnemiesTypesLevelUpCondition[] enemiesTypesLevelUpCondition;
@@ -420,12 +425,18 @@ public class LevelDesign : MonoBehaviour
 
 	public static int MaxRays
 	{
-		get { return Instance.playerLevelUpCondition[LevelDesign.PlayerLevel].maxRays; }
+		get { return Instance.playerLevelUpCondition[LevelDesign.PlayerLevel].maxRays + ((AttackTargets.IsSpecialActive) ? Instance.specialBonusTarget : 0); }
 	}
 
 	public static Color CurrentColor
 	{
-		get { return Instance.playerLevelUpCondition [LevelDesign.PlayerLevel].color; }
+		get 
+		{
+			if(AttackTargets.IsSpecialActive)
+				return Instance.specialColor;
+			else
+				return Instance.playerLevelUpCondition [LevelDesign.PlayerLevel].color; 
+		}
 	}
 
 	public static bool IsSpecialReady

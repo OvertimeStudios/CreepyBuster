@@ -48,6 +48,8 @@ public class HUDController : MonoBehaviour
 		GameController.OnLoseStacks += UpdateColor;
 		GameController.OnLoseStacks += UpdateLevelNumber;
 		GameController.OnLoseStacks += OnStreakUpdated;
+		AttackTargets.OnSpecialStarted += UpdateColor;
+		AttackTargets.OnSpecialEnded += UpdateColor;
 		AttackTargets.OnSpecialTimerUpdated += OnSpecialTimerUpdated;
 	}
 
@@ -66,6 +68,8 @@ public class HUDController : MonoBehaviour
 		GameController.OnLoseStacks -= UpdateColor;
 		GameController.OnLoseStacks -= UpdateLevelNumber;
 		GameController.OnLoseStacks -= OnStreakUpdated;
+		AttackTargets.OnSpecialStarted -= UpdateColor;
+		AttackTargets.OnSpecialEnded -= UpdateColor;
 		AttackTargets.OnSpecialTimerUpdated -= OnSpecialTimerUpdated;
 	}
 
@@ -92,7 +96,10 @@ public class HUDController : MonoBehaviour
 		if (LevelDesign.IsPlayerMaxLevel && LevelDesign.PlayerLevel != 4)
 			levelBar.fillAmount = 1;
 		else
+		{
+			Debug.Log(((float)GameController.StreakCount - LevelDesign.CurrentPlayerLevelUnlockStreak) + " / " + (float)LevelDesign.StreakDifferenceToNextPlayerLevel);
 			levelBar.fillAmount = ((float)GameController.StreakCount - LevelDesign.CurrentPlayerLevelUnlockStreak) / (float)LevelDesign.StreakDifferenceToNextPlayerLevel;
+		}
 	}
 
 	void OnSpecialTimerUpdated(float percent)
