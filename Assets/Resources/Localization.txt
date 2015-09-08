@@ -2,7 +2,7 @@ KEY,English,Portuguese
 Sound,Sound,Som
 Music,Music,Musica
 TAP&HOLD,Tap and hold to play,Toque e segure para jogar
-SOLD_OUT,Soul Out, Vendido
+SOLD_OUT,Sold Out, Vendido
 RAY3,3rd Ray,3º raio
 RAY4,4rd Ray,4º raio
 RAY5,5rd Ray,5º raio

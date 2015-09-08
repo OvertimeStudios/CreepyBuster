@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class LightBehaviour : MonoBehaviour 
 {
 	private ParticleRenderer[] particleRenderers;
+	private SpriteRenderer outter;
 
 	#region singleton
 	private static LightBehaviour instance;
@@ -28,31 +29,44 @@ public class LightBehaviour : MonoBehaviour
 
 		MenuController.OnPanelClosed += Reset;
 		FingerDetector.OnFingerMotionEvent += OnFingerMove;
+
+		AttackTargets.OnSpecialStarted += UpdateColor;
+		AttackTargets.OnSpecialEnded += UpdateColor;
+		LevelDesign.OnPlayerLevelUp += UpdateColor;
+		GameController.OnLoseStacks += UpdateColor;
 	}
 
 	void OnDisable()
 	{
 		MenuController.OnPanelClosed -= Reset;
 		FingerDetector.OnFingerMotionEvent -= OnFingerMove;
+
+		AttackTargets.OnSpecialStarted -= UpdateColor;
+		AttackTargets.OnSpecialEnded -= UpdateColor;
+		LevelDesign.OnPlayerLevelUp -= UpdateColor;
+		GameController.OnLoseStacks -= UpdateColor;
 	}
 
 	// Use this for initialization
 	void Start () 
 	{
+		outter = transform.FindChild("Outter").GetComponent<SpriteRenderer>();
 		particleRenderers = GetComponentsInChildren<ParticleRenderer> ();
 
-		UpdateParticleColor ();
+		UpdateColor ();
 	}
 
-	private void UpdateParticleColor()
+	private void UpdateColor()
 	{
 		foreach (ParticleRenderer pr in particleRenderers)
 			pr.material.SetColor ("_TintColor", LevelDesign.CurrentColor);
+
+		outter.color = LevelDesign.CurrentColor;
 	}
 
 	private void Reset()
 	{
-		UpdateParticleColor ();
+		UpdateColor ();
 	}
 	
 	void OnFingerMove(FingerMotionEvent e)

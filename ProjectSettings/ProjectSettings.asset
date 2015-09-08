@@ -262,7 +262,8 @@ PlayerSettings:
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
   scriptingDefineSymbols:
-    7: INFINITY_ORBS;UNITYADS_IMPLEMENTED;ADMOB_IMPLEMENTED
+    4: EVERYPLAY_IPHONE
+    7: EVERYPLAY_ANDROID;INFINITY_ORBS;UNITYADS_IMPLEMENTED;ADMOB_IMPLEMENTED
   metroPackageName: LightTests
   metroPackageLogo: 
   metroPackageLogo140: 

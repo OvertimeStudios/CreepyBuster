@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
 	public static event Action OnReset;
 	public static event Action OnFingerHit;
 	public static event Action OnGameEnding;
+	public static event Action OnContinuePlaying;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
@@ -393,6 +394,9 @@ public class GameController : MonoBehaviour
 		player.SetActive (true);
 
 		Popup.Hide ();
+
+		if(OnContinuePlaying != null)
+			OnContinuePlaying();
 	}
 
 	public void StartGame()
