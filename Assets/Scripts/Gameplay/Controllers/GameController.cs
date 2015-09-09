@@ -36,6 +36,9 @@ public class GameController : MonoBehaviour
 	public static event Action OnReset;
 	public static event Action OnFingerHit;
 	public static event Action OnGameEnding;
+	public static event Action OnContinuePlaying;
+	public static event Action OnPause;
+	public static event Action OnResume;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
@@ -44,6 +47,9 @@ public class GameController : MonoBehaviour
 	private static bool invencible;
 	private static int continues;
 	private static bool bossTime;
+	private static float lastTimeScale;
+
+	private static bool isPaused;
 
 	public float timeInvencibleAfterDamage;
 	public float timeToShowGameOverScreen;
@@ -80,6 +86,11 @@ public class GameController : MonoBehaviour
 	private static GameObject player;
 
 	#region get / set
+	public static bool IsGamePaused
+	{
+		get { return isPaused; }
+	}
+
 	public static bool IsBossTime
 	{
 		get { return bossTime; }
@@ -205,6 +216,7 @@ public class GameController : MonoBehaviour
 	void Start()
 	{
 		instance = this;
+		isPaused = false;
 
 		gameObject.SetActive(false);
 
@@ -395,6 +407,9 @@ public class GameController : MonoBehaviour
 		player.SetActive (true);
 
 		Popup.Hide ();
+
+		if(OnContinuePlaying != null)
+			OnContinuePlaying();
 	}
 
 	public void StartGame()
@@ -445,6 +460,7 @@ public class GameController : MonoBehaviour
 		realStreakCount = 0;
 		specialStreak = 0;
 		continues = 0;
+		isPaused = false;
 		frozen = false;
 		slowedDown = false;
 		invencible = false;
@@ -461,13 +477,13 @@ public class GameController : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
-		if(isGameRunning)
-			player.SetActive (true);
+		if(!isPaused || (isPaused && e.Selection != null && e.Selection.layer == LayerMask.NameToLayer("Tap&Hold")))
+			ResumeGame();
 	}
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		if(GameController.isGameRunning && !GameController.IsTutorialRunning)
+		/*if(GameController.isGameRunning && !GameController.IsTutorialRunning)
 		{
 			ScreenFeedback.ShowDamage(timeInvencibleAfterDamage);
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.FingerOff));
@@ -482,6 +498,37 @@ public class GameController : MonoBehaviour
 
 			if(OnGameEnding != null)
 				OnGameEnding();
+		}*/
+
+		if(!isPaused)
+			PauseGame();
+	}
+
+	private void PauseGame()
+	{
+		if(isGameRunning)
+		{
+			isPaused = true;
+			//Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
+			lastTimeScale = Time.timeScale;
+			Time.timeScale = 0f;
+
+			if(OnPause != null)
+				OnPause();
+		}
+	}
+
+	private void ResumeGame()
+	{
+		if(isGameRunning)
+		{
+			isPaused = false;
+			player.SetActive (true);
+			//Popup.Hide();
+			Time.timeScale = lastTimeScale;
+
+			if(OnResume != null)
+				OnResume();
 		}
 	}
 

@@ -123,10 +123,13 @@ public class BossMeteoro : MonoBehaviour
 
 		float angle = Mathf.Atan2 (pos.y - transform.position.y, pos.x - transform.position.x);
 
-		myRigidbody2D.velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * CurrentVel;
+		Vector2 vel = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * CurrentVel;
 
 		while (Vector3.Distance(pos, transform.position) > 1)
+		{
+			myRigidbody2D.velocity = vel;
 			yield return null;
+		}
 
 		myRigidbody2D.velocity = Vector2.zero;
 
@@ -252,11 +255,14 @@ public class BossMeteoro : MonoBehaviour
 		pos.z = transform.position.z;
 		
 		float angle = Mathf.Atan2 (pos.y - transform.position.y, pos.x - transform.position.x);
-		
-		myRigidbody2D.velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * CurrentVel;
+
+		Vector2 vel = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * CurrentVel;
 		
 		while (Vector3.Distance(pos, transform.position) > 1)
+		{
+			myRigidbody2D.velocity = vel;
 			yield return null;
+		}
 		
 		myRigidbody2D.velocity = Vector2.zero;
 

@@ -69,12 +69,16 @@ public class EnemyLife : MonoBehaviour
 
 	protected virtual void OnEnable()
 	{
+		AttackTargets.OnSpecialStarted += UpdateColor;
+		AttackTargets.OnSpecialEnded += UpdateColor;
 		LevelDesign.OnPlayerLevelUp += UpdateColor;
 		GameController.OnLoseStacks += UpdateColor;
 	}
 
 	protected virtual void OnDisable()
 	{
+		AttackTargets.OnSpecialStarted -= UpdateColor;
+		AttackTargets.OnSpecialEnded -= UpdateColor;
 		LevelDesign.OnPlayerLevelUp -= UpdateColor;
 		GameController.OnLoseStacks -= UpdateColor;
 	}
@@ -110,7 +114,7 @@ public class EnemyLife : MonoBehaviour
 	{
 		if(inLight)
 		{
-			life -= AttackTargets.Instance.damage * Time.deltaTime;
+			life -= AttackTargets.Damage * Time.deltaTime;
 
 			if(life <= 0)
 				Dead();
@@ -151,7 +155,8 @@ public class EnemyLife : MonoBehaviour
 
 	private void UpdateColor()
 	{
-		//lightning.GetComponent<LightningBolt> ().startLight.color = LevelDesign.CurrentColor;
+		if(IsDead) return;
+
 		lightning.GetComponent<ParticleRenderer>().material.SetColor ("_TintColor", LevelDesign.CurrentColor);
 	}
 
@@ -188,7 +193,6 @@ public class EnemyLife : MonoBehaviour
 
 	private IEnumerator FadeAway (float deathTime)
 	{
-		float alpha = brilhos[0].color.a;
 		Animator animator = spriteRenderer.GetComponent<Animator> ();
 		float maxAnimatorSpeed = animator.speed;
 
@@ -204,8 +208,6 @@ public class EnemyLife : MonoBehaviour
 				if(animator.recorderMode != AnimatorRecorderMode.Offline)
 					animator.speed -= Time.deltaTime * deathTime * maxAnimatorSpeed;
 			}
-
-			alpha = brilhos[0].color.a;
 
 			//make it white
 			float amount = spriteRenderer.material.GetFloat("_FlashAmount");

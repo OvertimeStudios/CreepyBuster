@@ -5,6 +5,11 @@ using System;
 
 public class AttackTargets : MonoBehaviour 
 {
+	#region action
+	public static event Action OnSpecialStarted;
+	public static event Action OnSpecialEnded;
+	#endregion
+
 	public static event Action<float> OnSpecialTimerUpdated;
 
 	private static List<Transform> targets;
@@ -32,6 +37,13 @@ public class AttackTargets : MonoBehaviour
 		get { return targets.Count > 0; }
 	}
 
+	public static float Damage
+	{
+		get
+		{
+			return Instance.damage + ((IsSpecialActive) ? LevelDesign.Instance.specialBonusDamage : 0);
+		}
+	}
 	#endregion
 
 	#region singleton
@@ -124,18 +136,6 @@ public class AttackTargets : MonoBehaviour
 		{
 			//do nothing
 		}
-		else if (isSpecial)
-		{
-			//get all damagable targets
-			foreach(Transform t in SpawnController.enemiesInGame)
-			{
-				if(t == null) continue;
-
-				//don't apply damage to those enemies who doesn't show up yet
-				if(t.GetComponent<EnemyLife>().IsDamagable)
-					newTargets.Add(t);
-			}
-		}
 		else
 		{
 			//get closest targets
@@ -146,6 +146,7 @@ public class AttackTargets : MonoBehaviour
 				//don't apply damage to those enemies who doesn't show up yet
 				if(!t.GetComponent<EnemyLife>().IsDamagable) continue;
 
+				//LevelDesign.MaxRays is handling the extra ray from special
 				if(newTargets.Count < LevelDesign.MaxRays)
 					newTargets.Add(t);
 				else
@@ -190,6 +191,9 @@ public class AttackTargets : MonoBehaviour
 		isSpecial = true;
 		specialCounter = LevelDesign.Instance.specialTime;
 		GameController.specialStreak++;
+
+		if(OnSpecialStarted != null)
+			OnSpecialStarted();
 	}
 
 	private void RunTimer()
@@ -225,6 +229,9 @@ public class AttackTargets : MonoBehaviour
 	public void StopSpecial()
 	{
 		isSpecial = false;
+
+		if(OnSpecialEnded != null)
+			OnSpecialEnded();
 	}
 
 	private void OnFingerHit()
