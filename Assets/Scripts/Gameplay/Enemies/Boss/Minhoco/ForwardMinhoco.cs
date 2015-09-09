@@ -77,8 +77,8 @@ public class ForwardMinhoco : MonoBehaviour
 
 		dir = (Direction)rnd;
 
-		float posx = (angle % Mathf.PI / 2 == 0) ? 0.5f + Mathf.Cos(angle) * 0.8f : Random.Range(0.2f, 0.8f);
-		float posy = (angle % Mathf.PI / 2 == 0) ? Random.Range(0.2f, 0.8f) : 0.5f + Mathf.Sin(angle) * 0.8f ;
+		float posx = (angle % Mathf.PI / 2 == 0) ? 0.5f + Mathf.Cos(angle) * 0.8f : Random.Range(0.1f, 0.9f);
+		float posy = (angle % Mathf.PI / 2 == 0) ? Random.Range(0.1f, 0.9f) : 0.5f + Mathf.Sin(angle) * 0.8f ;
 		
 		Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3(posx, posy, 0));
 		pos.z = 0;
@@ -87,14 +87,17 @@ public class ForwardMinhoco : MonoBehaviour
 		
 		//get some point on the other side to go towards
 		angle = angle + Mathf.PI;
-		
-		posx = (angle % Mathf.PI / 2 == 0) ? 0.5f + Mathf.Cos(angle) * 0.8f : Random.Range(0.2f, 0.8f);
-		posy = (angle % Mathf.PI / 2 == 0) ? Random.Range(0.2f, 0.8f) : 0.5f + Mathf.Sin(angle) * 0.8f ;
-		
+
+		//angle % (Mathf.PI / 2) == 0 -> angle = 180 || angle = 360
+		posx = (angle % Mathf.PI / 2 == 0) ? 0.5f + (Mathf.Cos(angle) * 0.5f) : Random.Range(0f, 1f);
+		posy = (angle % Mathf.PI / 2 == 0) ? Random.Range(0f, 1f) : 0.5f + (Mathf.Sin(angle) * 0.5f);
+
 		pos = Camera.main.WorldToViewportPoint(pos);
 		
 		angle = Mathf.Atan2(posy - pos.y, posx - pos.x);
-		
+
+		Debug.Log(pos.ToString() + " -> " + new Vector3(posx, posy).ToString() + "\n" + (angle * Mathf.Rad2Deg) + " -> " + Vector3.Angle(pos, new Vector3(posx, posy, 10f)));
+
 		transform.eulerAngles = new Vector3(0, 0, angle * Mathf.Rad2Deg);
 	}
 

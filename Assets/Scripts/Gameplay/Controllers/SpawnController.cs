@@ -112,7 +112,7 @@ public class SpawnController : MonoBehaviour
 	public static void SpawnEnemy(GameObject enemy)
 	{
 		Vector3 pos = GetSpawnPosition();
-		float rot = GetRotation(pos);
+		float rot = GetRotation(pos, enemy.name);
 
 		GameObject e = Instantiate (enemy, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
 		
@@ -355,22 +355,48 @@ public class SpawnController : MonoBehaviour
 		return pos;
 	}
 
-	public static float GetRotation(Vector3 pos)
+	public static float GetRotation(Vector3 pos, string name)
 	{
 		Vector3 viewportPosition = Camera.main.WorldToViewportPoint (pos);
 
 		float rot = 0f;
 
-		if (viewportPosition.x < 0)//LEFT
-			rot = 0f;
-		if (viewportPosition.x > 1)//RIGHT
-			rot = 180f;
-		if (viewportPosition.y < 0)//DOWN
-			rot = 90f;
-		if(viewportPosition.y > 1)//UP
-			rot = -90f;
+		if(!CanDiagonal(name))
+		{
+			if (viewportPosition.x < 0)//LEFT
+				rot = 0f;
+			if (viewportPosition.x > 1)//RIGHT
+				rot = 180f;
+			if (viewportPosition.y < 0)//DOWN
+				rot = 90f;
+			if(viewportPosition.y > 1)//UP
+				rot = -90f;
+		}
+		else
+		{
+			Vector3 othersidePosition = Vector3.zero;
+
+			if(viewportPosition.x < 0)
+				othersidePosition = new Vector3(1, UnityEngine.Random.Range(0.1f, 0.9f), 0);
+			if(viewportPosition.x > 1)
+				othersidePosition = new Vector3(0, UnityEngine.Random.Range(0.1f, 0.9f), 0);
+			if(viewportPosition.y < 0)
+				othersidePosition = new Vector3(UnityEngine.Random.Range(0.1f, 0.9f), 1, 0);
+			if(viewportPosition.y > 1)
+				othersidePosition = new Vector3(UnityEngine.Random.Range(0.1f, 0.9f), 0, 0);
+
+			rot = Mathf.Atan2(othersidePosition.y - viewportPosition.y, othersidePosition.x - viewportPosition.x) * Mathf.Rad2Deg;
+		}
 
 		return rot;
+	}
+
+	private static bool CanDiagonal(string objName)
+	{
+		if(objName.Contains("C1"))
+			return true;
+
+		return false;
 	}
 
 	private void SpawnBackground()
@@ -455,7 +481,7 @@ public class SpawnController : MonoBehaviour
 				Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3(posX, posY));
 				pos.z = 0;
 
-				float rot = GetRotation (pos);
+				float rot = GetRotation (pos, objToSpawn.name);
 
 				GameObject item = Instantiate (objToSpawn, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
 

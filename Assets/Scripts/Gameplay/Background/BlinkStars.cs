@@ -21,11 +21,9 @@ public class BlinkStars : MonoBehaviour
 	private IEnumerator Blink()
 	{
 		//visible
-		Debug.Log("Visible: " + Time.time);
 		yield return new WaitForSeconds(visibleTime.Random());
 
 		//fade out
-		Debug.Log("Fade Out: " + Time.time);
 		while(sprite.color.a > 0)
 		{
 			Color c = sprite.color;
@@ -36,11 +34,9 @@ public class BlinkStars : MonoBehaviour
 		}
 
 		//invisible
-		Debug.Log("Invisible: " + Time.time);
 		yield return new WaitForSeconds(invisibleTime.Random());
 		
 		//fade in
-		Debug.Log("Fade In: " + Time.time);
 		while(sprite.color.a < 1)
 		{
 			Color c = sprite.color;
