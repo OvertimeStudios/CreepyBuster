@@ -42,8 +42,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 47058b0b1b2304821b26c63233f2857b, type: 2}
   mSprites:
   - name: C5 black
-    x: 1773
-    y: 3859
+    x: 1561
+    y: 224
     width: 235
     height: 237
     borderLeft: 0
@@ -55,8 +55,8 @@ MonoBehaviour:
     paddingTop: 19
     paddingBottom: 24
   - name: C5 Minion black
-    x: 1773
-    y: 3774
+    x: 0
+    y: 43
     width: 40
     height: 84
     borderLeft: 0
@@ -68,8 +68,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: C5 Minion normal
-    x: 1814
-    y: 3775
+    x: 41
+    y: 44
     width: 40
     height: 83
     borderLeft: 0
@@ -81,8 +81,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 0
   - name: CB-Logo-Oficial
-    x: 1196
-    y: 2786
+    x: 1081
+    y: 176
     width: 479
     height: 285
     borderLeft: 0
@@ -94,8 +94,8 @@ MonoBehaviour:
     paddingTop: 15
     paddingBottom: 20
   - name: Feedback_de_Dano
-    x: 0
-    y: 1314
+    x: 2277
+    y: 853
     width: 1195
     height: 1195
     borderLeft: 200
@@ -107,8 +107,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Feedback_Frozen
-    x: 0
-    y: 2510
+    x: 1081
+    y: 462
     width: 1195
     height: 1586
     borderLeft: 0
@@ -119,11 +119,11 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: splash_vertical
-    x: 1196
-    y: 3072
-    width: 576
-    height: 1024
+  - name: splash_vertical_adaptada
+    x: 0
+    y: 128
+    width: 1080
+    height: 1920
     borderLeft: 0
     borderRight: 0
     borderTop: 0
