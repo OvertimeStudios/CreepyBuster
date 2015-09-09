@@ -497,7 +497,8 @@ public class GameController : MonoBehaviour
 				OnGameEnding();
 		}*/
 
-		PauseGame();
+		if(!isPaused)
+			PauseGame();
 	}
 
 	private void PauseGame()
