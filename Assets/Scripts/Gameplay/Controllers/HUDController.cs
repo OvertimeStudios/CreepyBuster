@@ -8,11 +8,14 @@ public class HUDController : MonoBehaviour
 	public UILabel level;
 
 	public GameObject endScreen;
+	public GameObject pauseScreen;
 
 	private UILabel orbsCollected;
 	private UILabel points;
 	private UILabel orbsFromPoints;
 	private UILabel totalOrbs;
+
+	public float guto = 2f;
 
 	#region singleton
 	private static HUDController instance;
@@ -51,6 +54,9 @@ public class HUDController : MonoBehaviour
 		AttackTargets.OnSpecialStarted += UpdateColor;
 		AttackTargets.OnSpecialEnded += UpdateColor;
 		AttackTargets.OnSpecialTimerUpdated += OnSpecialTimerUpdated;
+
+		GameController.OnPause += GamePaused;
+		GameController.OnResume += GameResumed;
 	}
 
 	void OnDisable()
@@ -71,6 +77,9 @@ public class HUDController : MonoBehaviour
 		AttackTargets.OnSpecialStarted -= UpdateColor;
 		AttackTargets.OnSpecialEnded -= UpdateColor;
 		AttackTargets.OnSpecialTimerUpdated -= OnSpecialTimerUpdated;
+
+		GameController.OnPause -= GamePaused;
+		GameController.OnResume -= GameResumed;
 	}
 
 	// Use this for initialization
@@ -96,10 +105,7 @@ public class HUDController : MonoBehaviour
 		if (LevelDesign.IsPlayerMaxLevel && LevelDesign.PlayerLevel != 4)
 			levelBar.fillAmount = 1;
 		else
-		{
-			Debug.Log(((float)GameController.StreakCount - LevelDesign.CurrentPlayerLevelUnlockStreak) + " / " + (float)LevelDesign.StreakDifferenceToNextPlayerLevel);
 			levelBar.fillAmount = ((float)GameController.StreakCount - LevelDesign.CurrentPlayerLevelUnlockStreak) / (float)LevelDesign.StreakDifferenceToNextPlayerLevel;
-		}
 	}
 
 	void OnSpecialTimerUpdated(float percent)
@@ -136,5 +142,35 @@ public class HUDController : MonoBehaviour
 	private void HideEndScreen()
 	{
 		endScreen.SetActive (false);
+	}
+
+	private void GamePaused()
+	{
+		pauseScreen.SetActive(true);
+
+		Transform ring = pauseScreen.transform.FindChild("Ring");
+		Transform arrow = pauseScreen.transform.FindChild("Arrow");
+		Transform label = pauseScreen.transform.FindChild("Label");
+
+		Vector3 playerLastPosition = AttackTargets.Instance.transform.position;
+		playerLastPosition = Camera.main.WorldToViewportPoint(playerLastPosition);
+
+		float angleToCenter = Mathf.Atan2(playerLastPosition.y - 0.5f, playerLastPosition.x - 0.5f) * Mathf.Rad2Deg;
+
+		playerLastPosition = UICamera.mainCamera.ViewportToWorldPoint(playerLastPosition);
+
+		ring.position = playerLastPosition;
+
+		arrow.position = playerLastPosition;
+		arrow.localEulerAngles = new Vector3(0, 0, angleToCenter);
+
+		label.transform.position = playerLastPosition;
+		label.localEulerAngles = new Vector3(0, 0, angleToCenter);
+		label.GetChild(0).localEulerAngles = new Vector3(0, 0, -angleToCenter);
+	}
+
+	private void GameResumed()
+	{
+		pauseScreen.SetActive(false);
 	}
 }

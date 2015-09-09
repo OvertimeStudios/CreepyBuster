@@ -67,6 +67,19 @@ MonoBehaviour:
     paddingRight: 4
     paddingTop: 3
     paddingBottom: 4
+  - name: arrow
+    x: 0
+    y: 5
+    width: 68
+    height: 68
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: back_button
     x: 486
     y: 131
@@ -81,7 +94,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: bar_holder
-    x: 0
+    x: 69
     y: 23
     width: 128
     height: 31
@@ -94,7 +107,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: blank
-    x: 129
+    x: 198
     y: 22
     width: 32
     height: 32
@@ -198,8 +211,8 @@ MonoBehaviour:
     paddingTop: 22
     paddingBottom: 27
   - name: C7 01
-    x: 782
-    y: 37
+    x: 1789
+    y: 549
     width: 85
     height: 168
     borderLeft: 0
@@ -211,8 +224,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 5
   - name: Creepypedia
-    x: 1921
-    y: 1799
+    x: 1039
+    y: 218
     width: 249
     height: 249
     borderLeft: 0
@@ -276,7 +289,7 @@ MonoBehaviour:
     paddingTop: 12
     paddingBottom: 22
   - name: Healthbar
-    x: 0
+    x: 69
     y: 55
     width: 242
     height: 18
@@ -289,7 +302,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: HUB Connection
-    x: 1539
+    x: 1039
     y: 468
     width: 249
     height: 249
@@ -328,8 +341,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 8
   - name: Off
-    x: 1289
-    y: 468
+    x: 1539
+    y: 718
     width: 249
     height: 249
     borderLeft: 0
@@ -341,8 +354,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: On
-    x: 1039
-    y: 218
+    x: 1289
+    y: 718
     width: 249
     height: 249
     borderLeft: 0
@@ -368,7 +381,7 @@ MonoBehaviour:
     paddingBottom: 6
   - name: play
     x: 1039
-    y: 468
+    y: 718
     width: 249
     height: 249
     borderLeft: 0
@@ -380,7 +393,7 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: Popup
-    x: 308
+    x: 377
     y: 9
     width: 64
     height: 64
@@ -393,7 +406,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Popup down
-    x: 243
+    x: 312
     y: 9
     width: 64
     height: 64
@@ -446,7 +459,7 @@ MonoBehaviour:
     paddingBottom: 11
   - name: ray3
     x: 1921
-    y: 827
+    y: 591
     width: 228
     height: 235
     borderLeft: 0
@@ -459,7 +472,7 @@ MonoBehaviour:
     paddingBottom: 11
   - name: ray4
     x: 1921
-    y: 591
+    y: 827
     width: 228
     height: 235
     borderLeft: 0
@@ -483,9 +496,22 @@ MonoBehaviour:
     paddingRight: 12
     paddingTop: 10
     paddingBottom: 8
+  - name: ring
+    x: 782
+    y: 19
+    width: 186
+    height: 186
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 7
+    paddingRight: 7
+    paddingTop: 8
+    paddingBottom: 6
   - name: Selection
-    x: 1539
-    y: 718
+    x: 1289
+    y: 468
     width: 249
     height: 249
     borderLeft: 0
@@ -497,8 +523,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: settings
-    x: 1289
-    y: 718
+    x: 1539
+    y: 468
     width: 249
     height: 249
     borderLeft: 0
@@ -510,8 +536,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: shop_icon
-    x: 1039
-    y: 718
+    x: 1921
+    y: 1799
     width: 249
     height: 249
     borderLeft: 0
