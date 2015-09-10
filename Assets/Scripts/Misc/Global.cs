@@ -29,6 +29,8 @@ public class Global : MonoBehaviour
 	private const string SOUNDFX_ON = "soundFX";
 	private const string LANGUAGE = "language";
 	private const string VIBRATE = "vibrate";
+	private const string FIRST_TIME_TUTORIAL = "firstTimeTutorial";
+	private const string TUTORIAL_ENABLED = "tutorialEnabled";
 	#endregion
 
 	private static bool isLoaded;
@@ -50,6 +52,9 @@ public class Global : MonoBehaviour
 	private static int musicOn;
 	private static int soundOn;
 	private static int vibrate;
+
+	private static int firstTimeTutorial;
+	private static int tutorialEnabled;
 
 	private static string language;
 	#endregion
@@ -388,6 +393,44 @@ public class Global : MonoBehaviour
 		get { return !PlayerPrefs.HasKey (FIRST_PLAY); }
 	}
 
+	public static bool IsFirstTimeTutorial
+	{
+		get
+		{
+			if(!isLoaded)
+				Load ();
+
+			return firstTimeTutorial == 1;
+		}
+
+		set
+		{
+			firstTimeTutorial = (value == true) ? 1 : 0;
+			
+			PlayerPrefs.SetInt (FIRST_TIME_TUTORIAL, firstTimeTutorial);
+			PlayerPrefs.Save ();
+		}
+	}
+
+	public static bool IsTutorialEnabled
+	{
+		get
+		{
+			if(!isLoaded)
+				Load ();
+			
+			return tutorialEnabled == 1;
+		}
+		
+		set
+		{
+			tutorialEnabled = (value == true) ? 1 : 0;
+			
+			PlayerPrefs.SetInt (TUTORIAL_ENABLED, tutorialEnabled);
+			PlayerPrefs.Save ();
+		}
+	}
+
 	#endregion
 
 	private static void Load()
@@ -412,6 +455,8 @@ public class Global : MonoBehaviour
 			musicOn = PlayerPrefs.GetInt(MUSIC_ON);
 			soundOn = PlayerPrefs.GetInt(SOUNDFX_ON);
 			vibrate = PlayerPrefs.GetInt(VIBRATE);
+			firstTimeTutorial = PlayerPrefs.GetInt(FIRST_TIME_TUTORIAL);
+			tutorialEnabled = PlayerPrefs.GetInt(TUTORIAL_ENABLED);
 
 			language = PlayerPrefs.GetString(LANGUAGE);
 		}
@@ -434,6 +479,8 @@ public class Global : MonoBehaviour
 			musicOn = 1;
 			soundOn = 1;
 			vibrate = 1;
+			firstTimeTutorial = 1;
+			tutorialEnabled = 1;
 
 			if(Application.systemLanguage == SystemLanguage.Portuguese)
 				language = LocalizationController.Language.Portuguese.ToString();
@@ -481,6 +528,8 @@ public class Global : MonoBehaviour
 		PlayerPrefs.SetInt (SOUNDFX_ON, soundOn);
 		PlayerPrefs.SetString (LANGUAGE, language);
 		PlayerPrefs.SetInt (VIBRATE, vibrate);
+		PlayerPrefs.SetInt(FIRST_TIME_TUTORIAL, firstTimeTutorial);
+		PlayerPrefs.SetInt(TUTORIAL_ENABLED, tutorialEnabled);
 
 		PlayerPrefs.Save ();
 	}

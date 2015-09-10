@@ -3,6 +3,13 @@ using System.Collections;
 
 public class TutorialController : MonoBehaviour 
 {
+	enum Answer
+	{
+		None,
+		Yes,
+		No,
+	}
+
 	public GameObject basicEnemy;
 	public GameObject followerEnemy;
 	private int enemyCounter;
@@ -18,6 +25,8 @@ public class TutorialController : MonoBehaviour
 	public bool runTutorial = true;
 	public static bool running;
 	public static bool canTakeOffFinger;
+
+	private static Answer firstTimeTutorial;
 
 	#region singleton
 	private static TutorialController instance;
@@ -62,13 +71,16 @@ public class TutorialController : MonoBehaviour
 		tutorial.gameObject.SetActive (true);
 		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
 
-		if(Debug.isDebugBuild && !runTutorial)
+		if(GameController.isGameRunning)
 		{
-			Global.RunTutorial = false;
-			gameObject.SetActive (false);
+			if(!Global.IsTutorialEnabled)
+			{
+				Global.RunTutorial = false;
+				gameObject.SetActive (false);
+			}
+			else
+				StartCoroutine (Run ());
 		}
-		else
-			StartCoroutine (Run ());
 	}
 
 	void OnDisable()
@@ -97,7 +109,7 @@ public class TutorialController : MonoBehaviour
 
 	private void OnFingerDown(FingerDownEvent e)
 	{
-		Popup.Hide ();
+		//Popup.Hide ();
 		Time.timeScale = 1f;
 	}
 
@@ -105,14 +117,37 @@ public class TutorialController : MonoBehaviour
 	{
 		if(!canTakeOffFinger)
 		{
-			Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
+			//Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
 			Time.timeScale = 0f;
 		}
+	}
+
+	private void YesTutorial()
+	{
+		firstTimeTutorial = Answer.Yes;
+	}
+
+	private void NoTutorial()
+	{
+		firstTimeTutorial = Answer.No;
 	}
 
 	private IEnumerator Run()
 	{
 		running = true;
+
+		if(Global.IsFirstTimeTutorial)
+		{
+			firstTimeTutorial = Answer.None;
+
+			Popup.ShowYesNo(Localization.Get("WANT_TUTORIAL"), YesTutorial, NoTutorial, true);
+
+			while(firstTimeTutorial == Answer.None)
+				yield return null;
+
+			if(firstTimeTutorial == Answer.No)
+				End ();
+		}
 
 		//first rule
 		yield return new WaitForSeconds(ShowNextText());
@@ -162,8 +197,15 @@ public class TutorialController : MonoBehaviour
 		//One more thing: got hit
 		yield return new WaitForSeconds(ShowNextText());
 
+		End();
+	}
+
+	private static void End()
+	{
 		running = false;
 
+		Global.IsTutorialEnabled = false;
+		Global.IsFirstTimeTutorial = false;
 		Global.RunTutorial = false;
 		Hide ();
 	}

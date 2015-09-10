@@ -7,6 +7,7 @@ public class OnOffBehaviour : MonoBehaviour
 	{
 		Music,
 		SoundFX,
+		Tutorial,
 	}
 
 	private enum State
@@ -34,6 +35,9 @@ public class OnOffBehaviour : MonoBehaviour
 
 		else if (type == Type.SoundFX)
 			state = (State)Global.IsSoundOn.GetHashCode();
+
+		else if(type == Type.Tutorial)
+			state = (State)Global.IsTutorialEnabled.GetHashCode();
 
 		//turn selection to 'off' or 
 		if (state == State.OFF)
@@ -80,5 +84,8 @@ public class OnOffBehaviour : MonoBehaviour
 
 		if (type == Type.SoundFX)
 			Global.IsSoundOn = (state == State.ON);
+
+		if(type == Type.Tutorial)
+			Global.IsTutorialEnabled = (state == State.ON);
 	}
 }
