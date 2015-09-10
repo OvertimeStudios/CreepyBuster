@@ -43,7 +43,7 @@ MonoBehaviour:
   mSprites:
   - name: black
     x: 0
-    y: 26
+    y: 111
     width: 16
     height: 16
     borderLeft: 0
@@ -53,45 +53,6 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
-    paddingBottom: 0
-  - name: C5 black
-    x: 1561
-    y: 224
-    width: 235
-    height: 237
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 2
-    paddingRight: 17
-    paddingTop: 19
-    paddingBottom: 24
-  - name: C5 Minion black
-    x: 0
-    y: 43
-    width: 40
-    height: 84
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: C5 Minion normal
-    x: 41
-    y: 44
-    width: 40
-    height: 83
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 2
-    paddingTop: 3
     paddingBottom: 0
   - name: CB-Logo-Oficial
     x: 1081
@@ -132,6 +93,45 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: legion
+    x: 1561
+    y: 223
+    width: 237
+    height: 238
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 7
+    paddingRight: 12
+    paddingTop: 5
+    paddingBottom: 1
+  - name: minion_branco
+    x: 1799
+    y: 261
+    width: 239
+    height: 200
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 17
+    paddingTop: 0
+    paddingBottom: 21
+  - name: minion_transparente
+    x: 1799
+    y: 77
+    width: 256
+    height: 183
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 10
+    paddingBottom: 14
   - name: splash_vertical_adaptada
     x: 0
     y: 128
