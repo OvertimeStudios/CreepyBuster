@@ -256,6 +256,11 @@ public class TutorialController : MonoBehaviour
 			tutorialText.text = "Try again! \n" + tutorialText.text;
 	}
 
+	public void Stop()
+	{
+
+	}
+
 	private void GameEnding()
 	{
 		running = false;

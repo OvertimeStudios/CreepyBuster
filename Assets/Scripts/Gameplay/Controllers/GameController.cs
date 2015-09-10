@@ -194,6 +194,7 @@ public class GameController : MonoBehaviour
 		RewardedVideoPlayer.OnRevivePlayer += VideoWatched;
 		FingerDetector.OnFingerDownEvent += OnFingerDown;
 		FingerDetector.OnFingerUpEvent += OnFingerUp;
+		FingerDetector.OnTapGesture += OnDoubleTap;
 		LevelDesign.OnBossReady += BossIsReady;
 		BossLife.OnBossDied += BossDied; 
 	}
@@ -207,6 +208,7 @@ public class GameController : MonoBehaviour
 		RewardedVideoPlayer.OnRevivePlayer -= VideoWatched;
 		FingerDetector.OnFingerDownEvent -= OnFingerDown;
 		FingerDetector.OnFingerUpEvent -= OnFingerUp;
+		FingerDetector.OnTapGesture -= OnDoubleTap;
 		LevelDesign.OnBossReady -= BossIsReady;
 		BossLife.OnBossDied -= BossDied;
 
@@ -291,9 +293,6 @@ public class GameController : MonoBehaviour
 			StartCoroutine (ShowEndScreen (timeToShowGameOverScreen));
 		else
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.LifeOut));
-
-		if(OnGameEnding != null)
-			OnGameEnding();
 	}
 
 	public void GameOver()
@@ -323,6 +322,9 @@ public class GameController : MonoBehaviour
 
 	private IEnumerator ShowContinueScreen(float waitTime, CauseOfDeath causeOfDeath)
 	{
+		if(OnGameEnding != null)
+			OnGameEnding();
+
 		isGameRunning = false;
 		gameOver = true;
 		player.SetActive (false);
@@ -351,6 +353,9 @@ public class GameController : MonoBehaviour
 
 	private void ShowEndScreen()
 	{
+		if(OnGameEnding != null)
+			OnGameEnding();
+
 		Popup.Hide ();
 
 		Global.TotalOrbs += orbsCollected;
@@ -474,6 +479,8 @@ public class GameController : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
+		if(Popup.IsActive || !isGameRunning)return;
+
 		if(!isPaused || (isPaused && e.Selection != null && e.Selection.layer == LayerMask.NameToLayer("Tap&Hold")))
 			ResumeGame();
 	}
@@ -497,8 +504,22 @@ public class GameController : MonoBehaviour
 				OnGameEnding();
 		}*/
 
+		if(Popup.IsActive || !isGameRunning)return;
+
 		if(!isPaused)
 			PauseGame();
+	}
+
+	private void OnDoubleTap(TapGesture gesture)
+	{
+		Popup.ShowYesNo("Are you sure you wanna quit the game?", QuitGame, null, true);
+	}
+
+	private void QuitGame()
+	{
+		//GameOver();
+		ResumeGame();
+		StartCoroutine (ShowEndScreen (0f));
 	}
 
 	private void PauseGame()
@@ -512,6 +533,8 @@ public class GameController : MonoBehaviour
 
 			if(OnPause != null)
 				OnPause();
+
+			Debug.Log("Game Paused");
 		}
 	}
 
@@ -526,6 +549,8 @@ public class GameController : MonoBehaviour
 
 			if(OnResume != null)
 				OnResume();
+
+			Debug.Log("Game Resumed");
 		}
 	}
 
