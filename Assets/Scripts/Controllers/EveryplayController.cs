@@ -63,8 +63,6 @@ public class EveryplayController : MonoBehaviour
 	{
 		if(instance != null) return;
 
-		Everyplay.SetMaxRecordingMinutesLength(minutesToRecord);
-
 		isReady = false;
 		videoFinished = false;
 	}
@@ -81,6 +79,8 @@ public class EveryplayController : MonoBehaviour
 		Debug.Log("Start Recording? " + IsReady);
 		if(!Everyplay.IsRecording() && IsReady)
 		{
+			Everyplay.SetMaxRecordingMinutesLength(minutesToRecord);
+
 			Everyplay.StartRecording();
 			videoFinished = false;
 		}
