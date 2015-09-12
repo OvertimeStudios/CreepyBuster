@@ -233,6 +233,8 @@ public class EnemyLife : MonoBehaviour
 
 		spriteRenderer.material.SetFloat("_FlashAmount", 1);
 
+		DropOrbs();
+
 		if(destroyUponDeath)
 		{
 			if(explosion != null)
@@ -242,6 +244,9 @@ public class EnemyLife : MonoBehaviour
 				Destroy (sp.transform.parent.gameObject);
 		}
 	}
+
+	//Boss Only
+	protected virtual void DropOrbs() { }
 
 	private void SpawnItem()
 	{

@@ -22,7 +22,7 @@ public class BossMeteoro : MonoBehaviour
 	private float totalLife;
 	private float lifePerLevel;
 	private Rigidbody2D myRigidbody2D;
-	private EnemyLife enemyLife;
+	private BossLife enemyLife;
 	private CameraShake cameraShake;
 	private RandomMovement randomMovement;
 	private Animator myAnimator;
@@ -56,7 +56,7 @@ public class BossMeteoro : MonoBehaviour
 	void Start () 
 	{
 		myRigidbody2D = GetComponent<Rigidbody2D> ();
-		enemyLife = GetComponent<EnemyLife> ();
+		enemyLife = GetComponent<BossLife> ();
 		cameraShake = GetComponent<CameraShake> ();
 		randomMovement = GetComponent<RandomMovement> ();
 		myAnimator = transform.FindChild("Sprite").GetComponent<Animator>();

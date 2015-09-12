@@ -22,6 +22,7 @@ public class Item : MonoBehaviour
 
 	protected virtual void Start()
 	{
+		Debug.Log("Start Item");
 		GetComponent<Rigidbody2D> ().velocity = transform.right * vel;
 
 		transform.rotation = Quaternion.identity;

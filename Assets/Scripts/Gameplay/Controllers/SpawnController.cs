@@ -11,6 +11,8 @@ public class SpawnController : MonoBehaviour
 	public static List<Transform> enemiesInGame;
 	public static List<Transform> itensInGame;
 
+	public List<GameObject> orbs;
+
 	//viewport coordinates outside of screen
 	private const float bottom = -0.2f;
 	private const float left = -0.2f;
@@ -417,6 +419,11 @@ public class SpawnController : MonoBehaviour
 
 	private void SpawnItens()
 	{
+		SpawnItens(false);
+	}
+
+	private void SpawnItens(bool stationary)
+	{
 		if(CanSpawn)
 		{
 			float rnd = UnityEngine.Random.Range (0f, 1f);
@@ -485,6 +492,9 @@ public class SpawnController : MonoBehaviour
 
 				GameObject item = Instantiate (objToSpawn, pos, Quaternion.Euler(0, 0, rot)) as GameObject;
 
+				if(stationary)
+					item.GetComponent<Item>().vel = 0;
+
 				itensInGame.Add(item.transform);
 			}
 		}
@@ -511,6 +521,62 @@ public class SpawnController : MonoBehaviour
 	private void GameOver()
 	{
 		StopSpawn ();
+	}
+
+	public void SpawnOrbs(int quantity, Vector3 position)
+	{
+		SpawnOrbs(quantity, position, 0, true);
+	}
+
+	public void SpawnOrbs(int quantity, Vector3 position, float spread)
+	{
+		SpawnOrbs(quantity, position, spread, true);
+	}
+
+	public void SpawnOrbs(int quantity, Vector3 position, float spread, bool stationary)
+	{
+		Debug.Log("Spawn Orbs");
+		//preview verification anti inifinity-loop
+		int minValue = 0;
+		foreach(GameObject orb in orbs)
+		{
+			if(minValue == 0 || orb.GetComponent<PlasmaOrbItem>().orbs < minValue)
+				minValue = orb.GetComponent<PlasmaOrbItem>().orbs;
+		}
+		
+		//orbs can't sum up the quantity, correct it
+		if(quantity % minValue != 0)
+			quantity += minValue - (quantity % minValue);
+		
+		int quantitySpawned = 0;
+		
+		while(quantitySpawned < quantity)
+		{
+			GameObject orbToSpawn;
+			int quantityToSpawn;
+			
+			do
+			{
+				orbToSpawn = orbs[UnityEngine.Random.Range(0, orbs.Count)];
+				
+				quantityToSpawn = orbToSpawn.GetComponent<PlasmaOrbItem>().orbs;
+			}
+			while(quantitySpawned + quantityToSpawn > quantity);
+
+			float spawnAngle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
+			Vector3 spawnPosition = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle)) * spread;
+
+			GameObject orb = Instantiate(orbToSpawn, spawnPosition, Quaternion.identity) as GameObject;
+
+			if(stationary)
+				orb.GetComponent<Item>().vel = 0;
+
+			itensInGame.Add(orb.transform);
+
+			quantitySpawned += quantityToSpawn;
+
+			Debug.Log("Orb spawned with value: " + quantityToSpawn + ". Sum: " + quantitySpawned);
+		}
 	}
 
 	private void Reset()
