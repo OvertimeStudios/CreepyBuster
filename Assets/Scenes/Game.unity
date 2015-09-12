@@ -436,7 +436,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3021
+  startingRenderQueue: 3022
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -6302,7 +6302,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3023
+  startingRenderQueue: 3024
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -6445,7 +6445,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3022
+  startingRenderQueue: 3023
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -7052,8 +7052,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTest: 1
   testDeviceIDs:
-  - 1C967D74607B37126D35A7024094E5D9
+  - D5EFBE400E1C5D44AF2F514D6CC9852D
   - B00086302D5BC98D1B2FFCDB9DA7B131
+  - C553B581A24EACA9DFDA6AEE7895C83B
+  - 2C7A4AB5CDCFF524208DA2B1522AC8E5
+  - FBE8A4F7B976640E6C48B8D1A75CFA5E
   preloadBanner: 1
 --- !u!1 &590002186
 GameObject:
@@ -17945,7 +17948,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3022
+  startingRenderQueue: 3023
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -19511,7 +19514,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3022
+  startingRenderQueue: 3023
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -21613,7 +21616,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3019
+  startingRenderQueue: 3020
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
