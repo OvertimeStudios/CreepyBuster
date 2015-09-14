@@ -421,6 +421,9 @@ public class GameController : MonoBehaviour
 		Reset ();
 		gameObject.SetActive (true);
 
+		//if(Global.IsTutorialEnabled)
+			//TutorialController.Instance.gameObject.SetActive(true);
+
 		if (FingerDetector.IsFingerDown)
 		{
 			Debug.Log("Active Player");
@@ -448,7 +451,7 @@ public class GameController : MonoBehaviour
 		if (OnGameStart != null)
 			OnGameStart ();
 
-		if (Global.RunTutorial)
+		if (Global.IsTutorialEnabled)
 			TutorialController.Instance.gameObject.SetActive (true);
 	}
 
@@ -504,7 +507,7 @@ public class GameController : MonoBehaviour
 				OnGameEnding();
 		}*/
 
-		if(Popup.IsActive || !isGameRunning)return;
+		if(!isGameRunning) return;
 
 		if(!isPaused)
 			PauseGame();
@@ -512,7 +515,8 @@ public class GameController : MonoBehaviour
 
 	private void OnDoubleTap(TapGesture gesture)
 	{
-		Popup.ShowYesNo("Are you sure you wanna quit the game?", QuitGame, null, true);
+		if(isPaused)
+			Popup.ShowYesNo("Are you sure you wanna quit the game?", QuitGame, null, true);
 	}
 
 	private void QuitGame()
@@ -524,34 +528,27 @@ public class GameController : MonoBehaviour
 
 	private void PauseGame()
 	{
-		if(isGameRunning)
-		{
-			isPaused = true;
-			//Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
-			lastTimeScale = Time.timeScale;
-			Time.timeScale = 0f;
+		Debug.Log("Game Paused");
 
-			if(OnPause != null)
-				OnPause();
+		isPaused = true;
+		//Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
+		lastTimeScale = Time.timeScale;
+		Time.timeScale = 0f;
 
-			Debug.Log("Game Paused");
-		}
+		if(OnPause != null)
+			OnPause();
 	}
 
 	private void ResumeGame()
 	{
-		if(isGameRunning)
-		{
-			isPaused = false;
-			player.SetActive (true);
-			//Popup.Hide();
-			Time.timeScale = lastTimeScale;
+		Debug.Log("Game Resumed");
+		isPaused = false;
+		player.SetActive (true);
+		//Popup.Hide();
+		Time.timeScale = lastTimeScale;
 
-			if(OnResume != null)
-				OnResume();
-
-			Debug.Log("Game Resumed");
-		}
+		if(OnResume != null)
+			OnResume();
 	}
 
 	private void BossIsReady()

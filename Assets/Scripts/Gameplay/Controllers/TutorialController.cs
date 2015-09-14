@@ -71,13 +71,12 @@ public class TutorialController : MonoBehaviour
 		tutorial.gameObject.SetActive (true);
 		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
 
+		Debug.Log("GameController.isGameRunning? " + GameController.isGameRunning);
 		if(GameController.isGameRunning)
 		{
+			Debug.Log("IsTutorialEnabled? " + Global.IsTutorialEnabled);
 			if(!Global.IsTutorialEnabled)
-			{
-				Global.RunTutorial = false;
 				gameObject.SetActive (false);
-			}
 			else
 				StartCoroutine (Run ());
 		}
@@ -110,7 +109,7 @@ public class TutorialController : MonoBehaviour
 	private void OnFingerDown(FingerDownEvent e)
 	{
 		//Popup.Hide ();
-		Time.timeScale = 1f;
+		//Time.timeScale = 1f;
 	}
 
 	private void OnFingerUp(FingerUpEvent e)
@@ -118,7 +117,7 @@ public class TutorialController : MonoBehaviour
 		if(!canTakeOffFinger)
 		{
 			//Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
-			Time.timeScale = 0f;
+			//Time.timeScale = 0f;
 		}
 	}
 
@@ -206,7 +205,6 @@ public class TutorialController : MonoBehaviour
 
 		Global.IsTutorialEnabled = false;
 		Global.IsFirstTimeTutorial = false;
-		Global.RunTutorial = false;
 		Hide ();
 	}
 

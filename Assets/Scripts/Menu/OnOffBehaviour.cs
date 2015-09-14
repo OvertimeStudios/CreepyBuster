@@ -24,25 +24,27 @@ public class OnOffBehaviour : MonoBehaviour
 	private State state;
 
 	// Use this for initialization
-	void Start () 
+	void Awake () 
 	{
 		onButton = transform.FindChild ("On");
 		offButton = transform.FindChild ("Off");
 		selection = transform.FindChild ("Selection").GetComponent<TweenPosition>();
+	}
 
+	void OnEnable()
+	{
 		if (type == Type.Music)
 			state = (State)Global.IsMusicOn.GetHashCode();
-
+		
 		else if (type == Type.SoundFX)
 			state = (State)Global.IsSoundOn.GetHashCode();
-
+		
 		else if(type == Type.Tutorial)
 			state = (State)Global.IsTutorialEnabled.GetHashCode();
-
+		
 		//turn selection to 'off' or 
 		if (state == State.OFF)
-				selection.transform.localPosition = offButton.localPosition;
-
+			selection.transform.localPosition = offButton.localPosition;
 	}
 
 	public void SelectOn()
