@@ -246,6 +246,9 @@ public class MenuController : MonoBehaviour
 
 			SoundController.Instance.PlayMusic(SoundController.Musics.MainMenuTheme);
 
+			Debug.Log("OnPanelClosed");
+			Time.timeScale = 1;
+
 			if(OnPanelClosed != null)
 				OnPanelClosed();
 		}

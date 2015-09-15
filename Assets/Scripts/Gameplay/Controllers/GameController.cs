@@ -315,7 +315,16 @@ public class GameController : MonoBehaviour
 		gameOver = true;
 		player.SetActive (false);
 
-		yield return new WaitForSeconds (waitTime);
+		//fade out TimeScale
+		lastTimeScale = Time.timeScale;
+		float fadeEndTime = Time.realtimeSinceStartup + waitTime;
+		while(Time.realtimeSinceStartup < fadeEndTime)
+		{
+			Time.timeScale = ((fadeEndTime - Time.realtimeSinceStartup) / waitTime) * lastTimeScale;
+			yield return null;
+		}
+
+		Time.timeScale = 0;
 
 		ShowEndScreen ();
 	}
@@ -329,7 +338,16 @@ public class GameController : MonoBehaviour
 		gameOver = true;
 		player.SetActive (false);
 
-		yield return new WaitForSeconds (waitTime);
+		//fade out TimeScale
+		lastTimeScale = Time.timeScale;
+		float fadeEndTime = Time.realtimeSinceStartup + waitTime;
+		while(Time.realtimeSinceStartup < fadeEndTime)
+		{
+			Time.timeScale = ((fadeEndTime - Time.realtimeSinceStartup) / waitTime) * lastTimeScale;
+			yield return null;
+		}
+		
+		Time.timeScale = 0;
 
 		if (continues == 0 && Advertisement.IsReady () && Advertisement.isInitialized && Advertisement.isSupported)
 			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), null, ShowEndScreen, false);
@@ -385,9 +403,19 @@ public class GameController : MonoBehaviour
 
 		Debug.Log ("ContinuePlaying");
 
-		Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
+		isGameRunning = true;
+		gameOver = false;
 
-		StartCoroutine (WaitForFingerDown ());
+		Popup.Hide ();
+		
+		if(OnContinuePlaying != null)
+			OnContinuePlaying();
+
+		PauseGame(false);
+
+		//Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
+
+		//StartCoroutine (WaitForFingerDown ());
 	}
 
 	private IEnumerator WaitForFingerDown()
@@ -402,7 +430,7 @@ public class GameController : MonoBehaviour
 
 		Debug.Log ("Continue");
 
-		KillAllEnemies(false);
+		//KillAllEnemies(false);
 
 		isGameRunning = true;
 		gameOver = false;
@@ -412,6 +440,16 @@ public class GameController : MonoBehaviour
 
 		if(OnContinuePlaying != null)
 			OnContinuePlaying();
+
+		//fade in TimeScale
+		float fadeEndTime = Time.realtimeSinceStartup + timeToShowGameOverScreen;
+		while(Time.realtimeSinceStartup < fadeEndTime)
+		{
+			Time.timeScale = (timeToShowGameOverScreen - (fadeEndTime - Time.realtimeSinceStartup)) / timeToShowGameOverScreen;
+			yield return null;
+		}
+		
+		Time.timeScale = 1;
 	}
 
 	public void StartGame()
@@ -431,7 +469,7 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
-			Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
+			//Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
 		}
 
 		StartCoroutine (WaitForPlayer ());
@@ -442,8 +480,13 @@ public class GameController : MonoBehaviour
 		Debug.Log ("WaitForPlayer");
 		isGameRunning = true;
 
+		player.transform.position = Vector3.zero;
+		PauseGame();
+
 		while (!player.activeSelf)
 			yield return null;
+
+		ResumeGame();
 
 		Debug.Log ("Player found");
 		Popup.Hide ();
@@ -528,11 +571,18 @@ public class GameController : MonoBehaviour
 
 	private void PauseGame()
 	{
+		PauseGame(true);
+	}
+
+	private void PauseGame(bool getNewTimeScale)
+	{
 		Debug.Log("Game Paused");
 
 		isPaused = true;
 		//Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
-		lastTimeScale = Time.timeScale;
+
+		if(getNewTimeScale)
+			lastTimeScale = Time.timeScale;
 		Time.timeScale = 0f;
 
 		if(OnPause != null)
@@ -659,7 +709,7 @@ public class GameController : MonoBehaviour
 		invencible = false;
 	}
 
-	private void KillAllEnemies(bool countPoints)
+	public void KillAllEnemies(bool countPoints)
 	{
 		for(int i = SpawnController.enemiesInGame.Count - 1; i >= 0; i--)
 		{

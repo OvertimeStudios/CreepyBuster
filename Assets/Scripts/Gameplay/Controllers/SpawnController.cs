@@ -582,11 +582,14 @@ public class SpawnController : MonoBehaviour
 	private void Reset()
 	{
 		Debug.Log ("Clear all enemies");
-		foreach (Transform t in enemiesInGame)
+		//Destroy all enemies by Destroy method
+		/*foreach (Transform t in enemiesInGame)
 		{
 			if(t != null)
 				Destroy (t.gameObject);
-		}
+		}*/
+
+		GameController.Instance.KillAllEnemies(false);
 
 		foreach (Transform t in itensInGame)
 		{

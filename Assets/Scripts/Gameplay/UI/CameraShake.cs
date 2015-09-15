@@ -26,8 +26,10 @@ public class CameraShake : MonoBehaviour
 		float elapsed = 0.0f;
 		
 		Vector3 originalPos = transform.localPosition;
-		
-		while (elapsed < duration) 
+
+		float endShakeTime = Time.realtimeSinceStartup + duration;
+
+		while (Time.realtimeSinceStartup < endShakeTime) 
 		{
 			elapsed += Time.deltaTime;          
 			
