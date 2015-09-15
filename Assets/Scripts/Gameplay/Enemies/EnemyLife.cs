@@ -184,8 +184,6 @@ public class EnemyLife : MonoBehaviour
 		countAsKill = countPoints;
 		
 		StartCoroutine (FadeAway (deathTime));
-		
-		SpawnItem ();
 
 		if (OnDied != null)
 			OnDied (gameObject);
@@ -233,7 +231,11 @@ public class EnemyLife : MonoBehaviour
 
 		spriteRenderer.material.SetFloat("_FlashAmount", 1);
 
-		DropOrbs();
+		if(GameController.isGameRunning)
+		{
+			SpawnItem ();
+			DropOrbs();
+		}
 
 		if(destroyUponDeath)
 		{
@@ -275,11 +277,7 @@ public class EnemyLife : MonoBehaviour
 				}
 			}
 
-			float angle = UnityEngine.Random.Range(0f, 360f);
-
-			GameObject item = Instantiate (objToSpawn, transform.position, Quaternion.Euler(0f, 0f, angle)) as GameObject;
-
-			SpawnController.itensInGame.Add(item.transform);
+			SpawnController.Instance.SpawnItem(transform.position, objToSpawn);
 		}
 	}
 }

@@ -579,6 +579,15 @@ public class SpawnController : MonoBehaviour
 		}
 	}
 
+	public void SpawnItem(Vector3 position, GameObject itemToSpawn)
+	{
+		GameObject item = Instantiate(itemToSpawn, position, Quaternion.identity) as GameObject;
+
+		item.GetComponent<Item>().vel = 0;
+
+		itensInGame.Add(item.transform);
+	}
+
 	private void Reset()
 	{
 		Debug.Log ("Clear all enemies");
