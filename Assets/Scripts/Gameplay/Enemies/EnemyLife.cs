@@ -189,7 +189,7 @@ public class EnemyLife : MonoBehaviour
 			OnDied (gameObject);
 	}
 
-	private IEnumerator FadeAway (float deathTime)
+	protected virtual IEnumerator FadeAway (float deathTime)
 	{
 		Animator animator = spriteRenderer.GetComponent<Animator> ();
 		float maxAnimatorSpeed = animator.speed;
@@ -230,6 +230,8 @@ public class EnemyLife : MonoBehaviour
 		}*/
 
 		spriteRenderer.material.SetFloat("_FlashAmount", 1);
+
+		//Time.timeScale = 1f;
 
 		if(GameController.isGameRunning)
 		{

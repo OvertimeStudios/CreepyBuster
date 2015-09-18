@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyLifeIllusion : BossLife 
+public class EnemyLifeIllusionCopy : EnemyLife 
 {
 	public override bool IsDamagable 
 	{
@@ -10,5 +10,5 @@ public class EnemyLifeIllusion : BossLife
 			return base.IsDamagable && IllusionBoss.IsAttacking;
 		}
 	}
-
+	
 }
