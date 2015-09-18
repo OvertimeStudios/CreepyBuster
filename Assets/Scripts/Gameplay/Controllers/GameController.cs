@@ -276,8 +276,8 @@ public class GameController : MonoBehaviour
 
 	private void LoseStacks()
 	{
-		StreakCount = 0;
-		LevelDesign.PlayerLevel = 0;
+		StreakCount = LevelDesign.LastLevelPlayerStreak;
+		LevelDesign.PlayerLevel = Mathf.Max(LevelDesign.PlayerLevel - 1, 0);
 		realStreakCount = 0;
 		specialStreak = 0;
 

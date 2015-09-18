@@ -106,6 +106,17 @@ public class LevelDesign : MonoBehaviour
 		}
 	}
 
+	public static int LastLevelPlayerStreak
+	{
+		get 
+		{
+			if(LevelDesign.PlayerLevel == 0)
+				return 0;
+
+			return Instance.playerLevelUpCondition[LevelDesign.PlayerLevel - 1].killStreak ;
+		}
+	}
+
 	public static int MaxPlayerLevel
 	{
 		get { return (Global.Ray5Purchased) ? Instance.playerLevelUpCondition.Length - 1 : (Global.Ray4Purchased) ? 3 : (Global.Ray3Purchased) ? 2 : 1; }
