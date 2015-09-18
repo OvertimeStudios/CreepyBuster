@@ -45,6 +45,8 @@ public class OnOffBehaviour : MonoBehaviour
 		//turn selection to 'off' or 
 		if (state == State.OFF)
 			selection.transform.localPosition = offButton.localPosition;
+
+		ToggleOnOff ();
 	}
 
 	public void SelectOn()
@@ -82,7 +84,14 @@ public class OnOffBehaviour : MonoBehaviour
 	private void ToggleOnOff ()
 	{
 		if (type == Type.Music)
+		{
 			Global.IsMusicOn = (state == State.ON);
+
+			if(state == State.ON)
+				SoundController.Instance.UnmuteMusic();
+			else
+				SoundController.Instance.MuteMusic();
+		}
 
 		if (type == Type.SoundFX)
 			Global.IsSoundOn = (state == State.ON);
