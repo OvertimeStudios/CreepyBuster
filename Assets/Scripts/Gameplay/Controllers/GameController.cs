@@ -55,6 +55,7 @@ public class GameController : MonoBehaviour
 	public float timeToShowGameOverScreen;
 	public int orbsToContinue;
 	public int pointsPerOrb = 10;
+	public float timeInvencibleAfterContinue = 2f;
 
 	/// <summary>
 	/// Total score for session
@@ -411,6 +412,8 @@ public class GameController : MonoBehaviour
 		if(OnContinuePlaying != null)
 			OnContinuePlaying();
 
+		UseInvencibility(timeInvencibleAfterContinue);
+
 		PauseGame(false);
 
 		//Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
@@ -648,12 +651,7 @@ public class GameController : MonoBehaviour
 			break;
 
 			case Item.Type.Invecibility:
-				invencible = true;
-				
-				ScreenFeedback.ShowInvencibility(Invencible.Time);
-
-				StopCoroutine("FadeInvencible");
-				StartCoroutine("FadeInvencible");
+				UseInvencibility(Invencible.Time);
 			break;
 
 			case Item.Type.DeathRay:
@@ -674,6 +672,16 @@ public class GameController : MonoBehaviour
 		}
 
 		Debug.Log("Collected " + itemType.ToString());
+	}
+
+	private void UseInvencibility(float invencibleTime)
+	{
+		invencible = true;
+		
+		ScreenFeedback.ShowInvencibility(invencibleTime);
+		
+		StopCoroutine("FadeInvencible");
+		StartCoroutine("FadeInvencible");
 	}
 
 	private IEnumerator FadeSlowDown()
