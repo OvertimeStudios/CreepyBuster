@@ -119,7 +119,7 @@ public class LevelDesign : MonoBehaviour
 
 	public static int MaxPlayerLevel
 	{
-		get { return (Global.Ray5Purchased) ? Instance.playerLevelUpCondition.Length - 1 : (Global.Ray4Purchased) ? 3 : (Global.Ray3Purchased) ? 2 : 1; }
+		get { return Global.RayLevel + 2; }
 	}
 
 	public static bool IsPlayerMaxLevel
@@ -373,13 +373,7 @@ public class LevelDesign : MonoBehaviour
 		{
 			int up = 0;
 
-			if(Global.SuperDamagePurchased)
-				up++;
-
-			if(Global.MegaDamagePurchased)
-				up++;
-
-			if(Global.UltraDamagePurchased)
+			for(byte i = 0; i < Global.DamageLevel; i++)
 				up++;
 
 			return Instance.damageUpgrade[up].value;
@@ -391,14 +385,8 @@ public class LevelDesign : MonoBehaviour
 		get
 		{
 			int up = 0;
-			
-			if(Global.SuperRangePurchased)
-				up++;
-			
-			if(Global.MegaRangePurchased)
-				up++;
-			
-			if(Global.MasterRangePurchased)
+
+			for(byte i = 0; i < Global.RangeLevel; i++)
 				up++;
 			
 			return Instance.rangeUpgrade[up].value;
@@ -457,7 +445,7 @@ public class LevelDesign : MonoBehaviour
 
 	public static bool IsPlayerFullyUpgraded
 	{
-		get { return Global.Ray5Purchased; }
+		get { return Global.RayLevel + 2 == Instance.playerLevelUpCondition.Length; }
 	}
 
 	public static int PlayerLevel

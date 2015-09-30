@@ -16,15 +16,9 @@ public class Global : MonoBehaviour
 	public const string REWARDED_VIDEO_COOLDOWN = "rewardedVideoCooldown";
 	private const string TOTAL_ORBS = "totalOrbs";
 	private const string HIGH_SCORE = "highScore";
-	private const string RAY3 = "ray3";
-	private const string RAY4 = "ray4";
-	private const string RAY5 = "ray5";
-	private const string RANGE_SUPER = "superRange";
-	private const string RANGE_MEGA = "megaRange";
-	private const string RANGE_MASTER = "masterRange";
-	private const string DAMAGE_SUPER = "superDamage";
-	private const string DAMAGE_MEGA = "megaDamage";
-	private const string DAMAGE_ULTRA = "masterDamage";
+	private const string RAY_LEVEL = "rayLevel";
+	private const string DAMAGE_LEVEL = "damageLevel";
+	private const string RANGE_LEVEL = "rangeLevel";
 	private const string MUSIC_ON = "musicOn";
 	private const string SOUNDFX_ON = "soundFX";
 	private const string LANGUAGE = "language";
@@ -39,16 +33,9 @@ public class Global : MonoBehaviour
 	private static int highScore;
 	private static int sessionsScore;
 	private static int totalOrbs;
-	private static int ray3;
-	private static int ray4;
-	private static int ray5;
-	private static int superRange;
-	private static int megaRange;
-	private static int masterRange;
-	private static int superDamage;
-	private static int megaDamage;
-	private static int ultraDamage;
-
+	private static int rayLevel;
+	private static int damageLevel;
+	private static int rangeLevel;
 	private static int musicOn;
 	private static int soundOn;
 	private static int vibrate;
@@ -142,164 +129,56 @@ public class Global : MonoBehaviour
 		}
 	}
 
-	public static bool Ray3Purchased
+	public static int RayLevel
 	{
 		get 
 		{
 			if(!isLoaded)
 				Load ();
 
-			return ray3 == 1;
+			return rayLevel;
 		}
 		set
 		{
-			ray3 = (value == true) ? 1 : 0;
+			rayLevel = value;
 
-			PlayerPrefs.SetInt (RAY3, ray3);
+			PlayerPrefs.SetInt (RAY_LEVEL, rayLevel);
 			PlayerPrefs.Save ();
 		}
 	}
 
-	public static bool Ray4Purchased
+	public static int RangeLevel
 	{
 		get 
 		{
 			if(!isLoaded)
 				Load ();
 			
-			return ray4 == 1;
+			return rangeLevel;
 		}
 		set
 		{
-			ray4 = (value == true) ? 1 : 0;
+			rangeLevel = value;
 			
-			PlayerPrefs.SetInt (RAY4, ray4);
+			PlayerPrefs.SetInt (RANGE_LEVEL, rangeLevel);
 			PlayerPrefs.Save ();
 		}
 	}
 
-	public static bool Ray5Purchased
+	public static int DamageLevel
 	{
 		get 
 		{
 			if(!isLoaded)
 				Load ();
 			
-			return ray5 == 1;
+			return damageLevel;
 		}
 		set
 		{
-			ray5 = (value == true) ? 1 : 0;
+			damageLevel = value;
 			
-			PlayerPrefs.SetInt (RAY5, ray5);
-			PlayerPrefs.Save ();
-		}
-	}
-
-	public static bool SuperRangePurchased
-	{
-		get 
-		{
-			if(!isLoaded)
-				Load ();
-			
-			return superRange == 1;
-		}
-		set
-		{
-			superRange = (value == true) ? 1 : 0;
-			
-			PlayerPrefs.SetInt (RANGE_SUPER, superRange);
-			PlayerPrefs.Save ();
-		}
-	}
-
-	public static bool MegaRangePurchased
-	{
-		get 
-		{
-			if(!isLoaded)
-				Load ();
-			
-			return megaRange == 1;
-		}
-		set
-		{
-			megaRange = (value == true) ? 1 : 0;
-			
-			PlayerPrefs.SetInt (RANGE_MEGA, megaRange);
-			PlayerPrefs.Save ();
-		}
-	}
-
-	public static bool MasterRangePurchased
-	{
-		get 
-		{
-			if(!isLoaded)
-				Load ();
-			
-			return masterRange == 1;
-		}
-		set
-		{
-			masterRange = (value == true) ? 1 : 0;
-			
-			PlayerPrefs.SetInt (RANGE_MASTER, masterRange);
-			PlayerPrefs.Save ();
-		}
-	}
-
-	public static bool SuperDamagePurchased
-	{
-		get 
-		{
-			if(!isLoaded)
-				Load ();
-			
-			return superDamage == 1;
-		}
-		set
-		{
-			superDamage = (value == true) ? 1 : 0;
-			
-			PlayerPrefs.SetInt (DAMAGE_SUPER, superDamage);
-			PlayerPrefs.Save ();
-		}
-	}
-
-	public static bool MegaDamagePurchased
-	{
-		get 
-		{
-			if(!isLoaded)
-				Load ();
-			
-			return megaDamage == 1;
-		}
-		set
-		{
-			megaDamage = (value == true) ? 1 : 0;
-			
-			PlayerPrefs.SetInt (DAMAGE_MEGA, megaDamage);
-			PlayerPrefs.Save ();
-		}
-	}
-
-	public static bool UltraDamagePurchased
-	{
-		get 
-		{
-			if(!isLoaded)
-				Load ();
-			
-			return ultraDamage == 1;
-		}
-		set
-		{
-			ultraDamage = (value == true) ? 1 : 0;
-			
-			PlayerPrefs.SetInt (DAMAGE_ULTRA, ultraDamage);
+			PlayerPrefs.SetInt (DAMAGE_LEVEL, damageLevel);
 			PlayerPrefs.Save ();
 		}
 	}
@@ -437,15 +316,9 @@ public class Global : MonoBehaviour
 		{
 			highScore = PlayerPrefs.GetInt(HIGH_SCORE);
 			totalOrbs = PlayerPrefs.GetInt(TOTAL_ORBS);
-			ray3 = PlayerPrefs.GetInt(RAY3);
-			ray4 = PlayerPrefs.GetInt(RAY4);
-			ray5 = PlayerPrefs.GetInt(RAY5);
-			superRange = PlayerPrefs.GetInt(RANGE_SUPER);
-			megaRange = PlayerPrefs.GetInt(RANGE_MEGA);
-			masterRange = PlayerPrefs.GetInt(RANGE_MASTER);
-			superDamage = PlayerPrefs.GetInt(DAMAGE_SUPER);
-			megaDamage = PlayerPrefs.GetInt(DAMAGE_MEGA);
-			ultraDamage = PlayerPrefs.GetInt(DAMAGE_ULTRA);
+			rayLevel = PlayerPrefs.GetInt(RAY_LEVEL);
+			rangeLevel = PlayerPrefs.GetInt(RANGE_LEVEL);
+			damageLevel = PlayerPrefs.GetInt(DAMAGE_LEVEL);
 			musicOn = PlayerPrefs.GetInt(MUSIC_ON);
 			soundOn = PlayerPrefs.GetInt(SOUNDFX_ON);
 			vibrate = PlayerPrefs.GetInt(VIBRATE);
@@ -461,15 +334,9 @@ public class Global : MonoBehaviour
 			//initialize
 			highScore = 0;
 			totalOrbs = 0;
-			ray3 = 0;
-			ray4 = 0;
-			ray5 = 0;
-			superRange = 0;
-			megaRange = 0;
-			masterRange = 0;
-			superDamage = 0;
-			megaDamage = 0;
-			ultraDamage = 0;
+			rayLevel = 0;
+			rangeLevel = 0;
+			damageLevel = 0;
 			musicOn = 1;
 			soundOn = 1;
 			vibrate = 1;
@@ -489,15 +356,9 @@ public class Global : MonoBehaviour
 
 	public static void ClearPurchasedOnly()
 	{
-		ray3 = 0;
-		ray4 = 0;
-		ray5 = 0;
-		superRange = 0;
-		megaRange = 0;
-		masterRange = 0;
-		superDamage = 0;
-		megaDamage = 0;
-		ultraDamage = 0;
+		damageLevel = 0;
+		rangeLevel = 0;
+		rayLevel = 0;
 
 		SaveAll ();
 
@@ -509,15 +370,9 @@ public class Global : MonoBehaviour
 	{
 		PlayerPrefs.SetInt (HIGH_SCORE, highScore);
 		PlayerPrefs.SetInt (TOTAL_ORBS, totalOrbs);
-		PlayerPrefs.SetInt (RAY3, ray3);
-		PlayerPrefs.SetInt (RAY4, ray4);
-		PlayerPrefs.SetInt (RAY5, ray5);
-		PlayerPrefs.SetInt (RANGE_SUPER, superRange);
-		PlayerPrefs.SetInt (RANGE_MEGA, megaRange);
-		PlayerPrefs.SetInt (RANGE_MASTER, masterRange);
-		PlayerPrefs.SetInt (DAMAGE_SUPER, superDamage);
-		PlayerPrefs.SetInt (DAMAGE_MEGA, megaDamage);
-		PlayerPrefs.SetInt (DAMAGE_ULTRA, ultraDamage);
+		PlayerPrefs.SetInt (RAY_LEVEL, rayLevel);
+		PlayerPrefs.SetInt (RANGE_LEVEL, rangeLevel);
+		PlayerPrefs.SetInt (DAMAGE_LEVEL, damageLevel);
 		PlayerPrefs.SetInt (MUSIC_ON, musicOn);
 		PlayerPrefs.SetInt (SOUNDFX_ON, soundOn);
 		PlayerPrefs.SetString (LANGUAGE, language);

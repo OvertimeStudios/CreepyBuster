@@ -80,7 +80,7 @@ public class SpawnController : MonoBehaviour
 		enemiesInGame = new List<Transform> ();
 		itensInGame = new List<Transform> ();
 
-		SpawnBackground ();
+		//SpawnBackground ();
 	}
 
 	public void StartSpawn()

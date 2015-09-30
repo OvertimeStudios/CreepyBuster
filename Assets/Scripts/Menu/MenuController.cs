@@ -16,6 +16,7 @@ public class MenuController : MonoBehaviour
 		Achievements,
 		Creepypedia,
 		GameStats,
+		HowToPlay,
 	}
 	
 	private static Menus activeMenu;
@@ -70,6 +71,7 @@ public class MenuController : MonoBehaviour
 	public Transform achievementsScreen;
 	public Transform creepypediaScreen;
 	public Transform gameStatsScreen;
+	public Transform howToPlayScreen;
 	
 	#region singleton
 	private static MenuController instance;
@@ -316,7 +318,7 @@ public class MenuController : MonoBehaviour
 
 		activeMenu = Menus.Settings;
 		
-		MoveScreen ();
+		MoveScreen (true);
 	}
 
 	public void MoveToCredits()
@@ -327,22 +329,18 @@ public class MenuController : MonoBehaviour
 
 		activeMenu = Menus.Settings;
 
-		MoveScreen ();
+		MoveScreen (true);
 	}
 
-	public void MoveScreen()
+	public void MoveToHowToPlay()
 	{
-		ActiveScreen.SetActive (true);
-
-		Vector3 from = menuTween.transform.localPosition;
-		Vector3 to = -ActiveScreen.transform.localPosition;
+		if(menuTween.isActiveAndEnabled) return;
 		
-		menuTween.ResetToBeginning ();
+		ActiveScreen = howToPlayScreen.gameObject;
 		
-		menuTween.from = from;
-		menuTween.to = to;
+		activeMenu = Menus.HowToPlay;
 		
-		menuTween.PlayForward ();
+		MoveScreen (true);
 	}
 
 	public void MoveToHUBConnection()
@@ -364,7 +362,7 @@ public class MenuController : MonoBehaviour
 		
 		activeMenu = Menus.Achievements;
 		
-		MoveScreen ();
+		MoveScreen (true);
 	}
 
 	public void MoveToCreepypedia()
@@ -375,7 +373,7 @@ public class MenuController : MonoBehaviour
 		
 		activeMenu = Menus.Creepypedia;
 		
-		MoveScreen ();
+		MoveScreen (true);
 	}
 
 	public void MoveToGameStats()
@@ -386,7 +384,51 @@ public class MenuController : MonoBehaviour
 		
 		activeMenu = Menus.GameStats;
 		
-		MoveScreen ();
+		MoveScreen (true);
+	}
+
+	public void MoveInstantToMainMenu()
+	{
+		ActiveScreen = mainScreen.gameObject;
+		
+		activeMenu = Menus.Main;
+		
+		MoveScreen (true);
+	}
+
+	public void CloseScreen()
+	{
+		ActiveScreen = lastScreen;
+
+		MoveScreen(true);
+	}
+
+	public void MoveScreen()
+	{
+		MoveScreen(false);
+	}
+
+	public void MoveScreen(bool instant)
+	{
+		ActiveScreen.SetActive (true);
+		
+		Vector3 from = menuTween.transform.localPosition;
+		Vector3 to = -ActiveScreen.transform.localPosition;
+
+		if(instant)
+		{
+			menuTween.transform.localPosition = to;
+			OnMenuTransitionFinished();
+		}
+		else
+		{
+			menuTween.ResetToBeginning ();
+			
+			menuTween.from = from;
+			menuTween.to = to;
+			
+			menuTween.PlayForward ();
+		}
 	}
 
 	public void OnMenuTransitionFinished()
