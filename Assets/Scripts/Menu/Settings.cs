@@ -4,12 +4,12 @@ using System.Collections;
 public class Settings : MonoBehaviour 
 {
 	private GameObject logout;
-	private UILabel greeting;
+	//private UILabel greeting;
 
 	void Awake()
 	{
 		//logout = transform.FindChild ("Logout").gameObject;
-		greeting = transform.FindChild ("FB - Login").GetComponent<UILabel>();
+		//greeting = transform.FindChild ("FB - Login").GetComponent<UILabel>();
 	}
 
 	void OnEnable()

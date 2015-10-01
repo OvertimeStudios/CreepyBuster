@@ -388,20 +388,4 @@ public class Global : MonoBehaviour
 		PlayerPrefs.DeleteAll ();
 		PlayerPrefs.Save ();
 	}
-
-	public static void LogIn()
-	{
-		loggedIn = true;
-
-		if(OnLoggedIn != null)
-			OnLoggedIn();
-	}
-
-	public static void LogOut()
-	{
-		loggedIn = false;
-
-		if(OnLoggedOut != null)
-			OnLoggedOut();
-	}
 }
