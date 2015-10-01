@@ -154,8 +154,8 @@ public class DBHandler : MonoBehaviour
 			
 			if(success)
 			{
-				return GetUser(facebookID);
 				Debug.Log("Created User Successfully");
+				return GetUser(facebookID);
 			}
 		}
 		catch(Exception e)
