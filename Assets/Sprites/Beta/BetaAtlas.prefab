@@ -43,9 +43,48 @@ MonoBehaviour:
   mSprites:
   - name: black
     x: 702
-    y: 1382
+    y: 1387
     width: 16
     height: 16
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: BOTAO_RANGE
+    x: 480
+    y: 1130
+    width: 497
+    height: 223
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 4
+    paddingRight: 8
+    paddingTop: 0
+    paddingBottom: 10
+  - name: BOTAO-DOUBLE
+    x: 352
+    y: 254
+    width: 234
+    height: 239
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 4
+    paddingRight: 0
+    paddingTop: 5
+    paddingBottom: 0
+  - name: BOTAO-FORCE
+    x: 702
+    y: 1404
+    width: 250
+    height: 233
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -94,8 +133,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-rect-green
-    x: 773
-    y: 495
+    x: 587
+    y: 137
     width: 274
     height: 149
     borderLeft: 0
@@ -159,8 +198,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon_arrow
-    x: 480
-    y: 1093
+    x: 587
+    y: 26
     width: 151
     height: 110
     borderLeft: 0
@@ -173,7 +212,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-achievements
     x: 352
-    y: 399
+    y: 8
     width: 209
     height: 245
     borderLeft: 0
@@ -185,8 +224,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-atom
-    x: 632
-    y: 1101
+    x: 862
+    y: 29
     width: 130
     height: 102
     borderLeft: 0
@@ -198,8 +237,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-brush
-    x: 763
-    y: 1069
+    x: 953
+    y: 1355
     width: 95
     height: 134
     borderLeft: 0
@@ -211,8 +250,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-creepypedia
-    x: 352
-    y: 645
+    x: 590
+    y: 495
     width: 237
     height: 237
     borderLeft: 0
@@ -224,8 +263,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-disabled
-    x: 562
-    y: 303
+    x: 3173
+    y: 2760
     width: 175
     height: 140
     borderLeft: 0
@@ -237,8 +276,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-dollar
-    x: 240
-    y: 6
+    x: 978
+    y: 1102
     width: 75
     height: 117
     borderLeft: 0
@@ -263,8 +302,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 0
   - name: icon-flag-brazil
-    x: 422
-    y: 3
+    x: 993
+    y: 66
     width: 65
     height: 65
     borderLeft: 0
@@ -276,8 +315,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 1
   - name: icon-flag-EUA
-    x: 562
-    y: 233
+    x: 739
+    y: 67
     width: 69
     height: 69
     borderLeft: 0
@@ -289,8 +328,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-info
-    x: 508
-    y: 155
+    x: 2277
+    y: 2530
     width: 45
     height: 88
     borderLeft: 0
@@ -302,8 +341,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-music
-    x: 352
-    y: 69
+    x: 3017
+    y: 2726
     width: 155
     height: 174
     borderLeft: 0
@@ -315,8 +354,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-orb
-    x: 814
-    y: 676
+    x: 587
+    y: 287
     width: 216
     height: 206
     borderLeft: 0
@@ -328,8 +367,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtime
-    x: 953
-    y: 1094
+    x: 240
+    y: 107
     width: 103
     height: 109
     borderLeft: 0
@@ -341,8 +380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtimehub
-    x: 859
-    y: 1070
+    x: 978
+    y: 1220
     width: 93
     height: 133
     borderLeft: 0
@@ -354,8 +393,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: icon-range
-    x: 562
-    y: 444
+    x: 804
+    y: 293
     width: 210
     height: 200
     borderLeft: 0
@@ -367,8 +406,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-settings
-    x: 940
-    y: 1499
+    x: 938
+    y: 929
     width: 138
     height: 138
     borderLeft: 0
@@ -380,8 +419,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 2
   - name: icon-shopping
-    x: 938
-    y: 920
+    x: 953
+    y: 1490
     width: 126
     height: 147
     borderLeft: 0
@@ -393,8 +432,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-soundFX
-    x: 352
-    y: 244
+    x: 862
+    y: 132
     width: 194
     height: 154
     borderLeft: 0
@@ -406,8 +445,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-vibrate
-    x: 590
-    y: 680
+    x: 828
+    y: 530
     width: 223
     height: 202
     borderLeft: 0
@@ -420,7 +459,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-video
     x: 240
-    y: 124
+    y: 14
     width: 108
     height: 92
     borderLeft: 0
@@ -432,8 +471,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-videoplus
-    x: 940
-    y: 1367
+    x: 932
+    y: 751
     width: 135
     height: 131
     borderLeft: 0
@@ -445,8 +484,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 3
   - name: icon-x
-    x: 352
-    y: 4
+    x: 739
+    y: 2
     width: 69
     height: 64
     borderLeft: 0
@@ -458,8 +497,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 1
   - name: legion
-    x: 702
-    y: 1399
+    x: 352
+    y: 494
     width: 237
     height: 238
     borderLeft: 0
@@ -471,7 +510,7 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 1
   - name: line-separator
-    x: 2277
+    x: 2323
     y: 2615
     width: 681
     height: 3
@@ -523,8 +562,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 14
   - name: rect-black
-    x: 480
-    y: 1204
+    x: 352
+    y: 733
     width: 579
     height: 149
     borderLeft: 55
@@ -562,8 +601,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: slider-thumb
-    x: 1031
-    y: 697
+    x: 1015
+    y: 308
     width: 43
     height: 185
     borderLeft: 0

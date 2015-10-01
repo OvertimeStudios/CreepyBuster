@@ -122,7 +122,7 @@ public class HUDController : MonoBehaviour
 
 	void UpdateLevelNumber()
 	{
-		level.text = "Level " + ((LevelDesign.PlayerLevel < LevelDesign.MaxPlayerLevel) ? (LevelDesign.PlayerLevel + 1).ToString() : "MAX");
+		level.text = Localization.Get("SPECIAL") + " " + ((LevelDesign.PlayerLevel < LevelDesign.MaxPlayerLevel) ? (LevelDesign.PlayerLevel + 1).ToString() : "MAX");
 	}
 
 	public void ShowEndScreen()

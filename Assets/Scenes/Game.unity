@@ -593,7 +593,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3028
+  startingRenderQueue: 3026
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -7547,7 +7547,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3030
+  startingRenderQueue: 3028
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -7768,7 +7768,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3029
+  startingRenderQueue: 3027
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -8813,7 +8813,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 467636, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11408080, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: tweenTarget
@@ -8950,6 +8950,10 @@ Prefab:
     - target: {fileID: 127716, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403130, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
+      propertyPath: mSpriteName
+      value: BOTAO-FORCE
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
@@ -9742,7 +9746,7 @@ Transform:
   m_Children:
   - {fileID: 325094612}
   m_Father: {fileID: 1300374644}
-  m_RootOrder: 3
+  m_RootOrder: 0
 --- !u!114 &684407658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12559,7 +12563,7 @@ Transform:
   - {fileID: 1575018999}
   - {fileID: 769886773}
   m_Father: {fileID: 1300374644}
-  m_RootOrder: 1
+  m_RootOrder: 5
 --- !u!61 &941337386
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13149,7 +13153,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 467636, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11408080, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: tweenTarget
@@ -13286,6 +13290,34 @@ Prefab:
     - target: {fileID: 127716, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403130, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
+      propertyPath: mSpriteName
+      value: BOTAO_RANGE
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403130, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
+      propertyPath: keepAspectRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403130, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
+      propertyPath: aspectRatio
+      value: 2.17948723
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403130, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
+      propertyPath: mWidth
+      value: 246
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403130, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
+      propertyPath: mHeight
+      value: 113
+      objectReference: {fileID: 0}
+    - target: {fileID: 414278, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 414278, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
@@ -14310,6 +14342,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1072083895}
   - 114: {fileID: 1072083896}
+  - 114: {fileID: 1072083897}
   m_Layer: 5
   m_Name: High Score
   m_TagString: Untagged
@@ -14394,6 +14427,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &1072083897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1072083894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d5b40401f77469779cf7f6fc94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: HIGH_SCORE
 --- !u!1 &1073492553
 GameObject:
   m_ObjectHideFlags: 0
@@ -16307,13 +16352,13 @@ Transform:
   m_LocalPosition: {x: -101, y: -7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1598048212}
-  - {fileID: 941337385}
-  - {fileID: 1308809516}
   - {fileID: 684407657}
   - {fileID: 966036290}
   - {fileID: 305797407}
   - {fileID: 1065256642}
+  - {fileID: 1598048212}
+  - {fileID: 941337385}
+  - {fileID: 1308809516}
   m_Father: {fileID: 2122671296}
   m_RootOrder: 0
 --- !u!114 &1300374645
@@ -16474,7 +16519,7 @@ Transform:
   - {fileID: 2015982057}
   - {fileID: 1136851809}
   m_Father: {fileID: 1300374644}
-  m_RootOrder: 2
+  m_RootOrder: 6
 --- !u!61 &1308809517
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17998,7 +18043,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3032
+  startingRenderQueue: 3030
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -20713,7 +20758,7 @@ Transform:
   m_Children:
   - {fileID: 1715184995}
   m_Father: {fileID: 1300374644}
-  m_RootOrder: 0
+  m_RootOrder: 4
 --- !u!114 &1598048213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22117,7 +22162,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3029
+  startingRenderQueue: 3027
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -23910,7 +23955,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3029
+  startingRenderQueue: 3027
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -25212,7 +25257,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 467636, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11408080, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: tweenTarget
@@ -26118,7 +26163,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3032
+  startingRenderQueue: 3030
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -26712,7 +26757,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3021
+  startingRenderQueue: 3019
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
