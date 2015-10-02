@@ -47,4 +47,9 @@ public class Settings : MonoBehaviour
 			//logout.SetActive(false);
 		}
 	}
+
+	public void RestorePurchases()
+	{
+		IAPController.RestorePurchases();
+	}
 }

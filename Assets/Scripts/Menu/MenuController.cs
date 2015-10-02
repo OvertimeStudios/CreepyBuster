@@ -175,6 +175,12 @@ public class MenuController : MonoBehaviour
 		{
 			Global.ClearPurchasedOnly();
 		}
+
+		if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.Escape))
+		{
+			Global.Reset();
+		}
+
 	}
 
 	IEnumerator CountdownBeginGame(GameObject selection)

@@ -25,6 +25,7 @@ public class Global : MonoBehaviour
 	private const string VIBRATE = "vibrate";
 	private const string FIRST_TIME_TUTORIAL = "firstTimeTutorial";
 	private const string TUTORIAL_ENABLED = "tutorialEnabled";
+	private const string ORBS_MULTIPLIER = "orbsMultiplier";
 	#endregion
 
 	private static bool isLoaded;
@@ -39,6 +40,7 @@ public class Global : MonoBehaviour
 	private static int musicOn;
 	private static int soundOn;
 	private static int vibrate;
+	private static int orbsMultiplier;
 
 	private static int firstTimeTutorial;
 	private static int tutorialEnabled;
@@ -304,6 +306,25 @@ public class Global : MonoBehaviour
 		}
 	}
 
+	public static int OrbsMultiplier
+	{
+		get
+		{
+			if(!isLoaded)
+				Load ();
+			
+			return orbsMultiplier;
+		}
+		
+		set
+		{
+			orbsMultiplier = value;
+			
+			PlayerPrefs.SetInt (ORBS_MULTIPLIER, orbsMultiplier);
+			PlayerPrefs.Save ();
+		}
+	}
+
 	#endregion
 
 	private static void Load()
@@ -312,25 +333,10 @@ public class Global : MonoBehaviour
 
 		sessionsScore = 0;
 
-		if(!FirstPlay)
-		{
-			highScore = PlayerPrefs.GetInt(HIGH_SCORE);
-			totalOrbs = PlayerPrefs.GetInt(TOTAL_ORBS);
-			rayLevel = PlayerPrefs.GetInt(RAY_LEVEL);
-			rangeLevel = PlayerPrefs.GetInt(RANGE_LEVEL);
-			damageLevel = PlayerPrefs.GetInt(DAMAGE_LEVEL);
-			musicOn = PlayerPrefs.GetInt(MUSIC_ON);
-			soundOn = PlayerPrefs.GetInt(SOUNDFX_ON);
-			vibrate = PlayerPrefs.GetInt(VIBRATE);
-			firstTimeTutorial = PlayerPrefs.GetInt(FIRST_TIME_TUTORIAL);
-			tutorialEnabled = PlayerPrefs.GetInt(TUTORIAL_ENABLED);
-
-			language = PlayerPrefs.GetString(LANGUAGE);
-		}
-		else
+		if(FirstPlay)
 		{
 			PlayerPrefs.SetInt(FIRST_PLAY, 1);
-
+			
 			//initialize
 			highScore = 0;
 			totalOrbs = 0;
@@ -342,13 +348,30 @@ public class Global : MonoBehaviour
 			vibrate = 1;
 			firstTimeTutorial = 1;
 			tutorialEnabled = 1;
-
+			orbsMultiplier = 1;
+			
 			if(Application.systemLanguage == SystemLanguage.Portuguese)
 				language = LocalizationController.Language.Portuguese.ToString();
 			else
 				language = LocalizationController.Language.English.ToString();
-
+			
 			SaveAll();
+		}
+		else
+		{
+			highScore = PlayerPrefs.GetInt(HIGH_SCORE);
+			totalOrbs = PlayerPrefs.GetInt(TOTAL_ORBS);
+			rayLevel = PlayerPrefs.GetInt(RAY_LEVEL);
+			rangeLevel = PlayerPrefs.GetInt(RANGE_LEVEL);
+			damageLevel = PlayerPrefs.GetInt(DAMAGE_LEVEL);
+			musicOn = PlayerPrefs.GetInt(MUSIC_ON);
+			soundOn = PlayerPrefs.GetInt(SOUNDFX_ON);
+			vibrate = PlayerPrefs.GetInt(VIBRATE);
+			firstTimeTutorial = PlayerPrefs.GetInt(FIRST_TIME_TUTORIAL);
+			tutorialEnabled = PlayerPrefs.GetInt(TUTORIAL_ENABLED);
+			orbsMultiplier = PlayerPrefs.GetInt(ORBS_MULTIPLIER);
+			
+			language = PlayerPrefs.GetString(LANGUAGE);
 		}
 
 		isLoaded = true;
@@ -364,6 +387,8 @@ public class Global : MonoBehaviour
 
 		if(OnPurchasesCleared != null)
 			OnPurchasesCleared();
+
+		Popup.ShowBlank("Purchases Reseted", 1f);
 	}
 
 	private static void SaveAll()
@@ -383,9 +408,11 @@ public class Global : MonoBehaviour
 		PlayerPrefs.Save ();
 	}
 
-	private static void Reset()
+	public static void Reset()
 	{
 		PlayerPrefs.DeleteAll ();
 		PlayerPrefs.Save ();
+
+		Popup.ShowBlank("Player Prefs Reseted", 1f);
 	}
 }
