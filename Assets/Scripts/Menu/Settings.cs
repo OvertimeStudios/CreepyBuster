@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Settings : MonoBehaviour 
 {
+	#region Actions
+
+	#endregion
+
 	private GameObject logout;
 	//private UILabel greeting;
 
@@ -50,6 +54,18 @@ public class Settings : MonoBehaviour
 
 	public void RestorePurchases()
 	{
-		IAPController.RestorePurchases();
+		IAPHelper.RestoreCompletedTransactions(Callback);
+	}
+
+	private void Callback(IAPState state, string errmsg)
+	{
+		if(state == IAPState.Processing)
+			Popup.ShowBlank("Processing");
+		else if(state == IAPState.Failed)
+			Popup.ShowBlank("Restoration failed: " + errmsg, 2f);
+		else if(state == IAPState.Cancelled)
+			Popup.ShowBlank("Restoration cancelled", 2f);
+		else if(state == IAPState.Success)
+			Popup.ShowBlank("Products successfully restored", 2f);
 	}
 }

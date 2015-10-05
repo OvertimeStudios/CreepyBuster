@@ -514,7 +514,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3026
+  startingRenderQueue: 3028
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -7474,7 +7474,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3030
+  startingRenderQueue: 3032
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -7695,7 +7695,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3027
+  startingRenderQueue: 3029
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -11092,7 +11092,7 @@ GameObject:
   - 4: {fileID: 851351768}
   - 114: {fileID: 851351769}
   m_Layer: 0
-  m_Name: IAPController
+  m_Name: IAPHelper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11118,13 +11118,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 851351767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d717132c685ad4aefa7215a51fb15312, type: 3}
+  m_Script: {fileID: 11500000, guid: a63ac7f9f4fe74e7da52416a7f08c187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  androidKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhHrmFyO3fqqb4A+xuG4+G0zG1s82nXbFEhepdL15nYjZOgBK6E0ZIO1xlK4tgIuhRcbMVOr1BBg7PDjvo9I0uxfLCWwoTot/JUQQoxikZTVWoy/GQxuOJTuDYbWpSZ83wiQilZ/C/dykPvJwRig0m7cdW0/FVYuCZd8YfDHpqMigPrSKrQ1Jw1LnDXyG93HmV4Y9hqXraal1ZuIa2koipgU4B2bhB02n4iLl7F5E6qBWnQ34DGrTyMbln1+2dDwYdoQ+ccxAkN75k+ANz9vU3UhimXB2xNT0FX38qNZRx6mtkGViZwnONSZwjfUzFT58V9tHpuJDeqoDOrYUF9ll2QIDAQAB
-  productIDs:
+  androidPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhHrmFyO3fqqb4A+xuG4+G0zG1s82nXbFEhepdL15nYjZOgBK6E0ZIO1xlK4tgIuhRcbMVOr1BBg7PDjvo9I0uxfLCWwoTot/JUQQoxikZTVWoy/GQxuOJTuDYbWpSZ83wiQilZ/C/dykPvJwRig0m7cdW0/FVYuCZd8YfDHpqMigPrSKrQ1Jw1LnDXyG93HmV4Y9hqXraal1ZuIa2koipgU4B2bhB02n4iLl7F5E6qBWnQ34DGrTyMbln1+2dDwYdoQ+ccxAkN75k+ANz9vU3UhimXB2xNT0FX38qNZRx6mtkGViZwnONSZwjfUzFT58V9tHpuJDeqoDOrYUF9ll2QIDAQAB
+  productsID:
   - com.overtimestudios.creepybyster.teste
   - com.overtimestudios.creepybyster.testeconsumable
+  autoRequestProducts: 1
 --- !u!1 &859435760
 GameObject:
   m_ObjectHideFlags: 0
@@ -17446,7 +17447,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3028
+  startingRenderQueue: 3030
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -21471,7 +21472,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3027
+  startingRenderQueue: 3029
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -23156,7 +23157,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3027
+  startingRenderQueue: 3029
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -25213,7 +25214,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3028
+  startingRenderQueue: 3030
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -25807,7 +25808,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3019
+  startingRenderQueue: 3021
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
