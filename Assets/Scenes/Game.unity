@@ -11123,9 +11123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   androidPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhHrmFyO3fqqb4A+xuG4+G0zG1s82nXbFEhepdL15nYjZOgBK6E0ZIO1xlK4tgIuhRcbMVOr1BBg7PDjvo9I0uxfLCWwoTot/JUQQoxikZTVWoy/GQxuOJTuDYbWpSZ83wiQilZ/C/dykPvJwRig0m7cdW0/FVYuCZd8YfDHpqMigPrSKrQ1Jw1LnDXyG93HmV4Y9hqXraal1ZuIa2koipgU4B2bhB02n4iLl7F5E6qBWnQ34DGrTyMbln1+2dDwYdoQ+ccxAkN75k+ANz9vU3UhimXB2xNT0FX38qNZRx6mtkGViZwnONSZwjfUzFT58V9tHpuJDeqoDOrYUF9ll2QIDAQAB
   productsID:
-  - com.overtimestudios.creepybyster.teste
-  - com.overtimestudios.creepybyster.testeconsumable
-  autoRequestProducts: 1
+  - com.overtimestudios.creepybuster.testedoubleorbs
+  - com.overtimestudios.creepybuster.testeorbspackpp
 --- !u!1 &859435760
 GameObject:
   m_ObjectHideFlags: 0
@@ -19913,6 +19912,10 @@ Prefab:
     - target: {fileID: 472706, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11456454, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
+      propertyPath: androidGameID
+      value: 79229
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}

@@ -19,7 +19,6 @@ public class IAPHelper : MonoBehaviour
 
 	public string androidPublicKey;
 	public string[] productsID;
-	public bool autoRequestProducts = true;
 
 	private static bool isRestoring;
 
@@ -115,6 +114,8 @@ public class IAPHelper : MonoBehaviour
 	void Awake()
 	{
 		#if UNITY_ANDROID
+		GoogleIABManager.billingSupportedEvent += BillingSupported;
+		GoogleIABManager.billingNotSupportedEvent += BillingNotSupported;
 		GoogleIABManager.purchaseSucceededEvent += PurchaseSuccessful;
 		GoogleIABManager.purchaseFailedEvent += PurchaseFailed;
 		GoogleIABManager.queryInventorySucceededEvent += QueryInventorySucceededEvent;
@@ -128,17 +129,20 @@ public class IAPHelper : MonoBehaviour
 		StoreKitManager.restoreTransactionsFinishedEvent += restoreTransactionsFinishedEvent;
 		StoreKitManager.restoreTransactionsFailedEvent += restoreTransactionsFailedEvent;
 		#endif
+
+		if(!string.IsNullOrEmpty(androidPublicKey))
+			Init();
 	}
 
 	// Initializes the billing system. Call this at app launch to prepare the IAP system.
 	public static void Init()
 	{
 		#if UNITY_ANDROID
+		if(Debug.isDebugBuild)
+			GoogleIAB.enableLogging(true);
+
 		GoogleIAB.init( Instance.androidPublicKey );
 		#endif
-
-		if(Instance.autoRequestProducts)
-			RequestProductData(null);
 	}
 
 	public static void Init( string androidPublicKey, string[] productsID)
@@ -147,11 +151,11 @@ public class IAPHelper : MonoBehaviour
 		Instance.androidPublicKey = androidPublicKey;
 
 		#if UNITY_ANDROID
+		if(Debug.isDebugBuild)
+			GoogleIAB.enableLogging(true);
+
 		GoogleIAB.init( androidPublicKey );
 		#endif
-
-		if(Instance.autoRequestProducts)
-			RequestProductData(null);
 	}
 	
 	// After callback == IAPState.Success the IAPHelper.ProductsData will be populated.
@@ -165,12 +169,23 @@ public class IAPHelper : MonoBehaviour
 
 		_callback = callback;
 
+		if(productsReceived != null)
+		{
+			callback(IAPState.Success, "");
+			return;
+		}
+
 		isRestoring = false;
 
 		if(_callback != null)
 			_callback(IAPState.Processing, "");
 
 		#if UNITY_ANDROID
+		string itens = "";
+		foreach(string s in Instance.productsID)
+			itens += s;
+
+		Debug.Log("Sending " + Instance.productsID.Length + " items: " + itens);
 		GoogleIAB.queryInventory( Instance.productsID );
 		#elif UNITY_IOS
 		StoreKitBinding.requestProductData( iosProductIdentifiers );
@@ -248,6 +263,19 @@ public class IAPHelper : MonoBehaviour
 	}
 
 #if UNITY_ANDROID
+	private void BillingSupported() 
+	{
+		Debug.Log("Billing is Supported");		
+		
+		//HACK: This saves some time
+		IAPHelper.RequestProductData(null);
+	}
+	
+	private void BillingNotSupported(string error) 
+	{
+		Debug.Log("Billing NOT Supported: " + error);
+	}
+
 	private void PurchaseSuccessful(GooglePurchase purchase)
 	{
 		if(_callback != null)
@@ -293,12 +321,18 @@ public class IAPHelper : MonoBehaviour
 
 		if(_callback != null)
 			_callback(IAPState.Success, "");
+
+		Debug.Log("QueryInventorySucceededEvent");
+		Debug.Log("Products received: " + skus.Count);
+		Prime31.Utils.logObject( skus );
 	}
 
 	private void QueryInventoryFailedEvent(string errmsg)
 	{
 		if(_callback != null)
 			_callback(IAPState.Failed, errmsg);
+
+		Debug.Log("QueryInventoryFailedEvent " + errmsg);
 	}
 #endif
 }
