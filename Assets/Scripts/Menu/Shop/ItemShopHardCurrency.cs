@@ -22,6 +22,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 	public int value;
 
 	private UILabel price;
+	private UILabel currency;
 
 	void OnEnable()
 	{
@@ -30,6 +31,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 
 	void Start()
 	{
+		currency = transform.FindChild("Price").FindChild("currency").GetComponent<UILabel>();
 		price = transform.FindChild("Price").FindChild("Label").GetComponent<UILabel>();
 	}
 
@@ -38,11 +40,17 @@ public class ItemShopHardCurrency : MonoBehaviour
 		IAPProduct product = IAPHelper.GetProduct(productID);
 
 		if(product != null)
-			price.text = product.currencyCode + product.price;
+		{
+			string priceString = product.price.ToString();
+
+			currency.text = priceString.Substring(0, priceString.IndexOf("$") + 1);
+			price.text = priceString.Substring(priceString.IndexOf("$") + 1);
+		}
 	}
 
 	public void Purchase()
 	{
+		Debug.Log("Trying to purchase: " + productID);
 		if(type == Type.Consumable)
 			IAPHelper.PurchaseConsumableProduct(productID, Callback);
 		else
@@ -58,7 +66,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 		if(state == IAPState.Processing)
 			Popup.ShowBlank("Processing");
 		else if(state == IAPState.Failed)
-			Popup.ShowBlank("Purchase failed: " + errmsg, 2f);
+			Popup.ShowBlank("Purchase failed: \n" + errmsg, 2f);
 		else if(state == IAPState.Cancelled)
 			Popup.ShowBlank("Purchase cancelled", 2f);
 		else if(state == IAPState.Success)

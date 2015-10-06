@@ -181,11 +181,6 @@ public class IAPHelper : MonoBehaviour
 			_callback(IAPState.Processing, "");
 
 		#if UNITY_ANDROID
-		string itens = "";
-		foreach(string s in Instance.productsID)
-			itens += s;
-
-		Debug.Log("Sending " + Instance.productsID.Length + " items: " + itens);
 		GoogleIAB.queryInventory( Instance.productsID );
 		#elif UNITY_IOS
 		StoreKitBinding.requestProductData( iosProductIdentifiers );
@@ -263,6 +258,12 @@ public class IAPHelper : MonoBehaviour
 	}
 
 #if UNITY_ANDROID
+	public static void ConsumeProduct(string productID)
+	{
+		Debug.Log("Consuming item " + productID);
+		GoogleIAB.consumeProduct( productID );
+	}
+
 	private void BillingSupported() 
 	{
 		Debug.Log("Billing is Supported");		
@@ -278,6 +279,9 @@ public class IAPHelper : MonoBehaviour
 
 	private void PurchaseSuccessful(GooglePurchase purchase)
 	{
+		if(purchase.developerPayload == CONSUMABLE_PAYLOAD)
+			ConsumeProduct(purchase.productId);
+
 		if(_callback != null)
 			_callback(IAPState.Success, "");
 	}
