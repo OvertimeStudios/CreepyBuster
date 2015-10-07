@@ -83,7 +83,7 @@ public class ItemShop : MonoBehaviour
 		levelLabel = transform.FindChild ("Level").GetComponent<UILabel> ();
 
 		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", price[CurrentLevel]);
-		levelLabel.text = "Level " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
+		levelLabel.text = "LEVEL " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 	}
 
 	public void Purchase()

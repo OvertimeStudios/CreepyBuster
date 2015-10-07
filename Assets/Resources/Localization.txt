@@ -3,12 +3,12 @@ Sound,Sound,Som
 Music,Music,Musica
 TAP&HOLD,Tap and hold to play,Toque e segure para jogar
 SOLD_OUT,Sold Out, Vendido
-SHOP_RAY,Increase Rays,Aumentar Raios
-SHOP_DAMAGE,Damage Increase,Aumentar Dano
-SHOP_RANGE,Range Increase,Aumentar Alcance
+SHOP_RAY,INCREASE RAYS,AUMENTAR RAIOS
+SHOP_DAMAGE,DAMAGE INCREASE,AUMENTAR DANOS
+SHOP_RANGE,RANGE INCREASE,AUMENTAR ALCANCE
 GAME_STATS,GAME STATS,ESTATÍSTICAS
-DAILY_MISSIONS,Daily Missions,Missões Diárias
-WORLD_RANKING,World Ranking,Ranking Global
+DAILY_MISSIONS,DAILY MISSIONS,MISSÕES DIÁRIAS
+WORLD_RANKING,WORLD RANKING,RANKING GLOBAL
 HEIGHT,Height:,Altura:
 WEIGHT,Weight:,Peso:
 DESCRIPTION,Description:,Descrição:

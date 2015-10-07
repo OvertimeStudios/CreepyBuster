@@ -36,7 +36,9 @@ public class IAPHelper : MonoBehaviour
 		{
 			if(productsReceived == null)
 			{
-				Debug.LogWarning("productsReceived not populated. Please call IAPHelper.RequestProductData() first");
+				if(!(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor))
+					Debug.LogWarning("productsReceived not populated. Please call IAPHelper.RequestProductData() first");
+
 				return null;
 			}
 
@@ -50,7 +52,9 @@ public class IAPHelper : MonoBehaviour
 		{
 			if(productsRestored == null)
 			{
-				Debug.LogWarning("productsRestored not populated. Please call IAPHelper.RestoreCompletedTransactions() first");
+				if(!(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor))
+					Debug.LogWarning("productsRestored not populated. Please call IAPHelper.RestoreCompletedTransactions() first");
+
 				return null;
 			}
 			

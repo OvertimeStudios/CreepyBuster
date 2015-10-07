@@ -141,7 +141,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 164852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 97, y: 29, z: 0}
+  m_LocalPosition: {x: 89.6999969, y: 34.9000015, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 467636}
@@ -153,7 +153,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 168846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 223, y: -12, z: 0}
+  m_LocalPosition: {x: 196.100006, y: -4, z: 0}
   m_LocalScale: {x: .899999976, y: .899999976, z: .899999976}
   m_Children:
   - {fileID: 440938}
@@ -167,7 +167,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14, y: 33, z: 0}
+  m_LocalPosition: {x: 7.30000019, y: 39.5999985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 467636}
@@ -179,8 +179,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 154, y: 56, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 60.9000015, y: 64.8000031, z: 0}
+  m_LocalScale: {x: 1.05242646, y: 1.05242646, z: 1.05242646}
   m_Children: []
   m_Father: {fileID: 467636}
   m_RootOrder: 2
@@ -191,7 +191,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalPosition: {x: .800000012, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 409058}
@@ -203,7 +203,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.52587891e-05, y: 20, z: 0}
+  m_LocalPosition: {x: -41.5, y: 6.69999981, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 409058}
@@ -215,8 +215,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 158094}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 47, y: 22, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 60.2000008, y: 35.5, z: 0}
+  m_LocalScale: {x: .970000029, y: .970000029, z: .970000029}
   m_Children: []
   m_Father: {fileID: 467636}
   m_RootOrder: 3
@@ -282,7 +282,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 107
   mHeight: 102
-  mDepth: 13
+  mDepth: 29
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 1
@@ -332,7 +332,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 123
   mHeight: 67
-  mDepth: 5
+  mDepth: 27
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 1
@@ -380,9 +380,9 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 367
-  mHeight: 148
-  mDepth: 2
+  mWidth: 351
+  mHeight: 142
+  mDepth: 25
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 1
@@ -398,7 +398,7 @@ MonoBehaviour:
   bottomType: 1
   topType: 1
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
-  mSpriteName: button-rect-blue
+  mSpriteName: button-rect-blue-glow
   mFillCenter: 1
 --- !u!114 &11408080
 MonoBehaviour:
@@ -456,17 +456,17 @@ MonoBehaviour:
   mColor: {r: .200000003, g: .882352948, b: .996078432, a: 1}
   mPivot: 6
   mWidth: 235
-  mHeight: 36
-  mDepth: 4
+  mHeight: 24
+  mDepth: 26
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6.52777767
+  aspectRatio: 9.79166698
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 7c7ef50afe3a04e36bb2307a99a80733, type: 3}
   mFont: {fileID: 0}
-  mText: Level 1
-  mFontSize: 35
+  mText: LEVEL 1
+  mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -519,19 +519,19 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: .200000003, g: .882352948, b: .996078432, a: 1}
-  mPivot: 7
+  mPivot: 6
   mWidth: 235
-  mHeight: 26
-  mDepth: 4
+  mHeight: 14
+  mDepth: 26
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 9.03846169
+  aspectRatio: 16.7857151
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 7c7ef50afe3a04e36bb2307a99a80733, type: 3}
   mFont: {fileID: 0}
-  mText: Range Increase
-  mFontSize: 25
+  mText: RANGE INCREASE
+  mFontSize: 14
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -625,24 +625,24 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 1
+  mPivot: 6
   mWidth: 152
-  mHeight: 16
-  mDepth: 12
+  mHeight: 10
+  mDepth: 28
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 9.5
+  aspectRatio: 15.1999998
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 7c7ef50afe3a04e36bb2307a99a80733, type: 3}
   mFont: {fileID: 0}
-  mText: Plasma Orbs
-  mFontSize: 15
+  mText: PLASMA ORBS
+  mFontSize: 10
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
-  mEffectStyle: 2
+  mEffectStyle: 0
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
@@ -673,8 +673,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tweenTarget: {fileID: 183584}
-  hover: {r: 1, g: 1, b: 1, a: 1}
-  pressed: {r: 1, g: 1, b: 1, a: 1}
+  hover: {r: .200000018, g: .882353008, b: .996078491, a: 1}
+  pressed: {r: .200000018, g: .882353008, b: .996078491, a: 1}
   disabledColor: {r: .5, g: .5, b: .5, a: 1}
   duration: .200000003
   dragHighlight: 0
@@ -698,7 +698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  price: 
+  price: d0070000983a000050c30000
   level: 0
 --- !u!114 &11478316
 MonoBehaviour:
@@ -745,7 +745,7 @@ MonoBehaviour:
   mPivot: 1
   mWidth: 152
   mHeight: 22
-  mDepth: 12
+  mDepth: 28
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -759,7 +759,7 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
-  mEffectStyle: 2
+  mEffectStyle: 0
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
