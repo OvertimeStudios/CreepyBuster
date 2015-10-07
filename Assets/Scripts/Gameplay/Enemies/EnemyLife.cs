@@ -69,12 +69,16 @@ public class EnemyLife : MonoBehaviour
 
 	protected virtual void OnEnable()
 	{
+		AttackTargets.OnSpecialStarted += UpdateColor;
+		AttackTargets.OnSpecialEnded += UpdateColor;
 		LevelDesign.OnPlayerLevelUp += UpdateColor;
 		GameController.OnLoseStacks += UpdateColor;
 	}
 
 	protected virtual void OnDisable()
 	{
+		AttackTargets.OnSpecialStarted -= UpdateColor;
+		AttackTargets.OnSpecialEnded -= UpdateColor;
 		LevelDesign.OnPlayerLevelUp -= UpdateColor;
 		GameController.OnLoseStacks -= UpdateColor;
 	}
@@ -110,7 +114,7 @@ public class EnemyLife : MonoBehaviour
 	{
 		if(inLight)
 		{
-			life -= AttackTargets.Instance.damage * Time.deltaTime;
+			life -= AttackTargets.Damage * Time.deltaTime;
 
 			if(life <= 0)
 				Dead();
@@ -151,7 +155,8 @@ public class EnemyLife : MonoBehaviour
 
 	private void UpdateColor()
 	{
-		//lightning.GetComponent<LightningBolt> ().startLight.color = LevelDesign.CurrentColor;
+		if(IsDead) return;
+
 		lightning.GetComponent<ParticleRenderer>().material.SetColor ("_TintColor", LevelDesign.CurrentColor);
 	}
 
@@ -179,14 +184,12 @@ public class EnemyLife : MonoBehaviour
 		countAsKill = countPoints;
 		
 		StartCoroutine (FadeAway (deathTime));
-		
-		SpawnItem ();
 
 		if (OnDied != null)
 			OnDied (gameObject);
 	}
 
-	private IEnumerator FadeAway (float deathTime)
+	protected virtual IEnumerator FadeAway (float deathTime)
 	{
 		Animator animator = spriteRenderer.GetComponent<Animator> ();
 		float maxAnimatorSpeed = animator.speed;
@@ -228,6 +231,14 @@ public class EnemyLife : MonoBehaviour
 
 		spriteRenderer.material.SetFloat("_FlashAmount", 1);
 
+		//Time.timeScale = 1f;
+
+		if(GameController.isGameRunning)
+		{
+			SpawnItem ();
+			DropOrbs();
+		}
+
 		if(destroyUponDeath)
 		{
 			if(explosion != null)
@@ -237,6 +248,9 @@ public class EnemyLife : MonoBehaviour
 				Destroy (sp.transform.parent.gameObject);
 		}
 	}
+
+	//Boss Only
+	protected virtual void DropOrbs() { }
 
 	private void SpawnItem()
 	{
@@ -265,11 +279,7 @@ public class EnemyLife : MonoBehaviour
 				}
 			}
 
-			float angle = UnityEngine.Random.Range(0f, 360f);
-
-			GameObject item = Instantiate (objToSpawn, transform.position, Quaternion.Euler(0f, 0f, angle)) as GameObject;
-
-			SpawnController.itensInGame.Add(item.transform);
+			SpawnController.Instance.SpawnItem(transform.position, objToSpawn);
 		}
 	}
 }

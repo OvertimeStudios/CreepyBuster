@@ -3,32 +3,47 @@ using System.Collections;
 
 public class ChangeLanguage : MonoBehaviour 
 {
-	public Transform brazilButton;
-	public Transform euaButton;
-	public TweenPosition selection;
+	public UIButton portuguese;
+	public UIButton english;
+	public TweenPosition tween;
+
+	[HideInInspector]
+	public bool opened = false;
+
+	private Vector3 closedPosition;
+	private Vector3 openPosition;
 
 	void Start()
 	{
-		if (LocalizationController.CurrentLanguage == LocalizationController.Language.English)
-			selection.transform.position = euaButton.position;
-		else if (LocalizationController.CurrentLanguage == LocalizationController.Language.Portuguese)
-			selection.transform.position = brazilButton.position;
+		openPosition = tween.to;
+		closedPosition = tween.from;
 	}
 
 	public void Change()
 	{
-		if (UIButton.current == brazilButton.GetComponent<UIButton>())
+		if (UIButton.current == portuguese)
 			LocalizationController.CurrentLanguage = LocalizationController.Language.Portuguese;
-		else if (UIButton.current == euaButton.GetComponent<UIButton>())
+		else if (UIButton.current == english)
 			LocalizationController.CurrentLanguage = LocalizationController.Language.English;
+	}
 
-		Vector3 from = selection.transform.localPosition;
-		
-		selection.ResetToBeginning ();
+	public void OpenClose()
+	{
+		tween.ResetToBeginning();
 
-		selection.from = from;
-		selection.to = UIButton.current.transform.localPosition;
-		
-		selection.PlayForward ();
+		if(opened)
+		{
+			tween.from = openPosition;
+			tween.to = closedPosition;
+		}
+		else
+		{
+			tween.from = closedPosition;
+			tween.to = openPosition;
+		}
+
+		tween.PlayForward();
+
+		opened = !opened;
 	}
 }

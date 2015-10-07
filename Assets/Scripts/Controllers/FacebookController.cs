@@ -1,16 +1,28 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Facebook.MiniJSON;
 
 public class FacebookController : MonoBehaviour 
 {
+	#if FACEBOOK_IMPLEMENTED
+	#region Actions
+	public static event Action OnLoggedIn;
+	public static event Action OnLoggedOut;
+	#endregion
+
 	private static FacebookUser fbUser;
 
 	#region get / set
 	public static FacebookUser User
 	{
 		get { return fbUser; }
+	}
+
+	public static bool IsLoggedIn
+	{
+		get { return fbUser != null; }
 	}
 	#endregion
 
@@ -66,15 +78,10 @@ public class FacebookController : MonoBehaviour
 			//tokenForBusiness is unique for user for all apps of the same company!!!!
 			fbUser.tokenForBusiness = data["token_for_business"].ToString();
 
-			//TODO: Database connection
-			/*DBUser user = DBHandler.GetUser(tokenForBusiness);
-			
-			if(user == null)//no user was found
-				user = DBHandler.CreateUser(tokenForBusiness, firstname, lastname, email, gender);
-			
-			Debug.Log(user.ToString());*/
+			Debug.Log(fbUser.ToString());
 
-			Global.LogIn();
+			if(OnLoggedIn != null)
+				OnLoggedIn();
 		}
 	}
 
@@ -82,8 +89,12 @@ public class FacebookController : MonoBehaviour
 	{
 		FacebookHelper.Logout ();
 
-		Global.LogOut();
+		fbUser = null;
+
+		if(OnLoggedOut != null)
+			OnLoggedOut();
 	}
+	#endif
 }
 
 public class FacebookUser
@@ -94,4 +105,14 @@ public class FacebookUser
 	public string gender;
 	public string email;
 	public string tokenForBusiness;
+
+	public override string ToString ()
+	{
+		return "{id: " + id + "; " +
+				"firstname: " + firstname + ";" +
+				"lastname: " + lastname + ";" +
+				"gender: " + gender + ";" +
+				"email: " + email + ";" +
+				"tokenForBusiness: " + tokenForBusiness + ";";
+	}
 }

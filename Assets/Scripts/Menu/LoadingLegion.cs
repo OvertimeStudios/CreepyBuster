@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class LoadingLegion : MonoBehaviour 
 {
-	private const string spriteBlack = "C5 Minion black";
-	private const string spriteNormal = "C5 Minion normal";
+	private const string spriteBlack = "minion_transparente";
+	private const string spriteNormal = "minion_branco";
 
 	private List<UISprite> sprites;
 

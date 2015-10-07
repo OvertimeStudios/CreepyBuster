@@ -204,7 +204,6 @@ public class Popup : MonoBehaviour
 		
 		OkClicked = null;
 	}
-	
 
 	private static IEnumerator Hide(float waitTime)
 	{

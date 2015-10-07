@@ -7,43 +7,57 @@ public class ItemShop : MonoBehaviour
 {
 	#region Action
 	public static event Action OnItemBought;
-	public static event Action<ItemShop> OnItemLoaded;
+	#endregion
+
+	#region get / set
+	private int CurrentLevel
+	{
+		get
+		{
+			int level = 0;
+
+			if(type == Type.Ray)
+				level = Global.RayLevel;
+
+			if(type == Type.Damage)
+				level = Global.DamageLevel;
+
+			if(type == Type.Range)
+				level = Global.RangeLevel;
+
+			return level;
+		}
+	}
+
+	private bool IsMaxLevel
+	{
+		get	{ return CurrentLevel == price.Count; }
+	}
 	#endregion
 
 	public enum Type
 	{
-		Ray3,
-		Ray4,
-		Ray5,
-		SuperRange,
-		MegaRange,
-		MasterRange,
-		SuperDamage,
-		MegaDamage,
-		UltraDamage,
+		Ray,
+		Range,
+		Damage,
+		PackOrbsSmall,
+		PackOrbsMedium,
 	}
 
 	public Type type;
-	public int price;
-	public string description;
+	public List<int> price;
+	public int level = 0;
 
-	public bool purchased;
-	public bool hidePricesIfDisabled = false;
-
-	private int itensLoaded = 0;
-	public List<ItemShop> itensDependency;
+	private UILabel priceLabel;
+	private UILabel levelLabel;
 
 	void OnEnable()
 	{
-		ItemShop.OnItemBought += VerifyDependancies;
-		ItemShop.OnItemLoaded += HandleOnItemLoaded;
 		Global.OnPurchasesCleared += ClearPurchase;
 	}
 
 	void OnDisable()
 	{
-		ItemShop.OnItemBought -= VerifyDependancies;
-		ItemShop.OnItemLoaded -= HandleOnItemLoaded;
 		Global.OnPurchasesCleared -= ClearPurchase;
 	}
 
@@ -52,90 +66,44 @@ public class ItemShop : MonoBehaviour
 		//verify if it is already purchased
 		switch(type)
 		{
-			case Type.Ray3:
-				purchased = Global.Ray3Purchased;
+			case Type.Ray:
+				level = Global.RayLevel;
 			break;
 				
-			case Type.Ray4:
-				purchased = Global.Ray4Purchased;
+			case Type.Range:
+				level = Global.RangeLevel;
 			break;
 				
-			case Type.Ray5:
-				purchased = Global.Ray5Purchased;
-			break;
-				
-			case Type.SuperRange:
-				purchased = Global.SuperRangePurchased;
-			break;
-				
-			case Type.MegaRange:
-				purchased = Global.MegaRangePurchased;
-			break;
-				
-			case Type.MasterRange:
-				purchased = Global.MasterRangePurchased;
-			break;
-				
-			case Type.SuperDamage:
-				purchased = Global.SuperDamagePurchased;
-			break;
-				
-			case Type.MegaDamage:
-				purchased = Global.MegaDamagePurchased;
-			break;
-				
-			case Type.UltraDamage:
-				purchased = Global.UltraDamagePurchased;
+			case Type.Damage:
+				level = Global.DamageLevel;
 			break;
 		}
 
-		transform.FindChild ("Price").GetComponent<UILabel> ().text = (purchased) ? Localization.Get("SOLD_OUT") : string.Format("{0:0,0}", price);
-		transform.FindChild ("Description").GetComponent<UILabel> ().text = Localization.Get(description);
+		priceLabel = transform.FindChild ("Price").FindChild("Label").GetComponent<UILabel> ();
+		levelLabel = transform.FindChild ("Level").GetComponent<UILabel> ();
 
-		if (OnItemLoaded != null)
-			OnItemLoaded (this);
-	}
-
-	private void VerifyDependancies()
-	{
-		foreach(UIButton button in GetComponents<UIButton>())
-			button.isEnabled = true;
-
-		transform.FindChild ("Price").GetComponent<UILabel> ().enabled = true;
-
-		foreach(ItemShop itemShop in itensDependency)
-		{
-			if(!itemShop.purchased)
-			{
-				foreach(UIButton button in GetComponents<UIButton>())
-					button.isEnabled = false;
-				
-				if(hidePricesIfDisabled)
-					transform.FindChild ("Price").GetComponent<UILabel> ().enabled = false;
-				
-				break;
-			}
-		}
+		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", price[CurrentLevel]);
+		levelLabel.text = "LEVEL " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 	}
 
 	public void Purchase()
 	{
-		Debug.Log("Trying to buy: " + type.ToString() + " for " + string.Format("{0:0,0}", price) + " orbs.");
+		Debug.Log("Trying to buy: " + type.ToString() + " for " + string.Format("{0:0,0}", price[CurrentLevel]) + " orbs.");
 
-		if(purchased) 
+		if(IsMaxLevel) 
 		{
 			Debug.Log("Already Purchased");
 			return;
 		}
 
 		#if INFINITY_ORBS
-		if (Global.TotalOrbs >= price)
-			Popup.ShowYesNo ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price) + " orbs?", PurchaseAccepted, PurchaseDeclined);
+		if (Global.TotalOrbs >= price[CurrentLevel])
+			Popup.ShowYesNo ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price[CurrentLevel]) + " orbs?", PurchaseAccepted, PurchaseDeclined);
 		else
 			Popup.ShowYesNo ("You may don't have enough orbs, but you are cheating, who cares? Wanna buy?", PurchaseAccepted, PurchaseDeclined);
 		#else
-		if (Global.TotalOrbs >= price)
-			Popup.ShowYesNo ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price) + " orbs?", PurchaseAccepted, PurchaseDeclined);
+		if (Global.TotalOrbs >= price[CurrentLevel])
+			Popup.ShowYesNo ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price[CurrentLevel]) + " orbs?", PurchaseAccepted, PurchaseDeclined);
 		else
 			Popup.ShowOk ("You don't have enough orbs. You must have " + string.Format ("{0:0,0}", (price - Global.TotalOrbs)) + " more orbs to buy this item.", null);
 		#endif
@@ -143,10 +111,10 @@ public class ItemShop : MonoBehaviour
 
 	public void PurchaseAccepted()
 	{
-		if(Global.TotalOrbs >= price)
+		if(Global.TotalOrbs >= price[CurrentLevel])
 		{
-			Debug.Log("You spent " + price + " on " + type.ToString());
-			Global.TotalOrbs -= price;
+			Debug.Log("You spent " + price[CurrentLevel] + " on " + type.ToString());
+			Global.TotalOrbs -= price[CurrentLevel];
 			
 			UnlockProperty();
 		}
@@ -164,47 +132,25 @@ public class ItemShop : MonoBehaviour
 
 	private void UnlockProperty()
 	{
+		level++;
+
 		switch(type)
 		{
-			case Type.Ray3:
-				Global.Ray3Purchased = true;
+			case Type.Ray:
+				Global.RayLevel++;
 				break;
 				
-			case Type.Ray4:
-				Global.Ray4Purchased = true;
+			case Type.Range:
+				Global.RangeLevel++;
 				break;
 				
-			case Type.Ray5:
-				Global.Ray5Purchased = true;
-				break;
-				
-			case Type.SuperRange:
-				Global.SuperRangePurchased = true;
-				break;
-				
-			case Type.MegaRange:
-				Global.MegaRangePurchased = true;
-				break;
-				
-			case Type.MasterRange:
-				Global.MasterRangePurchased = true;
-				break;
-				
-			case Type.SuperDamage:
-				Global.SuperDamagePurchased = true;
-				break;
-				
-			case Type.MegaDamage:
-				Global.MegaDamagePurchased = true;
-				break;
-				
-			case Type.UltraDamage:
-				Global.UltraDamagePurchased = true;
+			case Type.Damage:
+				Global.DamageLevel++;
 				break;
 		}
 
-		purchased = true;
-		transform.FindChild ("Price").GetComponent<UILabel> ().text = "SOLD OUT";
+		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", price[CurrentLevel]);
+		levelLabel.text = "Level " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 
 		if (OnItemBought != null)
 			OnItemBought ();
@@ -212,29 +158,9 @@ public class ItemShop : MonoBehaviour
 
 	private void ClearPurchase()
 	{
-		purchased = false;
+		level = 0;
 
-		transform.FindChild ("Price").GetComponent<UILabel> ().text = string.Format("{0:0,0}", price);
-		transform.FindChild ("Description").GetComponent<UILabel> ().text = description;
-		
-		VerifyDependancies ();
-	}
-
-	private void HandleOnItemLoaded(ItemShop itemShop)
-	{
-		foreach(ItemShop item in itensDependency)
-		{
-			if(item == itemShop)
-			{
-				itensLoaded++;
-
-				if(itensLoaded >= itensDependency.Count)
-				{
-					VerifyDependancies();
-					itensLoaded = 0;
-				}
-
-			}
-		}
+		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", price[CurrentLevel]);
+		levelLabel.text = "Level " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 	}
 }

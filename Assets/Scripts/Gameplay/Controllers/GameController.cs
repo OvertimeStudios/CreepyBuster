@@ -36,6 +36,9 @@ public class GameController : MonoBehaviour
 	public static event Action OnReset;
 	public static event Action OnFingerHit;
 	public static event Action OnGameEnding;
+	public static event Action OnContinuePlaying;
+	public static event Action OnPause;
+	public static event Action OnResume;
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
@@ -44,11 +47,15 @@ public class GameController : MonoBehaviour
 	private static bool invencible;
 	private static int continues;
 	private static bool bossTime;
+	private static float lastTimeScale;
+
+	private static bool isPaused;
 
 	public float timeInvencibleAfterDamage;
 	public float timeToShowGameOverScreen;
 	public int orbsToContinue;
 	public int pointsPerOrb = 10;
+	public float timeInvencibleAfterContinue = 2f;
 
 	/// <summary>
 	/// Total score for session
@@ -80,6 +87,11 @@ public class GameController : MonoBehaviour
 	private static GameObject player;
 
 	#region get / set
+	public static bool IsGamePaused
+	{
+		get { return isPaused; }
+	}
+
 	public static bool IsBossTime
 	{
 		get { return bossTime; }
@@ -183,6 +195,7 @@ public class GameController : MonoBehaviour
 		RewardedVideoPlayer.OnRevivePlayer += VideoWatched;
 		FingerDetector.OnFingerDownEvent += OnFingerDown;
 		FingerDetector.OnFingerUpEvent += OnFingerUp;
+		FingerDetector.OnTapGesture += OnDoubleTap;
 		LevelDesign.OnBossReady += BossIsReady;
 		BossLife.OnBossDied += BossDied; 
 	}
@@ -196,6 +209,7 @@ public class GameController : MonoBehaviour
 		RewardedVideoPlayer.OnRevivePlayer -= VideoWatched;
 		FingerDetector.OnFingerDownEvent -= OnFingerDown;
 		FingerDetector.OnFingerUpEvent -= OnFingerUp;
+		FingerDetector.OnTapGesture -= OnDoubleTap;
 		LevelDesign.OnBossReady -= BossIsReady;
 		BossLife.OnBossDied -= BossDied;
 
@@ -205,6 +219,7 @@ public class GameController : MonoBehaviour
 	void Start()
 	{
 		instance = this;
+		isPaused = false;
 
 		gameObject.SetActive(false);
 
@@ -262,8 +277,8 @@ public class GameController : MonoBehaviour
 
 	private void LoseStacks()
 	{
-		StreakCount = 0;
-		LevelDesign.PlayerLevel = 0;
+		StreakCount = LevelDesign.LastLevelPlayerStreak;
+		LevelDesign.PlayerLevel = Mathf.Max(LevelDesign.PlayerLevel - 1, 0);
 		realStreakCount = 0;
 		specialStreak = 0;
 
@@ -279,9 +294,6 @@ public class GameController : MonoBehaviour
 			StartCoroutine (ShowEndScreen (timeToShowGameOverScreen));
 		else
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.LifeOut));
-
-		if(OnGameEnding != null)
-			OnGameEnding();
 	}
 
 	public void GameOver()
@@ -304,21 +316,39 @@ public class GameController : MonoBehaviour
 		gameOver = true;
 		player.SetActive (false);
 
-		if (OnGameEnding != null)
-			OnGameEnding ();
+		//fade out TimeScale
+		lastTimeScale = Time.timeScale;
+		float fadeEndTime = Time.realtimeSinceStartup + waitTime;
+		while(Time.realtimeSinceStartup < fadeEndTime)
+		{
+			Time.timeScale = ((fadeEndTime - Time.realtimeSinceStartup) / waitTime) * lastTimeScale;
+			yield return null;
+		}
 
-		yield return new WaitForSeconds (waitTime);
+		Time.timeScale = 0;
 
 		ShowEndScreen ();
 	}
 
 	private IEnumerator ShowContinueScreen(float waitTime, CauseOfDeath causeOfDeath)
 	{
+		if(OnGameEnding != null)
+			OnGameEnding();
+
 		isGameRunning = false;
 		gameOver = true;
 		player.SetActive (false);
 
-		yield return new WaitForSeconds (waitTime);
+		//fade out TimeScale
+		lastTimeScale = Time.timeScale;
+		float fadeEndTime = Time.realtimeSinceStartup + waitTime;
+		while(Time.realtimeSinceStartup < fadeEndTime)
+		{
+			Time.timeScale = ((fadeEndTime - Time.realtimeSinceStartup) / waitTime) * lastTimeScale;
+			yield return null;
+		}
+		
+		Time.timeScale = 0;
 
 		if (continues == 0 && Advertisement.IsReady () && Advertisement.isInitialized && Advertisement.isSupported)
 			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), null, ShowEndScreen, false);
@@ -342,6 +372,9 @@ public class GameController : MonoBehaviour
 
 	private void ShowEndScreen()
 	{
+		if(OnGameEnding != null)
+			OnGameEnding();
+
 		Popup.Hide ();
 
 		Global.TotalOrbs += orbsCollected;
@@ -371,9 +404,21 @@ public class GameController : MonoBehaviour
 
 		Debug.Log ("ContinuePlaying");
 
-		Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
+		isGameRunning = true;
+		gameOver = false;
 
-		StartCoroutine (WaitForFingerDown ());
+		Popup.Hide ();
+		
+		if(OnContinuePlaying != null)
+			OnContinuePlaying();
+
+		UseInvencibility(timeInvencibleAfterContinue);
+
+		PauseGame(false);
+
+		//Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
+
+		//StartCoroutine (WaitForFingerDown ());
 	}
 
 	private IEnumerator WaitForFingerDown()
@@ -388,13 +433,26 @@ public class GameController : MonoBehaviour
 
 		Debug.Log ("Continue");
 
-		KillAllEnemies(false);
+		//KillAllEnemies(false);
 
 		isGameRunning = true;
 		gameOver = false;
 		player.SetActive (true);
 
 		Popup.Hide ();
+
+		if(OnContinuePlaying != null)
+			OnContinuePlaying();
+
+		//fade in TimeScale
+		float fadeEndTime = Time.realtimeSinceStartup + timeToShowGameOverScreen;
+		while(Time.realtimeSinceStartup < fadeEndTime)
+		{
+			Time.timeScale = (timeToShowGameOverScreen - (fadeEndTime - Time.realtimeSinceStartup)) / timeToShowGameOverScreen;
+			yield return null;
+		}
+		
+		Time.timeScale = 1;
 	}
 
 	public void StartGame()
@@ -404,6 +462,9 @@ public class GameController : MonoBehaviour
 		Reset ();
 		gameObject.SetActive (true);
 
+		//if(Global.IsTutorialEnabled)
+			//TutorialController.Instance.gameObject.SetActive(true);
+
 		if (FingerDetector.IsFingerDown)
 		{
 			Debug.Log("Active Player");
@@ -411,7 +472,7 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
-			Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
+			//Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
 		}
 
 		StartCoroutine (WaitForPlayer ());
@@ -422,8 +483,13 @@ public class GameController : MonoBehaviour
 		Debug.Log ("WaitForPlayer");
 		isGameRunning = true;
 
+		player.transform.position = Vector3.zero;
+		PauseGame();
+
 		while (!player.activeSelf)
 			yield return null;
+
+		ResumeGame();
 
 		Debug.Log ("Player found");
 		Popup.Hide ();
@@ -431,7 +497,7 @@ public class GameController : MonoBehaviour
 		if (OnGameStart != null)
 			OnGameStart ();
 
-		if (Global.RunTutorial)
+		if (Global.IsTutorialEnabled)
 			TutorialController.Instance.gameObject.SetActive (true);
 	}
 
@@ -445,6 +511,7 @@ public class GameController : MonoBehaviour
 		realStreakCount = 0;
 		specialStreak = 0;
 		continues = 0;
+		isPaused = false;
 		frozen = false;
 		slowedDown = false;
 		invencible = false;
@@ -461,13 +528,15 @@ public class GameController : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
-		if(isGameRunning)
-			player.SetActive (true);
+		if(Popup.IsActive || !isGameRunning)return;
+
+		if(!isPaused || (isPaused && e.Selection != null && e.Selection.layer == LayerMask.NameToLayer("Tap&Hold")))
+			ResumeGame();
 	}
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		if(GameController.isGameRunning && !GameController.IsTutorialRunning)
+		/*if(GameController.isGameRunning && !GameController.IsTutorialRunning)
 		{
 			ScreenFeedback.ShowDamage(timeInvencibleAfterDamage);
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.FingerOff));
@@ -482,7 +551,57 @@ public class GameController : MonoBehaviour
 
 			if(OnGameEnding != null)
 				OnGameEnding();
-		}
+		}*/
+
+		if(!isGameRunning) return;
+
+		if(!isPaused)
+			PauseGame();
+	}
+
+	private void OnDoubleTap(TapGesture gesture)
+	{
+		if(isPaused)
+			Popup.ShowYesNo("Are you sure you wanna quit the game?", QuitGame, null, true);
+	}
+
+	private void QuitGame()
+	{
+		//GameOver();
+		ResumeGame();
+		StartCoroutine (ShowEndScreen (0f));
+	}
+
+	private void PauseGame()
+	{
+		PauseGame(true);
+	}
+
+	private void PauseGame(bool getNewTimeScale)
+	{
+		Debug.Log("Game Paused");
+
+		isPaused = true;
+		//Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
+
+		if(getNewTimeScale)
+			lastTimeScale = Time.timeScale;
+		Time.timeScale = 0f;
+
+		if(OnPause != null)
+			OnPause();
+	}
+
+	private void ResumeGame()
+	{
+		Debug.Log("Game Resumed");
+		isPaused = false;
+		player.SetActive (true);
+		//Popup.Hide();
+		Time.timeScale = lastTimeScale;
+
+		if(OnResume != null)
+			OnResume();
 	}
 
 	private void BossIsReady()
@@ -532,12 +651,7 @@ public class GameController : MonoBehaviour
 			break;
 
 			case Item.Type.Invecibility:
-				invencible = true;
-				
-				ScreenFeedback.ShowInvencibility(Invencible.Time);
-
-				StopCoroutine("FadeInvencible");
-				StartCoroutine("FadeInvencible");
+				UseInvencibility(Invencible.Time);
 			break;
 
 			case Item.Type.DeathRay:
@@ -558,6 +672,16 @@ public class GameController : MonoBehaviour
 		}
 
 		Debug.Log("Collected " + itemType.ToString());
+	}
+
+	private void UseInvencibility(float invencibleTime)
+	{
+		invencible = true;
+		
+		ScreenFeedback.ShowInvencibility(invencibleTime);
+		
+		StopCoroutine("FadeInvencible");
+		StartCoroutine("FadeInvencible");
 	}
 
 	private IEnumerator FadeSlowDown()
@@ -593,7 +717,7 @@ public class GameController : MonoBehaviour
 		invencible = false;
 	}
 
-	private void KillAllEnemies(bool countPoints)
+	public void KillAllEnemies(bool countPoints)
 	{
 		for(int i = SpawnController.enemiesInGame.Count - 1; i >= 0; i--)
 		{

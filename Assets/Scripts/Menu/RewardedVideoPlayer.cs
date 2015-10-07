@@ -7,6 +7,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 {
 	#region Action
 	public static event Action OnRevivePlayer;
+	public static event Action OnDoubleOrbs;
 	#endregion
 	
 	#region get / set
@@ -47,6 +48,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		Orbs,
 		PlayAgain,
+		DoubleOrbs,
 	}
 	
 	public Rewards reward;
@@ -91,7 +93,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	private void ShowAd()
 	{
-		UnityAdsHelper.ShowAd (null, GiveReward);
+		UnityAdsHelper.ShowAd ("rewardedVideoZone", GiveReward);
 	}
 	
 	private void GiveReward()
@@ -100,6 +102,8 @@ public class RewardedVideoPlayer : MonoBehaviour
 			GiveOrbs ();
 		else if (reward == Rewards.PlayAgain)
 			RevivePlayer ();
+		else if(reward == Rewards.DoubleOrbs)
+			DoubleOrbs();
 		
 		if(rewardCooldown > 0)
 			SetRewardCooldownTime(DateTime.UtcNow.AddSeconds(rewardCooldown));
@@ -117,6 +121,12 @@ public class RewardedVideoPlayer : MonoBehaviour
 		if (OnRevivePlayer != null)
 			OnRevivePlayer ();
 	}
+
+	private void DoubleOrbs()
+	{
+		if(OnDoubleOrbs != null)
+			OnDoubleOrbs();
+	} 
 
 	void Update()
 	{

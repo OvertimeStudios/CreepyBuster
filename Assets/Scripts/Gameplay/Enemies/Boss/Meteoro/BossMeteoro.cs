@@ -22,7 +22,7 @@ public class BossMeteoro : MonoBehaviour
 	private float totalLife;
 	private float lifePerLevel;
 	private Rigidbody2D myRigidbody2D;
-	private EnemyLife enemyLife;
+	private BossLife enemyLife;
 	private CameraShake cameraShake;
 	private RandomMovement randomMovement;
 	private Animator myAnimator;
@@ -56,7 +56,7 @@ public class BossMeteoro : MonoBehaviour
 	void Start () 
 	{
 		myRigidbody2D = GetComponent<Rigidbody2D> ();
-		enemyLife = GetComponent<EnemyLife> ();
+		enemyLife = GetComponent<BossLife> ();
 		cameraShake = GetComponent<CameraShake> ();
 		randomMovement = GetComponent<RandomMovement> ();
 		myAnimator = transform.FindChild("Sprite").GetComponent<Animator>();
@@ -123,10 +123,13 @@ public class BossMeteoro : MonoBehaviour
 
 		float angle = Mathf.Atan2 (pos.y - transform.position.y, pos.x - transform.position.x);
 
-		myRigidbody2D.velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * CurrentVel;
+		Vector2 vel = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * CurrentVel;
 
 		while (Vector3.Distance(pos, transform.position) > 1)
+		{
+			myRigidbody2D.velocity = vel;
 			yield return null;
+		}
 
 		myRigidbody2D.velocity = Vector2.zero;
 
@@ -196,7 +199,7 @@ public class BossMeteoro : MonoBehaviour
 		{
 			GetComponentInChildren<Collider2D>().enabled = false;
 
-			Time.timeScale = 0.2f;
+			Time.timeScale = 0.4f;
 
 			cameraShake.Shake(enemyLife.deathTime);
 			ScreenFeedback.ShowBlank(enemyLife.deathTime, 0.5f);
@@ -247,16 +250,19 @@ public class BossMeteoro : MonoBehaviour
 	{
 		randomMovement.enabled = false;
 
-		Vector3 pos = new Vector3 (0.5f, 1.3f, 0);
+		Vector3 pos = new Vector3 (0.5f, 1.0f, 0);
 		pos = Camera.main.ViewportToWorldPoint (pos);
 		pos.z = transform.position.z;
 		
 		float angle = Mathf.Atan2 (pos.y - transform.position.y, pos.x - transform.position.x);
-		
-		myRigidbody2D.velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * CurrentVel;
+
+		Vector2 vel = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * CurrentVel;
 		
 		while (Vector3.Distance(pos, transform.position) > 1)
+		{
+			myRigidbody2D.velocity = vel;
 			yield return null;
+		}
 		
 		myRigidbody2D.velocity = Vector2.zero;
 

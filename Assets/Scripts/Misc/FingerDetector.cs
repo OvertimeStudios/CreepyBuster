@@ -7,6 +7,7 @@ public class FingerDetector : MonoBehaviour
 	public static event Action<FingerDownEvent> OnFingerDownEvent;
 	public static event Action<FingerUpEvent> OnFingerUpEvent;
 	public static event Action<FingerMotionEvent> OnFingerMotionEvent;
+	public static event Action<TapGesture> OnTapGesture;
 
 	private static bool fingerDown;
 	private static Vector2 position;
@@ -60,5 +61,11 @@ public class FingerDetector : MonoBehaviour
 
 		if (OnFingerMotionEvent != null)
 			OnFingerMotionEvent (e);
+	}
+
+	void OnTap(TapGesture gesture)
+	{
+		if(OnTapGesture != null)
+			OnTapGesture(gesture);
 	}
 }

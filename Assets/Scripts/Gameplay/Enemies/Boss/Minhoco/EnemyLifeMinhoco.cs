@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyLifeMinhoco : EnemyLife 
+public class EnemyLifeMinhoco : BossLife 
 {
 	private BossMinhoco bossMinhoco;
 
