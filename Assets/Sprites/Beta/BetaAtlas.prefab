@@ -107,8 +107,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 10
   - name: BOTAO-DOUBLE
-    x: 1140
-    y: 2085
+    x: 1081
+    y: 607
     width: 234
     height: 239
     borderLeft: 0
@@ -185,8 +185,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-rect-blue-wide
-    x: 2502
-    y: 2381
+    x: 1081
+    y: 847
     width: 736
     height: 128
     borderLeft: 0
@@ -262,6 +262,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: Feedback-de-invencibilidade
+    x: 1081
+    y: 1314
+    width: 1195
+    height: 1195
+    borderLeft: 10
+    borderRight: 10
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: hud-bar
     x: 2277
     y: 2513
@@ -289,8 +302,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon_arrow
-    x: 1574
-    y: 1974
+    x: 1762
+    y: 1203
     width: 151
     height: 110
     borderLeft: 0
@@ -302,8 +315,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-achievements
-    x: 1140
-    y: 1839
+    x: 1081
+    y: 361
     width: 209
     height: 245
     borderLeft: 0
@@ -367,8 +380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-dollar
-    x: 1615
-    y: 2207
+    x: 1914
+    y: 1196
     width: 75
     height: 117
     borderLeft: 0
@@ -380,8 +393,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-facebook
-    x: 1762
-    y: 2357
+    x: 1081
+    y: 976
     width: 739
     height: 152
     borderLeft: 0
@@ -445,8 +458,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-orb
-    x: 1140
-    y: 1632
+    x: 1316
+    y: 439
     width: 216
     height: 206
     borderLeft: 0
@@ -484,8 +497,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: icon-range
-    x: 1357
-    y: 1638
+    x: 1316
+    y: 238
     width: 210
     height: 200
     borderLeft: 0
@@ -536,8 +549,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-vibrate
-    x: 1350
-    y: 1882
+    x: 1081
+    y: 158
     width: 223
     height: 202
     borderLeft: 0
@@ -614,8 +627,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: minion_branco
-    x: 1375
-    y: 2124
+    x: 1316
+    y: 646
     width: 239
     height: 200
     borderLeft: 0
@@ -654,7 +667,7 @@ MonoBehaviour:
     paddingBottom: 7
   - name: rect-black-2
     x: 1081
-    y: 2325
+    y: 1129
     width: 680
     height: 184
     borderLeft: 0
@@ -666,8 +679,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: slider
-    x: 1081
-    y: 930
+    x: 2277
+    y: 1115
     width: 58
     height: 1394
     borderLeft: 0
@@ -790,6 +803,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: mSprites.Array.data[49].borderTop
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[17].borderLeft
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[17].borderRight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[17].borderBottom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[17].borderTop
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
