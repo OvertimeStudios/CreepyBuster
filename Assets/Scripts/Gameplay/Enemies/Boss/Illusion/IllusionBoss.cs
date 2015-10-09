@@ -106,7 +106,7 @@ public class IllusionBoss : MonoBehaviour
 		waypoints = new List<Vector3>();
 		waypoints.Add(new Vector3(0.2f, 0.2f));//bottom left
 		waypoints.Add(new Vector3(0.2f, 0.5f));//center left
-		waypoints.Add(new Vector3(0.2f, 0.8f));//top left
+		//waypoints.Add(new Vector3(0.2f, 0.8f));//top left
 		waypoints.Add(new Vector3(0.8f, 0.2f));//bottom right
 		waypoints.Add(new Vector3(0.8f, 0.5f));//center right
 		waypoints.Add(new Vector3(0.8f, 0.8f));//top right
