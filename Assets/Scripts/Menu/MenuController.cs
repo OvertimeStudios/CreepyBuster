@@ -159,14 +159,14 @@ public class MenuController : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
-		if(!wallTop.enabled)
+		/*if(!wallTop.enabled)
 		{
 			if(e.Selection)
 			{
 				StopCoroutine("CountdownAborted");
 				StartCoroutine("CountdownBeginGame", e.Selection);
 			}
-		}
+		}*/
 	}
 
 	void Update()
@@ -212,11 +212,11 @@ public class MenuController : MonoBehaviour
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		if(!wallTop.enabled && timeCounter < timeToStartGame)
+		/*if(!wallTop.enabled && timeCounter < timeToStartGame)
 		{
 			StopCoroutine("CountdownBeginGame");
 			StartCoroutine("CountdownAborted");
-		}
+		}*/
 	}
 
 	private IEnumerator CountdownAborted()
@@ -250,7 +250,8 @@ public class MenuController : MonoBehaviour
 		}
 		else
 		{
-			trailRenderer.SetActive(true);
+			if(trailRenderer != null)
+				trailRenderer.SetActive(true);
 
 			SoundController.Instance.PlayMusic(SoundController.Musics.MainMenuTheme);
 
@@ -262,7 +263,7 @@ public class MenuController : MonoBehaviour
 		}
 	}
 
-	private void OpenPanel()
+	public void OpenPanel()
 	{
 		wallTop.enabled = wallBottom.enabled = true;
 		
@@ -270,7 +271,7 @@ public class MenuController : MonoBehaviour
 		wallBottom.PlayForward();
 	}
 
-	private void ClosePanel()
+	public void ClosePanel()
 	{
 		wallTop.enabled = wallBottom.enabled = true;
 		

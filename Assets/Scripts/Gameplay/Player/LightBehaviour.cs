@@ -7,6 +7,8 @@ public class LightBehaviour : MonoBehaviour
 	private ParticleRenderer[] particleRenderers;
 	private SpriteRenderer outter;
 
+	public Transform plasmette;
+
 	#region singleton
 	private static LightBehaviour instance;
 	public static LightBehaviour Instance
