@@ -36,7 +36,11 @@ public class LevelDesign : MonoBehaviour
 	public LevelUpCondition[] tierLevelUpCondition;
 
 	[Header("Boss Battle")]
+	public GameObject bossMeteor;
+	public GameObject bossTwins;
+	public GameObject bossIllusion;
 	public BossLevelUpCondition[] bossBattleCondition;
+	public BossLevelUpCondition infinityBossBattleCondition;
 
 	[Header("Backgrounds")]
 	public List<GameObject> backgrounds;
@@ -273,30 +277,35 @@ public class LevelDesign : MonoBehaviour
 	#endregion
 
 	#region Boss
-	public static bool IsBossLevelMax
-	{
-		get { return LevelDesign.bossLevel == MaxTierLevel; }
-	}
-
-	public static int MaxBossLevel
-	{
-		get { return Instance.bossBattleCondition.Length - 1; }
-	}
-
 	public static int NextKillToBossBattle
 	{
 		get 
 		{
-			if(!LevelDesign.IsBossLevelMax)
+			if(bossLevel < Instance.bossBattleCondition.Length)
 				return Instance.bossBattleCondition[bossLevel].kills;
-			
-			return 0;
+			else
+				return Instance.bossBattleCondition[Instance.bossBattleCondition.Length - 1].kills + ((bossLevel - Instance.bossBattleCondition.Length - 1) * Instance.infinityBossBattleCondition.kills);
 		}
 	}
 
 	public static GameObject CurrentBoss
 	{
-		get	{ return Instance.bossBattleCondition[bossLevel].boss; }
+		get	
+		{ 
+			BossLevelUpCondition currentLevelUpCondition = (bossLevel < Instance.bossBattleCondition.Length) ? Instance.bossBattleCondition[bossLevel] : Instance.infinityBossBattleCondition;
+
+			float maxPercent = currentLevelUpCondition.bossIllusion + currentLevelUpCondition.bossMeteor + currentLevelUpCondition.bossTwins;
+
+			float rnd = UnityEngine.Random.Range(0f, maxPercent);
+
+			if(rnd < currentLevelUpCondition.bossMeteor)
+				return Instance.bossMeteor;
+			else if(rnd < currentLevelUpCondition.bossTwins + currentLevelUpCondition.bossMeteor)
+				return Instance.bossTwins;
+			else
+				return Instance.bossIllusion;
+			
+		}
 	}
 
 
@@ -627,13 +636,10 @@ public class LevelDesign : MonoBehaviour
 
 	private void KillCountUpdated()
 	{
-		if(!IsBossLevelMax)
+		if(!GameController.IsBossTime && GameController.KillCount >= LevelDesign.NextKillToBossBattle)
 		{
-			if(!GameController.IsBossTime && GameController.KillCount >= LevelDesign.NextKillToBossBattle)
-			{
-				if (OnBossReady != null)
-					OnBossReady ();
-			}
+			if (OnBossReady != null)
+				OnBossReady ();
 		}
 	}
 
@@ -729,7 +735,12 @@ public class EnemiesAttributesLevelUpCondition
 public class BossLevelUpCondition
 {
 	public int kills;
-	public GameObject boss;
+	[Range(0, 1f)]
+	public float bossMeteor;
+	[Range(0, 1f)]
+	public float bossTwins;
+	[Range(0, 1f)]
+	public float bossIllusion;
 }
 
 [System.Serializable]
