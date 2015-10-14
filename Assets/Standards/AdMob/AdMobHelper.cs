@@ -94,7 +94,7 @@ public class AdMobHelper : MonoBehaviour
 	{
 		// Create an empty ad request.
 		AdRequest request;
-		if(Debug.isDebugBuild && Instance.isTest)
+		if(Instance.isTest)
 		{
 			Debug.Log("Test Banner Request");
 

@@ -284,7 +284,7 @@ public class LevelDesign : MonoBehaviour
 			if(bossLevel < Instance.bossBattleCondition.Length)
 				return Instance.bossBattleCondition[bossLevel].kills;
 			else
-				return Instance.bossBattleCondition[Instance.bossBattleCondition.Length - 1].kills + ((bossLevel - Instance.bossBattleCondition.Length - 1) * Instance.infinityBossBattleCondition.kills);
+				return Instance.bossBattleCondition[Instance.bossBattleCondition.Length - 1].kills + ((bossLevel - (Instance.bossBattleCondition.Length - 1)) * Instance.infinityBossBattleCondition.kills);
 		}
 	}
 

@@ -4,7 +4,7 @@ using System.Collections;
 public class Invencible : Item
 {
 	public float invencibleTime;
-	
+
 	public static float Time
 	{
 		get { return Instance.invencibleTime; }
