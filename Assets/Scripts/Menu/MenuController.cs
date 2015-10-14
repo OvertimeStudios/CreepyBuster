@@ -16,6 +16,7 @@ public class MenuController : MonoBehaviour
 		Achievements,
 		Creepypedia,
 		GameStats,
+		HowToPlay,
 	}
 	
 	private static Menus activeMenu;
@@ -49,6 +50,8 @@ public class MenuController : MonoBehaviour
 	private TweenPosition wallBottom;
 	private UILabel highScore;
 
+	public static bool goToShop = false;
+
 	public float timeToStartGame = 3f;
 	private float timeCounter;
 	private float initialTapAndHoldRotation;
@@ -70,6 +73,7 @@ public class MenuController : MonoBehaviour
 	public Transform achievementsScreen;
 	public Transform creepypediaScreen;
 	public Transform gameStatsScreen;
+	public Transform howToPlayScreen;
 	
 	#region singleton
 	private static MenuController instance;
@@ -157,14 +161,14 @@ public class MenuController : MonoBehaviour
 
 	void OnFingerDown(FingerDownEvent e)
 	{
-		if(!wallTop.enabled)
+		/*if(!wallTop.enabled)
 		{
 			if(e.Selection)
 			{
 				StopCoroutine("CountdownAborted");
 				StartCoroutine("CountdownBeginGame", e.Selection);
 			}
-		}
+		}*/
 	}
 
 	void Update()
@@ -173,6 +177,12 @@ public class MenuController : MonoBehaviour
 		{
 			Global.ClearPurchasedOnly();
 		}
+
+		if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.Escape))
+		{
+			Global.Reset();
+		}
+
 	}
 
 	IEnumerator CountdownBeginGame(GameObject selection)
@@ -197,18 +207,15 @@ public class MenuController : MonoBehaviour
 
 
 		OpenPanel();
-		
-		if(OnPanelOpening != null)
-			OnPanelOpening();
 	}
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		if(!wallTop.enabled && timeCounter < timeToStartGame)
+		/*if(!wallTop.enabled && timeCounter < timeToStartGame)
 		{
 			StopCoroutine("CountdownBeginGame");
 			StartCoroutine("CountdownAborted");
-		}
+		}*/
 	}
 
 	private IEnumerator CountdownAborted()
@@ -242,24 +249,37 @@ public class MenuController : MonoBehaviour
 		}
 		else
 		{
-			trailRenderer.SetActive(true);
+			if(trailRenderer != null)
+				trailRenderer.SetActive(true);
 
 			SoundController.Instance.PlayMusic(SoundController.Musics.MainMenuTheme);
 
+			Debug.Log("OnPanelClosed");
+			Time.timeScale = 1;
+
 			if(OnPanelClosed != null)
 				OnPanelClosed();
+
+			if(goToShop)
+			{
+				MoveToShop();
+				goToShop = false;
+			}
 		}
 	}
 
-	private void OpenPanel()
+	public void OpenPanel()
 	{
 		wallTop.enabled = wallBottom.enabled = true;
 		
 		wallTop.PlayForward();
 		wallBottom.PlayForward();
+
+		if(OnPanelOpening != null)
+			OnPanelOpening();
 	}
 
-	private void ClosePanel()
+	public void ClosePanel()
 	{
 		wallTop.enabled = wallBottom.enabled = true;
 		
@@ -313,7 +333,7 @@ public class MenuController : MonoBehaviour
 
 		activeMenu = Menus.Settings;
 		
-		MoveScreen ();
+		MoveScreen (true);
 	}
 
 	public void MoveToCredits()
@@ -324,22 +344,18 @@ public class MenuController : MonoBehaviour
 
 		activeMenu = Menus.Settings;
 
-		MoveScreen ();
+		MoveScreen (true);
 	}
 
-	public void MoveScreen()
+	public void MoveToHowToPlay()
 	{
-		ActiveScreen.SetActive (true);
-
-		Vector3 from = menuTween.transform.localPosition;
-		Vector3 to = -ActiveScreen.transform.localPosition;
+		if(menuTween.isActiveAndEnabled) return;
 		
-		menuTween.ResetToBeginning ();
+		ActiveScreen = howToPlayScreen.gameObject;
 		
-		menuTween.from = from;
-		menuTween.to = to;
+		activeMenu = Menus.HowToPlay;
 		
-		menuTween.PlayForward ();
+		MoveScreen (true);
 	}
 
 	public void MoveToHUBConnection()
@@ -361,7 +377,7 @@ public class MenuController : MonoBehaviour
 		
 		activeMenu = Menus.Achievements;
 		
-		MoveScreen ();
+		MoveScreen (true);
 	}
 
 	public void MoveToCreepypedia()
@@ -372,7 +388,7 @@ public class MenuController : MonoBehaviour
 		
 		activeMenu = Menus.Creepypedia;
 		
-		MoveScreen ();
+		MoveScreen (true);
 	}
 
 	public void MoveToGameStats()
@@ -383,7 +399,51 @@ public class MenuController : MonoBehaviour
 		
 		activeMenu = Menus.GameStats;
 		
-		MoveScreen ();
+		MoveScreen (true);
+	}
+
+	public void MoveInstantToMainMenu()
+	{
+		ActiveScreen = mainScreen.gameObject;
+		
+		activeMenu = Menus.Main;
+		
+		MoveScreen (true);
+	}
+
+	public void CloseScreen()
+	{
+		ActiveScreen = lastScreen;
+
+		MoveScreen(true);
+	}
+
+	public void MoveScreen()
+	{
+		MoveScreen(false);
+	}
+
+	public void MoveScreen(bool instant)
+	{
+		ActiveScreen.SetActive (true);
+		
+		Vector3 from = menuTween.transform.localPosition;
+		Vector3 to = -ActiveScreen.transform.localPosition;
+
+		if(instant)
+		{
+			menuTween.transform.localPosition = to;
+			OnMenuTransitionFinished();
+		}
+		else
+		{
+			menuTween.ResetToBeginning ();
+			
+			menuTween.from = from;
+			menuTween.to = to;
+			
+			menuTween.PlayForward ();
+		}
 	}
 
 	public void OnMenuTransitionFinished()

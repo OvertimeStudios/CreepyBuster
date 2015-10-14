@@ -199,7 +199,7 @@ public class BossMeteoro : MonoBehaviour
 		{
 			GetComponentInChildren<Collider2D>().enabled = false;
 
-			Time.timeScale = 0.2f;
+			Time.timeScale = 0.4f;
 
 			cameraShake.Shake(enemyLife.deathTime);
 			ScreenFeedback.ShowBlank(enemyLife.deathTime, 0.5f);
@@ -250,7 +250,7 @@ public class BossMeteoro : MonoBehaviour
 	{
 		randomMovement.enabled = false;
 
-		Vector3 pos = new Vector3 (0.5f, 1.3f, 0);
+		Vector3 pos = new Vector3 (0.5f, 1.0f, 0);
 		pos = Camera.main.ViewportToWorldPoint (pos);
 		pos.z = transform.position.z;
 		

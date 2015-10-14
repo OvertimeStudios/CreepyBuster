@@ -55,6 +55,7 @@ public class GameController : MonoBehaviour
 	public float timeToShowGameOverScreen;
 	public int orbsToContinue;
 	public int pointsPerOrb = 10;
+	public float timeInvencibleAfterContinue = 2f;
 
 	/// <summary>
 	/// Total score for session
@@ -276,8 +277,8 @@ public class GameController : MonoBehaviour
 
 	private void LoseStacks()
 	{
-		StreakCount = 0;
-		LevelDesign.PlayerLevel = 0;
+		StreakCount = LevelDesign.LastLevelPlayerStreak;
+		LevelDesign.PlayerLevel = Mathf.Max(LevelDesign.PlayerLevel - 1, 0);
 		realStreakCount = 0;
 		specialStreak = 0;
 
@@ -293,6 +294,13 @@ public class GameController : MonoBehaviour
 			StartCoroutine (ShowEndScreen (timeToShowGameOverScreen));
 		else
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.LifeOut));
+	}
+
+	public void GoToShop()
+	{
+		GameOver();
+
+		MenuController.goToShop = true;
 	}
 
 	public void GameOver()
@@ -315,10 +323,16 @@ public class GameController : MonoBehaviour
 		gameOver = true;
 		player.SetActive (false);
 
-		if (OnGameEnding != null)
-			OnGameEnding ();
+		//fade out TimeScale
+		lastTimeScale = Time.timeScale;
+		float fadeEndTime = Time.realtimeSinceStartup + waitTime;
+		while(Time.realtimeSinceStartup < fadeEndTime)
+		{
+			Time.timeScale = ((fadeEndTime - Time.realtimeSinceStartup) / waitTime) * lastTimeScale;
+			yield return null;
+		}
 
-		yield return new WaitForSeconds (waitTime);
+		Time.timeScale = 0;
 
 		ShowEndScreen ();
 	}
@@ -332,7 +346,16 @@ public class GameController : MonoBehaviour
 		gameOver = true;
 		player.SetActive (false);
 
-		yield return new WaitForSeconds (waitTime);
+		//fade out TimeScale
+		lastTimeScale = Time.timeScale;
+		float fadeEndTime = Time.realtimeSinceStartup + waitTime;
+		while(Time.realtimeSinceStartup < fadeEndTime)
+		{
+			Time.timeScale = ((fadeEndTime - Time.realtimeSinceStartup) / waitTime) * lastTimeScale;
+			yield return null;
+		}
+		
+		Time.timeScale = 0;
 
 		if (continues == 0 && Advertisement.IsReady () && Advertisement.isInitialized && Advertisement.isSupported)
 			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), null, ShowEndScreen, false);
@@ -361,7 +384,7 @@ public class GameController : MonoBehaviour
 
 		Popup.Hide ();
 
-		Global.TotalOrbs += orbsCollected;
+		//Global.TotalOrbs += orbsCollected;
 
 		HUDController.Instance.ShowEndScreen ();
 
@@ -388,9 +411,21 @@ public class GameController : MonoBehaviour
 
 		Debug.Log ("ContinuePlaying");
 
-		Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
+		isGameRunning = true;
+		gameOver = false;
 
-		StartCoroutine (WaitForFingerDown ());
+		Popup.Hide ();
+		
+		if(OnContinuePlaying != null)
+			OnContinuePlaying();
+
+		UseInvencibility(timeInvencibleAfterContinue);
+
+		PauseGame(false);
+
+		//Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
+
+		//StartCoroutine (WaitForFingerDown ());
 	}
 
 	private IEnumerator WaitForFingerDown()
@@ -405,7 +440,7 @@ public class GameController : MonoBehaviour
 
 		Debug.Log ("Continue");
 
-		KillAllEnemies(false);
+		//KillAllEnemies(false);
 
 		isGameRunning = true;
 		gameOver = false;
@@ -415,6 +450,16 @@ public class GameController : MonoBehaviour
 
 		if(OnContinuePlaying != null)
 			OnContinuePlaying();
+
+		//fade in TimeScale
+		float fadeEndTime = Time.realtimeSinceStartup + timeToShowGameOverScreen;
+		while(Time.realtimeSinceStartup < fadeEndTime)
+		{
+			Time.timeScale = (timeToShowGameOverScreen - (fadeEndTime - Time.realtimeSinceStartup)) / timeToShowGameOverScreen;
+			yield return null;
+		}
+		
+		Time.timeScale = 1;
 	}
 
 	public void StartGame()
@@ -424,6 +469,9 @@ public class GameController : MonoBehaviour
 		Reset ();
 		gameObject.SetActive (true);
 
+		//if(Global.IsTutorialEnabled)
+			//TutorialController.Instance.gameObject.SetActive(true);
+
 		if (FingerDetector.IsFingerDown)
 		{
 			Debug.Log("Active Player");
@@ -431,7 +479,7 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
-			Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
+			//Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
 		}
 
 		StartCoroutine (WaitForPlayer ());
@@ -442,8 +490,13 @@ public class GameController : MonoBehaviour
 		Debug.Log ("WaitForPlayer");
 		isGameRunning = true;
 
+		player.transform.position = Vector3.zero;
+		PauseGame();
+
 		while (!player.activeSelf)
 			yield return null;
+
+		ResumeGame();
 
 		Debug.Log ("Player found");
 		Popup.Hide ();
@@ -451,7 +504,7 @@ public class GameController : MonoBehaviour
 		if (OnGameStart != null)
 			OnGameStart ();
 
-		if (Global.RunTutorial)
+		if (Global.IsTutorialEnabled)
 			TutorialController.Instance.gameObject.SetActive (true);
 	}
 
@@ -507,7 +560,7 @@ public class GameController : MonoBehaviour
 				OnGameEnding();
 		}*/
 
-		if(Popup.IsActive || !isGameRunning)return;
+		if(!isGameRunning) return;
 
 		if(!isPaused)
 			PauseGame();
@@ -515,7 +568,8 @@ public class GameController : MonoBehaviour
 
 	private void OnDoubleTap(TapGesture gesture)
 	{
-		Popup.ShowYesNo("Are you sure you wanna quit the game?", QuitGame, null, true);
+		if(isPaused)
+			Popup.ShowYesNo("Are you sure you wanna quit the game?", QuitGame, null, true);
 	}
 
 	private void QuitGame()
@@ -527,34 +581,34 @@ public class GameController : MonoBehaviour
 
 	private void PauseGame()
 	{
-		if(isGameRunning)
-		{
-			isPaused = true;
-			//Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
+		PauseGame(true);
+	}
+
+	private void PauseGame(bool getNewTimeScale)
+	{
+		Debug.Log("Game Paused");
+
+		isPaused = true;
+		//Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
+
+		if(getNewTimeScale)
 			lastTimeScale = Time.timeScale;
-			Time.timeScale = 0f;
+		Time.timeScale = 0f;
 
-			if(OnPause != null)
-				OnPause();
-
-			Debug.Log("Game Paused");
-		}
+		if(OnPause != null)
+			OnPause();
 	}
 
 	private void ResumeGame()
 	{
-		if(isGameRunning)
-		{
-			isPaused = false;
-			player.SetActive (true);
-			//Popup.Hide();
-			Time.timeScale = lastTimeScale;
+		Debug.Log("Game Resumed");
+		isPaused = false;
+		player.SetActive (true);
+		//Popup.Hide();
+		Time.timeScale = lastTimeScale;
 
-			if(OnResume != null)
-				OnResume();
-
-			Debug.Log("Game Resumed");
-		}
+		if(OnResume != null)
+			OnResume();
 	}
 
 	private void BossIsReady()
@@ -604,12 +658,7 @@ public class GameController : MonoBehaviour
 			break;
 
 			case Item.Type.Invecibility:
-				invencible = true;
-				
-				ScreenFeedback.ShowInvencibility(Invencible.Time);
-
-				StopCoroutine("FadeInvencible");
-				StartCoroutine("FadeInvencible");
+				UseInvencibility(Invencible.Time);
 			break;
 
 			case Item.Type.DeathRay:
@@ -630,6 +679,16 @@ public class GameController : MonoBehaviour
 		}
 
 		Debug.Log("Collected " + itemType.ToString());
+	}
+
+	private void UseInvencibility(float invencibleTime)
+	{
+		invencible = true;
+		
+		ScreenFeedback.ShowInvencibility(invencibleTime);
+		
+		StopCoroutine("FadeInvencible");
+		StartCoroutine("FadeInvencible");
 	}
 
 	private IEnumerator FadeSlowDown()
@@ -665,7 +724,7 @@ public class GameController : MonoBehaviour
 		invencible = false;
 	}
 
-	private void KillAllEnemies(bool countPoints)
+	public void KillAllEnemies(bool countPoints)
 	{
 		for(int i = SpawnController.enemiesInGame.Count - 1; i >= 0; i--)
 		{

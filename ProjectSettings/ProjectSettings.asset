@@ -83,7 +83,7 @@ PlayerSettings:
   AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
   aotOptions: 
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 1
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
   ForceInternetPermission: 0
@@ -124,8 +124,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: /Users/jota/GitHub/OvertimeStudios/overtimestudios.keystore
+  AndroidKeyaliasName: overtime studios
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 0
@@ -263,7 +263,7 @@ PlayerSettings:
   spritePackerPolicy: 
   scriptingDefineSymbols:
     4: EVERYPLAY_IPHONE
-    7: EVERYPLAY_ANDROID;INFINITY_ORBS;UNITYADS_IMPLEMENTED;ADMOB_IMPLEMENTED
+    7: EVERYPLAY_ANDROID;INFINITY_ORBS;UNITYADS_IMPLEMENTED;ADMOB_IMPLEMENTED;FACEBOOK_IMPLEMENTED;DB_IMPLEMENTED
   metroPackageName: LightTests
   metroPackageLogo: 
   metroPackageLogo140: 

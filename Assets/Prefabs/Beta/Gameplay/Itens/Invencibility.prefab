@@ -28,6 +28,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 416356}
   - 212: {fileID: 21254378}
+  - 114: {fileID: 11400454}
   m_Layer: 0
   m_Name: Borda
   m_TagString: Untagged
@@ -89,6 +90,23 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 2.97000003, y: 3}
+--- !u!114 &11400454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 182956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d8e77e6c0114a2aa660d9352c105c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToChange: .400000006
+  colors:
+  - {r: .309803933, g: .474509835, b: .639215708, a: 1}
+  - {r: .235294133, g: .403921604, b: .729411781, a: 1}
+  - {r: .329411775, g: .286274523, b: .737254918, a: 1}
+  - {r: .380392194, g: .231372565, b: .737254918, a: 1}
 --- !u!114 &11456550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -163,6 +181,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: colors.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: vel
       value: 2
       objectReference: {fileID: 0}
@@ -173,6 +195,54 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[0].r
+      value: .309803933
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[0].g
+      value: .474509835
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[0].b
+      value: .639215708
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[1].r
+      value: .235294133
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[1].g
+      value: .403921604
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[1].b
+      value: .729411781
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[2].r
+      value: .329411775
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[2].g
+      value: .286274523
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[2].b
+      value: .737254918
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[3].r
+      value: .380392194
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[3].g
+      value: .231372565
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[3].b
+      value: .737254918
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

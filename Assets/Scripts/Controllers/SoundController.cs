@@ -20,8 +20,6 @@ public class SoundController : MonoBehaviour
 	#endregion
 
 	private static Musics currentMusic;
-	public static float musicVolume = 1f;
-	public static float soundFXVolume = 1f;
 
 	#region Music Audioclips
 	public AudioClip mainMenuTheme;
@@ -73,7 +71,7 @@ public class SoundController : MonoBehaviour
 	public void PlayMusic(Musics music, bool loop)
 	{
 		if(music == currentMusic) return;
-		
+
 		AudioClip clip = null;
 		
 		if(music == Musics.MainMenuTheme)
@@ -89,15 +87,13 @@ public class SoundController : MonoBehaviour
 		currentMusic = music;
 	}
 
-	public void SetMusicVolume()
+	public void MuteMusic()
 	{
-		musicVolume = UISlider.current.value;
-
-		audioSourceMusic.volume = musicVolume;
+		audioSourceMusic.volume = 0;
 	}
 
-	public void SetSoundFXVolume()
+	public void UnmuteMusic()
 	{
-		soundFXVolume = UISlider.current.value;
+		audioSourceMusic.volume = 1;
 	}
 }

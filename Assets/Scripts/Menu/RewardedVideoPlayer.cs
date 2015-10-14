@@ -7,6 +7,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 {
 	#region Action
 	public static event Action OnRevivePlayer;
+	public static event Action OnDoubleOrbs;
 	#endregion
 	
 	#region get / set
@@ -47,6 +48,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		Orbs,
 		PlayAgain,
+		DoubleOrbs,
 	}
 	
 	public Rewards reward;
@@ -86,12 +88,23 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	private void Ask()
 	{
-		Popup.ShowYesNo(Localization.Get("VIDEO_TO_ORBS") + " " + orbsToGive + " orbs?", ShowAd, null);
+		if(UnityAdsHelper.IsReady("rewardedVideoZone"))
+			Popup.ShowYesNo(Localization.Get("VIDEO_TO_ORBS") + " " + orbsToGive + " orbs?", ShowAd, null);
+		else
+			Popup.ShowBlank("Ads not ready", 2f);
 	}
 
-	private void ShowAd()
+	public void ShowAd()
 	{
-		UnityAdsHelper.ShowAd (null, GiveReward);
+		UnityAdsHelper.ShowAd ("rewardedVideoZone", GiveReward);
+	}
+
+	public static void ShowAd(Action handleFinish)
+	{
+		if(UnityAdsHelper.IsReady("rewardedVideoZone"))
+			UnityAdsHelper.ShowAd("rewardedVideoZone", handleFinish);
+		else
+			Popup.ShowBlank("Ads not ready", 2f);
 	}
 	
 	private void GiveReward()
@@ -100,6 +113,8 @@ public class RewardedVideoPlayer : MonoBehaviour
 			GiveOrbs ();
 		else if (reward == Rewards.PlayAgain)
 			RevivePlayer ();
+		else if(reward == Rewards.DoubleOrbs)
+			DoubleOrbs();
 		
 		if(rewardCooldown > 0)
 			SetRewardCooldownTime(DateTime.UtcNow.AddSeconds(rewardCooldown));
@@ -117,6 +132,12 @@ public class RewardedVideoPlayer : MonoBehaviour
 		if (OnRevivePlayer != null)
 			OnRevivePlayer ();
 	}
+
+	private void DoubleOrbs()
+	{
+		if(OnDoubleOrbs != null)
+			OnDoubleOrbs();
+	} 
 
 	void Update()
 	{

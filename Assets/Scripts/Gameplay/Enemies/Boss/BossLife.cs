@@ -11,17 +11,12 @@ public class BossLife : EnemyLife
 	#region Action
 	public static event Action OnBossDied;
 	#endregion
-
-	public override void Dead (bool countPoints)
-	{
-		base.Dead (countPoints);
-		
-		if(OnBossDied != null)
-			OnBossDied();
-	}
 	
 	protected override void DropOrbs()
 	{
+		if(OnBossDied != null)
+			OnBossDied();
+
 		SpawnController.Instance.SpawnOrbs(orbsToDrop, transform.position, spread);
 	}
 }
