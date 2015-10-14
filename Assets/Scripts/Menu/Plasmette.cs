@@ -55,12 +55,12 @@ public class Plasmette : MonoBehaviour
 		click.z = initialPosition.z;
 
 		float distance = Vector3.Distance(click, myTransform.position);
-		if(distance < 0.5f && waypoint == Vector3.zero)
+		if(distance < 1f && waypoint == Vector3.zero)
 		{
 			StopAllCoroutines();
 			spinningCoroutine = StartCoroutine(StartSpinning());
 		}
-		else if(distance > 1f)
+		else
 		{
 			waypoint = click;
 
