@@ -207,9 +207,6 @@ public class MenuController : MonoBehaviour
 
 
 		OpenPanel();
-		
-		if(OnPanelOpening != null)
-			OnPanelOpening();
 	}
 
 	void OnFingerUp(FingerUpEvent e)
@@ -277,6 +274,9 @@ public class MenuController : MonoBehaviour
 		
 		wallTop.PlayForward();
 		wallBottom.PlayForward();
+
+		if(OnPanelOpening != null)
+			OnPanelOpening();
 	}
 
 	public void ClosePanel()
