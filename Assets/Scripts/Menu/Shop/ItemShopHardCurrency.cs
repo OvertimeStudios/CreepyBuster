@@ -100,5 +100,8 @@ public class ItemShopHardCurrency : MonoBehaviour
 				Popup.ShowOk("Orbs gain doubled");
 				break;
 		}
+
+		Global.IsAdFree = true;
+		AdMobHelper.HideBanner();
 	}
 }

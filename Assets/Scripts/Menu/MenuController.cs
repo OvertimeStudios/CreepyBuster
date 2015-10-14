@@ -453,6 +453,8 @@ public class MenuController : MonoBehaviour
 
 	private void ShowAds()
 	{
+		if(Global.IsAdFree) return;
+
 		gamesCount++;
 
 		if(gamesCount % gamesToShowAd == 0)

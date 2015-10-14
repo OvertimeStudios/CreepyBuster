@@ -27,6 +27,7 @@ public class Global : MonoBehaviour
 	private const string TUTORIAL_ENABLED = "tutorialEnabled";
 	private const string ORBS_MULTIPLIER = "orbsMultiplier";
 	private const string CREEP_UNLOCKED = "_unlocked";
+	private const string ADS_FREE = "ads_free";
 	#endregion
 
 	private static bool isLoaded;
@@ -323,6 +324,26 @@ public class Global : MonoBehaviour
 			
 			PlayerPrefs.SetInt (ORBS_MULTIPLIER, orbsMultiplier);
 			PlayerPrefs.Save ();
+		}
+	}
+
+	public static bool IsAdFree
+	{
+		get
+		{
+			if(!isLoaded)
+				Load ();
+
+			if(!PlayerPrefs.HasKey(ADS_FREE))
+				return false;
+
+			return PlayerPrefs.GetInt(ADS_FREE) == 1;
+		}
+
+		set
+		{
+			PlayerPrefs.SetInt(ADS_FREE, (value == true) ? 1 : 0);
+			PlayerPrefs.Save();
 		}
 	}
 
