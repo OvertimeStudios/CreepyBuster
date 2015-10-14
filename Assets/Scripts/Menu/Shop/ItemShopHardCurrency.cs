@@ -27,6 +27,13 @@ public class ItemShopHardCurrency : MonoBehaviour
 	void OnEnable()
 	{
 		UpdatePrices();
+
+		Settings.OnProductRestored += Restore;
+	}
+
+	void OnDisable()
+	{
+		Settings.OnProductRestored -= Restore;
 	}
 
 	void Start()

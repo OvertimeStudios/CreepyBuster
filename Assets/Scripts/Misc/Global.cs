@@ -409,7 +409,7 @@ public class Global : MonoBehaviour
 			firstTimeTutorial = PlayerPrefs.GetInt(FIRST_TIME_TUTORIAL);
 			tutorialEnabled = PlayerPrefs.GetInt(TUTORIAL_ENABLED);
 			orbsMultiplier = PlayerPrefs.GetInt(ORBS_MULTIPLIER);
-			
+
 			language = PlayerPrefs.GetString(LANGUAGE);
 		}
 
@@ -443,6 +443,7 @@ public class Global : MonoBehaviour
 		PlayerPrefs.SetInt (VIBRATE, vibrate);
 		PlayerPrefs.SetInt(FIRST_TIME_TUTORIAL, firstTimeTutorial);
 		PlayerPrefs.SetInt(TUTORIAL_ENABLED, tutorialEnabled);
+		PlayerPrefs.SetInt(ORBS_MULTIPLIER, orbsMultiplier);
 
 		PlayerPrefs.Save ();
 	}
