@@ -107,8 +107,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 10
   - name: BOTAO-DOUBLE
-    x: 1081
-    y: 607
+    x: 3814
+    y: 2604
     width: 234
     height: 239
     borderLeft: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-rect-blue-wide
-    x: 1081
+    x: 1398
     y: 847
     width: 736
     height: 128
@@ -211,8 +211,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-square-blue
-    x: 2950
-    y: 2588
+    x: 1081
+    y: 663
     width: 316
     height: 312
     borderLeft: 0
@@ -236,6 +236,32 @@ MonoBehaviour:
     paddingRight: 17
     paddingTop: 15
     paddingBottom: 20
+  - name: creepypedia_locked
+    x: 3473
+    y: 2758
+    width: 340
+    height: 323
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: creepypedia_unlocked
+    x: 2950
+    y: 2577
+    width: 340
+    height: 323
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: estrela
     x: 1017
     y: 266
@@ -249,6 +275,19 @@ MonoBehaviour:
     paddingRight: 2
     paddingTop: 1
     paddingBottom: 2
+  - name: Everyplay
+    x: 766
+    y: 7
+    width: 77
+    height: 83
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: Feedback_de_Dano
     x: 1081
     y: 1314
@@ -315,8 +354,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon_arrow
-    x: 1762
-    y: 1203
+    x: 1821
+    y: 1018
     width: 151
     height: 110
     borderLeft: 0
@@ -329,7 +368,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-achievements
     x: 1081
-    y: 361
+    y: 417
     width: 209
     height: 245
     borderLeft: 0
@@ -341,8 +380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-atom
-    x: 3949
-    y: 2829
+    x: 1973
+    y: 1026
     width: 130
     height: 102
     borderLeft: 0
@@ -354,8 +393,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-brush
-    x: 3609
-    y: 2558
+    x: 3711
+    y: 2623
     width: 95
     height: 134
     borderLeft: 0
@@ -367,8 +406,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-creepypedia
-    x: 3711
-    y: 2694
+    x: 3814
+    y: 2844
     width: 237
     height: 237
     borderLeft: 0
@@ -380,7 +419,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-disabled
-    x: 3267
+    x: 3291
     y: 2585
     width: 175
     height: 140
@@ -393,8 +432,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-dollar
-    x: 1914
-    y: 1196
+    x: 1291
+    y: 545
     width: 75
     height: 117
     borderLeft: 0
@@ -432,7 +471,7 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 1
   - name: icon-flag-EUA
-    x: 766
+    x: 844
     y: 21
     width: 69
     height: 69
@@ -458,7 +497,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-music
-    x: 3267
+    x: 3291
     y: 2726
     width: 155
     height: 174
@@ -471,8 +510,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-orb
-    x: 1316
-    y: 439
+    x: 1398
+    y: 490
     width: 216
     height: 206
     borderLeft: 0
@@ -484,8 +523,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtime
-    x: 3968
-    y: 2584
+    x: 2104
+    y: 1019
     width: 103
     height: 109
     borderLeft: 0
@@ -497,8 +536,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtimehub
-    x: 3949
-    y: 2695
+    x: 2155
+    y: 1180
     width: 93
     height: 133
     borderLeft: 0
@@ -510,8 +549,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: icon-range
-    x: 1316
-    y: 238
+    x: 1398
+    y: 289
     width: 210
     height: 200
     borderLeft: 0
@@ -563,7 +602,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-vibrate
     x: 1081
-    y: 158
+    y: 13
     width: 223
     height: 202
     borderLeft: 0
@@ -588,8 +627,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-videoplus
-    x: 3473
-    y: 2561
+    x: 2019
+    y: 1182
     width: 135
     height: 131
     borderLeft: 0
@@ -615,7 +654,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: legion
     x: 3473
-    y: 2693
+    y: 2519
     width: 237
     height: 238
     borderLeft: 0
@@ -640,8 +679,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: minion_branco
-    x: 1316
-    y: 646
+    x: 1081
+    y: 216
     width: 239
     height: 200
     borderLeft: 0
@@ -653,8 +692,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 21
   - name: minion_transparente
-    x: 3711
-    y: 2510
+    x: 1762
+    y: 1130
     width: 256
     height: 183
     borderLeft: 0
@@ -666,8 +705,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 14
   - name: rect-black
-    x: 3473
-    y: 2932
+    x: 1398
+    y: 697
     width: 579
     height: 149
     borderLeft: 55

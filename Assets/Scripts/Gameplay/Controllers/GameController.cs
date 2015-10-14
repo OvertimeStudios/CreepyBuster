@@ -296,6 +296,13 @@ public class GameController : MonoBehaviour
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.LifeOut));
 	}
 
+	public void GoToShop()
+	{
+		GameOver();
+
+		MenuController.goToShop = true;
+	}
+
 	public void GameOver()
 	{
 		isGameRunning = false;
@@ -377,7 +384,7 @@ public class GameController : MonoBehaviour
 
 		Popup.Hide ();
 
-		Global.TotalOrbs += orbsCollected;
+		//Global.TotalOrbs += orbsCollected;
 
 		HUDController.Instance.ShowEndScreen ();
 

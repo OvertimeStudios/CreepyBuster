@@ -10,13 +10,6 @@ public class HUDController : MonoBehaviour
 	public GameObject endScreen;
 	public GameObject pauseScreen;
 
-	private UILabel orbsCollected;
-	private UILabel points;
-	private UILabel orbsFromPoints;
-	private UILabel totalOrbs;
-
-	public float guto = 2f;
-
 	#region singleton
 	private static HUDController instance;
 	public static HUDController Instance
@@ -85,11 +78,6 @@ public class HUDController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		orbsCollected = endScreen.transform.FindChild ("Orbs Collected").FindChild ("Value").GetComponent<UILabel> ();
-		points = endScreen.transform.FindChild ("Points").FindChild ("Value").GetComponent<UILabel> ();
-		orbsFromPoints = endScreen.transform.FindChild ("Orbs from points").FindChild ("Value").GetComponent<UILabel> ();
-		totalOrbs = endScreen.transform.FindChild ("Total Orbs").FindChild ("Value").GetComponent<UILabel> ();
-
 		endScreen.SetActive (false);
 
 		score.text = GameController.Score.ToString();
@@ -127,14 +115,14 @@ public class HUDController : MonoBehaviour
 
 	public void ShowEndScreen()
 	{
-		int totalOrbsFromPoints = (int)Mathf.Floor (GameController.Score / GameController.Instance.pointsPerOrb);
+		//int totalOrbsFromPoints = (int)Mathf.Floor (GameController.Score / GameController.Instance.pointsPerOrb);
 
-		orbsCollected.text = GameController.orbsCollected.ToString ();
+		/*orbsCollected.text = GameController.orbsCollected.ToString ();
 		points.text = GameController.Score.ToString ();
 		orbsFromPoints.text = totalOrbsFromPoints.ToString();
-		totalOrbs.text = (GameController.orbsCollected + totalOrbsFromPoints).ToString ();
+		totalOrbs.text = (GameController.orbsCollected + totalOrbsFromPoints).ToString ();*/
 
-		Global.TotalOrbs += totalOrbsFromPoints;
+		//Global.TotalOrbs += totalOrbsFromPoints;
 
 		endScreen.SetActive (true);
 	}

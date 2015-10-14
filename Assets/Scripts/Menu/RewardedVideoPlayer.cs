@@ -88,12 +88,23 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	private void Ask()
 	{
-		Popup.ShowYesNo(Localization.Get("VIDEO_TO_ORBS") + " " + orbsToGive + " orbs?", ShowAd, null);
+		if(UnityAdsHelper.IsReady("rewardedVideoZone"))
+			Popup.ShowYesNo(Localization.Get("VIDEO_TO_ORBS") + " " + orbsToGive + " orbs?", ShowAd, null);
+		else
+			Popup.ShowBlank("Ads not ready", 2f);
 	}
 
-	private void ShowAd()
+	public void ShowAd()
 	{
 		UnityAdsHelper.ShowAd ("rewardedVideoZone", GiveReward);
+	}
+
+	public static void ShowAd(Action handleFinish)
+	{
+		if(UnityAdsHelper.IsReady("rewardedVideoZone"))
+			UnityAdsHelper.ShowAd("rewardedVideoZone", handleFinish);
+		else
+			Popup.ShowBlank("Ads not ready", 2f);
 	}
 	
 	private void GiveReward()

@@ -50,6 +50,8 @@ public class MenuController : MonoBehaviour
 	private TweenPosition wallBottom;
 	private UILabel highScore;
 
+	public static bool goToShop = false;
+
 	public float timeToStartGame = 3f;
 	private float timeCounter;
 	private float initialTapAndHoldRotation;
@@ -260,6 +262,12 @@ public class MenuController : MonoBehaviour
 
 			if(OnPanelClosed != null)
 				OnPanelClosed();
+
+			if(goToShop)
+			{
+				MoveToShop();
+				goToShop = false;
+			}
 		}
 	}
 

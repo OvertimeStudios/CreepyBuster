@@ -34,9 +34,17 @@ public class FacebookController : MonoBehaviour
 
 	public void Login()
 	{
-		string scope = "public_profile,email";
+		if(!IsLoggedIn)
+		{
+			string scope = "public_profile,email";
 
-		FacebookHelper.Login (scope, LoginCallback);
+			FacebookHelper.Login (scope, LoginCallback);
+		}
+		else
+		{
+			fbUser = null;
+			FacebookHelper.Logout();
+		}
 	}
 
 	private void LoginCallback(FBResult result)

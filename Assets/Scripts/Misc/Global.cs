@@ -26,6 +26,7 @@ public class Global : MonoBehaviour
 	private const string FIRST_TIME_TUTORIAL = "firstTimeTutorial";
 	private const string TUTORIAL_ENABLED = "tutorialEnabled";
 	private const string ORBS_MULTIPLIER = "orbsMultiplier";
+	private const string CREEP_UNLOCKED = "_unlocked";
 	#endregion
 
 	private static bool isLoaded;
@@ -323,6 +324,23 @@ public class Global : MonoBehaviour
 			PlayerPrefs.SetInt (ORBS_MULTIPLIER, orbsMultiplier);
 			PlayerPrefs.Save ();
 		}
+	}
+
+	public static bool IsCreepUnlocked(CreepData.CreepType type)
+	{
+		if(!isLoaded)
+			Load ();
+
+		if(!PlayerPrefs.HasKey(type.ToString() + CREEP_UNLOCKED))
+			return false;
+
+		return true;
+	}
+
+	public static void UnlockCreep(CreepData.CreepType type)
+	{
+		PlayerPrefs.SetInt(type.ToString() + CREEP_UNLOCKED, 1);
+		PlayerPrefs.Save();
 	}
 
 	#endregion
