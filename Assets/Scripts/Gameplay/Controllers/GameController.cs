@@ -464,7 +464,7 @@ public class GameController : MonoBehaviour
 
 	public void StartGame()
 	{
-		SoundController.Instance.PlayMusic(SoundController.Musics.GameTheme);
+		SoundController.Instance.CrossFadeMusic(SoundController.Musics.GameTheme, 1f);
 
 		Reset ();
 		gameObject.SetActive (true);
@@ -491,12 +491,15 @@ public class GameController : MonoBehaviour
 		isGameRunning = true;
 
 		player.transform.position = Vector3.zero;
-		PauseGame();
+
+		if(!player.activeSelf)
+			PauseGame();
 
 		while (!player.activeSelf)
 			yield return null;
 
-		ResumeGame();
+		if(isPaused)
+			ResumeGame();
 
 		Debug.Log ("Player found");
 		Popup.Hide ();
@@ -588,6 +591,8 @@ public class GameController : MonoBehaviour
 	{
 		Debug.Log("Game Paused");
 
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Pause);
+
 		isPaused = true;
 		//Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
 
@@ -602,6 +607,9 @@ public class GameController : MonoBehaviour
 	private void ResumeGame()
 	{
 		Debug.Log("Game Resumed");
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Resume);
+
 		isPaused = false;
 		player.SetActive (true);
 		//Popup.Hide();
@@ -624,11 +632,18 @@ public class GameController : MonoBehaviour
 		while (SpawnController.EnemiesInGame > 0)
 			yield return null;
 
+		SoundController.Instance.FadeOut(1f);
+
+		yield return new WaitForSeconds(3f);
+
+		SoundController.Instance.PlayMusic(SoundController.Musics.BossTheme);
+
 		SpawnController.SpawnBoss ();
 	}
 
 	public static void BossDied()
 	{
+		SoundController.Instance.CrossFadeMusic(SoundController.Musics.GameTheme, 1f);
 		bossTime = false;
 	}
 
@@ -638,7 +653,6 @@ public class GameController : MonoBehaviour
 		{
 			case Item.Type.PlasmaOrb:
 				orbsCollected += gameObject.GetComponent<PlasmaOrbItem>().orbs;
-				Debug.Log("Orbs collected: " + gameObject.GetComponent<PlasmaOrbItem>().orbs + ". Total: " + orbsCollected);
 			break;
 
 			case Item.Type.LevelUp:
@@ -669,6 +683,8 @@ public class GameController : MonoBehaviour
 				if(OnFrozenCollected != null)
 					OnFrozenCollected();
 				
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Freeze);
+
 				frozen = true;
 				
 				ScreenFeedback.ShowFrozen(Frozen.FrozenTime);

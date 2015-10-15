@@ -132,6 +132,8 @@ public class EnemyLife : MonoBehaviour
 			brilho.color = c;
 		}
 
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.AttackStart);
+
 		lightning.SetActive (true);
 	}
 
@@ -238,6 +240,8 @@ public class EnemyLife : MonoBehaviour
 			SpawnItem ();
 			DropOrbs();
 		}
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.EnemyDie);
 
 		if(destroyUponDeath)
 		{

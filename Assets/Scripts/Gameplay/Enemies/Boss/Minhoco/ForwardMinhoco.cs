@@ -96,8 +96,6 @@ public class ForwardMinhoco : MonoBehaviour
 		
 		angle = Mathf.Atan2(posy - pos.y, posx - pos.x);
 
-		Debug.Log(pos.ToString() + " -> " + new Vector3(posx, posy).ToString() + "\n" + (angle * Mathf.Rad2Deg) + " -> " + Vector3.Angle(pos, new Vector3(posx, posy, 10f)));
-
 		transform.eulerAngles = new Vector3(0, 0, angle * Mathf.Rad2Deg);
 	}
 

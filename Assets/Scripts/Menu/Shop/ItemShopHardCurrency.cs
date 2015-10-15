@@ -27,6 +27,13 @@ public class ItemShopHardCurrency : MonoBehaviour
 	void OnEnable()
 	{
 		UpdatePrices();
+
+		Settings.OnProductRestored += Restore;
+	}
+
+	void OnDisable()
+	{
+		Settings.OnProductRestored -= Restore;
 	}
 
 	void Start()
@@ -100,5 +107,8 @@ public class ItemShopHardCurrency : MonoBehaviour
 				Popup.ShowOk("Orbs gain doubled");
 				break;
 		}
+
+		Global.IsAdFree = true;
+		AdMobHelper.HideBanner();
 	}
 }

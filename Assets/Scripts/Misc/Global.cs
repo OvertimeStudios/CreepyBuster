@@ -27,6 +27,7 @@ public class Global : MonoBehaviour
 	private const string TUTORIAL_ENABLED = "tutorialEnabled";
 	private const string ORBS_MULTIPLIER = "orbsMultiplier";
 	private const string CREEP_UNLOCKED = "_unlocked";
+	private const string ADS_FREE = "ads_free";
 	#endregion
 
 	private static bool isLoaded;
@@ -326,6 +327,26 @@ public class Global : MonoBehaviour
 		}
 	}
 
+	public static bool IsAdFree
+	{
+		get
+		{
+			if(!isLoaded)
+				Load ();
+
+			if(!PlayerPrefs.HasKey(ADS_FREE))
+				return false;
+
+			return PlayerPrefs.GetInt(ADS_FREE) == 1;
+		}
+
+		set
+		{
+			PlayerPrefs.SetInt(ADS_FREE, (value == true) ? 1 : 0);
+			PlayerPrefs.Save();
+		}
+	}
+
 	public static bool IsCreepUnlocked(CreepData.CreepType type)
 	{
 		if(!isLoaded)
@@ -388,7 +409,7 @@ public class Global : MonoBehaviour
 			firstTimeTutorial = PlayerPrefs.GetInt(FIRST_TIME_TUTORIAL);
 			tutorialEnabled = PlayerPrefs.GetInt(TUTORIAL_ENABLED);
 			orbsMultiplier = PlayerPrefs.GetInt(ORBS_MULTIPLIER);
-			
+
 			language = PlayerPrefs.GetString(LANGUAGE);
 		}
 
@@ -422,6 +443,7 @@ public class Global : MonoBehaviour
 		PlayerPrefs.SetInt (VIBRATE, vibrate);
 		PlayerPrefs.SetInt(FIRST_TIME_TUTORIAL, firstTimeTutorial);
 		PlayerPrefs.SetInt(TUTORIAL_ENABLED, tutorialEnabled);
+		PlayerPrefs.SetInt(ORBS_MULTIPLIER, orbsMultiplier);
 
 		PlayerPrefs.Save ();
 	}
