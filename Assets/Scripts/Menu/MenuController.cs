@@ -130,8 +130,6 @@ public class MenuController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		SoundController.Instance.PlayMusic(SoundController.Musics.MainMenuTheme);
-
 		instance = this;
 
 		activeMenu = Menus.Main;
@@ -252,9 +250,8 @@ public class MenuController : MonoBehaviour
 			if(trailRenderer != null)
 				trailRenderer.SetActive(true);
 
-			SoundController.Instance.PlayMusic(SoundController.Musics.MainMenuTheme);
+			SoundController.Instance.CrossFadeMusic(SoundController.Musics.MainMenuTheme, 1f);
 
-			Debug.Log("OnPanelClosed");
 			Time.timeScale = 1;
 
 			if(OnPanelClosed != null)
@@ -275,6 +272,8 @@ public class MenuController : MonoBehaviour
 		wallTop.PlayForward();
 		wallBottom.PlayForward();
 
+		//SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuOut);
+
 		if(OnPanelOpening != null)
 			OnPanelOpening();
 	}
@@ -287,6 +286,8 @@ public class MenuController : MonoBehaviour
 		wallBottom.PlayReverse();
 
 		hud.SetActive (false);
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
 
 		if (OnPanelClosing != null)
 			OnPanelClosing ();
@@ -307,6 +308,9 @@ public class MenuController : MonoBehaviour
 	{
 		if(menuTween.isActiveAndEnabled) return;
 
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
+
 		ActiveScreen = mainScreen.gameObject;
 		
 		activeMenu = Menus.Main;
@@ -317,6 +321,9 @@ public class MenuController : MonoBehaviour
 	public void MoveToShop()
 	{
 		if(menuTween.isActiveAndEnabled) return;
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
 
 		ActiveScreen = shopScreen.gameObject;
 
@@ -329,6 +336,8 @@ public class MenuController : MonoBehaviour
 	{
 		if(menuTween.isActiveAndEnabled) return;
 
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		ActiveScreen = settingsScreen.gameObject;
 
 		activeMenu = Menus.Settings;
@@ -340,6 +349,8 @@ public class MenuController : MonoBehaviour
 	{
 		if(menuTween.isActiveAndEnabled) return;
 
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		ActiveScreen = creditsScreen.gameObject;
 
 		activeMenu = Menus.Settings;
@@ -350,7 +361,9 @@ public class MenuController : MonoBehaviour
 	public void MoveToHowToPlay()
 	{
 		if(menuTween.isActiveAndEnabled) return;
-		
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		ActiveScreen = howToPlayScreen.gameObject;
 		
 		activeMenu = Menus.HowToPlay;
@@ -361,6 +374,9 @@ public class MenuController : MonoBehaviour
 	public void MoveToHUBConnection()
 	{
 		if(menuTween.isActiveAndEnabled) return;
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
 
 		ActiveScreen = hubConnectionScreen.gameObject;
 		
@@ -373,6 +389,8 @@ public class MenuController : MonoBehaviour
 	{
 		if(menuTween.isActiveAndEnabled) return;
 
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		ActiveScreen = achievementsScreen.gameObject;
 		
 		activeMenu = Menus.Achievements;
@@ -383,6 +401,8 @@ public class MenuController : MonoBehaviour
 	public void MoveToCreepypedia()
 	{
 		if(menuTween.isActiveAndEnabled) return;
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
 		ActiveScreen = creepypediaScreen.gameObject;
 		
@@ -395,6 +415,8 @@ public class MenuController : MonoBehaviour
 	{
 		if(menuTween.isActiveAndEnabled) return;
 
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		ActiveScreen = gameStatsScreen.gameObject;
 		
 		activeMenu = Menus.GameStats;
@@ -405,7 +427,9 @@ public class MenuController : MonoBehaviour
 	public void MoveInstantToMainMenu()
 	{
 		ActiveScreen = mainScreen.gameObject;
-		
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		activeMenu = Menus.Main;
 		
 		MoveScreen (true);
@@ -414,6 +438,8 @@ public class MenuController : MonoBehaviour
 	public void CloseScreen()
 	{
 		ActiveScreen = lastScreen;
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
 		MoveScreen(true);
 	}
@@ -426,7 +452,7 @@ public class MenuController : MonoBehaviour
 	public void MoveScreen(bool instant)
 	{
 		ActiveScreen.SetActive (true);
-		
+
 		Vector3 from = menuTween.transform.localPosition;
 		Vector3 to = -ActiveScreen.transform.localPosition;
 

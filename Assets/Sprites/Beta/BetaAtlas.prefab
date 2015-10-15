@@ -237,8 +237,8 @@ MonoBehaviour:
     paddingTop: 15
     paddingBottom: 20
   - name: creepypedia_locked
-    x: 3473
-    y: 2758
+    x: 2950
+    y: 2577
     width: 340
     height: 323
     borderLeft: 0
@@ -250,8 +250,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: creepypedia_unlocked
-    x: 2950
-    y: 2577
+    x: 3473
+    y: 2758
     width: 340
     height: 323
     borderLeft: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon_arrow
-    x: 1821
+    x: 1957
     y: 1018
     width: 151
     height: 110
@@ -380,8 +380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-atom
-    x: 1973
-    y: 1026
+    x: 2146
+    y: 1211
     width: 130
     height: 102
     borderLeft: 0
@@ -433,7 +433,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-dollar
     x: 1291
-    y: 545
+    y: 435
     width: 75
     height: 117
     borderLeft: 0
@@ -458,8 +458,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 0
   - name: icon-flag-brazil
-    x: 999
-    y: 970
+    x: 984
+    y: 25
     width: 65
     height: 65
     borderLeft: 0
@@ -523,8 +523,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtime
-    x: 2104
-    y: 1019
+    x: 1291
+    y: 553
     width: 103
     height: 109
     borderLeft: 0
@@ -536,8 +536,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtimehub
-    x: 2155
-    y: 1180
+    x: 2109
+    y: 995
     width: 93
     height: 133
     borderLeft: 0
@@ -563,7 +563,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-settings
     x: 929
-    y: 1184
+    y: 1011
     width: 138
     height: 138
     borderLeft: 0
@@ -575,8 +575,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 2
   - name: icon-shopping
-    x: 929
-    y: 1036
+    x: 2019
+    y: 1166
     width: 126
     height: 147
     borderLeft: 0
@@ -627,8 +627,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-videoplus
-    x: 2019
-    y: 1182
+    x: 1821
+    y: 997
     width: 135
     height: 131
     borderLeft: 0
@@ -640,8 +640,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 3
   - name: icon-x
-    x: 929
-    y: 971
+    x: 914
+    y: 26
     width: 69
     height: 64
     borderLeft: 0
@@ -729,6 +729,19 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
+    paddingBottom: 0
+  - name: Ribbon
+    x: 929
+    y: 1150
+    width: 132
+    height: 172
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 7
+    paddingRight: 5
+    paddingTop: 8
     paddingBottom: 0
   - name: slider
     x: 2277

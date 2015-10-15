@@ -22,6 +22,9 @@ public class AttackTargets : MonoBehaviour
 
 	private int layerMask;
 
+	private AudioSource audioSource;
+	private bool isAttacking;
+
 	public float damage;
 
 	private CircleCollider2D range;
@@ -90,7 +93,10 @@ public class AttackTargets : MonoBehaviour
 
 		layerMask = LayerMask.NameToLayer ("AttackCollider");
 
+		isAttacking = false;
 		isSpecial = false;
+
+		audioSource = GetComponent<AudioSource>();
 
 		targets = new List<Transform> ();
 		enemiesInRange = new List<Transform> ();
@@ -184,6 +190,19 @@ public class AttackTargets : MonoBehaviour
 		}
 
 		targets = newTargets;
+
+		//start attacking
+		if(!isAttacking && targets.Count > 0)
+		{
+			isAttacking = true;
+			audioSource.Play();
+		}
+		//stop attacking
+		else if(isAttacking && targets.Count == 0)
+		{
+			isAttacking = false;
+			audioSource.Stop();
+		}
 	}
 
 	public void UseSpecial()
@@ -251,6 +270,7 @@ public class AttackTargets : MonoBehaviour
 
 	private void Reset()
 	{
+		isAttacking = false;
 		isSpecial = false;
 
 		if(targets != null)
