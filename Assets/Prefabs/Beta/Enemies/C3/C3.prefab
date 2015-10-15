@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018fd61d0df7047aeb5c8f0e285ab447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: 1.60000002
+  vel: 1.29999995
   timeToChangeDirection:
     min: 2
     max: 3
@@ -381,7 +381,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: vel
-      value: 1.60000002
+      value: 1.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: life
