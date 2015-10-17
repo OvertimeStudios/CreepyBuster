@@ -28,6 +28,23 @@ public class Global : MonoBehaviour
 	private const string ORBS_MULTIPLIER = "orbsMultiplier";
 	private const string CREEP_UNLOCKED = "_unlocked";
 	private const string ADS_FREE = "ads_free";
+	private const string CREEPS_KILLED = "creepsKilled";
+	private const string BASICS_KILLED = "basicsKilled";
+	private const string BOOMERANGS_KILLED = "boomerangKilled";
+	private const string CHARGERS_KILLED = "chargerKilled";
+	private const string FOLLOWERS_KILLED = "followerKilled";
+	private const string ZIGZAGS_KILLED = "zigzagKilled";
+	private const string LEGIONS_KILLED = "legionKilled";
+	private const string BOSS1_KILLED = "boss1Killed";
+	private const string BOSS2_KILLED = "boss2Killed";
+	private const string BOSS3_KILLED = "boss3Killed";
+	private const string MAX_STREAK = "maxStreak";
+	private const string MAX_POINTS = "maxPoints";
+	private const string GAMES_PLAYED = "gamesPlayed";
+	private const string TIME_PLAYED = "timePlayed";
+	private const string ENERGY_SPENT = "energySpent";
+	private const string UPGRADES = "upgradesBought";
+	private const string LEFT_RIGHT = "leftRight";
 	#endregion
 
 	private static bool isLoaded;
@@ -364,6 +381,249 @@ public class Global : MonoBehaviour
 		PlayerPrefs.Save();
 	}
 
+	public static bool IsAchievementUnlocked(Achievement.Type type, int value)
+	{
+		if(!isLoaded)
+			Load ();
+		
+		if(!PlayerPrefs.HasKey(type.ToString() + value))
+			return false;
+		
+		return true;
+	}
+	
+	public static void UnlockAchievement(Achievement.Type type, int value)
+	{
+		PlayerPrefs.SetInt(type.ToString() + value, 1);
+		PlayerPrefs.Save();
+	}
+
+	public static void LockAchievement(Achievement.Type type, int value)
+	{
+		PlayerPrefs.DeleteKey(type.ToString() + value);
+		PlayerPrefs.Save();
+	}
+
+	public static int CreepsKilled
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(CREEPS_KILLED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(CREEPS_KILLED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int BasicsKilled
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(BASICS_KILLED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(BASICS_KILLED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int BoomerangsKilled
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(BOOMERANGS_KILLED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(BOOMERANGS_KILLED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int ZigZagsKilled
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(ZIGZAGS_KILLED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(ZIGZAGS_KILLED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int ChargersKilled
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(CHARGERS_KILLED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(CHARGERS_KILLED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int LegionsKilled
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(LEGIONS_KILLED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(LEGIONS_KILLED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int FollowersKilled
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(FOLLOWERS_KILLED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(FOLLOWERS_KILLED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int Boss1Killed
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(BOSS1_KILLED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(BOSS1_KILLED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int Boss2Killed
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(BOSS2_KILLED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(BOSS2_KILLED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int Boss3Killed
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(BOSS3_KILLED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(BOSS3_KILLED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int MaxStreak
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(MAX_STREAK);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(MAX_STREAK, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int MaxPoints
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(MAX_POINTS);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(MAX_POINTS, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int GamesPlayed
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(GAMES_PLAYED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(GAMES_PLAYED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int TimePlayed
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(TIME_PLAYED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(TIME_PLAYED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int EnergySpent
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(ENERGY_SPENT);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(ENERGY_SPENT, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int UpgradesBought
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(UPGRADES);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(UPGRADES, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int SideLeftRight
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(LEFT_RIGHT);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(LEFT_RIGHT, value);
+			PlayerPrefs.Save();
+		}
+	}
 	#endregion
 
 	private static void Load()

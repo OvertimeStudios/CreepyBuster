@@ -643,7 +643,7 @@ public class LevelDesign : MonoBehaviour
 		}
 	}
 
-	public static void BossLevelUp()
+	public static void BossLevelUp(GameObject boss)
 	{
 		bossLevel++;
 	}

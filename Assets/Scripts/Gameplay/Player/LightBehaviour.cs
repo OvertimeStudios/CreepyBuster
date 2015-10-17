@@ -4,10 +4,22 @@ using System.Collections.Generic;
 
 public class LightBehaviour : MonoBehaviour 
 {
+	enum Side
+	{
+		Right,
+		Left,
+	}
+
 	private ParticleRenderer[] particleRenderers;
 	private SpriteRenderer outter;
 
 	public Transform plasmette;
+
+	[Header("Left/Right Achievement")]
+	public Achievement achievement;
+	private Side side;
+	private float timeOnSide;
+	public static float maxTimeOnSide;
 
 	#region singleton
 	private static LightBehaviour instance;
@@ -56,6 +68,8 @@ public class LightBehaviour : MonoBehaviour
 		particleRenderers = GetComponentsInChildren<ParticleRenderer> ();
 
 		UpdateColor ();
+
+		side = Side.Left;
 	}
 
 	private void UpdateColor()
@@ -66,8 +80,36 @@ public class LightBehaviour : MonoBehaviour
 		outter.color = LevelDesign.CurrentColor;
 	}
 
+	void Update()
+	{
+		Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+		Side newSide;
+		if(pos.x < 0.5f)
+			newSide = Side.Left;
+		else
+			newSide = Side.Right;
+
+		if(side != newSide)
+		{
+			side = newSide;
+			timeOnSide = 0;
+		}
+
+		timeOnSide += Time.deltaTime;
+
+		Debug.Log(side + " - " + timeOnSide);
+
+		if(timeOnSide > maxTimeOnSide)
+			maxTimeOnSide = timeOnSide;
+
+		if(!achievement.unlocked && maxTimeOnSide >= achievement.value)
+			achievement.Unlock();
+	}
+
 	private void Reset()
 	{
+		timeOnSide = 0f;
+
 		UpdateColor ();
 	}
 	

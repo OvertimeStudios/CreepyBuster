@@ -2,6 +2,7 @@
 using UnityEngine.Advertisements;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MenuController : MonoBehaviour 
 {
@@ -59,9 +60,13 @@ public class MenuController : MonoBehaviour
 
 	private GameObject trailRenderer;
 
+	private int achievementOrbsToGive;
+
 	//ADS
 	public int gamesToShowAd;
 	private int gamesCount;
+	
+	public static float timeSpentOnMenu;
 
 	[Header("Telas Tween")]
 	public TweenPosition menuTween;
@@ -74,6 +79,9 @@ public class MenuController : MonoBehaviour
 	public Transform creepypediaScreen;
 	public Transform gameStatsScreen;
 	public Transform howToPlayScreen;
+
+	[Header("Menu Achievement")]
+	public Achievement achievement;
 	
 	#region singleton
 	private static MenuController instance;
@@ -111,6 +119,8 @@ public class MenuController : MonoBehaviour
 
 	void OnEnable()
 	{
+		timeSpentOnMenu = 0;
+
 		GameController.OnGameOver += ClosePanel;
 		GameController.OnGameOver += UpdateScore;
 		MenuController.OnPanelClosed += ShowAds;
@@ -120,6 +130,8 @@ public class MenuController : MonoBehaviour
 
 	void OnDisable()
 	{
+		timeSpentOnMenu = 0;
+
 		GameController.OnGameOver -= ClosePanel;
 		GameController.OnGameOver -= UpdateScore;
 		MenuController.OnPanelClosed -= ShowAds;
@@ -181,6 +193,14 @@ public class MenuController : MonoBehaviour
 			Global.Reset();
 		}
 
+		//game stats
+		timeSpentOnMenu += Time.deltaTime;
+
+		if(!achievement.unlocked && timeSpentOnMenu >= achievement.value)
+		{
+			achievement.Unlock();
+			ShowAchievements();
+		}
 	}
 
 	IEnumerator CountdownBeginGame(GameObject selection)
@@ -257,12 +277,37 @@ public class MenuController : MonoBehaviour
 			if(OnPanelClosed != null)
 				OnPanelClosed();
 
+			ShowAchievements();
+
 			if(goToShop)
 			{
 				MoveToShop();
 				goToShop = false;
 			}
 		}
+	}
+
+	public void ShowAchievements()
+	{
+		List<AchievementUnlocked> achievements = Achievement.achievementRecentUnlocked;
+
+		Debug.Log("achievements.Count: " + achievements.Count);
+		if(achievements.Count > 0)
+		{
+			AchievementUnlocked a = achievements[0];
+			achievementOrbsToGive = a.orbReward;
+
+			Popup.ShowOk(string.Format(Localization.Get("ACHIEVEMENT_UNLOCKED"), a.title, a.orbReward), GiveAchievementOrbs);
+
+			Achievement.achievementRecentUnlocked.Remove(a);
+		}
+	}
+
+	private void GiveAchievementOrbs()
+	{
+		Global.TotalOrbs += achievementOrbsToGive;
+
+		ShowAchievements();
 	}
 
 	public void OpenPanel()

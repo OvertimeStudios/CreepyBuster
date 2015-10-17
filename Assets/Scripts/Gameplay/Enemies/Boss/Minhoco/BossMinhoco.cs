@@ -195,8 +195,8 @@ public class BossMinhoco : MonoBehaviour
 
 		if(lastOne)
 		{
-			GameController.BossDied();
-			LevelDesign.BossLevelUp();
+			GameController.BossDied(gameObject);
+			LevelDesign.BossLevelUp(gameObject);
 		}
 
 		enabled = false;

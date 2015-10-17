@@ -124,7 +124,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		Global.TotalOrbs += orbsToGive;
 		
-		Popup.ShowOk (Localization.Get("YOU_RECEIVED") + " " + orbsToGive + " orbs.");
+		Popup.ShowOk (string.Format(Localization.Get("YOU_RECEIVED"), orbsToGive));
 	}
 	
 	private void RevivePlayer()

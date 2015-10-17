@@ -99,7 +99,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 		{
 			case Pack.OrbsPack:
 				Global.TotalOrbs += value;
-				Popup.ShowOk (Localization.Get("YOU_RECEIVED") + " " + value + " orbs.");
+				Popup.ShowOk (string.Format(Localization.Get("YOU_RECEIVED"), value));
 				break;
 				
 			case Pack.MultiplierOrbs:

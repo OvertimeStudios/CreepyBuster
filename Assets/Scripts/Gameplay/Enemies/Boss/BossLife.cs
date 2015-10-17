@@ -9,13 +9,13 @@ public class BossLife : EnemyLife
 	public float spread = 1f;
 
 	#region Action
-	public static event Action OnBossDied;
+	public static event Action<GameObject> OnBossDied;
 	#endregion
 	
 	protected override void DropOrbs()
 	{
 		if(OnBossDied != null)
-			OnBossDied();
+			OnBossDied(gameObject);
 
 		SpawnController.Instance.SpawnOrbs(orbsToDrop, transform.position, spread);
 	}

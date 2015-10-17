@@ -114,6 +114,9 @@ public class EnemyLife : MonoBehaviour
 	{
 		if(inLight)
 		{
+			//game stats
+			GameController.energySpent += Time.deltaTime;
+
 			life -= AttackTargets.Damage * Time.deltaTime;
 
 			if(life <= 0)

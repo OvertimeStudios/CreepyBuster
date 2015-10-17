@@ -6,6 +6,17 @@ using UnityEngine.Advertisements;
 
 public class GameController : MonoBehaviour 
 {
+	private const string BASIC = "C1";
+	private const string BOOMERANG = "C2";
+	private const string FOLLOWER = "C7";
+	private const string LEGION = "C5";
+	private const string CHARGER = "C4";
+	private const string ZIGZAG = "C3";
+
+	private const string BOSS1 = "Meteoro";
+	private const string BOSS2 = "Minhoco";
+	private const string BOSS3 = "Illusion";
+
 	enum CauseOfDeath
 	{
 		FingerOff,
@@ -56,6 +67,26 @@ public class GameController : MonoBehaviour
 	public int orbsToContinue;
 	public int pointsPerOrb = 10;
 	public float timeInvencibleAfterContinue = 2f;
+
+	#region game stats
+	private static int creepsKilled;
+
+	private static int basicsKilled;
+	private static int boomerangsKilled;
+	private static int chargersKilled;
+	private static int zigzagsKilled;
+	private static int legionsKilled;
+	private static int followersKilled;
+
+	private static int boss1Killed;
+	private static int boss2Killed;
+	private static int boss3Killed;
+
+	private static int maxStreak;
+
+	private static float matchTime;
+	public static float energySpent;
+	#endregion
 
 	/// <summary>
 	/// Total score for session
@@ -122,7 +153,10 @@ public class GameController : MonoBehaviour
 		set
 		{
 			realStreakCount = value;
-			
+
+			if(realStreakCount > maxStreak)
+				maxStreak = realStreakCount;
+
 			if(OnRealStreakUpdated != null)
 				OnRealStreakUpdated();
 		}
@@ -226,11 +260,34 @@ public class GameController : MonoBehaviour
 		player = GameObject.FindWithTag ("Player");
 	}
 
+	void Update()
+	{
+		if(isGameRunning)
+			matchTime += Time.deltaTime;
+	}
+
 	void OnEnemyDied(GameObject enemy)
 	{
 		if(enemy.GetComponent<EnemyLife>().countAsKill)
 		{
-			enemiesKillCount += 1;
+			enemiesKillCount++;
+
+			//game stats
+			creepsKilled++;
+
+			string enemyName = enemy.name;
+			if(enemyName.Contains(BASIC))
+				basicsKilled++;
+			if(enemyName.Contains(BOOMERANG))
+				boomerangsKilled++;
+			if(enemyName.Contains(ZIGZAG))
+				zigzagsKilled++;
+			if(enemyName.Contains(CHARGER))
+				chargersKilled++;
+			if(enemyName.Contains(LEGION))
+				legionsKilled++;
+			if(enemyName.Contains(FOLLOWER))
+				followersKilled++;
 
 			if(OnKill != null)
 				OnKill();
@@ -305,6 +362,7 @@ public class GameController : MonoBehaviour
 
 	public void GameOver()
 	{
+
 		isGameRunning = false;
 		gameOver = true;
 		player.SetActive (false);
@@ -319,6 +377,8 @@ public class GameController : MonoBehaviour
 
 	private IEnumerator ShowEndScreen(float waitTime)
 	{
+		UpdateGameStats();
+
 		isGameRunning = false;
 		gameOver = true;
 		player.SetActive (false);
@@ -335,6 +395,35 @@ public class GameController : MonoBehaviour
 		Time.timeScale = 0;
 
 		ShowEndScreen ();
+	}
+
+	private void UpdateGameStats()
+	{
+		Global.CreepsKilled += creepsKilled;
+
+		Global.BasicsKilled += basicsKilled;
+		Global.BoomerangsKilled += boomerangsKilled;
+		Global.ZigZagsKilled += zigzagsKilled;
+		Global.ChargersKilled += chargersKilled;
+		Global.LegionsKilled += legionsKilled;
+		Global.FollowersKilled += followersKilled;
+
+		Global.Boss1Killed += boss1Killed;
+		Global.Boss2Killed += boss2Killed;
+		Global.Boss3Killed += boss3Killed;
+
+		if(maxStreak > Global.MaxStreak)
+			Global.MaxStreak = maxStreak;
+
+		if(Score > Global.MaxPoints)
+			Global.MaxPoints = Score;
+
+		Global.TimePlayed += (int)matchTime;
+
+		Global.EnergySpent += (int)energySpent;
+
+		if(LightBehaviour.maxTimeOnSide > Global.SideLeftRight)
+			Global.SideLeftRight = (int)LightBehaviour.maxTimeOnSide;
 	}
 
 	private IEnumerator ShowContinueScreen(float waitTime, CauseOfDeath causeOfDeath)
@@ -367,7 +456,7 @@ public class GameController : MonoBehaviour
 			float orbsToPay = (orbsToContinue * Mathf.Pow(2, continues));
 
 			if(Global.TotalOrbs >= orbsToPay)
-				Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.GetType ("WANT_TO_SPEND") + " " + orbsToPay + " " + Localization.GetType ("CONTINUE_PLAYING") + "\n \n (" + Localization.GetType ("YOU_HAVE") + " " + Global.TotalOrbs + " orbs.)", PayContinueOrbs, ShowEndScreen);
+				Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + string.Format(Localization.GetType ("WANT_TO_SPEND"), orbsToPay) + "\n \n (" + string.Format(Localization.GetType ("YOU_HAVE"), Global.TotalOrbs) + ")", PayContinueOrbs, ShowEndScreen);
 			else
 				Popup.ShowOk(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.GetType ("NOT_ENOUGH_ORBS"), ShowEndScreen);
 			#endif
@@ -482,6 +571,8 @@ public class GameController : MonoBehaviour
 			//Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
 		}
 
+		Global.GamesPlayed++;
+
 		StartCoroutine (WaitForPlayer ());
 	}
 
@@ -526,6 +617,25 @@ public class GameController : MonoBehaviour
 		slowedDown = false;
 		invencible = false;
 		bossTime = false;
+
+		#region game stats
+		creepsKilled = 0;
+
+		basicsKilled = 0;
+		boomerangsKilled = 0;
+		chargersKilled = 0;
+		zigzagsKilled = 0;
+		legionsKilled = 0;
+		followersKilled = 0;
+		
+		boss1Killed = 0;
+		boss2Killed = 0;
+		boss3Killed = 0;
+
+		maxStreak = 0;
+		matchTime = 0;
+		energySpent = 0;
+		#endregion
 
 		gameOver = false;
 
@@ -641,10 +751,18 @@ public class GameController : MonoBehaviour
 		SpawnController.SpawnBoss ();
 	}
 
-	public static void BossDied()
+	public static void BossDied(GameObject boss)
 	{
 		SoundController.Instance.CrossFadeMusic(SoundController.Musics.GameTheme, 1f);
 		bossTime = false;
+
+		string bossName = boss.name;
+		if(bossName.Contains(BOSS1))
+			boss1Killed++;
+		if(bossName.Contains(BOSS2))
+			boss2Killed++;
+		if(bossName.Contains(BOSS3))
+			boss3Killed++;
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)
