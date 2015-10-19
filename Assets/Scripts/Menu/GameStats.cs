@@ -53,13 +53,13 @@ public class GameStats : MonoBehaviour
 
 	void OnEnable()
 	{
-		creepsKilled.FindChild("Value").GetComponent<UILabel>().text = (Global.BasicsKilled + Global.BoomerangsKilled + Global.ZigZagsKilled + 
-																		Global.ChargersKilled + Global.LegionsKilled + Global.FollowersKilled + 
-																		Global.Boss1Killed + Global.Boss2Killed + Global.Boss3Killed).ToString();
+		float creepsKll = (float)(Global.BasicsKilled + Global.BoomerangsKilled + Global.ZigZagsKilled + 
+		                          Global.ChargersKilled + Global.LegionsKilled + Global.FollowersKilled + 
+		                          Global.Boss1Killed + Global.Boss2Killed + Global.Boss3Killed);
 
-		averageCreepsKilled.FindChild("Value").GetComponent<UILabel>().text = string.Format("{0:0.0}",((float)(Global.BasicsKilled + Global.BoomerangsKilled + Global.ZigZagsKilled + 
-		                                                                       Global.ChargersKilled + Global.LegionsKilled + Global.FollowersKilled + 
-		                                                                       Global.Boss1Killed + Global.Boss2Killed + Global.Boss3Killed) / (float)Global.GamesPlayed).ToString());
+		creepsKilled.FindChild("Value").GetComponent<UILabel>().text = creepsKll.ToString();
+
+		averageCreepsKilled.FindChild("Value").GetComponent<UILabel>().text = string.Format("{0:0.00}",(creepsKll / (float)Global.GamesPlayed));
 
 		basicKilled.FindChild("Value").GetComponent<UILabel>().text = Global.BasicsKilled.ToString();
 		boomerangKilled.FindChild("Value").GetComponent<UILabel>().text = Global.BoomerangsKilled.ToString();
@@ -77,7 +77,7 @@ public class GameStats : MonoBehaviour
 		timeInGame.FindChild("Value").GetComponent<UILabel>().text = FormatHour(Global.TimePlayed);
 
 		float energy = Global.EnergySpent * 70023f;
-		Debug.Log(energy);
+
 		string unity = "watt";
 		if(energy > 1000000000f)
 		{
@@ -105,7 +105,7 @@ public class GameStats : MonoBehaviour
 		invencibilityCollected.FindChild("Value").GetComponent<UILabel>().text = Global.InvencibilityCollected.ToString();
 		deathRayCollected.FindChild("Value").GetComponent<UILabel>().text = Global.DeathRayCollected.ToString();
 		levelUpCollected.FindChild("Value").GetComponent<UILabel>().text = Global.LevelUpCollected.ToString();
-		powerUpsCollected.FindChild("Value").GetComponent<UILabel>().text = (Global.FrozenCollected + Global.InvencibilityCollected + Global.LevelUpCollected).ToString();
+		powerUpsCollected.FindChild("Value").GetComponent<UILabel>().text = (Global.FrozenCollected + Global.InvencibilityCollected + Global.LevelUpCollected + Global.DeathRayCollected).ToString();
 		powerUpsMissed.FindChild("Value").GetComponent<UILabel>().text = Global.PowerUpsMissed.ToString();
 		hitsByBasic.FindChild("Value").GetComponent<UILabel>().text = Global.HitsByBasic.ToString();
 		hitsByBoomerang.FindChild("Value").GetComponent<UILabel>().text = Global.HitsByBoomerang.ToString();
@@ -123,29 +123,22 @@ public class GameStats : MonoBehaviour
 		                                                             Global.HitsByBoss1 + Global.HitsByBoss2 + 
 		                                                             Global.HitsByBoss3).ToString();
 
-		longestMatch.FindChild("Value").GetComponent<UILabel>().text = string.Format("{0} " + Localization.Get("SECONDS"), Global.LongestMatch);
+		longestMatch.FindChild("Value").GetComponent<UILabel>().text = string.Format("{0:0.0} " + Localization.Get("SECONDS"), Global.LongestMatch);
 
 		float averageMatch = (float)Global.TimePlayed / (float)Global.GamesPlayed;
-		averageMatchTime.FindChild("Value").GetComponent<UILabel>().text = string.Format("{0} " + Localization.Get("SECONDS"), averageMatch);
+		averageMatchTime.FindChild("Value").GetComponent<UILabel>().text = string.Format("{0:0.0} " + Localization.Get("SECONDS"), averageMatch);
 
 		enemiesMissed.FindChild("Value").GetComponent<UILabel>().text = Global.EnemiesMissed.ToString();
 		highScore.FindChild("Value").GetComponent<UILabel>().text = Global.HighScore.ToString();
 		longestKillStreak.FindChild("Value").GetComponent<UILabel>().text = Global.MaxStreak.ToString();
 
 		timeOnLeftSide.FindChild("Value").GetComponent<UILabel>().text = FormatHour(Global.TimeOnLeft);
-
 		timeOnRightSide.FindChild("Value").GetComponent<UILabel>().text = FormatHour(Global.TimeOnRight);
-
 		timeOnSpecial1.FindChild("Value").GetComponent<UILabel>().text = FormatHour(Global.TimeOnSpecial1);
-
 		timeOnSpecial2.FindChild("Value").GetComponent<UILabel>().text = FormatHour(Global.TimeOnSpecial2);
-
 		timeOnSpecial3.FindChild("Value").GetComponent<UILabel>().text = FormatHour(Global.TimeOnSpecial3);
-
 		timeOnSpecial4.FindChild("Value").GetComponent<UILabel>().text = FormatHour(Global.TimeOnSpecial4);
-
 		timeOnSpecial5.FindChild("Value").GetComponent<UILabel>().text = FormatHour(Global.TimeOnSpecial5);
-
 		timeOnSpecial6.FindChild("Value").GetComponent<UILabel>().text = FormatHour(Global.TimeOnSpecial6);
 	}
 
