@@ -308,17 +308,35 @@ public class GameController : MonoBehaviour
 
 			string enemyName = enemy.name;
 			if(enemyName.Contains(BASIC))
+			{
+				Global.UnlockCreep(CreepData.CreepType.Basic);
 				basicsKilled++;
+			}
 			if(enemyName.Contains(BOOMERANG))
+			{
+				Global.UnlockCreep(CreepData.CreepType.Boomerang);
 				boomerangsKilled++;
+			}
 			if(enemyName.Contains(ZIGZAG))
+			{
+				Global.UnlockCreep(CreepData.CreepType.ZigZag);
 				zigzagsKilled++;
+			}
 			if(enemyName.Contains(CHARGER))
+			{
+				Global.UnlockCreep(CreepData.CreepType.Charger);
 				chargersKilled++;
+			}
 			if(enemyName.Contains(LEGION))
+			{
+				Global.UnlockCreep(CreepData.CreepType.Legion);
 				legionsKilled++;
+			}
 			if(enemyName.Contains(FOLLOWER))
+			{
+				Global.UnlockCreep(CreepData.CreepType.Follower);
 				followersKilled++;
+			}
 
 			if(OnKill != null)
 				OnKill();
@@ -474,7 +492,10 @@ public class GameController : MonoBehaviour
 			Global.MaxStreak = maxStreak;
 
 		if (Score > Global.HighScore)
+		{
 			Global.HighScore = Score;
+			DBHandler.UpdateUserScore(DBHandler.User.id, DBController.gameID, Score);
+		}
 		
 		if (Score > Global.SessionScore)
 			Global.SessionScore = Score;
@@ -875,11 +896,20 @@ public class GameController : MonoBehaviour
 
 		string bossName = boss.name;
 		if(bossName.Contains(BOSS1))
+		{
+			Global.UnlockCreep(CreepData.CreepType.Meteor);
 			boss1Killed++;
+		}
 		if(bossName.Contains(BOSS2))
+		{
+			Global.UnlockCreep(CreepData.CreepType.Twins);
 			boss2Killed++;
+		}
 		if(bossName.Contains(BOSS3))
+		{
+			Global.UnlockCreep(CreepData.CreepType.Illusion);
 			boss3Killed++;
+		}
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)

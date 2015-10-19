@@ -9514,7 +9514,7 @@ MonoBehaviour:
   mPivot: 1
   mWidth: 355
   mHeight: 515
-  mDepth: 26
+  mDepth: 18
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -24591,6 +24591,10 @@ Prefab:
       propertyPath: infinityBossBattleCondition.bossIllusion
       value: .330000013
       objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[0].enemies.Array.data[0].enemy
+      value: 
+      objectReference: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
   m_IsPrefabParent: 0
