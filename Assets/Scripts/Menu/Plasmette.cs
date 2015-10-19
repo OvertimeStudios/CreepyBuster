@@ -138,6 +138,8 @@ public class Plasmette : MonoBehaviour
 		FingerDetector.OnFingerDownEvent -= OnFingerDown;
 		FingerDetector.OnFingerUpEvent -= OnFingerUp;
 		MenuController.OnPanelClosed += BackToCenter;
+
+		gameObject.SetActive(false);
 	}
 
 	private IEnumerator StopSpinning()
@@ -159,6 +161,8 @@ public class Plasmette : MonoBehaviour
 
 	private void BackToCenter()
 	{
+		gameObject.SetActive(true);
+
 		waypoint = initialPosition;
 		StartCoroutine(FollowWaypoint());
 		StartCoroutine(BackToNormalScale());

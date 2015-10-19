@@ -26,6 +26,7 @@ SETTINGS,SETTINGS,OPÇÕES
 ACHIEVEMENTS,ACHIEVEMENTS,CONQUISTAS
 FingerOff,You took your finger out of screen,Você tirou o dedo da tela
 LifeOut,You got hit!,Você foi atingido!
+VIDEO_TO_ORBS,Do you want to watch a video to earn {0} orbs?,Você quer assistir a um vídeo para ganhar {0} orbs?
 VIDEO_TO_PLAY,Do you want to watch a video to continue playing?,Você quer assistir a um vídeo para continuar jogando?
 INFINITY_ORBS_TO_PLAY,"But you have infinity orbs cheat. Do you want to continue, m'lord?","Mas você tem o cheat de orbs infinitas. Quer continuar, mestre?"
 WANT_TO_SPEND,Do you want to spent {0} to continue playing?,Você quer gastar {0} orbs para continuar a jogar?,

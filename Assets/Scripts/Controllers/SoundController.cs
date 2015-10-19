@@ -234,6 +234,8 @@ public class SoundController : MonoBehaviour
 
 	public void PlaySoundFX(SoundFX sound)
 	{
+		if(soundFXMute) return;
+
 		AudioClip s = GetSound(sound);
 
 		audioSourceSoundFX.PlayOneShot(s);
@@ -321,5 +323,17 @@ public class SoundController : MonoBehaviour
 	{
 		musicMute = false;
 		audioSourceMusic.mute = false;
+	}
+
+	public void MuteSoundFX()
+	{
+		soundFXMute = true;
+		audioSourceSoundFX.mute = true;
+	}
+	
+	public void UnmuteSoundFX()
+	{
+		soundFXMute = false;
+		audioSourceSoundFX.mute = false;
 	}
 }

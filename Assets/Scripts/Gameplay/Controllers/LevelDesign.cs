@@ -123,7 +123,7 @@ public class LevelDesign : MonoBehaviour
 
 	public static int MaxPlayerLevel
 	{
-		get { return Global.RayLevel + 2; }
+		get { return Global.RayLevel + 1; }
 	}
 
 	public static bool IsPlayerMaxLevel

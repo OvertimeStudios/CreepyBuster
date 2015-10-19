@@ -358,7 +358,7 @@ public class Global : MonoBehaviour
 			if(!isLoaded)
 				Load ();
 			
-			return orbsMultiplier;
+			return Mathf.Max (1, orbsMultiplier);
 		}
 		
 		set

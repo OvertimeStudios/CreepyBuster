@@ -211,13 +211,17 @@ public class AttackTargets : MonoBehaviour
 		if(!isAttacking && targets.Count > 0)
 		{
 			isAttacking = true;
-			audioSource.Play();
+
+			if(Global.IsSoundOn)
+				audioSource.Play();
 		}
 		//stop attacking
 		else if(isAttacking && targets.Count == 0)
 		{
 			isAttacking = false;
-			audioSource.Stop();
+
+			if(Global.IsSoundOn)
+				audioSource.Stop();
 		}
 	}
 

@@ -494,7 +494,9 @@ public class GameController : MonoBehaviour
 		if (Score > Global.HighScore)
 		{
 			Global.HighScore = Score;
-			DBHandler.UpdateUserScore(DBHandler.User.id, DBController.gameID, Score);
+
+			if(FacebookController.IsLoggedIn)
+				DBHandler.UpdateUserScore(DBHandler.User.id, DBController.gameID, Score);
 		}
 		
 		if (Score > Global.SessionScore)

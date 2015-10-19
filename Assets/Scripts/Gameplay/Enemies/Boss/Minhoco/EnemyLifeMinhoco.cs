@@ -17,6 +17,7 @@ public class EnemyLifeMinhoco : BossLife
 	{
 		base.Start ();
 
+		partsToDestroy = 2;
 		bossMinhoco = transform.parent.GetComponent<BossMinhoco>();
 	}
 }

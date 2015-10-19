@@ -12,6 +12,8 @@ public class LightBehaviour : MonoBehaviour
 
 	private ParticleRenderer[] particleRenderers;
 	private SpriteRenderer outter;
+	private TrailRenderer trailRenderer;
+	private Transform myTransform;
 
 	public Transform plasmette;
 
@@ -64,6 +66,8 @@ public class LightBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		myTransform = transform;
+		trailRenderer = transform.FindChild("Trail Renderer").GetComponent<TrailRenderer>();
 		outter = transform.FindChild("Outter").GetComponent<SpriteRenderer>();
 		particleRenderers = GetComponentsInChildren<ParticleRenderer> ();
 
@@ -77,12 +81,32 @@ public class LightBehaviour : MonoBehaviour
 		foreach (ParticleRenderer pr in particleRenderers)
 			pr.material.SetColor ("_TintColor", LevelDesign.CurrentColor);
 
+		Color c = LevelDesign.CurrentColor;
+		c.a = 0.2f;
+		trailRenderer.material.SetColor("_TintColor", c);
+
 		outter.color = LevelDesign.CurrentColor;
+	}
+
+	void FixedUpdate()
+	{
+		//movement
+		Vector3 pos;
+		if (Input.touches.Length > 0)//mobile
+			pos = (Vector3)Input.GetTouch (0).position;
+		else
+			pos = Input.mousePosition;
+		
+		float posz = myTransform.position.z;
+		pos = Camera.main.ScreenToWorldPoint(pos);
+		pos.z = posz;
+		myTransform.position = pos;
 	}
 
 	void Update()
 	{
-		Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+		//side left - right
+		Vector3 pos = Camera.main.WorldToViewportPoint(myTransform.position);
 		Side newSide;
 		if(pos.x < 0.5f)
 			newSide = Side.Left;
@@ -118,8 +142,8 @@ public class LightBehaviour : MonoBehaviour
 	
 	void OnFingerMove(FingerMotionEvent e)
 	{
-		Vector3 pos = Camera.main.ScreenToWorldPoint ((Vector3)e.Position);
+		/*Vector3 pos = Camera.main.ScreenToWorldPoint ((Vector3)e.Position);
 		pos.z = 0;
-		transform.position = pos;
+		transform.position = pos;*/
 	}
 }
