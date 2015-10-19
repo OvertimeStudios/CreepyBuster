@@ -494,7 +494,8 @@ public class GameController : MonoBehaviour
 		Global.HitsByZigZag += hitsByZigZag;
 		Global.HitsByCharger += hitsByCharger;
 		Global.HitsByLegion += hitsByLegion;
-		Global.HitsByFollower += hitsByBoss1;
+		Global.HitsByFollower += hitsByFollower;
+		Global.HitsByBoss1 += hitsByBoss1;
 		Global.HitsByBoss2 += hitsByBoss2;
 		Global.HitsByBoss3 += hitsByBoss3;
 
