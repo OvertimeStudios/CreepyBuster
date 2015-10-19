@@ -705,8 +705,8 @@ public class GameController : MonoBehaviour
 		if (OnGameStart != null)
 			OnGameStart ();
 
-		if (Global.IsTutorialEnabled)
-			TutorialController.Instance.gameObject.SetActive (true);
+		//if (Global.IsTutorialEnabled)
+			//TutorialController.Instance.gameObject.SetActive (true);
 	}
 
 	private void Reset()
