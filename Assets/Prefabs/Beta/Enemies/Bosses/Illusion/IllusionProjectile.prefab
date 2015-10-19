@@ -59,7 +59,6 @@ GameObject:
   - 4: {fileID: 405500}
   - 50: {fileID: 5037246}
   - 114: {fileID: 11416710}
-  - 58: {fileID: 5897796}
   m_Layer: 15
   m_Name: IllusionProjectile
   m_TagString: Untagged
@@ -76,6 +75,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 498956}
   - 114: {fileID: 11444832}
+  - 58: {fileID: 5886354}
   m_Layer: 0
   m_Name: Collision
   m_TagString: Untagged
@@ -221,12 +221,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &5897796
+--- !u!58 &5886354
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 124948}
+  m_GameObject: {fileID: 142822}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

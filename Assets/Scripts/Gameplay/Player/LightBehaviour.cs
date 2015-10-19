@@ -97,13 +97,16 @@ public class LightBehaviour : MonoBehaviour
 
 		timeOnSide += Time.deltaTime;
 
-		Debug.Log(side + " - " + timeOnSide);
-
 		if(timeOnSide > maxTimeOnSide)
 			maxTimeOnSide = timeOnSide;
 
 		if(!achievement.unlocked && maxTimeOnSide >= achievement.value)
 			achievement.Unlock();
+
+		if(side == Side.Left)
+			GameController.leftTime += Time.deltaTime;
+		else
+			GameController.rightTime += Time.deltaTime;
 	}
 
 	private void Reset()

@@ -206,7 +206,9 @@ public class Achievement : MonoBehaviour
 		switch(type)
 		{
 			case Type.KillCreeps:
-				parameter = Global.CreepsKilled;
+				parameter = Global.BasicsKilled + Global.BoomerangsKilled + Global.ZigZagsKilled + 
+							Global.ChargersKilled + Global.LegionsKilled + Global.FollowersKilled + 
+							Global.Boss1Killed + Global.Boss2Killed + Global.Boss3Killed;
 				break;
 
 			case Type.KillBasic:
@@ -250,7 +252,7 @@ public class Achievement : MonoBehaviour
 				break;
 
 			case Type.Points:
-				parameter = Global.MaxPoints;
+				parameter = Global.HighScore;
 				break;
 
 			case Type.Games:

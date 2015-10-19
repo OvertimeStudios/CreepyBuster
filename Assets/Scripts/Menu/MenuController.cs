@@ -291,7 +291,6 @@ public class MenuController : MonoBehaviour
 	{
 		List<AchievementUnlocked> achievements = Achievement.achievementRecentUnlocked;
 
-		Debug.Log("achievements.Count: " + achievements.Count);
 		if(achievements.Count > 0)
 		{
 			AchievementUnlocked a = achievements[0];
@@ -340,12 +339,6 @@ public class MenuController : MonoBehaviour
 
 	private void UpdateScore()
 	{
-		if (GameController.Score > Global.HighScore)
-			Global.HighScore = GameController.Score;
-
-		if (GameController.Score > Global.SessionScore)
-			Global.SessionScore = GameController.Score;
-
 		highScore.text = Global.HighScore.ToString ();
 	}
 

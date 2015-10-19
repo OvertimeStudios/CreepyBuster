@@ -36,6 +36,7 @@ public class EndScreen : MonoBehaviour
 		totalOrbsLabel.text = totalOrbs.ToString();
 
 		Global.TotalOrbs += totalOrbs;
+		Global.OrbsCollected += totalOrbs;
 	}
 
 	public void AskDoubleOrbs()
@@ -51,6 +52,7 @@ public class EndScreen : MonoBehaviour
 	private void GiveDoubleOrbs()
 	{
 		Global.TotalOrbs += totalOrbs;
+		Global.OrbsCollected += totalOrbs;
 
 		multiplierLabel.gameObject.SetActive(true);
 

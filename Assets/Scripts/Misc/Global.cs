@@ -28,7 +28,6 @@ public class Global : MonoBehaviour
 	private const string ORBS_MULTIPLIER = "orbsMultiplier";
 	private const string CREEP_UNLOCKED = "_unlocked";
 	private const string ADS_FREE = "ads_free";
-	private const string CREEPS_KILLED = "creepsKilled";
 	private const string BASICS_KILLED = "basicsKilled";
 	private const string BOOMERANGS_KILLED = "boomerangKilled";
 	private const string CHARGERS_KILLED = "chargerKilled";
@@ -39,12 +38,39 @@ public class Global : MonoBehaviour
 	private const string BOSS2_KILLED = "boss2Killed";
 	private const string BOSS3_KILLED = "boss3Killed";
 	private const string MAX_STREAK = "maxStreak";
-	private const string MAX_POINTS = "maxPoints";
 	private const string GAMES_PLAYED = "gamesPlayed";
 	private const string TIME_PLAYED = "timePlayed";
 	private const string ENERGY_SPENT = "energySpent";
 	private const string UPGRADES = "upgradesBought";
 	private const string LEFT_RIGHT = "leftRight";
+	private const string ORBS_COLLECTED = "orbsCollected";
+	private const string ORBS_SPENT = "orbsSpent";
+	private const string ORBS_MISSED = "orbsMissed";
+	private const string BOSS_ENCOUNTERS = "bossEncounters";
+	private const string LEVELUP_COLLECTED = "levelUpCollected";
+	private const string FROZEN_COLLECTED = "frozenCollected";
+	private const string INVENCIBILITY_COLLECTED = "invencibilityCollected";
+	private const string DEATH_RAY_COLLECTED = "deathRayCollected";
+	private const string POWER_UPS_MISSED = "powerUpsMissed";
+	private const string HITS_BY_BASIC = "hitsByBasic";
+	private const string HITS_BY_BOOMERANG = "hitsByBoomerang";
+	private const string HITS_BY_ZIGZAG = "hitsByZigzag";
+	private const string HITS_BY_CHARGER = "hitsByCharger";
+	private const string HITS_BY_LEGION = "hitsByLegion";
+	private const string HITS_BY_FOLLOWER = "hitsByFollower";
+	private const string HITS_BY_BOSS1 = "hitsByBoss1";
+	private const string HITS_BY_BOSS2 = "hitsByBoss2";
+	private const string HITS_BY_BOSS3 = "hitsByBoss3";
+	private const string ENEMIES_MISSED = "enemiesMissed";
+	private const string LONGEST_MATCH = "longestMatch";
+	private const string TIME_ON_LEFT = "timeOnLeft";
+	private const string TIME_ON_RIGHT = "timeOnRight";
+	private const string TIME_SPECIAL1 = "timeSpecial1";
+	private const string TIME_SPECIAL2 = "timeSpecial2";
+	private const string TIME_SPECIAL3 = "timeSpecial3";
+	private const string TIME_SPECIAL4 = "timeSpecial4";
+	private const string TIME_SPECIAL5 = "timeSpecial5";
+	private const string TIME_SPECIAL6 = "timeSpecial6";
 	#endregion
 
 	private static bool isLoaded;
@@ -404,19 +430,6 @@ public class Global : MonoBehaviour
 		PlayerPrefs.Save();
 	}
 
-	public static int CreepsKilled
-	{
-		get
-		{
-			return PlayerPrefs.GetInt(CREEPS_KILLED);
-		}
-		set
-		{
-			PlayerPrefs.SetInt(CREEPS_KILLED, value);
-			PlayerPrefs.Save();
-		}
-	}
-
 	public static int BasicsKilled
 	{
 		get
@@ -546,20 +559,7 @@ public class Global : MonoBehaviour
 			PlayerPrefs.Save();
 		}
 	}
-
-	public static int MaxPoints
-	{
-		get
-		{
-			return PlayerPrefs.GetInt(MAX_POINTS);
-		}
-		set
-		{
-			PlayerPrefs.SetInt(MAX_POINTS, value);
-			PlayerPrefs.Save();
-		}
-	}
-
+	
 	public static int GamesPlayed
 	{
 		get
@@ -621,6 +621,370 @@ public class Global : MonoBehaviour
 		set
 		{
 			PlayerPrefs.SetInt(LEFT_RIGHT, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int OrbsCollected
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(ORBS_COLLECTED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(ORBS_COLLECTED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int OrbsSpent
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(ORBS_SPENT);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(ORBS_SPENT, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int OrbsMissed
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(ORBS_MISSED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(ORBS_MISSED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int BossEncounters
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(BOSS_ENCOUNTERS);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(BOSS_ENCOUNTERS, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int LevelUpCollected
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(LEVELUP_COLLECTED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(LEVELUP_COLLECTED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int FrozenCollected
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(FROZEN_COLLECTED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(FROZEN_COLLECTED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int InvencibilityCollected
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(INVENCIBILITY_COLLECTED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(INVENCIBILITY_COLLECTED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int DeathRayCollected
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(DEATH_RAY_COLLECTED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(DEATH_RAY_COLLECTED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int PowerUpsMissed
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(POWER_UPS_MISSED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(POWER_UPS_MISSED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int HitsByBasic
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(HITS_BY_BASIC);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(HITS_BY_BASIC, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int HitsByBoomerang
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(HITS_BY_BOOMERANG);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(HITS_BY_BOOMERANG, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int HitsByZigZag
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(HITS_BY_ZIGZAG);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(HITS_BY_ZIGZAG, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int HitsByCharger
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(HITS_BY_CHARGER);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(HITS_BY_CHARGER, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int HitsByLegion
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(HITS_BY_LEGION);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(HITS_BY_LEGION, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int HitsByFollower
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(HITS_BY_FOLLOWER);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(HITS_BY_FOLLOWER, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int HitsByBoss1
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(HITS_BY_BOSS1);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(HITS_BY_BOSS1, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int HitsByBoss2
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(HITS_BY_BOSS2);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(HITS_BY_BOSS2, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int HitsByBoss3
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(HITS_BY_BOSS3);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(HITS_BY_BOSS3, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int EnemiesMissed
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(ENEMIES_MISSED);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(ENEMIES_MISSED, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int LongestMatch
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(LONGEST_MATCH);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(LONGEST_MATCH, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int TimeOnLeft
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(TIME_ON_LEFT);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(TIME_ON_LEFT, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int TimeOnRight
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(TIME_ON_RIGHT);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(TIME_ON_RIGHT, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int TimeOnSpecial1
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(TIME_SPECIAL1);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(TIME_SPECIAL1, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int TimeOnSpecial2
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(TIME_SPECIAL2);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(TIME_SPECIAL2, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int TimeOnSpecial3
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(TIME_SPECIAL3);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(TIME_SPECIAL3, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int TimeOnSpecial4
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(TIME_SPECIAL4);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(TIME_SPECIAL4, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int TimeOnSpecial5
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(TIME_SPECIAL5);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(TIME_SPECIAL5, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int TimeOnSpecial6
+	{
+		get
+		{
+			return PlayerPrefs.GetInt(TIME_SPECIAL6);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(TIME_SPECIAL6, value);
 			PlayerPrefs.Save();
 		}
 	}

@@ -114,6 +114,7 @@ public class ItemShop : MonoBehaviour
 		if(Global.TotalOrbs >= price[CurrentLevel])
 		{
 			Debug.Log("You spent " + price[CurrentLevel] + " on " + type.ToString());
+			Global.OrbsSpent += price[CurrentLevel];
 			Global.TotalOrbs -= price[CurrentLevel];
 
 			UnlockProperty();

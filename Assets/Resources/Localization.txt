@@ -27,7 +27,6 @@ ACHIEVEMENTS,ACHIEVEMENTS,CONQUISTAS
 FingerOff,You took your finger out of screen,Você tirou o dedo da tela
 LifeOut,You got hit!,Você foi atingido!
 VIDEO_TO_PLAY,Do you want to watch a video to continue playing?,Você quer assistir a um vídeo para continuar jogando?
-VIDEO_TO_ORBS,Do you want to watch a video to earn,Você quer assistir a um vídeo para ganhar
 INFINITY_ORBS_TO_PLAY,"But you have infinity orbs cheat. Do you want to continue, m'lord?","Mas você tem o cheat de orbs infinitas. Quer continuar, mestre?"
 WANT_TO_SPEND,Do you want to spent {0} to continue playing?,Você quer gastar {0} orbs para continuar a jogar?,
 YOU_HAVE,You have {0} orbs,Você tem {0} orbs
@@ -60,6 +59,7 @@ SPECIAL,SPECIAL,ESPECIAL
 HIGH_SCORE,HIGH SCORE,MAIOR PONTUAÇÃO
 BOSSES,BOSSES,CHEFÕES
 COMING_SOON,COMING SOON,EM BREVE
+SECONDS,seconds,segundos
 ACHIEVEMENT_DESTROY_CREEPS_TITLE1,,
 ACHIEVEMENT_DESTROY_CREEPS_TITLE2,,
 ACHIEVEMENT_DESTROY_CREEPS_TITLE3,,

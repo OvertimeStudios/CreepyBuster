@@ -82,10 +82,43 @@ public class GameController : MonoBehaviour
 	private static int boss2Killed;
 	private static int boss3Killed;
 
+	private static int frozenCollected;
+	private static int levelUpCollected;
+	private static int invencibilityCollected;
+	private static int deathRayCollected;
+
+	public static int enemiesMissed;
+	public static int orbsMissed;
+	public static int powerUpsMissed;
+
+	public static int orbsCollected;
+
+	private static int bossEncounters;
+
 	private static int maxStreak;
 
 	private static float matchTime;
 	public static float energySpent;
+
+	public static int hitsByBasic;
+	public static int hitsByBoomerang;
+	public static int hitsByZigZag;
+	public static int hitsByCharger;
+	public static int hitsByLegion;
+	public static int hitsByFollower;
+	public static int hitsByBoss1;
+	public static int hitsByBoss2;
+	public static int hitsByBoss3;
+
+	public static float leftTime;
+	public static float rightTime;
+
+	public static float timeOnSpecial1;
+	public static float timeOnSpecial2;
+	public static float timeOnSpecial3;
+	public static float timeOnSpecial4;
+	public static float timeOnSpecial5;
+	public static float timeOnSpecial6;
 	#endregion
 
 	/// <summary>
@@ -113,8 +146,6 @@ public class GameController : MonoBehaviour
 	/// </summary>
 	public static int specialStreak;
 
-	public static int orbsCollected;
-	
 	private static GameObject player;
 
 	#region get / set
@@ -317,12 +348,34 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	public void FingerHit()
+	public void FingerHit(GameObject hit)
 	{
 		if(IsInvencible) return;
 
 		ScreenFeedback.ShowDamage (timeInvencibleAfterDamage);
-		
+
+		//game stats
+		string enemyName = hit.name;
+		Debug.Log("Hit by: " + hit.name);
+		if(enemyName.Contains(BASIC))
+			hitsByBasic++;
+		if(enemyName.Contains(BOOMERANG))
+			hitsByBoomerang++;
+		if(enemyName.Contains(ZIGZAG))
+			hitsByZigZag++;
+		if(enemyName.Contains(CHARGER))
+			hitsByCharger++;
+		if(enemyName.Contains(LEGION))
+			hitsByLegion++;
+		if(enemyName.Contains(FOLLOWER))
+			hitsByFollower++;
+		if(enemyName.Contains(BOSS1))
+			hitsByBoss1++;
+		if(enemyName.Contains(BOSS2))
+			hitsByBoss2++;
+		if(enemyName.Contains(BOSS3))
+			hitsByBoss3++;
+
 		if (LevelDesign.PlayerLevel == 0)
 			NoMoreLifes ();
 		
@@ -377,8 +430,6 @@ public class GameController : MonoBehaviour
 
 	private IEnumerator ShowEndScreen(float waitTime)
 	{
-		UpdateGameStats();
-
 		isGameRunning = false;
 		gameOver = true;
 		player.SetActive (false);
@@ -399,8 +450,6 @@ public class GameController : MonoBehaviour
 
 	private void UpdateGameStats()
 	{
-		Global.CreepsKilled += creepsKilled;
-
 		Global.BasicsKilled += basicsKilled;
 		Global.BoomerangsKilled += boomerangsKilled;
 		Global.ZigZagsKilled += zigzagsKilled;
@@ -412,18 +461,52 @@ public class GameController : MonoBehaviour
 		Global.Boss2Killed += boss2Killed;
 		Global.Boss3Killed += boss3Killed;
 
+		Global.FrozenCollected += frozenCollected;
+		Global.InvencibilityCollected += invencibilityCollected;
+		Global.LevelUpCollected += levelUpCollected;
+		Global.DeathRayCollected += deathRayCollected;
+
+		Global.OrbsMissed += orbsMissed;
+		Global.PowerUpsMissed += powerUpsMissed;
+		Global.EnemiesMissed += enemiesMissed;
+
 		if(maxStreak > Global.MaxStreak)
 			Global.MaxStreak = maxStreak;
 
-		if(Score > Global.MaxPoints)
-			Global.MaxPoints = Score;
+		if (Score > Global.HighScore)
+			Global.HighScore = Score;
+		
+		if (Score > Global.SessionScore)
+			Global.SessionScore = Score;
 
+		Global.BossEncounters += bossEncounters;
 		Global.TimePlayed += (int)matchTime;
-
 		Global.EnergySpent += (int)energySpent;
 
 		if(LightBehaviour.maxTimeOnSide > Global.SideLeftRight)
 			Global.SideLeftRight = (int)LightBehaviour.maxTimeOnSide;
+
+		if(matchTime > Global.LongestMatch)
+			Global.LongestMatch = (int)matchTime;
+
+		Global.HitsByBasic += hitsByBasic;
+		Global.HitsByBoomerang += hitsByBoomerang;
+		Global.HitsByZigZag += hitsByZigZag;
+		Global.HitsByCharger += hitsByCharger;
+		Global.HitsByLegion += hitsByLegion;
+		Global.HitsByFollower += hitsByBoss1;
+		Global.HitsByBoss2 += hitsByBoss2;
+		Global.HitsByBoss3 += hitsByBoss3;
+
+		Global.TimeOnRight += (int)rightTime;
+		Global.TimeOnLeft += (int)leftTime;
+
+		Global.TimeOnSpecial1 += (int)timeOnSpecial1;
+		Global.TimeOnSpecial2 += (int)timeOnSpecial2;
+		Global.TimeOnSpecial3 += (int)timeOnSpecial3;
+		Global.TimeOnSpecial4 += (int)timeOnSpecial4;
+		Global.TimeOnSpecial5 += (int)timeOnSpecial5;
+		Global.TimeOnSpecial6 += (int)timeOnSpecial6;
 	}
 
 	private IEnumerator ShowContinueScreen(float waitTime, CauseOfDeath causeOfDeath)
@@ -471,9 +554,9 @@ public class GameController : MonoBehaviour
 		if(OnGameEnding != null)
 			OnGameEnding();
 
-		Popup.Hide ();
+		UpdateGameStats();
 
-		//Global.TotalOrbs += orbsCollected;
+		Popup.Hide ();
 
 		HUDController.Instance.ShowEndScreen ();
 
@@ -608,7 +691,6 @@ public class GameController : MonoBehaviour
 		enemiesKillCount = 0;
 		score = 0;
 		StreakCount = 0;
-		orbsCollected = 0;
 		realStreakCount = 0;
 		specialStreak = 0;
 		continues = 0;
@@ -632,9 +714,41 @@ public class GameController : MonoBehaviour
 		boss2Killed = 0;
 		boss3Killed = 0;
 
+		frozenCollected = 0;
+		levelUpCollected = 0;
+		invencibilityCollected = 0;
+		deathRayCollected = 0;
+
+		enemiesMissed = 0;
+		orbsMissed = 0;
+		powerUpsMissed = 0;
+
+		orbsCollected = 0;
+		bossEncounters = 0;
+
 		maxStreak = 0;
 		matchTime = 0;
 		energySpent = 0;
+
+		hitsByBasic = 0;
+		hitsByBoomerang = 0;
+		hitsByZigZag = 0;
+		hitsByCharger = 0;
+		hitsByLegion = 0;
+		hitsByFollower = 0;
+		hitsByBoss1 = 0;
+		hitsByBoss2 = 0;
+		hitsByBoss3 = 0;
+
+		leftTime = 0;
+		rightTime = 0;
+
+		timeOnSpecial1 = 0;
+		timeOnSpecial2 = 0;
+		timeOnSpecial3 = 0;
+		timeOnSpecial4 = 0;
+		timeOnSpecial5 = 0;
+		timeOnSpecial6 = 0;
 		#endregion
 
 		gameOver = false;
@@ -748,6 +862,8 @@ public class GameController : MonoBehaviour
 
 		SoundController.Instance.PlayMusic(SoundController.Musics.BossTheme);
 
+		bossEncounters++;
+
 		SpawnController.SpawnBoss ();
 	}
 
@@ -774,6 +890,7 @@ public class GameController : MonoBehaviour
 			break;
 
 			case Item.Type.LevelUp:
+				levelUpCollected++;
 				StreakCount = LevelDesign.NextStreakToPlayerLevelUp;
 			break;
 
@@ -790,10 +907,12 @@ public class GameController : MonoBehaviour
 			break;
 
 			case Item.Type.Invecibility:
+				invencibilityCollected++;
 				UseInvencibility(Invencible.Time);
 			break;
 
 			case Item.Type.DeathRay:
+				deathRayCollected++;
 				KillAllEnemies(true);
 			break;
 
@@ -801,6 +920,7 @@ public class GameController : MonoBehaviour
 				if(OnFrozenCollected != null)
 					OnFrozenCollected();
 				
+				frozenCollected++;
 				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Freeze);
 
 				frozen = true;

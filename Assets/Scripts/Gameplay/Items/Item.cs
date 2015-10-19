@@ -36,8 +36,11 @@ public class Item : MonoBehaviour
 			OutOfScreen ();
 	}
 	
-	public void OutOfScreen()
+	public virtual void OutOfScreen()
 	{
+		if(type != Type.PlasmaOrb)
+			GameController.powerUpsMissed++;
+
 		Destroy (gameObject);
 	}
 
