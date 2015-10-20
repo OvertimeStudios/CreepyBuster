@@ -88,6 +88,8 @@ public class ItemShop : MonoBehaviour
 
 	public void Purchase()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		Debug.Log("Trying to buy: " + type.ToString() + " for " + string.Format("{0:0,0}", price[CurrentLevel]) + " orbs.");
 
 		if(IsMaxLevel) 
@@ -114,8 +116,9 @@ public class ItemShop : MonoBehaviour
 		if(Global.TotalOrbs >= price[CurrentLevel])
 		{
 			Debug.Log("You spent " + price[CurrentLevel] + " on " + type.ToString());
+			Global.OrbsSpent += price[CurrentLevel];
 			Global.TotalOrbs -= price[CurrentLevel];
-			
+
 			UnlockProperty();
 		}
 
@@ -132,6 +135,8 @@ public class ItemShop : MonoBehaviour
 
 	private void UnlockProperty()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.ShopBuy);
+
 		level++;
 
 		switch(type)

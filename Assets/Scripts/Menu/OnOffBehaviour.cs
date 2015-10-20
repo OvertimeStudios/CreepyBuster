@@ -98,6 +98,8 @@ public class OnOffBehaviour : MonoBehaviour
 
 	public void Toggle()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		state = (state == State.ON) ? State.OFF : State.ON;
 
 		disabled.SetActive(state == State.OFF);
@@ -118,7 +120,14 @@ public class OnOffBehaviour : MonoBehaviour
 		}
 
 		if (type == Type.SoundFX)
+		{
 			Global.IsSoundOn = (state == State.ON);
+
+			if(state == State.ON)
+				SoundController.Instance.UnmuteSoundFX();
+			else
+				SoundController.Instance.MuteSoundFX();
+		}
 
 		if(type == Type.Tutorial)
 			Global.IsTutorialEnabled = (state == State.ON);

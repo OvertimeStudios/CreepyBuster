@@ -72,6 +72,8 @@ public class ForwardMinhoco : MonoBehaviour
 
 	private void Reposition()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossTwinsIdle);
+
 		int rnd = (int)(Random.Range(0, 4));
 		float angle = rnd * (Mathf.PI / 2);
 

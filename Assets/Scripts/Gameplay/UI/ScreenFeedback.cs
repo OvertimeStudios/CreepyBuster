@@ -31,6 +31,8 @@ public class ScreenFeedback : MonoBehaviour
 	private UISprite invencibility;
 	private UISprite blank;
 
+	private static AudioSource myAudioSource;
+
 	private Coroutine frozenCoroutine;
 	private Coroutine damageCoroutine;
 	private Coroutine invencibilityCoroutine;
@@ -50,6 +52,8 @@ public class ScreenFeedback : MonoBehaviour
 		damage = transform.FindChild ("Damage").GetComponent<UISprite> ();
 		invencibility = transform.FindChild ("Invencibility").GetComponent<UISprite> ();
 		blank = transform.FindChild ("Blank").GetComponent<UISprite> ();
+
+		myAudioSource = GetComponent<AudioSource>();
 
 		frozen.enabled = false;
 		damage.enabled = false;
@@ -89,12 +93,37 @@ public class ScreenFeedback : MonoBehaviour
 
 	public static void ShowInvencibility(float time)
 	{
+		if(Global.IsSoundOn)
+		{
+			myAudioSource.Stop();
+			myAudioSource.Play();
+		}
+		GameController.OnPause += PauseSound;
+
 		Instance.invencibility.enabled = true;
 
 		if (Instance.invencibilityCoroutine != null)
 			Instance.StopCoroutine (Instance.invencibilityCoroutine);
 
 		Instance.invencibilityCoroutine = Instance.StartCoroutine (Blink (Instance.invencibility, time, time * 0.75f, 3));
+	}
+
+	private static void PauseSound()
+	{
+		GameController.OnPause -= PauseSound;
+		GameController.OnResume += ResumeSound;
+
+		if(Global.IsSoundOn)
+			myAudioSource.Pause();
+	}
+
+	private static void ResumeSound()
+	{
+		GameController.OnPause += PauseSound;
+		GameController.OnResume -= ResumeSound;
+
+		if(Global.IsSoundOn)
+			myAudioSource.UnPause();
 	}
 
 	public static void ShowBlank(float fadeInTime, float fadeOutTime)

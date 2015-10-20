@@ -34,4 +34,11 @@ public class PlasmaOrbItem : Item
 
 		base.OnTriggerEnter2D (col);
 	}
+
+	public override void OutOfScreen ()
+	{
+		GameController.orbsMissed += orbs;
+
+		base.OutOfScreen ();
+	}
 }

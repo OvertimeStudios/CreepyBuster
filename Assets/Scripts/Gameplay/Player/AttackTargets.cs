@@ -129,7 +129,23 @@ public class AttackTargets : MonoBehaviour
 		GetTargets ();
 
 		if (isSpecial)
+		{
+			GameController.timeOnSpecial6 += Time.deltaTime;
 			RunTimer ();
+		}
+		else
+		{
+			if(LevelDesign.PlayerLevel == 0)
+				GameController.timeOnSpecial1 += Time.deltaTime;
+			else if(LevelDesign.PlayerLevel == 1)
+				GameController.timeOnSpecial2 += Time.deltaTime;
+			else if(LevelDesign.PlayerLevel == 2)
+				GameController.timeOnSpecial3 += Time.deltaTime;
+			else if(LevelDesign.PlayerLevel == 3)
+				GameController.timeOnSpecial4 += Time.deltaTime;
+			else if(LevelDesign.PlayerLevel == 4)
+				GameController.timeOnSpecial5 += Time.deltaTime;
+		}
 
 		enemiesInRange.Clear ();
 	}
@@ -195,13 +211,17 @@ public class AttackTargets : MonoBehaviour
 		if(!isAttacking && targets.Count > 0)
 		{
 			isAttacking = true;
-			audioSource.Play();
+
+			if(Global.IsSoundOn)
+				audioSource.Play();
 		}
 		//stop attacking
 		else if(isAttacking && targets.Count == 0)
 		{
 			isAttacking = false;
-			audioSource.Stop();
+
+			if(Global.IsSoundOn)
+				audioSource.Stop();
 		}
 	}
 
@@ -291,7 +311,7 @@ public class AttackTargets : MonoBehaviour
 	//enemy collided with player finger
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		GameController.Instance.FingerHit ();
+		GameController.Instance.FingerHit (col.transform.gameObject);
 
 		if(col.gameObject.GetComponent<EnemyLife>() != null)
 		{

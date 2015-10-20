@@ -114,6 +114,9 @@ public class EnemyLife : MonoBehaviour
 	{
 		if(inLight)
 		{
+			//game stats
+			GameController.energySpent += Time.deltaTime;
+
 			life -= AttackTargets.Damage * Time.deltaTime;
 
 			if(life <= 0)
@@ -186,6 +189,8 @@ public class EnemyLife : MonoBehaviour
 		countAsKill = countPoints;
 		
 		StartCoroutine (FadeAway (deathTime));
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Score);
 
 		if (OnDied != null)
 			OnDied (gameObject);

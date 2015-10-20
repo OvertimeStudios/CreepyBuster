@@ -95,20 +95,22 @@ public class ItemShopHardCurrency : MonoBehaviour
 
 	private void Unlock()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.ShopBuy);
+
 		switch(pack)
 		{
 			case Pack.OrbsPack:
+				Global.OrbsCollected += value;
 				Global.TotalOrbs += value;
-				Popup.ShowOk (Localization.Get("YOU_RECEIVED") + " " + value + " orbs.");
+				Popup.ShowOk (string.Format(Localization.Get("YOU_RECEIVED"), value));
 				break;
 				
 			case Pack.MultiplierOrbs:
 				Global.OrbsMultiplier = value;
+				Global.IsAdFree = true;
+				AdMobHelper.HideBanner();
 				Popup.ShowOk("Orbs gain doubled");
 				break;
 		}
-
-		Global.IsAdFree = true;
-		AdMobHelper.HideBanner();
 	}
 }

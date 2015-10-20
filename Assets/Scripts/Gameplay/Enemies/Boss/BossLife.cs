@@ -8,14 +8,29 @@ public class BossLife : EnemyLife
 	public int orbsToDrop = 50;
 	public float spread = 1f;
 
+	public static int partsToDestroy;
+
 	#region Action
-	public static event Action OnBossDied;
+	public static event Action<GameObject> OnBossDied;
 	#endregion
-	
+
+	protected override void Start ()
+	{
+		base.Start ();
+
+		partsToDestroy = 1;
+	}
+
 	protected override void DropOrbs()
 	{
-		if(OnBossDied != null)
-			OnBossDied();
+		partsToDestroy--;
+
+		if(partsToDestroy == 0)
+		{
+			if(OnBossDied != null)
+				OnBossDied(gameObject);
+		}
+	
 
 		SpawnController.Instance.SpawnOrbs(orbsToDrop, transform.position, spread);
 	}

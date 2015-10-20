@@ -12,23 +12,13 @@ WORLD_RANKING,WORLD RANKING,RANKING GLOBAL
 FRIENDS_RANKING,FRIENDS RANKING,RANKING DE AMIGOS
 HEIGHT,Height:,Altura:
 WEIGHT,Weight:,Peso:
-DESCRIPTION,Description:,Descrição:
+DESCRIPTION,Description,Descrição
 C1_DESCRIPTION,"Watch for his special ability: wait... he doesn't have a special ability.",Cuidado com sua habilidade especial: pera... ele não tem nenhuma.
 C2_DESCRIPTION,"He tries to get you rotating, rotating, rotatin...","Ele tentará te pegar rodando, rodando, rodando..."
 C3_DESCRIPTION,"Zig from here, zag from there, zigzag from everywhere.","Zig aqui, zag acolá, zigzag em todo lugar."
 C4_DESCRIPTION,Charging in 5.. 4.. 3.. 2.. 1.. and... Gotcha!,Carregando em 5.. 4.. 3.. 2.. 1.. e.. Pegou!
 C5_DESCRIPTION,"He'll never be alone. His minions will protecte and fight 'till death.",Ele nunca virá sozinho. Seus servos o protegerão até o fim.
 C7_DESCRIPTION,Guess who will never let you go?,Adivinhe quem nunca te deixará partir?
-NEWBIE,Newbie,Novato
-NEWBIE_DESCRIPTION,Play your first game!,Jogue seu primeiro jogo!
-SKILLED,Skilled,Habilidoso
-SKILLED_DESCRIPTION,Play for 10 minutes straight,Jogue por 10 minutos seguidos
-SICK,Sick,Doente
-SICK_DESCRIPTION,Play for 30 minutes straight,Jogue por 30 minutos seguidos
-DOCTOR,Better see a doctor,Melhor procurar um médico
-DOCTOR_DESCRIPTION,Play for 2 hours straight,Jogue por 2 horas seguidas
-FIRST_BLOOD,First Blood,Primeiro Sangue
-FIRST_BLOOD_DESCRIPTION,Kill your first monster,Mate seu primeiro monstro
 RESTORE,RESTORE PURCHASE,RESTAURAR COMPRAS
 CREDITS,CREDITS,CRÉDITOS
 LOGOUT,Not you? Logout,Não é você? Logout
@@ -36,14 +26,13 @@ SETTINGS,SETTINGS,OPÇÕES
 ACHIEVEMENTS,ACHIEVEMENTS,CONQUISTAS
 FingerOff,You took your finger out of screen,Você tirou o dedo da tela
 LifeOut,You got hit!,Você foi atingido!
-VIDEO_TO_PLAY,Do you want to watch 1 video to continue playing?,Você quer assistir 1 vídeo para continuar jogando?
-VIDEO_TO_ORBS,Do you want to watch 1 video to earn,Você quer assistir 1 vídeo para ganhar
+VIDEO_TO_ORBS,Do you want to watch a video to earn {0} orbs?,Você quer assistir a um vídeo para ganhar {0} orbs?
+VIDEO_TO_PLAY,Do you want to watch a video to continue playing?,Você quer assistir a um vídeo para continuar jogando?
 INFINITY_ORBS_TO_PLAY,"But you have infinity orbs cheat. Do you want to continue, m'lord?","Mas você tem o cheat de orbs infinitas. Quer continuar, mestre?"
-WANT_TO_SPEND,Do you want to spent,Você quer gastar
-CONTINUE_PLAYING,orbs to continue playing?, orbs para continuar a jogar?
-YOU_HAVE,You Have,Você tem
+WANT_TO_SPEND,Do you want to spent {0} to continue playing?,Você quer gastar {0} orbs para continuar a jogar?,
+YOU_HAVE,You have {0} orbs,Você tem {0} orbs
 NOT_ENOUGH_ORBS,"You don't have enough orbs to continue playing",Você não tem orbs suficientes para continuar jogando
-YOU_RECEIVED,You received,Você recebeu
+YOU_RECEIVED,You received {0} orbs,Você recebeu {0} orbs
 TRY_AGAIN,Try again,Tente novamente
 FINGER_ON_SCREEN,Put your finger on screen,Coloque seu dedo na tela
 HOLD_TO_CONTINUE, Hold to continue,Segure para continuar
@@ -71,4 +60,56 @@ SPECIAL,SPECIAL,ESPECIAL
 HIGH_SCORE,HIGH SCORE,MAIOR PONTUAÇÃO
 BOSSES,BOSSES,CHEFÕES
 COMING_SOON,COMING SOON,EM BREVE
+SECONDS,seconds,segundos
+ACHIEVEMENT_DESTROY_CREEPS_TITLE1,,
+ACHIEVEMENT_DESTROY_CREEPS_TITLE2,,
+ACHIEVEMENT_DESTROY_CREEPS_TITLE3,,
+ACHIEVEMENT_DESTROY_CREEPS_TITLE4,,
+ACHIEVEMENT_DESTROY_CREEPS_TITLE5,,
+ACHIEVEMENT_DESTROY_CREEPS_DESCRIPTION,Destroy {0} creeps,Destruir {0} creeps
+ACHIEVEMENT_DESTROY_BASIC_TITLE,,
+ACHIEVEMENT_DESTROY_BASIC_DESCRIPTION,Destroy {0} basic enemies,Destruir {0} inimigos básicos
+ACHIEVEMENT_DESTROY_BOOMERANG_TITLE,,
+ACHIEVEMENT_DESTROY_BOOMERANG_DESCRIPTION,Destroy {0} boomerang enemies,Destruir {0} inimigos boomerangue
+ACHIEVEMENT_DESTROY_ZIGZAG_TITLE,,
+ACHIEVEMENT_DESTROY_ZIGZAG_DESCRIPTION,Destroy {0} zig zag enemies,Destruir {0} inimigos zig zag
+ACHIEVEMENT_DESTROY_CHARGER_TITLE,,
+ACHIEVEMENT_DESTROY_CHARGER_DESCRIPTION,Destroy {0} charger enemies,Destruir {0} inimigos charger
+ACHIEVEMENT_DESTROY_LEGION_TITLE,,
+ACHIEVEMENT_DESTROY_LEGION_DESCRIPTION,Destroy {0} legion enemies,Destruir {0} inimigos legião
+ACHIEVEMENT_DESTROY_FOLLOWER_TITLE,,
+ACHIEVEMENT_DESTROY_FOLLOWER_DESCRIPTION,Destroy {0} follower enemies,Destruir {0} inimigos follower
+ACHIEVEMENT_BOSS1_TITLE,,
+ACHIEVEMENT_BOSS1_DESCRIPTION,Destroy Meteormite,Destrua Meteormite
+ACHIEVEMENT_BOSS2_TITLE,,
+ACHIEVEMENT_BOSS2_DESCRIPTION,Destroy Twins,Destrua Twins
+ACHIEVEMENT_BOSS3_TITLE,,
+ACHIEVEMENT_BOSS3_DESCRIPTION,Destroy Psyquor,Destrua Psyquor
+ACHIEVEMENT_STREAK_TITLE,,
+ACHIEVEMENT_STREAK_DESCRIPTION,Destroy {0} creeps without getting hit,Destruir {0} creeps sem tomar dano
+ACHIEVEMENT_POINTS_TITLE1,,
+ACHIEVEMENT_POINTS_TITLE2,,
+ACHIEVEMENT_POINTS_TITLE3,,
+ACHIEVEMENT_POINTS_TITLE4,,
+ACHIEVEMENT_POINTS_TITLE5,,
+ACHIEVEMENT_POINTS_DESCRIPTION,Reach {0} points,Alcance {0} pontos
+ACHIEVEMENT_HOURS_TITLE,,
+ACHIEVEMENT_HOURS_DESCRIPTION,Complete {0} game hours,Complete {0} horas de jogo
+ACHIEVEMENT_PLAYS_TITLE1,,
+ACHIEVEMENT_PLAYS_TITLE2,,
+ACHIEVEMENT_PLAYS_TITLE3,,
+ACHIEVEMENT_PLAYS_TITLE4,,
+ACHIEVEMENT_PLAYS_TITLE5,,
+ACHIEVEMENT_PLAYS_DESCRIPTION,Play {0} games,Jogar {0} partidas
+ACHIEVEMENT_SPECIAL_TITLE,,
+ACHIEVEMENT_SPECIAL_DESCRIPTION,Use {0} specials,Use {0} especiais
+ACHIEVEMENT_ENERGY_TITLE,,
+ACHIEVEMENT_ENERGY_DESCRIPTION,Spent 1.21 GW of energy from your ray,Gastar 1.21 GW de energia do seu raio
+ACHIEVEMENT_UPGRADES_TITLE,,
+ACHIEVEMENT_UPGRADES_DESCRIPTION,Buy all upgrades from store,Comprar todos os upgrades da loja
+ACHIEVEMENT_LEFTRIGHT_TITLE,,
+ACHIEVEMENT_LEFTRIGHT_DESCRIPTION,Stay {0} seconds straight in right or left side of screen,Ficar {0} segundos seguidos do lado direito ou esquerdo da tela
+ACHIEVEMENT_MENU_TITLE,,
+ACHIEVEMENT_MENU_DESCRIPTION,Stay {0} minutes straight on menu,Ficar {0} minutos seguidos no menu
+ACHIEVEMENT_UNLOCKED,"You have just unlocked ""{0}"". You earned {1} orbs","Você acabou de desbloquear ""{0}"". Você ganhou {1} orbs"
 Paragraph,"This example shows how to ""implement"" localization using NGUI. In order to localize a widget, simply attach [000000]UILocalize[-] script to it. The script will localize the sprite if it's a [000000]UISprite[-], or the text if it's a [000000]UILabel[-]. If you want to localize something else, just implement the [000000]OnLocalize[-] function. Either way, the actual data is defined via text assets specified on the [000000]Localization[-] script which must be present in the scene.","Cet exemple montre comment implémenter la localisation en utilisant NGUI. Pour localiser un widget, il suffit d'y attacher le script [000000]UILocalize[-]. Ce script localisera le sprite si c'est un [000000]UISprite[-], ou le texte si c'est un [000000]UILabel[-]. Si vous voulez localiser autre chose, il suffit d'implémenter la fonction [000000]OnLocalize[-]. Dans tous les cas, les données sont définies par l'intermédiaire de documents texte spécifiés dans le script [000000]Localization[-] qui doit être présent dans la scène."

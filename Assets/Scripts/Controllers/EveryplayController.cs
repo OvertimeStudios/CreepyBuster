@@ -13,6 +13,11 @@ public class EveryplayController : MonoBehaviour
 	{
 		get { return isReady && Everyplay.IsSupported() && Everyplay.IsRecordingSupported(); }
 	}
+
+	public static bool IsRecorded
+	{
+		get { return videoFinished; }
+	}
 	
 	#region singleton
 	private static EveryplayController instance;
@@ -40,8 +45,8 @@ public class EveryplayController : MonoBehaviour
 	void OnEnable()
 	{
 		GameController.OnGameStart += StartRecording;
-		GameController.OnShowContinueScreen += PauseRecording;
-		GameController.OnContinuePlaying += ResumeRecording;
+		GameController.OnPause += PauseRecording;
+		GameController.OnResume += ResumeRecording;
 		GameController.OnShowEndScreen += StopRecording;
 		GameController.OnShowEndScreen += SetMetadata;
 
@@ -51,8 +56,8 @@ public class EveryplayController : MonoBehaviour
 	void OnDisable()
 	{
 		GameController.OnGameStart -= StartRecording;
-		GameController.OnShowContinueScreen -= PauseRecording;
-		GameController.OnContinuePlaying -= ResumeRecording;
+		GameController.OnPause -= PauseRecording;
+		GameController.OnResume -= ResumeRecording;
 		GameController.OnShowEndScreen -= StopRecording;
 		GameController.OnShowEndScreen -= SetMetadata;
 		
@@ -130,6 +135,12 @@ public class EveryplayController : MonoBehaviour
 	
 	public void PlayLastRecording()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+		if(!IsRecorded)
+		{
+			Popup.ShowBlank("Couldn't record this time.", 2f);
+			return;
+		}
 		PlayLastRecording(null);
 	}
 	
