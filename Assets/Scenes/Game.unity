@@ -24390,10 +24390,6 @@ Prefab:
     m_TransformParent: {fileID: 1913536882}
     m_Modifications:
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bosses.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: rangeUpgrade.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -24404,14 +24400,6 @@ Prefab:
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: bossBattleCondition.Array.size
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.size
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 412946, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: m_LocalPosition.x
@@ -24446,160 +24434,8 @@ Prefab:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itemSpawnTime.min
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itemSpawnTime.max
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].chanceToSpawn
+      propertyPath: specialColor.a
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[0].item
-      value: 
-      objectReference: {fileID: 193254, guid: 2e742f82ef5604d40ad26f5041c4a5a4, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[1].item
-      value: 
-      objectReference: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[2].item
-      value: 
-      objectReference: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[3].item
-      value: 
-      objectReference: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[4].item
-      value: 
-      objectReference: {fileID: 182814, guid: 67895c14af5e846e4bdcfd012046df13, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[5].item
-      value: 
-      objectReference: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[6].item
-      value: 
-      objectReference: {fileID: 142570, guid: 373cc9dc78a6e4e55a88461bb01cf653, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[7].item
-      value: 
-      objectReference: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[0].percent
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[1].percent
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[2].percent
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[3].percent
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[4].percent
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[5].percent
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[6].percent
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[7].percent
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: rangeUpgrade.Array.data[0].value
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: rangeUpgrade.Array.data[1].value
-      value: 2.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: rangeUpgrade.Array.data[2].value
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: rangeUpgrade.Array.data[3].value
-      value: 3.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: damageUpgrade.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: damageUpgrade.Array.data[1].value
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: damageUpgrade.Array.data[2].value
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: damageUpgrade.Array.data[3].value
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[0].kills
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[1].kills
-      value: 130
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[2].kills
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[0].boss
-      value: 
-      objectReference: {fileID: 109062, guid: 5a7840d6b72b34d8e9718d23b20562b4, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: playerLevelUpCondition.Array.data[1].killStreak
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: backgrounds.Array.data[0]
-      value: 
-      objectReference: {fileID: 102720, guid: 527349e8b2b7542fd835a5d91a4e6e05, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[1].boss
-      value: 
-      objectReference: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: playerLevelUpCondition.Array.data[2].killStreak
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: playerLevelUpCondition.Array.data[3].killStreak
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: playerLevelUpCondition.Array.data[4].killStreak
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: streakToSpecial
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: specialTime
-      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: specialColor.r
@@ -24611,10 +24447,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: specialColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: specialBonusDamage
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
@@ -24638,112 +24470,32 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[2].boss
-      value: 
-      objectReference: {fileID: 109062, guid: 5a7840d6b72b34d8e9718d23b20562b4, type: 2}
+      propertyPath: specialTime
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: specialColor.a
-      value: 1
+      propertyPath: bossBattleCondition.Array.data[0].kills
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: bossBattleCondition.Array.data[0].bossMeteor
-      value: 0
+      value: .330000013
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: bossBattleCondition.Array.data[0].bossTwins
-      value: 0
+      value: .330000013
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: bossBattleCondition.Array.data[0].bossIllusion
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[3].kills
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[4].kills
-      value: 450
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[1].bossMeteor
-      value: .899999976
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[1].bossTwins
-      value: .100000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[2].bossMeteor
-      value: .899999976
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[2].bossTwins
-      value: .100000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[2].bossIllusion
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[3].bossMeteor
-      value: .899999976
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[3].bossTwins
-      value: .100000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[3].bossIllusion
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[4].bossMeteor
-      value: .100000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[4].bossTwins
-      value: .449999988
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[4].bossIllusion
-      value: .449999988
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[5].kills
-      value: 450
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[5].bossMeteor
-      value: .100000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[5].bossTwins
-      value: .449999988
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[5].bossIllusion
-      value: .449999988
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossMeteor
-      value: 
-      objectReference: {fileID: 176214, guid: 7240fa1af9d86448fa15dcfe81856834, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossIllusion
-      value: 
-      objectReference: {fileID: 109062, guid: 5a7840d6b72b34d8e9718d23b20562b4, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossTwins
-      value: 
-      objectReference: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: infinityBossBattleCondition.kills
-      value: 50
+      value: .330000013
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: infinityBossBattleCondition.bossMeteor
       value: .330000013
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: infinityBossBattleCondition.kills
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: infinityBossBattleCondition.bossTwins
@@ -24754,9 +24506,49 @@ Prefab:
       value: .330000013
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: enemiesTypesLevelUpCondition.Array.data[0].enemies.Array.data[0].enemy
+      propertyPath: rangeUpgrade.Array.data[0].value
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: rangeUpgrade.Array.data[1].value
+      value: 2.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: rangeUpgrade.Array.data[2].value
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: rangeUpgrade.Array.data[3].value
+      value: 3.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: damageUpgrade.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: damageUpgrade.Array.data[1].value
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: damageUpgrade.Array.data[2].value
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: damageUpgrade.Array.data[3].value
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: bossIllusion
       value: 
-      objectReference: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
+      objectReference: {fileID: 109062, guid: 5a7840d6b72b34d8e9718d23b20562b4, type: 2}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: bossMeteor
+      value: 
+      objectReference: {fileID: 176214, guid: 7240fa1af9d86448fa15dcfe81856834, type: 2}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: bossTwins
+      value: 
+      objectReference: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
   m_IsPrefabParent: 0
