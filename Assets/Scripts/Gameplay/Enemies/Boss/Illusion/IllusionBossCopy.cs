@@ -163,6 +163,8 @@ public class IllusionBossCopy : MonoBehaviour
 	
 	private void FireProjectile()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossIllusionIdle);
+
 		Vector3 player = AttackTargets.Instance.transform.position;
 		float angle = Mathf.Atan2 (player.y - spawnPosition.position.y, player.x - spawnPosition.position.x);
 		Quaternion rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);

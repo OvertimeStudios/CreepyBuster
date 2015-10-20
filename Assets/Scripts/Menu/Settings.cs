@@ -56,6 +56,7 @@ public class Settings : MonoBehaviour
 
 	public void RestorePurchases()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		IAPHelper.RestoreCompletedTransactions(Callback);
 	}
 

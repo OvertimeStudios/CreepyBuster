@@ -66,10 +66,11 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 		countdown = transform.FindChild ("Countdown").GetComponent<UILabel> ();
 	}
-	
+
 	public void Play()
 	{
 		#if UNITYADS_IMPLEMENTED
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		if(IsReady)
 		{
 			if(reward == Rewards.PlayAgain)

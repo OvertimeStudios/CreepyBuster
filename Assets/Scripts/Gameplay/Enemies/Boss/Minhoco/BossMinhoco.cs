@@ -146,6 +146,7 @@ public class BossMinhoco : MonoBehaviour
 
 	private void PieceDied(Transform piece)
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossTwinsDamage);
 		corpoPieces.Remove(piece);
 
 		for(byte i = 0; i < corpoPieces.Count; i++)
@@ -181,7 +182,8 @@ public class BossMinhoco : MonoBehaviour
 		
 		if(lastOne)
 		{
-			Time.timeScale = 0.4f;
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossDie);
+			Time.timeScale = 0.2f;
 			ScreenFeedback.ShowBlank(enemyLife.deathTime, 0.5f);
 		}
 		
@@ -195,8 +197,8 @@ public class BossMinhoco : MonoBehaviour
 
 		if(lastOne)
 		{
-			GameController.BossDied(gameObject);
-			LevelDesign.BossLevelUp(gameObject);
+			//GameController.BossDied(gameObject);
+			//LevelDesign.BossLevelUp(gameObject);
 		}
 
 		enabled = false;

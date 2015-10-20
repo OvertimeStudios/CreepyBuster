@@ -28,6 +28,8 @@ public class Creepypedia : MonoBehaviour
 
 	public void Open(CreepData.CreepType type, string name, float height, float weight, string description)
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		//deactive all sprite
 		foreach(Transform child in creeps)
 			child.gameObject.SetActive(false);
@@ -46,6 +48,8 @@ public class Creepypedia : MonoBehaviour
 
 	public void Close()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		opened.SetActive(false);
 		closed.SetActive(true);
 	}

@@ -527,6 +527,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoreGames()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		Application.OpenURL ("http://www.overtimestudios.com/games.php");
 	}
 

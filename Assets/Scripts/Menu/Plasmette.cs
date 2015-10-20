@@ -12,6 +12,7 @@ public class Plasmette : MonoBehaviour
 	private Transform myTransform;
 	private Vector3 initialPosition;
 	private Coroutine spinningCoroutine;
+	private AudioSource myAudioSource;
 
 	private Vector3 waypoint;
 	private float angle;
@@ -32,6 +33,7 @@ public class Plasmette : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		myAudioSource = GetComponent<AudioSource>();
 		myTransform = transform;
 		myAnimator = GetComponent<Animator>();
 
@@ -108,6 +110,9 @@ public class Plasmette : MonoBehaviour
 
 	private IEnumerator StartSpinning()
 	{
+		if(Global.IsSoundOn)
+			myAudioSource.Play();
+
 		myAnimator.SetInteger("State", 3);
 
 		float time = 0;
@@ -144,6 +149,9 @@ public class Plasmette : MonoBehaviour
 
 	private IEnumerator StopSpinning()
 	{
+		if(Global.IsSoundOn)
+			myAudioSource.Stop();
+
 		if(spinningCoroutine != null)
 		{
 			StopCoroutine(spinningCoroutine);

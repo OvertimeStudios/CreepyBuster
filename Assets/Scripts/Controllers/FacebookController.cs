@@ -36,6 +36,7 @@ public class FacebookController : MonoBehaviour
 	{
 		if(!IsLoggedIn)
 		{
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 			string scope = "public_profile,email";
 
 			FacebookHelper.Login (scope, LoginCallback);

@@ -190,6 +190,8 @@ public class EnemyLife : MonoBehaviour
 		
 		StartCoroutine (FadeAway (deathTime));
 
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Score);
+
 		if (OnDied != null)
 			OnDied (gameObject);
 	}

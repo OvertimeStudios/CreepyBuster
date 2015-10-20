@@ -360,6 +360,8 @@ public class GameController : MonoBehaviour
 
 	private void PlayerLevelUp()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.LevelUp);
+
 		if(LevelDesign.IsSpecialReady)
 		{
 			AttackTargets.Instance.UseSpecial();
@@ -399,6 +401,8 @@ public class GameController : MonoBehaviour
 		
 		if (OnFingerHit != null)
 			OnFingerHit ();
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PlayerDamage);
 
 		LoseStacks ();
 	}
@@ -923,6 +927,7 @@ public class GameController : MonoBehaviour
 			break;
 
 			case Item.Type.LevelUp:
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.LevelUp);
 				levelUpCollected++;
 				StreakCount = LevelDesign.NextStreakToPlayerLevelUp;
 			break;
@@ -940,6 +945,7 @@ public class GameController : MonoBehaviour
 			break;
 
 			case Item.Type.Invecibility:
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected);
 				invencibilityCollected++;
 				UseInvencibility(Invencible.Time);
 			break;
@@ -947,6 +953,7 @@ public class GameController : MonoBehaviour
 			case Item.Type.DeathRay:
 				deathRayCollected++;
 				KillAllEnemies(true);
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.DeathRay);
 			break;
 
 			case Item.Type.Frozen:
@@ -954,7 +961,7 @@ public class GameController : MonoBehaviour
 					OnFrozenCollected();
 				
 				frozenCollected++;
-				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Freeze);
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.Freeze);
 
 				frozen = true;
 				

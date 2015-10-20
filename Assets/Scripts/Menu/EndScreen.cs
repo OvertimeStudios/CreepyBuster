@@ -41,6 +41,7 @@ public class EndScreen : MonoBehaviour
 
 	public void AskDoubleOrbs()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		Popup.ShowYesNo("Wanna watch a video to double your orbs earned from this game?", PlayVideo, null);
 	}
 

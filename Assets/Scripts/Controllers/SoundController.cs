@@ -25,12 +25,26 @@ public class SoundController : MonoBehaviour
 		OrbP,
 		OrbM,
 		OrbG,
+		PowerUpCollected,
 		Freeze,
+		DeathRay,
+		Score,
 		Click,
 		MenuIn,
 		MenuOut,
 		MenuScroll,
 		ShopBuy,
+		PlayerDamage,
+		LevelUp,
+		BossMeteorIdle,
+		BossMeteorDamage,
+		BossMeteorDrop,
+		BossTwinsIdle,
+		BossTwinsDamage,
+		BossIllusionIdle,
+		BossIllusionMultiply,
+		BossIllusionDamage,
+		BossDie,
 	}
 
 	#endregion
@@ -56,11 +70,27 @@ public class SoundController : MonoBehaviour
 	public AudioClip orbM;
 	public AudioClip orbG;
 	public AudioClip freeze;
+	public AudioClip deathRay;
+	public AudioClip powerUpCollect;
+	public AudioClip score;
+	public AudioClip playerDamage;
 	public AudioClip click;
 	public AudioClip menuIn;
 	public AudioClip menuOut;
 	public AudioClip menuScroll;
 	public AudioClip shopBuy;
+	public AudioClip levelUp;
+	public AudioClip bossMeteorIdle;
+	public AudioClip bossMeteorDamage;
+	public AudioClip meteorDrop1;
+	public AudioClip meteorDrop2;
+	public AudioClip meteorDrop3;
+	public AudioClip bossTwinsIdle;
+	public AudioClip bossTwinsDamage;
+	public AudioClip bossIllusionIdle;
+	public AudioClip bossIllusionMultiply;
+	public AudioClip bossIllusionDamage;
+	public AudioClip bossDie;
 	#endregion
 
 	#region SoundFX Audioclips
@@ -241,6 +271,27 @@ public class SoundController : MonoBehaviour
 		audioSourceSoundFX.PlayOneShot(s);
 	}
 
+	public void PlaySoundFX(params SoundFX[] sounds)
+	{
+		if(soundFXMute) return;
+
+		StartCoroutine(PlaySoundFXSimultaneouly(sounds));
+	}
+
+	private IEnumerator PlaySoundFXSimultaneouly(SoundFX[] sounds)
+	{
+		foreach(SoundFX sound in sounds)
+		{
+			AudioClip s = GetSound(sound);
+			
+			audioSourceSoundFX.PlayOneShot(s);
+
+			//Debug.Log(string.Format("Played sound {0} in {1}", sound, Time.time));
+
+			yield return new WaitForEndOfFrame();
+		}
+	}
+
 	public AudioClip GetSound(SoundFX sound)
 	{
 		AudioClip s = null;
@@ -249,63 +300,126 @@ public class SoundController : MonoBehaviour
 		{
 			case SoundFX.AttackLoop:
 				s = attackLoop;
-				break;
+			break;
 
 			case SoundFX.AttackStart:
 				s = attackStart;
-				break;
+			break;
 
 			case SoundFX.Click:
 				s = click;
-				break;
+			break;
 
 			case SoundFX.EnemyDie:
 				s = enemyDie;
-				break;
+			break;
 
 			case SoundFX.Freeze:
 				s = freeze;
-				break;
+			break;
 
 			case SoundFX.MenuIn:
 				s = menuIn;
-				break;
+			break;
 
 			case SoundFX.MenuOut:
 				s = menuOut;
-				break;
+			break;
 
 			case SoundFX.MenuScroll:
 				s = menuScroll;
-				break;
+			break;
 
 			case SoundFX.OrbPP:
 				s = orbPP;
-				break;
+			break;
 
 			case SoundFX.OrbP:
 				s = orbP;
-				break;
+			break;
 
 			case SoundFX.OrbM:
 				s = orbM;
-				break;
+			break;
 
 			case SoundFX.OrbG:
 				s = orbG;
-				break;
+			break;
 
 			case SoundFX.Pause:
 				s = pause;
-				break;
+			break;
 
 			case SoundFX.Resume:
 				s = resume;
-				break;
+			break;
 
 			case SoundFX.ShopBuy:
 				s = shopBuy;
-				break;
+			break;
+
+			case SoundFX.DeathRay:
+				s = deathRay;
+			break;
+
+			case SoundFX.PowerUpCollected:
+				s = powerUpCollect;
+			break;
+
+			case SoundFX.Score:
+				s = score;
+			break;
+
+			case SoundFX.PlayerDamage:
+				s = playerDamage;
+			break;
+
+			case SoundFX.LevelUp:
+				s = levelUp;
+			break;
+
+			case SoundFX.BossMeteorIdle:
+				s = bossMeteorIdle;
+			break;
+
+			case SoundFX.BossMeteorDamage:
+				s = bossMeteorDamage;
+			break;
+
+			case SoundFX.BossMeteorDrop:
+				float rnd = Random.Range(0f, 1f);
+
+				if(rnd < 0.33f)
+					s = meteorDrop1;
+				else if(rnd < 0.66f)
+					s = meteorDrop2;
+				else
+					s = meteorDrop3;
+			break;
+
+			case SoundFX.BossTwinsIdle:
+				s = bossTwinsIdle;
+			break;
+
+			case SoundFX.BossTwinsDamage:
+				s = bossTwinsDamage;
+			break;
+
+			case SoundFX.BossIllusionIdle:
+				s = bossIllusionIdle;
+			break;
+
+			case SoundFX.BossIllusionMultiply:
+				s = bossIllusionMultiply;
+			break;
+
+			case SoundFX.BossIllusionDamage:
+				s = bossIllusionDamage;
+			break;
+
+			case SoundFX.BossDie:
+				s = bossDie;
+			break;
 		}
 
 		return s;

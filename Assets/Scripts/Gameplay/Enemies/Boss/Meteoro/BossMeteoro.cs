@@ -108,6 +108,8 @@ public class BossMeteoro : MonoBehaviour
 
 	private void SpawnMeteor()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossMeteorDrop);
+
 		Vector3 pos = new Vector3 (Random.Range (0.1f, 0.9f), 1.3f, 0);
 		pos = Camera.main.ViewportToWorldPoint (pos);
 		pos.z = 0f;
@@ -138,6 +140,7 @@ public class BossMeteoro : MonoBehaviour
 
 	private IEnumerator OpenEyes()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossMeteorIdle);
 		myAnimator.SetBool("CloseEyes", false);
 
 		//wait for animation clip change
@@ -189,6 +192,7 @@ public class BossMeteoro : MonoBehaviour
 
 		if(!IsLevelMax)
 		{
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossMeteorDamage);
 			cameraShake.Shake();
 
 			yield return new WaitForSeconds(cameraShake.duration);
@@ -197,9 +201,10 @@ public class BossMeteoro : MonoBehaviour
 		}
 		else
 		{
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossDie);
 			GetComponentInChildren<Collider2D>().enabled = false;
 
-			Time.timeScale = 0.4f;
+			Time.timeScale = 0.2f;
 
 			cameraShake.Shake(enemyLife.deathTime);
 			ScreenFeedback.ShowBlank(enemyLife.deathTime, 0.5f);
