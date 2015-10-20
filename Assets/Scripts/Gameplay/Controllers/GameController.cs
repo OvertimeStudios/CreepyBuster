@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour
 	public float timeToShowGameOverScreen;
 	public int orbsToContinue;
 	public int pointsPerOrb = 10;
-	public float timeInvencibleAfterContinue = 2f;
+	public float timeInvencibleAfterContinue = 5f;
 
 	#region game stats
 	private static int creepsKilled;
@@ -982,7 +982,7 @@ public class GameController : MonoBehaviour
 		ScreenFeedback.ShowInvencibility(invencibleTime);
 		
 		StopCoroutine("FadeInvencible");
-		StartCoroutine("FadeInvencible");
+		StartCoroutine("FadeInvencible", invencibleTime);
 	}
 
 	private IEnumerator FadeSlowDown()
@@ -1009,9 +1009,9 @@ public class GameController : MonoBehaviour
 			OnFrozenFade ();
 	}
 
-	private IEnumerator FadeInvencible()
+	private IEnumerator FadeInvencible(float invencibleTime)
 	{
-		yield return new WaitForSeconds(Invencible.Time);
+		yield return new WaitForSeconds(invencibleTime);
 
 		Debug.Log ("Invencible Faded");
 

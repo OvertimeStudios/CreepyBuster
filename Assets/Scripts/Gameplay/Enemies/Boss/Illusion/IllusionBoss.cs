@@ -243,6 +243,8 @@ public class IllusionBoss : MonoBehaviour
 	{
 		state = State.Moving;
 
+		Debug.Log("Start Moving");
+
 		foreach(IllusionBossCopy illusion in illusions)
 			illusion.StartMoving();
 
@@ -273,7 +275,7 @@ public class IllusionBoss : MonoBehaviour
 
 			float angle = Mathf.Atan2(waypoint.y - myTransform.position.y, waypoint.x - myTransform.position.x) * Mathf.Rad2Deg;
 			Vector3 eulerAngle = transform.eulerAngles;
-			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.1f);
+			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.15f);
 			myTransform.eulerAngles = eulerAngle;
 
 			yield return null;
@@ -343,6 +345,7 @@ public class IllusionBoss : MonoBehaviour
 
 	private void StartAttacking()
 	{
+		Debug.Log("StartAttacking");
 		state = State.Attacking;
 
 		foreach(GameObject brilho in brilhos)
@@ -363,6 +366,7 @@ public class IllusionBoss : MonoBehaviour
 
 	private void FireProjectile()
 	{
+		Debug.Log("FireProjectile()");
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossIllusionIdle);
 
 		Vector3 player = AttackTargets.Instance.transform.position;
@@ -493,6 +497,18 @@ public class IllusionBoss : MonoBehaviour
 		}
 
 		return Vector3.zero;
+	}
+
+	void OnDestroy() 
+	{
+		foreach(IllusionBossCopy illusion in illusions)
+		{
+			if(illusion != null)
+			{
+				illusion.StopAllCoroutines();
+				illusion.GetComponent<EnemyLifeIllusionCopy>().Dead(false);
+			}
+		}
 	}
 }
 

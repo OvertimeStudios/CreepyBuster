@@ -45,8 +45,8 @@ public class EveryplayController : MonoBehaviour
 	void OnEnable()
 	{
 		GameController.OnGameStart += StartRecording;
-		GameController.OnShowContinueScreen += PauseRecording;
-		GameController.OnContinuePlaying += ResumeRecording;
+		GameController.OnPause += PauseRecording;
+		GameController.OnResume += ResumeRecording;
 		GameController.OnShowEndScreen += StopRecording;
 		GameController.OnShowEndScreen += SetMetadata;
 
@@ -56,8 +56,8 @@ public class EveryplayController : MonoBehaviour
 	void OnDisable()
 	{
 		GameController.OnGameStart -= StartRecording;
-		GameController.OnShowContinueScreen -= PauseRecording;
-		GameController.OnContinuePlaying -= ResumeRecording;
+		GameController.OnPause -= PauseRecording;
+		GameController.OnResume -= ResumeRecording;
 		GameController.OnShowEndScreen -= StopRecording;
 		GameController.OnShowEndScreen -= SetMetadata;
 		

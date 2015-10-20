@@ -93,8 +93,11 @@ public class ScreenFeedback : MonoBehaviour
 
 	public static void ShowInvencibility(float time)
 	{
-		myAudioSource.Stop();
-		myAudioSource.Play();
+		if(Global.IsSoundOn)
+		{
+			myAudioSource.Stop();
+			myAudioSource.Play();
+		}
 		GameController.OnPause += PauseSound;
 
 		Instance.invencibility.enabled = true;
@@ -110,7 +113,8 @@ public class ScreenFeedback : MonoBehaviour
 		GameController.OnPause -= PauseSound;
 		GameController.OnResume += ResumeSound;
 
-		myAudioSource.Pause();
+		if(Global.IsSoundOn)
+			myAudioSource.Pause();
 	}
 
 	private static void ResumeSound()
@@ -118,7 +122,8 @@ public class ScreenFeedback : MonoBehaviour
 		GameController.OnPause += PauseSound;
 		GameController.OnResume -= ResumeSound;
 
-		myAudioSource.UnPause();
+		if(Global.IsSoundOn)
+			myAudioSource.UnPause();
 	}
 
 	public static void ShowBlank(float fadeInTime, float fadeOutTime)
