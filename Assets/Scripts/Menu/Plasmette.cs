@@ -99,6 +99,7 @@ public class Plasmette : MonoBehaviour
 		myAnimator.SetInteger("State", 2);
 
 		yield return new WaitForEndOfFrame();
+		yield return new WaitForEndOfFrame();
 
 		if(FingerDetector.IsFingerDown)
 		{
