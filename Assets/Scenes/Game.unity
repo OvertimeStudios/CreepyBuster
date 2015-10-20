@@ -831,7 +831,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3028
+  startingRenderQueue: 3026
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -7607,7 +7607,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3052
+  startingRenderQueue: 3050
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -10706,7 +10706,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3049
+  startingRenderQueue: 3047
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -11306,7 +11306,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3045
+  startingRenderQueue: 3043
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -20445,6 +20445,48 @@ Transform:
   - {fileID: 1038518731}
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!1001 &1021006712
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.67999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -.629999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 430220, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d0d2097b3a8df468696be8129398376a, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1021052961
 GameObject:
   m_ObjectHideFlags: 0
@@ -24647,7 +24689,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: bossBattleCondition.Array.data[0].bossMeteor
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: bossBattleCondition.Array.data[0].bossTwins
@@ -24655,7 +24697,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: bossBattleCondition.Array.data[0].bossIllusion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: bossBattleCondition.Array.data[3].kills
@@ -27609,7 +27651,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3047
+  startingRenderQueue: 3045
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -33285,7 +33327,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3035
+  startingRenderQueue: 3033
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -36612,7 +36654,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3030
+  startingRenderQueue: 3028
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -40444,7 +40486,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3047
+  startingRenderQueue: 3045
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -41797,7 +41839,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3021
+  startingRenderQueue: 3019
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
