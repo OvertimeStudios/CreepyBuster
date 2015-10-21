@@ -29525,6 +29525,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[0].enemies.Array.data[0].enemy
+      value: 
+      objectReference: {fileID: 130434, guid: 8beb1887f48634da9b3485c2a5c5abbc, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
   m_IsPrefabParent: 0

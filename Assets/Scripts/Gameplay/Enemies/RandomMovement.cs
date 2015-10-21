@@ -102,7 +102,7 @@ public class RandomMovement : EnemyMovement
 
 		if(isFrozen) return;
 
-		CheckBounds();
+		UpdateRotation();
 
 		if (freezeRotation) 
 		{
@@ -126,9 +126,9 @@ public class RandomMovement : EnemyMovement
 		}
 	}
 
-	private bool CheckBounds()
+	private void UpdateRotation()
 	{
-		if(spriteRenderer == null) return false;
+		if(spriteRenderer == null) return;
 
 		Bounds bounds = spriteRenderer.bounds;
 
@@ -136,26 +136,27 @@ public class RandomMovement : EnemyMovement
 		Vector3 maxPos = Camera.main.WorldToViewportPoint(bounds.max);
 
 		if(minPos.x < 0.1f)
-		{
 			angle = 0;
-			return true;
-		}
 		else if(minPos.y < 0.1f)
-		{
 			angle = 90;
-			return true;
-		}
 		else if(maxPos.x > 0.9f)
-		{
 			angle = 180;
-			return true;
-		}
 		else if(maxPos.y > 0.9f)
-		{
 			angle = -90;
-			return true;
-		}
+	}
 
+	private bool CheckInsideScreen()
+	{
+		if(spriteRenderer == null) return false;
+		
+		Bounds bounds = spriteRenderer.bounds;
+		
+		Vector3 minPos = Camera.main.WorldToViewportPoint(bounds.min);
+		Vector3 maxPos = Camera.main.WorldToViewportPoint(bounds.max);
+		
+		if(minPos.x > 0f && minPos.y > 0f && maxPos.x < 1f && maxPos.y < 1f)
+			return true;
+		
 		return false;
 	}
 
@@ -195,7 +196,7 @@ public class RandomMovement : EnemyMovement
 	{
 		if(!this.enabled || isFrozen) return;
 
-		if(col.gameObject.name == AttackTargets.Instance.gameObject.name && !col.isTrigger)
+		if(col.gameObject.name == AttackTargets.Instance.gameObject.name && !col.isTrigger && CheckInsideScreen())
 			EventDelegate.Execute(onEnterRangeList);
 	}
 
