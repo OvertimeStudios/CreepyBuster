@@ -277,8 +277,20 @@ MonoBehaviour:
   basicColor: {r: 1, g: .793103456, b: 0, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   explosion: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
-  chanceToDrop: 0
-  itens: []
+  chanceToDrop: .0599999987
+  itens:
+  - item: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
+    percent: .300000012
+  - item: {fileID: 142570, guid: 373cc9dc78a6e4e55a88461bb01cf653, type: 2}
+    percent: .300000012
+  - item: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
+    percent: .150000006
+  - item: {fileID: 182814, guid: 67895c14af5e846e4bdcfd012046df13, type: 2}
+    percent: .0500000007
+  - item: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
+    percent: .0500000007
+  - item: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
+    percent: .150000006
   spritesToWhite: []
 --- !u!114 &11425928
 MonoBehaviour:
@@ -291,7 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018fd61d0df7047aeb5c8f0e285ab447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: 1.60000002
+  vel: 1.29999995
   timeToChangeDirection:
     min: 2
     max: 3
@@ -372,6 +384,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: itens.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: timeToChangeDirection.min
       value: 2
       objectReference: {fileID: 0}
@@ -381,7 +397,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: vel
-      value: 1.60000002
+      value: 1.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: life
@@ -402,6 +418,58 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: chanceToDrop
+      value: .0599999987
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[0].item
+      value: 
+      objectReference: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[1].item
+      value: 
+      objectReference: {fileID: 142570, guid: 373cc9dc78a6e4e55a88461bb01cf653, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[3].item
+      value: 
+      objectReference: {fileID: 182814, guid: 67895c14af5e846e4bdcfd012046df13, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[2].item
+      value: 
+      objectReference: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[4].item
+      value: 
+      objectReference: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[5].item
+      value: 
+      objectReference: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[0].percent
+      value: .300000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[1].percent
+      value: .300000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[2].percent
+      value: .150000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[3].percent
+      value: .0500000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[4].percent
+      value: .0500000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[5].percent
+      value: .150000006
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

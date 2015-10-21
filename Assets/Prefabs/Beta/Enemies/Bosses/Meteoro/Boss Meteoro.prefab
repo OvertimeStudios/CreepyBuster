@@ -687,7 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bdf7b16bafcd4bada4c0d38dab0904a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1
+  life: 20
   score: 0
   countAsStreak: 0
   countAsKill: 1
@@ -703,7 +703,7 @@ MonoBehaviour:
   - {fileID: 21200590}
   - {fileID: 21264584}
   - {fileID: 21274170}
-  orbsToDrop: 50
+  orbsToDrop: 20
   spread: 1
 --- !u!114 &11420000
 MonoBehaviour:
@@ -815,18 +815,18 @@ MonoBehaviour:
   meteors:
   - {fileID: 143944, guid: 645533a0851d34bc4914f65cac6c7f31, type: 2}
   bossLevel:
-  - vel: 1
-    meteorsQty: 5
-    meteorsTime: 2.5
+  - vel: 1.60000002
+    meteorsQty: 10
+    meteorsTime: 3
   - vel: 2
-    meteorsQty: 7
-    meteorsTime: 3.20000005
-  - vel: 3
-    meteorsQty: 9
+    meteorsQty: 15
+    meteorsTime: 3.5
+  - vel: 2.5
+    meteorsQty: 20
     meteorsTime: 4
-  - vel: 4
-    meteorsQty: 11
-    meteorsTime: 3.79999995
+  - vel: 3
+    meteorsQty: 25
+    meteorsTime: 4.19999981
 --- !u!114 &11472732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1273,8 +1273,12 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: bossLevel.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: life
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
@@ -1287,6 +1291,58 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: spread
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: orbsToDrop
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[3].vel
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[3].meteorsQty
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[3].meteorsTime
+      value: 3.79999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[0].meteorsQty
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[0].meteorsTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[0].vel
+      value: 1.60000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[1].vel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[1].meteorsQty
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[2].meteorsQty
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[1].meteorsTime
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[2].meteorsTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bossLevel.Array.data[2].vel
+      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -394,8 +394,8 @@ MonoBehaviour:
   initialAlpha: .5
   timeToRegainAlpha: .5
   attackTime:
-    min: 1
-    max: 5
+    min: 1.5
+    max: 3.25
   projectileAlpha: .800000012
 --- !u!212 &21245058
 SpriteRenderer:
@@ -492,11 +492,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: attackTime.min
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: attackTime.max
-      value: 5
+      value: 3.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

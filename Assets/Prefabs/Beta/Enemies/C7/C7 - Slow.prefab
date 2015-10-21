@@ -267,8 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fb129be3c344c8fb8620152ff63c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 2.5
-  score: 2
+  life: 1.70000005
+  score: 1
   countAsStreak: 1
   countAsKill: 1
   destroyUponDeath: 1
@@ -277,8 +277,14 @@ MonoBehaviour:
   basicColor: {r: 1, g: .921568632, b: .0156862754, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   explosion: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
-  chanceToDrop: 0
-  itens: []
+  chanceToDrop: .0399999991
+  itens:
+  - item: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
+    percent: .649999976
+  - item: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
+    percent: .150000006
+  - item: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
+    percent: .200000003
   spritesToWhite: []
 --- !u!114 &11462418
 MonoBehaviour:
@@ -291,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8e942e56fdb4de19a8aa95b836ba37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: 1.60000002
+  vel: 1.39999998
 --- !u!114 &11489410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -369,20 +375,24 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: itens.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: vel
-      value: 1.60000002
+      value: 1.39999998
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: life
-      value: 2.5
+      value: 1.70000005
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
@@ -407,6 +417,34 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: chanceToDrop
+      value: .0399999991
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[0].item
+      value: 
+      objectReference: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[1].item
+      value: 
+      objectReference: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[2].item
+      value: 
+      objectReference: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[0].percent
+      value: .649999976
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[1].percent
+      value: .150000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[2].percent
+      value: .200000003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

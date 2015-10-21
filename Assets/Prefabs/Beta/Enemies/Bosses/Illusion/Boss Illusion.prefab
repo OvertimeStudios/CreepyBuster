@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ae2067d0e75480399ea1376f180cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 3
+  life: 30
   score: 0
   countAsStreak: 0
   countAsKill: 1
@@ -311,7 +311,7 @@ MonoBehaviour:
   chanceToDrop: 0
   itens: []
   spritesToWhite: []
-  orbsToDrop: 50
+  orbsToDrop: 30
   spread: 1
 --- !u!114 &11453062
 MonoBehaviour:
@@ -328,8 +328,8 @@ MonoBehaviour:
   delayToStartCreateIllusions: 1
   delayToStartMoving: 1
   attackTime:
-    min: 1
-    max: 2
+    min: 1.25
+    max: 2.5
   projectile: {fileID: 124948, guid: 42616fefc1cbb4521a0cf4d12519d365, type: 2}
   illusionCopy: {fileID: 161580, guid: 4afff9c3254204527a7b9d5e06193fdb, type: 2}
   illusionSpawnSpread: 1.79999995
@@ -340,23 +340,23 @@ MonoBehaviour:
     copies: 1
     angleToAppear:
     - 90
-    timeMoving: 5
-    projectileVel: 1.5
+    timeMoving: 4
+    projectileVel: 1.25
   - vel: 2
     copies: 2
     angleToAppear:
     - 45
     - 135
     timeMoving: 5
-    projectileVel: 2
-  - vel: 3
+    projectileVel: 1.5
+  - vel: 2.5
     copies: 3
     angleToAppear:
     - 45
     - 135
     - 90
-    timeMoving: 5
-    projectileVel: 2.5
+    timeMoving: 6
+    projectileVel: 2
   state: 0
 --- !u!114 &11457418
 MonoBehaviour:
@@ -511,7 +511,51 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: orbsToDrop
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: attackTime.max
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: attackTime.min
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: levels.Array.data[1].vel
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: levels.Array.data[2].vel
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: levels.Array.data[0].projectileVel
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: levels.Array.data[1].projectileVel
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: levels.Array.data[2].projectileVel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: levels.Array.data[0].timeMoving
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: levels.Array.data[2].timeMoving
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: life
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 109062}

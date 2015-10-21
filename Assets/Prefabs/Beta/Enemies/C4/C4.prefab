@@ -501,7 +501,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 2.54999995
 --- !u!61 &6116758
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -543,8 +543,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c5e8f3bd5014efda7475e2ac7321ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 2.5
-  score: 3
+  life: 2.29999995
+  score: 2
   countAsStreak: 1
   countAsKill: 1
   destroyUponDeath: 1
@@ -553,8 +553,24 @@ MonoBehaviour:
   basicColor: {r: 1, g: .729411781, b: .0156862754, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   explosion: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
-  chanceToDrop: 0
-  itens: []
+  chanceToDrop: .0799999982
+  itens:
+  - item: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
+    percent: .150000006
+  - item: {fileID: 142570, guid: 373cc9dc78a6e4e55a88461bb01cf653, type: 2}
+    percent: .200000003
+  - item: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
+    percent: .25
+  - item: {fileID: 182814, guid: 67895c14af5e846e4bdcfd012046df13, type: 2}
+    percent: .100000001
+  - item: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
+    percent: .0500000007
+  - item: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
+    percent: .0500000007
+  - item: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
+    percent: .150000006
+  - item: {fileID: 193254, guid: 2e742f82ef5604d40ad26f5041c4a5a4, type: 2}
+    percent: .0500000007
   spritesToWhite: []
 --- !u!114 &11413132
 MonoBehaviour:
@@ -594,6 +610,7 @@ MonoBehaviour:
     mMethodName: OnRangeEntered
     mParameters: []
     oneShot: 0
+  spriteRenderer: {fileID: 0}
 --- !u!114 &11496954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -605,7 +622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37293a0103acb428199a785f0fab0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToCharge: 3
+  timeToCharge: 3.29999995
   vel: 12
 --- !u!212 &21204598
 SpriteRenderer:
@@ -901,6 +918,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: itens.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
@@ -910,11 +931,11 @@ Prefab:
       objectReference: {fileID: 11475990}
     - target: {fileID: 0}
       propertyPath: life
-      value: 2.5
+      value: 2.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
@@ -927,6 +948,82 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: timeToCharge
+      value: 3.29999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: chanceToDrop
+      value: .0799999982
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[0].item
+      value: 
+      objectReference: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Radius
+      value: 2.54999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[1].item
+      value: 
+      objectReference: {fileID: 142570, guid: 373cc9dc78a6e4e55a88461bb01cf653, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[2].item
+      value: 
+      objectReference: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[3].item
+      value: 
+      objectReference: {fileID: 182814, guid: 67895c14af5e846e4bdcfd012046df13, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[4].item
+      value: 
+      objectReference: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[5].item
+      value: 
+      objectReference: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[6].item
+      value: 
+      objectReference: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[7].item
+      value: 
+      objectReference: {fileID: 193254, guid: 2e742f82ef5604d40ad26f5041c4a5a4, type: 2}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[0].percent
+      value: .150000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[1].percent
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[2].percent
+      value: .25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[3].percent
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[4].percent
+      value: .0500000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[5].percent
+      value: .0500000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[6].percent
+      value: .150000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itens.Array.data[7].percent
+      value: .0500000007
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
