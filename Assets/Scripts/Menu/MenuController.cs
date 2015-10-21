@@ -3,6 +3,7 @@ using UnityEngine.Advertisements;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 public class MenuController : MonoBehaviour 
 {
@@ -167,6 +168,12 @@ public class MenuController : MonoBehaviour
 
 		hud.SetActive (false);
 		UpdateScore ();
+
+		if(!Global.sentOnEnterMenu)
+		{
+			UnityAnalyticsHelper.EnterOnMenu();
+			Global.sentOnEnterMenu = true;
+		}
 	}
 
 	void OnFingerDown(FingerDownEvent e)

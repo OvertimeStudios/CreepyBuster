@@ -3068,6 +3068,45 @@ MonoBehaviour:
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
   mSpriteName: icon-atom
   mFillCenter: 1
+--- !u!1 &151972532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 151972533}
+  - 114: {fileID: 151972534}
+  m_Layer: 0
+  m_Name: UnityAnalytics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &151972533
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 151972532}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1913536882}
+  m_RootOrder: 17
+--- !u!114 &151972534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 151972532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ff8c2c8361c49da9e3be3e3d195815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &152389705
 GameObject:
   m_ObjectHideFlags: 0
@@ -37383,6 +37422,10 @@ Prefab:
       propertyPath: value
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 11462322, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
+      propertyPath: mText
+      value: A Overtime Studios rules forever s2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
   m_IsPrefabParent: 0
@@ -37750,6 +37793,7 @@ Transform:
   - {fileID: 500471182}
   - {fileID: 48780594}
   - {fileID: 851351768}
+  - {fileID: 151972533}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!114 &1919593602 stripped

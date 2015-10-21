@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.Analytics;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 using UnityEngine.Advertisements;
 
@@ -119,6 +121,13 @@ public class GameController : MonoBehaviour
 	public static float timeOnSpecial4;
 	public static float timeOnSpecial5;
 	public static float timeOnSpecial6;
+	#endregion
+
+	#region analytics variables
+	private static int continuesVideo;
+	private static int continuesOrbs;
+	public static bool watchedReplay;
+	public static bool watchedDoubleOrbs;
 	#endregion
 
 	/// <summary>
@@ -430,14 +439,13 @@ public class GameController : MonoBehaviour
 
 	public void GoToShop()
 	{
-		GameOver();
-
 		MenuController.goToShop = true;
+
+		GameOver();
 	}
 
 	public void GameOver()
 	{
-
 		isGameRunning = false;
 		gameOver = true;
 		player.SetActive (false);
@@ -446,7 +454,14 @@ public class GameController : MonoBehaviour
 
 		if (OnGameOver != null)
 			OnGameOver ();
-		
+
+		UnityAnalyticsHelper.NextScreen nextScreen;
+		nextScreen = (MenuController.goToShop) ? UnityAnalyticsHelper.NextScreen.Shop : UnityAnalyticsHelper.NextScreen.Menu;
+
+		UnityAnalyticsHelper.GameOver(Score, orbsCollected, matchTime, continuesVideo, continuesOrbs, nextScreen, watchedReplay, watchedDoubleOrbs);
+		UnityAnalyticsHelper.Kills(basicsKilled, boomerangsKilled, zigzagsKilled, chargersKilled, legionsKilled, followersKilled, boss1Killed, boss2Killed, boss3Killed);
+		UnityAnalyticsHelper.KilledBy(hitsByBasic, hitsByBoomerang, hitsByZigZag, hitsByCharger, hitsByLegion, hitsByFollower, hitsByBoss1, hitsByBoss2, hitsByBoss3);
+
 		gameObject.SetActive(false);
 	}
 
@@ -594,11 +609,13 @@ public class GameController : MonoBehaviour
 
 	private void VideoWatched()
 	{
+		continuesVideo++;
 		ContinuePlaying ();
 	}
 
 	private void PayContinueOrbs()
 	{
+		continuesOrbs++;
 		#if !INFINITY_ORBS
 		Global.TotalOrbs -= (int)(orbsToContinue * Mathf.Pow (2, continues));
 		#endif
@@ -664,6 +681,12 @@ public class GameController : MonoBehaviour
 
 	public void StartGame()
 	{
+		if(!Global.sentOnEnterGame)
+		{
+			UnityAnalyticsHelper.EnterOnGame();
+			Global.sentOnEnterGame = true;
+		}
+
 		SoundController.Instance.CrossFadeMusic(SoundController.Musics.GameTheme, 1f);
 
 		Reset ();
@@ -777,6 +800,13 @@ public class GameController : MonoBehaviour
 		timeOnSpecial4 = 0;
 		timeOnSpecial5 = 0;
 		timeOnSpecial6 = 0;
+		#endregion
+
+		#region analytics
+		continuesVideo = 0;
+		continuesOrbs = 0;
+		watchedReplay = false;
+		watchedDoubleOrbs = false;
 		#endregion
 
 		gameOver = false;

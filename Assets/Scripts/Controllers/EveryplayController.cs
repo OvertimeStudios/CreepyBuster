@@ -135,6 +135,7 @@ public class EveryplayController : MonoBehaviour
 	
 	public void PlayLastRecording()
 	{
+		GameController.watchedReplay = true;
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		if(!IsRecorded)
 		{

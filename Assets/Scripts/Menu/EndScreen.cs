@@ -52,6 +52,8 @@ public class EndScreen : MonoBehaviour
 
 	private void GiveDoubleOrbs()
 	{
+		GameController.watchedDoubleOrbs = true;
+
 		Global.TotalOrbs += totalOrbs;
 		Global.OrbsCollected += totalOrbs;
 

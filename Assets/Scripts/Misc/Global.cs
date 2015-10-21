@@ -95,6 +95,8 @@ public class Global : MonoBehaviour
 
 	#region session variables
 	private static bool loggedIn = false;
+	public static bool sentOnEnterMenu = false;
+	public static bool sentOnEnterGame = false;
 	#endregion
 
 	#region get/set
