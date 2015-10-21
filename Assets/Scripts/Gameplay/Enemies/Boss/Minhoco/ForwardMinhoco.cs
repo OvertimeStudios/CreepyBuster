@@ -72,6 +72,8 @@ public class ForwardMinhoco : MonoBehaviour
 
 	private void Reposition()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossTwinsIdle);
+
 		int rnd = (int)(Random.Range(0, 4));
 		float angle = rnd * (Mathf.PI / 2);
 
@@ -95,8 +97,6 @@ public class ForwardMinhoco : MonoBehaviour
 		pos = Camera.main.WorldToViewportPoint(pos);
 		
 		angle = Mathf.Atan2(posy - pos.y, posx - pos.x);
-
-		Debug.Log(pos.ToString() + " -> " + new Vector3(posx, posy).ToString() + "\n" + (angle * Mathf.Rad2Deg) + " -> " + Vector3.Angle(pos, new Vector3(posx, posy, 10f)));
 
 		transform.eulerAngles = new Vector3(0, 0, angle * Mathf.Rad2Deg);
 	}

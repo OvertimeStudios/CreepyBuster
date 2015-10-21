@@ -21,6 +21,8 @@ public class ChangeLanguage : MonoBehaviour
 
 	public void Change()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		if (UIButton.current == portuguese)
 			LocalizationController.CurrentLanguage = LocalizationController.Language.Portuguese;
 		else if (UIButton.current == english)
@@ -29,6 +31,8 @@ public class ChangeLanguage : MonoBehaviour
 
 	public void OpenClose()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		tween.ResetToBeginning();
 
 		if(opened)

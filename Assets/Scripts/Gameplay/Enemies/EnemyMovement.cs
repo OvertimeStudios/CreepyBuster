@@ -49,6 +49,8 @@ public class EnemyMovement : MonoBehaviour
 
 	public void OutOfScreen()
 	{
+		GameController.enemiesMissed++;
+
 		if(OnOutOfScreen != null)
 			OnOutOfScreen(gameObject);
 		

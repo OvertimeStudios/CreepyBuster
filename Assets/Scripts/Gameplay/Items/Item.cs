@@ -22,7 +22,6 @@ public class Item : MonoBehaviour
 
 	protected virtual void Start()
 	{
-		Debug.Log("Start Item");
 		GetComponent<Rigidbody2D> ().velocity = transform.right * vel;
 
 		transform.rotation = Quaternion.identity;
@@ -37,8 +36,11 @@ public class Item : MonoBehaviour
 			OutOfScreen ();
 	}
 	
-	public void OutOfScreen()
+	public virtual void OutOfScreen()
 	{
+		if(type != Type.PlasmaOrb)
+			GameController.powerUpsMissed++;
+
 		Destroy (gameObject);
 	}
 

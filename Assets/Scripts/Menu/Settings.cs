@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using Prime31;
 
 public class Settings : MonoBehaviour 
 {
 	#region Actions
-
+	public static event Action<IAPProduct> OnProductRestored;
 	#endregion
 
 	private GameObject logout;
@@ -54,6 +56,7 @@ public class Settings : MonoBehaviour
 
 	public void RestorePurchases()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		IAPHelper.RestoreCompletedTransactions(Callback);
 	}
 
@@ -66,6 +69,14 @@ public class Settings : MonoBehaviour
 		else if(state == IAPState.Cancelled)
 			Popup.ShowBlank("Restoration cancelled", 2f);
 		else if(state == IAPState.Success)
+		{
 			Popup.ShowBlank("Products successfully restored", 2f);
+
+			foreach(IAPProduct product in IAPHelper.ProductsRestored)
+			{
+				if(OnProductRestored != null)
+					OnProductRestored(product);
+			}
+		}
 	}
 }

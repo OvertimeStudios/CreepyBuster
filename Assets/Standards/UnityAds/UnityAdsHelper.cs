@@ -151,7 +151,7 @@ public class UnityAdsHelper : MonoBehaviour
 		}
 	}
 	
-	private static void HandleShowResult (ShowResult result)
+	private static void HandleShowResult (UnityEngine.Advertisements.ShowResult result)
 	{
 		switch (result)
 		{

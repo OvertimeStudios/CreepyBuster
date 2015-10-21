@@ -66,10 +66,11 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 		countdown = transform.FindChild ("Countdown").GetComponent<UILabel> ();
 	}
-	
+
 	public void Play()
 	{
 		#if UNITYADS_IMPLEMENTED
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		if(IsReady)
 		{
 			if(reward == Rewards.PlayAgain)
@@ -88,12 +89,23 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	private void Ask()
 	{
-		Popup.ShowYesNo(Localization.Get("VIDEO_TO_ORBS") + " " + orbsToGive + " orbs?", ShowAd, null);
+		if(UnityAdsHelper.IsReady("rewardedVideoZone"))
+			Popup.ShowYesNo(string.Format(Localization.Get("VIDEO_TO_ORBS"), orbsToGive), ShowAd, null);
+		else
+			Popup.ShowBlank("Ads not ready", 2f);
 	}
 
-	private void ShowAd()
+	public void ShowAd()
 	{
 		UnityAdsHelper.ShowAd ("rewardedVideoZone", GiveReward);
+	}
+
+	public static void ShowAd(Action handleFinish)
+	{
+		if(UnityAdsHelper.IsReady("rewardedVideoZone"))
+			UnityAdsHelper.ShowAd("rewardedVideoZone", handleFinish);
+		else
+			Popup.ShowBlank("Ads not ready", 2f);
 	}
 	
 	private void GiveReward()
@@ -113,7 +125,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		Global.TotalOrbs += orbsToGive;
 		
-		Popup.ShowOk (Localization.Get("YOU_RECEIVED") + " " + orbsToGive + " orbs.");
+		Popup.ShowOk (string.Format(Localization.Get("YOU_RECEIVED"), orbsToGive));
 	}
 	
 	private void RevivePlayer()

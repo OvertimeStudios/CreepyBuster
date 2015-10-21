@@ -22,6 +22,9 @@ public class AttackTargets : MonoBehaviour
 
 	private int layerMask;
 
+	private AudioSource audioSource;
+	private bool isAttacking;
+
 	public float damage;
 
 	private CircleCollider2D range;
@@ -90,7 +93,10 @@ public class AttackTargets : MonoBehaviour
 
 		layerMask = LayerMask.NameToLayer ("AttackCollider");
 
+		isAttacking = false;
 		isSpecial = false;
+
+		audioSource = GetComponent<AudioSource>();
 
 		targets = new List<Transform> ();
 		enemiesInRange = new List<Transform> ();
@@ -123,7 +129,23 @@ public class AttackTargets : MonoBehaviour
 		GetTargets ();
 
 		if (isSpecial)
+		{
+			GameController.timeOnSpecial6 += Time.deltaTime;
 			RunTimer ();
+		}
+		else
+		{
+			if(LevelDesign.PlayerLevel == 0)
+				GameController.timeOnSpecial1 += Time.deltaTime;
+			else if(LevelDesign.PlayerLevel == 1)
+				GameController.timeOnSpecial2 += Time.deltaTime;
+			else if(LevelDesign.PlayerLevel == 2)
+				GameController.timeOnSpecial3 += Time.deltaTime;
+			else if(LevelDesign.PlayerLevel == 3)
+				GameController.timeOnSpecial4 += Time.deltaTime;
+			else if(LevelDesign.PlayerLevel == 4)
+				GameController.timeOnSpecial5 += Time.deltaTime;
+		}
 
 		enemiesInRange.Clear ();
 	}
@@ -184,6 +206,23 @@ public class AttackTargets : MonoBehaviour
 		}
 
 		targets = newTargets;
+
+		//start attacking
+		if(!isAttacking && targets.Count > 0)
+		{
+			isAttacking = true;
+
+			if(Global.IsSoundOn)
+				audioSource.Play();
+		}
+		//stop attacking
+		else if(isAttacking && targets.Count == 0)
+		{
+			isAttacking = false;
+
+			if(Global.IsSoundOn)
+				audioSource.Stop();
+		}
 	}
 
 	public void UseSpecial()
@@ -251,6 +290,7 @@ public class AttackTargets : MonoBehaviour
 
 	private void Reset()
 	{
+		isAttacking = false;
 		isSpecial = false;
 
 		if(targets != null)
@@ -271,7 +311,7 @@ public class AttackTargets : MonoBehaviour
 	//enemy collided with player finger
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		GameController.Instance.FingerHit ();
+		GameController.Instance.FingerHit (col.transform.gameObject);
 
 		if(col.gameObject.GetComponent<EnemyLife>() != null)
 		{

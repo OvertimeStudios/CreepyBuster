@@ -172,6 +172,8 @@ public class Popup : MonoBehaviour
 
 	public void YesAnswer()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		if(autoHide)
 			Hide ();
 
@@ -184,6 +186,8 @@ public class Popup : MonoBehaviour
 
 	public void NoAnswer()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		if(autoHide)
 			Hide ();
 
@@ -196,6 +200,8 @@ public class Popup : MonoBehaviour
 
 	public void OkAnswer()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
 		if(autoHide)
 			Hide ();
 

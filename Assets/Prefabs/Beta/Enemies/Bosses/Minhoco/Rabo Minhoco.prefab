@@ -1,0 +1,311 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &111564
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 442864}
+  - 212: {fileID: 21201176}
+  - 95: {fileID: 9576680}
+  - 60: {fileID: 6011938}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &169980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 497232}
+  - 61: {fileID: 6117648}
+  m_Layer: 14
+  m_Name: collider
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &187888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 470270}
+  m_Layer: 0
+  m_Name: Rabo Minhoco
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &442864
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 111564}
+  m_LocalRotation: {x: 0, y: 0, z: .707106829, w: .707106709}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: .5, y: .5, z: .5}
+  m_Children: []
+  m_Father: {fileID: 470270}
+  m_RootOrder: 0
+--- !u!4 &470270
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 187888}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.0500000007, y: -1.66999996, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 442864}
+  - {fileID: 497232}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &497232
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169980}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: .5, y: .5, z: .5}
+  m_Children: []
+  m_Father: {fileID: 470270}
+  m_RootOrder: 1
+--- !u!60 &6011938
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 111564}
+  m_Enabled: 0
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: .686771691, y: -.0360937566}
+      - {x: .826420128, y: -.0146093816}
+      - {x: .890873253, y: .0820703059}
+      - {x: .890873253, y: .135781243}
+      - {x: 1.14868581, y: .146523431}
+      - {x: 1.28833425, y: .200234368}
+      - {x: 1.42798269, y: .264687479}
+      - {x: 1.50317788, y: .318398416}
+      - {x: 1.58911538, y: .382851541}
+      - {x: 1.73950601, y: .533242166}
+      - {x: 1.83618569, y: .737343729}
+      - {x: 1.84692788, y: .791054666}
+      - {x: 1.81470132, y: .812539041}
+      - {x: 1.63208413, y: .640664041}
+      - {x: 1.53540444, y: .586953104}
+      - {x: 1.40649831, y: .522499979}
+      - {x: 1.09497488, y: .436562479}
+      - {x: .890873253, y: .425820291}
+      - {x: .847904503, y: .533242166}
+      - {x: .804935753, y: .608437479}
+      - {x: .697513878, y: .662148416}
+      - {x: .504154503, y: .844765604}
+      - {x: .428959221, y: .876992166}
+      - {x: .407474846, y: .952187479}
+      - {x: .439701408, y: 1.32816398}
+      - {x: .450443596, y: 1.42484367}
+      - {x: .482670158, y: 1.67191398}
+      - {x: .590092003, y: 1.99417961}
+      - {x: .600834191, y: 2.08011723}
+      - {x: .686771691, y: 2.4453516}
+      - {x: .697513878, y: 2.54203105}
+      - {x: .708256066, y: 2.74613261}
+      - {x: .708256066, y: 3.02542973}
+      - {x: .697513878, y: 3.26175785}
+      - {x: .686771691, y: 3.34769535}
+      - {x: .622318566, y: 3.78812504}
+      - {x: .590092003, y: 3.89554691}
+      - {x: .514896691, y: 4.20707035}
+      - {x: .385990471, y: 4.5937891}
+      - {x: .300052971, y: 4.77640629}
+      - {x: .235599861, y: 4.91605473}
+      - {x: .128177986, y: 5.06644535}
+      - {x: .052982673, y: 5.03421879}
+      - {x: .160404548, y: 4.78714848}
+      - {x: .235599861, y: 4.5937891}
+      - {x: .332279533, y: 4.31449223}
+      - {x: .375248283, y: 4.1641016}
+      - {x: .450443596, y: 3.7344141}
+      - {x: .493412346, y: 3.33695316}
+      - {x: .504154503, y: 3.32621098}
+      - {x: .504154503, y: 2.86429691}
+      - {x: .493412346, y: 2.85355473}
+      - {x: .461185783, y: 2.52054667}
+      - {x: .343021721, y: 2.11234379}
+      - {x: .246342048, y: 1.84378898}
+      - {x: .214115486, y: 1.74710929}
+      - {x: .149662361, y: 1.40335929}
+      - {x: .106693611, y: 1.09183586}
+      - {x: .095951423, y: .952187479}
+      - {x: -.000728264451, y: 1.00589836}
+      - {x: -.000728264451, y: 1.16703117}
+      - {x: -.0222126395, y: 1.32816398}
+      - {x: -.0651813895, y: 1.51078117}
+      - {x: -.0866657645, y: 1.59671867}
+      - {x: -.161861077, y: 1.90824211}
+      - {x: -.183345452, y: 1.99417961}
+      - {x: -.226314202, y: 2.17679691}
+      - {x: -.333736062, y: 2.49906254}
+      - {x: -.419673562, y: 2.69242167}
+      - {x: -.537837625, y: 2.99320316}
+      - {x: -.559322, y: 3.12210941}
+      - {x: -.656001687, y: 3.68070316}
+      - {x: -.666743875, y: 3.76664066}
+      - {x: -.677486062, y: 3.77738285}
+      - {x: -.677486062, y: 4.80863285}
+      - {x: -.666743875, y: 4.80863285}
+      - {x: -.656001687, y: 5.05570316}
+      - {x: -.666743875, y: 5.08792973}
+      - {x: -.698970437, y: 5.08792973}
+      - {x: -.741939187, y: 5.06644535}
+      - {x: -.731197, y: 4.98050785}
+      - {x: -.77416575, y: 4.92679691}
+      - {x: -.784907937, y: 4.74417973}
+      - {x: -.806392312, y: 4.47562504}
+      - {x: -.8171345, y: 4.15335941}
+      - {x: -.827876687, y: 3.9062891}
+      - {x: -.827876687, y: 3.69144535}
+      - {x: -.806392312, y: 3.46585941}
+      - {x: -.795650125, y: 3.36917973}
+      - {x: -.77416575, y: 3.19730473}
+      - {x: -.763423562, y: 3.12210941}
+      - {x: -.741939187, y: 2.95023441}
+      - {x: -.720454812, y: 2.86429691}
+      - {x: -.677486062, y: 2.73539042}
+      - {x: -.548579812, y: 2.3594141}
+      - {x: -.527095437, y: 2.2734766}
+      - {x: -.484126687, y: 2.13382816}
+      - {x: -.462642312, y: 1.98343742}
+      - {x: -.398189187, y: 1.70414054}
+      - {x: -.376704812, y: 1.57523429}
+      - {x: -.355220437, y: 1.46781242}
+      - {x: -.333736062, y: 1.31742179}
+      - {x: -.322993875, y: 1.18851554}
+      - {x: -.3015095, y: .919960916}
+      - {x: -.365962625, y: .898476541}
+      - {x: -.441157937, y: .866249979}
+      - {x: -.484126687, y: .812539041}
+      - {x: -.559322, y: .715859354}
+      - {x: -.731197, y: .629921854}
+      - {x: -.795650125, y: .543984354}
+      - {x: -.827876687, y: .447304666}
+      - {x: -1.04272044, y: .490273416}
+      - {x: -1.27904856, y: .608437479}
+      - {x: -1.48315012, y: .737343729}
+      - {x: -1.69799387, y: .962929666}
+      - {x: -1.73022044, y: .952187479}
+      - {x: -1.73022044, y: .866249979}
+      - {x: -1.64428294, y: .683632791}
+      - {x: -1.57982981, y: .608437479}
+      - {x: -1.47240794, y: .490273416}
+      - {x: -1.3327595, y: .361367166}
+      - {x: -1.21459544, y: .275429666}
+      - {x: -1.06420481, y: .210976556}
+      - {x: -.924556375, y: .168007806}
+      - {x: -.838618875, y: .103554681}
+      - {x: -.77416575, y: .00687499344}
+      - {x: -.720454812, y: -.0253515691}
+      - {x: -.559322, y: -.0468359441}
+      - {x: -.408931375, y: -.0360937566}
+      - {x: -.269282937, y: -.0790625066}
+      - {x: .074467048, y: -.0790625066}
+      - {x: .246342048, y: -.0683203191}
+      - {x: .321537346, y: -.0575781316}
+      - {x: .407474846, y: -.0360937566}
+--- !u!61 &6117648
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169980}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -1.01999998, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1}
+--- !u!95 &9576680
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 111564}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 082d7af3af6634d29925a2a698104a82, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!212 &21201176
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 111564}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0c20cbba6f98743198c55270a33d2702, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: -3
+  m_Sprite: {fileID: 21300000, guid: b60038a0ca2d742a6bc6e2b1b030b3cd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c20cbba6f98743198c55270a33d2702, type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 187888}
+  m_IsPrefabParent: 1

@@ -106,7 +106,7 @@ public class IllusionBoss : MonoBehaviour
 		waypoints = new List<Vector3>();
 		waypoints.Add(new Vector3(0.2f, 0.2f));//bottom left
 		waypoints.Add(new Vector3(0.2f, 0.5f));//center left
-		waypoints.Add(new Vector3(0.2f, 0.8f));//top left
+		//waypoints.Add(new Vector3(0.2f, 0.8f));//top left
 		waypoints.Add(new Vector3(0.8f, 0.2f));//bottom right
 		waypoints.Add(new Vector3(0.8f, 0.5f));//center right
 		waypoints.Add(new Vector3(0.8f, 0.8f));//top right
@@ -145,6 +145,8 @@ public class IllusionBoss : MonoBehaviour
 
 	private IEnumerator Appear()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossIllusionIdle);
+
 		state = State.Appearing;
 
 		foreach(GameObject brilho in brilhos)
@@ -200,6 +202,8 @@ public class IllusionBoss : MonoBehaviour
 
 			illusions.Add(illusion.GetComponent<IllusionBossCopy>());
 
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossIllusionMultiply);
+
 			yield return new WaitForSeconds(delayToCreateIllusion);
 		}
 
@@ -239,6 +243,8 @@ public class IllusionBoss : MonoBehaviour
 	{
 		state = State.Moving;
 
+		Debug.Log("Start Moving");
+
 		foreach(IllusionBossCopy illusion in illusions)
 			illusion.StartMoving();
 
@@ -261,13 +267,15 @@ public class IllusionBoss : MonoBehaviour
 
 	private IEnumerator WaitForArrival()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossIllusionIdle);
+
 		while(Vector3.Distance(myTransform.position, waypoint) > 0.25f)
 		{
 			myRigidbody2D.velocity = transform.right * Velocity;
 
 			float angle = Mathf.Atan2(waypoint.y - myTransform.position.y, waypoint.x - myTransform.position.x) * Mathf.Rad2Deg;
 			Vector3 eulerAngle = transform.eulerAngles;
-			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.1f);
+			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.15f);
 			myTransform.eulerAngles = eulerAngle;
 
 			yield return null;
@@ -298,6 +306,8 @@ public class IllusionBoss : MonoBehaviour
 			yield return null;
 		}
 
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossIllusionIdle);
+
 		transform.rotation = Quaternion.Euler(0, 0, -90f);
 		
 		state = State.ReadyToAttack;
@@ -325,6 +335,7 @@ public class IllusionBoss : MonoBehaviour
 		}
 
 		Debug.Log("All Illusions are ready to attack");
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossIllusionIdle);
 
 		foreach(IllusionBossCopy illusion in illusions)
 			illusion.StartAttacking();
@@ -334,6 +345,7 @@ public class IllusionBoss : MonoBehaviour
 
 	private void StartAttacking()
 	{
+		Debug.Log("StartAttacking");
 		state = State.Attacking;
 
 		foreach(GameObject brilho in brilhos)
@@ -354,6 +366,9 @@ public class IllusionBoss : MonoBehaviour
 
 	private void FireProjectile()
 	{
+		Debug.Log("FireProjectile()");
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossIllusionIdle);
+
 		Vector3 player = AttackTargets.Instance.transform.position;
 		float angle = Mathf.Atan2 (player.y - spawnPosition.position.y, player.x - spawnPosition.position.x);
 		Quaternion rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
@@ -372,13 +387,17 @@ public class IllusionBoss : MonoBehaviour
 		foreach(IllusionBossCopy illusion in illusions)
 		{
 			if(illusion != null)
+			{
+				illusion.StopAllCoroutines();
 				illusion.GetComponent<EnemyLifeIllusionCopy>().Dead(false);
+			}
 		}
 
 		illusions.Clear();
 
 		if(!IsLevelMax)
 		{
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossIllusionDamage);
 			state = State.BackToCenter;
 
 			cameraShake.Shake();
@@ -395,8 +414,10 @@ public class IllusionBoss : MonoBehaviour
 			state = State.Defeated;
 
 			GetComponentInChildren<Collider2D>().enabled = false;
-			
-			Time.timeScale = 0.4f;
+
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossDie);
+
+			Time.timeScale = 0.2f;
 			
 			cameraShake.Shake(bossLife.deathTime);
 			ScreenFeedback.ShowBlank(bossLife.deathTime, 0.5f);
@@ -476,6 +497,18 @@ public class IllusionBoss : MonoBehaviour
 		}
 
 		return Vector3.zero;
+	}
+
+	void OnDestroy() 
+	{
+		foreach(IllusionBossCopy illusion in illusions)
+		{
+			if(illusion != null)
+			{
+				illusion.StopAllCoroutines();
+				illusion.GetComponent<EnemyLifeIllusionCopy>().Dead(false);
+			}
+		}
 	}
 }
 

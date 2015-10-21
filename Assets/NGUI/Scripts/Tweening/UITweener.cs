@@ -206,8 +206,9 @@ public abstract class UITweener : MonoBehaviour
 		{
 			mFactor = Mathf.Clamp01(mFactor);
 			Sample(mFactor, true);
+			enabled = false;
 
-			if (current == null)
+			if (current != this)
 			{
 				UITweener before = current;
 				current = this;
@@ -235,10 +236,6 @@ public abstract class UITweener : MonoBehaviour
 
 				current = before;
 			}
-
-			// Disable this script unless the function calls above changed something
-			if (duration == 0f || (mFactor == 1f && mAmountPerDelta > 0f || mFactor == 0f && mAmountPerDelta < 0f))
-				enabled = false;
 		}
 		else Sample(mFactor, false);
 	}

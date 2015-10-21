@@ -107,8 +107,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 10
   - name: BOTAO-DOUBLE
-    x: 1140
-    y: 2085
+    x: 3814
+    y: 2604
     width: 234
     height: 239
     borderLeft: 0
@@ -185,8 +185,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-rect-blue-wide
-    x: 2502
-    y: 2381
+    x: 1398
+    y: 847
     width: 736
     height: 128
     borderLeft: 0
@@ -211,8 +211,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-square-blue
-    x: 2950
-    y: 2588
+    x: 1081
+    y: 663
     width: 316
     height: 312
     borderLeft: 0
@@ -236,9 +236,61 @@ MonoBehaviour:
     paddingRight: 17
     paddingTop: 15
     paddingBottom: 20
+  - name: creepypedia_locked
+    x: 3473
+    y: 2758
+    width: 340
+    height: 323
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: creepypedia_unlocked
+    x: 2950
+    y: 2577
+    width: 340
+    height: 323
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: estrela
+    x: 1017
+    y: 266
+    width: 61
+    height: 58
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 2
+    paddingTop: 1
+    paddingBottom: 2
+  - name: Everyplay
+    x: 766
+    y: 7
+    width: 77
+    height: 83
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: Feedback_de_Dano
-    x: 2277
-    y: 2901
+    x: 1081
+    y: 1314
     width: 1195
     height: 1195
     borderLeft: 200
@@ -256,6 +308,19 @@ MonoBehaviour:
     height: 1586
     borderLeft: 0
     borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Feedback-de-invencibilidade
+    x: 2277
+    y: 2901
+    width: 1195
+    height: 1195
+    borderLeft: 10
+    borderRight: 10
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
@@ -289,8 +354,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon_arrow
-    x: 1574
-    y: 1974
+    x: 1957
+    y: 1018
     width: 151
     height: 110
     borderLeft: 0
@@ -302,8 +367,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-achievements
-    x: 1140
-    y: 1839
+    x: 1081
+    y: 417
     width: 209
     height: 245
     borderLeft: 0
@@ -315,8 +380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-atom
-    x: 3949
-    y: 2829
+    x: 2146
+    y: 1211
     width: 130
     height: 102
     borderLeft: 0
@@ -328,8 +393,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-brush
-    x: 3609
-    y: 2558
+    x: 3711
+    y: 2623
     width: 95
     height: 134
     borderLeft: 0
@@ -341,8 +406,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-creepypedia
-    x: 3711
-    y: 2694
+    x: 3814
+    y: 2844
     width: 237
     height: 237
     borderLeft: 0
@@ -354,7 +419,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-disabled
-    x: 3267
+    x: 3291
     y: 2585
     width: 175
     height: 140
@@ -367,8 +432,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-dollar
-    x: 1615
-    y: 2207
+    x: 1291
+    y: 435
     width: 75
     height: 117
     borderLeft: 0
@@ -380,8 +445,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-facebook
-    x: 1762
-    y: 2357
+    x: 1081
+    y: 976
     width: 739
     height: 152
     borderLeft: 0
@@ -393,8 +458,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 0
   - name: icon-flag-brazil
-    x: 999
-    y: 970
+    x: 984
+    y: 25
     width: 65
     height: 65
     borderLeft: 0
@@ -406,7 +471,7 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 1
   - name: icon-flag-EUA
-    x: 766
+    x: 844
     y: 21
     width: 69
     height: 69
@@ -432,7 +497,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-music
-    x: 3267
+    x: 3291
     y: 2726
     width: 155
     height: 174
@@ -445,8 +510,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-orb
-    x: 1140
-    y: 1632
+    x: 1398
+    y: 490
     width: 216
     height: 206
     borderLeft: 0
@@ -458,8 +523,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtime
-    x: 3968
-    y: 2584
+    x: 1291
+    y: 553
     width: 103
     height: 109
     borderLeft: 0
@@ -471,8 +536,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtimehub
-    x: 3949
-    y: 2695
+    x: 2109
+    y: 995
     width: 93
     height: 133
     borderLeft: 0
@@ -484,8 +549,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: icon-range
-    x: 1357
-    y: 1638
+    x: 1398
+    y: 289
     width: 210
     height: 200
     borderLeft: 0
@@ -498,7 +563,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-settings
     x: 929
-    y: 1184
+    y: 1011
     width: 138
     height: 138
     borderLeft: 0
@@ -510,8 +575,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 2
   - name: icon-shopping
-    x: 929
-    y: 1036
+    x: 2019
+    y: 1166
     width: 126
     height: 147
     borderLeft: 0
@@ -536,8 +601,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-vibrate
-    x: 1350
-    y: 1882
+    x: 1081
+    y: 27
     width: 223
     height: 202
     borderLeft: 0
@@ -562,8 +627,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-videoplus
-    x: 3473
-    y: 2561
+    x: 1821
+    y: 997
     width: 135
     height: 131
     borderLeft: 0
@@ -575,8 +640,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 3
   - name: icon-x
-    x: 929
-    y: 971
+    x: 914
+    y: 26
     width: 69
     height: 64
     borderLeft: 0
@@ -589,7 +654,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: legion
     x: 3473
-    y: 2693
+    y: 2519
     width: 237
     height: 238
     borderLeft: 0
@@ -614,21 +679,21 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: minion_branco
-    x: 1375
-    y: 2124
-    width: 239
-    height: 200
+    x: 1081
+    y: 230
+    width: 256
+    height: 186
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
-    paddingRight: 17
-    paddingTop: 0
-    paddingBottom: 21
+    paddingRight: 0
+    paddingTop: 18
+    paddingBottom: 17
   - name: minion_transparente
-    x: 3711
-    y: 2510
+    x: 1762
+    y: 1130
     width: 256
     height: 183
     borderLeft: 0
@@ -640,8 +705,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 14
   - name: rect-black
-    x: 3473
-    y: 2932
+    x: 1398
+    y: 697
     width: 579
     height: 149
     borderLeft: 55
@@ -654,7 +719,7 @@ MonoBehaviour:
     paddingBottom: 7
   - name: rect-black-2
     x: 1081
-    y: 2325
+    y: 1129
     width: 680
     height: 184
     borderLeft: 0
@@ -665,9 +730,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: Ribbon
+    x: 929
+    y: 1150
+    width: 132
+    height: 172
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 7
+    paddingRight: 5
+    paddingTop: 8
+    paddingBottom: 0
   - name: slider
-    x: 1081
-    y: 930
+    x: 2277
+    y: 1115
     width: 58
     height: 1394
     borderLeft: 0
@@ -790,6 +868,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: mSprites.Array.data[49].borderTop
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[17].borderLeft
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[17].borderRight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[17].borderBottom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[17].borderTop
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

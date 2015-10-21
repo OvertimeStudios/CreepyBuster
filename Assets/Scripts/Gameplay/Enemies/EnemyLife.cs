@@ -114,6 +114,9 @@ public class EnemyLife : MonoBehaviour
 	{
 		if(inLight)
 		{
+			//game stats
+			GameController.energySpent += Time.deltaTime;
+
 			life -= AttackTargets.Damage * Time.deltaTime;
 
 			if(life <= 0)
@@ -131,6 +134,8 @@ public class EnemyLife : MonoBehaviour
 			c.a = brilho.color.a;
 			brilho.color = c;
 		}
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.AttackStart);
 
 		lightning.SetActive (true);
 	}
@@ -185,6 +190,8 @@ public class EnemyLife : MonoBehaviour
 		
 		StartCoroutine (FadeAway (deathTime));
 
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Score);
+
 		if (OnDied != null)
 			OnDied (gameObject);
 	}
@@ -238,6 +245,8 @@ public class EnemyLife : MonoBehaviour
 			SpawnItem ();
 			DropOrbs();
 		}
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.EnemyDie);
 
 		if(destroyUponDeath)
 		{

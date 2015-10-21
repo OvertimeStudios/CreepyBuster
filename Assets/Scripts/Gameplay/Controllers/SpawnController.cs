@@ -23,6 +23,11 @@ public class SpawnController : MonoBehaviour
 	private static float lastPosY = 0;
 
 	private static GameObject boss;
+	private static GameObject background;
+
+	[Header("Only for developer")]
+	public GameObject stars;
+	public TweenAlpha starsFade;
 
 	#region singleton
 	private static SpawnController instance;
@@ -56,6 +61,8 @@ public class SpawnController : MonoBehaviour
 
 	void OnEnable()
 	{
+		MenuController.OnPanelOpening += SpawnBackground;
+		MenuController.OnPanelClosing += DestroyBackground;
 		MenuController.OnPanelClosed += Reset;
 		GameController.OnGameStart += StartSpawn;
 		GameController.OnGameOver += GameOver;
@@ -66,6 +73,8 @@ public class SpawnController : MonoBehaviour
 
 	void OnDisable()
 	{
+		MenuController.OnPanelOpening -= SpawnBackground;
+		MenuController.OnPanelClosing -= DestroyBackground;
 		MenuController.OnPanelClosed -= Reset;
 		GameController.OnGameStart -= StartSpawn;
 		GameController.OnGameOver -= GameOver;
@@ -79,8 +88,6 @@ public class SpawnController : MonoBehaviour
 	{
 		enemiesInGame = new List<Transform> ();
 		itensInGame = new List<Transform> ();
-
-		//SpawnBackground ();
 	}
 
 	public void StartSpawn()
@@ -401,13 +408,57 @@ public class SpawnController : MonoBehaviour
 		return false;
 	}
 
-	private void SpawnBackground()
+	public void SpawnBackground()
 	{
+		Debug.Log("SpawnBackground");
 		//TODO: Spawn according to players choice
 
-		int rnd = (int)UnityEngine.Random.Range (0, LevelDesign.Instance.backgrounds.Count);
+		StartCoroutine(FadeOutStars());
+	}
 
-		Instantiate (LevelDesign.Instance.backgrounds [rnd]);
+	private IEnumerator FadeOutStars()
+	{
+		starsFade.ResetToBeginning();
+		starsFade.from = 0;
+		starsFade.to = 1;
+		starsFade.PlayForward();
+
+		yield return new WaitForSeconds(starsFade.duration);
+
+		stars.SetActive(false);
+
+		int rnd = (int)UnityEngine.Random.Range (0, LevelDesign.Instance.backgrounds.Count);
+		
+		background = Instantiate (LevelDesign.Instance.backgrounds [rnd]) as GameObject;
+
+		yield return null;
+	}
+
+	public void DestroyBackground()
+	{
+		StartCoroutine(FadeInStars());
+	}
+
+	private IEnumerator FadeInStars()
+	{
+		TweenAlpha bgTweenAlpha = background.GetComponentInChildren<TweenAlpha>();
+
+		bgTweenAlpha.ResetToBeginning();
+		bgTweenAlpha.from = 0;
+		bgTweenAlpha.to = 1;
+		bgTweenAlpha.PlayForward();
+		
+		yield return new WaitForSeconds(bgTweenAlpha.duration);
+
+		starsFade.ResetToBeginning();
+		starsFade.from = 1;
+		starsFade.to = 0;
+		starsFade.PlayForward();
+
+		stars.SetActive(true);
+
+		Destroy(background);
+		background = null;
 	}
 
 	private IEnumerator SpawnItens(float waitTime)

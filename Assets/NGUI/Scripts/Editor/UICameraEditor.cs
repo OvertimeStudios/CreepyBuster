@@ -80,6 +80,12 @@ public class UICameraEditor : Editor
 			}
 			EditorGUI.EndDisabledGroup();
 
+			EditorGUI.BeginDisabledGroup(!(mouse.boolValue && (touch.boolValue || controller.boolValue)));
+			{
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("autoHideCursor"));
+			}
+			EditorGUI.EndDisabledGroup();
+
 			EditorGUI.BeginDisabledGroup(!mouse.boolValue);
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("stickyTooltip"));
 			EditorGUI.EndDisabledGroup();
@@ -155,8 +161,10 @@ public class UICameraEditor : Editor
 			{
 				NGUIEditorTools.BeginContents();
 				{
-					EditorGUILayout.PropertyField(serializedObject.FindProperty("horizontalAxisName"), new GUIContent("Horizontal"));
-					EditorGUILayout.PropertyField(serializedObject.FindProperty("verticalAxisName"), new GUIContent("Vertical"));
+					EditorGUILayout.PropertyField(serializedObject.FindProperty("horizontalAxisName"), new GUIContent("Navigate X"));
+					EditorGUILayout.PropertyField(serializedObject.FindProperty("verticalAxisName"), new GUIContent("Navigate Y"));
+					EditorGUILayout.PropertyField(serializedObject.FindProperty("horizontalPanAxisName"), new GUIContent("Pan X"));
+					EditorGUILayout.PropertyField(serializedObject.FindProperty("verticalPanAxisName"), new GUIContent("Pan Y"));
 					EditorGUILayout.PropertyField(serializedObject.FindProperty("scrollAxisName"), new GUIContent("Scroll"));
 					EditorGUILayout.PropertyField(serializedObject.FindProperty("submitKey0"), new GUIContent("Submit 1"));
 					EditorGUILayout.PropertyField(serializedObject.FindProperty("submitKey1"), new GUIContent("Submit 2"));

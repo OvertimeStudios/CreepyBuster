@@ -1,11 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.Analytics;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 using UnityEngine.Advertisements;
 
 public class GameController : MonoBehaviour 
 {
+	private const string BASIC = "C1";
+	private const string BOOMERANG = "C2";
+	private const string FOLLOWER = "C7";
+	private const string LEGION = "C5";
+	private const string CHARGER = "C4";
+	private const string ZIGZAG = "C3";
+
+	private const string BOSS1 = "Meteoro";
+	private const string BOSS2 = "Minhoco";
+	private const string BOSS3 = "Illusion";
+
 	enum CauseOfDeath
 	{
 		FingerOff,
@@ -55,7 +68,67 @@ public class GameController : MonoBehaviour
 	public float timeToShowGameOverScreen;
 	public int orbsToContinue;
 	public int pointsPerOrb = 10;
-	public float timeInvencibleAfterContinue = 2f;
+	public float timeInvencibleAfterContinue = 5f;
+
+	#region game stats
+	private static int creepsKilled;
+
+	private static int basicsKilled;
+	private static int boomerangsKilled;
+	private static int chargersKilled;
+	private static int zigzagsKilled;
+	private static int legionsKilled;
+	private static int followersKilled;
+
+	private static int boss1Killed;
+	private static int boss2Killed;
+	private static int boss3Killed;
+
+	private static int frozenCollected;
+	private static int levelUpCollected;
+	private static int invencibilityCollected;
+	private static int deathRayCollected;
+
+	public static int enemiesMissed;
+	public static int orbsMissed;
+	public static int powerUpsMissed;
+
+	public static int orbsCollected;
+
+	private static int bossEncounters;
+
+	private static int maxStreak;
+
+	private static float matchTime;
+	public static float energySpent;
+
+	public static int hitsByBasic;
+	public static int hitsByBoomerang;
+	public static int hitsByZigZag;
+	public static int hitsByCharger;
+	public static int hitsByLegion;
+	public static int hitsByFollower;
+	public static int hitsByBoss1;
+	public static int hitsByBoss2;
+	public static int hitsByBoss3;
+
+	public static float leftTime;
+	public static float rightTime;
+
+	public static float timeOnSpecial1;
+	public static float timeOnSpecial2;
+	public static float timeOnSpecial3;
+	public static float timeOnSpecial4;
+	public static float timeOnSpecial5;
+	public static float timeOnSpecial6;
+	#endregion
+
+	#region analytics variables
+	private static int continuesVideo;
+	private static int continuesOrbs;
+	public static bool watchedReplay;
+	public static bool watchedDoubleOrbs;
+	#endregion
 
 	/// <summary>
 	/// Total score for session
@@ -82,8 +155,6 @@ public class GameController : MonoBehaviour
 	/// </summary>
 	public static int specialStreak;
 
-	public static int orbsCollected;
-	
 	private static GameObject player;
 
 	#region get / set
@@ -122,7 +193,10 @@ public class GameController : MonoBehaviour
 		set
 		{
 			realStreakCount = value;
-			
+
+			if(realStreakCount > maxStreak)
+				maxStreak = realStreakCount;
+
 			if(OnRealStreakUpdated != null)
 				OnRealStreakUpdated();
 		}
@@ -226,11 +300,52 @@ public class GameController : MonoBehaviour
 		player = GameObject.FindWithTag ("Player");
 	}
 
+	void Update()
+	{
+		if(isGameRunning)
+			matchTime += Time.deltaTime;
+	}
+
 	void OnEnemyDied(GameObject enemy)
 	{
 		if(enemy.GetComponent<EnemyLife>().countAsKill)
 		{
-			enemiesKillCount += 1;
+			enemiesKillCount++;
+
+			//game stats
+			creepsKilled++;
+
+			string enemyName = enemy.name;
+			if(enemyName.Contains(BASIC))
+			{
+				Global.UnlockCreep(CreepData.CreepType.Basic);
+				basicsKilled++;
+			}
+			if(enemyName.Contains(BOOMERANG))
+			{
+				Global.UnlockCreep(CreepData.CreepType.Boomerang);
+				boomerangsKilled++;
+			}
+			if(enemyName.Contains(ZIGZAG))
+			{
+				Global.UnlockCreep(CreepData.CreepType.ZigZag);
+				zigzagsKilled++;
+			}
+			if(enemyName.Contains(CHARGER))
+			{
+				Global.UnlockCreep(CreepData.CreepType.Charger);
+				chargersKilled++;
+			}
+			if(enemyName.Contains(LEGION))
+			{
+				Global.UnlockCreep(CreepData.CreepType.Legion);
+				legionsKilled++;
+			}
+			if(enemyName.Contains(FOLLOWER))
+			{
+				Global.UnlockCreep(CreepData.CreepType.Follower);
+				followersKilled++;
+			}
 
 			if(OnKill != null)
 				OnKill();
@@ -254,23 +369,49 @@ public class GameController : MonoBehaviour
 
 	private void PlayerLevelUp()
 	{
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.LevelUp);
+
 		if(LevelDesign.IsSpecialReady)
 		{
 			AttackTargets.Instance.UseSpecial();
 		}
 	}
 
-	public void FingerHit()
+	public void FingerHit(GameObject hit)
 	{
 		if(IsInvencible) return;
 
 		ScreenFeedback.ShowDamage (timeInvencibleAfterDamage);
-		
+
+		//game stats
+		string enemyName = hit.name;
+		Debug.Log("Hit by: " + hit.name);
+		if(enemyName.Contains(BASIC))
+			hitsByBasic++;
+		if(enemyName.Contains(BOOMERANG))
+			hitsByBoomerang++;
+		if(enemyName.Contains(ZIGZAG))
+			hitsByZigZag++;
+		if(enemyName.Contains(CHARGER))
+			hitsByCharger++;
+		if(enemyName.Contains(LEGION))
+			hitsByLegion++;
+		if(enemyName.Contains(FOLLOWER))
+			hitsByFollower++;
+		if(enemyName.Contains(BOSS1))
+			hitsByBoss1++;
+		if(enemyName.Contains(BOSS2))
+			hitsByBoss2++;
+		if(enemyName.Contains(BOSS3))
+			hitsByBoss3++;
+
 		if (LevelDesign.PlayerLevel == 0)
 			NoMoreLifes ();
 		
 		if (OnFingerHit != null)
 			OnFingerHit ();
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PlayerDamage);
 
 		LoseStacks ();
 	}
@@ -296,6 +437,13 @@ public class GameController : MonoBehaviour
 			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.LifeOut));
 	}
 
+	public void GoToShop()
+	{
+		MenuController.goToShop = true;
+
+		GameOver();
+	}
+
 	public void GameOver()
 	{
 		isGameRunning = false;
@@ -306,7 +454,14 @@ public class GameController : MonoBehaviour
 
 		if (OnGameOver != null)
 			OnGameOver ();
-		
+
+		UnityAnalyticsHelper.NextScreen nextScreen;
+		nextScreen = (MenuController.goToShop) ? UnityAnalyticsHelper.NextScreen.Shop : UnityAnalyticsHelper.NextScreen.Menu;
+
+		UnityAnalyticsHelper.GameOver(Score, orbsCollected, matchTime, continuesVideo, continuesOrbs, nextScreen, watchedReplay, watchedDoubleOrbs);
+		UnityAnalyticsHelper.Kills(basicsKilled, boomerangsKilled, zigzagsKilled, chargersKilled, legionsKilled, followersKilled, boss1Killed, boss2Killed, boss3Killed);
+		UnityAnalyticsHelper.KilledBy(hitsByBasic, hitsByBoomerang, hitsByZigZag, hitsByCharger, hitsByLegion, hitsByFollower, hitsByBoss1, hitsByBoss2, hitsByBoss3);
+
 		gameObject.SetActive(false);
 	}
 
@@ -328,6 +483,73 @@ public class GameController : MonoBehaviour
 		Time.timeScale = 0;
 
 		ShowEndScreen ();
+	}
+
+	private void UpdateGameStats()
+	{
+		Global.BasicsKilled += basicsKilled;
+		Global.BoomerangsKilled += boomerangsKilled;
+		Global.ZigZagsKilled += zigzagsKilled;
+		Global.ChargersKilled += chargersKilled;
+		Global.LegionsKilled += legionsKilled;
+		Global.FollowersKilled += followersKilled;
+
+		Global.Boss1Killed += boss1Killed;
+		Global.Boss2Killed += boss2Killed;
+		Global.Boss3Killed += boss3Killed;
+
+		Global.FrozenCollected += frozenCollected;
+		Global.InvencibilityCollected += invencibilityCollected;
+		Global.LevelUpCollected += levelUpCollected;
+		Global.DeathRayCollected += deathRayCollected;
+
+		Global.OrbsMissed += orbsMissed;
+		Global.PowerUpsMissed += powerUpsMissed;
+		Global.EnemiesMissed += enemiesMissed;
+
+		if(maxStreak > Global.MaxStreak)
+			Global.MaxStreak = maxStreak;
+
+		if (Score > Global.HighScore)
+		{
+			Global.HighScore = Score;
+
+			if(FacebookController.IsLoggedIn)
+				DBHandler.UpdateUserScore(DBHandler.User.id, DBController.gameID, Score);
+		}
+		
+		if (Score > Global.SessionScore)
+			Global.SessionScore = Score;
+
+		Global.BossEncounters += bossEncounters;
+		Global.TimePlayed += (int)matchTime;
+		Global.EnergySpent += (int)energySpent;
+
+		if(LightBehaviour.maxTimeOnSide > Global.SideLeftRight)
+			Global.SideLeftRight = (int)LightBehaviour.maxTimeOnSide;
+
+		if(matchTime > Global.LongestMatch)
+			Global.LongestMatch = (int)matchTime;
+
+		Global.HitsByBasic += hitsByBasic;
+		Global.HitsByBoomerang += hitsByBoomerang;
+		Global.HitsByZigZag += hitsByZigZag;
+		Global.HitsByCharger += hitsByCharger;
+		Global.HitsByLegion += hitsByLegion;
+		Global.HitsByFollower += hitsByFollower;
+		Global.HitsByBoss1 += hitsByBoss1;
+		Global.HitsByBoss2 += hitsByBoss2;
+		Global.HitsByBoss3 += hitsByBoss3;
+
+		Global.TimeOnRight += (int)rightTime;
+		Global.TimeOnLeft += (int)leftTime;
+
+		Global.TimeOnSpecial1 += (int)timeOnSpecial1;
+		Global.TimeOnSpecial2 += (int)timeOnSpecial2;
+		Global.TimeOnSpecial3 += (int)timeOnSpecial3;
+		Global.TimeOnSpecial4 += (int)timeOnSpecial4;
+		Global.TimeOnSpecial5 += (int)timeOnSpecial5;
+		Global.TimeOnSpecial6 += (int)timeOnSpecial6;
 	}
 
 	private IEnumerator ShowContinueScreen(float waitTime, CauseOfDeath causeOfDeath)
@@ -360,7 +582,7 @@ public class GameController : MonoBehaviour
 			float orbsToPay = (orbsToContinue * Mathf.Pow(2, continues));
 
 			if(Global.TotalOrbs >= orbsToPay)
-				Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.GetType ("WANT_TO_SPEND") + " " + orbsToPay + " " + Localization.GetType ("CONTINUE_PLAYING") + "\n \n (" + Localization.GetType ("YOU_HAVE") + " " + Global.TotalOrbs + " orbs.)", PayContinueOrbs, ShowEndScreen);
+				Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + string.Format(Localization.GetType ("WANT_TO_SPEND"), orbsToPay) + "\n \n (" + string.Format(Localization.GetType ("YOU_HAVE"), Global.TotalOrbs) + ")", PayContinueOrbs, ShowEndScreen);
 			else
 				Popup.ShowOk(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.GetType ("NOT_ENOUGH_ORBS"), ShowEndScreen);
 			#endif
@@ -375,9 +597,9 @@ public class GameController : MonoBehaviour
 		if(OnGameEnding != null)
 			OnGameEnding();
 
-		Popup.Hide ();
+		UpdateGameStats();
 
-		Global.TotalOrbs += orbsCollected;
+		Popup.Hide ();
 
 		HUDController.Instance.ShowEndScreen ();
 
@@ -387,11 +609,13 @@ public class GameController : MonoBehaviour
 
 	private void VideoWatched()
 	{
+		continuesVideo++;
 		ContinuePlaying ();
 	}
 
 	private void PayContinueOrbs()
 	{
+		continuesOrbs++;
 		#if !INFINITY_ORBS
 		Global.TotalOrbs -= (int)(orbsToContinue * Mathf.Pow (2, continues));
 		#endif
@@ -457,7 +681,13 @@ public class GameController : MonoBehaviour
 
 	public void StartGame()
 	{
-		SoundController.Instance.PlayMusic(SoundController.Musics.GameTheme);
+		if(!Global.sentOnEnterGame)
+		{
+			UnityAnalyticsHelper.EnterOnGame();
+			Global.sentOnEnterGame = true;
+		}
+
+		SoundController.Instance.CrossFadeMusic(SoundController.Musics.GameTheme, 1f);
 
 		Reset ();
 		gameObject.SetActive (true);
@@ -475,6 +705,8 @@ public class GameController : MonoBehaviour
 			//Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
 		}
 
+		Global.GamesPlayed++;
+
 		StartCoroutine (WaitForPlayer ());
 	}
 
@@ -484,12 +716,15 @@ public class GameController : MonoBehaviour
 		isGameRunning = true;
 
 		player.transform.position = Vector3.zero;
-		PauseGame();
+
+		if(!player.activeSelf)
+			PauseGame();
 
 		while (!player.activeSelf)
 			yield return null;
 
-		ResumeGame();
+		if(isPaused)
+			ResumeGame();
 
 		Debug.Log ("Player found");
 		Popup.Hide ();
@@ -497,8 +732,8 @@ public class GameController : MonoBehaviour
 		if (OnGameStart != null)
 			OnGameStart ();
 
-		if (Global.IsTutorialEnabled)
-			TutorialController.Instance.gameObject.SetActive (true);
+		//if (Global.IsTutorialEnabled)
+			//TutorialController.Instance.gameObject.SetActive (true);
 	}
 
 	private void Reset()
@@ -507,7 +742,6 @@ public class GameController : MonoBehaviour
 		enemiesKillCount = 0;
 		score = 0;
 		StreakCount = 0;
-		orbsCollected = 0;
 		realStreakCount = 0;
 		specialStreak = 0;
 		continues = 0;
@@ -516,6 +750,64 @@ public class GameController : MonoBehaviour
 		slowedDown = false;
 		invencible = false;
 		bossTime = false;
+
+		#region game stats
+		creepsKilled = 0;
+
+		basicsKilled = 0;
+		boomerangsKilled = 0;
+		chargersKilled = 0;
+		zigzagsKilled = 0;
+		legionsKilled = 0;
+		followersKilled = 0;
+		
+		boss1Killed = 0;
+		boss2Killed = 0;
+		boss3Killed = 0;
+
+		frozenCollected = 0;
+		levelUpCollected = 0;
+		invencibilityCollected = 0;
+		deathRayCollected = 0;
+
+		enemiesMissed = 0;
+		orbsMissed = 0;
+		powerUpsMissed = 0;
+
+		orbsCollected = 0;
+		bossEncounters = 0;
+
+		maxStreak = 0;
+		matchTime = 0;
+		energySpent = 0;
+
+		hitsByBasic = 0;
+		hitsByBoomerang = 0;
+		hitsByZigZag = 0;
+		hitsByCharger = 0;
+		hitsByLegion = 0;
+		hitsByFollower = 0;
+		hitsByBoss1 = 0;
+		hitsByBoss2 = 0;
+		hitsByBoss3 = 0;
+
+		leftTime = 0;
+		rightTime = 0;
+
+		timeOnSpecial1 = 0;
+		timeOnSpecial2 = 0;
+		timeOnSpecial3 = 0;
+		timeOnSpecial4 = 0;
+		timeOnSpecial5 = 0;
+		timeOnSpecial6 = 0;
+		#endregion
+
+		#region analytics
+		continuesVideo = 0;
+		continuesOrbs = 0;
+		watchedReplay = false;
+		watchedDoubleOrbs = false;
+		#endregion
 
 		gameOver = false;
 
@@ -581,6 +873,8 @@ public class GameController : MonoBehaviour
 	{
 		Debug.Log("Game Paused");
 
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Pause);
+
 		isPaused = true;
 		//Popup.ShowBlank (Localization.Get("FINGER_ON_SCREEN"));
 
@@ -595,6 +889,9 @@ public class GameController : MonoBehaviour
 	private void ResumeGame()
 	{
 		Debug.Log("Game Resumed");
+
+		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Resume);
+
 		isPaused = false;
 		player.SetActive (true);
 		//Popup.Hide();
@@ -617,12 +914,38 @@ public class GameController : MonoBehaviour
 		while (SpawnController.EnemiesInGame > 0)
 			yield return null;
 
+		SoundController.Instance.FadeOut(1f);
+
+		yield return new WaitForSeconds(3f);
+
+		SoundController.Instance.PlayMusic(SoundController.Musics.BossTheme);
+
+		bossEncounters++;
+
 		SpawnController.SpawnBoss ();
 	}
 
-	public static void BossDied()
+	public static void BossDied(GameObject boss)
 	{
+		SoundController.Instance.CrossFadeMusic(SoundController.Musics.GameTheme, 1f);
 		bossTime = false;
+
+		string bossName = boss.name;
+		if(bossName.Contains(BOSS1))
+		{
+			Global.UnlockCreep(CreepData.CreepType.Meteor);
+			boss1Killed++;
+		}
+		if(bossName.Contains(BOSS2))
+		{
+			Global.UnlockCreep(CreepData.CreepType.Twins);
+			boss2Killed++;
+		}
+		if(bossName.Contains(BOSS3))
+		{
+			Global.UnlockCreep(CreepData.CreepType.Illusion);
+			boss3Killed++;
+		}
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)
@@ -631,10 +954,11 @@ public class GameController : MonoBehaviour
 		{
 			case Item.Type.PlasmaOrb:
 				orbsCollected += gameObject.GetComponent<PlasmaOrbItem>().orbs;
-				Debug.Log("Orbs collected: " + gameObject.GetComponent<PlasmaOrbItem>().orbs + ". Total: " + orbsCollected);
 			break;
 
 			case Item.Type.LevelUp:
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.LevelUp);
+				levelUpCollected++;
 				StreakCount = LevelDesign.NextStreakToPlayerLevelUp;
 			break;
 
@@ -651,17 +975,24 @@ public class GameController : MonoBehaviour
 			break;
 
 			case Item.Type.Invecibility:
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected);
+				invencibilityCollected++;
 				UseInvencibility(Invencible.Time);
 			break;
 
 			case Item.Type.DeathRay:
+				deathRayCollected++;
 				KillAllEnemies(true);
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.DeathRay);
 			break;
 
 			case Item.Type.Frozen:
 				if(OnFrozenCollected != null)
 					OnFrozenCollected();
 				
+				frozenCollected++;
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.Freeze);
+
 				frozen = true;
 				
 				ScreenFeedback.ShowFrozen(Frozen.FrozenTime);
@@ -681,7 +1012,7 @@ public class GameController : MonoBehaviour
 		ScreenFeedback.ShowInvencibility(invencibleTime);
 		
 		StopCoroutine("FadeInvencible");
-		StartCoroutine("FadeInvencible");
+		StartCoroutine("FadeInvencible", invencibleTime);
 	}
 
 	private IEnumerator FadeSlowDown()
@@ -708,9 +1039,9 @@ public class GameController : MonoBehaviour
 			OnFrozenFade ();
 	}
 
-	private IEnumerator FadeInvencible()
+	private IEnumerator FadeInvencible(float invencibleTime)
 	{
-		yield return new WaitForSeconds(Invencible.Time);
+		yield return new WaitForSeconds(invencibleTime);
 
 		Debug.Log ("Invencible Faded");
 
