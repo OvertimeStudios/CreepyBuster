@@ -155,15 +155,15 @@ public class UnityAdsHelper : MonoBehaviour
 	{
 		switch (result)
 		{
-		case ShowResult.Finished:
+		case UnityEngine.Advertisements.ShowResult.Finished:
 			Debug.Log("The ad was successfully shown.");
 			if (!object.ReferenceEquals(_handleFinished,null)) _handleFinished();
 			break;
-		case ShowResult.Skipped:
+		case UnityEngine.Advertisements.ShowResult.Skipped:
 			Debug.LogWarning("The ad was skipped before reaching the end.");
 			if (!object.ReferenceEquals(_handleSkipped,null)) _handleSkipped();
 			break;
-		case ShowResult.Failed:
+		case UnityEngine.Advertisements.ShowResult.Failed:
 			Debug.LogError("The ad failed to be shown.");
 			if (!object.ReferenceEquals(_handleFailed,null)) _handleFailed();
 			break;

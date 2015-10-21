@@ -82,7 +82,7 @@ public class UnityAnalyticsHelper : MonoBehaviour
 
 	public static void OnLevelUp(int level)
 	{
-		SendData(CustomEvent.Level.ToString + level, new Dictionary<string, object>());
+		SendData(CustomEvent.Level.ToString() + level, new Dictionary<string, object>());
 	}
 
 	private static void SendData(CustomEvent e, Dictionary<string, object> eventData)
