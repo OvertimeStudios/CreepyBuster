@@ -151,19 +151,19 @@ public class UnityAdsHelper : MonoBehaviour
 		}
 	}
 	
-	private static void HandleShowResult (UnityEngine.Advertisements.ShowResult result)
+	private static void HandleShowResult (ShowResult result)
 	{
 		switch (result)
 		{
-		case UnityEngine.Advertisements.ShowResult.Finished:
+		case ShowResult.Finished:
 			Debug.Log("The ad was successfully shown.");
 			if (!object.ReferenceEquals(_handleFinished,null)) _handleFinished();
 			break;
-		case UnityEngine.Advertisements.ShowResult.Skipped:
+		case ShowResult.Skipped:
 			Debug.LogWarning("The ad was skipped before reaching the end.");
 			if (!object.ReferenceEquals(_handleSkipped,null)) _handleSkipped();
 			break;
-		case UnityEngine.Advertisements.ShowResult.Failed:
+		case ShowResult.Failed:
 			Debug.LogError("The ad failed to be shown.");
 			if (!object.ReferenceEquals(_handleFailed,null)) _handleFailed();
 			break;
