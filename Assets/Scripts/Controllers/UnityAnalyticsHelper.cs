@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+#if UNITYANALYTICS_IMPLEMENTED
 using UnityEngine.Analytics;
+#endif
 using System.Collections;
 using System.Collections.Generic;
 
