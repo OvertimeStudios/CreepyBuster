@@ -646,9 +646,9 @@ public class UIInput : MonoBehaviour
 				|| pf == RuntimePlatform.BB10Player
  #else
 				|| pf == RuntimePlatform.BlackBerryPlayer
-				|| pf == RuntimePlatform.MetroPlayerARM
-				|| pf == RuntimePlatform.MetroPlayerX64
-				|| pf == RuntimePlatform.MetroPlayerX86
+				|| pf == RuntimePlatform.WSAPlayerARM
+				|| pf == RuntimePlatform.WSAPlayerX64
+			    || pf == RuntimePlatform.WSAPlayerX86
  #endif
 			)
 			{
