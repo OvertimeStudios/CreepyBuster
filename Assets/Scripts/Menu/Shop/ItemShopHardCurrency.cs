@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+#if IAP_IMPLEMENTED
 using Prime31;
+#endif
 
 public class ItemShopHardCurrency : MonoBehaviour 
 {
@@ -21,29 +23,38 @@ public class ItemShopHardCurrency : MonoBehaviour
 	public Pack pack;
 	public int value;
 
+	#if IAP_IMPLEMENTED
 	private UILabel price;
 	private UILabel currency;
+	#endif
 
 	void OnEnable()
 	{
 		UpdatePrices();
 
+		#if IAP_IMPLEMENTED
 		Settings.OnProductRestored += Restore;
+		#endif
 	}
 
 	void OnDisable()
 	{
+		#if IAP_IMPLEMENTED
 		Settings.OnProductRestored -= Restore;
+		#endif
 	}
 
 	void Start()
 	{
+		#if IAP_IMPLEMENTED
 		currency = transform.FindChild("Price").FindChild("currency").GetComponent<UILabel>();
 		price = transform.FindChild("Price").FindChild("Label").GetComponent<UILabel>();
+		#endif
 	}
 
 	private void UpdatePrices()
 	{
+		#if IAP_IMPLEMENTED
 		IAPProduct product = IAPHelper.GetProduct(productID);
 
 		if(product != null)
@@ -53,15 +64,18 @@ public class ItemShopHardCurrency : MonoBehaviour
 			currency.text = priceString.Substring(0, priceString.IndexOf("$") + 1);
 			price.text = priceString.Substring(priceString.IndexOf("$") + 1);
 		}
+		#endif
 	}
 
 	public void Purchase()
 	{
 		Debug.Log("Trying to purchase: " + productID);
+		#if IAP_IMPLEMENTED
 		if(type == Type.Consumable)
 			IAPHelper.PurchaseConsumableProduct(productID, Callback);
 		else
 			IAPHelper.PurchaseNonconsumableProduct(productID, Callback);
+		#endif
 
 		#if UNITY_EDITOR
 		Popup.ShowBlank("Purchase not possible on Unity Editor", 2f);
@@ -85,6 +99,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 		Unlock();
 	}
 
+	#if IAP_IMPLEMENTED
 	private void Restore(IAPProduct product)
 	{
 		if(type == Type.Consumable) return;
@@ -92,6 +107,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 		if(productID == product.productId)
 			Unlock();
 	}
+	#endif
 
 	private void Unlock()
 	{

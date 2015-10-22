@@ -2,7 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if IAP_IMPLEMENTED
 using Prime31;
+#endif
 
 public enum IAPState
 {
@@ -14,6 +16,7 @@ public enum IAPState
 
 public class IAPHelper : MonoBehaviour 
 {
+	#if IAP_IMPLEMENTED
 	private const string CONSUMABLE_PAYLOAD = "consume";
 	private const string NON_CONSUMABLE_PAYLOAD = "nonconsume";
 
@@ -342,6 +345,7 @@ public class IAPHelper : MonoBehaviour
 
 		Debug.Log("QueryInventoryFailedEvent " + errmsg);
 	}
+#endif
 #endif
 }
 

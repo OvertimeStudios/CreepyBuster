@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+#if IAP_IMPLEMENTED
 using Prime31;
+#endif
 
 public class Settings : MonoBehaviour 
 {
+	#if IAP_IMPLEMENTED
 	#region Actions
 	public static event Action<IAPProduct> OnProductRestored;
 	#endregion
+	#endif
 
 	private GameObject logout;
 	//private UILabel greeting;
@@ -57,7 +61,10 @@ public class Settings : MonoBehaviour
 	public void RestorePurchases()
 	{
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
+		#if IAP_IMPLEMENTED
 		IAPHelper.RestoreCompletedTransactions(Callback);
+		#endif
 	}
 
 	private void Callback(IAPState state, string errmsg)
@@ -72,11 +79,14 @@ public class Settings : MonoBehaviour
 		{
 			Popup.ShowBlank("Products successfully restored", 2f);
 
+			#if IAP_IMPLEMENTED
 			foreach(IAPProduct product in IAPHelper.ProductsRestored)
 			{
 				if(OnProductRestored != null)
 					OnProductRestored(product);
 			}
+			#endif
 		}
 	}
 }
+	
