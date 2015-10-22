@@ -2,7 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if FACEBOOK_IMPLEMENTED
 using Facebook.MiniJSON;
+#endif
 
 public class FacebookController : MonoBehaviour 
 {

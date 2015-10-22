@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class FacebookHelper : MonoBehaviour 
 {
+	#if FACEBOOK_IMPLEMENTED
 	//List of all params 'me' have: https://developers.facebook.com/docs/graph-api/reference/v2.2/user
 	public static string ID = "id";
 	public static string FIRST_NAME = "first_name";
@@ -96,4 +97,5 @@ public class FacebookHelper : MonoBehaviour
 	{
 		FB.Logout ();
 	}
+	#endif
 }
