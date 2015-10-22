@@ -576,10 +576,12 @@ public class GameController : MonoBehaviour
 		
 		Time.timeScale = 0;
 
+		#if UNITYADS_IMPLEMENTED
 		if (continues == 0 && Advertisement.IsReady () && Advertisement.isInitialized && Advertisement.isSupported)
 			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), null, ShowEndScreen, false);
 		else
 		{
+		#endif
 			#if INFINITY_ORBS
 			Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("INFINITY_ORBS_TO_PLAY"), PayContinueOrbs, ShowEndScreen);
 			#else
@@ -590,7 +592,9 @@ public class GameController : MonoBehaviour
 			else
 				Popup.ShowOk(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get ("NOT_ENOUGH_ORBS"), ShowEndScreen);
 			#endif
+		#if UNITYADS_IMPLEMENTED
 		}
+		#endif
 
 		if (OnShowContinueScreen != null)
 			OnShowContinueScreen ();
