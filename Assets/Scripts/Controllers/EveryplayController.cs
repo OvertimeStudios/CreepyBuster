@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class EveryplayController : MonoBehaviour 
 {
+	#if EVERYPLAY_IMPLEMENTED
 	public int minutesToRecord = 2;
 
 	private static bool isReady;
@@ -161,4 +162,5 @@ public class EveryplayController : MonoBehaviour
 	{
 		Everyplay.SetMetadata("score", GameController.Score);
 	}
+	#endif
 }
