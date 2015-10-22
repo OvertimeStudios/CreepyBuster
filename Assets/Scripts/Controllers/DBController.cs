@@ -7,6 +7,7 @@ public class DBController : MonoBehaviour
 
 	public static int gameID;
 
+	#if FB_IMPLEMENTED
 	void OnEnable()
 	{
 		FacebookController.OnLoggedIn += ConnectDB;
@@ -37,5 +38,6 @@ public class DBController : MonoBehaviour
 		
 		Debug.Log(user.ToString());
 	}
+	#endif
 
 }

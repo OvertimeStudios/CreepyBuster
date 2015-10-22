@@ -23,4 +23,9 @@ public class LoadingScreen : MonoBehaviour
 
 		Debug.Log("Loading Complete in " + (Time.time - startLoadTime) + " seconds.");
 	}
+
+	void Update()
+	{
+		Debug.Log(async.progress);
+	}
 }

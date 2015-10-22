@@ -102,7 +102,14 @@ public class Global : MonoBehaviour
 	#region get/set
 	public static FacebookUser user
 	{
-		get { return FacebookController.User; }
+		get 
+		{ 
+			#if FB_IMPLEMENTED 
+			return FacebookController.User; 
+			#endif
+
+			return null;
+		}
 	}
 
 	public static bool IsLoaded

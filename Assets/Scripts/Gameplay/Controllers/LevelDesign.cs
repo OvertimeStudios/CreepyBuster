@@ -572,7 +572,9 @@ public class LevelDesign : MonoBehaviour
 			{
 				enemiesTypesLevel++;
 
+				#if UNITYANALYTICS_IMPLEMENTED
 				UnityAnalyticsHelper.OnLevelUp(enemiesTypesLevel);
+				#endif
 
 				if(OnEnemiesTypesLevelUp != null)
 					OnEnemiesTypesLevelUp();

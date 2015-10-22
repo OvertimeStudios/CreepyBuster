@@ -108,7 +108,9 @@ public class ItemShopHardCurrency : MonoBehaviour
 			case Pack.MultiplierOrbs:
 				Global.OrbsMultiplier = value;
 				Global.IsAdFree = true;
+				#if ADMOB_IMPLEMENTED
 				AdMobHelper.HideBanner();
+				#endif
 				Popup.ShowOk("Orbs gain doubled");
 				break;
 		}

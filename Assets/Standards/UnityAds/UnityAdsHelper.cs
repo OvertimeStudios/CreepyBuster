@@ -12,6 +12,7 @@ using UnityEngine.Advertisements;
 
 public class UnityAdsHelper : MonoBehaviour 
 {
+	#if UNITYADS_IMPLEMENTED
 	public string iosGameID = "24300";
 	public string androidGameID = "24299";
 	
@@ -196,5 +197,7 @@ public class UnityAdsHelper : MonoBehaviour
 	public static void ShowAd (string zoneID, Action handleFinished, Action handleSkipped, Action handleFailed) { ShowAd(); }
 	public static void ShowAd (string zoneID, Action handleFinished, Action handleSkipped, Action handleFailed, Action onContinue) { ShowAd(); }
 	
+	#endif
+
 	#endif
 }

@@ -1754,10 +1754,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a088495853acf484aa8aa8f11a70ba5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  server: overtimestudios.mysql.uhserver.com
-  database: overtimestudios
-  userID: overtime
-  password: Nov4senh@
+  server: 
+  database: 
+  userID: 
+  password: 
   pooling: 0
 --- !u!114 &48780596
 MonoBehaviour:
@@ -23753,7 +23753,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1018201372}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc4c916072604887af2e98b12ddca43, type: 3}
   m_Name: 
@@ -27439,7 +27439,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1145228466}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc4c916072604887af2e98b12ddca43, type: 3}
   m_Name: 
@@ -28610,7 +28610,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1226817773}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc4c916072604887af2e98b12ddca43, type: 3}
   m_Name: 
@@ -29525,10 +29525,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: enemiesTypesLevelUpCondition.Array.data[0].enemies.Array.data[0].enemy
-      value: 
-      objectReference: {fileID: 130434, guid: 8beb1887f48634da9b3485c2a5c5abbc, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
   m_IsPrefabParent: 0
@@ -35576,7 +35572,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1517388708}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc4c916072604887af2e98b12ddca43, type: 3}
   m_Name: 

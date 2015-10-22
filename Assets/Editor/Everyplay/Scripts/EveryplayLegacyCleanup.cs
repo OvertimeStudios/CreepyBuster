@@ -147,7 +147,8 @@ public class EveryplayLegacyCleanup
         "Plugins/Android/everyplay/res/drawable/everyplay_sidemenu_button_bg.png",
         "Plugins/Android/everyplay/res/drawable/everyplay_sidemenu_button_bg_active.png",
         "Plugins/Android/everyplay/res/values/everyplay_dimens.xml",
-        "Plugins/Android/everyplay/res/values/everyplay_values.xml"
+        "Plugins/Android/everyplay/res/values/everyplay_values.xml",
+        "Plugins/Android/everyplay/res/layout-port/everyplay_editor_buttons.xml"
     };
     private const string oldPrefab = "Plugins/Everyplay/Everyplay.prefab";
     private const string newTestPrefab = "Plugins/Everyplay/Helpers/EveryplayTest.prefab";

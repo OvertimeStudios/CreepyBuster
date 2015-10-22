@@ -107,7 +107,7 @@ public class ItemShop : MonoBehaviour
 		if (Global.TotalOrbs >= price[CurrentLevel])
 			Popup.ShowYesNo ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price[CurrentLevel]) + " orbs?", PurchaseAccepted, PurchaseDeclined);
 		else
-			Popup.ShowOk ("You don't have enough orbs. You must have " + string.Format ("{0:0,0}", (price - Global.TotalOrbs)) + " more orbs to buy this item.", null);
+			Popup.ShowOk ("You don't have enough orbs. You must have " + string.Format ("{0:0,0}", (price[CurrentLevel] - Global.TotalOrbs)) + " more orbs to buy this item.", null);
 		#endif
 	}
 

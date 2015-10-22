@@ -39,7 +39,11 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		get 
 		{
+			#if UNITYADS_IMPLEMENTED
 			return RewardCooldownLeft <= 0 && UnityAdsHelper.IsReady();
+			#else
+			return false;
+			#endif
 		}
 	}
 	#endregion
@@ -89,23 +93,35 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	private void Ask()
 	{
+		#if UNITYADS_IMPLEMENTED
 		if(UnityAdsHelper.IsReady("rewardedVideoZone"))
 			Popup.ShowYesNo(string.Format(Localization.Get("VIDEO_TO_ORBS"), orbsToGive), ShowAd, null);
 		else
 			Popup.ShowBlank("Ads not ready", 2f);
+		#else
+		Popup.ShowBlank("Unity Ads not implemented", 2f);
+		#endif
 	}
 
 	public void ShowAd()
 	{
+		#if UNITYADS_IMPLEMENTED
 		UnityAdsHelper.ShowAd ("rewardedVideoZone", GiveReward);
+		#else
+		Popup.ShowBlank("Unity Ads not implemented", 2f);
+		#endif
 	}
 
 	public static void ShowAd(Action handleFinish)
 	{
+		#if UNITYADS_IMPLEMENTED
 		if(UnityAdsHelper.IsReady("rewardedVideoZone"))
 			UnityAdsHelper.ShowAd("rewardedVideoZone", handleFinish);
 		else
 			Popup.ShowBlank("Ads not ready", 2f);
+		#else
+		Popup.ShowBlank("Unity Ads not implemented", 2f);
+		#endif
 	}
 	
 	private void GiveReward()

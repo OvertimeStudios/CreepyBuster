@@ -1395,118 +1395,117 @@ public class Everyplay : MonoBehaviour
 
     public static bool EveryplayFaceCamIsVideoRecordingSupported()
     {
-        return false;
+        return everyplayUnity.Call<bool>("faceCamIsVideoRecordingSupported");
     }
 
     public static bool EveryplayFaceCamIsAudioRecordingSupported()
     {
-        return false;
+        return everyplayUnity.Call<bool>("faceCamIsAudioRecordingSupported");
     }
 
     public static bool EveryplayFaceCamIsHeadphonesPluggedIn()
     {
-        return false;
+        return everyplayUnity.Call<bool>("faceCamIsHeadphonesPluggedIn");
     }
 
     public static bool EveryplayFaceCamIsSessionRunning()
     {
-        return false;
+        return everyplayUnity.Call<bool>("faceCamIsSessionRunning");
     }
 
     public static bool EveryplayFaceCamIsRecordingPermissionGranted()
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
-        return false;
+        return everyplayUnity.Call<bool>("faceCamIsRecordingPermissionGranted");
     }
 
     public static float EveryplayFaceCamAudioPeakLevel()
     {
-        return 0.0f;
+        return everyplayUnity.Call<float>("faceCamAudioPeakLevel");
     }
 
     public static float EveryplayFaceCamAudioPowerLevel()
     {
-        return 0.0f;
+        return everyplayUnity.Call<float>("faceCamAudioPowerLevel");
     }
 
     public static void EveryplayFaceCamSetMonitorAudioLevels(bool enabled)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetSetMonitorAudioLevels", enabled);
     }
 
     public static void EveryplayFaceCamSetAudioOnly(bool audioOnly)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetAudioOnly", audioOnly);
     }
 
     public static void EveryplayFaceCamSetPreviewVisible(bool visible)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetPreviewVisible", visible);
     }
 
     public static void EveryplayFaceCamSetPreviewScaleRetina(bool autoScale)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not available on Android");
     }
 
     public static void EveryplayFaceCamSetPreviewSideWidth(int width)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetPreviewSideWidth", width);
     }
 
     public static void EveryplayFaceCamSetPreviewBorderWidth(int width)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetPreviewBorderWidth", width);
     }
 
     public static void EveryplayFaceCamSetPreviewPositionX(int x)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetPreviewPositionX", x);
     }
 
     public static void EveryplayFaceCamSetPreviewPositionY(int y)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetPreviewPositionY", y);
     }
 
     public static void EveryplayFaceCamSetPreviewBorderColor(float r, float g, float b, float a)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetPreviewBorderColor", r, g, b, a);
     }
 
     public static void EveryplayFaceCamSetPreviewOrigin(int origin)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetPreviewOrigin", origin);
     }
 
     public static void EveryplayFaceCamSetTargetTextureId(int textureId)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetTargetTextureId", textureId);
     }
 
-    public static void EveryplayFaceCamSetTargetTextureWidth(int textureHeight)
+    public static void EveryplayFaceCamSetTargetTextureWidth(int textureWidth)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetTargetTextureWidth", textureWidth);
     }
 
-    public static void EveryplayFaceCamSetTargetTextureHeight(int textureWidth)
+    public static void EveryplayFaceCamSetTargetTextureHeight(int textureHeight)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamSetTargetTextureHeight", textureHeight);
     }
 
     public static void EveryplayFaceCamStartSession()
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamStartSession");
     }
 
     public static void EveryplayFaceCamRequestRecordingPermission()
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamRequestRecordingPermission");
     }
 
     public static void EveryplayFaceCamStopSession()
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not yet implemented");
+        everyplayUnity.Call("faceCamStopSession");
     }
 
     public static void EveryplaySetThumbnailTargetTextureId(int textureId)

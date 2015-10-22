@@ -169,11 +169,13 @@ public class MenuController : MonoBehaviour
 		hud.SetActive (false);
 		UpdateScore ();
 
+		#if UNITYANALYTICS_IMPLEMENTED
 		if(!Global.sentOnEnterMenu)
 		{
 			UnityAnalyticsHelper.EnterOnMenu();
 			Global.sentOnEnterMenu = true;
 		}
+		#endif
 	}
 
 	void OnFingerDown(FingerDownEvent e)
@@ -528,8 +530,10 @@ public class MenuController : MonoBehaviour
 
 		gamesCount++;
 
+		#if UNITYADS_IMPLEMENTED
 		if(gamesCount % gamesToShowAd == 0)
 			UnityAdsHelper.ShowAd();
+		#endif
 	}
 
 	public void MoreGames()

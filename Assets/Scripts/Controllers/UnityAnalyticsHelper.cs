@@ -3,8 +3,10 @@ using UnityEngine.Analytics;
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class UnityAnalyticsHelper : MonoBehaviour 
 {
+	#if UNITYANALYTICS_IMPLEMENTED
 	public enum CustomEvent
 	{
 		GameOver,
@@ -94,4 +96,5 @@ public class UnityAnalyticsHelper : MonoBehaviour
 	{
 		Analytics.CustomEvent(e, eventData);
 	}
+	#endif
 }

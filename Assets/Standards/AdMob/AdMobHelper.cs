@@ -27,7 +27,15 @@ public class AdMobHelper : MonoBehaviour
 	#region get / set
 	public static bool IsBannerShowing
 	{
-		get { return bannerShowing; }
+		get 
+		{
+			#if ADMOB_IMPLEMENTED
+			return bannerShowing; 
+			#else
+			return false;
+			#endif
+
+		}
 	}
 	#endregion
 
@@ -37,11 +45,12 @@ public class AdMobHelper : MonoBehaviour
 	[Header("Preloads")]
 	public bool preloadBanner = true;
 
+	#if ADMOB_IMPLEMENTED
 	//banner properties
 	private static BannerView bannerView;
 	private static bool bannerShowing = false;
 
-	#if ADMOB_IMPLEMENTED
+
 	void Start()
 	{
 		if(preloadBanner)

@@ -455,12 +455,14 @@ public class GameController : MonoBehaviour
 		if (OnGameOver != null)
 			OnGameOver ();
 
+		#if UNITYANALYTICS_IMPLEMENTED
 		UnityAnalyticsHelper.NextScreen nextScreen;
 		nextScreen = (MenuController.goToShop) ? UnityAnalyticsHelper.NextScreen.Shop : UnityAnalyticsHelper.NextScreen.Menu;
 
 		UnityAnalyticsHelper.GameOver(Score, orbsCollected, matchTime, continuesVideo, continuesOrbs, nextScreen, watchedReplay, watchedDoubleOrbs);
 		UnityAnalyticsHelper.Kills(basicsKilled, boomerangsKilled, zigzagsKilled, chargersKilled, legionsKilled, followersKilled, boss1Killed, boss2Killed, boss3Killed);
 		UnityAnalyticsHelper.KilledBy(hitsByBasic, hitsByBoomerang, hitsByZigZag, hitsByCharger, hitsByLegion, hitsByFollower, hitsByBoss1, hitsByBoss2, hitsByBoss3);
+		#endif
 
 		gameObject.SetActive(false);
 	}
@@ -514,8 +516,10 @@ public class GameController : MonoBehaviour
 		{
 			Global.HighScore = Score;
 
+			#if FB_IMPLEMENTED
 			if(FacebookController.IsLoggedIn)
 				DBHandler.UpdateUserScore(DBHandler.User.id, DBController.gameID, Score);
+			#endif
 		}
 		
 		if (Score > Global.SessionScore)
@@ -582,9 +586,9 @@ public class GameController : MonoBehaviour
 			float orbsToPay = (orbsToContinue * Mathf.Pow(2, continues));
 
 			if(Global.TotalOrbs >= orbsToPay)
-				Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + string.Format(Localization.GetType ("WANT_TO_SPEND"), orbsToPay) + "\n \n (" + string.Format(Localization.GetType ("YOU_HAVE"), Global.TotalOrbs) + ")", PayContinueOrbs, ShowEndScreen);
+				Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + string.Format(Localization.Get ("WANT_TO_SPEND"), orbsToPay) + "\n \n (" + string.Format(Localization.Get ("YOU_HAVE"), Global.TotalOrbs) + ")", PayContinueOrbs, ShowEndScreen);
 			else
-				Popup.ShowOk(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.GetType ("NOT_ENOUGH_ORBS"), ShowEndScreen);
+				Popup.ShowOk(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get ("NOT_ENOUGH_ORBS"), ShowEndScreen);
 			#endif
 		}
 
@@ -681,11 +685,13 @@ public class GameController : MonoBehaviour
 
 	public void StartGame()
 	{
+		#if UNITYANALYTICS_IMPLEMENTED
 		if(!Global.sentOnEnterGame)
 		{
 			UnityAnalyticsHelper.EnterOnGame();
 			Global.sentOnEnterGame = true;
 		}
+		#endif
 
 		SoundController.Instance.CrossFadeMusic(SoundController.Musics.GameTheme, 1f);
 
