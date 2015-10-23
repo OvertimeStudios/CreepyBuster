@@ -363,9 +363,9 @@ MonoBehaviour:
     killStreak: 25
   - points: 60
     killStreak: 45
-  bossMeteor: {fileID: 0}
-  bossTwins: {fileID: 0}
-  bossIllusion: {fileID: 0}
+  bossMeteor: {fileID: 176214, guid: 7240fa1af9d86448fa15dcfe81856834, type: 2}
+  bossTwins: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
+  bossIllusion: {fileID: 109062, guid: 5a7840d6b72b34d8e9718d23b20562b4, type: 2}
   bossBattleCondition:
   - kills: 65
     bossMeteor: .75
@@ -2033,6 +2033,18 @@ Prefab:
       propertyPath: backgrounds.Array.data[0]
       value: 
       objectReference: {fileID: 102720, guid: 527349e8b2b7542fd835a5d91a4e6e05, type: 2}
+    - target: {fileID: 0}
+      propertyPath: bossIllusion
+      value: 
+      objectReference: {fileID: 109062, guid: 5a7840d6b72b34d8e9718d23b20562b4, type: 2}
+    - target: {fileID: 0}
+      propertyPath: bossMeteor
+      value: 
+      objectReference: {fileID: 176214, guid: 7240fa1af9d86448fa15dcfe81856834, type: 2}
+    - target: {fileID: 0}
+      propertyPath: bossTwins
+      value: 
+      objectReference: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 161138}

@@ -54,13 +54,6 @@ public class MenuController : MonoBehaviour
 
 	public static bool goToShop = false;
 
-	public float timeToStartGame = 3f;
-	private float timeCounter;
-	private float initialTapAndHoldRotation;
-	public float maxTapAndHoldRotation;
-
-	private GameObject trailRenderer;
-
 	private int achievementOrbsToGive;
 
 	//ADS
@@ -125,8 +118,6 @@ public class MenuController : MonoBehaviour
 		GameController.OnGameOver += ClosePanel;
 		GameController.OnGameOver += UpdateScore;
 		MenuController.OnPanelClosed += ShowAds;
-		FingerDetector.OnFingerDownEvent += OnFingerDown;
-		FingerDetector.OnFingerUpEvent += OnFingerUp;
 	}
 
 	void OnDisable()
@@ -136,8 +127,6 @@ public class MenuController : MonoBehaviour
 		GameController.OnGameOver -= ClosePanel;
 		GameController.OnGameOver -= UpdateScore;
 		MenuController.OnPanelClosed -= ShowAds;
-		FingerDetector.OnFingerDownEvent -= OnFingerDown;
-		FingerDetector.OnFingerUpEvent -= OnFingerUp;
 	}
 
 	// Use this for initialization
@@ -162,10 +151,6 @@ public class MenuController : MonoBehaviour
 		wallBottom = mainScreen.FindChild ("WallBottom").GetComponent<TweenPosition> ();
 		highScore = wallTop.transform.FindChild ("High Score").FindChild ("Score").GetComponent<UILabel> ();
 
-		initialTapAndHoldRotation = tapAndHold.GetComponent<Rotate> ().rotVel;
-
-		timeCounter = timeToStartGame;
-
 		hud.SetActive (false);
 		UpdateScore ();
 
@@ -176,18 +161,6 @@ public class MenuController : MonoBehaviour
 			Global.sentOnEnterMenu = true;
 		}
 		#endif
-	}
-
-	void OnFingerDown(FingerDownEvent e)
-	{
-		/*if(!wallTop.enabled)
-		{
-			if(e.Selection)
-			{
-				StopCoroutine("CountdownAborted");
-				StartCoroutine("CountdownBeginGame", e.Selection);
-			}
-		}*/
 	}
 
 	void Update()
@@ -212,53 +185,6 @@ public class MenuController : MonoBehaviour
 		}
 	}
 
-	IEnumerator CountdownBeginGame(GameObject selection)
-	{
-		timeCounter = timeToStartGame;
-		//float maxY = selection.transform.GetChild (0).localPosition.y;
-		trailRenderer = selection;
-
-		Rotate rotate = tapAndHold.GetComponent<Rotate> ();
-
-		while(timeCounter > 0)
-		{
-			timeCounter -= Time.deltaTime;
-
-			rotate.rotVel = initialTapAndHoldRotation + ((maxTapAndHoldRotation - initialTapAndHoldRotation) * ((timeToStartGame - timeCounter) / timeCounter));
-
-			yield return null;
-		}
-
-		rotate.rotVel = initialTapAndHoldRotation;
-		trailRenderer.SetActive(false);
-
-
-		OpenPanel();
-	}
-
-	void OnFingerUp(FingerUpEvent e)
-	{
-		/*if(!wallTop.enabled && timeCounter < timeToStartGame)
-		{
-			StopCoroutine("CountdownBeginGame");
-			StartCoroutine("CountdownAborted");
-		}*/
-	}
-
-	private IEnumerator CountdownAborted()
-	{
-		Rotate rotate = tapAndHold.GetComponent<Rotate> ();
-
-		while(timeCounter < timeToStartGame)
-		{
-			timeCounter += Time.deltaTime;
-			
-			rotate.rotVel = initialTapAndHoldRotation + ((maxTapAndHoldRotation - initialTapAndHoldRotation) * ((timeToStartGame - timeCounter) / timeCounter));
-			
-			yield return null;
-		}
-	}
-
 	public void TweenFinished()
 	{
 		wallTop.enabled = wallBottom.enabled = false;
@@ -276,9 +202,6 @@ public class MenuController : MonoBehaviour
 		}
 		else
 		{
-			if(trailRenderer != null)
-				trailRenderer.SetActive(true);
-
 			SoundController.Instance.CrossFadeMusic(SoundController.Musics.MainMenuTheme, 1f);
 
 			Time.timeScale = 1;
