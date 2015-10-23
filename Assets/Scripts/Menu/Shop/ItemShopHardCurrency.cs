@@ -22,11 +22,10 @@ public class ItemShopHardCurrency : MonoBehaviour
 	public Type type;
 	public Pack pack;
 	public int value;
-
-	#if IAP_IMPLEMENTED
-	private UILabel price;
-	private UILabel currency;
-	#endif
+	
+	[Header("For Developer")]
+	public UILabel price;
+	public UILabel currency;
 
 	void OnEnable()
 	{
@@ -47,8 +46,8 @@ public class ItemShopHardCurrency : MonoBehaviour
 	void Start()
 	{
 		#if IAP_IMPLEMENTED
-		currency = transform.FindChild("Price").FindChild("currency").GetComponent<UILabel>();
-		price = transform.FindChild("Price").FindChild("Label").GetComponent<UILabel>();
+		//currency = transform.FindChild("Price").FindChild("currency").GetComponent<UILabel>();
+		//price = transform.FindChild("Price").FindChild("Label").GetComponent<UILabel>();
 		#endif
 	}
 
@@ -69,8 +68,8 @@ public class ItemShopHardCurrency : MonoBehaviour
 
 	public void Purchase()
 	{
-		Debug.Log("Trying to purchase: " + productID);
 		#if IAP_IMPLEMENTED
+		Debug.Log("*************Trying to purchase: " + productID);
 		if(type == Type.Consumable)
 			IAPHelper.PurchaseConsumableProduct(productID, Callback);
 		else
@@ -78,7 +77,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 		#endif
 
 		#if UNITY_EDITOR
-		Popup.ShowBlank("Purchase not possible on Unity Editor", 2f);
+		//Popup.ShowBlank("Purchase not possible on Unity Editor", 2f);
 		#endif
 	}
 

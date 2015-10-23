@@ -258,10 +258,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88bb4979806945a6bc27c7e814fed3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  productID: com.overtimestudios.creepybuster.testeorbspackpp
+  productID: com.overtimestudios.creepybuster.orbpack01
   type: 0
   pack: 0
   value: 5000
+  price: {fileID: 11412702}
+  currency: {fileID: 11473094}
 --- !u!114 &11412702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -302,7 +304,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
-  mText: 0.99
+  mText: '----'
   mFontSize: 30
   mFontStyle: 0
   mAlignment: 0
@@ -368,7 +370,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
-  mText: 5.000
+  mText: 5,000
   mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
@@ -563,7 +565,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
-  mText: R$
+  mText: 
   mFontSize: 16
   mFontStyle: 0
   mAlignment: 0

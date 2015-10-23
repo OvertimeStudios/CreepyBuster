@@ -16,13 +16,13 @@ public enum IAPState
 
 public class IAPHelper : MonoBehaviour 
 {
-	#if IAP_IMPLEMENTED
 	private const string CONSUMABLE_PAYLOAD = "consume";
 	private const string NON_CONSUMABLE_PAYLOAD = "nonconsume";
 
 	public string androidPublicKey;
 	public string[] productsID;
 
+	#if IAP_IMPLEMENTED
 	private static bool isRestoring;
 
 	private static List<IAPProduct> productsReceived;
@@ -148,6 +148,8 @@ public class IAPHelper : MonoBehaviour
 		if(Debug.isDebugBuild)
 			GoogleIAB.enableLogging(true);
 
+		Debug.Log("**************GoogleIAB.init*********");
+
 		GoogleIAB.init( Instance.androidPublicKey );
 		#endif
 	}
@@ -212,6 +214,7 @@ public class IAPHelper : MonoBehaviour
 			_callback(IAPState.Processing, "");
 
 		#if UNITY_ANDROID
+		Debug.Log(string.Format("******GoogleIAB.purchaseProduct({0}, {1})****", productId, CONSUMABLE_PAYLOAD));
 		GoogleIAB.purchaseProduct( productId, CONSUMABLE_PAYLOAD );
 		#elif UNITY_IOS
 		StoreKitBinding.purchaseProduct( productId, 1 );
@@ -273,8 +276,10 @@ public class IAPHelper : MonoBehaviour
 
 	private void BillingSupported() 
 	{
-		Debug.Log("Billing is Supported");		
-		
+		Debug.Log("************Billing is Supported************");		
+
+		Debug.Log("************IAPHelper.RequestProductData(null)************");
+
 		//HACK: This saves some time
 		IAPHelper.RequestProductData(null);
 	}
@@ -286,6 +291,7 @@ public class IAPHelper : MonoBehaviour
 
 	private void PurchaseSuccessful(GooglePurchase purchase)
 	{
+		Debug.Log("****PURCHASE SUCCESSFUL");
 		if(purchase.developerPayload == CONSUMABLE_PAYLOAD)
 			ConsumeProduct(purchase.productId);
 
@@ -295,6 +301,7 @@ public class IAPHelper : MonoBehaviour
 
 	private void PurchaseFailed(string errmsg, int response)
 	{
+		Debug.Log("****PURCHASE FAILED");
 		if(_callback != null)
 			_callback(IAPState.Failed, errmsg);
 	}
@@ -333,9 +340,12 @@ public class IAPHelper : MonoBehaviour
 		if(_callback != null)
 			_callback(IAPState.Success, "");
 
-		Debug.Log("QueryInventorySucceededEvent");
-		Debug.Log("Products received: " + skus.Count);
-		Prime31.Utils.logObject( skus );
+		Debug.Log("************QueryInventorySucceededEvent************");
+		Debug.Log("************Products received: " + skus.Count);
+		foreach(GoogleSkuInfo info in skus)
+			Debug.Log(info.productId);
+
+		//Prime31.Utils.logObject( skus );
 	}
 
 	private void QueryInventoryFailedEvent(string errmsg)
@@ -343,7 +353,7 @@ public class IAPHelper : MonoBehaviour
 		if(_callback != null)
 			_callback(IAPState.Failed, errmsg);
 
-		Debug.Log("QueryInventoryFailedEvent " + errmsg);
+		Debug.Log("************QueryInventoryFailedEvent************ " + errmsg);
 	}
 #endif
 #endif
