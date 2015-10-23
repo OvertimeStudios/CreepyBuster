@@ -41,6 +41,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 47058b0b1b2304821b26c63233f2857b, type: 2}
   mSprites:
+  - name: arrow
+    x: 914
+    y: 22
+    width: 68
+    height: 68
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: background main
     x: 0
     y: 1609
@@ -85,6 +98,19 @@ MonoBehaviour:
     y: 1592
     width: 16
     height: 16
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: blank
+    x: 929
+    y: 978
+    width: 32
+    height: 32
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -237,8 +263,8 @@ MonoBehaviour:
     paddingTop: 15
     paddingBottom: 20
   - name: creepypedia_locked
-    x: 3473
-    y: 2758
+    x: 2950
+    y: 2577
     width: 340
     height: 323
     borderLeft: 0
@@ -250,8 +276,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: creepypedia_unlocked
-    x: 2950
-    y: 2577
+    x: 3473
+    y: 2758
     width: 340
     height: 323
     borderLeft: 0
@@ -458,8 +484,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 0
   - name: icon-flag-brazil
-    x: 984
-    y: 25
+    x: 2950
+    y: 2511
     width: 65
     height: 65
     borderLeft: 0
@@ -640,7 +666,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 3
   - name: icon-x
-    x: 914
+    x: 983
     y: 26
     width: 69
     height: 64
@@ -743,6 +769,19 @@ MonoBehaviour:
     paddingRight: 5
     paddingTop: 8
     paddingBottom: 0
+  - name: ring
+    x: 1398
+    y: 102
+    width: 186
+    height: 186
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 7
+    paddingRight: 7
+    paddingTop: 8
+    paddingBottom: 6
   - name: slider
     x: 2277
     y: 1115
