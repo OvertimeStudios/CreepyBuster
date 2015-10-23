@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 442450}
   - 114: {fileID: 11437234}
   m_Layer: 5
-  m_Name: Plasma Orbs
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,7 +111,7 @@ GameObject:
   - 4: {fileID: 440938}
   - 114: {fileID: 11491840}
   m_Layer: 5
-  m_Name: Label
+  m_Name: Plasma Orbs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
