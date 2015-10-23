@@ -532,7 +532,7 @@ public class MenuController : MonoBehaviour
 
 		#if UNITYADS_IMPLEMENTED
 		if(gamesCount % gamesToShowAd == 0)
-			UnityAdsHelper.ShowAd();
+			UnityAdsHelper.ShowSimpleAd();
 		#endif
 	}
 

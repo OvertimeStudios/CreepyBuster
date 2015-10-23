@@ -20333,7 +20333,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1018201372}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc4c916072604887af2e98b12ddca43, type: 3}
   m_Name: 
@@ -22527,7 +22527,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1145228466}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc4c916072604887af2e98b12ddca43, type: 3}
   m_Name: 
@@ -23334,7 +23334,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1226817773}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc4c916072604887af2e98b12ddca43, type: 3}
   m_Name: 
@@ -28769,7 +28769,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1517388708}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc4c916072604887af2e98b12ddca43, type: 3}
   m_Name: 
@@ -30061,7 +30061,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11456454, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
       propertyPath: androidGameID
-      value: 79229
+      value: 1010204
+      objectReference: {fileID: 0}
+    - target: {fileID: 11456454, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
+      propertyPath: iosGameID
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11456454, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a82768fe3a0a45be94675e46920f322, type: 2}
