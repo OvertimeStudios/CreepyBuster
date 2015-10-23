@@ -371,31 +371,31 @@ MonoBehaviour:
     bossMeteor: .75
     bossTwins: .25
     bossIllusion: 0
-  - kills: 130
+  - kills: 220
     bossMeteor: .25
     bossTwins: .649999976
     bossIllusion: .100000001
-  - kills: 250
+  - kills: 380
     bossMeteor: .100000001
     bossTwins: .25
     bossIllusion: .649999976
-  - kills: 350
+  - kills: 620
     bossMeteor: .400000006
     bossTwins: .300000012
     bossIllusion: .300000012
-  - kills: 500
+  - kills: 830
     bossMeteor: .200000003
     bossTwins: .300000012
     bossIllusion: .5
-  - kills: 750
+  - kills: 1100
     bossMeteor: .100000001
     bossTwins: .5
     bossIllusion: .400000006
-  - kills: 900
+  - kills: 1350
     bossMeteor: .5
     bossTwins: .400000006
     bossIllusion: .100000001
-  - kills: 1300
+  - kills: 1600
     bossMeteor: .349999994
     bossTwins: .100000001
     bossIllusion: .550000012
@@ -1847,7 +1847,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[1].kills
-      value: 130
+      value: 220
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[1].bossMeteor
@@ -1863,7 +1863,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[2].kills
-      value: 250
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[2].bossMeteor
@@ -1879,7 +1879,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[3].kills
-      value: 350
+      value: 620
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[3].bossMeteor
@@ -1895,7 +1895,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[4].kills
-      value: 500
+      value: 830
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[4].bossMeteor
@@ -1911,7 +1911,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[5].kills
-      value: 750
+      value: 1100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[5].bossMeteor
@@ -1927,7 +1927,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[6].kills
-      value: 900
+      value: 1350
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[6].bossMeteor
@@ -1943,7 +1943,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[7].kills
-      value: 1300
+      value: 1600
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[7].bossMeteor
