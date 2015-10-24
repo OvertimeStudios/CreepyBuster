@@ -14,11 +14,14 @@ public class EndScreen : MonoBehaviour
 	public UILabel totalOrbsLabel;
 
 	public Transform rewardButton;
+	public UISprite rewardGlow;
 
 	void OnEnable()
 	{
 		foreach(UIButton button in rewardButton.GetComponents<UIButton>())
 			button.isEnabled = true;
+
+		rewardGlow.enabled = true;
 
 		score.text = GameController.Score.ToString();
 		highScore.text = Global.HighScore.ToString();
@@ -67,5 +70,7 @@ public class EndScreen : MonoBehaviour
 
 		foreach(UIButton button in rewardButton.GetComponents<UIButton>())
 			button.isEnabled = false;
+
+		rewardGlow.enabled = false;
 	}
 }
