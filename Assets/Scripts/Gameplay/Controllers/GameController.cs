@@ -636,6 +636,8 @@ public class GameController : MonoBehaviour
 
 		Debug.Log ("ContinuePlaying");
 
+		ReachMaxLevel();
+
 		isGameRunning = true;
 		gameOver = false;
 
@@ -647,10 +649,12 @@ public class GameController : MonoBehaviour
 		UseInvencibility(timeInvencibleAfterContinue);
 
 		PauseGame(false);
+	}
 
-		//Popup.ShowBlank (Localization.Get ("FINGER_ON_SCREEN"));
-
-		//StartCoroutine (WaitForFingerDown ());
+	private void ReachMaxLevel()
+	{
+		while(!LevelDesign.IsPlayerMaxLevel)
+			StreakCount = LevelDesign.NextStreakToPlayerLevelUp;
 	}
 
 	private IEnumerator WaitForFingerDown()
@@ -838,23 +842,6 @@ public class GameController : MonoBehaviour
 
 	void OnFingerUp(FingerUpEvent e)
 	{
-		/*if(GameController.isGameRunning && !GameController.IsTutorialRunning)
-		{
-			ScreenFeedback.ShowDamage(timeInvencibleAfterDamage);
-			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.FingerOff));
-
-			if(OnGameEnding != null)
-				OnGameEnding();
-		}
-		else if(GameController.IsTutorialRunning && TutorialController.CanLose)
-		{
-			ScreenFeedback.ShowDamage(timeInvencibleAfterDamage);
-			StartCoroutine (ShowEndScreen (timeToShowGameOverScreen));
-
-			if(OnGameEnding != null)
-				OnGameEnding();
-		}*/
-
 		if(!isGameRunning) return;
 
 		if(!isPaused)
