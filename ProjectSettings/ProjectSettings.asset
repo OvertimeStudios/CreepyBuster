@@ -86,14 +86,14 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.overtimestudios.creepybuster
-  bundleVersion: 0.1.14
+  bundleVersion: 0.1.15
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   xboxOneDisableKinectGpuReservation: 0
   virtualRealitySupported: 0
   productGUID: 26c3b66c286a5457e866d9ff3970a86d
-  AndroidBundleVersionCode: 3
+  AndroidBundleVersionCode: 4
   AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -318,7 +318,7 @@ PlayerSettings:
   spritePackerPolicy: 
   scriptingDefineSymbols:
     4: 
-    7: EVERYPLAY_ANDROID;INFINITY_ORBS;DB_IMPLEMENTED;UNITYANALYTICS_IMPLEMENTED;UNITYADS_IMPLEMENTED;FACEBOOK_IMPLEMENTED;EVERYPLAY_IMPLEMENTED;IAP_IMPLEMENTED
+    7: EVERYPLAY_ANDROID;DB_IMPLEMENTED;UNITYANALYTICS_IMPLEMENTED;UNITYADS_IMPLEMENTED;FACEBOOK_IMPLEMENTED;EVERYPLAY_IMPLEMENTED;IAP_IMPLEMENTED
   metroPackageName: LightTests
   metroPackageLogo: 
   metroPackageLogo140: 

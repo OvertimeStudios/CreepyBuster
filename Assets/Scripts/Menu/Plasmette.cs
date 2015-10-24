@@ -56,6 +56,8 @@ public class Plasmette : MonoBehaviour
 	
 	private void OnFingerDown(FingerDownEvent e)
 	{
+		if(MenuController.activeMenu != MenuController.Menus.Main) return;
+
 		Vector3 click = Camera.main.ScreenToWorldPoint(e.Position);
 		click.z = initialPosition.z;
 		
@@ -101,7 +103,7 @@ public class Plasmette : MonoBehaviour
 		yield return new WaitForEndOfFrame();
 		yield return new WaitForEndOfFrame();
 
-		if(FingerDetector.IsFingerDown)
+		if(MenuController.activeMenu == MenuController.Menus.Main && FingerDetector.IsFingerDown)
 		{
 			Vector3 fingerPosition = Camera.main.ScreenToWorldPoint(FingerDetector.FingerPosition);
 			fingerPosition.z = myTransform.position.z;

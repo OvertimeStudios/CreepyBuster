@@ -21,7 +21,7 @@ public class MenuController : MonoBehaviour
 		HowToPlay,
 	}
 	
-	private static Menus activeMenu;
+	public static Menus activeMenu;
 
 	private static GameObject lastScreen;
 	private static GameObject activeScreen;
@@ -325,7 +325,7 @@ public class MenuController : MonoBehaviour
 
 		ActiveScreen = creditsScreen.gameObject;
 
-		activeMenu = Menus.Settings;
+		activeMenu = Menus.Credits;
 
 		MoveScreen (true);
 	}
