@@ -16,6 +16,16 @@ public class EndScreen : MonoBehaviour
 	public Transform rewardButton;
 	public UISprite rewardGlow;
 
+	public GameObject general;
+	public GameObject battleStats;
+
+	public UILabel kills;
+	public UILabel orbsCollected;
+	public UILabel timeInGame;
+	public UILabel powerUpsCollected;
+	public UILabel hitsTaken;
+	public UILabel longestKillStreak;
+
 	void OnEnable()
 	{
 		foreach(UIButton button in rewardButton.GetComponents<UIButton>())
@@ -40,6 +50,17 @@ public class EndScreen : MonoBehaviour
 
 		Global.TotalOrbs += totalOrbs;
 		Global.OrbsCollected += totalOrbs;
+
+		//fill game stats
+		kills.text = GameController.KillCount.ToString();
+		orbsCollected.text = GameController.orbsCollected.ToString();
+		timeInGame.text = string.Format("{0} s", (int)GameController.matchTime);
+		powerUpsCollected.text = (GameController.frozenCollected + GameController.deathRayCollected + 
+		                          GameController.invencibilityCollected + GameController.levelUpCollected).ToString();
+		hitsTaken.text = (GameController.hitsByBasic + GameController.hitsByBoomerang + GameController.hitsByZigZag +
+		                  GameController.hitsByCharger + GameController.hitsByLegion + GameController.hitsByFollower +
+		                  GameController.hitsByBoss1 + GameController.hitsByBoss2 + GameController.hitsByBoss3).ToString();
+		longestKillStreak.text = GameController.maxStreak.ToString();
 	}
 
 	public void AskDoubleOrbs()
@@ -72,5 +93,17 @@ public class EndScreen : MonoBehaviour
 			button.isEnabled = false;
 
 		rewardGlow.enabled = false;
+	}
+
+	public void OpenBattleStats()
+	{
+		general.SetActive(false);
+		battleStats.SetActive(true);
+	}
+
+	public void CloseBattleStats()
+	{
+		general.SetActive(true);
+		battleStats.SetActive(false);
 	}
 }

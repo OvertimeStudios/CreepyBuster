@@ -84,10 +84,10 @@ public class GameController : MonoBehaviour
 	private static int boss2Killed;
 	private static int boss3Killed;
 
-	private static int frozenCollected;
-	private static int levelUpCollected;
-	private static int invencibilityCollected;
-	private static int deathRayCollected;
+	public static int frozenCollected;
+	public static int levelUpCollected;
+	public static int invencibilityCollected;
+	public static int deathRayCollected;
 
 	public static int enemiesMissed;
 	public static int orbsMissed;
@@ -97,9 +97,9 @@ public class GameController : MonoBehaviour
 
 	private static int bossEncounters;
 
-	private static int maxStreak;
+	public static int maxStreak;
 
-	private static float matchTime;
+	public static float matchTime;
 	public static float energySpent;
 
 	public static int hitsByBasic;
