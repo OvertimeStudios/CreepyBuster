@@ -86,6 +86,14 @@ public class LightBehaviour : MonoBehaviour
 		trailRenderer.material.SetColor("_TintColor", c);
 
 		outter.color = LevelDesign.CurrentColor;
+
+		AudioSource aSource = GetComponent<AudioSource>();
+		if(LevelDesign.PlayerLevel == 0)
+			aSource.clip = SoundController.Instance.GetSound(SoundController.SoundFX.AttackLoop);
+		else if(LevelDesign.PlayerLevel <= 2)
+			aSource.clip = SoundController.Instance.GetSound(SoundController.SoundFX.AttackLoop2);
+		else
+			aSource.clip = SoundController.Instance.GetSound(SoundController.SoundFX.AttackLoop3);
 	}
 
 	void FixedUpdate()

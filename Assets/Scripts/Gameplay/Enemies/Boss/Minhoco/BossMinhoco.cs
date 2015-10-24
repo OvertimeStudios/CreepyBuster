@@ -186,6 +186,8 @@ public class BossMinhoco : MonoBehaviour
 			Time.timeScale = 0.2f;
 			ScreenFeedback.ShowBlank(enemyLife.deathTime, 0.5f);
 		}
+		else
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.BossTwinDie);
 		
 		CameraShake cameraShake = GetComponent<CameraShake>();
 		cameraShake.Shake(enemyLife.deathTime);

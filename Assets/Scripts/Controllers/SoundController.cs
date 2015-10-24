@@ -20,6 +20,8 @@ public class SoundController : MonoBehaviour
 		Pause,
 		Resume,
 		AttackLoop,
+		AttackLoop2,
+		AttackLoop3,
 		AttackStart,
 		OrbPP,
 		OrbP,
@@ -34,6 +36,7 @@ public class SoundController : MonoBehaviour
 		MenuOut,
 		MenuScroll,
 		ShopBuy,
+		Achievement,
 		PlayerDamage,
 		LevelUp,
 		BossMeteorIdle,
@@ -41,6 +44,7 @@ public class SoundController : MonoBehaviour
 		BossMeteorDrop,
 		BossTwinsIdle,
 		BossTwinsDamage,
+		BossTwinDie,
 		BossIllusionIdle,
 		BossIllusionMultiply,
 		BossIllusionDamage,
@@ -64,7 +68,11 @@ public class SoundController : MonoBehaviour
 	public AudioClip pause;
 	public AudioClip resume;
 	public AudioClip attackLoop;
+	public AudioClip attackLoop2;
+	public AudioClip attackLoop3;
 	public AudioClip attackStart;
+	public AudioClip attackStart2;
+	public AudioClip attackStart3;
 	public AudioClip orbPP;
 	public AudioClip orbP;
 	public AudioClip orbM;
@@ -79,6 +87,7 @@ public class SoundController : MonoBehaviour
 	public AudioClip menuOut;
 	public AudioClip menuScroll;
 	public AudioClip shopBuy;
+	public AudioClip achievement;
 	public AudioClip levelUp;
 	public AudioClip bossMeteorIdle;
 	public AudioClip bossMeteorDamage;
@@ -87,6 +96,7 @@ public class SoundController : MonoBehaviour
 	public AudioClip meteorDrop3;
 	public AudioClip bossTwinsIdle;
 	public AudioClip bossTwinsDamage;
+	public AudioClip bossTwinsDie;
 	public AudioClip bossIllusionIdle;
 	public AudioClip bossIllusionMultiply;
 	public AudioClip bossIllusionDamage;
@@ -130,8 +140,11 @@ public class SoundController : MonoBehaviour
 		AudioSource[] sources = GetComponents<AudioSource>();
 		
 		audioSourceMusic = sources[0];
+		audioSourceMusic.clip = mainMenuTheme;
 		audioSourceMusic2 = sources[1];
+		audioSourceMusic2.clip = gameTheme;
 		audioSourceMusic3 = sources[2];
+		audioSourceMusic3.clip = bossTheme;
 		audioSourceSoundFX = sources[3];
 
 		currentMusic = Musics.MainMenuTheme;
@@ -302,8 +315,23 @@ public class SoundController : MonoBehaviour
 				s = attackLoop;
 			break;
 
+			case SoundFX.AttackLoop2:
+				s = attackLoop2;
+			break;
+
+			case SoundFX.AttackLoop3:
+				s = attackLoop3;
+			break;
+
 			case SoundFX.AttackStart:
-				s = attackStart;
+				float rnd = Random.Range(0f, 1f);
+				
+				if(rnd < 0.33f)
+					s = attackStart;
+				else if(rnd < 0.66f)
+					s = attackStart2;
+				else
+					s = attackStart3;
 			break;
 
 			case SoundFX.Click:
@@ -358,6 +386,10 @@ public class SoundController : MonoBehaviour
 				s = shopBuy;
 			break;
 
+			case SoundFX.Achievement:
+				s = achievement;
+			break;
+
 			case SoundFX.DeathRay:
 				s = deathRay;
 			break;
@@ -387,7 +419,7 @@ public class SoundController : MonoBehaviour
 			break;
 
 			case SoundFX.BossMeteorDrop:
-				float rnd = Random.Range(0f, 1f);
+				rnd = Random.Range(0f, 1f);
 
 				if(rnd < 0.33f)
 					s = meteorDrop1;
@@ -403,6 +435,10 @@ public class SoundController : MonoBehaviour
 
 			case SoundFX.BossTwinsDamage:
 				s = bossTwinsDamage;
+			break;
+
+			case SoundFX.BossTwinDie:
+				s = bossTwinsDie;
 			break;
 
 			case SoundFX.BossIllusionIdle:

@@ -31,7 +31,6 @@ public class BossLife : EnemyLife
 				OnBossDied(gameObject);
 		}
 	
-
 		SpawnController.Instance.SpawnOrbs(orbsToDrop, transform.position, spread);
 	}
 }

@@ -228,6 +228,8 @@ public class MenuController : MonoBehaviour
 			AchievementUnlocked a = achievements[0];
 			achievementOrbsToGive = a.orbReward;
 
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Achievement);
+
 			Popup.ShowOk(string.Format(Localization.Get("ACHIEVEMENT_UNLOCKED"), a.title, a.orbReward), GiveAchievementOrbs);
 
 			Achievement.achievementRecentUnlocked.Remove(a);

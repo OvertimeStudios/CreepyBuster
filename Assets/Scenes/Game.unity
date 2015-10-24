@@ -4859,7 +4859,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 767bd294221d0463b85b34d19cec9e01, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3801a92044af84b5587211c98b081cef, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -6476,14 +6476,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9721c8feb44eb4042ab0108e8febb1d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuTheme: {fileID: 8300000, guid: 1734bf0eab1f84cda973e411274a5b78, type: 3}
-  gameTheme: {fileID: 8300000, guid: 036dc6bb706f748359ac485fcef37ceb, type: 3}
-  bossTheme: {fileID: 8300000, guid: 4b85a7723ead844ba9436483b173467b, type: 3}
+  mainMenuTheme: {fileID: 8300000, guid: a0eeaaedd14d543eeb95e1f480526dfe, type: 3}
+  gameTheme: {fileID: 8300000, guid: 66c841cd326e242669ed7f9e13d12c3e, type: 3}
+  bossTheme: {fileID: 8300000, guid: e58e785a374dd4abfb45b39bff9280f4, type: 3}
   enemyDie: {fileID: 8300000, guid: adcdf8153c46f46189bd142413a0f17e, type: 3}
   pause: {fileID: 8300000, guid: 9b02fb1f37e0649a898377a229c4f19c, type: 3}
   resume: {fileID: 8300000, guid: e0cbed9bbf67248658196be8947f5922, type: 3}
-  attackLoop: {fileID: 8300000, guid: 7c812c9cbc0bc4e32a477b05cb8c3760, type: 3}
-  attackStart: {fileID: 8300000, guid: d6f0a6755306945f4b9e6655719bd172, type: 3}
+  attackLoop: {fileID: 8300000, guid: a90193296a2ae4fcd887877055b84413, type: 3}
+  attackLoop2: {fileID: 8300000, guid: 26cf890fab8f344bd8db0fa70238b5d9, type: 3}
+  attackLoop3: {fileID: 8300000, guid: a4fe7325fde564233bbdab35edf881b3, type: 3}
+  attackStart: {fileID: 8300000, guid: be9892ae94e5a4dbe8abce6326cad8fb, type: 3}
+  attackStart2: {fileID: 8300000, guid: 380f6aeead64046e587c3cfdbfdf5e22, type: 3}
+  attackStart3: {fileID: 8300000, guid: b2d8a2d1e8a5e4ab890d93b0a062b533, type: 3}
   orbPP: {fileID: 8300000, guid: 15eceadde88ab4bf99af1a01d804620f, type: 3}
   orbP: {fileID: 8300000, guid: 90dfb3627da8247fd8110881b09b13da, type: 3}
   orbM: {fileID: 8300000, guid: 5b071750f05da44748880aab32d74343, type: 3}
@@ -6491,13 +6495,14 @@ MonoBehaviour:
   freeze: {fileID: 8300000, guid: 72a15674597194a0fb5d82c1a1e3e0c8, type: 3}
   deathRay: {fileID: 8300000, guid: bd7f51ddc6fac4842a72d03770d7ce3c, type: 3}
   powerUpCollect: {fileID: 8300000, guid: 9ef8f2f5e69034457b180f3df3c9e30d, type: 3}
-  score: {fileID: 8300000, guid: 6b0bc4796d8ce430ea29adaf1a8fb642, type: 3}
+  score: {fileID: 8300000, guid: 38f6df70aa83e4ed79e72045c4dcf33a, type: 3}
   playerDamage: {fileID: 8300000, guid: 270cc4fdf174e4e509660fa18d3a7cb2, type: 3}
-  click: {fileID: 8300000, guid: e07a2955acb6f48d29a908d687c9aec7, type: 3}
+  click: {fileID: 8300000, guid: b9d0b10b7e4264818a8558bd8150c1ba, type: 3}
   menuIn: {fileID: 8300000, guid: 4ff63f0e73fe642d9aa3e26697f7a449, type: 3}
   menuOut: {fileID: 8300000, guid: eaf0c403fe67044dfa3de82302be7d64, type: 3}
   menuScroll: {fileID: 8300000, guid: 556eeb323734b40c2a6c52c69fbaa912, type: 3}
   shopBuy: {fileID: 8300000, guid: 1a578718c941a4d09bce4d9aeea12588, type: 3}
+  achievement: {fileID: 8300000, guid: 70e4ffa0db2934d0fb5150b7503e1eee, type: 3}
   levelUp: {fileID: 8300000, guid: d31a4cd4673ad46948efb6d42dc14a3d, type: 3}
   bossMeteorIdle: {fileID: 8300000, guid: 060826e347ef64937a67c69fd98ebc50, type: 3}
   bossMeteorDamage: {fileID: 8300000, guid: f3cbc215e028d49acac55600b95ef2c2, type: 3}
@@ -6505,12 +6510,13 @@ MonoBehaviour:
   meteorDrop2: {fileID: 8300000, guid: a6101f6b44ca24423a21781b57843537, type: 3}
   meteorDrop3: {fileID: 8300000, guid: 98b4b4f497a0640d7b59695f73a7952b, type: 3}
   bossTwinsIdle: {fileID: 8300000, guid: afab37f397a8740dbad172c13b214704, type: 3}
-  bossTwinsDamage: {fileID: 8300000, guid: e7df5e578d94e49849ceb3143d553ccb, type: 3}
+  bossTwinsDamage: {fileID: 8300000, guid: 52a1caf6ea2824b41890a195be2545b4, type: 3}
+  bossTwinsDie: {fileID: 8300000, guid: 0a189ee0de14d425bad80363f5b8dbe2, type: 3}
   bossIllusionIdle: {fileID: 8300000, guid: b38f41089eabb4a5da28de243ef6f2e3, type: 3}
   bossIllusionMultiply: {fileID: 8300000, guid: ef928ddbbedc54062bffc551bf346e0a,
     type: 3}
   bossIllusionDamage: {fileID: 8300000, guid: ac83754ac67b948f3b35b8ee23b3fd5d, type: 3}
-  bossDie: {fileID: 8300000, guid: 88a3d415757f642eb95dd4d461df4b9a, type: 3}
+  bossDie: {fileID: 8300000, guid: de7b3b9fb7977438aae9f3a046ecb279, type: 3}
 --- !u!82 &325961668
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6520,7 +6526,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1734bf0eab1f84cda973e411274a5b78, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a0eeaaedd14d543eeb95e1f480526dfe, type: 3}
   m_PlayOnAwake: 1
   m_Volume: .200000003
   m_Pitch: 1
@@ -6590,7 +6596,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 036dc6bb706f748359ac485fcef37ceb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 66c841cd326e242669ed7f9e13d12c3e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: .200000003
   m_Pitch: 1
@@ -6730,7 +6736,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4b85a7723ead844ba9436483b173467b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e58e785a374dd4abfb45b39bff9280f4, type: 3}
   m_PlayOnAwake: 0
   m_Volume: .200000003
   m_Pitch: 1
@@ -9669,6 +9675,100 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!1 &460431212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 460431213}
+  - 114: {fileID: 460431214}
+  m_Layer: 5
+  m_Name: Label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &460431213
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 460431212}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 636626838}
+  m_RootOrder: 1
+--- !u!114 &460431214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 460431212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d0b5f3bbe925a408bd595c79d0bf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  updateAnchors: 1
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 232
+  mHeight: 47
+  mDepth: 25
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: 4.9361701
+  keepCrispWhenShrunk: 1
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
+  mText: Login with Facebook
+  mFontSize: 18
+  mFontStyle: 0
+  mAlignment: 0
+  mEncoding: 1
+  mMaxLineCount: 0
+  mEffectStyle: 0
+  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
+  mSymbols: 1
+  mEffectDistance: {x: 1, y: 1}
+  mOverflow: 0
+  mMaterial: {fileID: 0}
+  mApplyGradient: 0
+  mGradientTop: {r: 1, g: 1, b: 1, a: 1}
+  mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
+  mSpacingX: 0
+  mSpacingY: 0
+  mUseFloatSpacing: 0
+  mFloatSpacingX: 0
+  mFloatSpacingY: 0
+  mOverflowEllipsis: 0
+  mShrinkToFit: 0
+  mMaxLineWidth: 0
+  mMaxLineHeight: 0
+  mLineWidth: 0
+  mMultiline: 1
 --- !u!1 &463205766
 GameObject:
   m_ObjectHideFlags: 0
@@ -11879,7 +11979,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dfbe14cb0486e4135892678badcf8e89, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 49ce60acc10294525a91657c212492ee, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -12769,7 +12869,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 636626838}
   - 114: {fileID: 636626841}
-  - 114: {fileID: 636626840}
   - 61: {fileID: 636626839}
   m_Layer: 5
   m_Name: FB - Login
@@ -12787,7 +12886,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -.400000006, y: -243.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1077960041}
+  - {fileID: 460431213}
   m_Father: {fileID: 67642260}
   m_RootOrder: 9
 --- !u!61 &636626839
@@ -12803,56 +12904,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 292, y: 61}
---- !u!114 &636626840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 636626837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 4
-  mWidth: 292
-  mHeight: 61
-  mDepth: 23
-  autoResizeBoxCollider: 1
-  hideIfOffScreen: 0
-  keepAspectRatio: 1
-  aspectRatio: 4.81818199
-  mType: 0
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
-  mFlip: 0
-  centerType: 1
-  leftType: 1
-  rightType: 1
-  bottomType: 1
-  topType: 1
-  mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
-  mSpriteName: icon-facebook
-  mFillCenter: 1
 --- !u!114 &636626841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20417,6 +20468,84 @@ MonoBehaviour:
   mAtlas: {fileID: 0}
   mSpriteName: 
   mFillCenter: 1
+--- !u!1 &1077960040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1077960041}
+  - 114: {fileID: 1077960042}
+  m_Layer: 5
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1077960041
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1077960040}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 636626838}
+  m_RootOrder: 0
+--- !u!114 &1077960042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1077960040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  updateAnchors: 1
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 291
+  mHeight: 61
+  mDepth: 24
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 1
+  aspectRatio: 4.76923084
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+  mFlip: 0
+  centerType: 1
+  leftType: 1
+  rightType: 1
+  bottomType: 1
+  topType: 1
+  mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
+  mSpriteName: "Bota\u0301o_FB"
+  mFillCenter: 1
 --- !u!1001 &1078030540
 Prefab:
   m_ObjectHideFlags: 0
@@ -23017,10 +23146,6 @@ Prefab:
     - target: {fileID: 412946, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
-      propertyPath: bossBattleCondition.Array.data[1].kills
-      value: 220
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}

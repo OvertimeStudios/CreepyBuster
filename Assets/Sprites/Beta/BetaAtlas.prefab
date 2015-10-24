@@ -119,6 +119,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: "Bota\u0301o_FB"
+    x: 1081
+    y: 789
+    width: 744
+    height: 155
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: BOTAO_RANGE
     x: 577
     y: 746
@@ -212,7 +225,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button-rect-blue-wide
     x: 1398
-    y: 847
+    y: 507
     width: 736
     height: 128
     borderLeft: 0
@@ -238,7 +251,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button-square-blue
     x: 1081
-    y: 663
+    y: 323
     width: 316
     height: 312
     borderLeft: 0
@@ -380,8 +393,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon_arrow
-    x: 1957
-    y: 1018
+    x: 1898
+    y: 1019
     width: 151
     height: 110
     borderLeft: 0
@@ -394,7 +407,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-achievements
     x: 1081
-    y: 417
+    y: 77
     width: 209
     height: 245
     borderLeft: 0
@@ -406,8 +419,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-atom
-    x: 2146
-    y: 1211
+    x: 2050
+    y: 1027
     width: 130
     height: 102
     borderLeft: 0
@@ -458,8 +471,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-dollar
-    x: 1291
-    y: 435
+    x: 2197
+    y: 1196
     width: 75
     height: 117
     borderLeft: 0
@@ -472,7 +485,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-facebook
     x: 1081
-    y: 976
+    y: 636
     width: 739
     height: 152
     borderLeft: 0
@@ -536,8 +549,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-orb
-    x: 1398
-    y: 490
+    x: 1879
+    y: 35
     width: 216
     height: 206
     borderLeft: 0
@@ -549,8 +562,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtime
-    x: 1291
-    y: 553
+    x: 1826
+    y: 835
     width: 103
     height: 109
     borderLeft: 0
@@ -562,8 +575,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtimehub
-    x: 2109
-    y: 995
+    x: 2181
+    y: 996
     width: 93
     height: 133
     borderLeft: 0
@@ -575,8 +588,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: icon-range
-    x: 1398
-    y: 289
+    x: 2336
+    y: 2309
     width: 210
     height: 200
     borderLeft: 0
@@ -601,7 +614,7 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 2
   - name: icon-shopping
-    x: 2019
+    x: 2070
     y: 1166
     width: 126
     height: 147
@@ -627,8 +640,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-vibrate
-    x: 1081
-    y: 27
+    x: 1655
+    y: 39
     width: 223
     height: 202
     borderLeft: 0
@@ -653,8 +666,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-videoplus
-    x: 1821
-    y: 997
+    x: 1762
+    y: 998
     width: 135
     height: 131
     borderLeft: 0
@@ -705,8 +718,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: minion_branco
-    x: 1081
-    y: 230
+    x: 1398
+    y: 55
     width: 256
     height: 186
     borderLeft: 0
@@ -718,7 +731,7 @@ MonoBehaviour:
     paddingTop: 18
     paddingBottom: 17
   - name: minion_transparente
-    x: 1762
+    x: 1813
     y: 1130
     width: 256
     height: 183
@@ -732,7 +745,7 @@ MonoBehaviour:
     paddingBottom: 14
   - name: rect-black
     x: 1398
-    y: 697
+    y: 357
     width: 579
     height: 149
     borderLeft: 55
@@ -745,9 +758,35 @@ MonoBehaviour:
     paddingBottom: 7
   - name: rect-black-2
     x: 1081
-    y: 1129
+    y: 945
     width: 680
     height: 184
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: red_button
+    x: 1398
+    y: 242
+    width: 660
+    height: 114
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: red_glow
+    x: 1081
+    y: 1130
+    width: 731
+    height: 183
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -770,8 +809,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 0
   - name: ring
-    x: 1398
-    y: 102
+    x: 2547
+    y: 2323
     width: 186
     height: 186
     borderLeft: 0
