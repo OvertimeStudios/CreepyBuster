@@ -203,7 +203,7 @@ MonoBehaviour:
     - enemy: {fileID: 148940, guid: f9400ab3e460348a297ea7029c7aa5b0, type: 2}
       percent: .100000001
   - points: 500
-    killStreak: 380650
+    killStreak: 380
     enemies:
     - enemy: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
       percent: .200000003
@@ -308,7 +308,7 @@ MonoBehaviour:
     quantity: 3
   - points: 115
     killStreak: 85
-    time: 2.70000005
+    time: 2.5
     quantity: 2
   - points: 140
     killStreak: 115
@@ -1027,7 +1027,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[13].killStreak
-      value: 380650
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[14].points
@@ -1479,7 +1479,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[7].time
-      value: 2.70000005
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[8].time
