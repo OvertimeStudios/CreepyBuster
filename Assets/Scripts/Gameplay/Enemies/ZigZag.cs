@@ -3,6 +3,12 @@ using System.Collections;
 
 public class ZigZag : EnemyMovement 
 {
+	enum Side
+	{
+		Right,
+		Left,
+	}
+
 	private Rigidbody2D myRigidbody2D;
 
 	public float vel;
@@ -13,6 +19,8 @@ public class ZigZag : EnemyMovement
 	private Vector2 sideVelocity;
 	private Vector2 frontVelocity;
 	private Vector2 finalVelocity;
+
+	private Side lastSide;
 
 	private bool isSlowed;
 	private bool isFrozen;
@@ -59,6 +67,7 @@ public class ZigZag : EnemyMovement
 		yield return new WaitForEndOfFrame();
 
 		int dir = 1;
+		lastSide = Side.Right;
 
 		Vector3 viewportPosition = Camera.main.WorldToViewportPoint (transform.position);
 		if((viewportPosition.x < 0 && viewportPosition.y > 0.5f) ||
@@ -67,13 +76,18 @@ public class ZigZag : EnemyMovement
 		   (viewportPosition.y > 1 && viewportPosition.x > 0.5f))
 		{
 			dir = -1;
+			lastSide = Side.Left;
 		}
 
 		sideVelocity = (Vector2)transform.up * dir;
 		frontVelocity = (Vector2)transform.right;
 		finalVelocity = (frontVelocity + sideVelocity).normalized;
 
-		myAnimator.SetInteger ("State", (myAnimator.GetInteger("State") == 1) ? 0 : 1);
+		myAnimator.SetInteger ("State", (lastSide == Side.Right) ? 0 : 1);
+
+		yield return new WaitForEndOfFrame();
+
+		myAnimator.SetInteger("State", 2);
 
 		angle = Mathf.Atan2 (finalVelocity.y, finalVelocity.x) * Mathf.Rad2Deg;
 		
@@ -87,6 +101,11 @@ public class ZigZag : EnemyMovement
 		if(!isFrozen)
 			ChangeDirection ();
 
+		yield return new WaitForEndOfFrame();
+		yield return new WaitForEndOfFrame();
+
+		myAnimator.SetInteger("State", 2);
+
 		StartCoroutine (ChangeDirection (timeToChangeDirection.Random ()));
 	}
 
@@ -98,7 +117,9 @@ public class ZigZag : EnemyMovement
 
 		angle = Mathf.Atan2 (finalVelocity.y, finalVelocity.x) * Mathf.Rad2Deg;
 
-		myAnimator.SetInteger ("State", (myAnimator.GetInteger("State") == 0) ? 1 : 0);
+		lastSide = (lastSide == Side.Left) ? Side.Right : Side.Left;
+
+		myAnimator.SetInteger ("State", (lastSide == Side.Right) ? 0 : 1);
 	}
 
 	protected override void Update()

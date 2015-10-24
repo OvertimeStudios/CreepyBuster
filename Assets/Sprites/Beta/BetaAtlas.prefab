@@ -328,8 +328,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Feedback_de_Dano
-    x: 1081
-    y: 1314
+    x: 2277
+    y: 2901
     width: 1195
     height: 1195
     borderLeft: 200
@@ -354,8 +354,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Feedback-de-invencibilidade
-    x: 2277
-    y: 2901
+    x: 1081
+    y: 1314
     width: 1195
     height: 1195
     borderLeft: 10
