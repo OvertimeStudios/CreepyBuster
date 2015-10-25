@@ -31831,7 +31831,7 @@ MonoBehaviour:
   tapAndHold: {fileID: 0}
   hud: {fileID: 2010442020}
   gamesToShowAd: 3
-  gamesToShowRate: 1
+  gamesToShowRate: 10
   menuTween: {fileID: 879999270}
   mainScreen: {fileID: 2073757269}
   shopScreen: {fileID: 961774489}

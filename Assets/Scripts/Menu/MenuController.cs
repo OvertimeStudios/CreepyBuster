@@ -468,6 +468,8 @@ public class MenuController : MonoBehaviour
 
 	private void ShowRate()
 	{
+		if(Global.Rated) return;
+
 		if(gamesCount % gamesToShowRate == 0)
 			Popup.ShowYesNo(Localization.Get("RATE_US"), OpenStoreToRate, null);
 	}
@@ -484,7 +486,12 @@ public class MenuController : MonoBehaviour
 	public void MoreGames()
 	{
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
-		Application.OpenURL ("http://www.overtimestudios.com/games.php");
+
+		#if UNITY_ANDROID
+		Application.OpenURL("market://developer?id=Overtime+Studios");
+		#elif UNITY_IPHONE
+		Application.OpenURL("itms-apps://itunes.apple.com/app/idYOUR_ID");
+		#endif
 	}
 
 	public void FacebookLogin()
