@@ -78,7 +78,8 @@ public class Plasmette : MonoBehaviour
 	
 	private void OnFingerUp(FingerUpEvent e)
 	{
-		StartCoroutine(StopSpinning());
+		if(gameObject.activeInHierarchy)
+			StartCoroutine(StopSpinning());
 	}
 	
 	private IEnumerator FollowWaypoint()

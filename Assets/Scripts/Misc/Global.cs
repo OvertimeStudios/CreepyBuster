@@ -7,12 +7,11 @@ public class Global : MonoBehaviour
 	#region Action
 	public static event Action OnOrbUpdated;
 	public static event Action OnPurchasesCleared;
-	public static event Action OnLoggedIn;
-	public static event Action OnLoggedOut;
 	#endregion
 
 	#region keys
 	private const string FIRST_PLAY = "firstPlay";
+	private const string RATED = "rated";
 	public const string REWARDED_VIDEO_COOLDOWN = "rewardedVideoCooldown";
 	private const string TOTAL_ORBS = "totalOrbs";
 	private const string HIGH_SCORE = "highScore";
@@ -104,11 +103,11 @@ public class Global : MonoBehaviour
 	{
 		get 
 		{ 
-			#if FB_IMPLEMENTED 
+			#if FACEBOOK_IMPLEMENTED 
 			return FacebookController.User; 
-			#endif
-
+			#else
 			return null;
+			#endif
 		}
 	}
 
@@ -318,6 +317,17 @@ public class Global : MonoBehaviour
 	public static bool FirstPlay
 	{
 		get { return !PlayerPrefs.HasKey (FIRST_PLAY); }
+	}
+
+	public static bool Rated
+	{
+		get { return PlayerPrefs.HasKey (RATED); }
+
+		set
+		{
+			PlayerPrefs.SetInt(RATED, 1);
+			PlayerPrefs.Save();
+		}
 	}
 
 	public static bool IsFirstTimeTutorial

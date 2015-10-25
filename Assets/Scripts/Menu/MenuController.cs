@@ -59,6 +59,9 @@ public class MenuController : MonoBehaviour
 	//ADS
 	public int gamesToShowAd;
 	private int gamesCount;
+
+	//Rate
+	public int gamesToShowRate;
 	
 	public static float timeSpentOnMenu;
 
@@ -118,6 +121,7 @@ public class MenuController : MonoBehaviour
 		GameController.OnGameOver += ClosePanel;
 		GameController.OnGameOver += UpdateScore;
 		MenuController.OnPanelClosed += ShowAds;
+		MenuController.OnPanelClosed += ShowRate;
 	}
 
 	void OnDisable()
@@ -127,6 +131,7 @@ public class MenuController : MonoBehaviour
 		GameController.OnGameOver -= ClosePanel;
 		GameController.OnGameOver -= UpdateScore;
 		MenuController.OnPanelClosed -= ShowAds;
+		MenuController.OnPanelClosed -= ShowRate;
 	}
 
 	// Use this for initialization
@@ -205,6 +210,8 @@ public class MenuController : MonoBehaviour
 			SoundController.Instance.CrossFadeMusic(SoundController.Musics.MainMenuTheme, 1f);
 
 			Time.timeScale = 1;
+
+			gamesCount++;
 
 			if(OnPanelClosed != null)
 				OnPanelClosed();
@@ -453,11 +460,24 @@ public class MenuController : MonoBehaviour
 	{
 		if(Global.IsAdFree) return;
 
-		gamesCount++;
-
 		#if UNITYADS_IMPLEMENTED
 		if(gamesCount % gamesToShowAd == 0)
 			UnityAdsHelper.ShowSimpleAd();
+		#endif
+	}
+
+	private void ShowRate()
+	{
+		if(gamesCount % gamesToShowRate == 0)
+			Popup.ShowYesNo(Localization.Get("RATE_US"), OpenStoreToRate, null);
+	}
+
+	private void OpenStoreToRate()
+	{
+		#if UNITY_ANDROID
+		Application.OpenURL("market://details?id=com.overtimestudios.creepybuster");
+		#elif UNITY_IPHONE
+		Application.OpenURL("itms-apps://itunes.apple.com/app/idYOUR_ID");
 		#endif
 	}
 

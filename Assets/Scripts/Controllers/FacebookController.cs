@@ -96,6 +96,11 @@ public class FacebookController : MonoBehaviour
 		}
 	}
 
+	public void LikeUs()
+	{
+		Application.OpenURL("https://www.facebook.com/" + 1663775267187885);
+	}
+
 	public void Logout()
 	{
 		FacebookHelper.Logout ();

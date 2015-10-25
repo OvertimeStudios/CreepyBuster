@@ -12,7 +12,8 @@ public class Ranking : MonoBehaviour
 
 		worldRank.text = "Not logged in";
 
-		#if FB_IMPLEMENTED
+		#if FACEBOOK_IMPLEMENTED
+		Debug.Log(FacebookController.IsLoggedIn);
 		if(FacebookController.IsLoggedIn)
 			worldRank.text = "#" + DBHandler.GetUserRanking(DBHandler.User.id, DBController.gameID);
 		#endif

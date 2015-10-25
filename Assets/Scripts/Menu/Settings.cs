@@ -13,8 +13,9 @@ public class Settings : MonoBehaviour
 	#endregion
 	#endif
 
-	private GameObject logout;
-	//private UILabel greeting;
+	public GameObject fbLogin;
+	public GameObject fbLogout;
+	public GameObject likeUs;
 
 	void Awake()
 	{
@@ -26,14 +27,14 @@ public class Settings : MonoBehaviour
 	{
 		HandleLoginSection ();
 
-		Global.OnLoggedIn += HandleLoginSection;
-		Global.OnLoggedOut += HandleLoginSection;
+		FacebookController.OnLoggedIn += HandleLoginSection;
+		FacebookController.OnLoggedOut += HandleLoginSection;
 	}
 
 	void OnDisable()
 	{
-		Global.OnLoggedIn -= HandleLoginSection;
-		Global.OnLoggedOut -= HandleLoginSection;
+		FacebookController.OnLoggedIn -= HandleLoginSection;
+		FacebookController.OnLoggedOut -= HandleLoginSection;
 
 		ChangeLanguage changeLanguage = transform.FindChild("Language").GetComponent<ChangeLanguage>();
 		if(changeLanguage.opened)
@@ -42,19 +43,17 @@ public class Settings : MonoBehaviour
 
 	private void HandleLoginSection()
 	{
-		if(Global.IsLoggedIn)
+		if(FB.IsLoggedIn)
 		{
-			//greeting.text = "Hello" + ", " + Global.user.firstname;
-			//greeting.gameObject.GetComponent<Collider2D>().enabled = false;
-			//greeting.gameObject.GetComponent<UIButton>().enabled = false;
-			//logout.SetActive(true);
+			fbLogin.SetActive(false);
+			fbLogout.SetActive(true);
+			likeUs.SetActive(true);
 		}
 		else
 		{
-			//greeting.text = "Login";
-			//greeting.gameObject.GetComponent<Collider2D>().enabled = true;
-			//greeting.gameObject.GetComponent<UIButton>().enabled = true;
-			//logout.SetActive(false);
+			fbLogin.SetActive(true);
+			fbLogout.SetActive(false);
+			likeUs.SetActive(false);
 		}
 	}
 

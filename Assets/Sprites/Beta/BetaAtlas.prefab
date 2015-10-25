@@ -124,12 +124,25 @@ MonoBehaviour:
     y: 789
     width: 744
     height: 155
+    borderLeft: 146
+    borderRight: 34
+    borderTop: 28
+    borderBottom: 26
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: "Bota\u0301o_FB_small"
+    x: 577
+    y: 590
+    width: 379
+    height: 155
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
-    paddingRight: 0
+    paddingRight: 2
     paddingTop: 0
     paddingBottom: 0
   - name: BOTAO_RANGE
@@ -237,8 +250,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-rect-green
-    x: 577
-    y: 596
+    x: 1762
+    y: 980
     width: 274
     height: 149
     borderLeft: 0
@@ -276,8 +289,8 @@ MonoBehaviour:
     paddingTop: 15
     paddingBottom: 20
   - name: creepypedia_locked
-    x: 3473
-    y: 2758
+    x: 2950
+    y: 2577
     width: 340
     height: 323
     borderLeft: 0
@@ -289,8 +302,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: creepypedia_unlocked
-    x: 2950
-    y: 2577
+    x: 3473
+    y: 2758
     width: 340
     height: 323
     borderLeft: 0
@@ -328,8 +341,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Feedback_de_Dano
-    x: 1081
-    y: 1314
+    x: 2277
+    y: 2901
     width: 1195
     height: 1195
     borderLeft: 200
@@ -354,8 +367,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Feedback-de-invencibilidade
-    x: 2277
-    y: 2901
+    x: 1081
+    y: 1314
     width: 1195
     height: 1195
     borderLeft: 10
@@ -406,8 +419,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon_arrow
-    x: 2025
-    y: 1019
+    x: 2089
+    y: 834
     width: 151
     height: 110
     borderLeft: 0
@@ -432,8 +445,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-atom
-    x: 1826
-    y: 842
+    x: 1821
+    y: 686
     width: 130
     height: 102
     borderLeft: 0
@@ -445,8 +458,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-brush
-    x: 3711
-    y: 2623
+    x: 957
+    y: 611
     width: 95
     height: 134
     borderLeft: 0
@@ -484,8 +497,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-dollar
-    x: 2061
-    y: 827
+    x: 2193
+    y: 1012
     width: 75
     height: 117
     borderLeft: 0
@@ -549,8 +562,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-music
-    x: 2070
-    y: 1139
+    x: 2037
+    y: 955
     width: 155
     height: 174
     borderLeft: 0
@@ -575,8 +588,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtime
-    x: 1957
-    y: 835
+    x: 1952
+    y: 679
     width: 103
     height: 109
     borderLeft: 0
@@ -588,8 +601,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtimehub
-    x: 2177
-    y: 996
+    x: 3711
+    y: 2624
     width: 93
     height: 133
     borderLeft: 0
@@ -627,8 +640,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 2
   - name: icon-shopping
-    x: 1762
-    y: 982
+    x: 1826
+    y: 797
     width: 126
     height: 147
     borderLeft: 0
@@ -640,8 +653,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-soundFX
-    x: 852
-    y: 591
+    x: 2070
+    y: 1159
     width: 194
     height: 154
     borderLeft: 0
@@ -679,8 +692,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-videoplus
-    x: 1889
-    y: 998
+    x: 1953
+    y: 813
     width: 135
     height: 131
     borderLeft: 0
@@ -988,6 +1001,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: mSprites.Array.data[17].borderTop
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[6].borderLeft
+      value: 146
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[6].borderRight
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[6].borderBottom
+      value: 131
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mSprites.Array.data[6].borderTop
+      value: 28
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
