@@ -43,6 +43,6 @@ public class CreepData : MonoBehaviour
 	public void OpenBigData()
 	{
 		if(unlocked)
-			Creepypedia.Instance.Open(type, nome, height, weight, description);
+			Creepypedia.Instance.Open(type, nome, height, weight, Localization.Get(description));
 	}
 }
