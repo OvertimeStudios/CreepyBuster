@@ -470,12 +470,14 @@ public class MenuController : MonoBehaviour
 	{
 		if(Global.Rated) return;
 
-		if(gamesCount % gamesToShowRate == 0)
+		if(Global.GamesPlayed % gamesToShowRate == 0)
 			Popup.ShowYesNo(Localization.Get("RATE_US"), OpenStoreToRate, null);
 	}
 
 	private void OpenStoreToRate()
 	{
+		Global.Rated = true;
+
 		#if UNITY_ANDROID
 		Application.OpenURL("market://details?id=com.overtimestudios.creepybuster");
 		#elif UNITY_IPHONE
@@ -488,7 +490,7 @@ public class MenuController : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
 		#if UNITY_ANDROID
-		Application.OpenURL("market://developer?id=Overtime+Studios");
+		Application.OpenURL("market://dev?id=8938813649462154472");
 		#elif UNITY_IPHONE
 		Application.OpenURL("itms-apps://itunes.apple.com/app/idYOUR_ID");
 		#endif
