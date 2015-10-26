@@ -719,7 +719,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 19453789}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -120, y: 3, z: 0}
+  m_LocalPosition: {x: -26.1000004, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1023462140}
@@ -753,14 +753,14 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 3
+  mPivot: 4
   mWidth: 252
-  mHeight: 48
+  mHeight: 49
   mDepth: 21
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.25
+  aspectRatio: 5.14285707
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -12847,7 +12847,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 529953446}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -26.1000004, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2075191093}
@@ -14441,6 +14441,7 @@ GameObject:
   - 114: {fileID: 593242077}
   - 114: {fileID: 593242076}
   - 61: {fileID: 593242075}
+  - 114: {fileID: 593242078}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -14553,6 +14554,22 @@ MonoBehaviour:
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
   mSpriteName: button-circle
   mFillCenter: 1
+--- !u!114 &593242078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 593242073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239f7a26966bd44f6bc8ebe45f934f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBackPressed:
+    mTarget: {fileID: 0}
+    mMethodName: MoveToMain
+    mParameters: []
+    oneShot: 0
 --- !u!1 &608339848
 GameObject:
   m_ObjectHideFlags: 0
@@ -23307,7 +23324,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1023462139}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39, y: 307, z: 0}
+  m_LocalPosition: {x: -5, y: 308, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 19453790}
@@ -27762,6 +27779,7 @@ GameObject:
   - 114: {fileID: 1255810935}
   - 114: {fileID: 1255810934}
   - 61: {fileID: 1255810933}
+  - 114: {fileID: 1255810936}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -27776,7 +27794,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1255810931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 132.300003, y: 307.5, z: 0}
+  m_LocalPosition: {x: 131, y: 308, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1442892591}
@@ -27874,6 +27892,22 @@ MonoBehaviour:
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
   mSpriteName: button-circle
   mFillCenter: 1
+--- !u!114 &1255810936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1255810931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239f7a26966bd44f6bc8ebe45f934f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBackPressed:
+    mTarget: {fileID: 0}
+    mMethodName: 
+    mParameters: []
+    oneShot: 0
 --- !u!1 &1263641958
 GameObject:
   m_ObjectHideFlags: 0
@@ -28008,6 +28042,7 @@ GameObject:
   - 114: {fileID: 1268287036}
   - 114: {fileID: 1268287035}
   - 61: {fileID: 1268287034}
+  - 114: {fileID: 1268287037}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -28022,7 +28057,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1268287032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 137, y: 308, z: 0}
+  m_LocalPosition: {x: 131, y: 308, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 443124732}
@@ -28120,6 +28155,22 @@ MonoBehaviour:
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
   mSpriteName: button-circle
   mFillCenter: 1
+--- !u!114 &1268287037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1268287032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239f7a26966bd44f6bc8ebe45f934f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBackPressed:
+    mTarget: {fileID: 0}
+    mMethodName: 
+    mParameters: []
+    oneShot: 0
 --- !u!1 &1273871471
 GameObject:
   m_ObjectHideFlags: 0
@@ -29687,6 +29738,7 @@ GameObject:
   - 114: {fileID: 1357038316}
   - 114: {fileID: 1357038315}
   - 61: {fileID: 1357038314}
+  - 114: {fileID: 1357038317}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -29701,7 +29753,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1357038312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 130, y: 309.100006, z: 0}
+  m_LocalPosition: {x: 131, y: 308, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1307642826}
@@ -29799,6 +29851,22 @@ MonoBehaviour:
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
   mSpriteName: button-circle
   mFillCenter: 1
+--- !u!114 &1357038317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1357038312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239f7a26966bd44f6bc8ebe45f934f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBackPressed:
+    mTarget: {fileID: 0}
+    mMethodName: 
+    mParameters: []
+    oneShot: 0
 --- !u!1 &1358373579
 GameObject:
   m_ObjectHideFlags: 0
@@ -31226,13 +31294,13 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3001
+  startingRenderQueue: 3071
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -100.099998, z: 291.399994, w: 150}
   mClipSoftness: {x: 0, y: 0}
-  mDepth: 6
+  mDepth: 27
   mSortingOrder: 0
   mClipOffset: {x: .280000001, y: 0}
 --- !u!114 &1431434514 stripped
@@ -32498,6 +32566,7 @@ GameObject:
   - 114: {fileID: 1486001922}
   - 114: {fileID: 1486001921}
   - 61: {fileID: 1486001920}
+  - 114: {fileID: 1486001923}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -32610,6 +32679,22 @@ MonoBehaviour:
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
   mSpriteName: button-circle
   mFillCenter: 1
+--- !u!114 &1486001923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1486001918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239f7a26966bd44f6bc8ebe45f934f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBackPressed:
+    mTarget: {fileID: 0}
+    mMethodName: 
+    mParameters: []
+    oneShot: 0
 --- !u!1 &1487550724
 GameObject:
   m_ObjectHideFlags: 0
@@ -35414,6 +35499,7 @@ GameObject:
   - 114: {fileID: 1590628366}
   - 114: {fileID: 1590628364}
   - 61: {fileID: 1590628365}
+  - 114: {fileID: 1590628367}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -35428,7 +35514,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1590628362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 135.199997, y: 308, z: 0}
+  m_LocalPosition: {x: 131, y: 308, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2099212130}
@@ -35526,6 +35612,22 @@ MonoBehaviour:
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
   mSpriteName: button-circle
   mFillCenter: 1
+--- !u!114 &1590628367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1590628362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239f7a26966bd44f6bc8ebe45f934f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBackPressed:
+    mTarget: {fileID: 0}
+    mMethodName: 
+    mParameters: []
+    oneShot: 0
 --- !u!1001 &1596348660
 Prefab:
   m_ObjectHideFlags: 0
@@ -35701,6 +35803,7 @@ GameObject:
   - 114: {fileID: 1605759412}
   - 114: {fileID: 1605759411}
   - 61: {fileID: 1605759410}
+  - 114: {fileID: 1605759413}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -35715,7 +35818,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1605759408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 137, y: 308, z: 0}
+  m_LocalPosition: {x: 131, y: 308, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 35893172}
@@ -35813,6 +35916,22 @@ MonoBehaviour:
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
   mSpriteName: button-circle
   mFillCenter: 1
+--- !u!114 &1605759413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1605759408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239f7a26966bd44f6bc8ebe45f934f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBackPressed:
+    mTarget: {fileID: 0}
+    mMethodName: 
+    mParameters: []
+    oneShot: 0
 --- !u!4 &1607448641 stripped
 Transform:
   m_PrefabParentObject: {fileID: 420460, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -38904,7 +39023,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1723384279}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -27, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2075191093}
@@ -39538,7 +39657,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1738965261}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.20000005, y: .300000012, z: 0}
+  m_LocalPosition: {x: -28.8999996, y: .300000012, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1023462140}
@@ -40421,6 +40540,7 @@ GameObject:
   - 114: {fileID: 1774068998}
   - 114: {fileID: 1774068996}
   - 61: {fileID: 1774068997}
+  - 114: {fileID: 1774068999}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -40533,6 +40653,22 @@ MonoBehaviour:
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
   mSpriteName: button-circle-glow
   mFillCenter: 1
+--- !u!114 &1774068999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1774068994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239f7a26966bd44f6bc8ebe45f934f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBackPressed:
+    mTarget: {fileID: 0}
+    mMethodName: 
+    mParameters: []
+    oneShot: 0
 --- !u!1001 &1775496136
 Prefab:
   m_ObjectHideFlags: 0
@@ -47643,7 +47779,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2075191092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.7000008, y: 308, z: 0}
+  m_LocalPosition: {x: -5, y: 308, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 529953447}

@@ -151,6 +151,7 @@ public class MenuController : MonoBehaviour
 		achievementsScreen.gameObject.SetActive (false);
 		creepypediaScreen.gameObject.SetActive (false);
 		gameStatsScreen.gameObject.SetActive (false);
+		howToPlayScreen.gameObject.SetActive(false);
 
 		wallTop = mainScreen.FindChild ("WallTop").GetComponent<TweenPosition> ();
 		wallBottom = mainScreen.FindChild ("WallBottom").GetComponent<TweenPosition> ();

@@ -53,6 +53,15 @@ public class Popup : MonoBehaviour
 		Hide ();
 	}
 
+	void Update () 
+	{
+		if(Input.GetButtonDown("Cancel"))
+		{
+			if(no.activeInHierarchy)
+				NoAnswer();
+		}
+	}
+
 	public static void ShowBlank(string description)
 	{
 		ShowBlank (description, 0f);
