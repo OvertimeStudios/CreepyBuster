@@ -173,7 +173,11 @@ public class SoundController : MonoBehaviour
 		if(music == Musics.MainMenuTheme)
 			sourceTo = audioSourceMusic;
 		else if(music == Musics.GameTheme)
+		{
 			sourceTo = audioSourceMusic2;
+			sourceTo.Stop();
+			sourceTo.Play();
+		}
 		else if(music == Musics.BossTheme)
 		{
 			sourceTo = audioSourceMusic3;
@@ -261,7 +265,11 @@ public class SoundController : MonoBehaviour
 		if(music == Musics.MainMenuTheme)
 			source = audioSourceMusic;
 		else if(music == Musics.GameTheme)
+		{
 			source = audioSourceMusic2;
+			source.Stop();
+			source.Play();
+		}
 		else if(music == Musics.BossTheme)
 		{
 			source = audioSourceMusic3;
