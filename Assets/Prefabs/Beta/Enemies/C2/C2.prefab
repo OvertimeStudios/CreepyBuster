@@ -354,8 +354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fb129be3c344c8fb8620152ff63c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1.5
-  score: 2
+  life: 1.60000002
+  score: 3
   countAsStreak: 1
   countAsKill: 1
   destroyUponDeath: 1
@@ -448,11 +448,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: life
-      value: 1.5
+      value: 1.60000002
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: centerRadius

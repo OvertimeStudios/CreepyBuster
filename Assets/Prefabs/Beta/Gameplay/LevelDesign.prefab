@@ -55,7 +55,7 @@ MonoBehaviour:
   - killStreak: 22
     maxRays: 5
     color: {r: .764705896, g: .450980395, b: 1, a: 1}
-  streakToSpecial: 5
+  streakToSpecial: 20
   specialTime: 5
   specialBonusDamage: 1
   specialBonusTarget: 1
@@ -495,9 +495,9 @@ MonoBehaviour:
   - value: 2.9000001
   damageUpgrade:
   - value: 1
-  - value: 1.25
-  - value: 1.5
-  - value: 1.70000005
+  - value: 1.20000005
+  - value: 1.39999998
+  - value: 1.60000002
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -955,15 +955,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: damageUpgrade.Array.data[1].value
-      value: 1.25
+      value: 1.20000005
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: damageUpgrade.Array.data[2].value
-      value: 1.5
+      value: 1.39999998
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: damageUpgrade.Array.data[3].value
-      value: 1.70000005
+      value: 1.60000002
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesTypesLevelUpCondition.Array.data[6].points
@@ -2045,6 +2045,10 @@ Prefab:
       propertyPath: bossTwins
       value: 
       objectReference: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
+    - target: {fileID: 0}
+      propertyPath: streakToSpecial
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 161138}
