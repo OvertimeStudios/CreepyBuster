@@ -10,10 +10,9 @@ public class Ranking : MonoBehaviour
 	{
 		highScore.text = Global.HighScore.ToString();
 
-		worldRank.text = "Not logged in";
+		worldRank.text = Localization.Get("NOT_LOGGED");
 
 		#if FACEBOOK_IMPLEMENTED
-		Debug.Log(FacebookController.IsLoggedIn);
 		if(FacebookController.IsLoggedIn)
 			worldRank.text = "#" + DBHandler.GetUserRanking(DBHandler.User.id, DBController.gameID);
 		#endif

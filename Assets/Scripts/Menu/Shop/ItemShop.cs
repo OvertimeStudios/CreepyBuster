@@ -50,6 +50,7 @@ public class ItemShop : MonoBehaviour
 
 	private UILabel priceLabel;
 	private UILabel levelLabel;
+	private UILabel description;
 
 	void OnEnable()
 	{
@@ -79,11 +80,12 @@ public class ItemShop : MonoBehaviour
 			break;
 		}
 
+		description = transform.FindChild ("Description").GetComponent<UILabel> ();
 		priceLabel = transform.FindChild ("Price").FindChild("Label").GetComponent<UILabel> ();
 		levelLabel = transform.FindChild ("Level").GetComponent<UILabel> ();
 
 		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", price[CurrentLevel]);
-		levelLabel.text = "LEVEL " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
+		levelLabel.text = Localization.Get("LEVEL") + " " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 	}
 
 	public void Purchase()
@@ -105,9 +107,10 @@ public class ItemShop : MonoBehaviour
 			Popup.ShowYesNo ("You may don't have enough orbs, but you are cheating, who cares? Wanna buy?", PurchaseAccepted, PurchaseDeclined);
 		#else
 		if (Global.TotalOrbs >= price[CurrentLevel])
-			Popup.ShowYesNo ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price[CurrentLevel]) + " orbs?", PurchaseAccepted, PurchaseDeclined);
+			Popup.ShowYesNo (string.Format(Localization.Get("BUY_ITEM"),description.text, string.Format ("{0:0,0}", price[CurrentLevel])), PurchaseAccepted, PurchaseDeclined);
 		else
-			Popup.ShowOk ("You don't have enough orbs. You must have " + string.Format ("{0:0,0}", (price[CurrentLevel] - Global.TotalOrbs)) + " more orbs to buy this item.", null);
+
+			Popup.ShowOk (string.Format(Localization.Get("STORE_NOT_ENOUGH_ORBS"), string.Format ("{0:0,0}", (price[CurrentLevel] - Global.TotalOrbs))), null);
 		#endif
 	}
 
@@ -155,7 +158,7 @@ public class ItemShop : MonoBehaviour
 		}
 
 		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", price[CurrentLevel]);
-		levelLabel.text = "Level " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
+		levelLabel.text = Localization.Get("LEVEL") + " " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 
 		if (OnItemBought != null)
 			OnItemBought ();
@@ -166,6 +169,6 @@ public class ItemShop : MonoBehaviour
 		level = 0;
 
 		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", price[CurrentLevel]);
-		levelLabel.text = "Level " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
+		levelLabel.text = Localization.Get("LEVEL") + " " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 	}
 }
