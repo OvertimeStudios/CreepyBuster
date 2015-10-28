@@ -8,6 +8,16 @@ public class EnemyLifeMinhocoPiece : EnemyLife
 	public static event Action<Transform> OnPieceDied;
 	#endregion
 
+	[Header("Level Design")]
+	public float lifeToAdd = 5f;
+
+	protected override void Start ()
+	{
+		base.Start ();
+
+		life += lifeToAdd * GameController.boss2Killed;
+	}
+
 	public override void Dead (bool countPoints)
 	{
 		base.Dead (countPoints);

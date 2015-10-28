@@ -80,9 +80,9 @@ public class GameController : MonoBehaviour
 	private static int legionsKilled;
 	private static int followersKilled;
 
-	private static int boss1Killed;
-	private static int boss2Killed;
-	private static int boss3Killed;
+	public static int boss1Killed;
+	public static int boss2Killed;
+	public static int boss3Killed;
 
 	public static int frozenCollected;
 	public static int levelUpCollected;

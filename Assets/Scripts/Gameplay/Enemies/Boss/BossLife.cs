@@ -8,6 +8,9 @@ public class BossLife : EnemyLife
 	public int orbsToDrop = 50;
 	public float spread = 1f;
 
+	[Header("Level Design")]
+	public float lifeToAdd = 5f;
+
 	public static int partsToDestroy;
 
 	#region Action

@@ -19,5 +19,7 @@ public class EnemyLifeMinhoco : BossLife
 
 		partsToDestroy = 2;
 		bossMinhoco = transform.parent.GetComponent<BossMinhoco>();
+
+		life += lifeToAdd * GameController.boss2Killed;
 	}
 }

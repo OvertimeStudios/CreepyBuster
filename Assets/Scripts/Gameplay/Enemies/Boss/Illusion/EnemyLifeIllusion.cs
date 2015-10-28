@@ -11,4 +11,11 @@ public class EnemyLifeIllusion : BossLife
 		}
 	}
 
+	protected override void Start ()
+	{
+		base.Start ();
+
+		life += lifeToAdd * GameController.boss3Killed;
+	}
+
 }

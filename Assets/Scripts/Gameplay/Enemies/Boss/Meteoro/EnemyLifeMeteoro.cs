@@ -10,4 +10,11 @@ public class EnemyLifeMeteoro : BossLife
 			return base.IsDamagable && GetComponent<BossMeteoro>().state == BossMeteoro.State.EyesOpen;
 		}
 	}
+
+	protected override void Start ()
+	{
+		base.Start ();
+
+		life += lifeToAdd * GameController.boss1Killed;
+	}
 }
