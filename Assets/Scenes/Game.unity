@@ -8740,6 +8740,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 356165792}
   - 114: {fileID: 356165793}
+  - 114: {fileID: 356165794}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -8825,6 +8826,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &356165794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 356165791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d5b40401f77469779cf7f6fc94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: TIME_IN_GAME
 --- !u!1 &364953179
 GameObject:
   m_ObjectHideFlags: 0
@@ -11242,12 +11255,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToChange: .400000006
   colors:
-  - {r: .309803933, g: .474509835, b: .639215708, a: 1}
-  - {r: .235294133, g: .403921604, b: .729411781, a: 1}
-  - {r: .329411775, g: .286274523, b: .737254918, a: 1}
-  - {r: .380392194, g: .231372565, b: .737254918, a: 1}
-  - {r: .329411775, g: .286274523, b: .737254918, a: 1}
-  - {r: .235294133, g: .403921604, b: .729411781, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: .600000024, b: 0, a: 1}
+  - {r: .944827557, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: .172413826, a: 1}
+  - {r: 0, g: .875862181, b: 1, a: 1}
+  - {r: .0758619234, g: 0, b: 1, a: 1}
+  - {r: .737930775, g: 0, b: 1, a: 1}
 --- !u!1 &454922770
 GameObject:
   m_ObjectHideFlags: 0
@@ -11868,6 +11882,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 485485683}
   - 114: {fileID: 485485684}
+  - 114: {fileID: 485485685}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -11953,6 +11968,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &485485685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 485485682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d5b40401f77469779cf7f6fc94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: DOUBLE_REWARD
 --- !u!1 &485602642
 GameObject:
   m_ObjectHideFlags: 0
@@ -12228,6 +12255,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 494140392}
   - 114: {fileID: 494140393}
+  - 114: {fileID: 494140394}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -12313,6 +12341,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &494140394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 494140391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d5b40401f77469779cf7f6fc94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: BATTLE_STATS
 --- !u!1 &497934349
 GameObject:
   m_ObjectHideFlags: 0
@@ -26985,6 +27025,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1153871451}
   - 114: {fileID: 1153871452}
+  - 114: {fileID: 1153871453}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -27070,6 +27111,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &1153871453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1153871450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d5b40401f77469779cf7f6fc94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: POWER_UPS_COLLECTED
 --- !u!1001 &1155908208
 Prefab:
   m_ObjectHideFlags: 0
@@ -27375,6 +27428,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1171683414}
   - 114: {fileID: 1171683415}
+  - 114: {fileID: 1171683416}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -27460,6 +27514,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &1171683416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1171683413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d5b40401f77469779cf7f6fc94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: HITS_TAKEN
 --- !u!1 &1173558559
 GameObject:
   m_ObjectHideFlags: 0
@@ -29501,6 +29567,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[0].chanceToSpawn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[0].item
+      value: 
+      objectReference: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: itensLevelUpCondition.Array.data[0].itens.Array.data[1].item
+      value: 
+      objectReference: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
   m_IsPrefabParent: 0
@@ -36933,6 +37011,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1587000054}
   - 114: {fileID: 1587000055}
+  - 114: {fileID: 1587000056}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -37018,6 +37097,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &1587000056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1587000053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d5b40401f77469779cf7f6fc94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: CREEPS_KILLED
 --- !u!1001 &1587418615
 Prefab:
   m_ObjectHideFlags: 0
@@ -38327,6 +38418,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1639842277}
   - 114: {fileID: 1639842278}
+  - 114: {fileID: 1639842279}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -38412,6 +38504,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &1639842279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1639842276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d5b40401f77469779cf7f6fc94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: LONGEST_KILL_STREAK
 --- !u!1 &1644867479
 GameObject:
   m_ObjectHideFlags: 0
@@ -48976,6 +49080,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2043230032}
   - 114: {fileID: 2043230033}
+  - 114: {fileID: 2043230034}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -49061,6 +49166,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &2043230034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2043230031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d5b40401f77469779cf7f6fc94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: ORBS_COLLECTED
 --- !u!1 &2044468587
 GameObject:
   m_ObjectHideFlags: 0

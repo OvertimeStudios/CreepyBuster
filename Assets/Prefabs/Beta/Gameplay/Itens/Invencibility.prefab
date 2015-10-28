@@ -103,10 +103,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToChange: .400000006
   colors:
-  - {r: .309803933, g: .474509835, b: .639215708, a: 1}
-  - {r: .235294133, g: .403921604, b: .729411781, a: 1}
-  - {r: .329411775, g: .286274523, b: .737254918, a: 1}
-  - {r: .380392194, g: .231372565, b: .737254918, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: .600000024, b: 0, a: 1}
+  - {r: .944827557, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: .172413826, a: 1}
+  - {r: 0, g: .875862181, b: 1, a: 1}
+  - {r: .0758619234, g: 0, b: 1, a: 1}
+  - {r: .737930775, g: 0, b: 1, a: 1}
 --- !u!114 &11456550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -182,7 +185,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: colors.Array.size
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: vel
@@ -198,51 +201,91 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[0].r
-      value: .309803933
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[0].g
-      value: .474509835
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[0].b
-      value: .639215708
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[1].r
-      value: .235294133
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[1].g
-      value: .403921604
+      value: .600000024
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[1].b
-      value: .729411781
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[2].r
-      value: .329411775
+      value: .944827557
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[2].g
-      value: .286274523
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[2].b
-      value: .737254918
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[3].r
-      value: .380392194
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[3].g
-      value: .231372565
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colors.Array.data[3].b
-      value: .737254918
+      value: .172413826
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[4].r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[4].g
+      value: .875862181
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[4].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[5].r
+      value: .0758619234
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[5].g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[5].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[6].r
+      value: .737930775
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[6].g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: colors.Array.data[6].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: timeToChange
+      value: .400000006
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
