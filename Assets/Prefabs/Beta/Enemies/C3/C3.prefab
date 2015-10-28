@@ -272,7 +272,7 @@ MonoBehaviour:
   countAsStreak: 1
   countAsKill: 1
   destroyUponDeath: 1
-  deathTime: 1
+  deathTime: .5
   inLight: 0
   basicColor: {r: 1, g: .793103456, b: 0, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
@@ -476,6 +476,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 8e9bf89e76b024fec81b55eeeb83908e,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathTime
+      value: .5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 159624}

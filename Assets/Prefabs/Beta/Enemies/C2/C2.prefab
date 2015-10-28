@@ -359,7 +359,7 @@ MonoBehaviour:
   countAsStreak: 1
   countAsKill: 1
   destroyUponDeath: 1
-  deathTime: 1
+  deathTime: .5
   inLight: 0
   basicColor: {r: 1, g: .921568632, b: .0156862754, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
@@ -553,6 +553,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: itens.Array.data[7].percent
       value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathTime
+      value: .5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
