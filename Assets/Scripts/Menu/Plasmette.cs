@@ -56,6 +56,8 @@ public class Plasmette : MonoBehaviour
 	
 	private void OnFingerDown(FingerDownEvent e)
 	{
+		if(!gameObject.activeInHierarchy) return;
+
 		if(MenuController.activeMenu != MenuController.Menus.Main) return;
 
 		Vector3 click = Camera.main.ScreenToWorldPoint(e.Position);

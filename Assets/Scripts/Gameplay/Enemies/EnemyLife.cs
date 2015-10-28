@@ -291,4 +291,11 @@ public class EnemyLife : MonoBehaviour
 			SpawnController.Instance.SpawnItem(transform.position, objToSpawn);
 		}
 	}
+
+	//this shouldn't be here, but sometimes OnDied isn't called, so we force call OnDestroy
+	void OnDestroy()
+	{
+		if (OnDied != null)
+			OnDied (gameObject);
+	}
 }

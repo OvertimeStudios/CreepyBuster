@@ -52,6 +52,7 @@ public class Legion : EnemyMovement
 
 		int totalRows = Mathf.Min(minionsQty / minionsPerRow);
 
+		//create minions
 		for(byte j = 1; j <= totalRows; j++)
 		{
 			int minionsOnThisRow = Mathf.Min(minionsQty - ((j - 1)  * minionsPerRow), minionsPerRow);
