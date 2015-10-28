@@ -23,8 +23,7 @@ public class Plasmette : MonoBehaviour
 		myAudioSource = GetComponent<AudioSource>();
 		myTransform = transform;
 		myAnimator = GetComponent<Animator>();
-		
-		initialPosition = transform.position;
+
 		originalScale = myTransform.localScale;
 	}
 
