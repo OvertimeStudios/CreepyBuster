@@ -26,7 +26,7 @@ public class TutorialController : MonoBehaviour
 	public static bool running;
 	public static bool canTakeOffFinger;
 
-	private static Answer firstTimeTutorial;
+	//private static Answer firstTimeTutorial;
 
 	#region singleton
 	private static TutorialController instance;
@@ -73,13 +73,7 @@ public class TutorialController : MonoBehaviour
 
 		Debug.Log("GameController.isGameRunning? " + GameController.isGameRunning);
 		if(GameController.isGameRunning)
-		{
-			Debug.Log("IsTutorialEnabled? " + Global.IsTutorialEnabled);
-			if(!Global.IsTutorialEnabled)
-				gameObject.SetActive (false);
-			else
-				StartCoroutine (Run ());
-		}
+			StartCoroutine (Run ());
 	}
 
 	void OnDisable()
@@ -123,19 +117,19 @@ public class TutorialController : MonoBehaviour
 
 	private void YesTutorial()
 	{
-		firstTimeTutorial = Answer.Yes;
+		//firstTimeTutorial = Answer.Yes;
 	}
 
 	private void NoTutorial()
 	{
-		firstTimeTutorial = Answer.No;
+		//firstTimeTutorial = Answer.No;
 	}
 
 	private IEnumerator Run()
 	{
 		running = true;
 
-		if(Global.IsFirstTimeTutorial)
+		/*if(Global.IsFirstTimeTutorial)
 		{
 			firstTimeTutorial = Answer.None;
 
@@ -194,7 +188,16 @@ public class TutorialController : MonoBehaviour
 			yield return null;
 
 		//One more thing: got hit
-		yield return new WaitForSeconds(ShowNextText());
+		yield return new WaitForSeconds(ShowNextText());*/
+
+		string tutorial = Localization.Get("TUTORIAL");
+
+		if(Global.IsFirstTimeTutorial)
+			tutorial += " " + Localization.Get("TUTORIAL_ADD");
+
+		tutorialText.text = tutorial;
+
+		yield return new WaitForSeconds(5f);
 
 		End();
 	}

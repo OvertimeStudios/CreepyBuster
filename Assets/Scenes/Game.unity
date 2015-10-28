@@ -5840,8 +5840,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82afec68525c14be485bc7f7783b3a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: 3
-  spinningVel: 30
+  vel: 5
+  spinningVel: 50
   timeSpinning: 4
   finalScale: .5
 --- !u!82 &245961089
@@ -9546,7 +9546,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 404113802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: -59, z: 0}
+  m_LocalPosition: {x: 0, y: -60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1703776033}
@@ -9581,13 +9581,13 @@ MonoBehaviour:
   updateAnchors: 2
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 422
+  mWidth: 421
   mHeight: 214
   mDepth: 21
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.97196257
+  aspectRatio: 1.96728969
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -15760,7 +15760,7 @@ MonoBehaviour:
   thumb: {fileID: 1502445457}
   mBG: {fileID: 1485896609}
   mFG: {fileID: 1767255138}
-  mValue: .716972589
+  mValue: .0025169244
   mFill: 3
   numberOfSteps: 0
   onChange: []
@@ -18050,6 +18050,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 736022756}
   - 114: {fileID: 736022757}
+  - 114: {fileID: 736022758}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -18135,6 +18136,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &736022758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736022755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d5b40401f77469779cf7f6fc94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: LIKE
 --- !u!1 &737077077
 GameObject:
   m_ObjectHideFlags: 0
@@ -22737,17 +22750,17 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .200000018, g: .882353008, b: .996078491, a: 1}
   mPivot: 4
-  mWidth: 307
-  mHeight: 48
+  mWidth: 264
+  mHeight: 36
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6.39583349
+  aspectRatio: 7.33333349
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
-  mText: '#854854'
+  mText: '#86574'
   mFontSize: 27
   mFontStyle: 0
   mAlignment: 0
@@ -24520,7 +24533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1050677896
 Transform:
   m_ObjectHideFlags: 0
@@ -29210,6 +29223,14 @@ Prefab:
     - target: {fileID: 412946, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: enemiesTypesLevelUpCondition.Array.data[0].enemies.Array.data[0].enemy
+      value: 
+      objectReference: {fileID: 196216, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
+    - target: {fileID: 11450832, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
+      propertyPath: bossBattleCondition.Array.data[0].kills
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0253b3f7fa21a4bb3a9e107f4854f1af, type: 2}
@@ -34331,7 +34352,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1502445456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -173, z: 0}
+  m_LocalPosition: {x: 0, y: 139, z: 0}
   m_LocalScale: {x: .282733768, y: .282733798, z: .282733798}
   m_Children: []
   m_Father: {fileID: 649780713}
@@ -47569,7 +47590,7 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
-  mEffectStyle: 0
+  mEffectStyle: 2
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}

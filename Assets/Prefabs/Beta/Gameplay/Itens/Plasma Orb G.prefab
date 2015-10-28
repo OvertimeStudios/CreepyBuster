@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 5
   vel: 2
-  orbs: 50
+  orbs: 20
   label: {fileID: 157898, guid: 2a99f641bd73045d1aa6ac9bfec3e978, type: 2}
   textColor: {r: .527999997, g: 0, b: .735000014, a: 1}
 --- !u!212 &21218708
@@ -133,7 +133,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: orbs
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: type
