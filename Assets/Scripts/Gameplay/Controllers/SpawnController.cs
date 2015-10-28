@@ -49,7 +49,7 @@ public class SpawnController : MonoBehaviour
 	{
 		get 
 		{
-			return !GameController.IsFrozen && !GameController.IsSlowedDown && GameController.isGameRunning && !GameController.IsTutorialRunning && !GameController.IsBossTime;
+			return !GameController.IsFrozen && GameController.isGameRunning && !GameController.IsBossTime;
 		}
 	}
 

@@ -703,11 +703,12 @@ public class GameController : MonoBehaviour
 
 		SoundController.Instance.CrossFadeMusic(SoundController.Musics.GameTheme, 1f);
 
+		isGameRunning = true;
 		Reset ();
 		gameObject.SetActive (true);
 
 		//if(Global.IsTutorialEnabled)
-			//TutorialController.Instance.gameObject.SetActive(true);
+		TutorialController.Instance.gameObject.SetActive(true);
 
 		if (FingerDetector.IsFingerDown)
 		{
@@ -727,7 +728,6 @@ public class GameController : MonoBehaviour
 	private IEnumerator WaitForPlayer()
 	{
 		Debug.Log ("WaitForPlayer");
-		isGameRunning = true;
 
 		player.transform.position = Vector3.zero;
 
