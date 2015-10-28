@@ -191,3 +191,5 @@ PROCESSING,Processing,Processando
 RESTORE_SUCCESS,Products have been successfully restored,Produtos restaurados com sucesso
 RESTORE_FAILED,Restoration failed,Falha na restauração
 PLASMA_ORBS,PLASMA ORBS,ORBES DE PLASMA
+HOLD_TO_CONTINUE,Hold to continue,Segure para continuar
+GAME_PAUSED,GAME PAUSED,JOGO PAUSADO

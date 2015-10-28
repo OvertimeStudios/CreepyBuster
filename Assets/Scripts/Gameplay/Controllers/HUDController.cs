@@ -138,10 +138,23 @@ public class HUDController : MonoBehaviour
 
 		Transform ring = pauseScreen.transform.FindChild("Ring");
 		Transform arrow = pauseScreen.transform.FindChild("Arrow");
-		Transform label = pauseScreen.transform.FindChild("Label");
+		Transform hold = pauseScreen.transform.FindChild("Hold To Continue");
+		Transform doubleTap = pauseScreen.transform.FindChild("Double Tap");
+		Transform paused = pauseScreen.transform.FindChild("Game Paused");
 
 		Vector3 playerLastPosition = AttackTargets.Instance.transform.position;
 		playerLastPosition = Camera.main.WorldToViewportPoint(playerLastPosition);
+
+		Debug.Log(playerLastPosition.y);
+		if(playerLastPosition.y > 0.7f)
+			paused.position = UICamera.mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, paused.position.z));
+		else
+			paused.position = UICamera.mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.8f, paused.position.z));
+		
+		if(playerLastPosition.y < 0.3f)
+			doubleTap.position = UICamera.mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, doubleTap.position.z));
+		else
+			doubleTap.position = UICamera.mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.1f, doubleTap.position.z));
 
 		float angleToCenter = Mathf.Atan2(playerLastPosition.y - 0.5f, playerLastPosition.x - 0.5f) * Mathf.Rad2Deg;
 
@@ -152,9 +165,7 @@ public class HUDController : MonoBehaviour
 		arrow.position = playerLastPosition;
 		arrow.localEulerAngles = new Vector3(0, 0, angleToCenter);
 
-		label.transform.position = playerLastPosition;
-		label.localEulerAngles = new Vector3(0, 0, angleToCenter);
-		label.GetChild(0).localEulerAngles = new Vector3(0, 0, -angleToCenter);
+		hold.transform.position = playerLastPosition;
 	}
 
 	private void GameResumed()
