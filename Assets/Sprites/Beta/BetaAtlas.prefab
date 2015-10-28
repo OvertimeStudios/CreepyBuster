@@ -133,8 +133,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "Bota\u0301o_FB_small"
-    x: 577
-    y: 590
+    x: 2950
+    y: 2521
     width: 379
     height: 155
     borderLeft: 0
@@ -146,8 +146,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: BOTAO_RANGE
-    x: 577
-    y: 746
+    x: 2950
+    y: 2677
     width: 497
     height: 223
     borderLeft: 0
@@ -288,11 +288,11 @@ MonoBehaviour:
     paddingRight: 17
     paddingTop: 15
     paddingBottom: 20
-  - name: creepypedia_locked
-    x: 2950
-    y: 2577
+  - name: CP_pedia
+    x: 577
+    y: 643
     width: 340
-    height: 323
+    height: 326
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -315,8 +315,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: estrela
-    x: 1017
-    y: 266
+    x: 577
+    y: 584
     width: 61
     height: 58
     borderLeft: 0
@@ -341,8 +341,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Feedback_de_Dano
-    x: 2277
-    y: 2901
+    x: 1081
+    y: 1314
     width: 1195
     height: 1195
     borderLeft: 200
@@ -367,8 +367,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Feedback-de-invencibilidade
-    x: 1081
-    y: 1314
+    x: 2277
+    y: 2901
     width: 1195
     height: 1195
     borderLeft: 10
@@ -380,8 +380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: hand
-    x: 3291
-    y: 2672
+    x: 2096
+    y: 13
     width: 171
     height: 228
     borderLeft: 0
@@ -419,7 +419,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon_arrow
-    x: 2089
+    x: 1826
     y: 834
     width: 151
     height: 110
@@ -445,8 +445,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-atom
-    x: 1821
-    y: 686
+    x: 1978
+    y: 842
     width: 130
     height: 102
     borderLeft: 0
@@ -458,8 +458,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-brush
-    x: 957
-    y: 611
+    x: 3711
+    y: 2623
     width: 95
     height: 134
     borderLeft: 0
@@ -484,8 +484,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-disabled
-    x: 3291
-    y: 2531
+    x: 2037
+    y: 989
     width: 175
     height: 140
     borderLeft: 0
@@ -497,8 +497,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-dollar
-    x: 2193
-    y: 1012
+    x: 1925
+    y: 671
     width: 75
     height: 117
     borderLeft: 0
@@ -523,8 +523,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 0
   - name: icon-flag-brazil
-    x: 2950
-    y: 2511
+    x: 3711
+    y: 2557
     width: 65
     height: 65
     borderLeft: 0
@@ -562,8 +562,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-music
-    x: 2037
-    y: 955
+    x: 918
+    y: 795
     width: 155
     height: 174
     borderLeft: 0
@@ -588,7 +588,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtime
-    x: 1952
+    x: 1821
     y: 679
     width: 103
     height: 109
@@ -601,8 +601,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtimehub
-    x: 3711
-    y: 2624
+    x: 2109
+    y: 811
     width: 93
     height: 133
     borderLeft: 0
@@ -640,8 +640,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 2
   - name: icon-shopping
-    x: 1826
-    y: 797
+    x: 918
+    y: 647
     width: 126
     height: 147
     borderLeft: 0
@@ -692,8 +692,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-videoplus
-    x: 1953
-    y: 813
+    x: 3330
+    y: 2545
     width: 135
     height: 131
     borderLeft: 0

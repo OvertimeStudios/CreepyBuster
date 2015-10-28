@@ -322,7 +322,7 @@ MonoBehaviour:
   bottomType: 1
   topType: 1
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
-  mSpriteName: creepypedia_locked
+  mSpriteName: CP_pedia
   mFillCenter: 1
 --- !u!114 &11481062
 MonoBehaviour:
@@ -425,16 +425,16 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4.41935492
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 7c7ef50afe3a04e36bb2307a99a80733, type: 3}
-  mFont: {fileID: 0}
-  mText: BLOQEADO
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
+  mText: BLOQUEADO
   mFontSize: 23
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
-  mEffectStyle: 0
-  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
+  mEffectStyle: 2
+  mEffectColor: {r: 0, g: 0, b: 0, a: .588235319}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
   mOverflow: 0
