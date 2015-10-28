@@ -10,7 +10,6 @@ public class Plasmette : MonoBehaviour
 	
 	private Animator myAnimator;
 	private Transform myTransform;
-	private Vector3 initialPosition;
 	private Coroutine spinningCoroutine;
 	private AudioSource myAudioSource;
 	
@@ -18,24 +17,9 @@ public class Plasmette : MonoBehaviour
 	private float angle;
 	private Vector3 originalScale;
 	
-	void OnEnable()
-	{
-		//FingerDetector.OnFingerDownEvent += OnFingerDown;
-		//FingerDetector.OnFingerUpEvent += OnFingerUp;
-	}
-	
-	void OnDisable()
-	{
-		//FingerDetector.OnFingerDownEvent -= OnFingerDown;
-		//FingerDetector.OnFingerUpEvent -= OnFingerUp;
-	}
-	
 	// Use this for initialization
 	void Start () 
 	{
-		FingerDetector.OnFingerDownEvent += OnFingerDown;
-		FingerDetector.OnFingerUpEvent += OnFingerUp;
-
 		myAudioSource = GetComponent<AudioSource>();
 		myTransform = transform;
 		myAnimator = GetComponent<Animator>();
@@ -43,89 +27,20 @@ public class Plasmette : MonoBehaviour
 		initialPosition = transform.position;
 		originalScale = myTransform.localScale;
 	}
-	
-	void Update()
-	{
-		if(GameController.isGameRunning)
-		{
-			Vector3 pos = Camera.main.ScreenToWorldPoint(FingerDetector.FingerPosition);
-			pos.z = initialPosition.z;
-			myTransform.position = pos;
-		}
-	}
-	
-	private void OnFingerDown(FingerDownEvent e)
-	{
-		if(!gameObject.activeInHierarchy) return;
 
-		if(MenuController.activeMenu != MenuController.Menus.Main) return;
-
-		Vector3 click = Camera.main.ScreenToWorldPoint(e.Position);
-		click.z = initialPosition.z;
-		
-		float distance = Vector3.Distance(click, myTransform.position);
-		if(distance < 1f && waypoint == Vector3.zero)
+	void OnFingerHover(FingerHoverEvent e)
+	{
+		if(e.Phase == FingerHoverPhase.Enter)
 		{
 			StopAllCoroutines();
 			spinningCoroutine = StartCoroutine(StartSpinning());
 		}
-		else
+
+		if(e.Phase == FingerHoverPhase.Exit)
 		{
-			waypoint = click;
-			
 			StopAllCoroutines();
-			StartCoroutine (FollowWaypoint());
+			StopSpinning();
 		}
-	}
-	
-	private void OnFingerUp(FingerUpEvent e)
-	{
-		if(gameObject.activeInHierarchy)
-			StartCoroutine(StopSpinning());
-	}
-	
-	private IEnumerator FollowWaypoint()
-	{
-		myAnimator.SetInteger("State", 1);
-		
-		while(Vector3.Distance(myTransform.position, waypoint) > 0.3f)
-		{
-			angle = Mathf.Atan2(waypoint.y - myTransform.position.y, waypoint.x - myTransform.position.x) * Mathf.Rad2Deg;
-			
-			Vector3 eulerAngle = transform.eulerAngles;
-			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.1f * vel);
-			myTransform.eulerAngles = eulerAngle;
-			
-			myTransform.position += transform.right * vel * Time.deltaTime;
-			
-			yield return null;
-		}
-		
-		myAnimator.SetInteger("State", 2);
-
-		yield return new WaitForEndOfFrame();
-		yield return new WaitForEndOfFrame();
-
-		if(MenuController.activeMenu == MenuController.Menus.Main && FingerDetector.IsFingerDown)
-		{
-			Vector3 fingerPosition = Camera.main.ScreenToWorldPoint(FingerDetector.FingerPosition);
-			fingerPosition.z = myTransform.position.z;
-			float distance = Vector3.Distance(fingerPosition, myTransform.position);
-			if(distance < 1f)
-			{
-				StopAllCoroutines();
-				spinningCoroutine = StartCoroutine(StartSpinning());;
-			}
-		}
-
-		if(waypoint != initialPosition)
-		{
-			waypoint = initialPosition;
-			yield return new WaitForSeconds(1f);
-			StartCoroutine(FollowWaypoint());
-		}
-		else
-			waypoint = Vector3.zero;
 	}
 	
 	private IEnumerator StartSpinning()
@@ -146,10 +61,6 @@ public class Plasmette : MonoBehaviour
 			rotVel = (time / timeSpinning) * spinningVel;
 			myTransform.Rotate(0, 0, rotVel);
 			
-			Vector3 pos = Camera.main.ScreenToWorldPoint(FingerDetector.FingerPosition);
-			pos.z = initialPosition.z;
-			myTransform.position = pos;
-			
 			scale = originalScale.x - ((time / timeSpinning) * Mathf.Abs(finalScale - originalScale.x));
 			myTransform.localScale = new Vector3(scale, scale, scale);
 			
@@ -159,15 +70,11 @@ public class Plasmette : MonoBehaviour
 		spinningCoroutine = null;
 		MenuController.Instance.OpenPanel();
 		myAnimator.SetInteger("State", 4);
-
-		FingerDetector.OnFingerDownEvent -= OnFingerDown;
-		FingerDetector.OnFingerUpEvent -= OnFingerUp;
-		MenuController.OnPanelClosed += BackToCenter;
 		
 		gameObject.SetActive(false);
 	}
 	
-	private IEnumerator StopSpinning()
+	private void StopSpinning()
 	{
 		if(Global.IsSoundOn)
 			myAudioSource.Stop();
@@ -178,31 +85,14 @@ public class Plasmette : MonoBehaviour
 			spinningCoroutine = null;
 			
 			myAnimator.SetInteger("State", 4);
-			yield return new WaitForSeconds(0.5f);
-			
-			StopAllCoroutines();
-			BackToCenter();
+
+			StartCoroutine(BackToNormalScale());
 		}
-		
-		yield return null;
-	}
-	
-	private void BackToCenter()
-	{
-		gameObject.SetActive(true);
-		
-		waypoint = initialPosition;
-		StartCoroutine(FollowWaypoint());
-		StartCoroutine(BackToNormalScale());
-		
-		FingerDetector.OnFingerDownEvent += OnFingerDown;
-		FingerDetector.OnFingerUpEvent += OnFingerUp;
-		MenuController.OnPanelClosed -= BackToCenter;
 	}
 	
 	private IEnumerator BackToNormalScale()
 	{
-		while(Mathf.Abs(myTransform.localScale.x - originalScale.x) < 0.05f)
+		while(Mathf.Abs(myTransform.localScale.x - originalScale.x) > 0.05f)
 		{
 			myTransform.localScale += Vector3.one * Time.deltaTime;
 			yield return null;

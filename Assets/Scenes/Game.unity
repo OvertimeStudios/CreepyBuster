@@ -5674,6 +5674,9 @@ GameObject:
   - 95: {fileID: 245961085}
   - 114: {fileID: 245961088}
   - 82: {fileID: 245961089}
+  - 114: {fileID: 245961090}
+  - 58: {fileID: 245961091}
+  - 114: {fileID: 245961092}
   m_Layer: 0
   m_Name: Plasmette
   m_TagString: Untagged
@@ -5821,6 +5824,54 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &245961090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 245961084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d4b152ea6d4a44bbd27f639edb4bc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FingerIndexFilter: -1
+  Raycaster: {fileID: 0}
+  UseSendMessage: 1
+  SendMessageToSelection: 1
+  MessageTarget: {fileID: 0}
+  MessageName: OnFingerHover
+--- !u!58 &245961091
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 245961084}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
+--- !u!114 &245961092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 245961084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf945d278a7402a4cb9cd26aec5c0fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cameras: []
+  IgnoreLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  RayThickness: 0
+  VisualizeRaycasts: 1
+  UsePhysics2D: 1
 --- !u!1 &248296185
 GameObject:
   m_ObjectHideFlags: 0
@@ -17059,7 +17110,7 @@ MonoBehaviour:
   thumb: {fileID: 1974419163}
   mBG: {fileID: 1941825199}
   mFG: {fileID: 1746443865}
-  mValue: .53723228
+  mValue: .000465415884
   mFill: 3
   numberOfSteps: 0
   onChange: []
@@ -20839,6 +20890,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 871556304}
   - 114: {fileID: 871556305}
+  - 114: {fileID: 871556306}
   m_Layer: 5
   m_Name: Plasma Orbs
   m_TagString: Untagged
@@ -20924,6 +20976,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &871556306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 871556303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d5b40401f77469779cf7f6fc94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: PLASMA_ORBS
 --- !u!1001 &874219517
 Prefab:
   m_ObjectHideFlags: 0
@@ -41157,7 +41221,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1746443863}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
@@ -47124,7 +47188,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1974419162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -68, z: 0}
+  m_LocalPosition: {x: 0, y: 140, z: 0}
   m_LocalScale: {x: .282733768, y: .282733798, z: .282733798}
   m_Children: []
   m_Father: {fileID: 694740612}
