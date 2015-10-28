@@ -1,188 +1,186 @@
-KEY,English,Portuguese
-Sound,Sound,Som
-Music,Music,Musica
-TAP&HOLD,Tap and hold to play,Toque e segure para jogar
-SOLD_OUT,Sold Out, Vendido
-SHOP_RAY,INCREASE RAYS,AUMENTAR RAIOS
-SHOP_DAMAGE,DAMAGE INCREASE,AUMENTAR DANOS
-SHOP_RANGE,RANGE INCREASE,AUMENTAR ALCANCE
-GAME_STATS,GAME STATS,ESTATÍSTICAS
-DAILY_MISSIONS,DAILY MISSIONS,MISSÕES DIÁRIAS
-WORLD_RANKING,WORLD RANKING,RANKING GLOBAL
-FRIENDS_RANKING,FRIENDS RANKING,RANKING DE AMIGOS
-HEIGHT,Height:,Altura:
-WEIGHT,Weight:,Peso:
-DESCRIPTION,Description,Descrição
-C1_DESCRIPTION,"Watch for his special ability: wait... he doesn't have a special ability.",Cuidado com sua habilidade especial: pera... ele não tem nenhuma.
-C2_DESCRIPTION,"He tries to get you rotating, rotating, rotating...","Ele tentará te pegar rodando, rodando, rodando..."
-C3_DESCRIPTION,"Zig from here, zag from there, zigzag from everywhere.","Zig aqui, zag acolá, zigzag em todo lugar."
-C4_DESCRIPTION,Charging in 5.. 4.. 3.. 2.. 1.. and... Gotcha!,Carregando em 5.. 4.. 3.. 2.. 1.. e.. Pegou!
-C5_DESCRIPTION,"He'll never be alone. His minions will protecte and fight 'till death.",Ele nunca virá sozinho. Seus servos o protegerão até o fim.
-C7_DESCRIPTION,Guess who will never let you go?,Adivinhe quem nunca te deixará partir?
-BOSS1_DESCRIPTION,"Born out of a giant meteor, he'll crush you with more meteor. It seems like it's the only thing he knows to do.","Nascido de um meteoro, ele irá te esmagar com mais meteoros. Parece que é a única coisa que ele sabe fazer."
-BOSS2_DESCRIPTION,"Twins at birth, one cannot live without the other. Each of its parts contains a heart and, some says, a soul.","Gêmeos ao nascimento, um não pode viver sem o outro. Cada parte contêm um coração e, alguns dizem, uma alma."
-BOSS3_DESCRIPTION,"Master of illusion, this one is tough, specially when you don't know the real one. His illusions are an exact copy of him.","Mestre das ilusões, esse é durão, especialmente quando você não sabe qual é o verdadeiro. Cada ilusão é uma cópia exata dele."
-RESTORE,RESTORE PURCHASE,RESTAURAR COMPRAS
-CREDITS,CREDITS,CRÉDITOS
-LOGOUT,Not you? Logout,Não é você? Logout
-SETTINGS,SETTINGS,OPÇÕES
-ACHIEVEMENTS,ACHIEVEMENTS,CONQUISTAS
-FingerOff,You took your finger out of screen,Você tirou o dedo da tela
-LifeOut,You got hit!,Você foi atingido!
-VIDEO_TO_ORBS,Do you want to watch a video to earn {0} orbs?,Você quer assistir a um vídeo para ganhar {0} orbs?
-VIDEO_TO_PLAY,Do you want to watch a video to continue playing?,Você quer assistir a um vídeo para continuar jogando?
-INFINITY_ORBS_TO_PLAY,"But you have infinity orbs cheat. Do you want to continue, m'lord?","Mas você tem o cheat de orbs infinitas. Quer continuar, mestre?"
-WANT_TO_SPEND,Do you want to spent {0} to continue playing?,Você quer gastar {0} orbs para continuar a jogar?,
-YOU_HAVE,You have {0} orbs,Você tem {0} orbs
-NOT_ENOUGH_ORBS,"You don't have enough orbs to continue playing",Você não tem orbs suficientes para continuar jogando
-YOU_RECEIVED,You received {0} orbs,Você recebeu {0} orbs
-TRY_AGAIN,Try again,Tente novamente
-FINGER_ON_SCREEN,Put your finger on screen,Coloque seu dedo na tela
-HOLD_TO_CONTINUE, Hold to continue,Segure para continuar
-TUTORIAL,"Don't let CREEPIES hit you! But stay close to kill them.","Não deixe os monstros te pegarem! Mas permaneça perto para matá-los."
-ORBS_COLLECTED,Orbs Collected,Orbs Coletadas
-POINTS,Points,Pontos
-ORBS_FROM_POINTS,Orbs from points,Orbs de pontos
-TOTAL_ORBS,Total Orbs,Orbs Totais
-YES,YES,SIM
-NO,NO,NÃO
-LANGUAGE,LANGUAGE,LINGUAGEM
-HOW_TO_PLAY,HOW TO PLAY,COMO JOGAR
-DOUBLE_TAP_QUIT,Double tap anywhere else to quit, Toque duplo em qualquer lugar para sair do jogo
-MORE_GAMES,MORE GAMES,MAIS JOGOS
-PORTUGUESE,PORTUGUESE,PORTUGUÊS
-ENGLISH,ENGLISH,INGLÊS
-SPECIAL,SPECIAL,ESPECIAL
-HIGH_SCORE,HIGH SCORE,MAIOR PONTUAÇÃO
-BOSSES,BOSSES,CHEFÕES
-COMING_SOON,COMING SOON,EM BREVE
-SECONDS,seconds,segundos
-ACHIEVEMENT_DESTROY_CREEPS_TITLE1,Welcome to Creepy Buster,Bem-vindo ao Creepy Buster
-ACHIEVEMENT_DESTROY_CREEPS_TITLE2,Just getting started,Apenas começando
-ACHIEVEMENT_DESTROY_CREEPS_TITLE3,None shall pass,Ninguém passará
-ACHIEVEMENT_DESTROY_CREEPS_TITLE4,Berserker,Berserker
-ACHIEVEMENT_DESTROY_CREEPS_TITLE5,Creepy Master,Mestre dos Creepys
-ACHIEVEMENT_DESTROY_CREEPS_DESCRIPTION,Destroy {0} creepys,Destruir {0} creepys
-ACHIEVEMENT_DESTROY_BASIC_TITLE,Blu no more,Sem mais Blu
-ACHIEVEMENT_DESTROY_BASIC_DESCRIPTION,Destroy {0} Blu enemies,Destruir {0} inimigos Blu
-ACHIEVEMENT_DESTROY_BOOMERANG_TITLE,Down with this Spiraling,Chega dessa espiral
-ACHIEVEMENT_DESTROY_BOOMERANG_DESCRIPTION,Destroy {0} Spiral enemies,Destruir {0} inimigos Spiral
-ACHIEVEMENT_DESTROY_ZIGZAG_TITLE,Zig and Zap it,Zig e Zap
-ACHIEVEMENT_DESTROY_ZIGZAG_DESCRIPTION,Destroy {0} Ziggy enemies,Destruir {0} inimigos Ziggy
-ACHIEVEMENT_DESTROY_CHARGER_TITLE,I hate chargers,Eu odeio chargers
-ACHIEVEMENT_DESTROY_CHARGER_DESCRIPTION,Destroy {0} Charger enemies,Destruir {0} inimigos Charger
-ACHIEVEMENT_DESTROY_LEGION_TITLE,Legion... wait for it... Dary!,Legen... aguarde... Dário!
-ACHIEVEMENT_DESTROY_LEGION_DESCRIPTION,Destroy {0} Legion enemies,Destruir {0} inimigos Legion
-ACHIEVEMENT_DESTROY_FOLLOWER_TITLE,Stop following me,Pare de me seguir
-ACHIEVEMENT_DESTROY_FOLLOWER_DESCRIPTION,Destroy {0} Follower enemies,Destruir {0} inimigos Follower
-ACHIEVEMENT_BOSS1_TITLE,The Cosmos fill me!,"Me dê sua força, Pegasus!"
-ACHIEVEMENT_BOSS1_DESCRIPTION,Kill Meteormite,Destrua Meteormite
-ACHIEVEMENT_BOSS2_TITLE,Trouble? Make it double!,Prepare-se para encrenca e encrenca em dobro!
-ACHIEVEMENT_BOSS2_DESCRIPTION,Kill Legiworm,Destrua Legiworm
-ACHIEVEMENT_BOSS3_TITLE,Master of Illusions,Mestre das ilusões
-ACHIEVEMENT_BOSS3_DESCRIPTION,Kill Psyquor,Destrua Psyquor
-ACHIEVEMENT_STREAK_TITLE,Nonstopping destruciton,Destruição imparável
-ACHIEVEMENT_STREAK_DESCRIPTION,Destroy {0} creeps without getting hit,Destruir {0} creeps sem tomar dano
-ACHIEVEMENT_POINTS_TITLE1,Average player?,Jogador comum?
-ACHIEVEMENT_POINTS_TITLE2,Not bad,Nada mal
-ACHIEVEMENT_POINTS_TITLE3,Effort Value!,Esforço recompensado!
-ACHIEVEMENT_POINTS_TITLE4,Like a Boss,Como um chefe
-ACHIEVEMENT_POINTS_TITLE5,IMPOSSIBRU!1!!1,Impossível!1!!1
-ACHIEVEMENT_POINTS_DESCRIPTION,Reach {0} points,Alcance {0} pontos
-ACHIEVEMENT_HOURS_TITLE1,Victory Road,Caminho para Vitória
-ACHIEVEMENT_HOURS_TITLE2,Creepy adictive,Viciado em creepy
-ACHIEVEMENT_HOURS_DESCRIPTION,Complete {0} game hours,Complete {0} horas de jogo
-ACHIEVEMENT_PLAYS_TITLE1,This is cool!,Isso é legal!
-ACHIEVEMENT_PLAYS_TITLE2,"Nothing to brag about, you know?","Nada pra reclamar, sabe?"
-ACHIEVEMENT_PLAYS_TITLE3,"Can't get enough of creepys!",Não consigo me livrar desses creepys
-ACHIEVEMENT_PLAYS_TITLE4,Overly attached player,Jogador muito apegado
-ACHIEVEMENT_PLAYS_TITLE5,We got a badass over here,Nós temos um durão por aqui
-ACHIEVEMENT_PLAYS_DESCRIPTION,Play {0} games,Jogar {0} partidas
-ACHIEVEMENT_ENERGY_TITLE,1.21 Gigawatt,1.21 Gigawatt
-ACHIEVEMENT_ENERGY_DESCRIPTION,Spent 1.21 GW of energy from your ray,Gastar 1.21 GW de energia do seu raio
-ACHIEVEMENT_UPGRADES_TITLE,I wanna be the very best!,EU quero ser o melhor!
-ACHIEVEMENT_UPGRADES_DESCRIPTION,Buy all upgrades from store,Comprar todos os upgrades da loja
-ACHIEVEMENT_LEFTRIGHT_TITLE,Was this really necessary?,Isso era realmente necessário?
-ACHIEVEMENT_LEFTRIGHT_DESCRIPTION,Stay {0} seconds straight in right or left side of screen,Ficar {0} segundos seguidos do lado direito ou esquerdo da tela
-ACHIEVEMENT_MENU_TITLE,What are you waiting for?,Pelo que está esperando?
-ACHIEVEMENT_MENU_DESCRIPTION,Stay {0} minutes straight on menu,Ficar {0} minutos seguidos no menu
-ACHIEVEMENT_UNLOCKED,"You have just unlocked ""{0}"". You earned {1} orbs","Você acabou de desbloquear ""{0}"". Você ganhou {1} orbs"
-CREEPS_KILLED,Creepys Killed,Creepys mortos
-AVERAGE_CREEPS_KILLED,Average Creepys killed,Média de Creeps mortos
-BASIC_KILLED,Blu Killed,Blu mortos
-BOOMERANG_KILLED,Spiral killed,Spiral mortos
-ZIGZAG_KILLED,Ziggy killed,Ziggy mortos
-CHARGER_KILLED,Charger killed,Charger mortos
-LEGION_KILLED,Legion killed,Legion mortos
-FOLLOWER_KILLED,Follower killed,Follower mortos
-BOSS1_KILLED,Meteormite killed,Meteormite mortos
-BOSS2_KILLED,Legiworm killed,Legiworm mortos
-BOSS3_KILLED,Psyquor killed,Psyquor mortos
-ORBS_SPENT,Orbs spent,Orbs gastas
-ORBS_MISSED, Orbs missed,Orbs perdidas
-TIME_IN_GAME,Time in game,Tempo de jogo
-ENERGY_SPENT,Energy spent,Energia gasta
-MATCHES_PLAYED,Mathes played,Partidas jogadas
-BOSS_ENCOUNTERS,Boss encounters,Encontros de chefões
-FROZEN_COLLECTED,Frozen collected,Congelar coletados
-LEVEL_UP_COLLECTED,Level Up collected,Subir de nível coletados
-INVENCIBILITY_COLLECTED,Invencibility collected,Invencibilidade coletadas
-DEATH_RAY_COLLECTED,Death Ray collected,Raio da Morte coletados
-POWER_UPS_COLLECTED,Power Ups collected,Melhorias coletadas
-POWER_UPS_MISSED,Power Ups missed,Melhorias perdidas
-HITS_BY_BASIC,Hits by Blu,Atingido pelo Blu
-HITS_BY_BOOMERANG,Hits by Spiral,Atingido pelo Spiral
-HITS_BY_ZIGZAG,Hits by Ziggy,Atingido pelo Ziggy
-HITS_BY_CHARGER,Hits by Charger,Atingido pelo Charger
-HITS_BY_LEGION,Hits by Legion,Atingido pelo Legion
-HITS_BY_FOLLOWER,Hits by Follower,Atingido pelo Follower
-HITS_BY_BOSS1,Hits by Meteormite,Atingido pelo Meteormite
-HITS_BY_BOSS2,Hits by Legiworm,Atingido pelo Legiworm
-HITS_BY_BOSS3,Hits by Psyquor,Atingido pelo Psyquor
-HITS_TAKEN,Hits taken,Vezes atingidas
-LONGEST_MATCH,Longest match,Partida mais longa
-AVERAGE_MATCH_TIME,Average match time,Média de tempo de jogo
-ENEMIES_MISSED,Enemies missed,Inimigos perdidos
-LONGEST_KILL_STREAK,Longest kill streak,Maior sequencia de morte
-TIME_ON_LEFT_SIDE,Time on left side,Tempo do lado esquerdo
-TIME_ON_RIGHT_SIDE,Time on right side,Tempo do lado direito
-TIME_ON_SPECIAL1,Time on special 1,Tempo no especial 1
-TIME_ON_SPECIAL2,Time on special 2,Tempo no especial 2
-TIME_ON_SPECIAL3,Time on special 3,Tempo no especial 3
-TIME_ON_SPECIAL4,Time on special 4,Tempo no especial 4
-TIME_ON_SPECIAL5,Time on special 5,Tempo no especial 5
-TIME_ON_SPECIAL6,Time on special 6,Tempo no especial 6
-RATE_US,"Do you like the game? Please, rate us","Gostou do jogo? Por favor, nos qualifique"
-HOW_TO_PLAY1,Stay close to hit enemies.,Fique perto para atingir os inimigos.
-HOW_TO_PLAY2,Each kill fills your special bar. Each level improves your ray.,Cada morte enche seu especial. Cada level aumenta seu raio.
-HOW_TO_PLAY3,"Don't get too close though.",Não chegue tão perto assim.
-HOW_TO_PLAY4,"If you take a hit, you lose one special level. If you are already at special 1 it's GAME OVER.","Se você tomar um dano, você perde um nível de especial. Se você já estiver no especial 1 é FIM DE JOGO."
-HOW_TO_PLAY5,You can colect orbs in game and use them to upgrade your power.,Você pode coletar orbes no jogo e use-os para aumentar seu poder.
-HOW_TO_PLAY6,Collect power ups to help you in your battle.,Colete melhorias para te ajudar no jogo.
-FROZEN_DESCRIPTION,Freeze all enemies on screen for a few seconds,Congela todos os inimigo da tela por alguns segundos
-LEVEL_UP_DESCRIPTION,Raise 1 special immediately,Suba 1 especial imediatamente
-DEATH_RAY_DESCRIPTION,Kill all enemies on screen,Mate todos os inimigos presentes na tela
-INVENCIBILITY_DESCRIPTION,Earn some seconds of invincibility,Ganha alguns segundos de invencibilidade
-NOT_LOGGED,Not logged in,Você não está logado
-GAMEO_OVER,GAME OVER,FIM DE JOGO
-SCORE,SCORE,PONTUAÇÃO
-BATTLE_STATS,BATTLE STATS,ESTATÍSTICAS
-WATCH_REPLAY,WATCH REPLAY,ASSISTA AO REPLAY
-ORB_REWARD,PLASMA ORB REWARD,RECOMPENSA DE PLASMA ORBE
-DOUBLE_REWARD,DOUBLE YOUR REWARD,DOBRE SUA RECOMPENSA
-SHOP,SHOP,LOJA
-LEVEL,LEVEL,NÍVEL
-BUY_ITEM,"Do you want to buy ""{0}"" for {1} orbs?","Você quer comprar ""{0}"" por {1} orbs?"
-STORE_NOT_ENOUGH_ORBS,"You don't have enough orbs. You must have {0} more orbs to buy this item.",Você não tem orbes suficientes. Você precisa ter mais {0} orbes para comprar esse item.
-UPGRADES,UPGRADES,MELHORIAS
-PACKS,PACKS,PACOTES
-SMALL_PACK,SMALL PACK,PACOTE PEQUENO
-MEDIUM_PACK,MEDIUM PACK,PACOTE MÉDIO
-BIG_PACK,BIG PACK,PACOTE GRANDE
-GIANT_PACK,GIANT_PACK,PACOTE GIGANTE
-MONSTER_PACK,MONSTER PACK,PACOTE MONSTRO
-DOUBLE_ORBS,DOUBLE ORBS,DOBRO DE ORBS
-AD_REMOVER,+ AD REMOVER,+ REMOVER PROPAGANDA
-LOCKED,LOCKED,BLOQUEADO
-FACEBOOK_LOGIN,Login with Facebook,Login com Facebook
-TUTORIAL_ADD,"See more on HOW TO PLAY.","Saiba mais em COMO JOGAR."
+KEY,English,Portuguese,
+Sound,Sound,Som,
+Music,Music,Música,
+TAP&HOLD,Tap and hold to play,Toque e segure para jogar,
+SOLD_OUT,Sold Out, Vendido,
+SHOP_RAY,INCREASE RAYS,AUMENTAR O NÚMERO DE RAIOS,
+SHOP_DAMAGE,INCREASE DAMAGE,AUMENTAR O DANO,
+SHOP_RANGE,INCREASE RANGE,AUMENTAR O ALCANCE,
+GAME_STATS,GAME STATS,ESTATÍSTICAS,
+DAILY_MISSIONS,DAILY MISSIONS,MISSÕES DIÁRIAS,
+WORLD_RANKING,WORLD RANKING,RANKING GLOBAL,
+FRIENDS_RANKING,FRIENDS RANKING,RANKING DE AMIGOS,
+HEIGHT,Height:,Altura:,
+WEIGHT,Weight:,Peso:,
+DESCRIPTION,Description,Descrição,
+C1_DESCRIPTION,Watch out for its special ability: wait... it doesn't have a special ability.,Cuidado com a sua habilidade especial: pera... ele não tem uma.,
+C2_DESCRIPTION,"It'll try to get you by spinning, spinning, spinning around.","Ele tentará te pegar rodando, rodando, rodando...",
+C3_DESCRIPTION,"Zig here, zag there, zigzag everywhere.","Zigue aqui, zague acolá, zigue-zague em todo lugar.",
+C4_DESCRIPTION,Charging in 5... 4... 3... 2... 1... and... Gotcha!,Carregando em 5... 4... 3... 2... 1... e... Te peguei!,
+C5_DESCRIPTION,It's never alone. Its minions will protect it and fight 'till death.,Ele nunca está sozinho. Seus servos o protegerão e lutarão até o fim.,
+C7_DESCRIPTION,Guess who will never let you go?,Adivinha quem nunca mais vai te largar?,
+BOSS1_DESCRIPTION,"Born out of a giant meteor, it'll crush you with more meteors. It seems like it's the only thing it knows how to do.","Nascido de um meteoro, ele irá te esmagar com mais meteoros. Parece que é a única coisa que sabe fazer.",
+BOSS2_DESCRIPTION,"Twins. One cannot live without the other. Each of their parts have a heart and, some say, a soul.","Gêmeos. Um não pode viver sem o outro. Cada uma de suas partes tem um coração e, alguns dizem, uma alma.",
+BOSS3_DESCRIPTION,"A master of illusion, this is a tough one, especially since you don't know which is the real one. Its illusions are exact copies of it.","Um mestre das ilusões, esse vai ser difícil, especialmente porque você não sabe qual é o verdadeiro. Cada ilusão é uma cópia exata dele.",
+RESTORE,RESTORE PURCHASE,RESTAURAR COMPRAS,
+CREDITS,CREDITS,CRÉDITOS,
+SETTINGS,SETTINGS,OPÇÕES,
+ACHIEVEMENTS,ACHIEVEMENTS,CONQUISTAS,
+FingerOff,You took your finger off the screen,Você tirou o dedo da tela,
+LifeOut,You got hit!,Você foi atingido!,
+VIDEO_TO_ORBS,Do you want to watch a video to earn {0} orbs?,Gostaria de assistir a um vídeo para ganhar {0} orbes?,
+VIDEO_TO_PLAY,Do you want to watch a video to continue playing?,Gostaria de assistir a um vídeo para continuar jogando?,
+INFINITY_ORBS_TO_PLAY,"But you have the infinity orbs cheat. Would you like to proceed, m'lord?","Mas você tem o cheat de orbes infinitas. Deseja continuar, mestre?",
+WANT_TO_SPEND,Do you want to spend {0} orbs to continue playing?,Deseja gastar {0} orbes para continuar a jogar?,
+YOU_HAVE,You have {0} orbs,Você tem {0} orbes,
+NOT_ENOUGH_ORBS,You don't have enough orbs to continue playing,Você não tem orbes suficientes para continuar jogando,
+YOU_RECEIVED,You received {0} orbs,Você recebeu {0} orbes,
+TRY_AGAIN,Try again,Tente novamente,
+FINGER_ON_SCREEN,Put your finger on the screen,Coloque o seu dedo na tela,
+TUTORIAL,Don't let the CREEPIES hit you! But stay close to kill them,Não deixe os CREEPYS te pegar! Mas fique perto para matá-los,
+ORBS_COLLECTED,Orbs Collected,Orbes Coletadas,
+POINTS,Points,Pontos,
+ORBS_FROM_POINTS,Orbs from points,Orbes por pontos,
+TOTAL_ORBS,Total Orbs,Orbes Totais,
+YES,YES,SIM,
+NO,NO,NÃO,
+LANGUAGE,LANGUAGE,IDIOMA,
+HOW_TO_PLAY,HOW TO PLAY,COMO JOGAR,
+DOUBLE_TAP_QUIT,Double tap anywhere to quit,"Toque duas vezes, em qualquer lugar, para sair do jogo",
+MORE_GAMES,MORE GAMES,MAIS JOGOS,
+PORTUGUESE,PORTUGUESE,PORTUGUÊS,
+ENGLISH,ENGLISH,INGLÊS,
+SPECIAL,SPECIAL,ESPECIAL,
+HIGH_SCORE,HIGH SCORE,MELHOR PONTUAÇÃO,
+BOSSES,BOSSES,CHEFÕES,
+COMING_SOON,COMING SOON,EM BREVE,
+SECONDS,seconds,segundos,
+ACHIEVEMENT_DESTROY_CREEPS_TITLE1,Welcome to Creepy Buster,Bem-vindo ao Creepy Buster,
+ACHIEVEMENT_DESTROY_CREEPS_TITLE2,We're just getting started,Este é só o começo,
+ACHIEVEMENT_DESTROY_CREEPS_TITLE3,You shall not pass!,Não vai subir ninguém!,
+ACHIEVEMENT_DESTROY_CREEPS_TITLE4,Berserker,Enfurecido,
+ACHIEVEMENT_DESTROY_CREEPS_TITLE5,Creepy Master,Mestre dos Creepys,
+ACHIEVEMENT_DESTROY_CREEPS_DESCRIPTION,Kill {0} creepies,Destruir {0} creepys,
+ACHIEVEMENT_DESTROY_BASIC_TITLE,You give me the Blu-es,Blu-á! Chola mais!,
+ACHIEVEMENT_DESTROY_BASIC_DESCRIPTION,Kill {0} Blu creepies,Destruir {0} creepys Blu,
+ACHIEVEMENT_DESTROY_BOOMERANG_TITLE,"You spin me like a record, baby","ÔE! Rodando, rodando!",
+ACHIEVEMENT_DESTROY_BOOMERANG_DESCRIPTION,Kill {0} Spiral creepies,Destruir {0} creepys Spiral,
+ACHIEVEMENT_DESTROY_ZIGZAG_TITLE,Ziggy played guitar,"Zigue, zague, bum! Não vai a lugar nenhum",
+ACHIEVEMENT_DESTROY_ZIGZAG_DESCRIPTION,Kill {0} Ziggy creepies,Destruir {0} creepys Ziggy,
+ACHIEVEMENT_DESTROY_CHARGER_TITLE,I hate Chargers,Eu odeio Chargers,
+ACHIEVEMENT_DESTROY_CHARGER_DESCRIPTION,Kill {0} Charger creepies,Destruir {0} creepys Charger,
+ACHIEVEMENT_DESTROY_LEGION_TITLE,Legion... wait for it... Dary!,Legion... Espere aí... Dário!,
+ACHIEVEMENT_DESTROY_LEGION_DESCRIPTION,Kill {0} Legion creepies,Destruir {0} creepys Legion,
+ACHIEVEMENT_DESTROY_FOLLOWER_TITLE,Unfollow,Sai do meu pé,
+ACHIEVEMENT_DESTROY_FOLLOWER_DESCRIPTION,Kill {0} Follower creepies,Destruir {0} creepys Follower,
+ACHIEVEMENT_BOSS1_TITLE,Pegasus Meteor Fist,"Me dê sua força, Pégaso!",
+ACHIEVEMENT_BOSS1_DESCRIPTION,Kill Meteormite,Destruir Meteormite,
+ACHIEVEMENT_BOSS2_TITLE,Prepare for trouble. Make it double!,Prepare-se para encrenca. Encrenca em dobro!,
+ACHIEVEMENT_BOSS2_DESCRIPTION,Kill Legiworm,Destruir Legiworm,
+ACHIEVEMENT_BOSS3_TITLE,Master of Illusions,Mestre das Ilusões,
+ACHIEVEMENT_BOSS3_DESCRIPTION,Kill Psyquor,Destruir Psyquor,
+ACHIEVEMENT_STREAK_TITLE,Rampage,Onda de destruição,
+ACHIEVEMENT_STREAK_DESCRIPTION,Kill {0} creepies without getting hit,Destruir {0} creepys sem tomar dano,
+ACHIEVEMENT_POINTS_TITLE1,Average player?,Jogador comum?,
+ACHIEVEMENT_POINTS_TITLE2,Not bad,Nada mal,
+ACHIEVEMENT_POINTS_TITLE3,Effort Value!,Esforço recompensado!,
+ACHIEVEMENT_POINTS_TITLE4,Like a Boss,Tô Patrão,
+ACHIEVEMENT_POINTS_TITLE5,IMPOSSIBRU!1!!1,NÃO PODE SE!1!!1,
+ACHIEVEMENT_POINTS_DESCRIPTION,Reach {0} points,Alcance {0} pontos,
+ACHIEVEMENT_HOURS_TITLE1,Victory Road,Caminho para a vitória,
+ACHIEVEMENT_HOURS_TITLE2,Creepy adictive,Viciado em creepy,
+ACHIEVEMENT_HOURS_DESCRIPTION,Complete {0} game hours,Complete {0} horas de jogo,
+ACHIEVEMENT_PLAYS_TITLE1,This is cool!,Isso é demais!,
+ACHIEVEMENT_PLAYS_TITLE2,"Can't complain, you know?","Não tenho do que reclamar, sabe?",
+ACHIEVEMENT_PLAYS_TITLE3,I can't get rid of these creepys!,Não consigo me livrar desses creepys!,
+ACHIEVEMENT_PLAYS_TITLE4,Overly attached player,Jogador grudento,
+ACHIEVEMENT_PLAYS_TITLE5,We got a badass over here,"Ui, calma aí, campeão",
+ACHIEVEMENT_PLAYS_DESCRIPTION,Play {0} games,Jogar {0} partidas,
+ACHIEVEMENT_ENERGY_TITLE,1.21 Gigawatts,"1,21 Gigawatts",
+ACHIEVEMENT_ENERGY_DESCRIPTION,Use 1.21 GW of energy with your ray,Gastar 1,21 GW de energia com o seu raio
+ACHIEVEMENT_UPGRADES_TITLE,I wanna be the very best!,Temos que pegar!,
+ACHIEVEMENT_UPGRADES_DESCRIPTION,Buy all upgrades in the store,Comprar todos os upgrades da loja,
+ACHIEVEMENT_LEFTRIGHT_TITLE,Was this really necessary?,Precisava disso?,
+ACHIEVEMENT_LEFTRIGHT_DESCRIPTION,Stay {0} seconds straight on the right or left side of the screen,Ficar {0} segundos seguidos do lado direito ou esquerdo da tela,
+ACHIEVEMENT_MENU_TITLE,What are you waiting for?,Tá esperando o quê?,
+ACHIEVEMENT_MENU_DESCRIPTION,Stay {0} minutes straight on the menu,Ficar {0} minutos seguidos no menu,
+ACHIEVEMENT_UNLOCKED,"You have just unlocked ""{0}"". You earned {1} orbs","Você acabou de desbloquear ""{0}"". Você ganhou {1} orbes",
+CREEPS_KILLED,Creepies Killed,Creepys mortos,
+AVERAGE_CREEPS_KILLED,Average Creepies killed,Média de Creepys mortos,
+BASIC_KILLED,Blu killed,Blu destruídos,
+BOOMERANG_KILLED,Spiral killed,Spiral destruídos,
+ZIGZAG_KILLED,Ziggy killed,Ziggy destruídos,
+CHARGER_KILLED,Charger killed,Charger destruídos,
+LEGION_KILLED,Legion killed,Legion destruídos,
+FOLLOWER_KILLED,Follower killed,Follower destruídos,
+BOSS1_KILLED,Meteormite killed,Meteormite destruídos,
+BOSS2_KILLED,Legiworm killed,Legiworm destruídos,
+BOSS3_KILLED,Psyquor killed,Psyquor destruídos,
+ORBS_SPENT,Orbs spent,Orbes gastas,
+ORBS_MISSED, Orbs missed,Orbes perdidas,
+TIME_IN_GAME,Time in game,Tempo de jogo,
+ENERGY_SPENT,Energy spent,Energia gasta,
+MATCHES_PLAYED,Matches played,Partidas jogadas,
+BOSS_ENCOUNTERS,Boss encounters,Lutas com chefões,
+FROZEN_COLLECTED,Freeze collected,Congelar coletados,
+LEVEL_UP_COLLECTED,Level Up collected,Subir de Nível coletados,
+INVENCIBILITY_COLLECTED,Invincibility collected,Invencibilidade coletadas,
+DEATH_RAY_COLLECTED,Death Ray collected,Raio da Morte coletados,
+POWER_UPS_COLLECTED,Power Up collected,Power Up coletados,
+POWER_UPS_MISSED,Power Up missed,Power Up perdidos,
+HITS_BY_BASIC,Hit by Blu,Atingido pelo Blu,
+HITS_BY_BOOMERANG,Hit by Spiral,Atingido pelo Spiral,
+HITS_BY_ZIGZAG,Hit by Ziggy,Atingido pelo Ziggy,
+HITS_BY_CHARGER,Hit by Charger,Atingido pelo Charger,
+HITS_BY_LEGION,Hit by Legion,Atingido pelo Legion,
+HITS_BY_FOLLOWER,Hit by Follower,Atingido pelo Follower,
+HITS_BY_BOSS1,Hit by Meteormite,Atingido pelo Meteormite,
+HITS_BY_BOSS2,Hit by Legiworm,Atingido pelo Legiworm,
+HITS_BY_BOSS3,Hit by Psyquor,Atingido pelo Psyquor,
+HITS_TAKEN,Hits taken,No. de vezes atingido,
+LONGEST_MATCH,Longest match,Partida mais longa,
+AVERAGE_MATCH_TIME,Average match time,Tempo médio de partida,
+ENEMIES_MISSED,Enemies missed,Inimigos sobreviventes,
+LONGEST_KILL_STREAK,Longest kill streak,Maior onda de destruição,
+TIME_ON_LEFT_SIDE,Time on left side,Tempo no lado esquerdo,
+TIME_ON_RIGHT_SIDE,Time on right side,Tempo no lado direito,
+TIME_ON_SPECIAL1,Time on special 1,Tempo no especial 1,
+TIME_ON_SPECIAL2,Time on special 2,Tempo no especial 2,
+TIME_ON_SPECIAL3,Time on special 3,Tempo no especial 3,
+TIME_ON_SPECIAL4,Time on special 4,Tempo no especial 4,
+TIME_ON_SPECIAL5,Time on special 5,Tempo no especial 5,
+TIME_ON_SPECIAL6,Time on special 6,Tempo no especial 6,
+RATE_US,"Did you enjoy the game? Please, rate us","Gostou do jogo? Por favor, nos avalie",
+HOW_TO_PLAY1,Stay close to hit enemies.,Fique próximo dos inimigos para acertá-los,
+HOW_TO_PLAY2,Each kill fills your special bar. Each level improves your ray.,Cada creepy destruído encherá seu especial. Cada level aprimora seu raio.,
+HOW_TO_PLAY3,"Don't get too close, though.",Mas não chegue muito perto.,
+HOW_TO_PLAY4,"If you get hit, you lose one special level. If you are already at special 1, it's GAME OVER.","Se for atingido, você perderá um nível de especial. Se já estiver no especial 1, é FIM DE JOGO.",
+HOW_TO_PLAY5,You can colect orbs in the game and use them to upgrade your power.,Você pode coletar orbes no jogo e usá-las para aumentar o seu poder.,
+HOW_TO_PLAY6,Collect power ups to help you in battle.,Colete os Power Ups para te ajudar nas batalhas.,
+FROZEN_DESCRIPTION,Freeze all enemies on screen for a few seconds,Congela todos os inimigo na tela por alguns segundos,
+LEVEL_UP_DESCRIPTION,Raise 1 special immediately,Aumenta 1 especial imediatamente,
+DEATH_RAY_DESCRIPTION,Kill all enemies on screen,Destrói todos os inimigos na tela,
+INVENCIBILITY_DESCRIPTION,Become invincible for a few seconds,Ganha alguns segundos de invencibilidade,
+NOT_LOGGED,Not logged in,Você não está logado,
+GAMEO_OVER,GAME OVER,FIM DE JOGO,
+SCORE,SCORE,PONTUAÇÃO,
+BATTLE_STATS,BATTLE STATS,ESTATÍSTICAS,
+WATCH_REPLAY,WATCH REPLAY,ASSISTA AO REPLAY,
+ORB_REWARD,PLASMA ORB REWARD,RECOMPENSA DE ORBE DE PLASMA,
+DOUBLE_REWARD,DOUBLE YOUR REWARD,DOBRE SUA RECOMPENSA,
+SHOP,SHOP,LOJA,
+LEVEL,LEVEL,NÍVEL,
+BUY_ITEM,"Do you want to buy ""{0}"" for {1} orbs?","Você quer comprar ""{0}"" por {1} orbes?",
+STORE_NOT_ENOUGH_ORBS,You don't have enough orbs. You need {0} more orbs to buy this item.,Você não tem orbes suficientes. Você precisa de mais {0} orbes para poder comprar este item.,
+UPGRADES,UPGRADES,MELHORIAS,
+PACKS,PACKS,PACOTES,
+SMALL_PACK,SMALL PACK,PACOTE PEQUENO,
+MEDIUM_PACK,MEDIUM PACK,PACOTE MÉDIO,
+BIG_PACK,BIG PACK,PACOTE GRANDE,
+GIANT_PACK,GIANT PACK,PACOTE GIGANTE,
+MONSTER_PACK,MONSTER PACK,PACOTE MONSTRO,
+DOUBLE_ORBS,DOUBLE ORBS,ORBES EM DOBRO,
+AD_REMOVER,+ AD REMOVER,+ REMOVER PROPAGANDAS,
+LOCKED,LOCKED,BLOQUEADO,
+FACEBOOK_LOGIN,Login with Facebook,Logue-se com o Facebook,
+TUTORIAL_ADD,See more on HOW TO PLAY.,Saiba mais em COMO JOGAR.,
