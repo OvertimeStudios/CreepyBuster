@@ -69,14 +69,12 @@ public class Settings : MonoBehaviour
 	private void Callback(IAPState state, string errmsg)
 	{
 		if(state == IAPState.Processing)
-			Popup.ShowBlank("Processing");
-		else if(state == IAPState.Failed)
-			Popup.ShowBlank("Restoration failed: " + errmsg, 2f);
-		else if(state == IAPState.Cancelled)
-			Popup.ShowBlank("Restoration cancelled", 2f);
+			Popup.ShowBlank(Localization.Get("PROCESSING"));
+		else if(state == IAPState.Failed || state == IAPState.Cancelled)
+			Popup.ShowBlank(Localization.Get("RESTORE_FAILED"),2f);
 		else if(state == IAPState.Success)
 		{
-			Popup.ShowBlank("Products successfully restored", 2f);
+			Popup.ShowBlank(Localization.Get("RESTORE_SUCCESS"), 2f);
 
 			#if IAP_IMPLEMENTED
 			foreach(IAPProduct product in IAPHelper.ProductsRestored)

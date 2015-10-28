@@ -851,7 +851,7 @@ public class GameController : MonoBehaviour
 	private void OnDoubleTap(TapGesture gesture)
 	{
 		if(isPaused)
-			Popup.ShowYesNo("Are you sure you wanna quit the game?", QuitGame, null, true);
+			Popup.ShowYesNo(Localization.Get("QUIT_GAME"), QuitGame, null, true);
 	}
 
 	private void QuitGame()

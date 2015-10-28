@@ -73,7 +73,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	public void Play()
 	{
-		//#if UNITYADS_IMPLEMENTED
+		#if UNITYADS_IMPLEMENTED
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		if(IsReady)
 		{
@@ -83,12 +83,12 @@ public class RewardedVideoPlayer : MonoBehaviour
 				Ask();
 		}
 		else if(UnityAdsHelper.isSupported)
-			Popup.ShowOk("Ads not supported");
+			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		else if(UnityAdsHelper.isInitialized)
-			Popup.ShowOk("Ads not loaded yet");
+			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		else
-			Popup.ShowOk("Ads failed");
-		//#endif
+			Popup.ShowOk(Localization.Get("ADS_FAILED"));
+		#endif
 	}
 
 	private void Ask()
@@ -97,7 +97,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 		if(UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
 			Popup.ShowYesNo(string.Format(Localization.Get("VIDEO_TO_ORBS"), orbsToGive), ShowAd, null);
 		else
-			Popup.ShowBlank("Ads not ready", 2f);
+			Popup.ShowBlank(Localization.Get("ADS_FAILED"), 2f);
 		#else
 		Popup.ShowBlank("Unity Ads not implemented", 2f);
 		#endif
@@ -118,7 +118,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 		if(UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
 			UnityAdsHelper.ShowRewardedAd(handleFinish);
 		else
-			Popup.ShowBlank("Ads not ready", 2f);
+			Popup.ShowBlank(Localization.Get("ADS_FAILED"), 2f);
 		#else
 		Popup.ShowBlank("Unity Ads not implemented", 2f);
 		#endif

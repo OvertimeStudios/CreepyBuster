@@ -140,7 +140,7 @@ public class EveryplayController : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		if(!IsRecorded)
 		{
-			Popup.ShowBlank("Couldn't record this time.", 2f);
+			Popup.ShowOk(Localization.Get("EVERYPLAY_ERROR"));
 			return;
 		}
 		PlayLastRecording(null);

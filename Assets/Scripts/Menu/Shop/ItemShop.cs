@@ -102,14 +102,13 @@ public class ItemShop : MonoBehaviour
 
 		#if INFINITY_ORBS
 		if (Global.TotalOrbs >= price[CurrentLevel])
-			Popup.ShowYesNo ("Do you want to buy " + type.ToString () + " for " + string.Format ("{0:0,0}", price[CurrentLevel]) + " orbs?", PurchaseAccepted, PurchaseDeclined);
+			Popup.ShowYesNo (string.Format(Localization.Get("BUY_ITEM"),description.text, string.Format ("{0:0,0}", price[CurrentLevel])), PurchaseAccepted, PurchaseDeclined);
 		else
 			Popup.ShowYesNo ("You may don't have enough orbs, but you are cheating, who cares? Wanna buy?", PurchaseAccepted, PurchaseDeclined);
 		#else
 		if (Global.TotalOrbs >= price[CurrentLevel])
 			Popup.ShowYesNo (string.Format(Localization.Get("BUY_ITEM"),description.text, string.Format ("{0:0,0}", price[CurrentLevel])), PurchaseAccepted, PurchaseDeclined);
 		else
-
 			Popup.ShowOk (string.Format(Localization.Get("STORE_NOT_ENOUGH_ORBS"), string.Format ("{0:0,0}", (price[CurrentLevel] - Global.TotalOrbs))), null);
 		#endif
 	}
