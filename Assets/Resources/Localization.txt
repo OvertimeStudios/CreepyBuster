@@ -190,3 +190,4 @@ QUIT_GAME,Are you sure you want to quit?,Tem certeza de que deseja sair do jogo?
 PROCESSING,Processing,Processando
 RESTORE_SUCCESS,Products have been successfully restored,Produtos restaurados com sucesso
 RESTORE_FAILED,Restoration failed,Falha na restauração
+PLASMA_ORBS,PLASMA ORBS,ORBES DE PLASMA

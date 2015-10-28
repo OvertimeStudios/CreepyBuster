@@ -275,7 +275,7 @@ public class IllusionBoss : MonoBehaviour
 
 			float angle = Mathf.Atan2(waypoint.y - myTransform.position.y, waypoint.x - myTransform.position.x) * Mathf.Rad2Deg;
 			Vector3 eulerAngle = transform.eulerAngles;
-			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.15f);
+			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.2f);
 			myTransform.eulerAngles = eulerAngle;
 
 			yield return null;
