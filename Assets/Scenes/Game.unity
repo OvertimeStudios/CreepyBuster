@@ -1846,6 +1846,26 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 42.4000015
       objectReference: {fileID: 0}
+    - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
+      propertyPath: mSpriteName
+      value: BOTAO-DOUBLE
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
+      propertyPath: keepAspectRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
+      propertyPath: aspectRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
+      propertyPath: mHeight
+      value: 119
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
+      propertyPath: mWidth
+      value: 119
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
   m_IsPrefabParent: 0
@@ -8017,9 +8037,9 @@ MonoBehaviour:
   attackLoop: {fileID: 8300000, guid: a90193296a2ae4fcd887877055b84413, type: 3}
   attackLoop2: {fileID: 8300000, guid: 26cf890fab8f344bd8db0fa70238b5d9, type: 3}
   attackLoop3: {fileID: 8300000, guid: a4fe7325fde564233bbdab35edf881b3, type: 3}
-  attackStart: {fileID: 8300000, guid: be9892ae94e5a4dbe8abce6326cad8fb, type: 3}
-  attackStart2: {fileID: 8300000, guid: 380f6aeead64046e587c3cfdbfdf5e22, type: 3}
-  attackStart3: {fileID: 8300000, guid: b2d8a2d1e8a5e4ab890d93b0a062b533, type: 3}
+  attackStart: {fileID: 8300000, guid: 19672f9adcd944364a0093ee689c212d, type: 3}
+  attackStart2: {fileID: 8300000, guid: af8164f19880f4d368320ed63f358ce8, type: 3}
+  attackStart3: {fileID: 8300000, guid: 32533e2fa914a49b4b0f5c26f0ad436e, type: 3}
   orbPP: {fileID: 8300000, guid: 15eceadde88ab4bf99af1a01d804620f, type: 3}
   orbP: {fileID: 8300000, guid: 90dfb3627da8247fd8110881b09b13da, type: 3}
   orbM: {fileID: 8300000, guid: 5b071750f05da44748880aab32d74343, type: 3}
@@ -8028,7 +8048,7 @@ MonoBehaviour:
   deathRay: {fileID: 8300000, guid: bd7f51ddc6fac4842a72d03770d7ce3c, type: 3}
   powerUpCollect: {fileID: 8300000, guid: 9ef8f2f5e69034457b180f3df3c9e30d, type: 3}
   score: {fileID: 8300000, guid: 38f6df70aa83e4ed79e72045c4dcf33a, type: 3}
-  playerDamage: {fileID: 8300000, guid: 270cc4fdf174e4e509660fa18d3a7cb2, type: 3}
+  playerDamage: {fileID: 8300000, guid: 6cacc2ad211a84f3cb28334d6ef42fbd, type: 3}
   click: {fileID: 8300000, guid: b9d0b10b7e4264818a8558bd8150c1ba, type: 3}
   menuIn: {fileID: 8300000, guid: 4ff63f0e73fe642d9aa3e26697f7a449, type: 3}
   menuOut: {fileID: 8300000, guid: eaf0c403fe67044dfa3de82302be7d64, type: 3}
@@ -24130,6 +24150,7 @@ GameObject:
   - 58: {fileID: 1036437453}
   - 58: {fileID: 1036437454}
   - 82: {fileID: 1036437452}
+  - 82: {fileID: 1036437455}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -24274,6 +24295,76 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: .300000012
+--- !u!82 &1036437455
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1036437448}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5fa03b2caaf6949a8967a901d6ce359d, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1001 &1040442291
 Prefab:
   m_ObjectHideFlags: 0

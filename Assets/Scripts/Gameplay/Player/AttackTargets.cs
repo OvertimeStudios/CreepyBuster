@@ -22,7 +22,8 @@ public class AttackTargets : MonoBehaviour
 
 	private int layerMask;
 
-	private AudioSource audioSource;
+	private AudioSource audioSourceAttack;
+	private AudioSource audioSourceSpecial;
 	private bool isAttacking;
 
 	public float damage;
@@ -96,7 +97,9 @@ public class AttackTargets : MonoBehaviour
 		isAttacking = false;
 		isSpecial = false;
 
-		audioSource = GetComponent<AudioSource>();
+		AudioSource[] audioSources = GetComponents<AudioSource>();
+		audioSourceAttack = audioSources[0];
+		audioSourceSpecial = audioSources[1];
 
 		targets = new List<Transform> ();
 		enemiesInRange = new List<Transform> ();
@@ -213,7 +216,7 @@ public class AttackTargets : MonoBehaviour
 			isAttacking = true;
 
 			if(Global.IsSoundOn)
-				audioSource.Play();
+				audioSourceAttack.Play();
 		}
 		//stop attacking
 		else if(isAttacking && targets.Count == 0)
@@ -221,18 +224,40 @@ public class AttackTargets : MonoBehaviour
 			isAttacking = false;
 
 			if(Global.IsSoundOn)
-				audioSource.Stop();
+				audioSourceAttack.Stop();
 		}
 	}
 
 	public void UseSpecial()
 	{
+		if(Global.IsSoundOn)
+		{
+			audioSourceSpecial.mute = false;
+			audioSourceSpecial.Stop ();
+			audioSourceSpecial.Play ();
+
+			if(GameController.IsInvencible)
+			{
+				audioSourceSpecial.mute = true;
+
+				StartCoroutine (WaitForEndInvincible());
+			}
+		}
+
 		isSpecial = true;
 		specialCounter = LevelDesign.Instance.specialTime;
 		GameController.specialStreak++;
 
 		if(OnSpecialStarted != null)
 			OnSpecialStarted();
+	}
+
+	private IEnumerator WaitForEndInvincible()
+	{
+		while(GameController.IsInvencible)
+			yield return null;
+
+		audioSourceSpecial.mute = false;
 	}
 
 	private void RunTimer()
