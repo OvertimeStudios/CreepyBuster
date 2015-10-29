@@ -2572,7 +2572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &78983742
 Transform:
   m_ObjectHideFlags: 0
@@ -4879,6 +4879,18 @@ Prefab:
     - target: {fileID: 11497024, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
       propertyPath: aspectRatio
       value: .400000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: type
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: nome
+      value: CHARGER
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: description
+      value: C4_DESCRIPTION
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
@@ -8777,6 +8789,18 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: nome
+      value: SPIRAL
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: description
+      value: C2_DESCRIPTION
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
   m_IsPrefabParent: 0
@@ -8982,12 +9006,12 @@ MonoBehaviour:
   mColor: {r: .00784313772, g: .854902029, b: .898039281, a: 1}
   mPivot: 4
   mWidth: 116
-  mHeight: 20
+  mHeight: 52
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.80000019
+  aspectRatio: 2.23076916
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
@@ -10424,6 +10448,18 @@ Prefab:
     - target: {fileID: 186676, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: nome
+      value: LEGION
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: description
+      value: C5_DESCRIPTION
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
@@ -12652,7 +12688,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &497934350
 Transform:
   m_ObjectHideFlags: 0
@@ -16223,6 +16259,18 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: efd662e771b4a4904bb45da6161dd337,
         type: 3}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: nome
+      value: FOLLOWER
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: description
+      value: C7_DESCRIPTION
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
   m_IsPrefabParent: 0
@@ -16763,7 +16811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &667769777
 Transform:
   m_ObjectHideFlags: 0
@@ -16771,7 +16819,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 667769776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -139.399994, y: -139.300003, z: 0}
+  m_LocalPosition: {x: -139.399994, y: -72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 216652317}
@@ -22920,7 +22968,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 928816334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -139, y: -159.5, z: 0}
+  m_LocalPosition: {x: -139, y: -94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 216652317}
@@ -22956,18 +23004,18 @@ MonoBehaviour:
   mColor: {r: .00784313772, g: .854902029, b: .898039281, a: 1}
   mPivot: 0
   mWidth: 288
-  mHeight: 66
+  mHeight: 118
   mDepth: 28
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.36363649
+  aspectRatio: 2.44067788
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
   mText: Born out of a giant meteor, he'll crush you with more meteor. It seems like
     it's the only thing he knows to do
-  mFontSize: 14
+  mFontSize: 16
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -22982,7 +23030,7 @@ MonoBehaviour:
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
   mSpacingX: 0
-  mSpacingY: 0
+  mSpacingY: 4
   mUseFloatSpacing: 0
   mFloatSpacingX: 0
   mFloatSpacingY: 0
@@ -23881,7 +23929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &991531923
 Transform:
   m_ObjectHideFlags: 0
@@ -28178,12 +28226,12 @@ MonoBehaviour:
   mColor: {r: .00784313772, g: .854902029, b: .898039281, a: 1}
   mPivot: 4
   mWidth: 116
-  mHeight: 20
+  mHeight: 52
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.80000019
+  aspectRatio: 2.23076916
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
@@ -30611,7 +30659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1290253438
 Transform:
   m_ObjectHideFlags: 0
@@ -37950,12 +37998,12 @@ MonoBehaviour:
   mColor: {r: .00784313772, g: .854902029, b: .898039281, a: 1}
   mPivot: 4
   mWidth: 116
-  mHeight: 20
+  mHeight: 52
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.80000019
+  aspectRatio: 2.23076916
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
@@ -46086,6 +46134,18 @@ Prefab:
     - target: {fileID: 11497024, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
       propertyPath: mPivot
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: nome
+      value: ZIGGY
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403218, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
+      propertyPath: description
+      value: C3_DESCRIPTION
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da51ecde6b3a546d48ce91fb0d7b1315, type: 2}
