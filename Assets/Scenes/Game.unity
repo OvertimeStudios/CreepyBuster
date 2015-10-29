@@ -9086,7 +9086,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 356165791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1390290936}
@@ -9120,7 +9120,7 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: .00784313772, g: .854902029, b: .898039281, a: 1}
-  mPivot: 4
+  mPivot: 7
   mWidth: 116
   mHeight: 52
   mDepth: 4
@@ -13194,7 +13194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &500414555
 Transform:
   m_ObjectHideFlags: 0
@@ -13261,7 +13261,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3075
+  startingRenderQueue: 3087
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -21270,7 +21270,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3003
+  startingRenderQueue: 3008
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -28616,7 +28616,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1171683413}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1549439656}
@@ -28650,7 +28650,7 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: .00784313772, g: .854902029, b: .898039281, a: 1}
-  mPivot: 4
+  mPivot: 7
   mWidth: 116
   mHeight: 52
   mDepth: 4
@@ -28661,7 +28661,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
-  mText: Hits Taken
+  mText: No. de vezes atingido
   mFontSize: 16
   mFontStyle: 0
   mAlignment: 0
@@ -38753,7 +38753,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1587000053}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1831325203}
@@ -38787,7 +38787,7 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: .00784313772, g: .854902029, b: .898039281, a: 1}
-  mPivot: 4
+  mPivot: 7
   mWidth: 116
   mHeight: 52
   mDepth: 4
@@ -38798,7 +38798,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
-  mText: Kills
+  mText: Creepies killed
   mFontSize: 16
   mFontStyle: 0
   mAlignment: 0
@@ -50410,7 +50410,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3000
+  startingRenderQueue: 3004
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
