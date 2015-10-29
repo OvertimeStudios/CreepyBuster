@@ -31,11 +31,13 @@ public class FacebookController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		Debug.Log("FacebookHelper.Init ();");
 		FacebookHelper.Init ();
 	}
 
 	public void Login()
 	{
+		Debug.Log(string.Format("FB.IsInitialized? {0}", FB.IsInitialized));
 		if(!IsLoggedIn)
 		{
 			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
@@ -98,7 +100,8 @@ public class FacebookController : MonoBehaviour
 
 	public void LikeUs()
 	{
-		Application.OpenURL("https://www.facebook.com/" + 1663775267187885);
+		Application.OpenURL("fb://page/" + 1663775267187885);
+		//Application.OpenURL("https://www.facebook.com/" + 1663775267187885);
 	}
 
 	public void Logout()

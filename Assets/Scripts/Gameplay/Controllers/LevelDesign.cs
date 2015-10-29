@@ -31,6 +31,7 @@ public class LevelDesign : MonoBehaviour
 	public EnemiesSpawnLevelUpCondition[] enemiesSpawnLevelUpCondition;
 
 	public EnemiesAttributesLevelUpCondition enemiesAttributesLevelUpCondition;
+	public int maxEnemiesAttributeLevel = 10;
 	
 	[Header("Tier Level")]
 	public LevelUpCondition[] tierLevelUpCondition;
@@ -599,7 +600,7 @@ public class LevelDesign : MonoBehaviour
 
 	private void EnemiesAttributesLevelUp()
 	{
-		if(GameController.Score >= LevelDesign.NextScoreToEnemyAttributesLevelUp)
+		if(enemiesAttributeLevel < maxEnemiesAttributeLevel && GameController.Score >= LevelDesign.NextScoreToEnemyAttributesLevelUp)
 		{
 			enemiesAttributeLevel++;
 			

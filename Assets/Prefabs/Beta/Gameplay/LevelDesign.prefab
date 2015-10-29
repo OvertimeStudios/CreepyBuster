@@ -46,13 +46,13 @@ MonoBehaviour:
   - killStreak: 6
     maxRays: 2
     color: {r: 1, g: .635294139, b: .450980395, a: 1}
-  - killStreak: 12
+  - killStreak: 13
     maxRays: 3
     color: {r: .470588237, g: 1, b: .450980395, a: 1}
-  - killStreak: 17
+  - killStreak: 19
     maxRays: 4
     color: {r: .450980395, g: .741176486, b: 1, a: 1}
-  - killStreak: 22
+  - killStreak: 25
     maxRays: 5
     color: {r: .764705896, g: .450980395, b: 1, a: 1}
   streakToSpecial: 20
@@ -1975,7 +1975,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: playerLevelUpCondition.Array.data[2].killStreak
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: playerLevelUpCondition.Array.data[1].killStreak
@@ -1983,11 +1983,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: playerLevelUpCondition.Array.data[3].killStreak
-      value: 17
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: playerLevelUpCondition.Array.data[4].killStreak
-      value: 22
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: playerLevelUpCondition.Array.data[0].color.a

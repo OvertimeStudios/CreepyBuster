@@ -70,9 +70,9 @@ public class GameStats : MonoBehaviour
 		boss1Killed.FindChild("Value").GetComponent<UILabel>().text = Global.Boss1Killed.ToString();
 		boss2Killed.FindChild("Value").GetComponent<UILabel>().text = Global.Boss2Killed.ToString();
 		boss3Killed.FindChild("Value").GetComponent<UILabel>().text = Global.Boss3Killed.ToString();
-		orbsCollected.FindChild("Value").GetComponent<UILabel>().text = Global.OrbsCollected.ToString();
-		orbsSpent.FindChild("Value").GetComponent<UILabel>().text = Global.OrbsSpent.ToString();
-		orbsMissed.FindChild("Value").GetComponent<UILabel>().text = Global.OrbsMissed.ToString();
+		orbsCollected.FindChild("Value").GetComponent<UILabel>().text = string.Format("{0:0,0}", Global.OrbsCollected);
+		orbsSpent.FindChild("Value").GetComponent<UILabel>().text = string.Format("{0:0,0}", Global.OrbsSpent);
+		orbsMissed.FindChild("Value").GetComponent<UILabel>().text = string.Format("{0:0,0}", Global.OrbsMissed);
 
 		timeInGame.FindChild("Value").GetComponent<UILabel>().text = FormatHour(Global.TimePlayed);
 

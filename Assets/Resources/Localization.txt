@@ -52,6 +52,7 @@ PORTUGUESE,PORTUGUESE,PORTUGUÊS,
 ENGLISH,ENGLISH,INGLÊS,
 SPECIAL,SPECIAL,ESPECIAL,
 HIGH_SCORE,HIGH SCORE,MELHOR PONTUAÇÃO,
+HIGH_SCORE_LOWER,High score,Melhor pontuação
 BOSSES,BOSSES,CHEFÕES,
 COMING_SOON,COMING SOON,EM BREVE,
 SECONDS,seconds,segundos,
@@ -117,7 +118,7 @@ BOSS1_KILLED,Meteormite killed,Meteormite destruídos,
 BOSS2_KILLED,Legiworm killed,Legiworm destruídos,
 BOSS3_KILLED,Psyquor killed,Psyquor destruídos,
 ORBS_SPENT,Orbs spent,Orbes gastas,
-ORBS_MISSED, Orbs missed,Orbes perdidas,
+ORBS_MISSED,Orbs missed,Orbes perdidas,
 TIME_IN_GAME,Time in game,Tempo de jogo,
 ENERGY_SPENT,Energy spent,Energia gasta,
 MATCHES_PLAYED,Matches played,Partidas jogadas,
@@ -157,7 +158,7 @@ HOW_TO_PLAY3,"Don't get too close, though.",Mas não chegue muito perto.,
 HOW_TO_PLAY4,"If you get hit, you lose one special level. If you are already at special 1, it's GAME OVER.","Se for atingido, você perderá um nível de especial. Se já estiver no especial 1, é FIM DE JOGO.",
 HOW_TO_PLAY5,You can colect orbs in the game and use them to upgrade your power.,Você pode coletar orbes no jogo e usá-las para aumentar o seu poder.,
 HOW_TO_PLAY6,Collect power ups to help you in battle.,Colete os Power Ups para te ajudar nas batalhas.,
-FROZEN_DESCRIPTION,Freeze all enemies on screen for a few seconds,Congela todos os inimigo na tela por alguns segundos,
+FROZEN_DESCRIPTION,Freeze all enemies on screen for a few seconds,Congela todos os inimigos na tela por alguns segundos,
 LEVEL_UP_DESCRIPTION,Raise 1 special immediately,Aumenta 1 especial imediatamente,
 DEATH_RAY_DESCRIPTION,Kill all enemies on screen,Destrói todos os inimigos na tela,
 INVENCIBILITY_DESCRIPTION,Become invincible for a few seconds,Ganha alguns segundos de invencibilidade,
@@ -196,3 +197,6 @@ PLASMA_ORBS,PLASMA ORBS,ORBES DE PLASMA
 HOLD_TO_CONTINUE,Hold to continue,Segure para continuar
 GAME_PAUSED,GAME PAUSED,JOGO PAUSADO
 RAYS,RAYS,RAIOS
+ORB,Orb,Orbe
+ORBS,Orbs,Orbes
+DOUBLE_ORBS_QUESTION,Do you want to watch a video to double the orbs earned in this match?,Gostaria de assistir a um vídeo para dobrar as orbes obtidas nesta partida?

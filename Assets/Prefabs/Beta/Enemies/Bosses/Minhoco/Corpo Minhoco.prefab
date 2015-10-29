@@ -279,6 +279,7 @@ MonoBehaviour:
   chanceToDrop: 0
   itens: []
   spritesToWhite: []
+  lifeToAdd: 1
 --- !u!114 &11489002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -375,6 +376,10 @@ Prefab:
       propertyPath: explosion
       value: 
       objectReference: {fileID: 148608, guid: b4b99ee1db41649698b2d1f3d21360f3, type: 2}
+    - target: {fileID: 0}
+      propertyPath: lifeToAdd
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 188244}

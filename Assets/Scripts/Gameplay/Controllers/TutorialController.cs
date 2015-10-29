@@ -68,12 +68,17 @@ public class TutorialController : MonoBehaviour
 		doubleEnemy = false;
 		canTakeOffFinger = false;
 
-		tutorial.gameObject.SetActive (true);
-		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
-
-		Debug.Log("GameController.isGameRunning? " + GameController.isGameRunning);
 		if(GameController.isGameRunning)
 			StartCoroutine (Run ());
+
+		StartCoroutine(ActivateTutorialGameObject());
+	}
+
+	private IEnumerator ActivateTutorialGameObject()
+	{
+		yield return new WaitForEndOfFrame();
+
+		tutorial.gameObject.SetActive (true);
 	}
 
 	void OnDisable()
@@ -93,6 +98,7 @@ public class TutorialController : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
+		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
 	}
 
 	void Update()

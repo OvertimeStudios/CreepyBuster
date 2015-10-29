@@ -10,6 +10,7 @@ public class Plasmette : MonoBehaviour
 	
 	private Animator myAnimator;
 	private Transform myTransform;
+	private Transform plasmetteTransform;
 	private Coroutine spinningCoroutine;
 	private AudioSource myAudioSource;
 	
@@ -22,9 +23,10 @@ public class Plasmette : MonoBehaviour
 	{
 		myAudioSource = GetComponent<AudioSource>();
 		myTransform = transform;
-		myAnimator = GetComponent<Animator>();
+		myAnimator = GetComponentInChildren<Animator>();
 
-		originalScale = myTransform.localScale;
+		plasmetteTransform = transform.FindChild("Sprite");
+		originalScale = plasmetteTransform.localScale;
 
 		MenuController.OnPanelClosed += Reactivate;
 	}
@@ -59,7 +61,7 @@ public class Plasmette : MonoBehaviour
 			myTransform.Rotate(0, 0, rotVel);
 			
 			scale = originalScale.x - ((time / timeSpinning) * Mathf.Abs(finalScale - originalScale.x));
-			myTransform.localScale = new Vector3(scale, scale, scale);
+			plasmetteTransform.localScale = new Vector3(scale, scale, scale);
 			
 			yield return null;
 		}
@@ -89,13 +91,13 @@ public class Plasmette : MonoBehaviour
 	
 	private IEnumerator BackToNormalScale()
 	{
-		while(Mathf.Abs(myTransform.localScale.x - originalScale.x) > 0.05f)
+		while(Mathf.Abs(plasmetteTransform.localScale.x - originalScale.x) > 0.05f)
 		{
-			myTransform.localScale += Vector3.one * Time.deltaTime;
+			plasmetteTransform.localScale += Vector3.one * Time.deltaTime;
 			yield return null;
 		}
 		
-		myTransform.localScale = originalScale;
+		plasmetteTransform.localScale = originalScale;
 	}
 
 	private void Reactivate()

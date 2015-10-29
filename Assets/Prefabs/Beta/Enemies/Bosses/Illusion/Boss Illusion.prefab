@@ -313,6 +313,7 @@ MonoBehaviour:
   spritesToWhite: []
   orbsToDrop: 30
   spread: 1
+  lifeToAdd: 8
 --- !u!114 &11453062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -555,6 +556,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: life
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: lifeToAdd
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
