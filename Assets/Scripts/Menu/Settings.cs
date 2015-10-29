@@ -43,16 +43,16 @@ public class Settings : MonoBehaviour
 
 	private void HandleLoginSection()
 	{
-		if(FB.IsLoggedIn)
+		if(FacebookController.IsLoggedIn)
 		{
 			fbLogin.SetActive(false);
-			fbLogout.SetActive(true);
+			//fbLogout.SetActive(true);
 			likeUs.SetActive(true);
 		}
 		else
 		{
 			fbLogin.SetActive(true);
-			fbLogout.SetActive(false);
+			//fbLogout.SetActive(false);
 			likeUs.SetActive(false);
 		}
 	}

@@ -70,6 +70,7 @@ public class Global : MonoBehaviour
 	private const string TIME_SPECIAL4 = "timeSpecial4";
 	private const string TIME_SPECIAL5 = "timeSpecial5";
 	private const string TIME_SPECIAL6 = "timeSpecial6";
+	private const string FACEBOOKID = "facebookID";
 	#endregion
 
 	private static bool isLoaded;
@@ -1004,6 +1005,23 @@ public class Global : MonoBehaviour
 		set
 		{
 			PlayerPrefs.SetInt(TIME_SPECIAL6, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static string FacebookID
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(FACEBOOKID))
+				return "";
+
+			return PlayerPrefs.GetString(FACEBOOKID);
+		}
+
+		set
+		{
+			PlayerPrefs.SetString(FACEBOOKID, value);
 			PlayerPrefs.Save();
 		}
 	}

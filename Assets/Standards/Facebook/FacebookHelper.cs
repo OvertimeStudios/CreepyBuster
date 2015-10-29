@@ -23,7 +23,7 @@ public class FacebookHelper : MonoBehaviour
 
 	public static bool IsUserLoggedIn
 	{
-		get { return FB.IsLoggedIn; }
+		get { return Global.FacebookID != ""; }
 	}
 
 	public static string UserID

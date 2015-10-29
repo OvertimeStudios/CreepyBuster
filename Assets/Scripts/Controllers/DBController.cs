@@ -7,6 +7,20 @@ public class DBController : MonoBehaviour
 
 	public static int gameID;
 
+	#region singleton
+	private static DBController instance;
+	public static DBController Instance
+	{
+		get
+		{
+			if(instance == null)
+				instance = GameObject.FindObjectOfType<DBController>();
+
+			return instance;
+		}
+	}
+	#endregion
+
 	#if FACEBOOK_IMPLEMENTED
 	void OnEnable()
 	{
@@ -18,7 +32,7 @@ public class DBController : MonoBehaviour
 		FacebookController.OnLoggedIn -= ConnectDB;
 	}
 
-	private void ConnectDB()
+	public void ConnectDB()
 	{
 		DBHandler.Connect();
 
@@ -28,7 +42,7 @@ public class DBController : MonoBehaviour
 
 		FacebookUser fbUser = FacebookController.User;
 
-		DBUser user = DBHandler.GetUser(fbUser.tokenForBusiness);
+		DBUser user = DBHandler.GetUser(Global.FacebookID);
 
 		if(user == null)//no user was found
 			user = DBHandler.CreateUser(fbUser.tokenForBusiness, fbUser.firstname, fbUser.lastname, fbUser.email, fbUser.gender);

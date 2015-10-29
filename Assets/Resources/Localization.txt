@@ -200,3 +200,4 @@ RAYS,RAYS,RAIOS
 ORB,Orb,Orbe
 ORBS,Orbs,Orbes
 DOUBLE_ORBS_QUESTION,Do you want to watch a video to double the orbs earned in this match?,Gostaria de assistir a um vídeo para dobrar as orbes obtidas nesta partida?
+LIKE,Like,Curtir

@@ -24,7 +24,13 @@ public class FacebookController : MonoBehaviour
 
 	public static bool IsLoggedIn
 	{
-		get { return fbUser != null; }
+		get { return Global.FacebookID != ""; }
+	}
+
+	//in reality is token_for_business
+	public static string FacebookID
+	{
+		get { return Global.FacebookID; }
 	}
 	#endregion
 
@@ -32,13 +38,22 @@ public class FacebookController : MonoBehaviour
 	void Start () 
 	{
 		Debug.Log("FacebookHelper.Init ();");
-		FacebookHelper.Init ();
+		FacebookHelper.Init (OnInitCompleted);
+	}
+
+	private void OnInitCompleted()
+	{
+		Debug.Log(string.Format("Facebook init Completed. Is user already logged in? {0}", Global.FacebookID != ""));
+		//already logged in
+		if(Global.FacebookID != "")
+		{
+			Login ();
+		}
 	}
 
 	public void Login()
 	{
-		Debug.Log(string.Format("FB.IsInitialized? {0}", FB.IsInitialized));
-		if(!IsLoggedIn)
+		if(!FB.IsLoggedIn)
 		{
 			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 			string scope = "public_profile,email";
@@ -47,8 +62,7 @@ public class FacebookController : MonoBehaviour
 		}
 		else
 		{
-			fbUser = null;
-			FacebookHelper.Logout();
+			Debug.Log("User Already Logged In");
 		}
 	}
 
@@ -71,7 +85,7 @@ public class FacebookController : MonoBehaviour
 	{
 		if (result.Error != null)
 		{
-			Debug.Log ("FB API error response:\n" + result.Error);
+			Debug.Log ("FB API error response:\n" + result.Error + " \n" + result.Text);
 		}
 		else
 		{
@@ -91,6 +105,8 @@ public class FacebookController : MonoBehaviour
 			//tokenForBusiness is unique for user for all apps of the same company!!!!
 			fbUser.tokenForBusiness = data["token_for_business"].ToString();
 
+			Global.FacebookID = fbUser.tokenForBusiness;
+
 			Debug.Log(fbUser.ToString());
 
 			if(OnLoggedIn != null)
@@ -106,6 +122,7 @@ public class FacebookController : MonoBehaviour
 
 	public void Logout()
 	{
+		Global.FacebookID = "";
 		FacebookHelper.Logout ();
 
 		fbUser = null;
