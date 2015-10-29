@@ -119,7 +119,7 @@ public class GameStats : MonoBehaviour
 
 		hitsTaken.FindChild("Value").GetComponent<UILabel>().text = (Global.HitsByBasic + Global.HitsByBoomerang +
 		                                                             Global.HitsByZigZag + Global.HitsByCharger + 
-		                                                             Global.HitsByLegion + Global.HitsByZigZag + 
+		                                                             Global.HitsByLegion + Global.HitsByFollower + 
 		                                                             Global.HitsByBoss1 + Global.HitsByBoss2 + 
 		                                                             Global.HitsByBoss3).ToString();
 

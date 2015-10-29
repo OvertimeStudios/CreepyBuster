@@ -5,6 +5,7 @@ using UnityEngine.Advertisements;
 
 public class UnityAdsHelper : MonoBehaviour 
 {
+	public const string SIMPLE_VIDEO = "video";
 	public const string REWARDED_VIDEO = "rewardedVideo";
 
 	public static bool isSupported { get { return Advertisement.isSupported; } }
@@ -31,8 +32,8 @@ public class UnityAdsHelper : MonoBehaviour
 
 	public static void ShowSimpleAd()
 	{
-			if(Advertisement.IsReady())
-			   Advertisement.Show();
+		if(Advertisement.IsReady(SIMPLE_VIDEO))
+		   Advertisement.Show(SIMPLE_VIDEO);
 	}
 	
 	public static void ShowRewardedAd(Action onComplete)

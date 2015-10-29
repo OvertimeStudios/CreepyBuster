@@ -84,11 +84,11 @@ public class ItemShopHardCurrency : MonoBehaviour
 	private void Callback(IAPState state, string errmsg)
 	{
 		if(state == IAPState.Processing)
-			Popup.ShowBlank("Processing");
+			Popup.ShowBlank(Localization.Get("PROCESSING"));
 		else if(state == IAPState.Failed)
-			Popup.ShowBlank("Purchase failed: \n" + errmsg, 2f);
+			Popup.ShowBlank(Localization.Get("PURCHASE_FAILED"), 2f);
 		else if(state == IAPState.Cancelled)
-			Popup.ShowBlank("Purchase cancelled", 2f);
+			Popup.ShowBlank(Localization.Get("PURCHASE_FAILED"), 2f);
 		else if(state == IAPState.Success)
 			PurchaseComplete();
 	}
@@ -126,7 +126,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 				#if ADMOB_IMPLEMENTED
 				AdMobHelper.HideBanner();
 				#endif
-				Popup.ShowOk("Orbs gain doubled");
+				Popup.ShowOk(Localization.Get("PURCHASE_SUCCESS"));
 				break;
 		}
 	}
