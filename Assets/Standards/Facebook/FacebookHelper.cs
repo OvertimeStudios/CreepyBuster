@@ -47,7 +47,7 @@ public class FacebookHelper : MonoBehaviour
 	#endregion
 	public static void Init()
 	{
-		Init (null);
+		Init (OnInitComplete);
 	}
 
 	public static void Init(Facebook.InitDelegate del)
@@ -59,7 +59,7 @@ public class FacebookHelper : MonoBehaviour
 	{
 		facebookInit = true;
 
-		Debug.Log("FB.Init completed: Is user logged in? " + FB.IsLoggedIn);
+		Debug.Log("*****FB.Init completed: Is user logged in? " + FB.IsLoggedIn);
 	}
 
 	public static void Login(string scope)

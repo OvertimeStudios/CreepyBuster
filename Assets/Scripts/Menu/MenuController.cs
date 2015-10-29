@@ -491,7 +491,8 @@ public class MenuController : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
 		#if UNITY_ANDROID
-		Application.OpenURL("market://dev?id=8938813649462154472");
+		Application.OpenURL("https://play.google.com/store/apps/dev?id=8938813649462154472");
+		//Application.OpenURL("market://dev?id=8938813649462154472");
 		#elif UNITY_IPHONE
 		Application.OpenURL("itms-apps://itunes.apple.com/app/idYOUR_ID");
 		#endif
