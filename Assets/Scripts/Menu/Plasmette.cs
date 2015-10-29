@@ -25,21 +25,19 @@ public class Plasmette : MonoBehaviour
 		myAnimator = GetComponent<Animator>();
 
 		originalScale = myTransform.localScale;
+
+		MenuController.OnPanelClosed += Reactivate;
 	}
 
 	void OnFingerHover(FingerHoverEvent e)
 	{
+		if(MenuController.activeMenu != MenuController.Menus.Main) return;
+
 		if(e.Phase == FingerHoverPhase.Enter)
-		{
-			StopAllCoroutines();
 			spinningCoroutine = StartCoroutine(StartSpinning());
-		}
 
 		if(e.Phase == FingerHoverPhase.Exit)
-		{
-			StopAllCoroutines();
 			StopSpinning();
-		}
 	}
 	
 	private IEnumerator StartSpinning()
@@ -98,5 +96,12 @@ public class Plasmette : MonoBehaviour
 		}
 		
 		myTransform.localScale = originalScale;
+	}
+
+	private void Reactivate()
+	{
+		gameObject.SetActive(true);
+
+		StartCoroutine(BackToNormalScale());
 	}
 }

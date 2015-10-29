@@ -55,6 +55,9 @@ public class ItemShop : MonoBehaviour
 	void OnEnable()
 	{
 		Global.OnPurchasesCleared += ClearPurchase;
+
+		if(levelLabel != null)
+			levelLabel.text = Localization.Get("LEVEL") + " " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 	}
 
 	void OnDisable()
