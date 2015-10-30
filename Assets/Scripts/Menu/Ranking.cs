@@ -11,9 +11,9 @@ public class Ranking : MonoBehaviour
 		highScore.text = Global.HighScore.ToString();
 		//worldRank.text = Localization.Get("NOT_LOGGED");
 
-		#if FACEBOOK_IMPLEMENTED
-		//if(FB.IsLoggedIn)
-			//worldRank.text = "#" + DBHandler.GetUserRanking(DBHandler.User.id, DBController.gameID);
+		#if FACEBOOK_IMPLEMENTED && DB_IMPLEMENTED
+		if(FB.IsLoggedIn)
+			worldRank.text = "#" + DBHandler.GetUserRanking(DBHandler.User.id, DBController.gameID);
 		#endif
 	}
 }
