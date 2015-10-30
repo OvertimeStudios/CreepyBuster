@@ -431,10 +431,7 @@ public class GameController : MonoBehaviour
 
 	private void NoMoreLifes()
 	{
-		if(GameController.IsTutorialRunning)
-			StartCoroutine (ShowEndScreen (timeToShowGameOverScreen));
-		else
-			StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.LifeOut));
+		StartCoroutine (ShowContinueScreen (timeToShowGameOverScreen, CauseOfDeath.LifeOut));
 	}
 
 	public void GoToShop()
@@ -576,9 +573,12 @@ public class GameController : MonoBehaviour
 		
 		Time.timeScale = 0;
 
+		Debug.Log("ShowContinueScreen()");
+
 		#if UNITYADS_IMPLEMENTED
-		if (continues == 0 && Advertisement.IsReady () && Advertisement.isInitialized && Advertisement.isSupported)
-			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), null, ShowEndScreen, false);
+		Debug.Log(string.Format("UnityAdsHelper.IsReady({0})? {1}",UnityAdsHelper.REWARDED_VIDEO, UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO)));
+		if (continues == 0 && UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
+			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), ShowAdToContinue, ShowEndScreen, false);
 		else
 		{
 		#endif
@@ -598,6 +598,11 @@ public class GameController : MonoBehaviour
 
 		if (OnShowContinueScreen != null)
 			OnShowContinueScreen ();
+	}
+
+	private void ShowAdToContinue()
+	{
+		UnityAdsHelper.ShowRewardedAd(ContinuePlaying);
 	}
 
 	private void ShowEndScreen()

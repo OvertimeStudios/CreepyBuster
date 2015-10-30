@@ -10,7 +10,7 @@ public class UnityAdsHelper : MonoBehaviour
 
 	public static bool isSupported { get { return Advertisement.isSupported; } }
 	public static bool isInitialized { get { return Advertisement.isInitialized; } }
-
+	
 	public static bool IsReady() { return Advertisement.IsReady(); }
 	public static bool IsReady(string zoneID) { return Advertisement.IsReady(zoneID); }
 

@@ -82,9 +82,9 @@ public class RewardedVideoPlayer : MonoBehaviour
 			else
 				Ask();
 		}
-		else if(UnityAdsHelper.isSupported)
+		else if(!UnityAdsHelper.isSupported)
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
-		else if(UnityAdsHelper.isInitialized)
+		else if(!UnityAdsHelper.isInitialized)
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		else
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
