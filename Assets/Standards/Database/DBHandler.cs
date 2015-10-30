@@ -69,16 +69,20 @@ public class DBHandler : MonoBehaviour
 	
 	private void ConnectDB()
 	{
+		Debug.Log(source);
 		try
 		{
 			connection = new MySqlConnection (source);
-			connection.Open ();
-			
+			Debug.Log("Connection: " + connection);
+			Debug.Log("connection.ConnectionString: " + connection.ConnectionString);
 			Debug.Log("Connection State: " + connection.State);
+			Debug.Log("connection.Ping(): " + connection.Ping());
+			connection.Open ();
+			//Debug.Log("Connection State: " + connection.State);
 		}
 		catch(Exception e)
 		{
-			Debug.LogError(e.ToString());
+			Debug.LogError("ConnectDB() Error: " + e.ToString());
 		}
 	}
 	
@@ -170,8 +174,11 @@ public class DBHandler : MonoBehaviour
 	{
 		int gameID = -1;
 
+		Debug.Log(string.Format("GetGameID({0})", gameName));
 		EnsureConnection ();
-		
+
+		Debug.Log("connection: " + connection);
+
 		try
 		{
 			string query = "GetGameID";
@@ -190,9 +197,9 @@ public class DBHandler : MonoBehaviour
 		
 		catch (Exception e)
 		{
-			Debug.LogError(e.ToString());
+			Debug.LogError("GetGameID() Error: " + e.ToString());
 		}
-
+		
 		return gameID;
 	}
 

@@ -516,7 +516,7 @@ public class GameController : MonoBehaviour
 		{
 			Global.HighScore = Score;
 
-			#if FACEBOOK_IMPLEMENTED
+			#if FACEBOOK_IMPLEMENTED && DB_IMPLEMENTED
 			if(FacebookController.IsLoggedIn)
 				DBHandler.UpdateUserScore(DBHandler.User.id, DBController.gameID, Score);
 			#endif

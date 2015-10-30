@@ -29,10 +29,11 @@ public class ItemShopHardCurrency : MonoBehaviour
 
 	void OnEnable()
 	{
-		UpdatePrices();
+		//UpdatePrices();
 
 		#if IAP_IMPLEMENTED
 		Settings.OnProductRestored += Restore;
+		IAPHelper.OnProductReceived += UpdatePrices;
 		#endif
 	}
 
@@ -40,6 +41,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 	{
 		#if IAP_IMPLEMENTED
 		Settings.OnProductRestored -= Restore;
+		IAPHelper.OnProductReceived += UpdatePrices;
 		#endif
 	}
 
@@ -51,12 +53,10 @@ public class ItemShopHardCurrency : MonoBehaviour
 		#endif
 	}
 
-	private void UpdatePrices()
+	private void UpdatePrices(IAPProduct product)
 	{
 		#if IAP_IMPLEMENTED
-		IAPProduct product = IAPHelper.GetProduct(productID);
-
-		if(product != null)
+		if(product.productId == productID)
 		{
 			string priceString = product.price.ToString();
 

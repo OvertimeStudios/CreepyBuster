@@ -43,25 +43,26 @@ public class FacebookController : MonoBehaviour
 
 	private void OnInitCompleted()
 	{
-		Debug.Log(string.Format("Facebook init Completed. Is user already logged in? {0}", Global.FacebookID != ""));
+		Debug.Log(string.Format("Facebook init Completed. Is user already logged in? {0} and FB.IsLoggedIn? {1}", IsLoggedIn, FB.IsLoggedIn));
+
 		//already logged in
-		if(Global.FacebookID != "")
-		{
+		if(IsLoggedIn)
 			Login ();
-		}
 	}
 
 	public void Login()
 	{
+		string scope = "public_profile,email";
 		if(!FB.IsLoggedIn)
 		{
+			Debug.Log("New Login");
 			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
-			string scope = "public_profile,email";
-
 			FacebookHelper.Login (scope, LoginCallback);
 		}
 		else
 		{
+			Debug.Log("FB.API");
+			FacebookHelper.FetchData(FetchProfileNameCallback, FacebookHelper.FIRST_NAME, FacebookHelper.LAST_NAME, FacebookHelper.GENDER, FacebookHelper.EMAIL, FacebookHelper.TOKEN_FOR_BUSINESS);
 			Debug.Log("User Already Logged In");
 		}
 	}
@@ -69,7 +70,7 @@ public class FacebookController : MonoBehaviour
 	private void LoginCallback(FBResult result)
 	{
 		if (result.Error != null)//login error
-			Debug.LogError (result.Error);
+			Debug.LogError (result.Error + "\n" + result.Text);
 		else if (!FB.IsLoggedIn)//cancelled login
 			Debug.Log (result.Text);
 		else//login successful
@@ -109,6 +110,7 @@ public class FacebookController : MonoBehaviour
 
 			Debug.Log(fbUser.ToString());
 
+			Debug.Log("OnLoggedIn");
 			if(OnLoggedIn != null)
 				OnLoggedIn();
 		}

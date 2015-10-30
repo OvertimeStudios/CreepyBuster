@@ -21,7 +21,7 @@ public class DBController : MonoBehaviour
 	}
 	#endregion
 
-	#if FACEBOOK_IMPLEMENTED
+	#if FACEBOOK_IMPLEMENTED && DB_IMPLEMENTED
 	void OnEnable()
 	{
 		FacebookController.OnLoggedIn += ConnectDB;
@@ -34,6 +34,7 @@ public class DBController : MonoBehaviour
 
 	public void ConnectDB()
 	{
+		Debug.Log("DBHandler.Connect()");
 		DBHandler.Connect();
 
 		//Get game id
@@ -42,7 +43,7 @@ public class DBController : MonoBehaviour
 
 		FacebookUser fbUser = FacebookController.User;
 
-		DBUser user = DBHandler.GetUser(Global.FacebookID);
+		DBUser user = DBHandler.GetUser(fbUser.tokenForBusiness);
 
 		if(user == null)//no user was found
 			user = DBHandler.CreateUser(fbUser.tokenForBusiness, fbUser.firstname, fbUser.lastname, fbUser.email, fbUser.gender);

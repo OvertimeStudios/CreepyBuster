@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c5e8f3bd5014efda7475e2ac7321ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 2.29999995
+  life: 2.4000001
   score: 2
   countAsStreak: 1
   countAsKill: 1
@@ -931,7 +931,7 @@ Prefab:
       objectReference: {fileID: 11475990}
     - target: {fileID: 0}
       propertyPath: life
-      value: 2.29999995
+      value: 2.4000001
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score

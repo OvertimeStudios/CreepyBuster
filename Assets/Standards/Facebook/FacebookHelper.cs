@@ -69,6 +69,7 @@ public class FacebookHelper : MonoBehaviour
 
 	public static void Login(string scope, Facebook.FacebookDelegate del)
 	{
+		Debug.Log(string.Format("FB.IsInitialized: {0} and FB.IsLoggedIn: {1}",FB.IsInitialized, FB.IsLoggedIn));
 		if (!FB.IsInitialized)
 		{
 			Debug.LogError("You must call FacebookHandler.Init() before doing any action");

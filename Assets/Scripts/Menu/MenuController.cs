@@ -135,7 +135,7 @@ public class MenuController : MonoBehaviour
 	}
 
 	// Use this for initialization
-	void Start ()
+	IEnumerator Start ()
 	{
 		instance = this;
 
@@ -144,10 +144,8 @@ public class MenuController : MonoBehaviour
 		activeScreen = mainScreen.gameObject;
 
 		//hide all others menus
-		shopScreen.gameObject.SetActive (false);
 		settingsScreen.gameObject.SetActive (false);
 		creditsScreen.gameObject.SetActive (false);
-		hubConnectionScreen.gameObject.SetActive (false);
 		achievementsScreen.gameObject.SetActive (false);
 		creepypediaScreen.gameObject.SetActive (false);
 		gameStatsScreen.gameObject.SetActive (false);
@@ -167,6 +165,11 @@ public class MenuController : MonoBehaviour
 			Global.sentOnEnterMenu = true;
 		}
 		#endif
+
+		yield return new WaitForSeconds(0.3f);
+
+		//hubConnectionScreen.gameObject.SetActive (false);
+		//shopScreen.gameObject.SetActive (false);
 	}
 
 	void Update()
@@ -454,6 +457,8 @@ public class MenuController : MonoBehaviour
 
 	public void OnMenuTransitionFinished()
 	{
+		if(activeMenu == Menus.HUBConnection || activeMenu == Menus.Main || activeMenu == Menus.Shop) return;
+
 		lastScreen.SetActive (false);
 	}
 

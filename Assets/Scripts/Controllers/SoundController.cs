@@ -150,6 +150,11 @@ public class SoundController : MonoBehaviour
 		currentMusic = Musics.MainMenuTheme;
 	}
 
+	void Start()
+	{
+		audioSourceMusic.Play();
+	}
+
 	public void CrossFadeMusic(Musics music, float crossTime)
 	{
 		if(musicMute) return;
@@ -277,7 +282,7 @@ public class SoundController : MonoBehaviour
 			source.Play();
 		}
 
-		source.loop = loop;
+		//source.loop = loop;
 		source.mute = false;
 		
 		currentMusic = music;

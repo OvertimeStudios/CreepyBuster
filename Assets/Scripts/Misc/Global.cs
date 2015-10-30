@@ -132,7 +132,7 @@ public class Global : MonoBehaviour
 			if(!isLoaded)
 				Load ();
 
-			return highScore;
+			return PlayerPrefs.GetInt(HIGH_SCORE);
 		}
 
 		set

@@ -30,6 +30,7 @@ public class IAPHelper : MonoBehaviour
 
 	#region Action
 	private static event Action<IAPState, string> _callback;
+	public static event Action<IAPProduct> OnProductReceived;
 	#endregion
 
 	#region get / set
@@ -69,6 +70,7 @@ public class IAPHelper : MonoBehaviour
 	#region get / set (HELPERS)
 	public static IAPProduct GetProduct(string productID)
 	{
+		Debug.Log(ProductsData);
 		if(ProductsData == null)
 			return null;
 		
@@ -332,7 +334,13 @@ public class IAPHelper : MonoBehaviour
 		else
 		{
 			foreach(GoogleSkuInfo info in skus)
-				products.Add(new IAPProduct(info));
+			{
+				IAPProduct p = new IAPProduct(info);
+				products.Add(p);
+				
+				if(OnProductReceived != null)
+					OnProductReceived(p);
+			}
 
 			productsReceived = products;
 		}

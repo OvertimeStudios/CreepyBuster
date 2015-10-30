@@ -300,27 +300,27 @@ MonoBehaviour:
     quantity: 2
   - points: 60
     killStreak: 45
-    time: 3.5999999
+    time: 3
     quantity: 2
   - points: 85
     killStreak: 60
-    time: 3.79999995
+    time: 3.29999995
     quantity: 3
   - points: 115
     killStreak: 85
-    time: 2.5
+    time: 2.20000005
     quantity: 2
   - points: 140
     killStreak: 115
-    time: 3.0999999
+    time: 3.5
     quantity: 3
   - points: 180
     killStreak: 145
-    time: 2.5999999
+    time: 2.20000005
     quantity: 2
   - points: 240
     killStreak: 190
-    time: 3.5
+    time: 3.4000001
     quantity: 3
   - points: 300
     killStreak: 230
@@ -348,12 +348,13 @@ MonoBehaviour:
     quantity: 5
   - points: 1300
     killStreak: 800
-    time: 2.0999999
+    time: 2.29999995
     quantity: 6
   enemiesAttributesLevelUpCondition:
     points: 45
     vel: .100000001
     life: .100000001
+  maxEnemiesAttributeLevel: 10
   tierLevelUpCondition:
   - points: 0
     killStreak: 0
@@ -368,17 +369,17 @@ MonoBehaviour:
   bossIllusion: {fileID: 109062, guid: 5a7840d6b72b34d8e9718d23b20562b4, type: 2}
   bossBattleCondition:
   - kills: 65
-    bossMeteor: .75
-    bossTwins: .25
+    bossMeteor: .850000024
+    bossTwins: .150000006
     bossIllusion: 0
   - kills: 220
-    bossMeteor: .25
-    bossTwins: .649999976
+    bossMeteor: .200000003
+    bossTwins: .699999988
     bossIllusion: .100000001
   - kills: 380
-    bossMeteor: .100000001
-    bossTwins: .25
-    bossIllusion: .649999976
+    bossMeteor: .25
+    bossTwins: 0
+    bossIllusion: .75
   - kills: 620
     bossMeteor: .400000006
     bossTwins: .300000012
@@ -787,11 +788,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[5].time
-      value: 3.5999999
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[6].time
-      value: 3.79999995
+      value: 3.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[4].quantity
@@ -1479,19 +1480,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[7].time
-      value: 2.5
+      value: 2.20000005
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[8].time
-      value: 3.0999999
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[9].time
-      value: 2.5999999
+      value: 2.20000005
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[10].time
-      value: 3.5
+      value: 3.4000001
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[11].time
@@ -1519,7 +1520,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: enemiesSpawnLevelUpCondition.Array.data[17].time
-      value: 2.0999999
+      value: 2.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: itemSpawnTime.min
@@ -1839,11 +1840,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[0].bossMeteor
-      value: .75
+      value: .850000024
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[0].bossTwins
-      value: .25
+      value: .150000006
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[1].kills
@@ -1851,11 +1852,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[1].bossMeteor
-      value: .25
+      value: .200000003
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[1].bossTwins
-      value: .649999976
+      value: .699999988
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[1].bossIllusion
@@ -1867,15 +1868,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[2].bossMeteor
-      value: .100000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: bossBattleCondition.Array.data[2].bossTwins
       value: .25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
+      propertyPath: bossBattleCondition.Array.data[2].bossTwins
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[2].bossIllusion
-      value: .649999976
+      value: .75
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossBattleCondition.Array.data[3].kills
