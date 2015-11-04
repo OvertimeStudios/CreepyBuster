@@ -36,6 +36,11 @@ public class OnOffBehaviour : MonoBehaviour
 
 		if(transform.FindChild("Disabled") != null)
 			disabled = transform.FindChild("Disabled").gameObject;
+
+		#if UNITY_WEBPLAYER
+		if(type == Type.Vibrate)
+			gameObject.SetActive(false);
+		#endif
 	}
 
 	void OnEnable()

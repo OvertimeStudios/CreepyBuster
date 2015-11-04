@@ -51,8 +51,13 @@ public class ItemShopHardCurrency : MonoBehaviour
 		//currency = transform.FindChild("Price").FindChild("currency").GetComponent<UILabel>();
 		//price = transform.FindChild("Price").FindChild("Label").GetComponent<UILabel>();
 		#endif
+
+		#if UNITY_WEBPLAYER
+		gameObject.SetActive(false);
+		#endif
 	}
 
+	#if UNITY_ANDROID || UNITY_IOS
 	private void UpdatePrices(IAPProduct product)
 	{
 		#if IAP_IMPLEMENTED
@@ -65,6 +70,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 		}
 		#endif
 	}
+	#endif
 
 	public void Purchase()
 	{

@@ -17,24 +17,41 @@ public class Settings : MonoBehaviour
 	public GameObject fbLogout;
 	public GameObject likeUs;
 
+	[Header("Web")]
+	public GameObject restorePurchases;
+
 	void Awake()
 	{
 		//logout = transform.FindChild ("Logout").gameObject;
 		//greeting = transform.FindChild ("FB - Login").GetComponent<UILabel>();
 	}
 
+	void Start()
+	{
+		#if UNITY_WEBPLAYER
+		fbLogin.SetActive(false);
+		fbLogout.SetActive(false);
+		likeUs.SetActive(false);
+		restorePurchases.SetActive(false);
+		#endif
+	}
+
 	void OnEnable()
 	{
 		HandleLoginSection ();
 
+		#if FACEBOOK_IMPLEMENTED
 		FacebookController.OnLoggedIn += HandleLoginSection;
 		FacebookController.OnLoggedOut += HandleLoginSection;
+		#endif
 	}
 
 	void OnDisable()
 	{
+		#if FACEBOOK_IMPLEMENTED
 		FacebookController.OnLoggedIn -= HandleLoginSection;
 		FacebookController.OnLoggedOut -= HandleLoginSection;
+		#endif
 
 		ChangeLanguage changeLanguage = transform.FindChild("Language").GetComponent<ChangeLanguage>();
 		if(changeLanguage.opened)
@@ -43,6 +60,7 @@ public class Settings : MonoBehaviour
 
 	private void HandleLoginSection()
 	{
+		#if FACEBOOK_IMPLEMENTED
 		if(FacebookController.IsLoggedIn)
 		{
 			fbLogin.SetActive(false);
@@ -55,6 +73,7 @@ public class Settings : MonoBehaviour
 			//fbLogout.SetActive(false);
 			likeUs.SetActive(false);
 		}
+		#endif
 	}
 
 	public void RestorePurchases()

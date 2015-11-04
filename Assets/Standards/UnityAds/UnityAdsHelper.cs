@@ -1,13 +1,16 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+#if UNITYADS_IMPLEMENTED
 using UnityEngine.Advertisements;
+#endif
 
 public class UnityAdsHelper : MonoBehaviour 
 {
 	public const string SIMPLE_VIDEO = "video";
 	public const string REWARDED_VIDEO = "rewardedVideo";
 
+	#if UNITYADS_IMPLEMENTED
 	public static bool isSupported { get { return Advertisement.isSupported; } }
 	public static bool isInitialized { get { return Advertisement.isInitialized; } }
 	
@@ -15,6 +18,7 @@ public class UnityAdsHelper : MonoBehaviour
 	public static bool IsReady(string zoneID) { return Advertisement.IsReady(zoneID); }
 
 	private static Action _onComplete;
+	#endif
 
 	#region singleton
 	private static UnityAdsHelper instance;
@@ -32,25 +36,32 @@ public class UnityAdsHelper : MonoBehaviour
 
 	public static void ShowSimpleAd()
 	{
+		#if UNITYADS_IMPLEMENTED
 		if(Advertisement.IsReady(SIMPLE_VIDEO))
 		   Advertisement.Show(SIMPLE_VIDEO);
+		#endif
 	}
 	
 	public static void ShowRewardedAd(Action onComplete)
 	{
+		#if UNITYADS_IMPLEMENTED
 		_onComplete = onComplete;
 		Instance.ShowRwrdAd();
+		#endif
 	}
 
 	private void ShowRwrdAd()
 	{
+		#if UNITYADS_IMPLEMENTED
 		if (Advertisement.IsReady(REWARDED_VIDEO))
 		{
 			var options = new ShowOptions { resultCallback = HandleShowResult };
 			Advertisement.Show(REWARDED_VIDEO, options);
 		}
+		#endif
 	}
-	
+
+	#if UNITYADS_IMPLEMENTED
 	private void HandleShowResult(ShowResult result)
 	{
 		switch (result)
@@ -72,4 +83,5 @@ public class UnityAdsHelper : MonoBehaviour
 				break;
 		}
 	}
+	#endif
 }

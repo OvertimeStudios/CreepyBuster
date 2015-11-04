@@ -69,6 +69,10 @@ public class RewardedVideoPlayer : MonoBehaviour
 		rewardCooldownTime = RewardCooldownTime;
 
 		countdown = transform.FindChild ("Countdown").GetComponent<UILabel> ();
+
+		#if UNITY_WEBPLAYER
+		gameObject.SetActive(false);
+		#endif
 	}
 
 	public void Play()

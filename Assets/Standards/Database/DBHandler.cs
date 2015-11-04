@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System;
-using System.Data;
 using System.Collections;
+#if DB_IMPLEMENTED
+using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+#endif
 
 public class DBHandler : MonoBehaviour 
 {

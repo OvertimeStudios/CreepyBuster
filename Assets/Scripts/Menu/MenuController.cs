@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.Advertisements;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Analytics;
+using UnityEngine.Advertisements;
 
 public class MenuController : MonoBehaviour 
 {
@@ -79,7 +79,15 @@ public class MenuController : MonoBehaviour
 
 	[Header("Menu Achievement")]
 	public Achievement achievement;
-	
+
+	[Header("Web")]
+	public GameObject playPlayFun;
+	public GameObject shopButton;
+	public GameObject overtimeHubButton;
+	public GameObject highScoreMenu;
+	public GameObject shopGO;
+	public GameObject overtimeHubGO;
+
 	#region singleton
 	private static MenuController instance;
 	public static MenuController Instance
@@ -137,6 +145,19 @@ public class MenuController : MonoBehaviour
 	// Use this for initialization
 	IEnumerator Start ()
 	{
+		#if !UNITY_WEBPLAYER || !PLAYPLAYFUN
+		playPlayFun.SetActive(false);
+		#endif
+
+		#if UNITY_WEBPLAYER
+		shopButton.SetActive(false);
+		overtimeHubButton.SetActive(false);
+		highScoreMenu.SetActive(false);
+		shopGO.SetActive(false);
+		overtimeHubGO.SetActive(false);
+		#endif
+
+
 		instance = this;
 
 		activeMenu = Menus.Main;
@@ -232,6 +253,7 @@ public class MenuController : MonoBehaviour
 
 	public void ShowAchievements()
 	{
+		#if !UNITY_WEBPLAYER
 		List<AchievementUnlocked> achievements = Achievement.achievementRecentUnlocked;
 
 		if(achievements.Count > 0)
@@ -245,6 +267,7 @@ public class MenuController : MonoBehaviour
 
 			Achievement.achievementRecentUnlocked.Remove(a);
 		}
+		#endif
 	}
 
 	private void GiveAchievementOrbs()
@@ -500,6 +523,8 @@ public class MenuController : MonoBehaviour
 		//Application.OpenURL("market://dev?id=8938813649462154472");
 		#elif UNITY_IPHONE
 		Application.OpenURL("itms-apps://itunes.apple.com/app/idYOUR_ID");
+		#elif UNITY_WEBPLAYER
+		Application.OpenURL("http://www.overtimestudios.com/games.php");
 		#endif
 	}
 

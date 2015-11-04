@@ -3,8 +3,9 @@ using UnityEngine.Analytics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+#if UNITYADS_IMPLEMENTED
 using UnityEngine.Advertisements;
+#endif
 
 public class GameController : MonoBehaviour 
 {
@@ -52,6 +53,9 @@ public class GameController : MonoBehaviour
 	public static event Action OnContinuePlaying;
 	public static event Action OnPause;
 	public static event Action OnResume;
+	#if UNITY_WEBPLAYER
+	public static event Action OnDemoOver;
+	#endif
 
 	public static bool isGameRunning = false;
 	public static bool gameOver;
@@ -441,6 +445,8 @@ public class GameController : MonoBehaviour
 		GameOver();
 	}
 
+
+
 	public void GameOver()
 	{
 		isGameRunning = false;
@@ -614,10 +620,13 @@ public class GameController : MonoBehaviour
 
 		Popup.Hide ();
 
-		HUDController.Instance.ShowEndScreen ();
-
 		if (OnShowEndScreen != null)
 			OnShowEndScreen ();
+
+		#if UNITY_WEBPLAYER
+		if(IsBossTime)
+			EndDemo();
+		#endif
 	}
 
 	private void VideoWatched()
@@ -948,6 +957,10 @@ public class GameController : MonoBehaviour
 			Global.UnlockCreep(CreepData.CreepType.Illusion);
 			boss3Killed++;
 		}
+
+		#if UNITY_WEBPLAYER
+		EndDemo();
+		#endif
 	}
 
 	private void OnItemCollected(Item.Type itemType, GameObject gameObject)
@@ -1077,4 +1090,20 @@ public class GameController : MonoBehaviour
 
 		SpawnController.enemiesInGame.Clear ();
 	}
+
+	#if UNITY_WEBPLAYER
+	private static void EndDemo()
+	{
+		Time.timeScale = 0;
+
+		if(OnDemoOver != null)
+			OnDemoOver();
+	}
+
+	public void ShowGamePage()
+	{
+		Application.OpenURL("https://play.google.com/store/apps/details?id=com.overtimestudios.creepybuster");
+		GameOver();
+	}
+	#endif
 }

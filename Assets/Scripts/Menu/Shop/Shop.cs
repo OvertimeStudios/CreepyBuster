@@ -12,11 +12,22 @@ public class Shop : MonoBehaviour
 	public float packPosition;
 	private TweenPosition tween;
 
+	[Header("Web")]
+	public GameObject packsLine;
+	public GameObject goToUpgade;
+	public GameObject goToPacks;
+
 	// Use this for initialization
 	void Start () 
 	{
 		tween = GetComponentInChildren<TweenPosition>();
 		ItemShop.OnItemBought += VerifyAchievement;
+
+		#if UNITY_WEBPLAYER
+		packsLine.SetActive(false);
+		goToUpgade.SetActive(false);
+		goToPacks.SetActive(false);
+		#endif
 	}
 
 	private void VerifyAchievement()
