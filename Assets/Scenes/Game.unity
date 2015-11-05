@@ -5554,6 +5554,10 @@ Prefab:
       propertyPath: timeInvencibleAfterContinue
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 11461188, guid: 707aa35b904b54b26890adfcaa7f2108, type: 2}
+      propertyPath: pointsPerOrb
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 707aa35b904b54b26890adfcaa7f2108, type: 2}
   m_IsPrefabParent: 0
@@ -8012,11 +8016,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11475184, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: price.Array.data[1]
-      value: 20000
+      value: 15000
       objectReference: {fileID: 0}
     - target: {fileID: 11475184, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: price.Array.data[2]
-      value: 51000
+      value: 40000
       objectReference: {fileID: 0}
     - target: {fileID: 11403130, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: mSpriteName
@@ -8049,6 +8053,10 @@ Prefab:
     - target: {fileID: 434788, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: m_LocalPosition.x
       value: 62.2999992
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475184, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
+      propertyPath: price.Array.data[0]
+      value: 1500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
@@ -13413,6 +13421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581f1b66dbf3c48b19268a4ae211e760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minutesToRecord: 2
 --- !u!1 &502852323
 GameObject:
   m_ObjectHideFlags: 0
@@ -31282,11 +31291,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11475184, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: price.Array.data[1]
-      value: 16000
+      value: 15000
       objectReference: {fileID: 0}
     - target: {fileID: 11475184, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: price.Array.data[2]
-      value: 52000
+      value: 40000
       objectReference: {fileID: 0}
     - target: {fileID: 11403130, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: mSpriteName
@@ -31298,7 +31307,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11475184, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: price.Array.data[0]
-      value: 2500
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 11403130, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: keepAspectRatio
@@ -34488,7 +34497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reward: 0
   orbsToGive: 150
-  rewardCooldown: 420
+  rewardCooldown: 300
 --- !u!114 &1419480199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43435,7 +43444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reward: 0
   orbsToGive: 150
-  rewardCooldown: 420
+  rewardCooldown: 300
 --- !u!114 &1733575965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51381,6 +51390,14 @@ Prefab:
     - target: {fileID: 11413370, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: mFontSize
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475184, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
+      propertyPath: price.Array.data[1]
+      value: 15000
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475184, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
+      propertyPath: price.Array.data[0]
+      value: 1500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}

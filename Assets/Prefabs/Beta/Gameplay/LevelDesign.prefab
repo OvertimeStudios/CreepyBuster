@@ -324,19 +324,19 @@ MonoBehaviour:
     quantity: 3
   - points: 300
     killStreak: 230
-    time: 3
+    time: 3.20000005
     quantity: 3
   - points: 400
     killStreak: 300
-    time: 3.79999995
+    time: 4.0999999
     quantity: 4
   - points: 500
     killStreak: 380
-    time: 3.5
+    time: 3.9000001
     quantity: 4
   - points: 650
     killStreak: 470
-    time: 3
+    time: 3.4000001
     quantity: 4
   - points: 800
     killStreak: 580
@@ -348,10 +348,10 @@ MonoBehaviour:
     quantity: 5
   - points: 1300
     killStreak: 800
-    time: 2.29999995
+    time: 2.5
     quantity: 6
   enemiesAttributesLevelUpCondition:
-    points: 45
+    points: 48
     vel: .100000001
     life: .100000001
   maxEnemiesAttributeLevel: 10
