@@ -89,6 +89,11 @@ public class UnityAnalyticsHelper : MonoBehaviour
 		SendData(CustomEvent.Level.ToString() + level, new Dictionary<string, object>());
 	}
 
+	public static void Transaction(string productID, decimal amount, string currency)
+	{
+		Analytics.Transaction(productID, amount, currency);
+	}
+
 	private static void SendData(CustomEvent e, Dictionary<string, object> eventData)
 	{
 		SendData(e.ToString(), eventData);

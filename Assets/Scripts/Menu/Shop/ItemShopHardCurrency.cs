@@ -27,6 +27,10 @@ public class ItemShopHardCurrency : MonoBehaviour
 	public UILabel price;
 	public UILabel currency;
 
+	#if IAP_IMPLEMENTED
+	private IAPProduct product;
+	#endif
+
 	void OnEnable()
 	{
 		//UpdatePrices();
@@ -63,6 +67,8 @@ public class ItemShopHardCurrency : MonoBehaviour
 		#if IAP_IMPLEMENTED
 		if(product.productId == productID)
 		{
+			this.product = product;
+
 			string priceString = product.price.ToString();
 
 			currency.text = priceString.Substring(0, priceString.IndexOf("$") + 1);
@@ -101,6 +107,12 @@ public class ItemShopHardCurrency : MonoBehaviour
 
 	private void PurchaseComplete()
 	{
+		#if UNITY_EDITOR
+		Debug.Log("Running on Unity Editor");
+		#else
+		UnityAnalyticsHelper.Transaction(product.productId, decimal.Parse(price.text), product.currencyCode);
+		#endif
+
 		Unlock();
 	}
 
