@@ -106,6 +106,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: blue
+    x: 3491
+    y: 2225
+    width: 91
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: Bola
     x: 0
     y: 90
@@ -314,6 +327,97 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: day1
+    x: 3938
+    y: 2381
+    width: 125
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: day2
+    x: 3965
+    y: 2538
+    width: 128
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: day3
+    x: 3257
+    y: 2225
+    width: 116
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: day4
+    x: 3374
+    y: 2225
+    width: 116
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: day5
+    x: 3954
+    y: 2829
+    width: 127
+    height: 120
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: day6
+    x: 3014
+    y: 2225
+    width: 122
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: day7
+    x: 3137
+    y: 2225
+    width: 119
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: estrela
     x: 577
     y: 584
@@ -341,8 +445,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Feedback_de_Dano
-    x: 2277
-    y: 2901
+    x: 1081
+    y: 1314
     width: 1195
     height: 1195
     borderLeft: 200
@@ -367,8 +471,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Feedback-de-invencibilidade
-    x: 1081
-    y: 1314
+    x: 2277
+    y: 2901
     width: 1195
     height: 1195
     borderLeft: 10
@@ -376,6 +480,32 @@ MonoBehaviour:
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: gray
+    x: 3583
+    y: 2225
+    width: 91
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: green
+    x: 1661
+    y: 248
+    width: 96
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
@@ -497,8 +627,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-dollar
-    x: 3954
-    y: 2832
+    x: 2196
+    y: 204
     width: 75
     height: 117
     borderLeft: 0
@@ -731,8 +861,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 1
   - name: line-separator
-    x: 3014
-    y: 2350
+    x: 2764
+    y: 2221
     width: 681
     height: 3
     borderLeft: 0
