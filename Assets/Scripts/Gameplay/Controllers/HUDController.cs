@@ -9,6 +9,7 @@ public class HUDController : MonoBehaviour
 
 	public GameObject endScreen;
 	public GameObject pauseScreen;
+	public GameObject demoScreen;
 
 	#region singleton
 	private static HUDController instance;
@@ -38,6 +39,7 @@ public class HUDController : MonoBehaviour
 
 		GameController.OnScoreUpdated += OnScoreUpdated;
 		GameController.OnStreakUpdated += OnStreakUpdated;
+		GameController.OnShowEndScreen += ShowEndScreen;
 		GameController.OnGameOver += HideEndScreen;
 		LevelDesign.OnPlayerLevelUp += UpdateColor;
 		LevelDesign.OnPlayerLevelUp += UpdateLevelNumber;
@@ -47,6 +49,10 @@ public class HUDController : MonoBehaviour
 		AttackTargets.OnSpecialStarted += UpdateColor;
 		AttackTargets.OnSpecialEnded += UpdateColor;
 		AttackTargets.OnSpecialTimerUpdated += OnSpecialTimerUpdated;
+
+		#if UNITY_WEBPLAYER
+		GameController.OnDemoOver += ShowDemoScreen;
+		#endif
 
 		GameController.OnPause += GamePaused;
 		GameController.OnResume += GameResumed;
@@ -61,6 +67,7 @@ public class HUDController : MonoBehaviour
 
 		GameController.OnScoreUpdated -= OnScoreUpdated;
 		GameController.OnStreakUpdated -= OnStreakUpdated;
+		GameController.OnShowEndScreen -= ShowEndScreen;
 		GameController.OnGameOver -= HideEndScreen;
 		LevelDesign.OnPlayerLevelUp -= UpdateColor;
 		LevelDesign.OnPlayerLevelUp -= UpdateLevelNumber;
@@ -70,6 +77,10 @@ public class HUDController : MonoBehaviour
 		AttackTargets.OnSpecialStarted -= UpdateColor;
 		AttackTargets.OnSpecialEnded -= UpdateColor;
 		AttackTargets.OnSpecialTimerUpdated -= OnSpecialTimerUpdated;
+
+		#if UNITY_WEBPLAYER
+		GameController.OnDemoOver -= ShowDemoScreen;
+		#endif
 
 		GameController.OnPause -= GamePaused;
 		GameController.OnResume -= GameResumed;
@@ -124,11 +135,19 @@ public class HUDController : MonoBehaviour
 
 		//Global.TotalOrbs += totalOrbsFromPoints;
 
+		#if UNITY_WEBPLAYER
+		if(!GameController.IsBossTime)
+		#endif
 		endScreen.SetActive (true);
+		
 	}
 
 	private void HideEndScreen()
 	{
+		#if UNITY_WEBPLAYER
+		demoScreen.SetActive(false);
+		#endif
+
 		endScreen.SetActive (false);
 	}
 
@@ -172,4 +191,11 @@ public class HUDController : MonoBehaviour
 	{
 		pauseScreen.SetActive(false);
 	}
+
+	#if UNITY_WEBPLAYER
+	private void ShowDemoScreen()
+	{
+		demoScreen.SetActive(true);
+	}
+	#endif
 }

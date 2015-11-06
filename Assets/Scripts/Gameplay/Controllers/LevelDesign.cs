@@ -293,6 +293,10 @@ public class LevelDesign : MonoBehaviour
 	{
 		get	
 		{ 
+			#if UNITY_WEBPLAYER
+			return Instance.bossMeteor;
+			#else
+
 			BossLevelUpCondition currentLevelUpCondition = (bossLevel < Instance.bossBattleCondition.Length) ? Instance.bossBattleCondition[bossLevel] : Instance.infinityBossBattleCondition;
 
 			float maxPercent = currentLevelUpCondition.bossIllusion + currentLevelUpCondition.bossMeteor + currentLevelUpCondition.bossTwins;
@@ -305,6 +309,7 @@ public class LevelDesign : MonoBehaviour
 				return Instance.bossTwins;
 			else
 				return Instance.bossIllusion;
+			#endif
 			
 		}
 	}

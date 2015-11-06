@@ -18,6 +18,8 @@ public class EndScreen : MonoBehaviour
 
 	public GameObject general;
 	public GameObject battleStats;
+	public GameObject watchReplay;
+	public GameObject shopButton;
 
 	public UILabel kills;
 	public UILabel orbsCollected;
@@ -28,6 +30,12 @@ public class EndScreen : MonoBehaviour
 
 	void OnEnable()
 	{
+		#if UNITY_WEBPLAYER
+		rewardButton.gameObject.SetActive(false);
+		watchReplay.SetActive(false);
+		shopButton.SetActive(false);
+		#endif
+
 		foreach(UIButton button in rewardButton.GetComponents<UIButton>())
 			button.isEnabled = true;
 

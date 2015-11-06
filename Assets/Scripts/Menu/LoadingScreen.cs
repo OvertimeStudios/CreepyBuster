@@ -7,9 +7,16 @@ public class LoadingScreen : MonoBehaviour
 	
 	private AsyncOperation async;
 
+	[Header("Web")]
+	public GameObject logo;
+
 	// Use this for initialization
 	void Start () 
 	{
+		#if !UNITY_WEBPLAYER
+		logo.SetActive(false);
+		#endif
+
 		StartCoroutine (Load ());
 	}
 	

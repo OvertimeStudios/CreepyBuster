@@ -201,3 +201,6 @@ ORB,Orb,Orbe
 ORBS,Orbs,Orbes
 DOUBLE_ORBS_QUESTION,Do you want to watch a video to double the orbs earned in this match?,Gostaria de assistir a um vídeo para dobrar as orbes obtidas nesta partida?
 LIKE,Like,Curtir
+DAILY_REWARD,DAILY REWARD,RECOMPENSA DIÁRIA
+DAILY_REWARD_DESCRIPTION,Congratulations! Collect your daily reward.,Parabéns! Receba sua recompensa diária.
+DAY,Day,Dia

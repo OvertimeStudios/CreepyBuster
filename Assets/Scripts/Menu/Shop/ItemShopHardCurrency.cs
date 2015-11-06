@@ -27,6 +27,10 @@ public class ItemShopHardCurrency : MonoBehaviour
 	public UILabel price;
 	public UILabel currency;
 
+	#if IAP_IMPLEMENTED
+	private IAPProduct product;
+	#endif
+
 	void OnEnable()
 	{
 		//UpdatePrices();
@@ -51,13 +55,20 @@ public class ItemShopHardCurrency : MonoBehaviour
 		//currency = transform.FindChild("Price").FindChild("currency").GetComponent<UILabel>();
 		//price = transform.FindChild("Price").FindChild("Label").GetComponent<UILabel>();
 		#endif
+
+		#if UNITY_WEBPLAYER
+		gameObject.SetActive(false);
+		#endif
 	}
 
+	#if UNITY_ANDROID || UNITY_IOS
 	private void UpdatePrices(IAPProduct product)
 	{
 		#if IAP_IMPLEMENTED
 		if(product.productId == productID)
 		{
+			this.product = product;
+
 			string priceString = product.price.ToString();
 
 			currency.text = priceString.Substring(0, priceString.IndexOf("$") + 1);
@@ -65,6 +76,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 		}
 		#endif
 	}
+	#endif
 
 	public void Purchase()
 	{
@@ -95,6 +107,12 @@ public class ItemShopHardCurrency : MonoBehaviour
 
 	private void PurchaseComplete()
 	{
+		#if UNITY_EDITOR
+		Debug.Log("Running on Unity Editor");
+		#else
+		UnityAnalyticsHelper.Transaction(product.productId, decimal.Parse(price.text), product.currencyCode);
+		#endif
+
 		Unlock();
 	}
 

@@ -69,10 +69,16 @@ public class RewardedVideoPlayer : MonoBehaviour
 		rewardCooldownTime = RewardCooldownTime;
 
 		countdown = transform.FindChild ("Countdown").GetComponent<UILabel> ();
+
+		#if UNITY_WEBPLAYER
+		gameObject.SetActive(false);
+		#endif
 	}
 
 	public void Play()
 	{
+		if(DailyRewardController.IsActive || Popup.IsActive) return;
+
 		#if UNITYADS_IMPLEMENTED
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		if(IsReady)
