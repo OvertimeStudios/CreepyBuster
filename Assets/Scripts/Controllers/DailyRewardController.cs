@@ -70,11 +70,24 @@ public class DailyRewardController : MonoBehaviour
 	}
 	#endregion
 
-	// Use this for initialization
-	void OnEnable () 
+	void Start()
+	{
+		CheckReward();
+	}
+
+	private void CheckReward() 
+	{
+		if(RewardCooldownLeft/3600f <= -24f)
+			Global.DailyRewardDay = 0;
+
+		if(IsReady)
+			ShowReward();
+	}
+
+	private void ShowReward()
 	{
 		Transform rewards = dailyRewardObject.transform.FindChild("Rewards");
-
+		
 		for(byte i = 0; i < rewards.childCount; i++)
 		{
 			Transform t = rewards.GetChild(i);
@@ -85,12 +98,12 @@ public class DailyRewardController : MonoBehaviour
 			UILabel orbs = t.FindChild("Orbs").GetComponent<UILabel>();
 			TweenScale tween = t.GetComponent<TweenScale>();
 			UIButton button = t.GetComponent<UIButton>();
-
-
+			
+			
 			blue.SetActive(false);
 			green.SetActive(false);
 			gray.SetActive(false);
-
+			
 			if(i < Global.DailyRewardDay)
 				gray.SetActive(true);
 			else if(i == Global.DailyRewardDay)
@@ -102,30 +115,11 @@ public class DailyRewardController : MonoBehaviour
 			}
 			else
 				blue.SetActive(true);
-
+			
 			day.text = string.Format("{0} {1}", Localization.Get("DAY"), i + 1);
 			orbs.text = orbsReward[i] + "\n" + Localization.Get("ORBS");
 		}
-	}
 
-	void Start()
-	{
-		CheckReward();
-	}
-
-	private void CheckReward() 
-	{
-		//Debug.Log(string.Format("Lefting {0} hours.", RewardCooldownLeft/3600f));
-
-		if(RewardCooldownLeft/3600f < -24f)
-			Global.DailyRewardDay = 0;
-
-		if(IsReady)
-			ShowReward();
-	}
-
-	private void ShowReward()
-	{
 		dailyRewardObject.SetActive(true);
 	}
 
