@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class LocalizationController : MonoBehaviour 
 {
+	#region Actions
+	public static event Action OnChanged;
+	#endregion
+
 	#region singleton
 	private static LocalizationController instance;
 	private static LocalizationController Instance
@@ -36,7 +41,10 @@ public class LocalizationController : MonoBehaviour
 		{ 
 			Instance.language = value; 
 			Localization.language = Instance.language.ToString();
-			Global.Language = Instance.language.ToString();
+			Global.Language = Instance.language.ToString(); 
+
+			if(OnChanged != null)
+				OnChanged();
 		}
 	}
 

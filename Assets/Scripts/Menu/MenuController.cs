@@ -326,7 +326,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToShop()
 	{
-		if(menuTween.isActiveAndEnabled) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
@@ -340,7 +340,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToSettings()
 	{
-		if(menuTween.isActiveAndEnabled) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
@@ -353,7 +353,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToCredits()
 	{
-		if(menuTween.isActiveAndEnabled) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
@@ -366,7 +366,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToHowToPlay()
 	{
-		if(menuTween.isActiveAndEnabled) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
@@ -379,7 +379,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToHUBConnection()
 	{
-		if(menuTween.isActiveAndEnabled) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
@@ -393,7 +393,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToAchievements()
 	{
-		if(menuTween.isActiveAndEnabled) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
@@ -406,7 +406,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToCreepypedia()
 	{
-		if(menuTween.isActiveAndEnabled) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
@@ -419,7 +419,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToGameStats()
 	{
-		if(menuTween.isActiveAndEnabled) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 

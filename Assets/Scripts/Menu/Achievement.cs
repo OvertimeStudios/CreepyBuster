@@ -75,6 +75,7 @@ public class Achievement : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		LocalizationController.OnChanged += LanguageChanged;
 		GameController.OnGameOver += VerifyUnlockment;
 
 		unlocked = Global.IsAchievementUnlocked(type, value);
@@ -303,6 +304,12 @@ public class Achievement : MonoBehaviour
 		descriptionLabel.text = GetDescription();
 		
 		orbRewardLabel.text = (hidden && !unlocked) ? "???" : orbReward.ToString();
+	}
+
+	private void LanguageChanged()
+	{
+		titleLabel.text = GetTitle();
+		descriptionLabel.text = GetDescription();
 	}
 }
 

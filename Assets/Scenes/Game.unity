@@ -43132,7 +43132,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dailyRewardObject: {fileID: 1388360369}
   orbsReward: 32000000640000006400000064000000c8000000c8000000ee020000
-  rewardCooldown: 0
 --- !u!1 &1701888567
 GameObject:
   m_ObjectHideFlags: 0

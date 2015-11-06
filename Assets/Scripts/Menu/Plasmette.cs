@@ -33,7 +33,7 @@ public class Plasmette : MonoBehaviour
 
 	void OnFingerHover(FingerHoverEvent e)
 	{
-		if(MenuController.activeMenu != MenuController.Menus.Main) return;
+		if(MenuController.activeMenu != MenuController.Menus.Main || Popup.IsActive || DailyRewardController.IsActive) return;
 
 		if(e.Phase == FingerHoverPhase.Enter)
 			spinningCoroutine = StartCoroutine(StartSpinning());

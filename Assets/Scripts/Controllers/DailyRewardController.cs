@@ -9,7 +9,7 @@ public class DailyRewardController : MonoBehaviour
 
 	private int orbsToCollect;
 
-	public int rewardCooldown;
+	private int rewardCooldown;
 	private static DateTime rewardCooldownTime;
 
 	#region get / set
@@ -40,6 +40,25 @@ public class DailyRewardController : MonoBehaviour
 	public bool IsReady
 	{
 		get { return RewardCooldownLeft <= 0; }
+	}
+
+	public static bool IsActive
+	{
+		get { return Instance.dailyRewardObject.activeInHierarchy; }
+	}
+	#endregion
+
+	#region singleton
+	private static DailyRewardController instance;
+	public static DailyRewardController Instance
+	{
+		get 
+		{
+			if(instance == null)
+				instance = GameObject.FindObjectOfType<DailyRewardController>();
+
+			return instance;
+		}
 	}
 	#endregion
 
