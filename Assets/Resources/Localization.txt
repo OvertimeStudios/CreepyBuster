@@ -204,3 +204,4 @@ LIKE,Like,Curtir
 DAILY_REWARD,DAILY REWARD,RECOMPENSA DIÁRIA
 DAILY_REWARD_DESCRIPTION,Congratulations! Collect your daily reward.,Parabéns! Receba sua recompensa diária.
 DAY,Day,Dia
+LOADING,Loading,Carregando

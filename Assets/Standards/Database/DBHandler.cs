@@ -1,32 +1,26 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+
 #if DB_IMPLEMENTED
-using System.Data;
-using MySql.Data;
-using MySql.Data.MySqlClient;
+using Facebook.MiniJSON;
 #endif
 
 public class DBHandler : MonoBehaviour 
 {
 	#if DB_IMPLEMENTED
-	public string server;
-	public string database;
-	public string userID;
-	public string password;
-	public bool pooling;
-
-	private static string source;
-	private static MySqlConnection connection;
+	private const string getGameIDURL = "http://www.overtimestudios.com/server/GetGameID.php?";
+	private const string getUserURL = "http://www.overtimestudios.com/server/GetUser.php?";
+	private const string createUserURL = "http://www.overtimestudios.com/server/CreateUser.php?";
+	private const string getUserRankingURL = "http://www.overtimestudios.com/server/GetUserRanking.php?";
+	private const string createUserRankingURL = "http://www.overtimestudios.com/server/CreateUserRanking.php?";
+	private const string getUserScoreURL = "http://www.overtimestudios.com/server/GetUserScore.php?";
+	private const string updateUserScoreURL = "http://www.overtimestudios.com/server/UpdateUserScore.php?";
 
 	private static DBUser dbUser;
 
 	#region get/set
-	public static bool IsConnected
-	{
-		get {	return connection != null && connection.State.Equals(ConnectionState.Open);	}
-	}
-
 	public static DBUser User
 	{
 		get { return dbUser; }
@@ -46,250 +40,180 @@ public class DBHandler : MonoBehaviour
 		}
 	}
 	#endregion
-
-	// Use this for initialization
-	void Start () 
-	{
-		source = 	"Server = " + server + ";" +
-					"Database = " + database + ";" +
-					"User ID = " + userID + ";" + 
-					"Password = " + password + ";" +
-					"Pooling = " + pooling.ToString() + ";";
-	}
 	
-	
-	public static void EnsureConnection()
+	public static IEnumerator GetUser(string facebookID, System.Action<DBUser> result)
 	{
-		if (!IsConnected)
-			Connect ();
-	}
-	
-	public static void Connect()
-	{
-		DBHandler.Instance.ConnectDB ();
-	}
-	
-	private void ConnectDB()
-	{
-		Debug.Log(source);
-		try
-		{
-			connection = new MySqlConnection (source);
-			Debug.Log("Connection: " + connection);
-			Debug.Log("connection.ConnectionString: " + connection.ConnectionString);
-			Debug.Log("Connection State: " + connection.State);
-			Debug.Log("connection.Ping(): " + connection.Ping());
-			connection.Open ();
-			//Debug.Log("Connection State: " + connection.State);
-		}
-		catch(Exception e)
-		{
-			Debug.LogError("ConnectDB() Error: " + e.ToString());
-		}
-	}
-	
-	void OnApplicationQuit()
-	{
-		Debug.Log("killing connection"); 
-		if (connection != null)
-		{
-			if (!connection.State.Equals(ConnectionState.Closed)) 
-				connection.Close();
-			
-			connection.Dispose(); 
-		}
-	}
-	
-	public static DBUser GetUser(string facebookID)
-	{
-		Debug.Log("Getting User");
+		Debug.Log("DBHandler.GetUser()");
 		DBUser user = null;
 
-		EnsureConnection ();
-		
-		try
-		{
-			string query = "GetUser";
+		string post_url = getUserURL + "token_for_business=" + facebookID;
+		Debug.Log(string.Format("GetUser URL: {0}", post_url));
 
-			MySqlCommand command = new MySqlCommand(query, connection);
-			command.CommandType = CommandType.StoredProcedure;
-			command.Parameters.AddWithValue("@$facebookID", facebookID);
-
-			MySqlDataReader rdr = command.ExecuteReader();
-			while (rdr.Read())
-			{
-				user = new DBUser();
-				user.id = int.Parse(rdr[0].ToString());
-				user.firstname = rdr[1].ToString();
-				user.lastname = rdr[2].ToString();
-				user.email = rdr[3].ToString();
-				user.gender = rdr[4].ToString();
-			}
-			rdr.Close();
-		}
+		// Post the URL to the site and create a download object to get the result.
+		WWW getUser_post = new WWW(post_url);
+		yield return getUser_post; // Wait until the download is done
 		
-		catch (Exception e)
+		if (getUser_post.error != null)
+			Debug.Log("There was an error posting the GetUser : " + getUser_post.error);
+
+		Debug.Log(string.Format("WWW post: {0}", getUser_post.text));
+
+		if(!string.IsNullOrEmpty(getUser_post.text))
 		{
-			Debug.LogError(e.ToString());
+			Dictionary<string, object> data = Json.Deserialize(getUser_post.text) as Dictionary<string, object>;
+
+			user = new DBUser(int.Parse(data["id"].ToString()), 
+			                  data["first_name"].ToString(),
+			                  data["last_name"].ToString(),
+			                  data["email"].ToString(),
+			                  data["gender"].ToString(),
+			                  data["token_for_business"].ToString());
 		}
 
 		dbUser = user;
 
-		return user;
+		result(user);
 	}
 	
-	public static DBUser CreateUser(string facebookID, string firstName, string lastName, string email, string gender)
+	public static IEnumerator CreateUser(string facebookID, string firstName, string lastName, string email, string gender)
 	{
 		Debug.Log("No user found... Creating new user");
-		
-		EnsureConnection ();
-		
-		DBUser user = new DBUser ();
-		try
-		{
-			string query = "CreateUser";
-			MySqlCommand command = new MySqlCommand(query, connection);
-			command.CommandType = CommandType.StoredProcedure;
-			command.Parameters.AddWithValue("@$firstname", firstName);
-			command.Parameters.AddWithValue("@$lastname", lastName);
-			command.Parameters.AddWithValue("@$email", email);
-			command.Parameters.AddWithValue("@$gender", gender);
-			command.Parameters.AddWithValue("@$facebookID", facebookID);
-			
-			bool success = command.ExecuteNonQuery() == 1;
-			
-			if(success)
-			{
-				Debug.Log("Created User Successfully");
-				return GetUser(facebookID);
-			}
-		}
-		catch(Exception e)
-		{
-			Debug.LogError(e.ToString());
-		}
 
-		return user;
+		string post_url = createUserURL + "firstname=" + WWW.EscapeURL(firstName) +
+										  "&lastname=" + WWW.EscapeURL(lastName) +
+										  "&email=" + email +
+										  "&gender=" + gender +
+										  "&token_for_business=" + facebookID;
+		
+		Debug.Log(string.Format("CreateUser URL: {0}", post_url));
+		
+		// Post the URL to the site and create a download object to get the result.
+		WWW createUserID_post = new WWW(post_url);
+		yield return createUserID_post; // Wait until the download is done
 	}
 
-	public static int GetGameID(string gameName)
+	public static IEnumerator GetGameID(string gameName, System.Action<int> result)
 	{
 		int gameID = -1;
 
 		Debug.Log(string.Format("GetGameID({0})", gameName));
-		EnsureConnection ();
 
-		Debug.Log("connection: " + connection);
+		string post_url = getGameIDURL + "gameName=" + WWW.EscapeURL(gameName);
 
-		try
+		Debug.Log(string.Format("GetGameID URL: {0}", post_url));
+		
+		// Post the URL to the site and create a download object to get the result.
+		WWW getGameID_post = new WWW(post_url);
+		yield return getGameID_post; // Wait until the download is done
+		
+		if (getGameID_post.error != null)
+			Debug.Log("There was an error posting the GetGameID : " + getGameID_post.error);
+		
+		Debug.Log(string.Format("WWW post: {0}", getGameID_post.text));
+		
+		if(!string.IsNullOrEmpty(getGameID_post.text))
 		{
-			string query = "GetGameID";
+			Dictionary<string, object> data = Json.Deserialize(getGameID_post.text) as Dictionary<string, object>;
 			
-			MySqlCommand command = new MySqlCommand(query, connection);
-			command.CommandType = CommandType.StoredProcedure;
-			command.Parameters.AddWithValue("@$gameName", gameName);
-
-			MySqlDataReader rdr = command.ExecuteReader();
-			while (rdr.Read())
-			{
-				gameID = int.Parse(rdr[0].ToString());
-			}
-			rdr.Close();
+			gameID = int.Parse(data["gameID"].ToString());
 		}
 		
-		catch (Exception e)
-		{
-			Debug.LogError("GetGameID() Error: " + e.ToString());
-		}
-		
-		return gameID;
+		result(gameID);
 	}
 
-	public static int GetUserRanking(int userID, int gameID)
+	public static IEnumerator GetUserRanking(int userID, int gameID, System.Action<int> result)
 	{
-		Debug.Log("Getting user ranking");
-
 		int position = -1;
 
-		EnsureConnection ();
+		Debug.Log("DBHandler.GetUserRanking()");
 		
-		try
-		{
-			string query = "GetUserRankingPosition";
-			MySqlCommand command = new MySqlCommand(query, connection);
-			command.CommandType = CommandType.StoredProcedure;
-			command.Parameters.AddWithValue("@$userID", userID);
-			command.Parameters.AddWithValue("@$gameID", gameID);
-			
-			MySqlDataReader rdr = command.ExecuteReader();
-			while (rdr.Read())
-			{
-				position = int.Parse(rdr[0].ToString());
-			}
-			rdr.Close();
-		}
-		catch(Exception e)
-		{
-			Debug.LogError(e.ToString());
-		}
+		string post_url = getUserRankingURL + "userID=" + userID + 
+									   		  "&gameID=" + gameID;
 
-		return position;
+		Debug.Log(string.Format("GetUserRanking URL: {0}", post_url));
+		
+		// Post the URL to the site and create a download object to get the result.
+		WWW getUserRanking_post = new WWW(post_url);
+		yield return getUserRanking_post; // Wait until the download is done
+		
+		if (getUserRanking_post.error != null)
+			Debug.Log("There was an error posting the GetUserRankingPosition : " + getUserRanking_post.error);
+		
+		Debug.Log(string.Format("WWW post: {0}", getUserRanking_post.text));
+		
+		if(!string.IsNullOrEmpty(getUserRanking_post.text))
+		{
+			Dictionary<string, object> data = Json.Deserialize(getUserRanking_post.text) as Dictionary<string, object>;
+			
+			position = int.Parse(data["rank"].ToString());
+		}	
+
+		Debug.Log(string.Format("rank: {0}", position));
+		
+		result(position);
 	}
 
-	public static void CreateUserScore(int userID, int gameID)
+	public static IEnumerator CreateUserRanking(int userID, int gameID)
 	{
-		Debug.Log("Creating user score");
+		Debug.Log("No ranking found... Creating new rank");
 		
-		EnsureConnection ();
-
-		try
-		{
-			string query = "CreateUserScore";
-			MySqlCommand command = new MySqlCommand(query, connection);
-			command.CommandType = CommandType.StoredProcedure;
-			command.Parameters.AddWithValue("@$userID", userID);
-			command.Parameters.AddWithValue("@$gameID", gameID);
-			
-			bool success = command.ExecuteNonQuery() == 1;
-			
-			if(success)
-			{
-				Debug.Log("Created User Score Successfully");
-			}
-		}
-		catch(Exception e)
-		{
-			Debug.LogError(e.ToString());
-		}
+		string post_url = createUserRankingURL + "userID=" + userID + 
+											     "&gameID=" + gameID;
+		
+		Debug.Log(string.Format("CreateUserRanking URL: {0}", post_url));
+		
+		// Post the URL to the site and create a download object to get the result.
+		WWW createUserRanking_post = new WWW(post_url);
+		yield return createUserRanking_post; // Wait until the download is done
 	}
 
-	public static void UpdateUserScore(int userID, int gameID, float score)
+	public static IEnumerator GetUserScore(int userID, int gameID, System.Action<float> result)
+	{
+		float score = -1;
+		
+		Debug.Log("DBHandler.GetUserScore()");
+		
+		string post_url = getUserScoreURL + "userID=" + userID + 
+											"&gameID=" + gameID;
+		
+		Debug.Log(string.Format("GetUserScore URL: {0}", post_url));
+		
+		// Post the URL to the site and create a download object to get the result.
+		WWW getUserScore_post = new WWW(post_url);
+		yield return getUserScore_post; // Wait until the download is done
+		
+		if (getUserScore_post.error != null)
+			Debug.Log("There was an error posting the GetUserRankingPosition : " + getUserScore_post.error);
+		
+		Debug.Log(string.Format("WWW post: {0}", getUserScore_post.text));
+		
+		if(!string.IsNullOrEmpty(getUserScore_post.text))
+		{
+			Dictionary<string, object> data = Json.Deserialize(getUserScore_post.text) as Dictionary<string, object>;
+			
+			score = float.Parse(data["score"].ToString());
+		}	
+		
+		Debug.Log(string.Format("score: {0}", score));
+		
+		result(score);
+	}
+
+	public static IEnumerator UpdateUserScore(int userID, int gameID, float score)
 	{
 		Debug.Log("Updating user score");
+
+		string post_url = updateUserScoreURL + "userID=" + userID + 
+											   "&gameID=" + gameID + 
+											   "&score=" + score;
 		
-		EnsureConnection ();
+		Debug.Log(string.Format("UpdateUserScore URL: {0}", post_url));
 		
-		try
-		{
-			string query = "UpdateUserScore";
-			MySqlCommand command = new MySqlCommand(query, connection);
-			command.CommandType = CommandType.StoredProcedure;
-			command.Parameters.AddWithValue("@$userID", userID);
-			command.Parameters.AddWithValue("@$gameID", gameID);
-			command.Parameters.AddWithValue("@$score", score);
-			
-			bool success = command.ExecuteNonQuery() == 1;
-			
-			if(success)
-			{
-				Debug.Log("Updated User Score Successfully");
-			}
-		}
-		catch(Exception e)
-		{
-			Debug.LogError(e.ToString());
-		}
+		// Post the URL to the site and create a download object to get the result.
+		WWW updateUserScore_post = new WWW(post_url);
+		yield return updateUserScore_post; // Wait until the download is done
 	}
+
 
 	#endif
 }
@@ -302,7 +226,22 @@ public class DBUser
 	public string email;
 	public string gender;
 	public string facebookID;
-	
+
+	public DBUser()
+	{
+
+	}
+
+	public DBUser(int id, string firstname, string lastname, string email, string gender, string facebookID)
+	{
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.gender = gender;
+		this.facebookID = facebookID;
+	}
+
 	public override string ToString()
 	{
 		return 	"{id: " + id + "; " +

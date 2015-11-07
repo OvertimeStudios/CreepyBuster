@@ -521,7 +521,7 @@ public class GameController : MonoBehaviour
 
 			#if FACEBOOK_IMPLEMENTED && DB_IMPLEMENTED
 			if(FacebookController.IsLoggedIn)
-				DBHandler.UpdateUserScore(DBHandler.User.id, DBController.gameID, Score);
+				StartCoroutine(DBHandler.UpdateUserScore(DBHandler.User.id, DBController.gameID, Score));
 			#endif
 		}
 		

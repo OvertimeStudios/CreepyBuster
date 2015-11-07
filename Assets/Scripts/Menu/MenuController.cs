@@ -130,6 +130,8 @@ public class MenuController : MonoBehaviour
 		GameController.OnGameOver += UpdateScore;
 		MenuController.OnPanelClosed += ShowAds;
 		MenuController.OnPanelClosed += ShowRate;
+
+		Global.OnHighScoreUpdated += UpdateScore;
 	}
 
 	void OnDisable()
@@ -140,6 +142,8 @@ public class MenuController : MonoBehaviour
 		GameController.OnGameOver -= UpdateScore;
 		MenuController.OnPanelClosed -= ShowAds;
 		MenuController.OnPanelClosed -= ShowRate;
+
+		Global.OnHighScoreUpdated -= UpdateScore;
 	}
 
 	// Use this for initialization
@@ -385,7 +389,10 @@ public class MenuController : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
 
 		ActiveScreen = hubConnectionScreen.gameObject;
-		
+
+		hubConnectionScreen.gameObject.SetActive(false);
+		hubConnectionScreen.gameObject.SetActive(true);
+
 		activeMenu = Menus.HUBConnection;
 		
 		MoveScreen ();

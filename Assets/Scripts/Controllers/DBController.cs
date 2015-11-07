@@ -34,24 +34,54 @@ public class DBController : MonoBehaviour
 
 	public void ConnectDB()
 	{
-		Debug.Log("DBHandler.Connect()");
-		DBHandler.Connect();
+		Debug.Log("ConnectDB()");
 
-		//Get game id
-		gameID = DBHandler.GetGameID(gameName);
-		Debug.Log("Game ID: " + gameID);
+		StartCoroutine(GetAllInformation());
+	}
 
+	private IEnumerator GetAllInformation()
+	{
+		#region Game ID
+		yield return StartCoroutine(DBHandler.GetGameID(gameName, value => gameID = value));
+		Debug.Log(string.Format("Game ID: {0}", gameID));
+		#endregion
+
+		#region Get User
 		FacebookUser fbUser = FacebookController.User;
+		DBUser user = null;
+		yield return StartCoroutine(DBHandler.GetUser(fbUser.tokenForBusiness, value => user = value));
+		#endregion
 
-		DBUser user = DBHandler.GetUser(fbUser.tokenForBusiness);
+		#region Create User
+		if(user == null)
+		{
+			yield return StartCoroutine(DBHandler.CreateUser(fbUser.tokenForBusiness, fbUser.firstname, fbUser.lastname, fbUser.email, fbUser.gender));
+			yield return StartCoroutine(DBHandler.GetUser(fbUser.tokenForBusiness, value => user = value));
+		}
+		#endregion
 
-		if(user == null)//no user was found
-			user = DBHandler.CreateUser(fbUser.tokenForBusiness, fbUser.firstname, fbUser.lastname, fbUser.email, fbUser.gender);
+		#region Get User Ranking
+		int ranking = -1;
+		yield return StartCoroutine(DBHandler.GetUserRanking(user.id, gameID, value => ranking = value));
+		#endregion
 
-		if(DBHandler.GetUserRanking(user.id, gameID) == -1)
-			DBHandler.CreateUserScore(user.id, gameID);
-		
-		Debug.Log(user.ToString());
+		#region Create User Score
+		if(ranking == -1)
+			yield return StartCoroutine(DBHandler.CreateUserRanking(user.id, gameID));
+		#endregion
+
+		#region Get User Score
+		else
+		{
+			float score = -1;
+			yield return StartCoroutine(DBHandler.GetUserScore(user.id, gameID, value => score = value));
+
+			if(score > Global.HighScore)
+				Global.HighScore = (int)score;
+			else if(Global.HighScore > score)
+				yield return StartCoroutine(DBHandler.UpdateUserScore(user.id, gameID, (float)Global.HighScore));
+		}
+		#endregion
 	}
 	#endif
 

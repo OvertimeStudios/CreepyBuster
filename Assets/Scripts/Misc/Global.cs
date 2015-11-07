@@ -7,6 +7,7 @@ public class Global : MonoBehaviour
 	#region Action
 	public static event Action OnOrbUpdated;
 	public static event Action OnPurchasesCleared;
+	public static event Action OnHighScoreUpdated;
 	#endregion
 
 	#region keys
@@ -143,6 +144,9 @@ public class Global : MonoBehaviour
 
 			PlayerPrefs.SetInt (HIGH_SCORE, highScore);
 			PlayerPrefs.Save ();
+
+			if(OnHighScoreUpdated != null)
+				OnHighScoreUpdated();
 		}
 	}
 

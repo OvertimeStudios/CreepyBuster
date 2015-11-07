@@ -52,7 +52,7 @@ public class FacebookController : MonoBehaviour
 
 	public void Login()
 	{
-		string scope = "public_profile,email";
+		string scope = "public_profile,email,user_friends";
 		if(!FB.IsLoggedIn)
 		{
 			Debug.Log("New Login");
