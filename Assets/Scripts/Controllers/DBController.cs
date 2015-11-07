@@ -3,10 +3,6 @@ using System.Collections;
 
 public class DBController : MonoBehaviour 
 {
-	public string gameName;
-
-	public static int gameID;
-
 	#region singleton
 	private static DBController instance;
 	public static DBController Instance
@@ -41,46 +37,21 @@ public class DBController : MonoBehaviour
 
 	private IEnumerator GetAllInformation()
 	{
-		#region Game ID
-		yield return StartCoroutine(DBHandler.GetGameID(gameName, value => gameID = value));
-		Debug.Log(string.Format("Game ID: {0}", gameID));
-		#endregion
-
-		#region Get User
 		FacebookUser fbUser = FacebookController.User;
-		DBUser user = null;
-		yield return StartCoroutine(DBHandler.GetUser(fbUser.tokenForBusiness, value => user = value));
+
+		#region Global User
+		yield return StartCoroutine(DBHandler.CheckAndCreateGlobalUser(fbUser.tokenForBusiness, fbUser.firstname, fbUser.lastname, fbUser.email, fbUser.gender));
 		#endregion
 
-		#region Create User
-		if(user == null)
-		{
-			yield return StartCoroutine(DBHandler.CreateUser(fbUser.tokenForBusiness, fbUser.firstname, fbUser.lastname, fbUser.email, fbUser.gender));
-			yield return StartCoroutine(DBHandler.GetUser(fbUser.tokenForBusiness, value => user = value));
-		}
+		#region Game User
+		yield return StartCoroutine(DBHandler.CheckAndCreateGameUser(fbUser.id));
 		#endregion
 
-		#region Get User Ranking
-		int ranking = -1;
-		yield return StartCoroutine(DBHandler.GetUserRanking(user.id, gameID, value => ranking = value));
-		#endregion
-
-		#region Create User Score
-		if(ranking == -1)
-			yield return StartCoroutine(DBHandler.CreateUserRanking(user.id, gameID));
-		#endregion
-
-		#region Get User Score
-		else
-		{
-			float score = -1;
-			yield return StartCoroutine(DBHandler.GetUserScore(user.id, gameID, value => score = value));
-
-			if(score > Global.HighScore)
-				Global.HighScore = (int)score;
-			else if(Global.HighScore > score)
-				yield return StartCoroutine(DBHandler.UpdateUserScore(user.id, gameID, (float)Global.HighScore));
-		}
+		#region Update Game Score
+		if(DBHandler.User.score > Global.HighScore)
+			Global.HighScore = (int)DBHandler.User.score;
+		else if(Global.HighScore > DBHandler.User.score)
+			yield return StartCoroutine(DBHandler.UpdateUserScore(DBHandler.User.id, (float)Global.HighScore));
 		#endregion
 	}
 	#endif

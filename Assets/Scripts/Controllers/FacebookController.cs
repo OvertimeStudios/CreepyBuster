@@ -26,8 +26,7 @@ public class FacebookController : MonoBehaviour
 	{
 		get { return Global.FacebookID != ""; }
 	}
-
-	//in reality is token_for_business
+	
 	public static string FacebookID
 	{
 		get { return Global.FacebookID; }
@@ -103,10 +102,11 @@ public class FacebookController : MonoBehaviour
 			fbUser.lastname = data["last_name"].ToString();
 			fbUser.gender = (data.ContainsKey("gender")) ? data["gender"].ToString() : "";
 			fbUser.email = (data.ContainsKey("email")) ? data["email"].ToString() : "";
+
 			//tokenForBusiness is unique for user for all apps of the same company!!!!
 			fbUser.tokenForBusiness = data["token_for_business"].ToString();
 
-			Global.FacebookID = fbUser.tokenForBusiness;
+			Global.FacebookID = fbUser.id;
 
 			Debug.Log(fbUser.ToString());
 

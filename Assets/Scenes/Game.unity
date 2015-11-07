@@ -2300,7 +2300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5fd78acb65b4429caf38e5e1a9eac55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameName: Creepy Buster
 --- !u!1 &56097633
 GameObject:
   m_ObjectHideFlags: 0

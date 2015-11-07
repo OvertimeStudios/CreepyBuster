@@ -10,13 +10,14 @@ using Facebook.MiniJSON;
 public class DBHandler : MonoBehaviour 
 {
 	#if DB_IMPLEMENTED
-	private const string getGameIDURL = "http://www.overtimestudios.com/server/GetGameID.php?";
-	private const string getUserURL = "http://www.overtimestudios.com/server/GetUser.php?";
-	private const string createUserURL = "http://www.overtimestudios.com/server/CreateUser.php?";
-	private const string getUserRankingURL = "http://www.overtimestudios.com/server/GetUserRanking.php?";
-	private const string createUserRankingURL = "http://www.overtimestudios.com/server/CreateUserRanking.php?";
-	private const string getUserScoreURL = "http://www.overtimestudios.com/server/GetUserScore.php?";
-	private const string updateUserScoreURL = "http://www.overtimestudios.com/server/UpdateUserScore.php?";
+	private const string getGlobalUserURL = "http://www.overtimestudios.com/server/global_GetUser.php?";
+	private const string createGlobalUserURL = "http://www.overtimestudios.com/server/global_CreateUser.php?";
+
+	private const string getGameUserURL = "http://www.overtimestudios.com/server/creepybuster_GetUser.php?";
+	private const string createGameUserURL = "http://www.overtimestudios.com/server/creepybuster_CreateUser.php?";
+	private const string updateUserScoreURL = "http://www.overtimestudios.com/server/creepybuster_UpdateScore.php?";
+	private const string getUserGlobalRankingURL = "http://www.overtimestudios.com/server/creepybuster_GetUserGlobalRanking.php?";
+
 
 	private static DBUser dbUser;
 
@@ -40,14 +41,27 @@ public class DBHandler : MonoBehaviour
 		}
 	}
 	#endregion
-	
-	public static IEnumerator GetUser(string facebookID, System.Action<DBUser> result)
-	{
-		Debug.Log("DBHandler.GetUser()");
-		DBUser user = null;
 
-		string post_url = getUserURL + "token_for_business=" + facebookID;
-		Debug.Log(string.Format("GetUser URL: {0}", post_url));
+	#region GLOBAL
+	public static IEnumerator CheckAndCreateGlobalUser(string token_for_business, string firstName, string lastName, string email, string gender)
+	{
+		Debug.Log("Checking if Global User exists...");
+		bool exists = false;
+		yield return Instance.StartCoroutine(GetGlobalUser(token_for_business, value => exists = value));
+
+		if(!exists)
+			Instance.StartCoroutine(CreateGlobalUser(token_for_business, firstName, lastName, email, gender));
+		else
+			Debug.Log("Global user already exists");
+	}
+
+	private static IEnumerator GetGlobalUser(string token_for_business, System.Action<bool> result)
+	{
+		Debug.Log("DBHandler.GetGlobalUser()");
+		bool exists = false;
+
+		string post_url = getGlobalUserURL + "token_for_business=" + token_for_business;
+		Debug.Log(string.Format("GetGlobalUser URL: {0}", post_url));
 
 		// Post the URL to the site and create a download object to get the result.
 		WWW getUser_post = new WWW(post_url);
@@ -59,76 +73,92 @@ public class DBHandler : MonoBehaviour
 		Debug.Log(string.Format("WWW post: {0}", getUser_post.text));
 
 		if(!string.IsNullOrEmpty(getUser_post.text))
-		{
-			Dictionary<string, object> data = Json.Deserialize(getUser_post.text) as Dictionary<string, object>;
+			exists = true;
 
-			user = new DBUser(int.Parse(data["id"].ToString()), 
-			                  data["first_name"].ToString(),
-			                  data["last_name"].ToString(),
-			                  data["email"].ToString(),
-			                  data["gender"].ToString(),
-			                  data["token_for_business"].ToString());
-		}
-
-		dbUser = user;
-
-		result(user);
+		result(exists);
 	}
 	
-	public static IEnumerator CreateUser(string facebookID, string firstName, string lastName, string email, string gender)
+	private static IEnumerator CreateGlobalUser(string token_for_business, string firstName, string lastName, string email, string gender)
 	{
-		Debug.Log("No user found... Creating new user");
+		Debug.Log("No Global user found... Creating new user");
 
-		string post_url = createUserURL + "firstname=" + WWW.EscapeURL(firstName) +
+		string post_url = createGlobalUserURL + "firstname=" + WWW.EscapeURL(firstName) +
 										  "&lastname=" + WWW.EscapeURL(lastName) +
 										  "&email=" + email +
 										  "&gender=" + gender +
-										  "&token_for_business=" + facebookID;
+										  "&token_for_business=" + token_for_business;
 		
-		Debug.Log(string.Format("CreateUser URL: {0}", post_url));
+		Debug.Log(string.Format("CreateGlobalUser URL: {0}", post_url));
 		
 		// Post the URL to the site and create a download object to get the result.
 		WWW createUserID_post = new WWW(post_url);
 		yield return createUserID_post; // Wait until the download is done
 	}
+	#endregion
 
-	public static IEnumerator GetGameID(string gameName, System.Action<int> result)
+
+	#region GAME
+	public static IEnumerator CheckAndCreateGameUser(string facebookID)
 	{
-		int gameID = -1;
-
-		Debug.Log(string.Format("GetGameID({0})", gameName));
-
-		string post_url = getGameIDURL + "gameName=" + WWW.EscapeURL(gameName);
-
-		Debug.Log(string.Format("GetGameID URL: {0}", post_url));
+		Debug.Log("Checking if Game User exists...");
+		dbUser = null;
+		yield return Instance.StartCoroutine(GetGameUser(facebookID));
+		
+		if(dbUser == null)
+		{
+			yield return Instance.StartCoroutine(CreateGameUser(facebookID));
+			yield return Instance.StartCoroutine(GetGameUser(facebookID));
+		}
+		else
+			Debug.Log("Game user already exists");
+	}
+	
+	private static IEnumerator GetGameUser(string facebookID)
+	{
+		Debug.Log("DBHandler.GetGameUser()");
+		string post_url = getGameUserURL + "facebookID=" + facebookID;
+		Debug.Log(string.Format("GetGameUser URL: {0}", post_url));
 		
 		// Post the URL to the site and create a download object to get the result.
-		WWW getGameID_post = new WWW(post_url);
-		yield return getGameID_post; // Wait until the download is done
+		WWW getUser_post = new WWW(post_url);
+		yield return getUser_post; // Wait until the download is done
 		
-		if (getGameID_post.error != null)
-			Debug.Log("There was an error posting the GetGameID : " + getGameID_post.error);
+		if (getUser_post.error != null)
+			Debug.Log("There was an error posting the GetUser : " + getUser_post.error);
 		
-		Debug.Log(string.Format("WWW post: {0}", getGameID_post.text));
+		Debug.Log(string.Format("WWW post: {0}", getUser_post.text));
 		
-		if(!string.IsNullOrEmpty(getGameID_post.text))
+		if(!string.IsNullOrEmpty(getUser_post.text))
 		{
-			Dictionary<string, object> data = Json.Deserialize(getGameID_post.text) as Dictionary<string, object>;
-			
-			gameID = int.Parse(data["gameID"].ToString());
-		}
-		
-		result(gameID);
-	}
+			Dictionary<string, object> data = Json.Deserialize(getUser_post.text) as Dictionary<string, object>;
 
-	public static IEnumerator GetUserRanking(int userID, int gameID, System.Action<int> result)
+			dbUser = new DBUser(int.Parse(data["id"].ToString()),
+			                    data["facebookID"].ToString(),
+			                    int.Parse(data["score"].ToString()));
+		}
+	}
+	
+	private static IEnumerator CreateGameUser(string facebookID)
+	{
+		Debug.Log("No Game user found... Creating new user");
+		
+		string post_url = createGameUserURL + "facebookID=" + facebookID;
+		
+		Debug.Log(string.Format("CreateGameUser URL: {0}", post_url));
+		
+		// Post the URL to the site and create a download object to get the result.
+		WWW createUserID_post = new WWW(post_url);
+		yield return createUserID_post; // Wait until the download is done
+	}
+	#endregion
+
+	public static IEnumerator GetUserGlobalRanking(int userID, System.Action<int> result)
 	{
 		int position = -1;
 
 		Debug.Log("DBHandler.GetUserRanking()");
 		
-		string post_url = getUserRankingURL + "userID=" + userID + 
-									   		  "&gameID=" + gameID;
+		string post_url = getUserGlobalRankingURL + "userID=" + userID;
 
 		Debug.Log(string.Format("GetUserRanking URL: {0}", post_url));
 		
@@ -153,58 +183,11 @@ public class DBHandler : MonoBehaviour
 		result(position);
 	}
 
-	public static IEnumerator CreateUserRanking(int userID, int gameID)
-	{
-		Debug.Log("No ranking found... Creating new rank");
-		
-		string post_url = createUserRankingURL + "userID=" + userID + 
-											     "&gameID=" + gameID;
-		
-		Debug.Log(string.Format("CreateUserRanking URL: {0}", post_url));
-		
-		// Post the URL to the site and create a download object to get the result.
-		WWW createUserRanking_post = new WWW(post_url);
-		yield return createUserRanking_post; // Wait until the download is done
-	}
-
-	public static IEnumerator GetUserScore(int userID, int gameID, System.Action<float> result)
-	{
-		float score = -1;
-		
-		Debug.Log("DBHandler.GetUserScore()");
-		
-		string post_url = getUserScoreURL + "userID=" + userID + 
-											"&gameID=" + gameID;
-		
-		Debug.Log(string.Format("GetUserScore URL: {0}", post_url));
-		
-		// Post the URL to the site and create a download object to get the result.
-		WWW getUserScore_post = new WWW(post_url);
-		yield return getUserScore_post; // Wait until the download is done
-		
-		if (getUserScore_post.error != null)
-			Debug.Log("There was an error posting the GetUserRankingPosition : " + getUserScore_post.error);
-		
-		Debug.Log(string.Format("WWW post: {0}", getUserScore_post.text));
-		
-		if(!string.IsNullOrEmpty(getUserScore_post.text))
-		{
-			Dictionary<string, object> data = Json.Deserialize(getUserScore_post.text) as Dictionary<string, object>;
-			
-			score = float.Parse(data["score"].ToString());
-		}	
-		
-		Debug.Log(string.Format("score: {0}", score));
-		
-		result(score);
-	}
-
-	public static IEnumerator UpdateUserScore(int userID, int gameID, float score)
+	public static IEnumerator UpdateUserScore(int userID, float score)
 	{
 		Debug.Log("Updating user score");
 
 		string post_url = updateUserScoreURL + "userID=" + userID + 
-											   "&gameID=" + gameID + 
 											   "&score=" + score;
 		
 		Debug.Log(string.Format("UpdateUserScore URL: {0}", post_url));
@@ -213,42 +196,31 @@ public class DBHandler : MonoBehaviour
 		WWW updateUserScore_post = new WWW(post_url);
 		yield return updateUserScore_post; // Wait until the download is done
 	}
-
-
 	#endif
 }
 
-public class DBUser 
+public class DBUser
 {
 	public int id;
-	public string firstname;
-	public string lastname;
-	public string email;
-	public string gender;
 	public string facebookID;
-
+	public int score;
+	
 	public DBUser()
 	{
-
+		
 	}
-
-	public DBUser(int id, string firstname, string lastname, string email, string gender, string facebookID)
+	
+	public DBUser(int id, string facebookID, int score)
 	{
 		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.gender = gender;
 		this.facebookID = facebookID;
+		this.score = score;
 	}
-
+	
 	public override string ToString()
 	{
 		return 	"{id: " + id + "; " +
-				"facebookID: " + facebookID + "; " +
-				"First Name: " + firstname + "; " +
-				"Last Name: " + lastname + "; " +
-				"E-mail: " + email + "; " +
-				"Gender: " + gender + "}";
+				"facebookID: " + facebookID + "; " + 
+				"score: " + score + "}";
 	}
 }

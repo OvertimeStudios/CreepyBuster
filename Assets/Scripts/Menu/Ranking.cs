@@ -24,7 +24,7 @@ public class Ranking : MonoBehaviour
 	{
 		Debug.Log("Getting ranking...");
 		int rank = 0;
-		yield return StartCoroutine(DBHandler.GetUserRanking(DBHandler.User.id, DBController.gameID, value => rank = value));
+		yield return StartCoroutine(DBHandler.GetUserGlobalRanking(DBHandler.User.id, value => rank = value));
 
 		worldRank.text = "#" + rank;
 	}
