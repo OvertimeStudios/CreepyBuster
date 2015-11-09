@@ -17,7 +17,8 @@ public class DBHandler : MonoBehaviour
 	private const string createGameUserURL = "http://www.overtimestudios.com/server/creepybuster_CreateUser.php?";
 	private const string updateUserScoreURL = "http://www.overtimestudios.com/server/creepybuster_UpdateScore.php?";
 	private const string getUserGlobalRankingURL = "http://www.overtimestudios.com/server/creepybuster_GetUserGlobalRanking.php?";
-
+	private const string getUserScoreURL = "http://www.overtimestudios.com/server/creepybuster_GetUserScore.php?";
+	private const string getTopUsersURL = "http://www.overtimestudios.com/server/creepybuster_GetTopRankings.php?";
 
 	private static DBUser dbUser;
 
@@ -43,22 +44,29 @@ public class DBHandler : MonoBehaviour
 	#endregion
 
 	#region GLOBAL
-	public static IEnumerator CheckAndCreateGlobalUser(string token_for_business, string firstName, string lastName, string email, string gender)
+	public static IEnumerator CheckAndCreateGlobalUser(string token_for_business, string firstName, string lastName, string email, string gender, System.Action<int> result)
 	{
+		int globalID = 0;
 		Debug.Log("Checking if Global User exists...");
-		bool exists = false;
-		yield return Instance.StartCoroutine(GetGlobalUser(token_for_business, value => exists = value));
+		yield return Instance.StartCoroutine(GetGlobalUser(token_for_business, value => globalID = value));
 
-		if(!exists)
-			Instance.StartCoroutine(CreateGlobalUser(token_for_business, firstName, lastName, email, gender));
+		if(globalID == 0)
+		{
+			yield return Instance.StartCoroutine(CreateGlobalUser(token_for_business, firstName, lastName, email, gender));
+			yield return Instance.StartCoroutine(GetGlobalUser(token_for_business, value => globalID = value));
+		}
 		else
+		{
 			Debug.Log("Global user already exists");
+		}
+
+		result(globalID);
 	}
 
-	private static IEnumerator GetGlobalUser(string token_for_business, System.Action<bool> result)
+	private static IEnumerator GetGlobalUser(string token_for_business, System.Action<int> result)
 	{
 		Debug.Log("DBHandler.GetGlobalUser()");
-		bool exists = false;
+		int globalID = 0;
 
 		string post_url = getGlobalUserURL + "token_for_business=" + token_for_business;
 		Debug.Log(string.Format("GetGlobalUser URL: {0}", post_url));
@@ -73,9 +81,13 @@ public class DBHandler : MonoBehaviour
 		Debug.Log(string.Format("WWW post: {0}", getUser_post.text));
 
 		if(!string.IsNullOrEmpty(getUser_post.text))
-			exists = true;
+		{
+			Dictionary<string, object> data = Json.Deserialize(getUser_post.text) as Dictionary<string, object>;
+			
+			globalID = int.Parse(data["id"].ToString());
+		}
 
-		result(exists);
+		result(globalID);
 	}
 	
 	private static IEnumerator CreateGlobalUser(string token_for_business, string firstName, string lastName, string email, string gender)
@@ -98,7 +110,7 @@ public class DBHandler : MonoBehaviour
 
 
 	#region GAME
-	public static IEnumerator CheckAndCreateGameUser(string facebookID)
+	public static IEnumerator CheckAndCreateGameUser(string facebookID, int globalID)
 	{
 		Debug.Log("Checking if Game User exists...");
 		dbUser = null;
@@ -106,7 +118,7 @@ public class DBHandler : MonoBehaviour
 		
 		if(dbUser == null)
 		{
-			yield return Instance.StartCoroutine(CreateGameUser(facebookID));
+			yield return Instance.StartCoroutine(CreateGameUser(facebookID, globalID));
 			yield return Instance.StartCoroutine(GetGameUser(facebookID));
 		}
 		else
@@ -138,11 +150,12 @@ public class DBHandler : MonoBehaviour
 		}
 	}
 	
-	private static IEnumerator CreateGameUser(string facebookID)
+	private static IEnumerator CreateGameUser(string facebookID, int globalID)
 	{
 		Debug.Log("No Game user found... Creating new user");
 		
-		string post_url = createGameUserURL + "facebookID=" + facebookID;
+		string post_url = createGameUserURL + "facebookID=" + facebookID +
+											  "&globalID=" + globalID;
 		
 		Debug.Log(string.Format("CreateGameUser URL: {0}", post_url));
 		
@@ -195,6 +208,76 @@ public class DBHandler : MonoBehaviour
 		// Post the URL to the site and create a download object to get the result.
 		WWW updateUserScore_post = new WWW(post_url);
 		yield return updateUserScore_post; // Wait until the download is done
+	}
+
+	public static IEnumerator GetUserScore(string facebookID, System.Action<int> result)
+	{
+		int score = 0;
+		
+		Debug.Log("DBHandler.GetUserScore()");
+		
+		string post_url = getUserScoreURL + "facebookID=" + facebookID;
+		
+		Debug.Log(string.Format("GetUserScore URL: {0}", post_url));
+		
+		// Post the URL to the site and create a download object to get the result.
+		WWW getUserScore_post = new WWW(post_url);
+		yield return getUserScore_post; // Wait until the download is done
+		
+		if (getUserScore_post.error != null)
+			Debug.Log("There was an error posting the GetUserRankingPosition : " + getUserScore_post.error);
+		
+		Debug.Log(string.Format("GetUserScore WWW post: {0}", getUserScore_post.text));
+		
+		if(!string.IsNullOrEmpty(getUserScore_post.text))
+		{
+			Dictionary<string, object> data = Json.Deserialize(getUserScore_post.text) as Dictionary<string, object>;
+			
+			score = int.Parse(data["score"].ToString());
+		}	
+		
+		Debug.Log(string.Format("score: {0}", score));
+		
+		result(score);
+	}
+
+	public static IEnumerator GetTopUsers(System.Action<List<FacebookFriend>> result)
+	{
+		Debug.Log("DBHandler.GetTopUsers()");
+		
+		string post_url = getTopUsersURL;
+		
+		Debug.Log(string.Format("GetTopUsers URL: {0}", post_url));
+		
+		// Post the URL to the site and create a download object to get the result.
+		WWW getTopUsers_post = new WWW(post_url);
+		yield return getTopUsers_post; // Wait until the download is done
+		
+		if (getTopUsers_post.error != null)
+			Debug.Log("There was an error posting the GetUserRankingPosition : " + getTopUsers_post.error);
+		
+		Debug.Log(string.Format("GetTopUsers WWW post: {0}", getTopUsers_post.text));
+
+		List<FacebookFriend> topUsers = new List<FacebookFriend>();
+
+		if(!string.IsNullOrEmpty(getTopUsers_post.text))
+		{
+			Dictionary<string, object> data = Json.Deserialize(getTopUsers_post.text) as Dictionary<string, object>;
+
+			List<System.Object> users = data["data"] as List<System.Object>;
+
+			foreach(System.Object user in users)
+			{
+				Dictionary<string, object> userData = user as Dictionary<string, object>;
+
+				topUsers.Add(new FacebookFriend(userData["facebookID"].ToString(), 
+				                                userData["name"].ToString(), 
+				                                int.Parse(userData["score"].ToString()),
+				                                int.Parse(userData["rank"].ToString())));
+			}
+		}	
+
+		result(topUsers);
 	}
 	#endif
 }

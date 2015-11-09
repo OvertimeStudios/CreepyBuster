@@ -94,6 +94,13 @@ public class FacebookHelper : MonoBehaviour
 		FB.API (query, Facebook.HttpMethod.GET, del, formData);
 	}
 
+	public static void GetFacebookFriends(Facebook.FacebookDelegate del)
+	{
+		Debug.Log("GetFacebookFriends");
+		string query = "me/friends?fields=id,name";
+		FB.API (query, Facebook.HttpMethod.GET, del);
+	}
+
 	public static void Logout()
 	{
 		FB.Logout ();
