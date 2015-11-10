@@ -300,7 +300,7 @@ public class AttackTargets : MonoBehaviour
 
 	private void OnFingerHit()
 	{	
-		if(LevelDesign.PlayerLevel == 0)
+		if(LevelDesign.PlayerLevel == 0 && !GameController.IsShieldActive)
 		{
 			LoseAllTargets();
 			gameObject.SetActive (false);

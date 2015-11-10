@@ -62,6 +62,7 @@ public class GameController : MonoBehaviour
 	private static bool slowedDown;
 	private static bool frozen;
 	private static bool invencible;
+	private static bool shield;
 	private static int continues;
 	private static bool bossTime;
 	private static float lastTimeScale;
@@ -219,6 +220,11 @@ public class GameController : MonoBehaviour
 	public static bool IsInvencible
 	{
 		get { return invencible || ScreenFeedback.IsDamageActive; }
+	}
+
+	public static bool IsShieldActive
+	{
+		get { return shield; }
 	}
 
 	public static bool IsTakingDamage
@@ -385,8 +391,6 @@ public class GameController : MonoBehaviour
 	{
 		if(IsInvencible) return;
 
-		ScreenFeedback.ShowDamage (timeInvencibleAfterDamage);
-
 		//game stats
 		string enemyName = hit.name;
 		Debug.Log("Hit by: " + hit.name);
@@ -408,16 +412,24 @@ public class GameController : MonoBehaviour
 			hitsByBoss2++;
 		if(enemyName.Contains(BOSS3))
 			hitsByBoss3++;
-
-		if (LevelDesign.PlayerLevel == 0)
-			NoMoreLifes ();
 		
 		if (OnFingerHit != null)
 			OnFingerHit ();
 
-		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PlayerDamage);
+		if(IsShieldActive)
+		{
+			shield = false;
+		}
+		else
+		{
+			if (LevelDesign.PlayerLevel == 0)
+				NoMoreLifes ();
 
-		LoseStacks ();
+			ScreenFeedback.ShowDamage (timeInvencibleAfterDamage);
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PlayerDamage);
+
+			LoseStacks ();
+		}
 	}
 
 	private void LoseStacks()
@@ -972,9 +984,48 @@ public class GameController : MonoBehaviour
 			break;
 
 			case Item.Type.LevelUp:
-				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.LevelUp);
 				levelUpCollected++;
+			break;
+
+			case Item.Type.SlowDown:
+
+			break;
+
+			case Item.Type.Invencibility:
+				invencibilityCollected++;
+			break;
+
+			case Item.Type.DeathRay:
+				deathRayCollected++;
+			break;
+
+			case Item.Type.Frozen:
+				frozenCollected++;
+			break;
+		}
+
+		UseItem(itemType);
+
+		Debug.Log("Collected " + itemType.ToString());
+	}
+
+	public void UseItem(Item.Type itemType)
+	{
+		switch(itemType)
+		{
+			case Item.Type.LevelUp:
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.LevelUp);
 				StreakCount = LevelDesign.NextStreakToPlayerLevelUp;
+			break;
+				
+			case Item.Type.Invencibility:
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected);
+				UseInvencibility(Invencible.Time);
+			break;
+				
+			case Item.Type.DeathRay:
+				KillAllEnemies(true);
+				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.DeathRay);
 			break;
 
 			case Item.Type.SlowDown:
@@ -989,35 +1040,24 @@ public class GameController : MonoBehaviour
 
 			break;
 
-			case Item.Type.Invecibility:
-				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected);
-				invencibilityCollected++;
-				UseInvencibility(Invencible.Time);
-			break;
-
-			case Item.Type.DeathRay:
-				deathRayCollected++;
-				KillAllEnemies(true);
-				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.DeathRay);
-			break;
-
 			case Item.Type.Frozen:
 				if(OnFrozenCollected != null)
 					OnFrozenCollected();
 				
-				frozenCollected++;
 				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.Freeze);
-
+				
 				frozen = true;
 				
 				ScreenFeedback.ShowFrozen(Frozen.FrozenTime);
-
+				
 				StopCoroutine("FadeFrozen");
 				StartCoroutine("FadeFrozen");
 			break;
-		}
 
-		Debug.Log("Collected " + itemType.ToString());
+			case Item.Type.Shield:
+				shield = true;
+			break;
+		}
 	}
 
 	private void UseInvencibility(float invencibleTime)

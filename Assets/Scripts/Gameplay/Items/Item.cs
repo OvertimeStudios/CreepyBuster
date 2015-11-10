@@ -9,12 +9,13 @@ public class Item : MonoBehaviour
 
 	public enum Type
 	{
-		Invecibility,
+		Invencibility,
 		LevelUp,
 		DeathRay,
 		SlowDown,
 		Frozen,
 		PlasmaOrb,
+		Shield,
 	}
 	
 	public Type type;

@@ -10,6 +10,7 @@ public class Shop : MonoBehaviour
 	public UIProgressBar progressBar;
 	public float upgradePosition;
 	public float packPosition;
+	public float consumablesPosition;
 	private TweenPosition tween;
 
 	[Header("Web")]
@@ -60,6 +61,17 @@ public class Shop : MonoBehaviour
 		
 		tween.PlayForward();
 
+		StartCoroutine(UpdateProgressBarPosition());
+	}
+
+	public void GoToConsumables()
+	{
+		tween.ResetToBeginning();
+		tween.from = new Vector3(0, progressBar.value, 0);
+		tween.to = new Vector3(0, consumablesPosition, 0);
+		
+		tween.PlayForward();
+		
 		StartCoroutine(UpdateProgressBarPosition());
 	}
 

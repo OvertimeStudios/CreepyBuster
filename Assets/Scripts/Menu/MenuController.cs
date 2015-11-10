@@ -339,6 +339,9 @@ public class MenuController : MonoBehaviour
 
 		activeMenu = Menus.Shop;
 
+		shopScreen.gameObject.SetActive(false);
+		shopScreen.gameObject.SetActive(true);
+
 		MoveScreen ();
 	}
 

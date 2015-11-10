@@ -74,6 +74,11 @@ public class Global : MonoBehaviour
 	private const string FACEBOOKID = "facebookID";
 	private const string DAILY_REWARD_DAY = "dailyRewardDay";
 	private const string DAILY_REWARD_NEXT_TIME = "dailyRewardNextTime";
+	private const string DEATHRAY_USABLE = "deathRayUsable";
+	private const string INVENCIBLE_USABLE = "invencibleUsable";
+	private const string LEVELUP_USABLE = "levelUpUsable";
+	private const string FROZEN_USABLE = "frozenUsable";
+	private const string SHIELD_USABLE = "shieldUsable";
 	#endregion
 
 	private static bool isLoaded;
@@ -1060,6 +1065,86 @@ public class Global : MonoBehaviour
 		set
 		{
 			PlayerPrefs.SetString(DAILY_REWARD_NEXT_TIME, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int DeathRayConsumable
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(DEATHRAY_USABLE))
+				return 0;
+
+			return PlayerPrefs.GetInt(DEATHRAY_USABLE);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(DEATHRAY_USABLE, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int InvencibleConsumable
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(INVENCIBLE_USABLE))
+				return 0;
+			
+			return PlayerPrefs.GetInt(INVENCIBLE_USABLE);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(INVENCIBLE_USABLE, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int FrozenConsumable
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(FROZEN_USABLE))
+				return 0;
+			
+			return PlayerPrefs.GetInt(FROZEN_USABLE);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(FROZEN_USABLE, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int LevelUpConsumable
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(LEVELUP_USABLE))
+				return 0;
+			
+			return PlayerPrefs.GetInt(LEVELUP_USABLE);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(LEVELUP_USABLE, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int ShieldConsumable
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(SHIELD_USABLE))
+				return 0;
+			
+			return PlayerPrefs.GetInt(SHIELD_USABLE);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(SHIELD_USABLE, value);
 			PlayerPrefs.Save();
 		}
 	}
