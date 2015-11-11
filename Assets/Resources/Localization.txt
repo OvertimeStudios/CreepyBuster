@@ -216,3 +216,4 @@ Shield,SHIELD,ESCUDO
 STOCK,IN STOCK,EM ESTOQUE
 MAX_STOCK,You can't purchase anymore of this item,Você não pode comprar mais deste item
 LOADING,Loading,Carregando
+DAILYMISSION_COMPLETED,"You have just completed ""{0}"" mission. You earned {1} orbs","Você acabou de competar a missão ""{0}"". Você ganhou {1} orbes",

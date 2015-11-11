@@ -55,6 +55,7 @@ public class MenuController : MonoBehaviour
 	public static bool goToShop = false;
 
 	private int achievementOrbsToGive;
+	private int dailyMissionOrbsToGive;
 
 	//ADS
 	public int gamesToShowAd;
@@ -271,6 +272,8 @@ public class MenuController : MonoBehaviour
 
 			Achievement.achievementRecentUnlocked.Remove(a);
 		}
+		else
+			ShowDailyMissions();
 		#endif
 	}
 
@@ -279,6 +282,33 @@ public class MenuController : MonoBehaviour
 		Global.TotalOrbs += achievementOrbsToGive;
 
 		ShowAchievements();
+	}
+
+	public void ShowDailyMissions()
+	{
+		#if !UNITY_WEBPLAYER
+		List<DailyMission> dailyMission = DailyMissionController.missionRecentUnlocked;
+		
+		if(dailyMission.Count > 0)
+		{
+			DailyMission dm = dailyMission[0];
+			dailyMissionOrbsToGive = dm.reward;
+			
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Achievement);
+			
+			Popup.ShowOk(string.Format(Localization.Get("DAILYMISSION_COMPLETED"), dm.Description, dm.reward), GiveDailyMissionOrbs);
+			
+			DailyMissionController.missionRecentUnlocked.Remove(dm);
+		}
+		#endif
+	}
+	
+	private void GiveDailyMissionOrbs()
+	{
+		Debug.Log(dailyMissionOrbsToGive);
+		Global.TotalOrbs += dailyMissionOrbsToGive;
+		
+		ShowDailyMissions();
 	}
 
 	public void OpenPanel()

@@ -79,6 +79,13 @@ public class Global : MonoBehaviour
 	private const string LEVELUP_USABLE = "levelUpUsable";
 	private const string FROZEN_USABLE = "frozenUsable";
 	private const string SHIELD_USABLE = "shieldUsable";
+	private const string DAILY_MISSION_TIME = "dailyRewardTime";
+	private const string MISSION1_COMPLETED = "mission1Completed";
+	private const string MISSION1_ID = "mission1ID";
+	private const string MISSION2_COMPLETED = "mission2Completed";
+	private const string MISSION2_ID = "mission2ID";
+	private const string MISSION3_COMPLETED = "mission3Completed";
+	private const string MISSION3_ID = "mission3ID";
 	#endregion
 
 	private static bool isLoaded;
@@ -1145,6 +1152,118 @@ public class Global : MonoBehaviour
 		set
 		{
 			PlayerPrefs.SetInt(SHIELD_USABLE, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static string DailyMissionTime
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(DAILY_MISSION_TIME))
+				return "";
+			
+			return PlayerPrefs.GetString(DAILY_MISSION_TIME);
+		}
+		set
+		{
+			PlayerPrefs.SetString(DAILY_MISSION_TIME, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static bool Mission1Completed
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(MISSION1_COMPLETED))
+				return false;
+			
+			return PlayerPrefs.GetInt(MISSION1_COMPLETED) == 1;
+		}
+		set
+		{
+			PlayerPrefs.SetInt(MISSION1_COMPLETED, (value == true) ? 1 : 0);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static int Mission1ID
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(MISSION1_ID))
+				return -1;
+			
+			return PlayerPrefs.GetInt(MISSION1_ID);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(MISSION1_ID, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static bool Mission2Completed
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(MISSION2_COMPLETED))
+				return false;
+			
+			return PlayerPrefs.GetInt(MISSION2_COMPLETED) == 1;
+		}
+		set
+		{
+			PlayerPrefs.SetInt(MISSION2_COMPLETED, (value == true) ? 1 : 0);
+			PlayerPrefs.Save();
+		}
+	}
+	
+	public static int Mission2ID
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(MISSION2_ID))
+				return -1;
+			
+			return PlayerPrefs.GetInt(MISSION2_ID);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(MISSION2_ID, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static bool Mission3Completed
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(MISSION3_COMPLETED))
+				return false;
+			
+			return PlayerPrefs.GetInt(MISSION3_COMPLETED) == 1;
+		}
+		set
+		{
+			PlayerPrefs.SetInt(MISSION3_COMPLETED, (value == true) ? 1 : 0);
+			PlayerPrefs.Save();
+		}
+	}
+	
+	public static int Mission3ID
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(MISSION3_ID))
+				return -1;
+			
+			return PlayerPrefs.GetInt(MISSION3_ID);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(MISSION3_ID, value);
 			PlayerPrefs.Save();
 		}
 	}

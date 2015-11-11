@@ -107,8 +107,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue
-    x: 2790
-    y: 1644
+    x: 2336
+    y: 1268
     width: 91
     height: 128
     borderLeft: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button-rect-blue
     x: 1081
-    y: 1030
+    y: 178
     width: 701
     height: 283
     borderLeft: 0
@@ -250,8 +250,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-rect-blue-wide
-    x: 3017
-    y: 1912
+    x: 2277
+    y: 1759
     width: 736
     height: 128
     borderLeft: 0
@@ -264,7 +264,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button-rect-bronze
     x: 1081
-    y: 746
+    y: 462
     width: 701
     height: 283
     borderLeft: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button-rect-gold
     x: 1081
-    y: 178
+    y: 746
     width: 701
     height: 283
     borderLeft: 60
@@ -301,9 +301,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: button-rect-green-wide
+    x: 3017
+    y: 1912
+    width: 736
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: button-rect-silver
     x: 1081
-    y: 462
+    y: 1030
     width: 701
     height: 283
     borderLeft: 0
@@ -393,8 +406,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: day3
-    x: 2459
-    y: 1644
+    x: 3798
+    y: 1759
     width: 116
     height: 128
     borderLeft: 0
@@ -406,8 +419,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: day4
-    x: 2576
-    y: 1644
+    x: 3915
+    y: 1759
     width: 116
     height: 128
     borderLeft: 0
@@ -432,8 +445,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: day6
-    x: 2336
-    y: 1644
+    x: 3675
+    y: 1759
     width: 122
     height: 128
     borderLeft: 0
@@ -523,8 +536,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gray
-    x: 2882
-    y: 1644
+    x: 2336
+    y: 1397
     width: 91
     height: 128
     borderLeft: 0
@@ -536,8 +549,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green
-    x: 2693
-    y: 1644
+    x: 2336
+    y: 1526
     width: 96
     height: 128
     borderLeft: 0
@@ -562,8 +575,8 @@ MonoBehaviour:
     paddingTop: 14
     paddingBottom: 14
   - name: hud-bar
-    x: 2997
-    y: 1784
+    x: 2336
+    y: 1655
     width: 544
     height: 103
     borderLeft: 0
@@ -666,8 +679,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-dollar
-    x: 2974
-    y: 1655
+    x: 2336
+    y: 1150
     width: 75
     height: 117
     borderLeft: 0
@@ -1004,7 +1017,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button
-    x: 2336
+    x: 3014
     y: 1773
     width: 660
     height: 114
@@ -1057,7 +1070,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: slider
     x: 2277
-    y: 493
+    y: 364
     width: 58
     height: 1394
     borderLeft: 0

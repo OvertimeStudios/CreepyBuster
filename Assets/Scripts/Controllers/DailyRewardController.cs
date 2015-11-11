@@ -136,7 +136,7 @@ public class DailyRewardController : MonoBehaviour
 		if(Global.DailyRewardDay > 6)
 			Global.DailyRewardDay = 0;
 
-		SetRewardCooldownTime(DateTime.UtcNow.AddHours(24f));
+		SetRewardCooldownTime(RewardCooldownTime.AddHours(24f));
 
 		dailyRewardObject.SetActive(false);
 	}

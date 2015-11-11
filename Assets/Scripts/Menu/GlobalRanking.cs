@@ -10,8 +10,7 @@ public class GlobalRanking : MonoBehaviour
 	public GameObject silverRank;
 	public GameObject cooperRank;
 	public GameObject normalRank;
-
-	private bool builded;
+	
 	private bool loaded;
 	
 	void OnEnable()
@@ -90,8 +89,6 @@ public class GlobalRanking : MonoBehaviour
 		}
 		
 		grid.GetComponent<UIGrid>().Reposition();
-		
-		builded = true;
 	}
 	
 	private IEnumerator LoadProfilePicture(FacebookFriend user, UITexture texture)

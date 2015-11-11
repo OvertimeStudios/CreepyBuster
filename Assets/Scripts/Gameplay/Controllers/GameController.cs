@@ -571,6 +571,28 @@ public class GameController : MonoBehaviour
 		Global.TimeOnSpecial6 += (int)timeOnSpecial6;
 	}
 
+	private void UpdateDailyMissionStats()
+	{
+		DailyMissionController.BasicsKilled += basicsKilled;
+		DailyMissionController.BoomerangsKilled += boomerangsKilled;
+		DailyMissionController.ZigZagsKilled += zigzagsKilled;
+		DailyMissionController.ChargersKilled += chargersKilled;
+		DailyMissionController.LegionsKilled += legionsKilled;
+		DailyMissionController.FollowersKilled += followersKilled;
+		
+		DailyMissionController.Boss1Killed += boss1Killed;
+		DailyMissionController.Boss2Killed += boss2Killed;
+		DailyMissionController.Boss3Killed += boss3Killed;
+		
+		DailyMissionController.FrozenCollected += frozenCollected;
+		DailyMissionController.InvincibilityCollected += invencibilityCollected;
+		DailyMissionController.LevelUpCollected += levelUpCollected;
+		DailyMissionController.DeathRayCollected += deathRayCollected;
+
+		if (Score > DailyMissionController.HighScore)
+			DailyMissionController.HighScore = Score;
+	}
+
 	private IEnumerator ShowContinueScreen(float waitTime, CauseOfDeath causeOfDeath)
 	{
 		if(OnGameEnding != null)
@@ -629,6 +651,7 @@ public class GameController : MonoBehaviour
 			OnGameEnding();
 
 		UpdateGameStats();
+		UpdateDailyMissionStats();
 
 		Popup.Hide ();
 
