@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
+#if FACEBOOK_IMPLEMENTED
+using Facebook.Unity;
+#endif
+
 public class Ranking : MonoBehaviour 
 {
 	public UILabel highScore;

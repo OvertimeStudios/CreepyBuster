@@ -1,246 +1,241 @@
-using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+/**
+ * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+ *
+ * You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
+ * copy, modify, and distribute this software in source code or binary form for use
+ * in connection with the web services and APIs provided by Facebook.
+ *
+ * As with any software that integrates with the Facebook platform, your use of
+ * this software is subject to the Facebook Developer Principles and Policies
+ * [http://developers.facebook.com/policy/]. This copyright notice shall be
+ * included in all copies or substantial portions of the software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
-public class ConsoleBase : MonoBehaviour
+namespace Facebook.Unity.Example
 {
-    protected string status = "Ready";
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using UnityEngine;
 
-    protected string lastResponse = "";
-    public GUIStyle textStyle = new GUIStyle();
-    protected Texture2D lastResponseTexture;
-
-    protected Vector2 scrollPosition = Vector2.zero;
-#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
-    protected int buttonHeight = 60;
-    protected int mainWindowWidth = Screen.width - 30;
-    protected int mainWindowFullWidth = Screen.width;
-#else
-    protected int buttonHeight = 24;
-    protected int mainWindowWidth = 500;
-    protected int mainWindowFullWidth = 530;
-#endif
-
-    virtual protected void Awake()
-    {
-        textStyle.alignment = TextAnchor.UpperLeft;
-        textStyle.wordWrap = true;
-        textStyle.padding = new RectOffset(10, 10, 10, 10);
-        textStyle.stretchHeight = true;
-        textStyle.stretchWidth = false;
-    }
-
-    protected bool Button(string label)
-    {
-        return GUILayout.Button(
-            label,
-            GUILayout.MinHeight(buttonHeight),
-            GUILayout.MaxWidth(mainWindowWidth)
-        );
-    }
-
-    protected void LabelAndTextField(string label, ref string text)
-    {
-        GUILayout.BeginHorizontal();
-        GUILayout.Label(label, GUILayout.MaxWidth(150));
-        text = GUILayout.TextField(text);
-        GUILayout.EndHorizontal();
-    }
-
-    protected bool IsHorizontalLayout()
+    internal class ConsoleBase : MonoBehaviour
     {
         #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
-        return Screen.orientation == ScreenOrientation.Landscape;
+        protected const int ButtonHeight = 60;
+        protected static int MainWindowWidth = Screen.width - 30;
+        protected static int MainWindowFullWidth = Screen.width;
         #else
-        return true;
-        #endif
-    }
-
-    protected int TextWindowHeight
-    {
-        get
-        {
-            #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
-            return IsHorizontalLayout() ? Screen.height : 85;
-            #else
-            return Screen.height;
-            #endif
-        }
-    }
-
-
-    protected void Callback(FBResult result)
-    {
-        lastResponseTexture = null;
-        // Some platforms return the empty string instead of null.
-        if (!String.IsNullOrEmpty (result.Error))
-        {
-            lastResponse = "Error Response:\n" + result.Error;
-        }
-        else if (!String.IsNullOrEmpty (result.Text))
-        {
-            lastResponse = "Success Response:\n" + result.Text;
-        }
-        else if (result.Texture != null)
-        {
-            lastResponseTexture = result.Texture;
-            lastResponse = "Success Response: texture\n";
-        }
-        else
-        {
-            lastResponse = "Empty Response\n";
-        }
-    }
-
-    protected void AddCommonFooter()
-    {
-        var textAreaSize = GUILayoutUtility.GetRect(640, TextWindowHeight);
-
-        #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
-        GUI.TextArea(
-            textAreaSize,
-            string.Format(
-                " AppId: {0} \n UserId: {1}\n IsLoggedIn: {2}\n {3}",
-                FB.AppId,
-                FB.UserId,
-                FB.IsLoggedIn,
-                lastResponse
-            ), textStyle);
-        #else
-        GUI.TextArea(
-            textAreaSize,
-            string.Format(
-                " AppId: {0} \n Facebook Dll: {1} \n UserId: {2}\n IsLoggedIn: {3}\n AccessToken: {4}\n AccessTokenExpiresAt: {5}\n {6}",
-                FB.AppId,
-                "Loaded Successfully",
-                FB.UserId,
-                FB.IsLoggedIn,
-                FB.AccessToken,
-                FB.AccessTokenExpiresAt,
-                lastResponse
-            ), textStyle);
+        protected const int ButtonHeight = 24;
+        protected const int MainWindowWidth = 700;
+        protected const int MainWindowFullWidth = 760;
         #endif
 
-        if (lastResponseTexture != null)
+        private const int DpiScalingFactor = 160;
+        private static Stack<string> menuStack = new Stack<string>();
+        private string status = "Ready";
+        private string lastResponse = string.Empty;
+        private Vector2 scrollPosition = Vector2.zero;
+
+        // DPI scaling
+        private float? scaleFactor;
+        private GUIStyle textStyle;
+        private GUIStyle buttonStyle;
+        private GUIStyle textInputStyle;
+        private GUIStyle labelStyle;
+
+        protected static Stack<string> MenuStack
         {
-            var texHeight = textAreaSize.y + 200;
-            if (Screen.height - lastResponseTexture.height < texHeight)
+            get
             {
-                texHeight = Screen.height - lastResponseTexture.height;
+                return ConsoleBase.menuStack;
             }
-            GUI.Label(new Rect(textAreaSize.x + 5, texHeight, lastResponseTexture.width, lastResponseTexture.height), lastResponseTexture);
-        }
-    }
 
-    protected void AddCommonHeader()
-    {
-        if (IsHorizontalLayout())
+            set
+            {
+                ConsoleBase.menuStack = value;
+            }
+        }
+
+        protected string Status
+        {
+            get
+            {
+                return this.status;
+            }
+
+            set
+            {
+                this.status = value;
+            }
+        }
+
+        protected Texture2D LastResponseTexture { get; set; }
+
+        protected string LastResponse
+        {
+            get
+            {
+                return this.lastResponse;
+            }
+
+            set
+            {
+                this.lastResponse = value;
+            }
+        }
+
+        protected Vector2 ScrollPosition
+        {
+            get
+            {
+                return this.scrollPosition;
+            }
+
+            set
+            {
+                this.scrollPosition = value;
+            }
+        }
+
+        // Note we assume that these styles will be accessed from OnGUI otherwise the
+        // unity APIs will fail.
+        protected float ScaleFactor
+        {
+            get
+            {
+                if (!this.scaleFactor.HasValue)
+                {
+                    this.scaleFactor = Screen.dpi / ConsoleBase.DpiScalingFactor;
+                }
+
+                return this.scaleFactor.Value;
+            }
+        }
+
+        protected int FontSize
+        {
+            get
+            {
+                return (int)Math.Round(this.ScaleFactor * 16);
+            }
+        }
+
+        protected GUIStyle TextStyle
+        {
+            get
+            {
+                if (this.textStyle == null)
+                {
+                    this.textStyle = new GUIStyle(GUI.skin.textArea);
+                    this.textStyle.alignment = TextAnchor.UpperLeft;
+                    this.textStyle.wordWrap = true;
+                    this.textStyle.padding = new RectOffset(10, 10, 10, 10);
+                    this.textStyle.stretchHeight = true;
+                    this.textStyle.stretchWidth = false;
+                    this.textStyle.fontSize = this.FontSize;
+                }
+
+                return this.textStyle;
+            }
+        }
+
+        protected GUIStyle ButtonStyle
+        {
+            get
+            {
+                if (this.buttonStyle == null)
+                {
+                    this.buttonStyle = new GUIStyle(GUI.skin.button);
+                    this.buttonStyle.fontSize = this.FontSize;
+                }
+
+                return this.buttonStyle;
+            }
+        }
+
+        protected GUIStyle TextInputStyle
+        {
+            get
+            {
+                if (this.textInputStyle == null)
+                {
+                    this.textInputStyle = new GUIStyle(GUI.skin.textField);
+                    this.textInputStyle.fontSize = this.FontSize;
+                }
+
+                return this.textInputStyle;
+            }
+        }
+
+        protected GUIStyle LabelStyle
+        {
+            get
+            {
+                if (this.labelStyle == null)
+                {
+                    this.labelStyle = new GUIStyle(GUI.skin.label);
+                    this.labelStyle.fontSize = this.FontSize;
+                }
+
+                return this.labelStyle;
+            }
+        }
+
+        protected virtual void Awake()
+        {
+            // Limit the framerate to 60 to keep device from burning through cpu
+            Application.targetFrameRate = 60;
+        }
+
+        protected bool Button(string label)
+        {
+            return GUILayout.Button(
+                label,
+                this.ButtonStyle,
+                GUILayout.MinHeight(ConsoleBase.ButtonHeight * this.ScaleFactor),
+                GUILayout.MaxWidth(ConsoleBase.MainWindowWidth));
+        }
+
+        protected void LabelAndTextField(string label, ref string text)
         {
             GUILayout.BeginHorizontal();
-            GUILayout.BeginVertical();
+            GUILayout.Label(label, this.LabelStyle, GUILayout.MaxWidth(200 * this.ScaleFactor));
+            text = GUILayout.TextField(
+                text,
+                this.TextInputStyle,
+                GUILayout.MaxWidth(ConsoleBase.MainWindowWidth - 150));
+            GUILayout.EndHorizontal();
         }
-        GUILayout.Space(5);
-        GUILayout.Box("Status: " + status, GUILayout.MinWidth(mainWindowWidth));
 
-        #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        protected bool IsHorizontalLayout()
         {
-            scrollPosition.y += Input.GetTouch(0).deltaPosition.y;
+            #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
+            return Screen.orientation == ScreenOrientation.Landscape;
+            #else
+            return true;
+            #endif
         }
-        #endif
-        scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.MinWidth(mainWindowFullWidth));
 
-        GUILayout.BeginVertical();
-        GUI.enabled = !FB.IsInitialized;
-        if (Button("FB.Init"))
+        protected void SwitchMenu(Type menuClass)
         {
-            CallFBInit();
-            status = "FB.Init() called with " + FB.AppId;
+            ConsoleBase.menuStack.Push(this.GetType().Name);
+            Application.LoadLevel(menuClass.Name);
         }
 
-        GUILayout.BeginHorizontal();
-
-        GUI.enabled = FB.IsInitialized;
-        if (Button("Login"))
+        protected void GoBack()
         {
-            CallFBLogin();
-            status = "Login called";
-        }
-
-        GUI.enabled = FB.IsLoggedIn;
-        if (Button("Get publish_actions"))
-        {
-            CallFBLoginForPublish();
-            status = "Login (for publish_actions) called";
-        }
-
-        #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
-        if (Button("Logout"))
-        {
-            CallFBLogout();
-            status = "Logout called";
-        }
-        #endif
-        GUI.enabled = FB.IsInitialized;
-        GUILayout.EndHorizontal();
-    }
-
-    #region FB.Init() example
-
-    private void CallFBInit()
-    {
-        FB.Init(OnInitComplete, OnHideUnity);
-    }
-
-    private void OnInitComplete()
-    {
-        Debug.Log("FB.Init completed: Is user logged in? " + FB.IsLoggedIn);
-    }
-
-    private void OnHideUnity(bool isGameShown)
-    {
-        Debug.Log("Is game showing? " + isGameShown);
-    }
-
-    #endregion
-
-    #region FB.Login() example
-
-    private void CallFBLogin()
-    {
-        FB.Login("public_profile,email,user_friends", LoginCallback);
-    }
-
-    private void CallFBLoginForPublish()
-    {
-        // It is generally good behavior to split asking for read and publish
-        // permissions rather than ask for them all at once.
-        //
-        // In your own game, consider postponing this call until the moment
-        // you actually need it.
-        FB.Login("publish_actions", LoginCallback);
-    }
-
-    void LoginCallback(FBResult result)
-    {
-        if (result.Error != null)
-            lastResponse = "Error Response:\n" + result.Error;
-        else if (!FB.IsLoggedIn)
-        {
-            lastResponse = "Login cancelled by Player";
-        }
-        else
-        {
-            lastResponse = "Login was successful!";
+            if (ConsoleBase.menuStack.Any())
+            {
+                Application.LoadLevel(ConsoleBase.menuStack.Pop());
+            }
         }
     }
-
-    private void CallFBLogout()
-    {
-        FB.Logout();
-    }
-    #endregion
-
 }

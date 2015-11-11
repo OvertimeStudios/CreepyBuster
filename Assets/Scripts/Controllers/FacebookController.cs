@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 #if FACEBOOK_IMPLEMENTED
 using Facebook.MiniJSON;
+using Facebook.Unity;
 #endif
 
 public class FacebookController : MonoBehaviour 
@@ -48,29 +49,68 @@ public class FacebookController : MonoBehaviour
 	#endregion
 
 	// Use this for initialization
-	void Start () 
+	void Awake () 
 	{
-		Debug.Log("FacebookHelper.Init ();");
-		FacebookHelper.Init (OnInitCompleted);
+		Debug.Log("Is FB Inisitalized? " + FB.IsInitialized);
+
+		if(!FB.IsInitialized)
+		{
+			FacebookHelper.Init ();
+			StartCoroutine(WaitForAlreadyLogin());
+		}
+		else
+			FacebookHelper.ActivateApp();
+	}
+
+	private IEnumerator WaitForAlreadyLogin()
+	{
+		float time = 0;
+
+		while(true)
+		{
+			time += Time.deltaTime;
+
+			if(FB.IsLoggedIn || time > 3f)
+				break;
+
+			yield return null;
+		}
+
+		OnInitCompleted();
 	}
 
 	private void OnInitCompleted()
 	{
 		Debug.Log(string.Format("Facebook init Completed. Is user already logged in? {0} and FB.IsLoggedIn? {1}", IsLoggedIn, FB.IsLoggedIn));
 
-		//already logged in
-		if(IsLoggedIn)
-			Login ();
+		if(FB.IsInitialized)
+		{
+			FacebookHelper.ActivateApp();
+			
+			//already logged in
+			if(FB.IsLoggedIn)
+				Login ();
+		}
+		else
+			Debug.Log("Failed to Initialize the Facebook SDK");
 	}
 
 	public void Login()
 	{
-		string scope = "public_profile,email,user_friends";
 		if(!FB.IsLoggedIn)
 		{
 			Debug.Log("New Login");
+
+			List<string> perms = new List<string>()
+			{
+				"public_profile",
+				"email",
+				"user_friends"
+			};
+
 			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
-			FacebookHelper.Login (scope, LoginCallback);
+			FacebookHelper.Login (perms, LoginCallback);
+			//StartCoroutine(WaitForLogin());
 		}
 		else
 		{
@@ -80,32 +120,46 @@ public class FacebookController : MonoBehaviour
 		}
 	}
 
-	private void LoginCallback(FBResult result)
+	private void LoginCallback(ILoginResult result)
 	{
-		if (result.Error != null)//login error
-			Debug.LogError (result.Error + "\n" + result.Text);
-		else if (!FB.IsLoggedIn)//cancelled login
-			Debug.Log (result.Text);
-		else//login successful
-		{
-			Debug.Log(result.Text);
-			
-			//"me?fields=id,first_name,last_name,email,gender,token_for_business"
-			FacebookHelper.FetchData(FetchProfileNameCallback, FacebookHelper.FIRST_NAME, FacebookHelper.LAST_NAME, FacebookHelper.GENDER, FacebookHelper.EMAIL, FacebookHelper.TOKEN_FOR_BUSINESS);
-		}
+		Debug.Log("Login error: " + result.Error + ": " + result.RawResult);
+		StartCoroutine(WaitForLogin());
 	}
 
-	public void FetchProfileNameCallback(FBResult result)
+	private IEnumerator WaitForLogin()
+	{
+		float time = 0;
+
+		while(!FB.IsLoggedIn)
+		{
+			time += Time.deltaTime;
+			Debug.Log("time waiting: " + time);
+			if(time > 3f)
+			{
+				Debug.Log("User cancelled login");
+				StopAllCoroutines();
+			}
+
+			yield return null;
+		}
+
+		foreach (string perm in Facebook.Unity.AccessToken.CurrentAccessToken.Permissions) 
+			Debug.Log(perm);
+
+		FacebookHelper.FetchData(FetchProfileNameCallback, FacebookHelper.FIRST_NAME, FacebookHelper.LAST_NAME, FacebookHelper.GENDER, FacebookHelper.EMAIL, FacebookHelper.TOKEN_FOR_BUSINESS);
+	}
+
+	public void FetchProfileNameCallback(IGraphResult result)
 	{
 		if (result.Error != null)
 		{
-			Debug.Log ("FB API error response:\n" + result.Error + " \n" + result.Text);
+			Debug.Log ("FB API error response:\n" + result.Error + " \n" + result.RawResult);
 		}
 		else
 		{
-			Debug.Log("fetching profile name from result: "+result.Text);
+			Debug.Log("fetching profile name from result: "+result.RawResult);
 			
-			Dictionary<string, object> data = Json.Deserialize(result.Text) as Dictionary<string, object>;
+			Dictionary<string, object> data = Json.Deserialize(result.RawResult) as Dictionary<string, object>;
 
 			fbUser = new FacebookUser();
 
@@ -126,19 +180,21 @@ public class FacebookController : MonoBehaviour
 		}
 	}
 
-	public void FetchUserFriendsCallback(FBResult result)
+	public void FetchUserFriendsCallback(IGraphResult result)
 	{
 		if (result.Error != null)
 		{
-			Debug.Log ("FB API error response:\n" + result.Error + " \n" + result.Text);
+			Debug.Log ("FB API error response:\n" + result.Error + " \n" + result.RawResult);
 		}
 		else
 		{
-			Debug.Log("FetchUserFriendsCallback: " + result.Text);
+			Debug.Log("FetchUserFriendsCallback: " + result.RawResult);
 
-			Dictionary<string, object> data = Json.Deserialize(result.Text) as Dictionary<string, object>;
+			Dictionary<string, object> data = Json.Deserialize(result.RawResult) as Dictionary<string, object>;
 
 			List<System.Object> friendList = data["data"] as List<System.Object>;
+
+			fbUser.friends = new List<FacebookFriend>();
 
 			foreach(System.Object friend in friendList)
 			{
@@ -348,6 +404,26 @@ public class FacebookFriend : IComparable<FacebookFriend>
 			return 1;		
 		else
 			return this.score.CompareTo(comparePart.score);
+	}
+
+	public override bool Equals(System.Object obj)
+	{
+		if (obj == null)
+			return false;
+
+		FacebookFriend f = obj as FacebookFriend ;
+
+		if ((System.Object)f == null)
+			return false;
+
+		return id == f.id;
+	}
+	public bool Equals(FacebookFriend f)
+	{
+		if ((object)f == null)
+			return false;
+
+		return id == f.id;
 	}
 
 	public override string ToString ()
