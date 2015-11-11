@@ -54,7 +54,7 @@ public class EnemyMovement : MonoBehaviour
 		if(OnOutOfScreen != null)
 			OnOutOfScreen(gameObject);
 		
-		Destroy (gameObject);
+		GetComponent<EnemyLife>().Dead(false);
 	}
 
 	private void OnFrozenCollected()
