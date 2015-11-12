@@ -56,9 +56,11 @@ public class DailyMissionObject : MonoBehaviour
 		transform.FindChild("Completed").gameObject.SetActive(completed);
 		transform.FindChild("Normal").gameObject.SetActive(!completed);
 
+		Debug.Log(currentMission.mission + " = " + GetParameter() + " / " + currentMission.value + " (" + Mathf.Min(GetParameter() / (float)currentMission.value, 1) + ")");
+
 		transform.FindChild("Normal").FindChild("Description").GetComponent<UILabel>().text = currentMission.Description;
 		transform.FindChild("Normal").FindChild("reward").GetComponent<UILabel>().text = "+" + currentMission.reward.ToString();
-		transform.FindChild("Normal").FindChild("bg-green").GetComponent<UISprite>().fillAmount = Mathf.Min(GetParameter() / currentMission.value, 1);
+		transform.FindChild("Normal").FindChild("bg-green").GetComponent<UISprite>().fillAmount = Mathf.Min(GetParameter() / (float)currentMission.value, 1);
 	}
 
 	private void VerifyUnlockment()
@@ -221,63 +223,63 @@ public class DailyMission
 			switch(mission)
 			{
 				case Mission.HighScore:
-					descr = string.Format("Reach {0} points", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_POINTS"), value);
 				break;
 
 				case Mission.KillCreeps:
-					descr = string.Format("Kill {0} creepies", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_CREEP"), value);
 				break;
 				
 				case Mission.KillBlue:
-					descr = string.Format("Kill {0} Blue", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_BLU"), value);
 				break;
 
 				case Mission.KillSpiral:
-					descr = string.Format("Kill {0} Spiral", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_BOOMERANG"), value);
 				break;
 
 				case Mission.KillZigZag:
-					descr = string.Format("Kill {0} Ziggy", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_ZIGZAG"), value);
 				break;
 				
 				case Mission.KillCharger:
-					descr = string.Format("Kill {0} Charger", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_CHARGER"), value);
 				break;
 
 				case Mission.KillLegion:
-					descr = string.Format("Kill {0} Legion", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_LEGION"), value);
 				break;
 				
 				case Mission.KillFollower:
-					descr = string.Format("Kill {0} Follower", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_FOLLOWER"), value);
 				break;
 
 				case Mission.KillMeteormite:
-					descr = string.Format("Kill {0} Meteormite", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_BOSS1"), value);
 				break;
 				
 				case Mission.KillLegiworm:
-					descr = string.Format("Kill {0} Legiworm", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_BOSS2"), value);
 				break;
 
 				case Mission.KillPsyquor:
-					descr = string.Format("Kill {0} Psyquor", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_BOSS3"), value);
 				break;
 				
 				case Mission.CollectDeathRay:
-					descr = string.Format("Collect {0} Death Ray", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_DEATHRAY"), value);
 				break;
 
 				case Mission.CollectFrozen:
-					descr = string.Format("Collect {0} Frozen", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_FROZEN"), value);
 				break;
 				
 				case Mission.CollectInvincibility:
-					descr = string.Format("Collect {0} Invincibility", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_INVINCIBILITY"), value);
 				break;
 
 				case Mission.CollectLevelUp:
-					descr = string.Format("Collect {0} Level Up", value);
+					descr = string.Format(Localization.Get("DAILYMISSION_LEVELUP"), value);
 				break;
 			}
 			return descr;
