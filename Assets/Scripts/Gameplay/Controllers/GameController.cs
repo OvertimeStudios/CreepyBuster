@@ -419,6 +419,7 @@ public class GameController : MonoBehaviour
 		if(IsShieldActive)
 		{
 			shield = false;
+			ScreenFeedback.HideShield();
 		}
 		else
 		{
@@ -1079,6 +1080,7 @@ public class GameController : MonoBehaviour
 
 			case Item.Type.Shield:
 				shield = true;
+				ScreenFeedback.ShowShield();
 			break;
 		}
 	}

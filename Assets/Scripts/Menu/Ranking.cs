@@ -21,11 +21,14 @@ public class Ranking : MonoBehaviour
 	public GameObject globalInfo;
 	public GameObject friendsInfo;
 
+	public GameObject globalFacebook;
+	public GameObject friendsFacebook;
+
 	void OnEnable()
 	{
 		highScore.text = Global.HighScore.ToString();
-		worldRank.text = Localization.Get("NOT_LOGGED");
-		friendsRank.text = Localization.Get("NOT_LOGGED");
+		worldRank.text = "";//Localization.Get("NOT_LOGGED");
+		friendsRank.text = "";//Localization.Get("NOT_LOGGED");
 
 		general.SetActive(true);
 		globalRanking.SetActive(false);
@@ -36,13 +39,25 @@ public class Ranking : MonoBehaviour
 
 		#if FACEBOOK_IMPLEMENTED && DB_IMPLEMENTED
 		if(FB.IsLoggedIn)
-		{
-			worldRank.text = Localization.Get("LOADING");
-			friendsRank.text = Localization.Get("LOADING");
-			StartCoroutine(GetGlobalRank());
-			StartCoroutine(GetFriendsRank());
-		}
+			GetRanks();
 		#endif
+	}
+
+	void Start()
+	{
+		FacebookController.OnLoggedIn += GetRanks;
+	}
+
+	private void GetRanks()
+	{
+		worldRank.text = Localization.Get("LOADING");
+		friendsRank.text = Localization.Get("LOADING");
+
+		globalFacebook.SetActive(false);
+		friendsFacebook.SetActive(false);
+
+		StartCoroutine(GetGlobalRank());
+		StartCoroutine(GetFriendsRank());
 	}
 
 	private IEnumerator GetGlobalRank()

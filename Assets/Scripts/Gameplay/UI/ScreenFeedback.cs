@@ -30,6 +30,7 @@ public class ScreenFeedback : MonoBehaviour
 	private UISprite damage;
 	private UISprite invencibility;
 	private UISprite blank;
+	private UI2DSprite shield;
 
 	private static AudioSource myAudioSource;
 
@@ -52,6 +53,7 @@ public class ScreenFeedback : MonoBehaviour
 		damage = transform.FindChild ("Damage").GetComponent<UISprite> ();
 		invencibility = transform.FindChild ("Invencibility").GetComponent<UISprite> ();
 		blank = transform.FindChild ("Blank").GetComponent<UISprite> ();
+		shield = transform.FindChild("Shield").GetComponent<UI2DSprite>();
 
 		myAudioSource = GetComponent<AudioSource>();
 
@@ -59,6 +61,7 @@ public class ScreenFeedback : MonoBehaviour
 		damage.enabled = false;
 		invencibility.enabled = false;
 		blank.enabled = false;
+		shield.enabled = false;
 
 		GameController.OnReset += Reset;
 	}
@@ -108,6 +111,16 @@ public class ScreenFeedback : MonoBehaviour
 			Instance.StopCoroutine (Instance.invencibilityCoroutine);
 
 		Instance.invencibilityCoroutine = Instance.StartCoroutine (Blink (Instance.invencibility, time, time * 0.75f, 3));
+	}
+
+	public static void ShowShield()
+	{
+		Instance.shield.enabled = true;
+	}
+
+	public static void HideShield()
+	{
+		Instance.shield.enabled = false;
 	}
 
 	private static void PauseSound()

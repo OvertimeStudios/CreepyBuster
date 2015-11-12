@@ -5,6 +5,10 @@ using System.Collections;
 using Prime31;
 #endif
 
+#if FACEBOOK_IMPLEMENTED
+using Facebook.Unity;
+#endif
+
 public class Settings : MonoBehaviour 
 {
 	#if IAP_IMPLEMENTED
@@ -61,7 +65,7 @@ public class Settings : MonoBehaviour
 	private void HandleLoginSection()
 	{
 		#if FACEBOOK_IMPLEMENTED
-		if(FacebookController.IsLoggedIn)
+		if(FB.IsLoggedIn)
 		{
 			fbLogin.SetActive(false);
 			fbLogout.SetActive(true);

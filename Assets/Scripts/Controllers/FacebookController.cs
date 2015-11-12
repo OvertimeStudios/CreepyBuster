@@ -85,8 +85,11 @@ public class FacebookController : MonoBehaviour
 
 		if(FB.IsInitialized)
 		{
+			Debug.Log("FacebookHelper.ActivateApp();");
 			FacebookHelper.ActivateApp();
-			
+
+			Debug.Log("FB.IsLoggedIn: " + FB.IsLoggedIn);
+
 			//already logged in
 			if(FB.IsLoggedIn)
 				Login ();
@@ -97,6 +100,7 @@ public class FacebookController : MonoBehaviour
 
 	public void Login()
 	{
+		Debug.Log("Login");
 		if(!FB.IsLoggedIn)
 		{
 			Debug.Log("New Login");
@@ -122,6 +126,7 @@ public class FacebookController : MonoBehaviour
 
 	private void LoginCallback(ILoginResult result)
 	{
+		Debug.Log("Login callback");
 		Debug.Log("Login error: " + result.Error + ": " + result.RawResult);
 		StartCoroutine(WaitForLogin());
 	}
@@ -424,6 +429,11 @@ public class FacebookFriend : IComparable<FacebookFriend>
 			return false;
 
 		return id == f.id;
+	}
+
+	public override int GetHashCode ()
+	{
+		return id.GetHashCode();
 	}
 
 	public override string ToString ()
