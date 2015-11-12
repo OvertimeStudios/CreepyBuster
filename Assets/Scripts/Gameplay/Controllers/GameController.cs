@@ -74,6 +74,7 @@ public class GameController : MonoBehaviour
 	public int orbsToContinue;
 	public int pointsPerOrb = 10;
 	public float timeInvencibleAfterContinue = 5f;
+	public float timeFrozen = 5f;
 
 	#region game stats
 	private static int creepsKilled;

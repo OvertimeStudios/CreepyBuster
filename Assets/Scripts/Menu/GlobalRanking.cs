@@ -23,6 +23,8 @@ public class GlobalRanking : MonoBehaviour
 	
 	private IEnumerator BuildRank()
 	{
+		transform.FindChild("Loading").gameObject.SetActive(true);
+
 		yield return StartCoroutine(DBHandler.GetTopUsers(value => topUsers = value));
 
 		UIGrid grid = GetComponentInChildren<UIGrid>();
@@ -89,6 +91,8 @@ public class GlobalRanking : MonoBehaviour
 		}
 		
 		grid.GetComponent<UIGrid>().Reposition();
+
+		transform.FindChild("Loading").gameObject.SetActive(false);
 	}
 	
 	private IEnumerator LoadProfilePicture(FacebookFriend user, UITexture texture)

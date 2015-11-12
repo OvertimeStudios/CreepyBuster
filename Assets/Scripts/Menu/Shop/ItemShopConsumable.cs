@@ -46,7 +46,10 @@ public class ItemShopConsumable : MonoBehaviour
 	void OnEnable()
 	{
 		if(stockLabel != null)
+		{
 			stockLabel.text = Localization.Get("STOCK") + ": " + ((IsMaxStock) ? "MAX" : CurrentStock.ToString());
+			priceLabel.text = (IsMaxStock) ? "-----" : string.Format("{0:0,0}", price);
+		}
 	}
 
 	void Start()
@@ -114,5 +117,6 @@ public class ItemShopConsumable : MonoBehaviour
 			Global.ShieldConsumable++;
 
 		stockLabel.text = Localization.Get("STOCK") + ": " + ((IsMaxStock) ? "MAX" : CurrentStock.ToString());
+		priceLabel.text = (IsMaxStock) ? "-----" : string.Format("{0:0,0}", price);
 	}
 }

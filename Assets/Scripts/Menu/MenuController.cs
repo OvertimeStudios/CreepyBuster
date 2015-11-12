@@ -46,7 +46,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	public static event Action OnPanelClosing;
 
-	public GameObject tapAndHold;
+	public GameObject menu;
 	public GameObject hud;
 	private TweenPosition wallTop;
 	private TweenPosition wallBottom;
@@ -229,6 +229,7 @@ public class MenuController : MonoBehaviour
 			GameController.Instance.StartGame ();
 
 			hud.SetActive (true);
+			menu.SetActive (false);
 
 			if(OnPanelOpened != null)
 				OnPanelOpened();
@@ -332,6 +333,7 @@ public class MenuController : MonoBehaviour
 		wallBottom.PlayReverse();
 
 		hud.SetActive (false);
+		menu.SetActive (true);
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
 

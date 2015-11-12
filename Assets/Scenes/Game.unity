@@ -2184,7 +2184,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11415252, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11415252, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
       propertyPath: mHeight

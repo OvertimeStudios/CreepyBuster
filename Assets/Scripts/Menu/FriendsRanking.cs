@@ -18,6 +18,8 @@ public class FriendsRanking : MonoBehaviour
 	
 	IEnumerator BuildRank()
 	{
+		transform.FindChild("Loading").gameObject.SetActive(true);
+
 		FacebookController.User.friendsScoreLoaded = false;
 
 		foreach(FacebookFriend friend in FacebookController.User.friends)
@@ -57,6 +59,8 @@ public class FriendsRanking : MonoBehaviour
 		}
 		
 		grid.GetComponent<UIGrid>().Reposition();
+
+		transform.FindChild("Loading").gameObject.SetActive(false);
 	}
 
 	private IEnumerator LoadProfilePicture(FacebookFriend friend, UITexture texture)

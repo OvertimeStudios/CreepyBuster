@@ -6,7 +6,7 @@ public class ChangeColor : MonoBehaviour
 	public float timeToChange;
 	public Color[] colors;
 
-	private UISprite sprite;
+	private UIBasicSprite sprite;
 	private SpriteRenderer spriteRenderer;
 
 	private int currentColor;
@@ -14,7 +14,7 @@ public class ChangeColor : MonoBehaviour
 
 	void Start()
 	{
-		sprite = GetComponent<UISprite>();
+		sprite = GetComponent<UIBasicSprite>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 
 		if(sprite != null)
