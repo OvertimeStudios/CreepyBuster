@@ -384,7 +384,10 @@ public class MenuController : MonoBehaviour
 		ActiveScreen = settingsScreen.gameObject;
 
 		activeMenu = Menus.Settings;
-		
+
+		settingsScreen.gameObject.SetActive(false);
+		settingsScreen.gameObject.SetActive(true);
+
 		MoveScreen (true);
 	}
 

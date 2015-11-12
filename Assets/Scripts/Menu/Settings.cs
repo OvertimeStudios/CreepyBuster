@@ -56,10 +56,6 @@ public class Settings : MonoBehaviour
 		FacebookController.OnLoggedIn -= HandleLoginSection;
 		FacebookController.OnLoggedOut -= HandleLoginSection;
 		#endif
-
-		ChangeLanguage changeLanguage = transform.FindChild("Language").GetComponent<ChangeLanguage>();
-		if(changeLanguage.opened)
-			changeLanguage.OpenClose();
 	}
 
 	private void HandleLoginSection()

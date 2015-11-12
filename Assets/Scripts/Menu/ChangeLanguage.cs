@@ -8,10 +8,19 @@ public class ChangeLanguage : MonoBehaviour
 	public TweenPosition tween;
 
 	[HideInInspector]
-	public bool opened = false;
+	public bool opened;
 
 	private Vector3 closedPosition;
 	private Vector3 openPosition;
+
+	void OnEnable()
+	{
+		if(opened)
+		{
+			tween.transform.localPosition = closedPosition;
+			opened = false;
+		}
+	}
 
 	void Start()
 	{
