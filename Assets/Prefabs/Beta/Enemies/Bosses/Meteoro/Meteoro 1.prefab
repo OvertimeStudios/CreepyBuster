@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 416998}
   - 50: {fileID: 5040532}
-  - 114: {fileID: 11411206}
+  - 114: {fileID: 11490964}
   m_Layer: 13
   m_Name: Meteoro 1
   m_TagString: Untagged
@@ -159,7 +159,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11411206
+--- !u!114 &11490964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -167,9 +167,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 143944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 824bf98c881294b749916461aafb5cf2, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7530c2701984103a48fd71c1624190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyOutOfScreen: 1
+  destroyOnCollision: 0
 --- !u!212 &21223332
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -244,6 +246,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: destroyOnCollision
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
