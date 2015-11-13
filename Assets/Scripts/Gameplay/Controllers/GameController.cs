@@ -420,6 +420,7 @@ public class GameController : MonoBehaviour
 		if(IsShieldActive)
 		{
 			shield = false;
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.DamageShield);
 			ScreenFeedback.HideShield();
 		}
 		else

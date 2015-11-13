@@ -49,6 +49,7 @@ public class SoundController : MonoBehaviour
 		BossIllusionMultiply,
 		BossIllusionDamage,
 		BossDie,
+		DamageShield,
 	}
 
 	#endregion
@@ -101,6 +102,7 @@ public class SoundController : MonoBehaviour
 	public AudioClip bossIllusionMultiply;
 	public AudioClip bossIllusionDamage;
 	public AudioClip bossDie;
+	public AudioClip damageShield;
 	#endregion
 
 	#region SoundFX Audioclips
@@ -468,6 +470,10 @@ public class SoundController : MonoBehaviour
 
 			case SoundFX.BossDie:
 				s = bossDie;
+			break;
+
+			case SoundFX.DamageShield:
+				s = damageShield;
 			break;
 		}
 

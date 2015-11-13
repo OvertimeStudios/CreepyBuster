@@ -6702,7 +6702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vel: 5
   spinningVel: 50
-  timeSpinning: 4
+  timeSpinning: 2
   finalScale: .5
 --- !u!82 &245961089
 AudioSource:
@@ -6713,7 +6713,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3801a92044af84b5587211c98b081cef, type: 3}
+  m_audioClip: {fileID: 8300000, guid: faef689c8d3a04c838ba3d1edf32d04b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -9350,7 +9350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuTheme: {fileID: 8300000, guid: a0eeaaedd14d543eeb95e1f480526dfe, type: 3}
   gameTheme: {fileID: 8300000, guid: ac50fc30fe8734c3fa9a2dbe1f3351bc, type: 3}
-  bossTheme: {fileID: 8300000, guid: e58e785a374dd4abfb45b39bff9280f4, type: 3}
+  bossTheme: {fileID: 8300000, guid: 7ed200085176e477db4382d9b7dae661, type: 3}
   enemyDie: {fileID: 8300000, guid: 888be81e66be843bd81342440484e80b, type: 3}
   pause: {fileID: 8300000, guid: 9b02fb1f37e0649a898377a229c4f19c, type: 3}
   resume: {fileID: 8300000, guid: e0cbed9bbf67248658196be8947f5922, type: 3}
@@ -9389,6 +9389,7 @@ MonoBehaviour:
     type: 3}
   bossIllusionDamage: {fileID: 8300000, guid: ac83754ac67b948f3b35b8ee23b3fd5d, type: 3}
   bossDie: {fileID: 8300000, guid: de7b3b9fb7977438aae9f3a046ecb279, type: 3}
+  damageShield: {fileID: 8300000, guid: 0ec355fdd6bcc47b393c4ea4c8a09143, type: 3}
 --- !u!82 &325961668
 AudioSource:
   m_ObjectHideFlags: 0
