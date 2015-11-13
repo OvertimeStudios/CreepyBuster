@@ -12,7 +12,8 @@ public class EveryplayController : MonoBehaviour
 	
 	public static bool IsReady
 	{
-		get { return isReady && Everyplay.IsSupported() && Everyplay.IsRecordingSupported(); }
+		get { Debug.Log(string.Format("isReady {0} && Everyplay.IsSupported()? {1} && Everyplay.IsRecordingSupported()? {2}", isReady, Everyplay.IsSupported(), Everyplay.IsRecordingSupported()));
+			                return /*isReady && */Everyplay.IsSupported() && Everyplay.IsRecordingSupported(); }
 	}
 
 	public static bool IsRecorded
@@ -37,45 +38,33 @@ public class EveryplayController : MonoBehaviour
 		}
 		else
 		{
+			Debug.Log("**** AWAKE EVERYPLAYCONTROLLER ****");
+			Everyplay.ReadyForRecording += OnReadyForRecording;
+			GameController.OnGameStart += StartRecording;
+			GameController.OnPause += PauseRecording;
+			GameController.OnResume += ResumeRecording;
+			GameController.OnShowEndScreen += StopRecording;
+			GameController.OnShowEndScreen += SetMetadata;
+
 			instance = this;
 		}
 		
 		DontDestroyOnLoad (gameObject);
 	}
 	
-	void OnEnable()
-	{
-		GameController.OnGameStart += StartRecording;
-		GameController.OnPause += PauseRecording;
-		GameController.OnResume += ResumeRecording;
-		GameController.OnShowEndScreen += StopRecording;
-		GameController.OnShowEndScreen += SetMetadata;
-
-		Everyplay.ReadyForRecording += OnReadyForRecording;
-	}
-	
-	void OnDisable()
-	{
-		GameController.OnGameStart -= StartRecording;
-		GameController.OnPause -= PauseRecording;
-		GameController.OnResume -= ResumeRecording;
-		GameController.OnShowEndScreen -= StopRecording;
-		GameController.OnShowEndScreen -= SetMetadata;
-		
-		Everyplay.ReadyForRecording -= OnReadyForRecording;
-	}
-	
 	void Start()
 	{
 		if(instance != null) return;
+		Debug.Log("**** START EVERYPLAYCONTROLLER ****");
 
+		Everyplay.SetLowMemoryDevice(true);
 		isReady = false;
 		videoFinished = false;
 	}
 	
 	private void OnReadyForRecording(bool enabled) 
 	{
-		Debug.Log("OnReadyForRecording? " + enabled);
+		Debug.Log("******OnReadyForRecording? " + enabled);
 		
 		isReady = enabled;
 	}
