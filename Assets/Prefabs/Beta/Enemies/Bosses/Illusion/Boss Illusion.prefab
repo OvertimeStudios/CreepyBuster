@@ -311,7 +311,7 @@ MonoBehaviour:
   chanceToDrop: 0
   itens: []
   spritesToWhite: []
-  orbsToDrop: 30
+  orbsToDrop: 50
   spread: 1
   lifeToAdd: 8
 --- !u!114 &11453062
@@ -515,7 +515,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: orbsToDrop
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: attackTime.max

@@ -279,7 +279,7 @@ MonoBehaviour:
   chanceToDrop: 0
   itens: []
   spritesToWhite: []
-  orbsToDrop: 25
+  orbsToDrop: 20
   spread: 1
   lifeToAdd: 2.5
 --- !u!212 &21262804
@@ -359,7 +359,7 @@ Prefab:
       objectReference: {fileID: 153452, guid: 93dae4dddec5f4f679be516ae6bbe1fe, type: 2}
     - target: {fileID: 0}
       propertyPath: orbsToDrop
-      value: 25
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: lifeToAdd
