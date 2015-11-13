@@ -257,7 +257,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -1480,7 +1480,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 25
+      value: 275
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -7789,7 +7789,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 50
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -9937,7 +9937,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -12381,7 +12381,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 250
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -15649,50 +15649,92 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missions:
   - mission: 0
-    value: 30
-    reward: 40
-  - mission: 1
-    value: 50
-    reward: 60
+    value: 400
+    reward: 150
+  - mission: 0
+    value: 500
+    reward: 150
+  - mission: 0
+    value: 650
+    reward: 200
   - mission: 2
-    value: 10
-    reward: 60
-  - mission: 3
-    value: 3
-    reward: 60
-  - mission: 4
-    value: 6
-    reward: 60
-  - mission: 5
-    value: 10
-    reward: 60
-  - mission: 6
-    value: 5
-    reward: 60
+    value: 100
+    reward: 150
+  - mission: 2
+    value: 125
+    reward: 150
   - mission: 7
-    value: 5
-    reward: 60
-  - mission: 8
-    value: 1
-    reward: 60
-  - mission: 9
-    value: 1
-    reward: 60
-  - mission: 10
-    value: 1
-    reward: 60
-  - mission: 11
-    value: 2
-    reward: 60
-  - mission: 12
-    value: 2
-    reward: 60
+    value: 100
+    reward: 150
+  - mission: 7
+    value: 125
+    reward: 150
+  - mission: 4
+    value: 85
+    reward: 150
+  - mission: 4
+    value: 110
+    reward: 150
+  - mission: 5
+    value: 55
+    reward: 150
+  - mission: 5
+    value: 70
+    reward: 150
+  - mission: 6
+    value: 40
+    reward: 150
+  - mission: 6
+    value: 55
+    reward: 150
+  - mission: 3
+    value: 45
+    reward: 150
+  - mission: 3
+    value: 55
+    reward: 150
   - mission: 13
-    value: 2
-    reward: 60
+    value: 6
+    reward: 150
+  - mission: 13
+    value: 10
+    reward: 200
+  - mission: 11
+    value: 8
+    reward: 150
+  - mission: 11
+    value: 10
+    reward: 200
   - mission: 14
-    value: 2
-    reward: 60
+    value: 8
+    reward: 150
+  - mission: 14
+    value: 10
+    reward: 200
+  - mission: 12
+    value: 8
+    reward: 175
+  - mission: 12
+    value: 10
+    reward: 225
+  - mission: 8
+    value: 6
+    reward: 200
+  - mission: 9
+    value: 3
+    reward: 150
+  - mission: 9
+    value: 5
+    reward: 200
+  - mission: 10
+    value: 3
+    reward: 250
+  - mission: 1
+    value: 410
+    reward: 150
+  - mission: 1
+    value: 500
+    reward: 175
 --- !u!1 &529618768
 GameObject:
   m_ObjectHideFlags: 0
@@ -16690,7 +16732,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -16764,7 +16806,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 100
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -19037,50 +19079,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missions:
   - mission: 0
-    value: 30
-    reward: 40
-  - mission: 1
-    value: 50
-    reward: 60
+    value: 850
+    reward: 275
+  - mission: 0
+    value: 1000
+    reward: 350
+  - mission: 0
+    value: 1350
+    reward: 400
   - mission: 2
-    value: 10
-    reward: 60
-  - mission: 3
-    value: 3
-    reward: 60
-  - mission: 4
-    value: 6
-    reward: 60
-  - mission: 5
-    value: 10
-    reward: 60
-  - mission: 6
-    value: 5
-    reward: 60
+    value: 325
+    reward: 275
+  - mission: 2
+    value: 400
+    reward: 300
   - mission: 7
-    value: 5
-    reward: 60
-  - mission: 8
-    value: 1
-    reward: 60
-  - mission: 9
-    value: 1
-    reward: 60
-  - mission: 10
-    value: 1
-    reward: 60
-  - mission: 11
-    value: 2
-    reward: 60
-  - mission: 12
-    value: 2
-    reward: 60
+    value: 300
+    reward: 275
+  - mission: 7
+    value: 350
+    reward: 300
+  - mission: 4
+    value: 220
+    reward: 275
+  - mission: 4
+    value: 280
+    reward: 300
+  - mission: 5
+    value: 130
+    reward: 275
+  - mission: 5
+    value: 170
+    reward: 300
+  - mission: 6
+    value: 100
+    reward: 275
+  - mission: 6
+    value: 125
+    reward: 300
+  - mission: 3
+    value: 100
+    reward: 275
+  - mission: 3
+    value: 120
+    reward: 300
   - mission: 13
-    value: 2
-    reward: 60
+    value: 20
+    reward: 400
+  - mission: 11
+    value: 20
+    reward: 400
   - mission: 14
-    value: 2
-    reward: 60
+    value: 20
+    reward: 400
+  - mission: 12
+    value: 20
+    reward: 600
+  - mission: 8
+    value: 10
+    reward: 500
+  - mission: 9
+    value: 8
+    reward: 600
+  - mission: 10
+    value: 4
+    reward: 500
+  - mission: 10
+    value: 6
+    reward: 999
+  - mission: 1
+    value: 1400
+    reward: 375
+  - mission: 1
+    value: 1800
+    reward: 500
 --- !u!1 &636626837
 GameObject:
   m_ObjectHideFlags: 0
@@ -20382,7 +20454,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -21885,7 +21957,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 25
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -22543,7 +22615,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 100
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -24880,7 +24952,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 25
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -26179,7 +26251,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 50
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -28189,50 +28261,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missions:
   - mission: 0
-    value: 30
-    reward: 40
-  - mission: 1
-    value: 50
-    reward: 60
+    value: 100
+    reward: 75
+  - mission: 0
+    value: 150
+    reward: 75
+  - mission: 0
+    value: 200
+    reward: 100
   - mission: 2
-    value: 10
-    reward: 60
-  - mission: 3
-    value: 3
-    reward: 60
-  - mission: 4
-    value: 6
-    reward: 60
-  - mission: 5
-    value: 10
-    reward: 60
-  - mission: 6
-    value: 5
-    reward: 60
+    value: 45
+    reward: 75
+  - mission: 2
+    value: 55
+    reward: 75
   - mission: 7
-    value: 5
-    reward: 60
+    value: 40
+    reward: 75
+  - mission: 7
+    value: 50
+    reward: 75
+  - mission: 4
+    value: 20
+    reward: 75
+  - mission: 4
+    value: 30
+    reward: 75
+  - mission: 5
+    value: 15
+    reward: 75
+  - mission: 5
+    value: 20
+    reward: 75
+  - mission: 6
+    value: 10
+    reward: 75
+  - mission: 6
+    value: 15
+    reward: 75
+  - mission: 3
+    value: 15
+    reward: 75
+  - mission: 3
+    value: 20
+    reward: 75
+  - mission: 13
+    value: 3
+    reward: 75
+  - mission: 11
+    value: 3
+    reward: 75
+  - mission: 14
+    value: 3
+    reward: 75
+  - mission: 12
+    value: 3
+    reward: 100
   - mission: 8
     value: 1
-    reward: 60
+    reward: 75
+  - mission: 8
+    value: 3
+    reward: 125
   - mission: 9
     value: 1
-    reward: 60
+    reward: 100
   - mission: 10
     value: 1
-    reward: 60
-  - mission: 11
-    value: 2
-    reward: 60
-  - mission: 12
-    value: 2
-    reward: 60
-  - mission: 13
-    value: 2
-    reward: 60
-  - mission: 14
-    value: 2
-    reward: 60
+    reward: 100
+  - mission: 1
+    value: 150
+    reward: 75
+  - mission: 1
+    value: 250
+    reward: 100
 --- !u!1 &942980126
 GameObject:
   m_ObjectHideFlags: 0
@@ -30190,7 +30292,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 30
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -31067,7 +31169,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 50
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -32159,7 +32261,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 50
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -33353,7 +33455,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 1000
+      value: 800
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -36655,7 +36757,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -39074,7 +39176,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -42092,7 +42194,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 10
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -43232,7 +43334,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 50
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -43380,7 +43482,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 250
+      value: 850
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -44715,7 +44817,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 100
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -49453,6 +49555,10 @@ Prefab:
       propertyPath: value
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
+      propertyPath: orbReward
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
   m_IsPrefabParent: 0
@@ -49908,7 +50014,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 50
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -51973,7 +52079,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 20
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -52923,7 +53029,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 250
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -54750,7 +54856,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -55283,6 +55389,10 @@ Prefab:
       propertyPath: value
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
+      propertyPath: orbReward
+      value: 800
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
   m_IsPrefabParent: 0
@@ -55532,7 +55642,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -55921,7 +56031,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -56308,7 +56418,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11414912, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
       propertyPath: orbReward
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55c1bdfdc9c79437abf665662a183739, type: 2}
@@ -62362,6 +62472,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2073757269}
   - 114: {fileID: 2073757270}
+  - 114: {fileID: 2073757271}
   m_Layer: 5
   m_Name: Main
   m_TagString: Untagged
@@ -62428,6 +62539,22 @@ MonoBehaviour:
   mDepth: 11
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
+--- !u!114 &2073757271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2073757268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239f7a26966bd44f6bc8ebe45f934f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBackPressed:
+    mTarget: {fileID: 1492870978}
+    mMethodName: AskApplicationQuit
+    mParameters: []
+    oneShot: 0
 --- !u!1 &2075191092
 GameObject:
   m_ObjectHideFlags: 0

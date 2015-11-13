@@ -601,4 +601,14 @@ public class MenuController : MonoBehaviour
 	{
 
 	}
+
+	public void AskApplicationQuit()
+	{
+		Popup.ShowYesNo(Localization.Get("QUIT_GAME"), ApplicationQuit, null);
+	}
+
+	private void ApplicationQuit()
+	{
+		Application.Quit();
+	}
 }

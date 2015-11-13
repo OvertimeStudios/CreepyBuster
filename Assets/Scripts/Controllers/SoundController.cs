@@ -125,6 +125,8 @@ public class SoundController : MonoBehaviour
 	private bool musicMute = false;
 	private bool soundFXMute = false;
 
+	private bool isCrossFading = false;
+
 	void Awake()
 	{
 		if(instance != null && instance != this)
@@ -166,6 +168,11 @@ public class SoundController : MonoBehaviour
 
 	private IEnumerator DoCrossFade(Musics music, float crossTime)
 	{
+		while(isCrossFading)
+			yield return null;
+
+		isCrossFading = true;
+		Debug.Log(string.Format("Crossfading music from {0} to {1}",currentMusic,music));
 		AudioSource sourceFrom = null;
 
 		if(currentMusic == Musics.MainMenuTheme)
@@ -214,6 +221,8 @@ public class SoundController : MonoBehaviour
 		sourceFrom.mute = true;
 
 		currentMusic = music;
+		isCrossFading = false;
+		Debug.Log(string.Format("current music is now {0}", currentMusic));
 	}
 
 	public void FadeOut(float fadeTime)
