@@ -104,7 +104,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		#if UNITYADS_IMPLEMENTED
 		if(UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
-			Popup.ShowVideoNo(string.Format(Localization.Get("VIDEO_TO_ORBS"), orbsToGive), ShowAd, null);
+			Popup.ShowYesNo(string.Format(Localization.Get("VIDEO_TO_ORBS"), orbsToGive), ShowAd, null);
 		else
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		#else

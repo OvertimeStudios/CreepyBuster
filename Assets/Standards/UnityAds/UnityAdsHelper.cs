@@ -64,6 +64,7 @@ public class UnityAdsHelper : MonoBehaviour
 	#if UNITYADS_IMPLEMENTED
 	private void HandleShowResult(ShowResult result)
 	{
+		Debug.Log(string.Format("HandleShowResult({0})",result));
 		switch (result)
 		{
 			case ShowResult.Finished:
