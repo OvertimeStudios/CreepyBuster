@@ -74,7 +74,7 @@ public class EndScreen : MonoBehaviour
 	public void AskDoubleOrbs()
 	{
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
-		Popup.ShowVideoNo(Localization.Get("DOUBLE_ORBS_QUESTION"), PlayVideo, null);
+		Popup.ShowYesNo(Localization.Get("DOUBLE_ORBS_QUESTION"), PlayVideo, null);
 	}
 
 	private void PlayVideo()
