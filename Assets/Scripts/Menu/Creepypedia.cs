@@ -26,6 +26,12 @@ public class Creepypedia : MonoBehaviour
 
 	public Transform creeps;
 
+	void OnEnable()
+	{
+		opened.SetActive(false);
+		closed.SetActive(true);
+	}
+
 	public void Open(CreepData.CreepType type, string name, float height, float weight, string description)
 	{
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);

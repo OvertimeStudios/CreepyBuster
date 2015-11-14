@@ -160,6 +160,7 @@ public class HUDController : MonoBehaviour
 		Transform hold = pauseScreen.transform.FindChild("Hold To Continue");
 		Transform doubleTap = pauseScreen.transform.FindChild("Double Tap");
 		Transform paused = pauseScreen.transform.FindChild("Game Paused");
+		Transform consumables = pauseScreen.transform.FindChild("Consumables");
 
 		Vector3 playerLastPosition = AttackTargets.Instance.transform.position;
 		playerLastPosition = Camera.main.WorldToViewportPoint(playerLastPosition);
@@ -183,6 +184,11 @@ public class HUDController : MonoBehaviour
 
 		arrow.position = playerLastPosition;
 		arrow.localEulerAngles = new Vector3(0, 0, angleToCenter);
+
+		consumables.position = playerLastPosition;
+		consumables.localEulerAngles = new Vector3(0, 0, angleToCenter);
+		foreach(Transform consumable in consumables)
+			consumable.localEulerAngles = new Vector3(0, 0, -angleToCenter);
 
 		hold.transform.position = playerLastPosition;
 	}

@@ -3,9 +3,7 @@ using System.Collections;
 
 public class DBController : MonoBehaviour 
 {
-	public string gameName;
-
-	public static int gameID;
+	public static bool allInformationLoaded;
 
 	#region singleton
 	private static DBController instance;
@@ -34,24 +32,38 @@ public class DBController : MonoBehaviour
 
 	public void ConnectDB()
 	{
-		Debug.Log("DBHandler.Connect()");
-		DBHandler.Connect();
+		Debug.Log("ConnectDB()");
 
-		//Get game id
-		gameID = DBHandler.GetGameID(gameName);
-		Debug.Log("Game ID: " + gameID);
+		StartCoroutine(GetAllInformation());
+	}
 
+	private IEnumerator GetAllInformation()
+	{
 		FacebookUser fbUser = FacebookController.User;
 
-		DBUser user = DBHandler.GetUser(fbUser.tokenForBusiness);
+		#region Global User
+		int globalID = 0;
+		yield return StartCoroutine(DBHandler.CheckAndCreateGlobalUser(fbUser.tokenForBusiness, fbUser.firstname, fbUser.lastname, fbUser.email, fbUser.gender, value => globalID = value));
+		#endregion
 
-		if(user == null)//no user was found
-			user = DBHandler.CreateUser(fbUser.tokenForBusiness, fbUser.firstname, fbUser.lastname, fbUser.email, fbUser.gender);
+		#region Game User
+		yield return StartCoroutine(DBHandler.CheckAndCreateGameUser(fbUser.id, globalID));
+		#endregion
 
-		if(DBHandler.GetUserRanking(user.id, gameID) == -1)
-			DBHandler.CreateUserScore(user.id, gameID);
-		
-		Debug.Log(user.ToString());
+		#region Update Game Score
+		if(DBHandler.User.score > Global.HighScore)
+			Global.HighScore = (int)DBHandler.User.score;
+		else if(Global.HighScore > DBHandler.User.score)
+			yield return StartCoroutine(DBHandler.UpdateUserScore(DBHandler.User.id, (float)Global.HighScore));
+		#endregion
+
+		FacebookController.User.score = Global.HighScore;
+
+		Debug.Log("Adding myself as friend");
+		//HACK!!! Add myself as my friend for ranking
+		FacebookController.User.AddFriend(new FacebookFriend(FacebookController.User.id, string.Format("{0} {1}", FacebookController.User.firstname, FacebookController.User.lastname), Global.HighScore));
+
+		allInformationLoaded = true;
 	}
 	#endif
 

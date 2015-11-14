@@ -7,7 +7,13 @@ public class Invencible : Item
 	
 	public static float Time
 	{
-		get { return Instance.invencibleTime; }
+		get 
+		{ 
+			if(Instance == null)
+				return GameController.Instance.timeInvencibleAfterContinue;
+
+			return Instance.invencibleTime; 
+		}
 	}
 	
 	private static Invencible instance;

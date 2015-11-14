@@ -70,6 +70,9 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 		countdown = transform.FindChild ("Countdown").GetComponent<UILabel> ();
 
+		if(RewardCooldownLeft > rewardCooldown)
+			ResetRewardCooldownTime ();
+
 		#if UNITY_WEBPLAYER
 		gameObject.SetActive(false);
 		#endif
@@ -101,9 +104,9 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		#if UNITYADS_IMPLEMENTED
 		if(UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
-			Popup.ShowYesNo(string.Format(Localization.Get("VIDEO_TO_ORBS"), orbsToGive), ShowAd, null);
+			Popup.ShowVideoNo(string.Format(Localization.Get("VIDEO_TO_ORBS"), orbsToGive), ShowAd, null);
 		else
-			Popup.ShowBlank(Localization.Get("ADS_FAILED"), 2f);
+			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		#else
 		Popup.ShowBlank("Unity Ads not implemented", 2f);
 		#endif
@@ -124,7 +127,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 		if(UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
 			UnityAdsHelper.ShowRewardedAd(handleFinish);
 		else
-			Popup.ShowBlank(Localization.Get("ADS_FAILED"), 2f);
+			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		#else
 		Popup.ShowBlank("Unity Ads not implemented", 2f);
 		#endif

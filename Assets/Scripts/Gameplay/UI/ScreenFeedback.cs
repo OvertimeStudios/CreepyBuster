@@ -26,10 +26,11 @@ public class ScreenFeedback : MonoBehaviour
 	}
 	#endregion
 
-	private UISprite frozen;
-	private UISprite damage;
-	private UISprite invencibility;
+	private UI2DSprite frozen;
+	private UI2DSprite damage;
+	private UI2DSprite invencibility;
 	private UISprite blank;
+	private UI2DSprite shield;
 
 	private static AudioSource myAudioSource;
 
@@ -48,10 +49,11 @@ public class ScreenFeedback : MonoBehaviour
 	{
 		instance = this;
 
-		frozen = transform.FindChild ("Frozen").GetComponent<UISprite> ();
-		damage = transform.FindChild ("Damage").GetComponent<UISprite> ();
-		invencibility = transform.FindChild ("Invencibility").GetComponent<UISprite> ();
+		frozen = transform.FindChild ("Frozen").GetComponent<UI2DSprite> ();
+		damage = transform.FindChild ("Damage").GetComponent<UI2DSprite> ();
+		invencibility = transform.FindChild ("Invencibility").GetComponent<UI2DSprite> ();
 		blank = transform.FindChild ("Blank").GetComponent<UISprite> ();
+		shield = transform.FindChild("Shield").GetComponent<UI2DSprite>();
 
 		myAudioSource = GetComponent<AudioSource>();
 
@@ -59,6 +61,7 @@ public class ScreenFeedback : MonoBehaviour
 		damage.enabled = false;
 		invencibility.enabled = false;
 		blank.enabled = false;
+		shield.enabled = false;
 
 		GameController.OnReset += Reset;
 	}
@@ -110,6 +113,16 @@ public class ScreenFeedback : MonoBehaviour
 		Instance.invencibilityCoroutine = Instance.StartCoroutine (Blink (Instance.invencibility, time, time * 0.75f, 3));
 	}
 
+	public static void ShowShield()
+	{
+		Instance.shield.enabled = true;
+	}
+
+	public static void HideShield()
+	{
+		Instance.shield.enabled = false;
+	}
+
 	private static void PauseSound()
 	{
 		GameController.OnPause -= PauseSound;
@@ -136,7 +149,7 @@ public class ScreenFeedback : MonoBehaviour
 		Instance.blankCoroutine = Instance.StartCoroutine(FadeInOut(Instance.blank, fadeInTime, fadeOutTime));
 	}
 
-	private static IEnumerator FadeOut(UISprite sprite, float time)
+	private static IEnumerator FadeOut(UIBasicSprite sprite, float time)
 	{
 		while(sprite.alpha > 0)
 		{
@@ -149,7 +162,7 @@ public class ScreenFeedback : MonoBehaviour
 		sprite.alpha = 1;
 	}
 
-	private static IEnumerator Blink(UISprite sprite, float time, float timeToStartBlink, int blinkRepetition)
+	private static IEnumerator Blink(UIBasicSprite sprite, float time, float timeToStartBlink, int blinkRepetition)
 	{
 		yield return new WaitForSeconds(timeToStartBlink);
 
@@ -169,7 +182,7 @@ public class ScreenFeedback : MonoBehaviour
 		sprite.enabled = false;
 	}
 
-	private static IEnumerator FadeInOut(UISprite sprite, float fadeInTime, float fadeOutTime)
+	private static IEnumerator FadeInOut(UIBasicSprite sprite, float fadeInTime, float fadeOutTime)
 	{
 		sprite.enabled = true;
 		sprite.alpha = 0;

@@ -2,6 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+#if FACEBOOK_IMPLEMENTED
+using Facebook;
+using Facebook.Unity;
+#endif
+
 public class FacebookHelper : MonoBehaviour 
 {
 	#if FACEBOOK_IMPLEMENTED
@@ -25,11 +30,6 @@ public class FacebookHelper : MonoBehaviour
 	{
 		get { return Global.FacebookID != ""; }
 	}
-
-	public static string UserID
-	{
-		get { return FB.UserId; }
-	}
 	#endregion
 
 	#region singleton
@@ -50,9 +50,9 @@ public class FacebookHelper : MonoBehaviour
 		Init (OnInitComplete);
 	}
 
-	public static void Init(Facebook.InitDelegate del)
+	public static void Init(InitDelegate del)
 	{
-		FB.Init (del);
+		FB.Init (del, OnHideUnity);
 	}
 
 	private static void OnInitComplete()
@@ -62,12 +62,31 @@ public class FacebookHelper : MonoBehaviour
 		Debug.Log("*****FB.Init completed: Is user logged in? " + FB.IsLoggedIn);
 	}
 
-	public static void Login(string scope)
+	public static void ActivateApp()
 	{
-		Login (scope, null);
+		FB.ActivateApp();
 	}
 
-	public static void Login(string scope, Facebook.FacebookDelegate del)
+	private static void OnHideUnity(bool isGameShown)
+	{
+		if (!isGameShown) 
+		{
+			// Pause the game - we will need to hide
+			Time.timeScale = 0;
+		} 
+		else 
+		{
+			// Resume the game - we're getting focus again
+			Time.timeScale = 1;
+		}
+	}
+
+	public static void Login(List<string> perms)
+	{
+		Login (perms, null);
+	}
+
+	public static void Login(List<string> perms, FacebookDelegate<ILoginResult> del)
 	{
 		Debug.Log(string.Format("FB.IsInitialized: {0} and FB.IsLoggedIn: {1}",FB.IsInitialized, FB.IsLoggedIn));
 		if (!FB.IsInitialized)
@@ -77,10 +96,10 @@ public class FacebookHelper : MonoBehaviour
 		}
 
 		if(!FB.IsLoggedIn)
-			FB.Login (scope, del);
+			FB.LogInWithReadPermissions (perms, del);
 	}
 
-	public static void FetchData (Facebook.FacebookDelegate del, params string[] data)
+	public static void FetchData (FacebookDelegate<IGraphResult> del, params string[] data)
 	{
 		string query = "me?fields=";
 		foreach(string d in data)
@@ -91,12 +110,19 @@ public class FacebookHelper : MonoBehaviour
 		//Debug.Log (query);
 
 		Dictionary<string, string> formData = new Dictionary<string, string> ();
-		FB.API (query, Facebook.HttpMethod.GET, del, formData);
+		FB.API (query, Facebook.Unity.HttpMethod.GET, del, formData);
+	}
+
+	public static void GetFacebookFriends(FacebookDelegate<IGraphResult> del)
+	{
+		Debug.Log("GetFacebookFriends");
+		string query = "me/friends?fields=id,name";
+		FB.API (query, Facebook.Unity.HttpMethod.GET, del);
 	}
 
 	public static void Logout()
 	{
-		FB.Logout ();
+		FB.LogOut ();
 	}
 	#endif
 }

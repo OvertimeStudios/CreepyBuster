@@ -204,3 +204,33 @@ LIKE,Like,Curtir
 DAILY_REWARD,DAILY REWARD,RECOMPENSA DIÁRIA
 DAILY_REWARD_DESCRIPTION,Congratulations! Collect your daily reward.,Parabéns! Receba sua recompensa diária.
 DAY,Day,Dia
+USED,USED,USADO
+OUT_OF_STOCK,OUT OF STOCK,ESGOTADO
+IN_USE,IN USE,EM USO
+CONSUMABLES,CONSUMABLES,CONSUMÍVEIS
+DeathRay,DEATH RAY,RAIO DA MORTE
+LevelUp,LEVEL UP,SUBIR DE NÍVEL
+Frozen,FREEZE,CONGELAR
+Invencibility,INVINCIBILITY,INVENCIBILIDADE
+Shield,SHIELD,ESCUDO
+STOCK,IN STOCK,EM ESTOQUE
+MAX_STOCK,You can't purchase anymore of this item,Você não pode comprar mais deste item
+LOADING,Loading,Carregando
+DAILYMISSION_POINTS,Reach {0} points,Alcançar {0} pontos
+DAILYMISSION_CREEP,Kill {0} creepies,Destruir {0} creepys
+DAILYMISSION_BLU,Kill {0} Blu creepies,Destruir {0} creepys Blue
+DAILYMISSION_BOOMERANG,Kill {0} Spiral creepies,Destruir {0} creepys Spiral
+DAILYMISSION_ZIGZAG,Kill {0} Ziggy creepies,Destruir {0} creepys Ziggy
+DAILYMISSION_CHARGER,Kill {0} Charger creepies,Destruir {0} creepys Charger
+DAILYMISSION_LEGION,Kill {0} Legion creepies,Destruir {0} creepys Legion
+DAILYMISSION_FOLLOWER,Kill {0} Follower creepies,Destruir {0} creepys Follower
+DAILYMISSION_BOSS1,Kill {0} Meteormite,Destruir {0} Metormite
+DAILYMISSION_BOSS2,Kill {0} Legiworm,Destruir {0} Legiword
+DAILYMISSION_BOSS3,Kill {0} Pysquor,Destruir {0} Psyquor
+DAILYMISSION_LEVELUP,Collect {0} Level Up,Coletar {0} Subir de Nível
+DAILYMISSION_DEATHRAY,Collect {0} Death Ray,Coletar {0} Raio da Morte
+DAILYMISSION_INVINCIBILITY,Collect {0} Invincibility,Coletar {0} Invencibilidade
+DAILYMISSION_FROZEN,Collect {0} Freeze,Coletar {0} Congelar
+DAILYMISSION_COMPLETED,"You have just completed ""{0}"" mission. You earned {1} orbs","Você concluiu a missão ""{0}"". Você ganhou {1} orbes"
+COMPLETED,COMPLETED,CONCLUÍDO
+QUIT_GAME,Do you want to quit?,Gostaria de fechar o jogo?

@@ -22,6 +22,7 @@ public class MenuController : MonoBehaviour
 	}
 	
 	public static Menus activeMenu;
+	private static Menus lastMenu;
 
 	private static GameObject lastScreen;
 	private static GameObject activeScreen;
@@ -46,7 +47,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	public static event Action OnPanelClosing;
 
-	public GameObject tapAndHold;
+	public GameObject menu;
 	public GameObject hud;
 	private TweenPosition wallTop;
 	private TweenPosition wallBottom;
@@ -55,6 +56,7 @@ public class MenuController : MonoBehaviour
 	public static bool goToShop = false;
 
 	private int achievementOrbsToGive;
+	private int dailyMissionOrbsToGive;
 
 	//ADS
 	public int gamesToShowAd;
@@ -130,6 +132,8 @@ public class MenuController : MonoBehaviour
 		GameController.OnGameOver += UpdateScore;
 		MenuController.OnPanelClosed += ShowAds;
 		MenuController.OnPanelClosed += ShowRate;
+
+		Global.OnHighScoreUpdated += UpdateScore;
 	}
 
 	void OnDisable()
@@ -140,6 +144,8 @@ public class MenuController : MonoBehaviour
 		GameController.OnGameOver -= UpdateScore;
 		MenuController.OnPanelClosed -= ShowAds;
 		MenuController.OnPanelClosed -= ShowRate;
+
+		Global.OnHighScoreUpdated -= UpdateScore;
 	}
 
 	// Use this for initialization
@@ -161,6 +167,7 @@ public class MenuController : MonoBehaviour
 		instance = this;
 
 		activeMenu = Menus.Main;
+		lastMenu = Menus.None;
 
 		activeScreen = mainScreen.gameObject;
 
@@ -189,8 +196,8 @@ public class MenuController : MonoBehaviour
 
 		yield return new WaitForSeconds(0.3f);
 
-		//hubConnectionScreen.gameObject.SetActive (false);
-		//shopScreen.gameObject.SetActive (false);
+		hubConnectionScreen.gameObject.SetActive (false);
+		shopScreen.gameObject.SetActive (false);
 	}
 
 	void Update()
@@ -224,6 +231,7 @@ public class MenuController : MonoBehaviour
 			GameController.Instance.StartGame ();
 
 			hud.SetActive (true);
+			menu.SetActive (false);
 
 			if(OnPanelOpened != null)
 				OnPanelOpened();
@@ -267,6 +275,8 @@ public class MenuController : MonoBehaviour
 
 			Achievement.achievementRecentUnlocked.Remove(a);
 		}
+		else
+			ShowDailyMissions();
 		#endif
 	}
 
@@ -275,6 +285,33 @@ public class MenuController : MonoBehaviour
 		Global.TotalOrbs += achievementOrbsToGive;
 
 		ShowAchievements();
+	}
+
+	public void ShowDailyMissions()
+	{
+		#if !UNITY_WEBPLAYER
+		List<DailyMission> dailyMission = DailyMissionController.missionRecentUnlocked;
+		
+		if(dailyMission.Count > 0)
+		{
+			DailyMission dm = dailyMission[0];
+			dailyMissionOrbsToGive = dm.reward;
+			
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Achievement);
+			
+			Popup.ShowOk(string.Format(Localization.Get("DAILYMISSION_COMPLETED"), dm.Description, dm.reward), GiveDailyMissionOrbs);
+			
+			DailyMissionController.missionRecentUnlocked.Remove(dm);
+		}
+		#endif
+	}
+	
+	private void GiveDailyMissionOrbs()
+	{
+		Debug.Log(dailyMissionOrbsToGive);
+		Global.TotalOrbs += dailyMissionOrbsToGive;
+		
+		ShowDailyMissions();
 	}
 
 	public void OpenPanel()
@@ -298,6 +335,7 @@ public class MenuController : MonoBehaviour
 		wallBottom.PlayReverse();
 
 		hud.SetActive (false);
+		menu.SetActive (true);
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
 
@@ -318,7 +356,8 @@ public class MenuController : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
 
 		ActiveScreen = mainScreen.gameObject;
-		
+
+		lastMenu = activeMenu;
 		activeMenu = Menus.Main;
 		
 		MoveScreen ();
@@ -333,7 +372,11 @@ public class MenuController : MonoBehaviour
 
 		ActiveScreen = shopScreen.gameObject;
 
+		lastMenu = activeMenu;
 		activeMenu = Menus.Shop;
+
+		shopScreen.gameObject.SetActive(false);
+		shopScreen.gameObject.SetActive(true);
 
 		MoveScreen ();
 	}
@@ -346,8 +389,12 @@ public class MenuController : MonoBehaviour
 
 		ActiveScreen = settingsScreen.gameObject;
 
+		lastMenu = activeMenu;
 		activeMenu = Menus.Settings;
-		
+
+		settingsScreen.gameObject.SetActive(false);
+		settingsScreen.gameObject.SetActive(true);
+
 		MoveScreen (true);
 	}
 
@@ -359,6 +406,7 @@ public class MenuController : MonoBehaviour
 
 		ActiveScreen = creditsScreen.gameObject;
 
+		lastMenu = activeMenu;
 		activeMenu = Menus.Credits;
 
 		MoveScreen (true);
@@ -371,7 +419,8 @@ public class MenuController : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
 		ActiveScreen = howToPlayScreen.gameObject;
-		
+
+		lastMenu = activeMenu;
 		activeMenu = Menus.HowToPlay;
 		
 		MoveScreen (true);
@@ -385,7 +434,11 @@ public class MenuController : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
 
 		ActiveScreen = hubConnectionScreen.gameObject;
-		
+
+		hubConnectionScreen.gameObject.SetActive(false);
+		hubConnectionScreen.gameObject.SetActive(true);
+
+		lastMenu = activeMenu;
 		activeMenu = Menus.HUBConnection;
 		
 		MoveScreen ();
@@ -398,7 +451,8 @@ public class MenuController : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
 		ActiveScreen = achievementsScreen.gameObject;
-		
+
+		lastMenu = activeMenu;
 		activeMenu = Menus.Achievements;
 		
 		MoveScreen (true);
@@ -411,7 +465,8 @@ public class MenuController : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
 		ActiveScreen = creepypediaScreen.gameObject;
-		
+
+		lastMenu = activeMenu;
 		activeMenu = Menus.Creepypedia;
 		
 		MoveScreen (true);
@@ -424,7 +479,8 @@ public class MenuController : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
 		ActiveScreen = gameStatsScreen.gameObject;
-		
+
+		lastMenu = activeMenu;
 		activeMenu = Menus.GameStats;
 		
 		MoveScreen (true);
@@ -436,6 +492,7 @@ public class MenuController : MonoBehaviour
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
+		lastMenu = activeMenu;
 		activeMenu = Menus.Main;
 		
 		MoveScreen (true);
@@ -446,6 +503,10 @@ public class MenuController : MonoBehaviour
 		ActiveScreen = lastScreen;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+
+		Menus lastlastMenu = activeMenu;
+		activeMenu = lastMenu;
+		lastMenu = lastlastMenu;
 
 		MoveScreen(true);
 	}
@@ -461,6 +522,9 @@ public class MenuController : MonoBehaviour
 
 		Vector3 from = menuTween.transform.localPosition;
 		Vector3 to = -ActiveScreen.transform.localPosition;
+
+		if(activeMenu == Menus.Shop || activeMenu == Menus.HUBConnection)
+			to.x *= 2f;
 
 		if(instant)
 		{
@@ -480,7 +544,7 @@ public class MenuController : MonoBehaviour
 
 	public void OnMenuTransitionFinished()
 	{
-		if(activeMenu == Menus.HUBConnection || activeMenu == Menus.Main || activeMenu == Menus.Shop) return;
+		//if(activeMenu == Menus.HUBConnection || activeMenu == Menus.Main || activeMenu == Menus.Shop) return;
 
 		lastScreen.SetActive (false);
 	}
@@ -536,5 +600,15 @@ public class MenuController : MonoBehaviour
 	public void FacebookLogout()
 	{
 
+	}
+
+	public void AskApplicationQuit()
+	{
+		Popup.ShowYesNo(Localization.Get("QUIT_GAME"), ApplicationQuit, null);
+	}
+
+	private void ApplicationQuit()
+	{
+		Application.Quit();
 	}
 }

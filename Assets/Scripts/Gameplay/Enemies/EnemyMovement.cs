@@ -30,9 +30,8 @@ public class EnemyMovement : MonoBehaviour
 	protected virtual void Start()
 	{
 		enemyLife = GetComponent<EnemyLife> ();
-
-		if(transform.FindChild("Sprite") != null)
-			myAnimator = transform.FindChild ("Sprite").GetComponent<Animator> ();
+	
+		myAnimator = transform.GetComponentInChildren<Animator> ();
 
 		if(myAnimator != null)
 			originalAnimatorSpeed = myAnimator.speed;
@@ -53,27 +52,32 @@ public class EnemyMovement : MonoBehaviour
 
 		if(OnOutOfScreen != null)
 			OnOutOfScreen(gameObject);
-		
-		Destroy (gameObject);
+
+		if(GetComponent<EnemyLife>() != null)
+			GetComponent<EnemyLife>().Dead(false);
 	}
 
 	private void OnFrozenCollected()
 	{
-		myAnimator.speed = 0;
+		if(myAnimator != null)
+			myAnimator.speed = 0;
 	}
 
 	private void OnFrozenFade()
 	{
-		myAnimator.speed = originalAnimatorSpeed;
+		if(myAnimator != null)
+			myAnimator.speed = originalAnimatorSpeed;
 	}
 
 	private void OnSlowDownCollected()
 	{
-		myAnimator.speed *= SlowDown.SlowAmount;
+		if(myAnimator != null)
+			myAnimator.speed *= SlowDown.SlowAmount;
 	}
 	
 	private void OnSlowDownFade()
 	{
-		myAnimator.speed = originalAnimatorSpeed;
+		if(myAnimator != null)
+			myAnimator.speed = originalAnimatorSpeed;
 	}
 }

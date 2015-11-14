@@ -186,11 +186,14 @@ public class Popup : MonoBehaviour
 		if(autoHide)
 			Hide ();
 
+		Action _YesClicked = YesClicked;
+		Action _NoCliked = NoClicked;
+
 		if (YesClicked != null)
 			YesClicked ();
 
-		YesClicked = null;
-		NoClicked = null;
+		YesClicked -= _YesClicked;
+		NoClicked -= _NoCliked;
 	}
 
 	public void NoAnswer()
@@ -200,11 +203,14 @@ public class Popup : MonoBehaviour
 		if(autoHide)
 			Hide ();
 
+		Action _YesClicked = YesClicked;
+		Action _NoCliked = NoClicked;
+
 		if (NoClicked != null)
 			NoClicked ();
 
-		YesClicked = null;
-		NoClicked = null;
+		YesClicked -= _YesClicked;
+		NoClicked -= _NoCliked;
 	}
 
 	public void OkAnswer()
@@ -214,10 +220,12 @@ public class Popup : MonoBehaviour
 		if(autoHide)
 			Hide ();
 
+		Action _OkClicked = OkClicked;
+
 		if (OkClicked != null)
 			OkClicked ();
 		
-		OkClicked = null;
+		OkClicked -= _OkClicked;
 	}
 
 	private static IEnumerator Hide(float waitTime)

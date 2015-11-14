@@ -5,6 +5,10 @@ using System.Collections;
 using Prime31;
 #endif
 
+#if FACEBOOK_IMPLEMENTED
+using Facebook.Unity;
+#endif
+
 public class Settings : MonoBehaviour 
 {
 	#if IAP_IMPLEMENTED
@@ -52,25 +56,21 @@ public class Settings : MonoBehaviour
 		FacebookController.OnLoggedIn -= HandleLoginSection;
 		FacebookController.OnLoggedOut -= HandleLoginSection;
 		#endif
-
-		ChangeLanguage changeLanguage = transform.FindChild("Language").GetComponent<ChangeLanguage>();
-		if(changeLanguage.opened)
-			changeLanguage.OpenClose();
 	}
 
 	private void HandleLoginSection()
 	{
 		#if FACEBOOK_IMPLEMENTED
-		if(FacebookController.IsLoggedIn)
+		if(FB.IsLoggedIn)
 		{
 			fbLogin.SetActive(false);
-			//fbLogout.SetActive(true);
+			fbLogout.SetActive(true);
 			likeUs.SetActive(true);
 		}
 		else
 		{
 			fbLogin.SetActive(true);
-			//fbLogout.SetActive(false);
+			fbLogout.SetActive(false);
 			likeUs.SetActive(false);
 		}
 		#endif
