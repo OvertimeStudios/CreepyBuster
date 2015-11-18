@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-#if IAP_IMPLEMENTED
 using Prime31;
-#endif
 
 public class ItemShopHardCurrency : MonoBehaviour 
 {
@@ -26,10 +24,8 @@ public class ItemShopHardCurrency : MonoBehaviour
 	[Header("For Developer")]
 	public UILabel price;
 	public UILabel currency;
-
-	#if IAP_IMPLEMENTED
+	
 	private IAPProduct product;
-	#endif
 
 	void OnEnable()
 	{
