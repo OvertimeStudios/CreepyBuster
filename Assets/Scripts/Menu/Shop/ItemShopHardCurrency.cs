@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Prime31;
+using System;
 
 public class ItemShopHardCurrency : MonoBehaviour 
 {
@@ -24,32 +25,19 @@ public class ItemShopHardCurrency : MonoBehaviour
 	[Header("For Developer")]
 	public UILabel price;
 	public UILabel currency;
-	
+
 	private IAPProduct product;
-
-	void OnEnable()
-	{
-		//UpdatePrices();
-
-		#if IAP_IMPLEMENTED
-		Settings.OnProductRestored += Restore;
-		IAPHelper.OnProductReceived += UpdatePrices;
-		#endif
-	}
-
-	void OnDisable()
-	{
-		#if IAP_IMPLEMENTED
-		Settings.OnProductRestored -= Restore;
-		IAPHelper.OnProductReceived += UpdatePrices;
-		#endif
-	}
 
 	void Start()
 	{
 		#if IAP_IMPLEMENTED
 		//currency = transform.FindChild("Price").FindChild("currency").GetComponent<UILabel>();
 		//price = transform.FindChild("Price").FindChild("Label").GetComponent<UILabel>();
+		#endif
+
+		#if IAP_IMPLEMENTED
+		Settings.OnProductRestored += Restore;
+		IAPHelper.OnProductReceived += UpdatePrices;
 		#endif
 
 		#if UNITY_WEBPLAYER
@@ -60,6 +48,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 	#if UNITY_ANDROID || UNITY_IOS
 	private void UpdatePrices(IAPProduct product)
 	{
+		Debug.Log("Product Received: " + product.ToString());
 		#if IAP_IMPLEMENTED
 		if(product.productId == productID)
 		{
@@ -67,7 +56,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 
 			string priceString = product.price.ToString();
 
-			currency.text = priceString.Substring(0, priceString.IndexOf("$") + 1);
+			currency.text = CurrencyTools.GetCurrencySymbol(product.currencyCode);
 			price.text = priceString.Substring(priceString.IndexOf("$") + 1);
 		}
 		#endif
@@ -106,7 +95,8 @@ public class ItemShopHardCurrency : MonoBehaviour
 		#if UNITY_EDITOR
 		Debug.Log("Running on Unity Editor");
 		#else
-		UnityAnalyticsHelper.Transaction(product.productId, decimal.Parse(price.text), product.currencyCode);
+		if(!Debug.isDebugBuild)
+			UnityAnalyticsHelper.Transaction(product.productId, decimal.Parse(price.text), product.currencyCode);
 		#endif
 
 		Unlock();
@@ -118,11 +108,19 @@ public class ItemShopHardCurrency : MonoBehaviour
 		if(type == Type.Consumable) return;
 
 		if(productID == product.productId)
-			Unlock();
+		{
+			Debug.Log("**** RESTORING PRODUCT: " + product.productId);
+			Unlock(false);
+		}
 	}
 	#endif
 
 	private void Unlock()
+	{
+		Unlock(true);
+	}
+
+	private void Unlock(bool showSuccessMessage)
 	{
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.ShopBuy);
 
@@ -131,7 +129,8 @@ public class ItemShopHardCurrency : MonoBehaviour
 			case Pack.OrbsPack:
 				Global.OrbsCollected += value;
 				Global.TotalOrbs += value;
-				Popup.ShowOk (string.Format(Localization.Get("YOU_RECEIVED"), value));
+				if(showSuccessMessage)
+					Popup.ShowOk (string.Format(Localization.Get("YOU_RECEIVED"), value));
 				break;
 				
 			case Pack.MultiplierOrbs:
@@ -140,7 +139,8 @@ public class ItemShopHardCurrency : MonoBehaviour
 				#if ADMOB_IMPLEMENTED
 				AdMobHelper.HideBanner();
 				#endif
-				Popup.ShowOk(Localization.Get("PURCHASE_SUCCESS"));
+				if(showSuccessMessage)
+					Popup.ShowOk(Localization.Get("PURCHASE_SUCCESS"));
 				break;
 		}
 	}

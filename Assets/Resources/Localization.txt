@@ -187,7 +187,6 @@ FACEBOOK_LOGIN,Login with Facebook,Logue-se com o Facebook,
 TUTORIAL_ADD,See more on HOW TO PLAY.,Saiba mais em COMO JOGAR.,
 EVERYPLAY_ERROR,Couldn't record this time,Não foi possível fazer a gravação neste momento
 ADS_FAILED,Ads loading failed, Propaganda não pode ser carregada
-QUIT_GAME,Are you sure you want to quit?,Tem certeza de que deseja sair do jogo?
 PROCESSING,Processing,Processando
 RESTORE_SUCCESS,Products have been successfully restored,Produtos restaurados com sucesso
 RESTORE_FAILED,Restoration failed,Falha na restauração
@@ -233,4 +232,4 @@ DAILYMISSION_INVINCIBILITY,Collect {0} Invincibility,Coletar {0} Invencibilidade
 DAILYMISSION_FROZEN,Collect {0} Freeze,Coletar {0} Congelar
 DAILYMISSION_COMPLETED,"You have just completed ""{0}"" mission. You earned {1} orbs","Você concluiu a missão ""{0}"". Você ganhou {1} orbes"
 COMPLETED,COMPLETED,CONCLUÍDO
-QUIT_GAME,Do you want to quit?,Gostaria de fechar o jogo?
+QUIT_GAME,Are you sure you want to quit?,Tem certeza de que deseja sair do jogo?

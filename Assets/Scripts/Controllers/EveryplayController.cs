@@ -13,7 +13,7 @@ public class EveryplayController : MonoBehaviour
 	public static bool IsReady
 	{
 		get { Debug.Log(string.Format("isReady {0} && Everyplay.IsSupported()? {1} && Everyplay.IsRecordingSupported()? {2}", isReady, Everyplay.IsSupported(), Everyplay.IsRecordingSupported()));
-			                return /*isReady && */Everyplay.IsSupported() && Everyplay.IsRecordingSupported(); }
+			                return /*isReady &&*/ Everyplay.IsSupported() && Everyplay.IsRecordingSupported(); }
 	}
 
 	public static bool IsRecorded
@@ -127,6 +127,7 @@ public class EveryplayController : MonoBehaviour
 	{
 		GameController.watchedReplay = true;
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
+		Debug.Log("Video Recorded? " + IsRecorded);
 		if(!IsRecorded)
 		{
 			Popup.ShowOk(Localization.Get("EVERYPLAY_ERROR"));
