@@ -3,6 +3,10 @@
 #define EVERYPLAY_GLES_WRAPPER
 #import "EveryplayGlesSupport.h"
 
+#if !EVERYPLAY_CORE_BUILD || (EVERYPLAY_CORE_BUILD && !EVERYPLAY_NO_FACECAM_SUPPORT)
+#define EVERYPLAY_FACECAM_BINDINGS_ENABLED 1
+#endif
+
 #if UNITY_VERSION >= 463
 #define EVERYPLAY_IS_METAL (UnitySelectedRenderingAPI() == apiMetal)
 #else
@@ -12,7 +16,7 @@
 void UnitySendMessage(const char *obj, const char *method, const char *msg);
 
 extern "C" {
-char *EveryplayCopyString(const char *string) {
+static char *EveryplayCopyString(const char *string) {
     if (string != NULL) {
         char *res = strdup(string);
         return res;
@@ -21,11 +25,11 @@ char *EveryplayCopyString(const char *string) {
     return NULL;
 }
 
-NSString *EveryplayCreateNSString(const char *string) {
+static NSString *EveryplayCreateNSString(const char *string) {
     return string ? [NSString stringWithUTF8String:string] : [NSString stringWithUTF8String:""];
 }
 
-NSURL *EveryplayCreateNSURL(const char *string) {
+static NSURL *EveryplayCreateNSURL(const char *string) {
     return [NSURL URLWithString:EveryplayCreateNSString(string)];
 }
 }
@@ -58,20 +62,25 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
 #if UNITY_VERSION >= 430
         UnityRegisterAppDelegateListener(self);
 #endif
+        [Everyplay initWithDelegate:self];
     }
     return self;
 }
 
+#if !EVERYPLAY_CORE_BUILD
 - (void)setClientId:(NSString *)clientId andClientSecret:(NSString *)clientSecret andRedirectURI:(NSString *)redirectURI {
-    [Everyplay initWithDelegate:self];
     [Everyplay setClientId:clientId clientSecret:clientSecret redirectURI:redirectURI];
-
     EveryplayLog(@"Everyplay init from Unity with client ID: %@ and client secret: %@ and redirect URI: %@", clientId, clientSecret, redirectURI);
 }
 
+#endif
+
 - (void)everyplayShown {
     ELOG;
+
+#if TARGET_OS_IPHONE && TARGET_OS_IOS
     currentOrientation = UnityGetGLViewController().interfaceOrientation;
+#endif
     UnityPause(true);
 #if UNITY_VERSION < 450
     CADisplayLink *displayLink = (CADisplayLink *) _displayLink;
@@ -101,6 +110,7 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
     }
     UnityPause(false);
 
+#if TARGET_OS_IPHONE && TARGET_OS_IOS
     /* Force orientation check, orientation could have changed while Unity was paused */
     UIInterfaceOrientation newOrientation = UnityGetGLViewController().interfaceOrientation;
     if (currentOrientation != newOrientation) {
@@ -112,6 +122,7 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
         UnityGLInvalidateState();
 #endif
     }
+#endif
 
     UnitySendMessage("Everyplay", "EveryplayHidden", "");
 }
@@ -132,6 +143,7 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
     UnitySendMessage("Everyplay", "EveryplayRecordingStopped", "");
 }
 
+#if EVERYPLAY_FACECAM_BINDINGS_ENABLED
 - (void)everyplayFaceCamSessionStarted {
     ELOG;
     UnitySendMessage("Everyplay", "EveryplayFaceCamSessionStarted", "");
@@ -148,6 +160,8 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
     UnitySendMessage("Everyplay", "EveryplayFaceCamSessionStopped", "");
 }
 
+#endif
+
 - (void)everyplayThumbnailReadyAtTextureId:(NSNumber *)textureId portraitMode:(NSNumber *)portrait {
     ELOG;
     NSString *jsonMsg = [NSString stringWithFormat:@"{ \"textureId\":%d,\"portrait\":%d }", [textureId intValue], [portrait intValue]];
@@ -163,6 +177,7 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
     }
 }
 
+#if !EVERYPLAY_CORE_BUILD
 - (void)everyplayUploadDidStart:(NSNumber *)videoId {
     ELOG;
     NSString *jsonMsg = [NSString stringWithFormat:@"{ \"videoId\":%d }", [videoId intValue]];
@@ -188,16 +203,20 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
 }
 
 #endif
+#endif
 
 @end
 
 extern "C" {
 void InitEveryplay(const char *clientId, const char *clientSecret, const char *redirectURI) {
     if (everyplayUnity != nil) {
+#if !EVERYPLAY_CORE_BUILD
         [everyplayUnity setClientId:EveryplayCreateNSString(clientId) andClientSecret:EveryplayCreateNSString(clientSecret) andRedirectURI:EveryplayCreateNSString(redirectURI)];
+#endif
     }
 }
 
+#if !EVERYPLAY_CORE_BUILD
 void EveryplayShow() {
     [[Everyplay sharedInstance] showEveryplay];
 }
@@ -205,10 +224,6 @@ void EveryplayShow() {
 void EveryplayShowWithPath(const char *path) {
     NSString *pathString = EveryplayCreateNSString(path);
     [[Everyplay sharedInstance] showEveryplayWithPath:pathString];
-}
-
-void EveryplayShowSharingModal() {
-    [[Everyplay sharedInstance] showEveryplaySharingModal];
 }
 
 void EveryplayPlayVideoWithURL(const char *url) {
@@ -242,6 +257,16 @@ void EveryplayPlayVideoWithDictionary(const char *dic) {
 char *EveryplayAccountAccessToken() {
     return EveryplayCopyString([[[Everyplay account] accessToken] UTF8String]);
 }
+
+void EveryplayShowSharingModal() {
+    [[Everyplay sharedInstance] showEveryplaySharingModal];
+}
+
+void EveryplayPlayLastRecording() {
+    [[Everyplay sharedInstance] playLastRecording];
+}
+
+#endif
 
 void EveryplayStartRecording() {
     [[[Everyplay sharedInstance] capture] startRecording];
@@ -279,10 +304,6 @@ bool EveryplaySnapshotRenderbuffer() {
 #endif
     }
     return ret;
-}
-
-void EveryplayPlayLastRecording() {
-    [[Everyplay sharedInstance] playLastRecording];
 }
 
 void EveryplaySetMetadata(const char *val) {
@@ -338,6 +359,11 @@ bool EveryplayIsSingleCoreDevice() {
     return [[[Everyplay sharedInstance] capture] isSingleCoreDevice];
 }
 
+int EveryplayGetUserInterfaceIdiom() {
+    return (int) [[UIDevice currentDevice] userInterfaceIdiom];
+}
+
+#if EVERYPLAY_FACECAM_BINDINGS_ENABLED
 bool EveryplayFaceCamIsVideoRecordingSupported() {
     return [[[Everyplay sharedInstance] faceCam] isVideoRecordingSupported];
 }
@@ -358,10 +384,6 @@ bool EveryplayFaceCamIsRecordingPermissionGranted() {
     return [[[Everyplay sharedInstance] faceCam] isRecordingPermissionGranted];
 }
 
-int EveryplayGetUserInterfaceIdiom() {
-    return (int) [[UIDevice currentDevice] userInterfaceIdiom];
-}
-
 float EveryplayFaceCamAudioPeakLevel() {
     return [[[Everyplay sharedInstance] faceCam] audioPeakLevel];
 }
@@ -372,6 +394,10 @@ float EveryplayFaceCamAudioPowerLevel() {
 
 void EveryplayFaceCamSetMonitorAudioLevels(bool enabled) {
     [[[Everyplay sharedInstance] faceCam] setMonitorAudioLevels:enabled];
+}
+
+void EveryplayFaceCamSetRecordingMode(int mode) {
+    [[[Everyplay sharedInstance] faceCam] setRecordingMode:static_cast<EveryplayFaceCamRecordingMode>(mode)];
 }
 
 void EveryplayFaceCamSetAudioOnly(bool audioOnly) {
@@ -454,6 +480,8 @@ void EveryplayFaceCamRequestRecordingPermission() {
 void EveryplayFaceCamStopSession() {
     [[[Everyplay sharedInstance] faceCam] stopSession];
 }
+
+#endif
 
 void EveryplaySetThumbnailTargetTexture(void *texturePtr) {
     if (texturePtr != NULL) {

@@ -39,7 +39,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		get 
 		{
-			#if UNITYADS_IMPLEMENTED
+			#if ADMOB_IMPLEMENTED
 			return RewardCooldownLeft <= 0;
 			#else
 			return false;
@@ -82,7 +82,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		if(DailyRewardController.IsActive || Popup.IsActive) return;
 
-		#if UNITYADS_IMPLEMENTED
+		#if ADMOB_IMPLEMENTED
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		if(IsReady)
 		{
@@ -91,19 +91,16 @@ public class RewardedVideoPlayer : MonoBehaviour
 			else
 				Ask();
 		}
-		else if(!UnityAdsHelper.isSupported)
-			Popup.ShowOk(Localization.Get("ADS_FAILED"));
-		else if(!UnityAdsHelper.isInitialized)
-			Popup.ShowOk(Localization.Get("ADS_FAILED"));
-		else
+		else if(!AdsHelper.IsRewardedVideoReady)
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		#endif
 	}
 
 	private void Ask()
 	{
-		#if UNITYADS_IMPLEMENTED
-		if(UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
+		Debug.Log("Ask");
+		#if ADMOB_IMPLEMENTED
+		if(AdsHelper.IsRewardedVideoReady)
 			Popup.ShowYesNo(string.Format(Localization.Get("VIDEO_TO_ORBS"), orbsToGive), ShowAd, null);
 		else
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
@@ -114,8 +111,9 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	public void ShowAd()
 	{
-		#if UNITYADS_IMPLEMENTED
-		UnityAdsHelper.ShowRewardedAd (GiveReward);
+		Debug.Log("Showing Ad");
+		#if ADMOB_IMPLEMENTED
+		AdsHelper.ShowRewardedAd (GiveReward);
 		#else
 		Popup.ShowBlank("Unity Ads not implemented", 2f);
 		#endif
@@ -123,9 +121,9 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	public static void ShowAd(Action handleFinish)
 	{
-		#if UNITYADS_IMPLEMENTED
-		if(UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
-			UnityAdsHelper.ShowRewardedAd(handleFinish);
+		#if ADMOB_IMPLEMENTED
+		if(AdsHelper.IsRewardedVideoReady)
+			AdsHelper.ShowRewardedAd(handleFinish);
 		else
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		#else
@@ -135,19 +133,22 @@ public class RewardedVideoPlayer : MonoBehaviour
 	
 	private void GiveReward()
 	{
+		Debug.Log("Give Reward");
 		if (reward == Rewards.Orbs)
 			GiveOrbs ();
 		else if (reward == Rewards.PlayAgain)
 			RevivePlayer ();
 		else if(reward == Rewards.DoubleOrbs)
 			DoubleOrbs();
-		
+
+		Debug.Log("rewardCooldown: " + rewardCooldown);
 		if(rewardCooldown > 0)
 			SetRewardCooldownTime(DateTime.UtcNow.AddSeconds(rewardCooldown));
 	}
 	
 	private void GiveOrbs()
 	{
+		Debug.Log("Give Orbs");
 		Global.TotalOrbs += orbsToGive;
 		
 		Popup.ShowOk (string.Format(Localization.Get("YOU_RECEIVED"), orbsToGive));

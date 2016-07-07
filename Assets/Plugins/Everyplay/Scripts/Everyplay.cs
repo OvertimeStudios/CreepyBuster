@@ -1,18 +1,51 @@
+#if !(UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7)
+#define UNITY_5_OR_LATER
+#endif
+
 #if !UNITY_EDITOR
 
 #if (UNITY_IPHONE && EVERYPLAY_IPHONE)
 #define EVERYPLAY_IPHONE_ENABLED
+#elif (UNITY_TVOS && EVERYPLAY_TVOS)
+#define EVERYPLAY_TVOS_ENABLED
 #elif (UNITY_ANDROID && EVERYPLAY_ANDROID)
 #define EVERYPLAY_ANDROID_ENABLED
+#elif (UNITY_5_OR_LATER && UNITY_STANDALONE_OSX && EVERYPLAY_STANDALONE)
+#define EVERYPLAY_OSX_ENABLED
+#endif
+
+#else
+
+#if UNITY_5_OR_LATER && UNITY_EDITOR_OSX
+#define EVERYPLAY_OSX_ENABLED
 #endif
 
 #endif
 
 #if EVERYPLAY_IPHONE_ENABLED || EVERYPLAY_ANDROID_ENABLED
 #define EVERYPLAY_BINDINGS_ENABLED
+#elif EVERYPLAY_TVOS_ENABLED || EVERYPLAY_OSX_ENABLED
+#define EVERYPLAY_CORE_BINDINGS_ENABLED
+#endif
+
+#if EVERYPLAY_TVOS_ENABLED
+#define EVERYPLAY_NO_FACECAM_SUPPORT
+#endif
+
+#if !EVERYPLAY_NO_FACECAM_SUPPORT && (EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED)
+#define EVERYPLAY_FACECAM_BINDINGS_ENABLED
+#endif
+
+#if EVERYPLAY_OSX_ENABLED
+#if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
+#define EVERYPLAY_RESET_BINDINGS_ENABLED
+#endif
 #endif
 
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using System.Runtime.InteropServices;
 using System;
 using System.Collections.Generic;
@@ -31,10 +64,18 @@ public class Everyplay : MonoBehaviour
         BottomRight
     };
 
+    public enum FaceCamRecordingMode
+    {
+        RecordAudio = 0,
+        RecordVideo,
+        PassThrough
+    };
+
     public enum UserInterfaceIdiom
     {
         Phone = 0,
         Tablet,
+        TV,
         iPhone = Phone,
         iPad = Tablet
     };
@@ -99,6 +140,15 @@ public class Everyplay : MonoBehaviour
 
     private static string clientId;
     private static bool appIsClosing = false;
+    private static bool hasMethods = true;
+    private static bool seenInitialization = false;
+    private static bool readyForRecording = false;
+
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+    private const string nativeMethodSource = "EveryplayPlugin";
+#else
+    private const string nativeMethodSource = "__Internal";
+#endif
 
     // For some time we want to support calling Everyplay with the old SharedInstance.
     // This requires us to use a EveryplayLegacy instance wrapper.
@@ -148,11 +198,39 @@ public class Everyplay : MonoBehaviour
                             if (everyplayInstance != null)
                             {
                                 clientId = settings.clientId;
+                                hasMethods = true;
 
                                 // Initialize the native
-                                #if EVERYPLAY_IPHONE_ENABLED || EVERYPLAY_ANDROID_ENABLED
-                                InitEveryplay(settings.clientId, settings.clientSecret, settings.redirectURI);
+                                #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
+                                try
+                                {
+                                    InitEveryplay(settings.clientId, settings.clientSecret, settings.redirectURI);
+                                }
+                                catch (DllNotFoundException)
+                                {
+                                    hasMethods = false;
+                                    everyplayInstance.OnApplicationQuit();
+                                    return null;
+                                }
+                                catch (EntryPointNotFoundException)
+                                {
+                                    hasMethods = false;
+                                    everyplayInstance.OnApplicationQuit();
+                                    return null;
+                                }
                                 #endif
+
+                                if (seenInitialization == false)
+                                {
+#if EVERYPLAY_OSX_ENABLED
+#if UNITY_5_OR_LATER
+                                    AudioConfiguration config = AudioSettings.GetConfiguration();
+                                    AudioSettings.Reset(config);
+#endif
+#endif
+                                }
+
+                                seenInitialization = true;
 
                                 // Add test buttons if requested
                                 if (settings.testButtonsEnabled)
@@ -184,7 +262,7 @@ public class Everyplay : MonoBehaviour
 
     public static void Show()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
             #if EVERYPLAY_BINDINGS_ENABLED
             EveryplayShow();
@@ -194,7 +272,7 @@ public class Everyplay : MonoBehaviour
 
     public static void ShowWithPath(string path)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
             #if EVERYPLAY_BINDINGS_ENABLED
             EveryplayShowWithPath(path);
@@ -204,7 +282,7 @@ public class Everyplay : MonoBehaviour
 
     public static void PlayVideoWithURL(string url)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
             #if EVERYPLAY_BINDINGS_ENABLED
             EveryplayPlayVideoWithURL(url);
@@ -214,7 +292,7 @@ public class Everyplay : MonoBehaviour
 
     public static void PlayVideoWithDictionary(Dictionary<string, object> dict)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
             #if EVERYPLAY_BINDINGS_ENABLED
             EveryplayPlayVideoWithDictionary(Json.Serialize(dict));
@@ -224,7 +302,7 @@ public class Everyplay : MonoBehaviour
 
     public static void MakeRequest(string method, string url, Dictionary<string, object> data, Everyplay.RequestReadyDelegate readyDelegate, Everyplay.RequestFailedDelegate failedDelegate)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
             EveryplayInstance.AsyncMakeRequest(method, url, data, readyDelegate, failedDelegate);
         }
@@ -232,7 +310,7 @@ public class Everyplay : MonoBehaviour
 
     public static string AccessToken()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
             #if EVERYPLAY_BINDINGS_ENABLED
             return EveryplayAccountAccessToken();
@@ -243,7 +321,7 @@ public class Everyplay : MonoBehaviour
 
     public static void ShowSharingModal()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
             #if EVERYPLAY_BINDINGS_ENABLED
             EveryplayShowSharingModal();
@@ -251,11 +329,21 @@ public class Everyplay : MonoBehaviour
         }
     }
 
-    public static void StartRecording()
+    public static void PlayLastRecording()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
             #if EVERYPLAY_BINDINGS_ENABLED
+            EveryplayPlayLastRecording();
+            #endif
+        }
+    }
+
+    public static void StartRecording()
+    {
+        if (EveryplayInstance != null && hasMethods == true)
+        {
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplayStartRecording();
             #endif
         }
@@ -263,9 +351,9 @@ public class Everyplay : MonoBehaviour
 
     public static void StopRecording()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplayStopRecording();
             #endif
         }
@@ -273,9 +361,9 @@ public class Everyplay : MonoBehaviour
 
     public static void PauseRecording()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplayPauseRecording();
             #endif
         }
@@ -283,9 +371,9 @@ public class Everyplay : MonoBehaviour
 
     public static void ResumeRecording()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplayResumeRecording();
             #endif
         }
@@ -293,9 +381,9 @@ public class Everyplay : MonoBehaviour
 
     public static bool IsRecording()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             return EveryplayIsRecording();
             #endif
         }
@@ -304,9 +392,9 @@ public class Everyplay : MonoBehaviour
 
     public static bool IsRecordingSupported()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             return EveryplayIsRecordingSupported();
             #endif
         }
@@ -315,9 +403,9 @@ public class Everyplay : MonoBehaviour
 
     public static bool IsPaused()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             return EveryplayIsPaused();
             #endif
         }
@@ -326,9 +414,9 @@ public class Everyplay : MonoBehaviour
 
     public static bool SnapshotRenderbuffer()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             return EveryplaySnapshotRenderbuffer();
             #endif
         }
@@ -337,9 +425,9 @@ public class Everyplay : MonoBehaviour
 
     public static bool IsSupported()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             return EveryplayIsSupported();
             #endif
         }
@@ -348,9 +436,9 @@ public class Everyplay : MonoBehaviour
 
     public static bool IsSingleCoreDevice()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             return EveryplayIsSingleCoreDevice();
             #endif
         }
@@ -359,30 +447,20 @@ public class Everyplay : MonoBehaviour
 
     public static int GetUserInterfaceIdiom()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             return EveryplayGetUserInterfaceIdiom();
             #endif
         }
         return 0;
     }
 
-    public static void PlayLastRecording()
-    {
-        if (EveryplayInstance != null)
-        {
-            #if EVERYPLAY_BINDINGS_ENABLED
-            EveryplayPlayLastRecording();
-            #endif
-        }
-    }
-
     public static void SetMetadata(string key, object val)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             if (key != null && val != null)
             {
                 Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -395,9 +473,9 @@ public class Everyplay : MonoBehaviour
 
     public static void SetMetadata(Dictionary<string, object> dict)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             if (dict != null)
             {
                 if (dict.Count > 0)
@@ -411,9 +489,9 @@ public class Everyplay : MonoBehaviour
 
     public static void SetTargetFPS(int fps)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplaySetTargetFPS(fps);
             #endif
         }
@@ -421,9 +499,9 @@ public class Everyplay : MonoBehaviour
 
     public static void SetMotionFactor(int factor)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplaySetMotionFactor(factor);
             #endif
         }
@@ -431,9 +509,9 @@ public class Everyplay : MonoBehaviour
 
     public static void SetMaxRecordingMinutesLength(int minutes)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplaySetMaxRecordingMinutesLength(minutes);
             #endif
         }
@@ -441,9 +519,9 @@ public class Everyplay : MonoBehaviour
 
     public static void SetLowMemoryDevice(bool state)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplaySetLowMemoryDevice(state);
             #endif
         }
@@ -451,9 +529,9 @@ public class Everyplay : MonoBehaviour
 
     public static void SetDisableSingleCoreDevices(bool state)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplaySetDisableSingleCoreDevices(state);
             #endif
         }
@@ -461,9 +539,9 @@ public class Everyplay : MonoBehaviour
 
     public static bool FaceCamIsVideoRecordingSupported()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             return EveryplayFaceCamIsVideoRecordingSupported();
             #endif
         }
@@ -472,9 +550,9 @@ public class Everyplay : MonoBehaviour
 
     public static bool FaceCamIsAudioRecordingSupported()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             return EveryplayFaceCamIsAudioRecordingSupported();
             #endif
         }
@@ -483,9 +561,9 @@ public class Everyplay : MonoBehaviour
 
     public static bool FaceCamIsHeadphonesPluggedIn()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             return EveryplayFaceCamIsHeadphonesPluggedIn();
             #endif
         }
@@ -494,9 +572,9 @@ public class Everyplay : MonoBehaviour
 
     public static bool FaceCamIsSessionRunning()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             return EveryplayFaceCamIsSessionRunning();
             #endif
         }
@@ -505,9 +583,9 @@ public class Everyplay : MonoBehaviour
 
     public static bool FaceCamIsRecordingPermissionGranted()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             return EveryplayFaceCamIsRecordingPermissionGranted();
             #endif
         }
@@ -516,9 +594,9 @@ public class Everyplay : MonoBehaviour
 
     public static float FaceCamAudioPeakLevel()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             return EveryplayFaceCamAudioPeakLevel();
             #endif
         }
@@ -527,9 +605,9 @@ public class Everyplay : MonoBehaviour
 
     public static float FaceCamAudioPowerLevel()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             return EveryplayFaceCamAudioPowerLevel();
             #endif
         }
@@ -538,19 +616,29 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamSetMonitorAudioLevels(bool enabled)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetMonitorAudioLevels(enabled);
+            #endif
+        }
+    }
+
+    public static void FaceCamSetRecordingMode(Everyplay.FaceCamRecordingMode mode)
+    {
+        if (EveryplayInstance != null && hasMethods == true)
+        {
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
+            EveryplayFaceCamSetRecordingMode((int) mode);
             #endif
         }
     }
 
     public static void FaceCamSetAudioOnly(bool audioOnly)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetAudioOnly(audioOnly);
             #endif
         }
@@ -558,9 +646,9 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamSetPreviewVisible(bool visible)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetPreviewVisible(visible);
             #endif
         }
@@ -568,9 +656,9 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamSetPreviewScaleRetina(bool autoScale)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetPreviewScaleRetina(autoScale);
             #endif
         }
@@ -578,9 +666,9 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamSetPreviewSideWidth(int width)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetPreviewSideWidth(width);
             #endif
         }
@@ -588,9 +676,9 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamSetPreviewBorderWidth(int width)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetPreviewBorderWidth(width);
             #endif
         }
@@ -598,9 +686,9 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamSetPreviewPositionX(int x)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetPreviewPositionX(x);
             #endif
         }
@@ -608,19 +696,19 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamSetPreviewPositionY(int y)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-         #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetPreviewPositionY(y);
-         #endif
+            #endif
         }
     }
 
     public static void FaceCamSetPreviewBorderColor(float r, float g, float b, float a)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetPreviewBorderColor(r, g, b, a);
             #endif
         }
@@ -628,9 +716,9 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamSetPreviewOrigin(Everyplay.FaceCamPreviewOrigin origin)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetPreviewOrigin((int) origin);
             #endif
         }
@@ -638,10 +726,11 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamSetTargetTexture(Texture2D texture)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
 #if !UNITY_3_5
-            #if EVERYPLAY_IPHONE_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
+            #if EVERYPLAY_IPHONE_ENABLED || EVERYPLAY_OSX_ENABLED
             if (texture != null)
             {
                 EveryplayFaceCamSetTargetTexture(texture.GetNativeTexturePtr());
@@ -664,6 +753,7 @@ public class Everyplay : MonoBehaviour
                 EveryplayFaceCamSetTargetTextureId(0);
             }
             #endif
+            #endif
 #endif
         }
     }
@@ -671,9 +761,9 @@ public class Everyplay : MonoBehaviour
     [Obsolete("Use FaceCamSetTargetTexture(Texture2D texture) instead.")]
     public static void FaceCamSetTargetTextureId(int textureId)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetTargetTextureId(textureId);
             #endif
         }
@@ -682,9 +772,9 @@ public class Everyplay : MonoBehaviour
     [Obsolete("Defining texture width is no longer required when FaceCamSetTargetTexture(Texture2D texture) is used.")]
     public static void FaceCamSetTargetTextureWidth(int textureWidth)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetTargetTextureWidth(textureWidth);
             #endif
         }
@@ -693,9 +783,9 @@ public class Everyplay : MonoBehaviour
     [Obsolete("Defining texture height is no longer required when FaceCamSetTargetTexture(Texture2D texture) is used.")]
     public static void FaceCamSetTargetTextureHeight(int textureHeight)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamSetTargetTextureHeight(textureHeight);
             #endif
         }
@@ -703,9 +793,9 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamStartSession()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamStartSession();
             #endif
         }
@@ -713,9 +803,9 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamRequestRecordingPermission()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamRequestRecordingPermission();
             #endif
         }
@@ -723,9 +813,9 @@ public class Everyplay : MonoBehaviour
 
     public static void FaceCamStopSession()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
             EveryplayFaceCamStopSession();
             #endif
         }
@@ -734,11 +824,11 @@ public class Everyplay : MonoBehaviour
     private static Texture2D currentThumbnailTargetTexture = null;
     public static void SetThumbnailTargetTexture(Texture2D texture)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
             currentThumbnailTargetTexture = texture;
 #if !UNITY_3_5
-            #if EVERYPLAY_IPHONE_ENABLED
+            #if EVERYPLAY_IPHONE_ENABLED || EVERYPLAY_OSX_ENABLED
             if (texture != null)
             {
                 EveryplaySetThumbnailTargetTexture(currentThumbnailTargetTexture.GetNativeTexturePtr());
@@ -768,9 +858,9 @@ public class Everyplay : MonoBehaviour
     [Obsolete("Use SetThumbnailTargetTexture(Texture2D texture) instead.")]
     public static void SetThumbnailTargetTextureId(int textureId)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplaySetThumbnailTargetTextureId(textureId);
             #endif
         }
@@ -779,9 +869,9 @@ public class Everyplay : MonoBehaviour
     [Obsolete("Defining texture width is no longer required when SetThumbnailTargetTexture(Texture2D texture) is used.")]
     public static void SetThumbnailTargetTextureWidth(int textureWidth)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplaySetThumbnailTargetTextureWidth(textureWidth);
             #endif
         }
@@ -790,9 +880,9 @@ public class Everyplay : MonoBehaviour
     [Obsolete("Defining texture height is no longer required when SetThumbnailTargetTexture(Texture2D texture) is used.")]
     public static void SetThumbnailTargetTextureHeight(int textureHeight)
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplaySetThumbnailTargetTextureHeight(textureHeight);
             #endif
         }
@@ -800,12 +890,21 @@ public class Everyplay : MonoBehaviour
 
     public static void TakeThumbnail()
     {
-        if (EveryplayInstance != null)
+        if (EveryplayInstance != null && hasMethods == true)
         {
-            #if EVERYPLAY_BINDINGS_ENABLED
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplayTakeThumbnail();
             #endif
         }
+    }
+
+    public static bool IsReadyForRecording()
+    {
+        if (EveryplayInstance != null && hasMethods == true)
+        {
+            return readyForRecording;
+        }
+        return false;
     }
 
     // Private static methods
@@ -826,6 +925,25 @@ public class Everyplay : MonoBehaviour
         UploadDidStart = null;
         UploadDidProgress = null;
         UploadDidComplete = null;
+    }
+
+    private static void Reset()
+    {
+#if EVERYPLAY_RESET_BINDINGS_ENABLED
+        try
+        {
+            if (seenInitialization)
+            {
+                ResetEveryplay();
+            }
+        }
+        catch (DllNotFoundException)
+        {
+        }
+        catch (EntryPointNotFoundException)
+        {
+        }
+#endif
     }
 
     private static void AddTestButtons(GameObject gameObject)
@@ -918,10 +1036,28 @@ public class Everyplay : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR && !(UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1)
+    [UnityEditor.Callbacks.DidReloadScripts]
+    private static void OnScriptsReloaded()
+    {
+        if (everyplayInstance != null)
+        {
+            everyplayInstance.OnApplicationQuit();
+        }
+        else
+        {
+            Reset();
+        }
+    }
+
+#endif
+
     // Monobehaviour methods
 
     void OnApplicationQuit()
     {
+        Reset();
+
         if (currentThumbnailTargetTexture != null)
         {
             SetThumbnailTargetTexture(null);
@@ -951,6 +1087,7 @@ public class Everyplay : MonoBehaviour
 
             if (EveryplayDictionaryExtensions.TryGetValue(dict, "enabled", out enabled))
             {
+                readyForRecording = enabled;
                 ReadyForRecording(enabled);
             }
         }
@@ -1097,174 +1234,193 @@ public class Everyplay : MonoBehaviour
 
     // Native calls
 
-    #if EVERYPLAY_IPHONE_ENABLED
+    #if EVERYPLAY_IPHONE_ENABLED || EVERYPLAY_TVOS_ENABLED || EVERYPLAY_OSX_ENABLED
 
-    [DllImport("__Internal")]
+    #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
+    [DllImport(nativeMethodSource)]
     public static extern void InitEveryplay(string clientId, string clientSecret, string redirectURI);
+    #endif
 
-    [DllImport("__Internal")]
+    #if EVERYPLAY_BINDINGS_ENABLED
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayShow();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayShowWithPath(string path);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayPlayVideoWithURL(string url);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayPlayVideoWithDictionary(string dic);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern string EveryplayAccountAccessToken();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayShowSharingModal();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
+    private static extern void EveryplayPlayLastRecording();
+    #endif
+
+    #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayStartRecording();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayStopRecording();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayPauseRecording();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayResumeRecording();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern bool EveryplayIsRecording();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern bool EveryplayIsRecordingSupported();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern bool EveryplayIsPaused();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern bool EveryplaySnapshotRenderbuffer();
 
-    [DllImport("__Internal")]
-    private static extern void EveryplayPlayLastRecording();
-
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetMetadata(string json);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetTargetFPS(int fps);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetMotionFactor(int factor);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetMaxRecordingMinutesLength(int minutes);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetLowMemoryDevice(bool state);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetDisableSingleCoreDevices(bool state);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern bool EveryplayIsSupported();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern bool EveryplayIsSingleCoreDevice();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern int EveryplayGetUserInterfaceIdiom();
+    #endif
 
-    [DllImport("__Internal")]
+    #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
+    [DllImport(nativeMethodSource)]
     private static extern bool EveryplayFaceCamIsVideoRecordingSupported();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern bool EveryplayFaceCamIsAudioRecordingSupported();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern bool EveryplayFaceCamIsHeadphonesPluggedIn();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern bool EveryplayFaceCamIsSessionRunning();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern bool EveryplayFaceCamIsRecordingPermissionGranted();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern float EveryplayFaceCamAudioPeakLevel();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern float EveryplayFaceCamAudioPowerLevel();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetMonitorAudioLevels(bool enabled);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
+    private static extern void EveryplayFaceCamSetRecordingMode(int mode);
+
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetAudioOnly(bool audioOnly);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetPreviewVisible(bool visible);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetPreviewScaleRetina(bool autoScale);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetPreviewSideWidth(int width);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetPreviewBorderWidth(int width);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetPreviewPositionX(int x);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetPreviewPositionY(int y);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetPreviewBorderColor(float r, float g, float b, float a);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetPreviewOrigin(int origin);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetTargetTexture(System.IntPtr texturePtr);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetTargetTextureId(int textureId);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetTargetTextureWidth(int textureWidth);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamSetTargetTextureHeight(int textureHeight);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamStartSession();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamRequestRecordingPermission();
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayFaceCamStopSession();
+    #endif
 
-    [DllImport("__Internal")]
+    #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetThumbnailTargetTexture(System.IntPtr texturePtr);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetThumbnailTargetTextureId(int textureId);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetThumbnailTargetTextureWidth(int textureWidth);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetThumbnailTargetTextureHeight(int textureHeight);
 
-    [DllImport("__Internal")]
+    [DllImport(nativeMethodSource)]
     private static extern void EveryplayTakeThumbnail();
+    #endif
+
+    #if EVERYPLAY_RESET_BINDINGS_ENABLED
+    [DllImport(nativeMethodSource)]
+    public static extern void ResetEveryplay();
+    #endif
 
     #elif EVERYPLAY_ANDROID_ENABLED
 
     private static AndroidJavaObject everyplayUnity;
 
+    #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
     public static void InitEveryplay(string clientId, string clientSecret, string redirectURI)
     {
         AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -1273,6 +1429,9 @@ public class Everyplay : MonoBehaviour
         everyplayUnity.Call("initEveryplay", activity, clientId, clientSecret, redirectURI);
     }
 
+    #endif
+
+    #if EVERYPLAY_BINDINGS_ENABLED
     public static void EveryplayShow()
     {
         everyplayUnity.Call<bool>("showEveryplay");
@@ -1303,6 +1462,14 @@ public class Everyplay : MonoBehaviour
         everyplayUnity.Call("showSharingModal");
     }
 
+    public static void EveryplayPlayLastRecording()
+    {
+        everyplayUnity.Call("playLastRecording");
+    }
+
+    #endif
+
+    #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
     public static void EveryplayStartRecording()
     {
         everyplayUnity.Call("startRecording");
@@ -1341,11 +1508,6 @@ public class Everyplay : MonoBehaviour
     public static bool EveryplaySnapshotRenderbuffer()
     {
         return everyplayUnity.Call<bool>("snapshotRenderbuffer");
-    }
-
-    public static void EveryplayPlayLastRecording()
-    {
-        everyplayUnity.Call("playLastRecording");
     }
 
     public static void EveryplaySetMetadata(string json)
@@ -1393,6 +1555,9 @@ public class Everyplay : MonoBehaviour
         return everyplayUnity.Call<int>("getUserInterfaceIdiom");
     }
 
+    #endif
+
+    #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
     public static bool EveryplayFaceCamIsVideoRecordingSupported()
     {
         return everyplayUnity.Call<bool>("faceCamIsVideoRecordingSupported");
@@ -1431,6 +1596,11 @@ public class Everyplay : MonoBehaviour
     public static void EveryplayFaceCamSetMonitorAudioLevels(bool enabled)
     {
         everyplayUnity.Call("faceCamSetSetMonitorAudioLevels", enabled);
+    }
+
+    public static void EveryplayFaceCamSetRecordingMode(int mode)
+    {
+        everyplayUnity.Call("faceCamSetRecordingMode", mode);
     }
 
     public static void EveryplayFaceCamSetAudioOnly(bool audioOnly)
@@ -1508,6 +1678,9 @@ public class Everyplay : MonoBehaviour
         everyplayUnity.Call("faceCamStopSession");
     }
 
+    #endif
+
+    #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
     public static void EveryplaySetThumbnailTargetTextureId(int textureId)
     {
         everyplayUnity.Call("setThumbnailTargetTextureId", textureId);
@@ -1529,4 +1702,43 @@ public class Everyplay : MonoBehaviour
     }
 
     #endif
+
+    #endif
 }
+
+#if UNITY_EDITOR
+[InitializeOnLoad]
+public class EveryplayEditor
+{
+    static EveryplayEditor()
+    {
+        EditorApplication.playmodeStateChanged = OnUnityPlayModeChanged;
+    }
+
+    private static void OnUnityPlayModeChanged()
+    {
+        if (EditorApplication.isPaused == true)
+        {
+            Everyplay.PauseRecording();
+        }
+        else if (EditorApplication.isPlaying == true)
+        {
+            Everyplay.ResumeRecording();
+        }
+    }
+}
+#endif
+
+#if UNITY_EDITOR || UNITY_STANDALONE_OSX
+public class EveryplaySendMessageDispatcher
+{
+    public static void Dispatch(string name, string method, string message)
+    {
+        GameObject obj = GameObject.Find(name);
+        if (obj != null)
+        {
+            obj.SendMessage(method, message);
+        }
+    }
+}
+#endif

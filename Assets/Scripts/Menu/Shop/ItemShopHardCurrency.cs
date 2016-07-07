@@ -137,7 +137,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 				Global.OrbsMultiplier = value;
 				Global.IsAdFree = true;
 				#if ADMOB_IMPLEMENTED
-				AdMobHelper.HideBanner();
+				AdsHelper.HideBannerAd();
 				#endif
 				if(showSuccessMessage)
 					Popup.ShowOk(Localization.Get("PURCHASE_SUCCESS"));

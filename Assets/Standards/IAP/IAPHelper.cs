@@ -171,7 +171,9 @@ public class IAPHelper : MonoBehaviour
 	{
 		if(Debug.isDebugBuild && (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor))
 		{
-			callback(IAPState.Failed, "Not supported on Unity. Please run into build");
+			if(callback != null)
+				callback(IAPState.Failed, "Not supported on Unity. Please run into build");
+			
 			return;
 		}
 

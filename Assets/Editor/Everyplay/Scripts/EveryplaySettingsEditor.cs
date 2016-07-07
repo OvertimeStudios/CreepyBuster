@@ -1,3 +1,7 @@
+#if !(UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7)
+#define UNITY_5_OR_LATER
+#endif
+
 using UnityEngine;
 using UnityEditor;
 using System;
@@ -10,19 +14,23 @@ public class EveryplaySettingsEditor : Editor
     public const string settingsFile = "EveryplaySettings";
     public const string settingsFileExtension = ".asset";
     public const string testButtonsResourceFile = "everyplay-test-buttons.png";
-    private const BuildTarget kBuildTargetIOS = (BuildTarget) 9; // Avoid automatic API updater dialog (iPhone -> iOS)
-    private const BuildTargetGroup kBuildTargetGroupIOS = (BuildTargetGroup) 4; // Avoid automatic API updater dialog (iPhone -> iOS)
 
     private static GUIContent labelClientId = new GUIContent("Client id");
     private static GUIContent labelClientSecret = new GUIContent("Client secret");
     private static GUIContent labelRedirectURI = new GUIContent("Redirect URI");
-    private static GUIContent labelIOsSupport = new GUIContent("iOS enabled [?]", "Check to enable Everyplay replay recording on iOS devices");
-    private static GUIContent labelAndroidSupport = new GUIContent("Android enabled [?]", "Check to enable Everyplay replay recording on Android devices");
+    private static GUIContent labelSupport_iOS = new GUIContent("iOS enabled [?]", "Check to enable Everyplay replay recording on iOS devices");
+    private static GUIContent labelSupport_tvOS = new GUIContent("tvOS enabled [?]", "Check to enable Everyplay replay recording on tvOS devices");
+    private static GUIContent labelSupport_Android = new GUIContent("Android enabled [?]", "Check to enable Everyplay replay recording on Android devices");
+    private static GUIContent labelSupport_Standalone = new GUIContent("Mac enabled [?]", "Check to enable Everyplay replay recording on Mac Unity Editor or Standalone player");
     private static GUIContent labelTestButtons = new GUIContent("Enable test buttons [?]", "Check to overlay easy-to-use buttons for testing Everyplay in your game");
+    private static GUIContent labelEarlyInitializer = new GUIContent("Enable early initializer [?]", "Initialize Everyplay automatically as early as possible");
     private EveryplaySettings currentSettings = null;
     private bool iosSupportEnabled;
+    private bool tvosSupportEnabled;
     private bool androidSupportEnabled;
+    private bool standaloneSupportEnabled;
     private bool testButtonsEnabled;
+    private bool earlyInitializerEnabled;
 
     [MenuItem("Edit/Everyplay Settings")]
     public static void ShowSettings()
@@ -54,7 +62,6 @@ public class EveryplaySettingsEditor : Editor
             }
 
             currentSettings = (EveryplaySettings) target;
-            bool showAndroidSettings = CheckForAndroidSDK();
 
             if (currentSettings != null)
             {
@@ -89,7 +96,7 @@ public class EveryplaySettingsEditor : Editor
                 bool validityChanged = currentSettings.IsValid != settingsValid;
                 bool selectedPlatformsChanged = false;
 
-                iosSupportEnabled = EditorGUILayout.Toggle(labelIOsSupport, currentSettings.iosSupportEnabled);
+                iosSupportEnabled = EditorGUILayout.Toggle(labelSupport_iOS, currentSettings.iosSupportEnabled);
 
                 if (iosSupportEnabled != currentSettings.iosSupportEnabled)
                 {
@@ -98,14 +105,38 @@ public class EveryplaySettingsEditor : Editor
                     EditorUtility.SetDirty(currentSettings);
                 }
 
-                if (showAndroidSettings)
+                if (CheckForSDK_tvOS())
                 {
-                    androidSupportEnabled = EditorGUILayout.Toggle(labelAndroidSupport, currentSettings.androidSupportEnabled);
+                    tvosSupportEnabled = EditorGUILayout.Toggle(labelSupport_tvOS, currentSettings.tvosSupportEnabled);
+
+                    if (tvosSupportEnabled != currentSettings.tvosSupportEnabled)
+                    {
+                        selectedPlatformsChanged = true;
+                        currentSettings.tvosSupportEnabled = tvosSupportEnabled;
+                        EditorUtility.SetDirty(currentSettings);
+                    }
+                }
+
+                if (CheckForSDK_Android())
+                {
+                    androidSupportEnabled = EditorGUILayout.Toggle(labelSupport_Android, currentSettings.androidSupportEnabled);
 
                     if (androidSupportEnabled != currentSettings.androidSupportEnabled)
                     {
                         selectedPlatformsChanged = true;
                         currentSettings.androidSupportEnabled = androidSupportEnabled;
+                        EditorUtility.SetDirty(currentSettings);
+                    }
+                }
+
+                if (CheckForSDK_Mac())
+                {
+                    standaloneSupportEnabled = EditorGUILayout.Toggle(labelSupport_Standalone, currentSettings.standaloneSupportEnabled);
+
+                    if (standaloneSupportEnabled != currentSettings.standaloneSupportEnabled)
+                    {
+                        selectedPlatformsChanged = true;
+                        currentSettings.standaloneSupportEnabled = standaloneSupportEnabled;
                         EditorUtility.SetDirty(currentSettings);
                     }
                 }
@@ -120,6 +151,12 @@ public class EveryplaySettingsEditor : Editor
                 EditorGUILayout.HelpBox("3) Try out Everyplay", MessageType.None);
 
                 EditorGUILayout.BeginVertical();
+                earlyInitializerEnabled = EditorGUILayout.Toggle(labelEarlyInitializer, currentSettings.earlyInitializerEnabled);
+                if (earlyInitializerEnabled != currentSettings.earlyInitializerEnabled)
+                {
+                    currentSettings.earlyInitializerEnabled = earlyInitializerEnabled;
+                    EditorUtility.SetDirty(currentSettings);
+                }
                 testButtonsEnabled = EditorGUILayout.Toggle(labelTestButtons, currentSettings.testButtonsEnabled);
                 if (testButtonsEnabled != currentSettings.testButtonsEnabled)
                 {
@@ -198,12 +235,33 @@ public class EveryplaySettingsEditor : Editor
         }
     }
 
-    public static bool CheckForAndroidSDK()
+    public static bool CheckForSDK_tvOS()
     {
-        if (System.IO.File.Exists(System.IO.Path.Combine(Application.dataPath, "Plugins/Android/everyplay/AndroidManifest.xml")) || System.IO.File.Exists(System.IO.Path.Combine(Application.dataPath, "Plugins/Android/Everyplay/AndroidManifest.xml")))
+        if (System.IO.Directory.Exists(System.IO.Path.Combine(Application.dataPath, "Plugins/Everyplay/tvOS")))
         {
             return true;
         }
+        return false;
+    }
+
+    public static bool CheckForSDK_Android()
+    {
+        if (System.IO.File.Exists(System.IO.Path.Combine(Application.dataPath, "Plugins/Android/everyplay/AndroidManifest.xml")) ||
+            System.IO.File.Exists(System.IO.Path.Combine(Application.dataPath, "Plugins/Android/Everyplay/AndroidManifest.xml")))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static bool CheckForSDK_Mac()
+    {
+#if UNITY_5_OR_LATER
+        if (System.IO.Directory.Exists(System.IO.Path.Combine(Application.dataPath, "Plugins/Everyplay/Mac")))
+        {
+            return true;
+        }
+#endif
         return false;
     }
 

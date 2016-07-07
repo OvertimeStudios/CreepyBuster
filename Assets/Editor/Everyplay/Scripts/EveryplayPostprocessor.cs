@@ -1,3 +1,7 @@
+#if !(UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7)
+#define UNITY_5_OR_LATER
+#endif
+
 using System;
 using System.IO;
 using System.Xml;
@@ -12,6 +16,30 @@ using Everyplay.XCodeEditor;
 
 public static class EveryplayPostprocessor
 {
+    private static string[] frameworkDependencies = new string[]
+    {
+#if UNITY_IPHONE || UNITY_TVOS
+        "Security",
+        "StoreKit",
+#endif
+#if UNITY_IPHONE
+        "AssetsLibrary",
+        "MessageUI",
+#endif
+    };
+
+    private static string[] weakFrameworkDependencies = new string[]
+    {
+#if UNITY_IPHONE || UNITY_TVOS
+        "CoreImage",
+#endif
+#if UNITY_IPHONE
+        "Social",
+        "Twitter",
+        "Accounts",
+#endif
+    };
+
     [PostProcessBuild(1080)]
     public static void OnPostProcessBuild(BuildTarget target, string path)
     {
@@ -19,11 +47,15 @@ public static class EveryplayPostprocessor
 
         if (settings != null)
         {
-            if (settings.IsEnabled)
+            if (settings.IsBuildTargetEnabled)
             {
                 if (settings.IsValid)
                 {
-                    if (target == kBuildTargetIOS)
+                    if (target == kBuildTarget_iOS)
+                    {
+                        PostProcessBuild_iOS(path, settings.clientId);
+                    }
+                    else if (target == kBuildTarget_tvOS)
                     {
                         PostProcessBuild_iOS(path, settings.clientId);
                     }
@@ -47,18 +79,18 @@ public static class EveryplayPostprocessor
     {
         EveryplayLegacyCleanup.Clean(false);
 
-        if (target == kBuildTargetIOS || target == BuildTarget.Android)
+        if (target == kBuildTarget_iOS || target == BuildTarget.Android)
         {
             ValidateAndUpdateFacebook();
 
-            if (target == kBuildTargetIOS)
+            if (target == kBuildTarget_iOS)
             {
                 FixUnityPlistAppendBug(path);
             }
         }
     }
 
-    #if (UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1  || UNITY_4_2 || UNITY_4_3 || UNITY_4_5 || UNITY_4_6)
+    #if !UNITY_5_OR_LATER
     [PostProcessScene]
     public static void OnPostprocessScene()
     {
@@ -66,7 +98,7 @@ public static class EveryplayPostprocessor
 
         if (settings != null)
         {
-            if (settings.IsValid && settings.IsEnabled)
+            if (settings.earlyInitializerEnabled && settings.IsValid && settings.IsEnabled)
             {
                 GameObject everyplayEarlyInitializer = new GameObject("EveryplayEarlyInitializer");
                 everyplayEarlyInitializer.AddComponent<EveryplayEarlyInitializer>();
@@ -79,7 +111,7 @@ public static class EveryplayPostprocessor
     private static void PostProcessBuild_iOS(string path, string clientId)
     {
         // Disable PluginImporter on iOS and use xCode editor instead
-        //#if (UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1  || UNITY_4_2 || UNITY_4_3 || UNITY_4_5 || UNITY_4_6)
+        //#if !UNITY_5_OR_LATER
         bool osxEditor = (Application.platform == RuntimePlatform.OSXEditor);
         CreateModFile(path, !osxEditor || !EditorUserBuildSettings.symlinkLibraries);
         CreateEveryplayConfig(path);
@@ -94,42 +126,52 @@ public static class EveryplayPostprocessor
 
     public static void SetPluginImportEnabled(BuildTarget buildTarget, bool enabled)
     {
-        #if !(UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_5 || UNITY_4_6)
+        #if UNITY_5_OR_LATER
         try
         {
             PluginImporter[] pluginImporters = PluginImporter.GetAllImporters();
+#if UNITY_TVOS
+            bool hasPlatform_tvOS = true;
+#else
+            bool hasPlatform_tvOS = false;
+#endif
 
             foreach (PluginImporter pluginImporter in pluginImporters)
             {
-                bool everyplayIosPluginImporter = pluginImporter.assetPath.Contains("Plugins/Everyplay/iOS");
-                bool everyplayAndroidPluginImporter = pluginImporter.assetPath.Contains("Plugins/Android/everyplay");
+                bool pluginImporter_iOS = pluginImporter.assetPath.Contains("Plugins/Everyplay/iOS");
+                bool pluginImporter_tvOS = pluginImporter.assetPath.Contains("Plugins/Everyplay/tvOS");
+                bool pluginImporter_Android = pluginImporter.assetPath.Contains("Plugins/Android/everyplay");
 
-                if (everyplayIosPluginImporter || everyplayAndroidPluginImporter)
+                if (pluginImporter_iOS ||
+                    pluginImporter_tvOS ||
+                    pluginImporter_Android)
                 {
                     pluginImporter.SetCompatibleWithAnyPlatform(false);
                     pluginImporter.SetCompatibleWithEditor(false);
 
-                    if ((buildTarget == kBuildTargetIOS) && everyplayIosPluginImporter)
+                    if (((buildTarget == kBuildTarget_iOS) && pluginImporter_iOS) ||
+                        ((buildTarget == kBuildTarget_tvOS && hasPlatform_tvOS) && pluginImporter_tvOS))
                     {
                         pluginImporter.SetCompatibleWithPlatform(buildTarget, enabled);
 
                         if (enabled)
                         {
-                            string frameworkDependencies = "AssetsLibrary;" +
-                                "MessageUI;" +
-                                "Security;" +
-                                "StoreKit;";
+                            string dependencies = "";
 
-                            string weakFrameworkDependencies = "Social;" +
-                                "CoreImage;" +
-                                "Twitter;" +
-                                "Accounts;";
+                            foreach (string framework in frameworkDependencies)
+                            {
+                                dependencies += framework + ";";
+                            }
+                            foreach (string framework in weakFrameworkDependencies)
+                            {
+                                dependencies += framework + ";";
+                            }
 
                             // Is there a way to make some dependencies weak in PluginImporter?
-                            pluginImporter.SetPlatformData(kBuildTargetIOS, "FrameworkDependencies", frameworkDependencies + weakFrameworkDependencies);
+                            pluginImporter.SetPlatformData(buildTarget, "FrameworkDependencies", dependencies);
                         }
                     }
-                    else if ((buildTarget == BuildTarget.Android) && everyplayAndroidPluginImporter)
+                    else if ((buildTarget == BuildTarget.Android) && pluginImporter_Android)
                     {
                         pluginImporter.SetCompatibleWithPlatform(buildTarget, enabled);
                     }
@@ -422,32 +464,46 @@ public static class EveryplayPostprocessor
         List<string> libs = new List<string>();
         List<string> librarysearchpaths = new List<string>();
         List<string> frameworksearchpaths = new List<string>();
+        List<string> frameworks = new List<string>();
+        List<string> headerpaths = new List<string>();
+        List<string> files = new List<string>();
+        List<string> folders = new List<string>();
+        List<string> excludes = new List<string>();
 
         string pluginsPath = Path.Combine(Application.dataPath, PathWithPlatformDirSeparators("Plugins/Everyplay/iOS"));
+#if UNITY_TVOS
+        string platformPluginsPath = Path.Combine(Application.dataPath, PathWithPlatformDirSeparators("Plugins/Everyplay/tvOS"));
+#else
+        string platformPluginsPath = pluginsPath;
+#endif
 
-        frameworksearchpaths.Add(copyDependencies ? "$(SRCROOT)/Everyplay" : MacPath(pluginsPath));
+        frameworksearchpaths.Add(copyDependencies ? "$(SRCROOT)/Everyplay" : MacPath(platformPluginsPath));
+        headerpaths.Add(copyDependencies ? "$(SRCROOT)/Everyplay" : MacPath(platformPluginsPath));
 
-        List<string> frameworks = new List<string>();
-        frameworks.Add("AssetsLibrary.framework");
-        frameworks.Add("CoreImage.framework:weak");
-        frameworks.Add("MessageUI.framework");
-        frameworks.Add("Security.framework");
-        frameworks.Add("Social.framework:weak");
-        frameworks.Add("StoreKit.framework");
-        frameworks.Add("Twitter.framework:weak");
-        frameworks.Add("Accounts.framework:weak");
+        foreach (string framework in frameworkDependencies)
+        {
+            frameworks.Add(framework + ".framework");
+        }
+        foreach (string framework in weakFrameworkDependencies)
+        {
+            frameworks.Add(framework + ".framework");
+        }
 
         List<string> dependencyList = new List<string>();
-        dependencyList.Add("Everyplay.framework");
-        dependencyList.Add("Everyplay.bundle");
         dependencyList.Add("EveryplayGlesSupport.h");
         dependencyList.Add("EveryplayGlesSupport.mm");
         dependencyList.Add("EveryplayUnity.h");
         dependencyList.Add("EveryplayUnity.mm");
 
-        string dependencyTargetPath = copyDependencies ? modPath : pluginsPath;
-        List<string> files = new List<string>();
+        List<string> platformDependencyList = new List<string>();
+#if UNITY_IPHONE
+        platformDependencyList.Add("Everyplay.framework");
+        platformDependencyList.Add("Everyplay.bundle");
+#else
+        platformDependencyList.Add("EveryplayCore.framework");
+#endif
 
+        string dependencyTargetPath = copyDependencies ? modPath : pluginsPath;
         foreach (string dependencyFile in dependencyList)
         {
             string targetFile = Path.Combine(dependencyTargetPath, dependencyFile);
@@ -475,14 +531,37 @@ public static class EveryplayPostprocessor
 
             files.Add(MacPath(targetFile));
         }
+        dependencyTargetPath = copyDependencies ? modPath : platformPluginsPath;
+        foreach (string dependencyFile in platformDependencyList)
+        {
+            string targetFile = Path.Combine(dependencyTargetPath, dependencyFile);
+
+            if (copyDependencies)
+            {
+                try
+                {
+                    string source = Path.Combine(platformPluginsPath, dependencyFile);
+
+                    if (Directory.Exists(source))
+                    {
+                        DirectoryCopy(source, targetFile);
+                    }
+                    else if (File.Exists(source))
+                    {
+                        File.Copy(source, targetFile);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("Unable to copy file or directory, " + e);
+                }
+            }
+
+            files.Add(MacPath(targetFile));
+        }
+
 
         files.Add(MacPath(System.IO.Path.Combine(modPath, "EveryplayConfig.h")));
-
-        List<string> headerpaths = new List<string>();
-        headerpaths.Add(copyDependencies ? "$(SRCROOT)/Everyplay" : MacPath(pluginsPath));
-
-        List<string> folders = new List<string>();
-        List<string> excludes = new List<string>();
 
         mod.Add("group", "Everyplay");
         mod.Add("patches", patches);
@@ -592,16 +671,26 @@ public static class EveryplayPostprocessor
     {
         string targetDefine = "";
 
-        if (target == kBuildTargetGroupIOS)
+        if (target == kBuildTargetGroup_iOS)
         {
             targetDefine = "EVERYPLAY_IPHONE";
             // Disable PluginImporter on iOS and use xCode editor instead
-            //SetPluginImportEnabled(kBuildTargetIOS, enabled);
+            SetPluginImportEnabled(kBuildTarget_iOS, false);
+        }
+        else if (target == kBuildTargetGroup_tvOS)
+        {
+            targetDefine = "EVERYPLAY_TVOS";
+            // Disable PluginImporter on tvOS and use xCode editor instead
+            SetPluginImportEnabled(kBuildTarget_tvOS, false);
         }
         else if (target == BuildTargetGroup.Android)
         {
             targetDefine = "EVERYPLAY_ANDROID";
             SetPluginImportEnabled(BuildTarget.Android, enabled);
+        }
+        else if (target == BuildTargetGroup.Standalone)
+        {
+            targetDefine = "EVERYPLAY_STANDALONE";
         }
 
         #if UNITY_3_5
@@ -614,19 +703,32 @@ public static class EveryplayPostprocessor
 
     public static void ValidateEveryplayState(EveryplaySettings settings)
     {
+        bool isValid = false;
+
         if (settings != null && settings.IsValid)
         {
-            EveryplayPostprocessor.SetEveryplayEnabledForTarget(kBuildTargetGroupIOS, settings.iosSupportEnabled);
-            EveryplayPostprocessor.SetEveryplayEnabledForTarget(BuildTargetGroup.Android, settings.androidSupportEnabled);
-        }
-        else
-        {
-            EveryplayPostprocessor.SetEveryplayEnabledForTarget(kBuildTargetGroupIOS, false);
-            EveryplayPostprocessor.SetEveryplayEnabledForTarget(BuildTargetGroup.Android, false);
+            isValid = true;
         }
 
-        // Disable PluginImporter on iOS and use xCode editor instead
-        SetPluginImportEnabled(kBuildTargetIOS, false);
+        foreach (BuildTargetGroup target in System.Enum.GetValues(typeof(BuildTargetGroup)))
+        {
+            if (target == kBuildTargetGroup_iOS)
+            {
+                EveryplayPostprocessor.SetEveryplayEnabledForTarget(kBuildTargetGroup_iOS, isValid ? settings.iosSupportEnabled : false);
+            }
+            else if (target == kBuildTargetGroup_tvOS)
+            {
+                EveryplayPostprocessor.SetEveryplayEnabledForTarget(kBuildTargetGroup_tvOS, isValid ? settings.tvosSupportEnabled : false);
+            }
+            else if (target == BuildTargetGroup.Android)
+            {
+                EveryplayPostprocessor.SetEveryplayEnabledForTarget(BuildTargetGroup.Android, isValid ? settings.androidSupportEnabled : false);
+            }
+            else if (target == BuildTargetGroup.Standalone)
+            {
+                EveryplayPostprocessor.SetEveryplayEnabledForTarget(BuildTargetGroup.Standalone, isValid ? settings.standaloneSupportEnabled : false);
+            }
+        }
     }
 
     private static void SetScriptingDefineSymbolForTarget(BuildTargetGroup target, string targetDefine, bool enabled)
@@ -728,9 +830,19 @@ public static class EveryplayPostprocessor
 
     public static void ValidateAndUpdateFacebook()
     {
+        bool usingFB7Plus = false;
+
         try
         {
-            Type facebookSettingsType = Type.GetType("FBSettings,Assembly-CSharp", false, true);
+            Type facebookSettingsType = Type.GetType("Facebook.Unity.FacebookSettings,Assembly-CSharp", false, true);
+            if (facebookSettingsType != null)
+            {
+                usingFB7Plus = true;
+            }
+            else
+            {
+                facebookSettingsType = Type.GetType("FBSettings,Assembly-CSharp", false, true);
+            }
 
             if (facebookSettingsType != null)
             {
@@ -772,8 +884,20 @@ public static class EveryplayPostprocessor
 
                     if (facebookSettings != null)
                     {
-                        string[] currentAppIds = (string[]) getAppIds.Invoke(facebookSettings, null);
-                        string[] currentAppLabels = (string[]) getAppLabels.Invoke(facebookSettings, null);
+                        List<string> currentAppIds;
+                        List<string> currentAppLabels;
+
+                        if (usingFB7Plus)
+                        {
+                            currentAppIds = (List<string>)getAppIds.Invoke(facebookSettings, null);
+                            currentAppLabels = (List<string>)getAppLabels.Invoke(facebookSettings, null);
+                        }
+                        else
+                        {
+                            currentAppIds = new List<string>((string[]) getAppIds.Invoke(facebookSettings, null));
+                            currentAppLabels = new List<string>((string[]) getAppLabels.Invoke(facebookSettings, null));
+                        }
+
 
                         if (currentAppIds != null && currentAppLabels != null)
                         {
@@ -783,7 +907,7 @@ public static class EveryplayPostprocessor
                             List<string> appLabelList = new List<string>();
                             List<string> appIdList = new List<string>();
 
-                            for (int i = 0; i < Mathf.Min(currentAppIds.Length, currentAppLabels.Length); i++)
+                            for (int i = 0; i < Mathf.Min(currentAppIds.Count, currentAppLabels.Count); i++)
                             {
                                 // Skip invalid items
                                 bool shouldSkipItem = (currentAppIds[i] == null || currentAppIds[i].Trim().Length < 1 || currentAppIds[i].Trim().Equals("0") || currentAppLabels[i] == null);
@@ -828,10 +952,18 @@ public static class EveryplayPostprocessor
 
                             if (updated)
                             {
-                                object[] setAppLabelsObjs = { appLabelList.ToArray() };
-                                setAppLabels.Invoke(facebookSettings, setAppLabelsObjs);
-                                object[] setAppIdsObjs = { appIdList.ToArray() };
-                                setAppIds.Invoke(facebookSettings, setAppIdsObjs);
+                                if (usingFB7Plus)
+                                {
+                                    setAppLabels.Invoke(facebookSettings, new object[] {appLabelList});
+                                    setAppIds.Invoke(facebookSettings, new object[] {appIdList});
+                                }
+                                else
+                                {
+                                    object[] setAppLabelsObjs = { appLabelList.ToArray() };
+                                    setAppLabels.Invoke(facebookSettings, setAppLabelsObjs);
+                                    object[] setAppIdsObjs = { appIdList.ToArray() };
+                                    setAppIds.Invoke(facebookSettings, setAppIdsObjs);
+                                }
                             }
                         }
                     }
@@ -839,7 +971,7 @@ public static class EveryplayPostprocessor
             }
             else
             {
-                Debug.Log("To use the Facebook native login with Everyplay, please import Facebook SDK for Unity.");
+                //Debug.Log("To use the Facebook native login with Everyplay, please import Facebook SDK for Unity.");
             }
         }
         catch (Exception e)
@@ -905,6 +1037,9 @@ public static class EveryplayPostprocessor
     private const string UrlSchemePrefixFB = "fb182473845211109ep";
     private const string UrlSchemePrefixEP = "ep";
 
-    private const BuildTarget kBuildTargetIOS = (BuildTarget) 9; // Avoid automatic API updater dialog (iPhone -> iOS)
-    private const BuildTargetGroup kBuildTargetGroupIOS = (BuildTargetGroup) 4; // Avoid automatic API updater dialog (iPhone -> iOS)
+    private const BuildTarget kBuildTarget_iOS = (BuildTarget) 9; // Avoid automatic API updater dialog (iPhone -> iOS)
+    private const BuildTargetGroup kBuildTargetGroup_iOS = (BuildTargetGroup) 4; // Avoid automatic API updater dialog (iPhone -> iOS)
+
+    private const BuildTarget kBuildTarget_tvOS = (BuildTarget) 37;
+    private const BuildTargetGroup kBuildTargetGroup_tvOS = (BuildTargetGroup) 25;
 }

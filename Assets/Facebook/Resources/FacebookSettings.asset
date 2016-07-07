@@ -14,8 +14,10 @@ MonoBehaviour:
   selectedAppIndex: 0
   appIds:
   - 1651598391785079
+  - 182473845211109
   appLabels:
   - Creepy Buster
+  - Everyplay
   cookie: 1
   logging: 1
   status: 1

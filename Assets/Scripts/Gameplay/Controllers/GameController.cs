@@ -618,9 +618,9 @@ public class GameController : MonoBehaviour
 
 		Debug.Log("ShowContinueScreen()");
 
-		#if UNITYADS_IMPLEMENTED
-		Debug.Log(string.Format("UnityAdsHelper.IsReady({0})? {1}",UnityAdsHelper.REWARDED_VIDEO, UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO)));
-		if (continues == 0 && UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
+		#if ADMOB_IMPLEMENTED
+		Debug.Log(string.Format("AdsHelper.IsRewardedVideoReady? {0}",AdsHelper.IsRewardedVideoReady));
+		if (continues == 0 && AdsHelper.IsRewardedVideoReady)
 			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), ShowAdToContinue, ShowEndScreen, false);
 		else
 		{
@@ -635,7 +635,7 @@ public class GameController : MonoBehaviour
 			else
 				Popup.ShowOk(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get ("NOT_ENOUGH_ORBS"), ShowEndScreen);
 			#endif
-		#if UNITYADS_IMPLEMENTED
+		#if ADMOB_IMPLEMENTED
 		}
 		#endif
 
@@ -645,7 +645,7 @@ public class GameController : MonoBehaviour
 
 	private void ShowAdToContinue()
 	{
-		UnityAdsHelper.ShowRewardedAd(ContinuePlaying);
+		AdsHelper.ShowRewardedAd(ContinuePlaying);
 	}
 
 	private void ShowEndScreen()

@@ -7,12 +7,17 @@ public class AdMobController : MonoBehaviour
 	void OnEnable()
 	{
 		if(!Global.IsAdFree)
-			MenuController.OnPanelOpened += AdMobHelper.ShowBanner;
+			MenuController.OnPanelOpened += AdsHelper.ShowBannerAd;
 	}
 
 	void OnDisable()
 	{
-		MenuController.OnPanelOpened -= AdMobHelper.ShowBanner;
+		MenuController.OnPanelOpened -= AdsHelper.ShowBannerAd;
+	}
+
+	void OnDestroy()
+	{
+		MenuController.OnPanelOpened -= AdsHelper.ShowBannerAd;
 	}
 	#endif
 }
