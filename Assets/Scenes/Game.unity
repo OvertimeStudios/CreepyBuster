@@ -1750,7 +1750,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 12
+  m_RootOrder: 11
 --- !u!114 &36624595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2394,7 +2394,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 15
+  m_RootOrder: 14
 --- !u!114 &48780595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4956,7 +4956,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 17
+  m_RootOrder: 16
 --- !u!114 &151972534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9434,7 +9434,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 13
+  m_RootOrder: 12
 --- !u!114 &325961667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11086,7 +11086,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!114 &383391046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15388,7 +15388,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 14
+  m_RootOrder: 13
 --- !u!114 &500471183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17759,54 +17759,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &579353646
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 579353647}
-  - 114: {fileID: 579353648}
-  m_Layer: 0
-  m_Name: AdMobHelper
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &579353647
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 579353646}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 1913536882}
-  m_RootOrder: 10
---- !u!114 &579353648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 579353646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02d444488210140dfb3528dcf5240cf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTest: 1
-  testDeviceIDs:
-  - 4435454642453430304531433544343441463246353134443643433938353244
-  - 4230303038363330324435424339384431423246464344423944413742313331
-  - 4335353342353831413234454143413944464441364145453738393543383342
-  - 3243374134414235434443464635323432303844413242313532324143384535
-  - 4642453841344637423937363634304536433438423844314137354346413545
-  preloadBanner: 1
 --- !u!1 &581810157
 GameObject:
   m_ObjectHideFlags: 0
@@ -18513,7 +18465,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 19
+  m_RootOrder: 18
 --- !u!114 &610759571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25895,7 +25847,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 16
+  m_RootOrder: 15
 --- !u!114 &851351769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44851,6 +44803,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: testDevices.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 466906, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -44882,6 +44838,38 @@ Prefab:
     - target: {fileID: 466906, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: interstitialAndroid
+      value: ca-app-pub-7220323901199576/3029881240
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: rewardedVideoAndroid
+      value: ca-app-pub-7220323901199576/4925416842
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: interstitialIOS
+      value: ca-app-pub-7220323901199576/4646215241
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: rewardedVideoIOS
+      value: ca-app-pub-7220323901199576/9424825240
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: testDevices.Array.data[0].name
+      value: Jota iPhone 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: testDevices.Array.data[0].id
+      value: 0220248d3858c694c90aeb580006dc8a
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: bannerAndroid
+      value: ca-app-pub-7220323901199576/7752360046
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: bannerIOS
+      value: ca-app-pub-7220323901199576/3808610440
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
@@ -50317,7 +50305,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1913536882}
-  m_RootOrder: 18
+  m_RootOrder: 17
 --- !u!114 &1700865735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57654,7 +57642,6 @@ Transform:
   - {fileID: 1799130763}
   - {fileID: 1393580362}
   - {fileID: 682680332}
-  - {fileID: 579353647}
   - {fileID: 383391045}
   - {fileID: 36624594}
   - {fileID: 325961666}

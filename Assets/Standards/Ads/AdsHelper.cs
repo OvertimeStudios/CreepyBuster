@@ -4,14 +4,24 @@ using System.Collections;
 
 public class AdsHelper : MonoBehaviour 
 {
-	public static bool IsBannerReady
+	public enum AdSize
 	{
-		get
-		{
-			return false;
-		}
+		Banner,
+		MediumRectangle,
+		IABBanner,
+		Leaderboard,
+		SmartBanner,
 	}
 
+	public enum AdPosition
+	{
+		Bottom,
+		BottomLeft,
+		BottomRight,
+		Top,
+		TopLeft,
+		TopRight,
+	}
 
 	public static bool IsInterstitialReady
 	{
@@ -51,14 +61,14 @@ public class AdsHelper : MonoBehaviour
 		}
 	}
 
-	public static void ShowBannerAd()
+	public static void ShowBannerAd(AdsHelper.AdSize adSize, AdsHelper.AdPosition adPosition)
 	{
-
+		AdMobHelper.ShowBanner(adSize, adPosition);
 	}
 
 	public static void HideBannerAd()
 	{
-
+		AdMobHelper.HideBanner();
 	}
 
 	public static void ShowInstertitialAd()

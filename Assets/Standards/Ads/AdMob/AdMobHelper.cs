@@ -14,6 +14,12 @@ public class AdMobHelper : MonoBehaviour
 
 	public float timeout = 5f;
 
+	[Header("Banner")]
+	public string bannerAndroid;
+	public string bannerIOS;
+	private static AdsHelper.AdSize _adSize;
+	private static AdsHelper.AdPosition _adPosition;
+
 	[Header("Interstitial")]
 	public string interstitialAndroid;
 	public string interstitialIOS;
@@ -27,6 +33,7 @@ public class AdMobHelper : MonoBehaviour
 	#if ADMOB_IMPLEMENTED
 	private static RewardBasedVideoAd rewardBasedVideo;
 	private static InterstitialAd interstitial;
+	private static BannerView bannerView;
 	#endif
 
 	#region singleton
@@ -37,7 +44,7 @@ public class AdMobHelper : MonoBehaviour
 		{
 			if(instance == null)
 				instance = GameObject.FindObjectOfType<AdMobHelper>();
-
+			
 			return instance;
 		}
 	}
@@ -65,6 +72,15 @@ public class AdMobHelper : MonoBehaviour
 			interstitial.OnAdOpening += HandleOnInterstitialOpened;
 			interstitial.OnAdClosed += HandleOnInterstitialClosed;
 			interstitial.OnAdLeavingApplication += HandleOnInterstitialLeavingApplication;
+		}
+
+		if(bannerView != null)
+		{
+			bannerView.OnAdLoaded -= HandleOnBannerLoaded;
+			bannerView.OnAdFailedToLoad -= HandleOnBannerFailedToLoad;
+			bannerView.OnAdOpening -= HandleOnBannerOpened;
+			bannerView.OnAdClosed -= HandleOnBannerClosed;
+			bannerView.OnAdLeavingApplication -= HandleOnBannerLeavingApplication;
 		}
 		#endif
 	}
@@ -123,6 +139,154 @@ public class AdMobHelper : MonoBehaviour
 
 		#endif
 	}
+
+	#region BANNER
+	public static void ShowBanner(AdsHelper.AdSize adSize, AdsHelper.AdPosition adPosition)
+	{
+		Debug.Log("Show Banner Ad");
+		#if ADMOB_IMPLEMENTED
+		//if we already created it we could just show it
+		if(bannerView != null)
+			bannerView.Show();
+		else//create a new one
+		{
+			_adSize = adSize;
+			_adPosition = adPosition;
+
+			CreateBannerRequest();
+		}
+
+		#endif
+	}
+
+	public static void HideBanner()
+	{
+		#if ADMOB_IMPLEMENTED
+		bannerView.Hide();
+		#endif
+	}
+
+	private static void CreateBannerRequest()
+	{
+		#if ADMOB_IMPLEMENTED
+
+		#if UNITY_ANDROID
+		string adUnitId = Instance.bannerAndroid;
+		#elif UNITY_IPHONE
+		string adUnitId = Instance.bannerIOS;
+		#else
+		string adUnitId = "unexpected_platform";
+		#endif
+
+		// Create a 320x50 banner at the top of the screen.
+		bannerView = new BannerView(adUnitId, GetGoogleAPIAdSize(_adSize), (GoogleMobileAds.Api.AdPosition)System.Enum.Parse(typeof(GoogleMobileAds.Api.AdPosition), _adPosition.ToString()));
+		// Create an) empty ad request.
+		AdRequest.Builder request = new AdRequest.Builder();
+
+		//add test devices
+		foreach(DeviceID device in Instance.testDevices)
+			request.AddTestDevice(device.id);
+		
+		// Load the banner with the request.
+		bannerView.LoadAd(request.Build());
+
+		// Called when an ad request has successfully loaded.
+		bannerView.OnAdLoaded += HandleOnBannerLoaded;
+		// Called when an ad request failed to load.
+		bannerView.OnAdFailedToLoad += HandleOnBannerFailedToLoad;
+		// Called when an ad is clicked.
+		bannerView.OnAdOpening += HandleOnBannerOpened;
+		// Called when the user returned from the app after an ad click.
+		bannerView.OnAdClosed += HandleOnBannerClosed;
+		// Called when the ad click caused the user to leave the application.
+		bannerView.OnAdLeavingApplication += HandleOnBannerLeavingApplication;
+		#endif
+	}
+
+	#if ADMOB_IMPLEMENTED
+	private static GoogleMobileAds.Api.AdSize GetGoogleAPIAdSize(AdsHelper.AdSize adSize)
+	{
+		GoogleMobileAds.Api.AdSize googleAdSize = null;
+
+		switch(adSize)
+		{
+			case AdsHelper.AdSize.Banner:
+				googleAdSize = GoogleMobileAds.Api.AdSize.Banner;
+				break;
+
+			case AdsHelper.AdSize.IABBanner:
+				googleAdSize = GoogleMobileAds.Api.AdSize.IABBanner;
+				break;
+
+			case AdsHelper.AdSize.Leaderboard:
+				googleAdSize = GoogleMobileAds.Api.AdSize.Leaderboard;
+				break;
+
+			case AdsHelper.AdSize.MediumRectangle:
+				googleAdSize = GoogleMobileAds.Api.AdSize.MediumRectangle;
+				break;
+
+			case AdsHelper.AdSize.SmartBanner:
+				googleAdSize = GoogleMobileAds.Api.AdSize.SmartBanner;
+				break;
+		}
+		return googleAdSize;
+	}
+
+	private static void HandleOnBannerLoaded(object sender, EventArgs e)
+	{
+		#if ADMOB_IMPLEMENTED
+		Debug.Log("Rewarded Video Loaded Successfully");
+		#endif
+	}
+
+	#if ADMOB_IMPLEMENTED
+	private static void HandleOnBannerFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+	{
+
+		Debug.Log("Rewarded Video Failed to load: " + args.Message);
+		// Handle the ad failed to load event.
+
+		Instance.StartCoroutine(WaitAndCreateInterstitialRequest(Instance.timeout));
+
+	}
+	#endif
+
+	private static IEnumerator WaitAndCreateBannerRequest(float waitTime)
+	{
+		#if ADMOB_IMPLEMENTED
+		yield return new WaitForSeconds(waitTime);
+
+		CreateBannerRequest();
+		#else
+		yield return null;
+		#endif
+	}
+
+	private static void HandleOnBannerOpened(object sender, EventArgs e)
+	{
+		#if ADMOB_IMPLEMENTED
+			Debug.Log("Rewarded Video Opened");
+		#endif
+	}
+
+	private static void HandleOnBannerClosed(object sender, EventArgs e)
+	{
+		#if ADMOB_IMPLEMENTED
+			Debug.Log("Rewarded Video Closed");
+			CreateInterstitialRequest();
+		#endif
+	}
+
+	private static void HandleOnBannerLeavingApplication(object sender, EventArgs e)
+	{
+		#if ADMOB_IMPLEMENTED
+			Debug.Log("Rewarded Video Left Application");
+		#endif
+	}
+
+	#endif
+	#endregion
 
 	#region INTERSTITIAL
 	public static bool IsInterstitialReady
