@@ -19,6 +19,22 @@ public class GameCenterController : MonoBehaviour
 	public static int playerFriendsPosition;
 	private static bool isSearchingPlayerFriendsPosition = false;
 
+	public string leaderboardID;
+
+	#region singleton
+	private static GameCenterController instance;
+	public static GameCenterController Instance
+	{
+		get
+		{
+			if(instance == null)
+				instance = GameObject.FindObjectOfType<GameCenterController>();
+
+			return instance;
+		}
+	}
+	#endregion
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -63,7 +79,7 @@ public class GameCenterController : MonoBehaviour
 
 			GameCenterManager.scoresLoadedEvent += OnPlayerGlobalScoresLoaded;
 			GameCenterManager.retrieveScoresFailedEvent += OnPlayerGlobalScoresFailed;
-			GameCenterBinding.retrieveScores(false, GameCenterLeaderboardTimeScope.AllTime, 1, 1);
+			GameCenterBinding.retrieveScores(false, GameCenterLeaderboardTimeScope.AllTime, 1, 1, Instance.leaderboardID);
 
 			while(isSearchingPlayerGlobalPosition)
 				yield return null;
@@ -95,6 +111,8 @@ public class GameCenterController : MonoBehaviour
 		playerGlobalPosition = 0;
 
 		isSearchingPlayerGlobalPosition = false;
+
+		Debug.Log("Error on Global Score: " + errmsg);
 	}
 
 	public static IEnumerator GetPlayerFriendsPosition(System.Action<int> result)
@@ -102,14 +120,17 @@ public class GameCenterController : MonoBehaviour
 		#if GAMECENTER_IMPLEMENTED
 		if(GameCenterBinding.isPlayerAuthenticated())
 		{
+			Debug.Log("GameCenterController.GetPlayerFriendsPosition");
 			isSearchingPlayerFriendsPosition = true;
 
 			GameCenterManager.scoresLoadedEvent += OnPlayerFriendsScoresLoaded;
 			GameCenterManager.retrieveScoresFailedEvent += OnPlayerFriendsScoresFailed;
-			GameCenterBinding.retrieveScores(true, GameCenterLeaderboardTimeScope.AllTime, 1, 1);
+			GameCenterBinding.retrieveScores(true, GameCenterLeaderboardTimeScope.AllTime, 1, 1, Instance.leaderboardID);
 
 			while(isSearchingPlayerFriendsPosition)
 				yield return null;
+
+			Debug.Log("Finish search");
 
 			GameCenterManager.scoresLoadedEvent -= OnPlayerFriendsScoresLoaded;
 			GameCenterManager.retrieveScoresFailedEvent -= OnPlayerFriendsScoresFailed;
@@ -128,14 +149,16 @@ public class GameCenterController : MonoBehaviour
 	private static void OnPlayerFriendsScoresLoaded(GameCenterRetrieveScoresResult result)
 	{
 		playerFriendsPosition = result.scores[0].rank;
-		isSearchingPlayerGlobalPosition = false;
+		isSearchingPlayerFriendsPosition = false;
 	}
 
 	private static void OnPlayerFriendsScoresFailed(string errmsg)
 	{
 		playerGlobalPosition = 0;
 
-		isSearchingPlayerGlobalPosition = false;
+		isSearchingPlayerFriendsPosition = false;
+
+		Debug.Log("Error on Friends Score: " + errmsg);
 	}
 
 	public static void ShowLeaderboards()

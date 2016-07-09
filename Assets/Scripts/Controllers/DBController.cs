@@ -51,10 +51,11 @@ public class DBController : MonoBehaviour
 		#endregion
 
 		#region Update Game Score
-		if(DBHandler.User.score > Global.HighScore)
+		//TODO: retrieve from cloud save
+		/*if(DBHandler.User.score > Global.HighScore)
 			Global.HighScore = (int)DBHandler.User.score;
 		else if(Global.HighScore > DBHandler.User.score)
-			yield return StartCoroutine(DBHandler.UpdateUserScore(DBHandler.User.id, (float)Global.HighScore));
+			yield return StartCoroutine(DBHandler.UpdateUserScore(DBHandler.User.id, (float)Global.HighScore));*/
 		#endregion
 
 		FacebookController.User.score = Global.HighScore;

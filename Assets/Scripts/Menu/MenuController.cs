@@ -154,7 +154,7 @@ public class MenuController : MonoBehaviour
 
 	private void SendFirstScore()
 	{
-		GameCenterController.SendScore(0, GameController.Instance.scoreLeaderboardID);
+		GameCenterController.SendScore(0, GameCenterController.Instance.leaderboardID);
 	}
 
 	// Use this for initialization

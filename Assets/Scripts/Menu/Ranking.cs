@@ -88,7 +88,7 @@ public class Ranking : MonoBehaviour
 		int rank = 0;
 		yield return StartCoroutine(GameCenterController.GetPlayerFriendsPosition(value => rank = value));
 
-		worldRank.text = (rank <= 0) ? "Fail to load rank" : "# " + rank;
+		friendsRank.text = (rank <= 0) ? "Fail to load rank" : "# " + rank;
 	}
 
 	//old methods

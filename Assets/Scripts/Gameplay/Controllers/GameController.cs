@@ -76,8 +76,6 @@ public class GameController : MonoBehaviour
 	public float timeInvencibleAfterContinue = 5f;
 	public float timeFrozen = 5f;
 
-	public string scoreLeaderboardID;
-
 	#region game stats
 	private static int creepsKilled;
 
@@ -545,7 +543,7 @@ public class GameController : MonoBehaviour
 
 			#if GAMECENTER_IMPLEMENTED
 			if(GameCenterController.IsPlayerAuthenticated())
-				GameCenterController.SendScore(Global.HighScore, scoreLeaderboardID);
+				GameCenterController.SendScore(Global.HighScore, GameCenterController.Instance.leaderboardID);
 			#endif
 		}
 		

@@ -181,7 +181,8 @@ public class FacebookController : MonoBehaviour
 
 			Global.FacebookID = fbUser.id;
 
-			FacebookHelper.GetFacebookFriends(FetchUserFriendsCallback);
+			//no more need. Friends are handled via game center
+			//FacebookHelper.GetFacebookFriends(FetchUserFriendsCallback);
 		}
 	}
 
