@@ -688,7 +688,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 13799401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -727,13 +727,9 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mSprite: {fileID: 21300000, guid: 07f9ec8ed79cb407c9d6f5f33a8a0ff4, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 0}
-  mFixedAspect: 0
-  mPixelSize: 1
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11425342, guid: baa5f4663857540fc93989c812a0343e, type: 2}
+  mSpriteName: background popup
+  mFillCenter: 1
 --- !u!1 &14390124
 GameObject:
   m_ObjectHideFlags: 0
@@ -4483,6 +4479,46 @@ MonoBehaviour:
   from: {x: -117, y: 1, z: 0}
   to: {x: -140, y: 1, z: 0}
   worldSpace: 0
+--- !u!1 &142165480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 142165481}
+  - 114: {fileID: 142165482}
+  m_Layer: 0
+  m_Name: GameCenterController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &142165481
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 142165480}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1913536882}
+  m_RootOrder: 19
+--- !u!114 &142165482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 142165480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be3122380dce44f8b2f0baf5b96e91f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &143844270
 GameObject:
   m_ObjectHideFlags: 0
@@ -4845,8 +4881,8 @@ MonoBehaviour:
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick:
-  - mTarget: {fileID: 682680333}
-    mMethodName: Login
+  - mTarget: {fileID: 2066370704}
+    mMethodName: AuthenticatePlayer
     mParameters: []
     oneShot: 0
 --- !u!1 &146170816
@@ -6176,6 +6212,10 @@ Prefab:
     - target: {fileID: 11461188, guid: 707aa35b904b54b26890adfcaa7f2108, type: 2}
       propertyPath: pointsPerOrb
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11461188, guid: 707aa35b904b54b26890adfcaa7f2108, type: 2}
+      propertyPath: scoreLeaderboardID
+      value: com.overtimestudios.creepybuster.leaderboardscore
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 707aa35b904b54b26890adfcaa7f2108, type: 2}
@@ -8464,7 +8504,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 290345367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -8503,13 +8543,9 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mSprite: {fileID: 21300000, guid: 07f9ec8ed79cb407c9d6f5f33a8a0ff4, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 0}
-  mFixedAspect: 0
-  mPixelSize: 1
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11425342, guid: baa5f4663857540fc93989c812a0343e, type: 2}
+  mSpriteName: background popup
+  mFillCenter: 1
 --- !u!4 &295505029 stripped
 Transform:
   m_PrefabParentObject: {fileID: 426290, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
@@ -11523,7 +11559,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 404113802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -11562,13 +11598,9 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mSprite: {fileID: 21300000, guid: 74eadabc7ec564ad6a9d3af61d257145, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 0}
-  mFixedAspect: 0
-  mPixelSize: 1
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11425342, guid: baa5f4663857540fc93989c812a0343e, type: 2}
+  mSpriteName: background main
+  mFillCenter: 1
 --- !u!1 &405762780
 GameObject:
   m_ObjectHideFlags: 0
@@ -11768,7 +11800,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 406661580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -11807,13 +11839,9 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mSprite: {fileID: 21300000, guid: 07f9ec8ed79cb407c9d6f5f33a8a0ff4, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 0}
-  mFixedAspect: 0
-  mPixelSize: 1
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11425342, guid: baa5f4663857540fc93989c812a0343e, type: 2}
+  mSpriteName: background popup
+  mFillCenter: 1
 --- !u!1 &409433198
 GameObject:
   m_ObjectHideFlags: 0
@@ -13679,7 +13707,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3088
+  startingRenderQueue: 3100
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -22273,7 +22301,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3086
+  startingRenderQueue: 3100
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -42468,7 +42496,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1479379086}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -42507,13 +42535,9 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mSprite: {fileID: 21300000, guid: 07f9ec8ed79cb407c9d6f5f33a8a0ff4, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 0}
-  mFixedAspect: 0
-  mPixelSize: 1
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11425342, guid: baa5f4663857540fc93989c812a0343e, type: 2}
+  mSpriteName: background popup
+  mFillCenter: 1
 --- !u!1 &1481048372
 GameObject:
   m_ObjectHideFlags: 0
@@ -44805,7 +44829,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: testDevices.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 466906, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: m_LocalPosition.x
@@ -44870,6 +44894,14 @@ Prefab:
     - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: bannerIOS
       value: ca-app-pub-7220323901199576/3808610440
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: testDevices.Array.data[1].name
+      value: Overtime iPhone 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: testDevices.Array.data[1].id
+      value: c282162b04698f1cbd6450e3e7c7d51a
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
@@ -50769,7 +50801,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1719973193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 362.4, z: 0}
+  m_LocalPosition: {x: 0, y: 362.8, z: 0}
   m_LocalScale: {x: 0.72, y: 0.70763934, z: 0.70763934}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -50783,7 +50815,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1719973193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -50822,13 +50854,9 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mSprite: {fileID: 21300000, guid: 31d8751ae058348538d4df0a92ca90a6, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 566}
-  mFixedAspect: 0
-  mPixelSize: 1
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11425342, guid: baa5f4663857540fc93989c812a0343e, type: 2}
+  mSpriteName: background slide
+  mFillCenter: 1
 --- !u!1 &1721398832
 GameObject:
   m_ObjectHideFlags: 0
@@ -52920,8 +52948,8 @@ MonoBehaviour:
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick:
-  - mTarget: {fileID: 682680333}
-    mMethodName: Login
+  - mTarget: {fileID: 2066370704}
+    mMethodName: AuthenticatePlayer
     mParameters: []
     oneShot: 0
 --- !u!1 &1777183145
@@ -53391,7 +53419,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1784629065}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -53430,13 +53458,9 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mSprite: {fileID: 21300000, guid: 07f9ec8ed79cb407c9d6f5f33a8a0ff4, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 0}
-  mFixedAspect: 0
-  mPixelSize: 1
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11425342, guid: baa5f4663857540fc93989c812a0343e, type: 2}
+  mSpriteName: background popup
+  mFillCenter: 1
 --- !u!1 &1788705380
 GameObject:
   m_ObjectHideFlags: 0
@@ -57651,6 +57675,7 @@ Transform:
   - {fileID: 151972533}
   - {fileID: 1700865734}
   - {fileID: 610759570}
+  - {fileID: 142165481}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1 &1915233933
@@ -59972,7 +59997,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1980638734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -60011,13 +60036,9 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mSprite: {fileID: 21300000, guid: 07f9ec8ed79cb407c9d6f5f33a8a0ff4, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 0}
-  mFixedAspect: 0
-  mPixelSize: 1
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11425342, guid: baa5f4663857540fc93989c812a0343e, type: 2}
+  mSpriteName: background popup
+  mFillCenter: 1
 --- !u!1001 &1983451454
 Prefab:
   m_ObjectHideFlags: 0
@@ -64981,7 +65002,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2115863161}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.45, y: 362.4, z: 0}
+  m_LocalPosition: {x: 0, y: 362.8, z: 0}
   m_LocalScale: {x: 0.72, y: 0.70763934, z: 0.70763934}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -64995,7 +65016,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2115863161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -65019,7 +65040,7 @@ MonoBehaviour:
   mPivot: 2
   mWidth: 586
   mHeight: 1007
-  mDepth: 1
+  mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -65034,13 +65055,9 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mSprite: {fileID: 21300000, guid: 31d8751ae058348538d4df0a92ca90a6, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 566}
-  mFixedAspect: 0
-  mPixelSize: 1
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11425342, guid: baa5f4663857540fc93989c812a0343e, type: 2}
+  mSpriteName: background slide
+  mFillCenter: 1
 --- !u!4 &2119710920 stripped
 Transform:
   m_PrefabParentObject: {fileID: 422740, guid: 172416e7069a842c08a66f2e53d37ce3, type: 2}

@@ -76,6 +76,8 @@ public class GameController : MonoBehaviour
 	public float timeInvencibleAfterContinue = 5f;
 	public float timeFrozen = 5f;
 
+	public string scoreLeaderboardID;
+
 	#region game stats
 	private static int creepsKilled;
 
@@ -534,9 +536,16 @@ public class GameController : MonoBehaviour
 		{
 			Global.HighScore = Score;
 
+			/*
 			#if FACEBOOK_IMPLEMENTED && DB_IMPLEMENTED
 			if(FacebookController.IsLoggedIn)
 				StartCoroutine(DBHandler.UpdateUserScore(DBHandler.User.id, Score));
+			#endif
+			*/
+
+			#if GAMECENTER_IMPLEMENTED
+			if(GameCenterController.IsPlayerAuthenticated())
+				GameCenterController.SendScore(Global.HighScore, scoreLeaderboardID);
 			#endif
 		}
 		

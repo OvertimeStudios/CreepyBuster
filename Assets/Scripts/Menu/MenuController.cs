@@ -134,6 +134,8 @@ public class MenuController : MonoBehaviour
 		MenuController.OnPanelClosed += ShowRate;
 
 		Global.OnHighScoreUpdated += UpdateScore;
+
+		GameCenterController.OnPlayerAuthenticated += SendFirstScore;
 	}
 
 	void OnDisable()
@@ -146,6 +148,13 @@ public class MenuController : MonoBehaviour
 		MenuController.OnPanelClosed -= ShowRate;
 
 		Global.OnHighScoreUpdated -= UpdateScore;
+
+		GameCenterController.OnPlayerAuthenticated -= SendFirstScore;
+	}
+
+	private void SendFirstScore()
+	{
+		GameCenterController.SendScore(0, GameController.Instance.scoreLeaderboardID);
 	}
 
 	// Use this for initialization

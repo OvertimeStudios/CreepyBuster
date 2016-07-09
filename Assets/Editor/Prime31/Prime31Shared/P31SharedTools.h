@@ -7,8 +7,9 @@
 //
 
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 #import <UIKit/UIKit.h>
+#endif
 
 
 @interface P31 : NSObject
@@ -23,8 +24,8 @@
 
 + (void)unityPause:(BOOL)shouldPause;
 
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 + (UIViewController*)unityViewController;
+#endif
 
 @end
-
-#endif

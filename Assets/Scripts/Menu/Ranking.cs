@@ -34,18 +34,29 @@ public class Ranking : MonoBehaviour
 		globalRanking.SetActive(false);
 		friendsRanking.SetActive(false);
 		
-		globalInfo.SetActive(false);
-		friendsInfo.SetActive(false);
+		//globalInfo.SetActive(false);
+		//friendsInfo.SetActive(false);
 
-		#if FACEBOOK_IMPLEMENTED && DB_IMPLEMENTED
-		if(FB.IsLoggedIn)
+		#if GAMECENTER_IMPLEMENTED
+		if(GameCenterController.IsPlayerAuthenticated())
 			GetRanks();
 		#endif
 	}
 
+	void OnDestroy()
+	{
+		GameCenterController.OnPlayerAuthenticated -= GetRanks;
+	}
+
 	void Start()
 	{
-		FacebookController.OnLoggedIn += GetRanks;
+		GameCenterController.OnPlayerAuthenticated += GetRanks;
+		//FacebookController.OnLoggedIn += GetRanks;
+	}
+
+	public void AuthenticatePlayer()
+	{
+		GameCenterController.AuthenticatePlayer();
 	}
 
 	private void GetRanks()
@@ -61,6 +72,27 @@ public class Ranking : MonoBehaviour
 	}
 
 	private IEnumerator GetGlobalRank()
+	{
+		Debug.Log("Getting Global ranking...");
+
+		int rank = 0;
+		yield return StartCoroutine(GameCenterController.GetPlayerGlobalPosition(value => rank = value));
+
+		worldRank.text = (rank <= 0) ? "Fail to load rank" : "# " + rank;
+	}
+
+	private IEnumerator GetFriendsRank()
+	{
+		Debug.Log("Getting Friends ranking...");
+
+		int rank = 0;
+		yield return StartCoroutine(GameCenterController.GetPlayerFriendsPosition(value => rank = value));
+
+		worldRank.text = (rank <= 0) ? "Fail to load rank" : "# " + rank;
+	}
+
+	//old methods
+	/*private IEnumerator GetGlobalRank()
 	{
 		Debug.Log("Getting Global ranking...");
 		while(!DBController.allInformationLoaded)
@@ -134,24 +166,26 @@ public class Ranking : MonoBehaviour
 
 		friendsRank.text = "#" + rank;
 		friendsInfo.SetActive(true);
-	}
+	}*/
 
 	public void OpenGlobalRank()
 	{
-		general.SetActive(false);
-		globalRanking.SetActive(true);
+		GameCenterController.ShowLeaderboards();
+		//general.SetActive(false);
+		//globalRanking.SetActive(true);
 	}
 
 	public void OpenFriendsRank()
 	{
-		general.SetActive(false);
-		friendsRanking.SetActive(true);
+		GameCenterController.ShowLeaderboards();
+		//general.SetActive(false);
+		//friendsRanking.SetActive(true);
 	}
 
 	public void CloseRank()
 	{
 		general.SetActive(true);
-		globalRanking.SetActive(false);
-		friendsRanking.SetActive(false);
+		//globalRanking.SetActive(false);
+		//friendsRanking.SetActive(false);
 	}
 }
