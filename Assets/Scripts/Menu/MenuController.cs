@@ -154,7 +154,19 @@ public class MenuController : MonoBehaviour
 
 	private void SendFirstScore()
 	{
-		GameCenterController.SendScore(0, GameCenterController.Instance.leaderboardID);
+		//HACK: the first time player enter game, he doesn't have any registered score on leaderboard. So, entry a 0 value.
+		GameCenterController.SendScore(Global.HighScore, GameCenterController.Instance.leaderboardID);
+
+		StartCoroutine(GetUserScore());
+	}
+
+	private IEnumerator GetUserScore()
+	{
+		long score = 0;
+		yield return StartCoroutine(GameCenterController.GetUserScore(value => score = value));
+
+		if((int)score > Global.HighScore)
+			Global.HighScore = (int)score;
 	}
 
 	// Use this for initialization

@@ -67,28 +67,39 @@ public class Ranking : MonoBehaviour
 		globalFacebook.SetActive(false);
 		friendsFacebook.SetActive(false);
 
-		StartCoroutine(GetGlobalRank());
-		StartCoroutine(GetFriendsRank());
+		StartCoroutine(LoadRanks());
+	}
+
+	private IEnumerator LoadRanks()
+	{
+		yield return StartCoroutine(GetGlobalRank());
+		yield return StartCoroutine(GetFriendsRank());
 	}
 
 	private IEnumerator GetGlobalRank()
 	{
 		Debug.Log("Getting Global ranking...");
 
-		int rank = 0;
-		yield return StartCoroutine(GameCenterController.GetPlayerGlobalPosition(value => rank = value));
-
-		worldRank.text = (rank <= 0) ? "Fail to load rank" : "# " + rank;
+		yield return StartCoroutine(GameCenterController.GetPlayerGlobalPosition(SetGlobalRank));
 	}
 
 	private IEnumerator GetFriendsRank()
 	{
 		Debug.Log("Getting Friends ranking...");
 
-		int rank = 0;
-		yield return StartCoroutine(GameCenterController.GetPlayerFriendsPosition(value => rank = value));
+		yield return StartCoroutine(GameCenterController.GetPlayerFriendsPosition(SetFriendsRank));
+	}
 
-		friendsRank.text = (rank <= 0) ? "Fail to load rank" : "# " + rank;
+	private void SetGlobalRank(int score, int maxRange)
+	{
+		//TODO: Localization
+		worldRank.text = (score <= 0) ? "Fail to load rank" : "#" + score + " of " + maxRange;
+	}
+
+	private void SetFriendsRank(int score, int maxRange)
+	{
+		//TODO: Localization
+		friendsRank.text = (score <= 0) ? "Fail to load rank" : "#" + score + " of " + maxRange;
 	}
 
 	//old methods
@@ -170,14 +181,14 @@ public class Ranking : MonoBehaviour
 
 	public void OpenGlobalRank()
 	{
-		GameCenterController.ShowLeaderboards();
+		GameCenterController.ShowLeaderboards(GameCenterController.Instance.leaderboardID);
 		//general.SetActive(false);
 		//globalRanking.SetActive(true);
 	}
 
 	public void OpenFriendsRank()
 	{
-		GameCenterController.ShowLeaderboards();
+		GameCenterController.ShowLeaderboards(GameCenterController.Instance.leaderboardID);
 		//general.SetActive(false);
 		//friendsRanking.SetActive(true);
 	}
