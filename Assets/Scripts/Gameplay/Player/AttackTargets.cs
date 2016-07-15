@@ -45,7 +45,7 @@ public class AttackTargets : MonoBehaviour
 	{
 		get
 		{
-			return Instance.damage + ((IsSpecialActive) ? LevelDesign.Instance.specialBonusDamage : 0);
+			return Instance.damage + ((IsSpecialActive) ? LevelDesign.Instance.gameBalance.specialAttributes.bonusDamage : 0);
 		}
 	}
 	#endregion
@@ -245,7 +245,7 @@ public class AttackTargets : MonoBehaviour
 		}
 
 		isSpecial = true;
-		specialCounter = LevelDesign.Instance.specialTime;
+		specialCounter = LevelDesign.Instance.gameBalance.specialAttributes.duration;
 		GameController.specialStreak++;
 
 		if(OnSpecialStarted != null)
@@ -268,7 +268,7 @@ public class AttackTargets : MonoBehaviour
 			StopSpecial ();
 
 		if (OnSpecialTimerUpdated != null)
-			OnSpecialTimerUpdated (specialCounter / LevelDesign.Instance.specialTime);
+			OnSpecialTimerUpdated (specialCounter / LevelDesign.Instance.gameBalance.specialAttributes.duration);
 	}
 
 	private void LoseAllTargets()

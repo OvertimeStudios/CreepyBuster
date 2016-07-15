@@ -27,11 +27,6 @@ public class HUDController : MonoBehaviour
 
 	void OnEnable()
 	{
-		OnScoreUpdated ();
-		OnStreakUpdated ();
-		UpdateColor ();
-		UpdateLevelNumber ();
-
 		MenuController.OnPanelOpened += OnScoreUpdated;
 		MenuController.OnPanelOpened += OnStreakUpdated;
 		MenuController.OnPanelOpened += UpdateColor;

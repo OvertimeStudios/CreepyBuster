@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(EnemiesPercent))]
+//[CustomPropertyDrawer(typeof(EnemiesPercent))]
 public class EnemiesPercentDrawer : PropertyDrawer 
 {
 	public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
@@ -26,7 +26,7 @@ public class EnemiesPercentDrawer : PropertyDrawer
 		
 		// Draw fields - passs GUIContent.none to each so they are drawn without labels
 		EditorGUIUtility.labelWidth = pointsRect.width * 0.5f;
-		EditorGUI.PropertyField (pointsRect, property.FindPropertyRelative ("enemy"), GUIContent.none);
+		EditorGUI.PropertyField (pointsRect, property.FindPropertyRelative ("enemyName"), GUIContent.none);
 		EditorGUIUtility.labelWidth = streakRect.width * 0.3f;
 		EditorGUI.PropertyField (streakRect, property.FindPropertyRelative ("percent"), new GUIContent("%"));
 		

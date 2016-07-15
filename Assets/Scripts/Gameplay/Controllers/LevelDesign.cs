@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 public class LevelDesign : MonoBehaviour 
 {
@@ -15,44 +19,34 @@ public class LevelDesign : MonoBehaviour
 	public static event Action OnBossReady;
 	#endregion
 
-	[Header("Player Level")]
-	public PlayerLevelUpCondition[] playerLevelUpCondition;
+	[Header("Enemies Game Object")]
+	public GameObject blu;
+	public GameObject spiral;
+	public GameObject ziggy;
+	public GameObject charger;
+	public GameObject legion;
+	public GameObject follower;
 
-	[Header("Special")]
-	public int streakToSpecial;
-	public float specialTime = 5f;
-	public float specialBonusDamage = 1f;
-	public int specialBonusTarget = 1;
-	public Color specialColor = new Color(0, 0, 0, 0.3f);
-
-	[Header("Enemies Level")]
-	public EnemiesTypesLevelUpCondition[] enemiesTypesLevelUpCondition;
-
-	public EnemiesSpawnLevelUpCondition[] enemiesSpawnLevelUpCondition;
-
-	public EnemiesAttributesLevelUpCondition enemiesAttributesLevelUpCondition;
-	public int maxEnemiesAttributeLevel = 10;
-	
-	[Header("Tier Level")]
-	public LevelUpCondition[] tierLevelUpCondition;
-
-	[Header("Boss Battle")]
+	[Header("Bosses")]
 	public GameObject bossMeteor;
 	public GameObject bossTwins;
 	public GameObject bossIllusion;
-	public BossLevelUpCondition[] bossBattleCondition;
-	public BossLevelUpCondition infinityBossBattleCondition;
+
+	[Header("Item")]
+	public GameObject plasmaOrbPP;
+	public GameObject plasmaOrbP;
+	public GameObject plasmaOrbM;
+	public GameObject plasmaOrbG;
+	public GameObject deathRay;
+	public GameObject invencibility;
+	public GameObject frozen;
+	public GameObject levelUp;
 
 	[Header("Backgrounds")]
 	public List<GameObject> backgrounds;
 
-	[Header("Item")]
-	public RandomBetweenTwoConst itemSpawnTime;
-	public ItemLevelUpCondition[] itensLevelUpCondition;
-
-	[Header("Shop Itens")]
-	public LevelFloatList[] rangeUpgrade;
-	public LevelFloatList[] damageUpgrade;
+	[Header("Balance - Via XML")]
+	public GameBalance gameBalance;
 
 	#region levels properties
 	private static int playerLevel = 0;
@@ -76,10 +70,10 @@ public class LevelDesign : MonoBehaviour
 		{
 			if (!IsPlayerMaxLevel) 
 			{
-				return Instance.playerLevelUpCondition [LevelDesign.PlayerLevel + 1].killStreak - Instance.playerLevelUpCondition [LevelDesign.PlayerLevel].killStreak;
+				return Instance.gameBalance.playerLevelUpCondition [LevelDesign.PlayerLevel + 1].killStreak - Instance.gameBalance.playerLevelUpCondition [LevelDesign.PlayerLevel].killStreak;
 			}
 
-			return Instance.streakToSpecial;
+			return Instance.gameBalance.specialAttributes.streak;
 		}
 	}
 
@@ -90,7 +84,7 @@ public class LevelDesign : MonoBehaviour
 	{
 		get 
 		{
-			return Instance.playerLevelUpCondition [LevelDesign.PlayerLevel].killStreak + (Instance.streakToSpecial * GameController.specialStreak);
+			return Instance.gameBalance.playerLevelUpCondition [LevelDesign.PlayerLevel].killStreak + (Instance.gameBalance.specialAttributes.streak * GameController.specialStreak);
 		}
 	}
 
@@ -104,10 +98,10 @@ public class LevelDesign : MonoBehaviour
 			if(IsPlayerMaxLevel)
 			{
 				//last streak + (streakToSpecial * how many specials it has been done so far)
-				return Instance.playerLevelUpCondition[Instance.playerLevelUpCondition.Length - 1].killStreak + (Instance.streakToSpecial * (GameController.specialStreak + 1));
+				return Instance.gameBalance.playerLevelUpCondition[Instance.gameBalance.playerLevelUpCondition.Length - 1].killStreak + (Instance.gameBalance.specialAttributes.streak * (GameController.specialStreak + 1));
 			}
 
-			return Instance.playerLevelUpCondition[LevelDesign.PlayerLevel + 1].killStreak ;
+			return Instance.gameBalance.playerLevelUpCondition[LevelDesign.PlayerLevel + 1].killStreak ;
 		}
 	}
 
@@ -118,7 +112,7 @@ public class LevelDesign : MonoBehaviour
 			if(LevelDesign.PlayerLevel == 0)
 				return 0;
 
-			return Instance.playerLevelUpCondition[LevelDesign.PlayerLevel - 1].killStreak ;
+			return Instance.gameBalance.playerLevelUpCondition[LevelDesign.PlayerLevel - 1].killStreak ;
 		}
 	}
 
@@ -149,7 +143,7 @@ public class LevelDesign : MonoBehaviour
 	/// </summary>
 	public static int MaxEnemyTypesLevel
 	{
-		get { return Instance.enemiesTypesLevelUpCondition.Length - 1; }
+		get { return Instance.gameBalance.enemiesTypesLevelUpCondition.Length - 1; }
 	}
 
 	/// <summary>
@@ -160,7 +154,7 @@ public class LevelDesign : MonoBehaviour
 		get 
 		{
 			if(!LevelDesign.IsEnemyTypesMaxLevel)
-				return Instance.enemiesTypesLevelUpCondition[enemiesTypesLevel + 1].killStreak;
+				return Instance.gameBalance.enemiesTypesLevelUpCondition[enemiesTypesLevel + 1].killStreak;
 			
 			return 0;
 		}
@@ -174,7 +168,7 @@ public class LevelDesign : MonoBehaviour
 		get 
 		{
 			if(!LevelDesign.IsEnemyTypesMaxLevel)
-				return Instance.enemiesTypesLevelUpCondition[enemiesTypesLevel + 1].points;
+				return Instance.gameBalance.enemiesTypesLevelUpCondition[enemiesTypesLevel + 1].points;
 			
 			return 0;
 		}
@@ -195,7 +189,7 @@ public class LevelDesign : MonoBehaviour
 	/// </summary>
 	public static int MaxEnemySpawnLevel
 	{
-		get { return Instance.enemiesSpawnLevelUpCondition.Length - 1; }
+		get { return Instance.gameBalance.enemiesSpawnLevelUpCondition.Length - 1; }
 	}
 	
 	/// <summary>
@@ -206,7 +200,7 @@ public class LevelDesign : MonoBehaviour
 		get 
 		{
 			if(!LevelDesign.IsEnemySpawnMaxLevel)
-				return Instance.enemiesSpawnLevelUpCondition[enemiesSpawnLevel + 1].killStreak;
+				return Instance.gameBalance.enemiesSpawnLevelUpCondition[enemiesSpawnLevel + 1].killStreak;
 			
 			return 0;
 		}
@@ -220,7 +214,7 @@ public class LevelDesign : MonoBehaviour
 		get 
 		{
 			if(!LevelDesign.IsEnemySpawnMaxLevel)
-				return Instance.enemiesSpawnLevelUpCondition[enemiesSpawnLevel + 1].points;
+				return Instance.gameBalance.enemiesSpawnLevelUpCondition[enemiesSpawnLevel + 1].points;
 			
 			return 0;
 		}
@@ -232,49 +226,9 @@ public class LevelDesign : MonoBehaviour
 	/// Gets the next streak to enemy attributes level up.
 	/// </summary>
 	public static int NextScoreToEnemyAttributesLevelUp {
-		get { return Instance.enemiesAttributesLevelUpCondition.points * (enemiesAttributeLevel + 1); }
+		get { return Instance.gameBalance.enemiesAttributesLevelUpCondition.points * (enemiesAttributeLevel + 1); }
 	}
 
-	#endregion
-
-	#region tier level
-	/// <summary>
-	/// Gets a value indicating if tier is max level.
-	/// </summary>
-	public static bool IsTierMaxLevel
-	{
-		get { return LevelDesign.tierLevel == MaxTierLevel; }
-	}
-
-	/// <summary>
-	/// Gets the max tier level.
-	/// </summary>
-	public static int MaxTierLevel
-	{
-		get { return Instance.tierLevelUpCondition.Length - 1; }
-	}
-
-	public static int NextStreakToTierLevelUp
-	{
-		get 
-		{
-			if(!LevelDesign.IsTierMaxLevel)
-				return Instance.tierLevelUpCondition[tierLevel + 1].killStreak;
-			
-			return 0;
-		}
-	}
-
-	public static int NextScoreToTierLevelUp
-	{
-		get 
-		{
-			if(!LevelDesign.IsTierMaxLevel)
-				return Instance.tierLevelUpCondition[tierLevel + 1].points;
-			
-			return 0;
-		}
-	}
 	#endregion
 
 	#region Boss
@@ -282,10 +236,10 @@ public class LevelDesign : MonoBehaviour
 	{
 		get 
 		{
-			if(bossLevel < Instance.bossBattleCondition.Length)
-				return Instance.bossBattleCondition[bossLevel].kills;
+			if(bossLevel < Instance.gameBalance.bossLevelUpCondition.tiers.Length)
+				return Instance.gameBalance.bossLevelUpCondition.tiers[bossLevel].kills;
 			else
-				return Instance.bossBattleCondition[Instance.bossBattleCondition.Length - 1].kills + ((bossLevel - (Instance.bossBattleCondition.Length - 1)) * Instance.infinityBossBattleCondition.kills);
+				return Instance.gameBalance.bossLevelUpCondition.tiers[Instance.gameBalance.bossLevelUpCondition.tiers.Length - 1].kills + ((bossLevel - (Instance.gameBalance.bossLevelUpCondition.tiers.Length - 1)) * Instance.gameBalance.bossLevelUpCondition.infinityTier.kills);
 		}
 	}
 
@@ -297,7 +251,7 @@ public class LevelDesign : MonoBehaviour
 			return Instance.bossMeteor;
 			#else
 
-			BossLevelUpCondition currentLevelUpCondition = (bossLevel < Instance.bossBattleCondition.Length) ? Instance.bossBattleCondition[bossLevel] : Instance.infinityBossBattleCondition;
+			BossTier currentLevelUpCondition = (bossLevel < Instance.gameBalance.bossLevelUpCondition.tiers.Length) ? Instance.gameBalance.bossLevelUpCondition.tiers[bossLevel] : Instance.gameBalance.bossLevelUpCondition.infinityTier;
 
 			float maxPercent = currentLevelUpCondition.bossIllusion + currentLevelUpCondition.bossMeteor + currentLevelUpCondition.bossTwins;
 
@@ -320,7 +274,7 @@ public class LevelDesign : MonoBehaviour
 	#region Item
 	public static float ItemSpawnTime
 	{
-		get { return Instance.itemSpawnTime.Random (); }
+		get { return Instance.gameBalance.itemLevelUpCondition.spawnTime.Random (); }
 	}
 
 	/// <summary>
@@ -328,12 +282,12 @@ public class LevelDesign : MonoBehaviour
 	/// </summary>
 	public static float SpawnItemPercent
 	{
-		get { return Instance.itensLevelUpCondition[itemLevel].chanceToSpawn; }
+		get { return Instance.gameBalance.itemLevelUpCondition.itemTier[itemLevel].chanceToSpawn; }
 	}
 
 	public static List<ItemPercent> CurrentItens
 	{
-		get { return Instance.itensLevelUpCondition[itemLevel].itens; }
+		get { return Instance.gameBalance.itemLevelUpCondition.itemTier[itemLevel].itens; }
 	}
 
 	/// <summary>
@@ -349,7 +303,7 @@ public class LevelDesign : MonoBehaviour
 	/// </summary>
 	public static int MaxItemLevel
 	{
-		get { return Instance.itensLevelUpCondition.Length - 1; }
+		get { return Instance.gameBalance.itemLevelUpCondition.itemTier.Length - 1; }
 	}
 	
 	/// <summary>
@@ -360,7 +314,7 @@ public class LevelDesign : MonoBehaviour
 		get 
 		{
 			if(!LevelDesign.IsItemMaxLevel)
-				return Instance.itensLevelUpCondition[itemLevel + 1].killStreak;
+				return Instance.gameBalance.itemLevelUpCondition.itemTier[itemLevel + 1].killStreak;
 			
 			return 0;
 		}
@@ -374,7 +328,7 @@ public class LevelDesign : MonoBehaviour
 		get 
 		{
 			if(!LevelDesign.IsItemMaxLevel)
-				return Instance.itensLevelUpCondition[itemLevel + 1].points;
+				return Instance.gameBalance.itemLevelUpCondition.itemTier[itemLevel + 1].points;
 			
 			return 0;
 		}
@@ -391,7 +345,7 @@ public class LevelDesign : MonoBehaviour
 			for(byte i = 0; i < Global.DamageLevel; i++)
 				up++;
 
-			return Instance.damageUpgrade[up].value;
+			return Instance.gameBalance.shopItens.damage[up];
 		}
 	}
 
@@ -404,7 +358,7 @@ public class LevelDesign : MonoBehaviour
 			for(byte i = 0; i < Global.RangeLevel; i++)
 				up++;
 			
-			return Instance.rangeUpgrade[up].value;
+			return Instance.gameBalance.shopItens.range[up];
 		}
 	}
 
@@ -414,32 +368,32 @@ public class LevelDesign : MonoBehaviour
 
 	public static List<EnemiesPercent> CurrentEnemies
 	{
-		get { return Instance.enemiesTypesLevelUpCondition[LevelDesign.EnemiesTypesLevel].enemies; }
+		get { return Instance.gameBalance.enemiesTypesLevelUpCondition[LevelDesign.EnemiesTypesLevel].enemies; }
 	}
 
 	public static float EnemiesSpawnTime
 	{
-		get { return Instance.enemiesSpawnLevelUpCondition[LevelDesign.EnemiesSpawnLevel].time; }
+		get { return Instance.gameBalance.enemiesSpawnLevelUpCondition[LevelDesign.EnemiesSpawnLevel].time; }
 	}
 	
 	public static float EnemiesBonusLife
 	{
-		get { return Instance.enemiesAttributesLevelUpCondition.life * enemiesAttributeLevel; }
+		get { return Instance.gameBalance.enemiesAttributesLevelUpCondition.life * enemiesAttributeLevel; }
 	}
 
 	public static float EnemiesBonusVel
 	{
-		get { return Instance.enemiesAttributesLevelUpCondition.vel * enemiesAttributeLevel; }
+		get { return Instance.gameBalance.enemiesAttributesLevelUpCondition.vel * enemiesAttributeLevel; }
 	}
 
 	public static int SpawnQuantity
 	{
-		get { return Instance.enemiesSpawnLevelUpCondition[LevelDesign.EnemiesSpawnLevel].quantity; }
+		get { return Instance.gameBalance.enemiesSpawnLevelUpCondition[LevelDesign.EnemiesSpawnLevel].quantity; }
 	}
 
 	public static int MaxRays
 	{
-		get { return Instance.playerLevelUpCondition[LevelDesign.PlayerLevel].maxRays + ((AttackTargets.IsSpecialActive) ? Instance.specialBonusTarget : 0); }
+		get { return Instance.gameBalance.playerLevelUpCondition[LevelDesign.PlayerLevel].maxRays + ((AttackTargets.IsSpecialActive) ? Instance.gameBalance.specialAttributes.bonusTarget : 0); }
 	}
 
 	public static Color CurrentColor
@@ -447,20 +401,20 @@ public class LevelDesign : MonoBehaviour
 		get 
 		{
 			if(AttackTargets.IsSpecialActive)
-				return Instance.specialColor;
+				return Instance.gameBalance.specialAttributes.color;
 			else
-				return Instance.playerLevelUpCondition [LevelDesign.PlayerLevel].color; 
+				return Instance.gameBalance.playerLevelUpCondition [LevelDesign.PlayerLevel].color; 
 		}
 	}
 
 	public static bool IsSpecialReady
 	{
-		get { return LevelDesign.PlayerLevel >= Instance.playerLevelUpCondition.Length - 1 && GameController.StreakCount >= NextStreakToPlayerLevelUp; }
+		get { return LevelDesign.PlayerLevel >= Instance.gameBalance.playerLevelUpCondition.Length - 1 && GameController.StreakCount >= NextStreakToPlayerLevelUp; }
 	}
 
 	public static bool IsPlayerFullyUpgraded
 	{
-		get { return Global.RayLevel + 2 == Instance.playerLevelUpCondition.Length; }
+		get { return Global.RayLevel + 2 == Instance.gameBalance.playerLevelUpCondition.Length; }
 	}
 
 	public static int PlayerLevel
@@ -533,7 +487,6 @@ public class LevelDesign : MonoBehaviour
 		GameController.OnRealStreakUpdated += EnemiesTypesLevelUp;
 		GameController.OnRealStreakUpdated += EnemiesSpawnLevelUp;
 		GameController.OnRealStreakUpdated += EnemiesAttributesLevelUp;
-		GameController.OnRealStreakUpdated += TierLevelUp;
 		GameController.OnRealStreakUpdated += ItensLevelUp;
 		GameController.OnKill += KillCountUpdated;
 
@@ -548,13 +501,18 @@ public class LevelDesign : MonoBehaviour
 		GameController.OnRealStreakUpdated -= EnemiesTypesLevelUp;
 		GameController.OnRealStreakUpdated -= EnemiesSpawnLevelUp;
 		GameController.OnRealStreakUpdated -= EnemiesAttributesLevelUp;
-		GameController.OnRealStreakUpdated -= TierLevelUp;
 		GameController.OnRealStreakUpdated -= ItensLevelUp;
 		GameController.OnKill -= KillCountUpdated;
 
 		GameController.OnGameStart -= Reset;
 
 		BossLife.OnBossDied -= BossLevelUp;
+	}
+
+	void Start()
+	{
+		//Load xml which contains all balance
+		gameBalance = GameBalance.LoadFromText(((TextAsset) Resources.Load("Balance")).text);
 	}
 
 	private void PlayerLevelUp()
@@ -605,7 +563,7 @@ public class LevelDesign : MonoBehaviour
 
 	private void EnemiesAttributesLevelUp()
 	{
-		if(enemiesAttributeLevel < maxEnemiesAttributeLevel && GameController.Score >= LevelDesign.NextScoreToEnemyAttributesLevelUp)
+		if(enemiesAttributeLevel < gameBalance.enemiesAttributesLevelUpCondition.maxEnemiesAttributeLevel && GameController.Score >= LevelDesign.NextScoreToEnemyAttributesLevelUp)
 		{
 			enemiesAttributeLevel++;
 			
@@ -614,7 +572,7 @@ public class LevelDesign : MonoBehaviour
 		}
 	}
 
-	private void TierLevelUp()
+	/*private void TierLevelUp()
 	{
 		if(!IsTierMaxLevel)
 		{
@@ -627,7 +585,7 @@ public class LevelDesign : MonoBehaviour
 					OnTierLevelUp();
 			}
 		}
-	}
+	}*/
 
 	private void ItensLevelUp()
 	{
@@ -710,19 +668,150 @@ public class PlayerLevelUpCondition
 {
 	public int killStreak;
 	public int maxRays;
-	public Color color;
+	public Color color { get { return GetColorFromHex(colorhex); } }
+
+	//[HideInInspector]
+	public string colorhex;
+
+	private Color GetColorFromHex(string hex)
+	{
+		hex = hex.Replace ("0x", "");//in case the string is formatted 0xFFFFFF
+		hex = hex.Replace ("#", "");//in case the string is formatted #FFFFFF
+		byte a = 255;//assume fully visible unless specified in hex
+		byte r = byte.Parse(hex.Substring(0,2), System.Globalization.NumberStyles.HexNumber);
+		byte g = byte.Parse(hex.Substring(2,2), System.Globalization.NumberStyles.HexNumber);
+		byte b = byte.Parse(hex.Substring(4,2), System.Globalization.NumberStyles.HexNumber);
+		//Only use alpha if the string has enough characters
+		if(hex.Length == 8){
+			a = byte.Parse(hex.Substring(6,2), System.Globalization.NumberStyles.HexNumber);
+		}
+		return new Color32(r,g,b,a);
+	}
+}
+
+[System.Serializable, XmlRoot("balance")]
+public class GameBalance
+{
+	[XmlArray("player"), XmlArrayItem("levelUpCondition")]
+	public PlayerLevelUpCondition[] playerLevelUpCondition;
+
+	[XmlElement("special")]
+	public SpecialAttributes specialAttributes;
+
+	[XmlArray("enemiesTypes"), XmlArrayItem("levelUpCondition")]
+	public EnemiesTypesLevelUpCondition[] enemiesTypesLevelUpCondition;
+
+	[XmlArray("enemiesSpawn"), XmlArrayItem("levelUpCondition")]
+	public EnemiesSpawnLevelUpCondition[] enemiesSpawnLevelUpCondition;
+
+	[XmlElement("enemiesAttributes")]
+	public EnemiesAttributesLevelUpCondition enemiesAttributesLevelUpCondition;
+
+	[XmlElement("boss")]
+	public BossLevelUpCondition bossLevelUpCondition;
+
+	[XmlElement("itens")]
+	public ItemLevelUpCondition itemLevelUpCondition;
+
+	[XmlElement("shop")]
+	public ShopItens shopItens;
+
+	public static GameBalance Load(string path)
+	{
+		var serializer = new XmlSerializer(typeof(GameBalance));
+		using(var stream = new FileStream(path, FileMode.Open))
+		{
+			return serializer.Deserialize(stream) as GameBalance;
+		}
+	}
+
+	public static GameBalance LoadFromText(string text)
+	{
+		var serializer = new XmlSerializer(typeof(GameBalance));
+
+		Debug.Log(text);
+		return serializer.Deserialize(new StringReader(text)) as GameBalance;
+	}
+}
+
+[System.Serializable]
+public class SpecialAttributes
+{
+	public int streak = 20;
+	public float duration = 5f;
+	public float bonusDamage = 1f;
+	public int bonusTarget = 1;
+	public Color color { get { return GetColorFromHex(colorhex); } }
+
+	//[HideInInspector]
+	public string colorhex;
+
+	private Color GetColorFromHex(string hex)
+	{
+		hex = hex.Replace ("0x", "");//in case the string is formatted 0xFFFFFF
+		hex = hex.Replace ("#", "");//in case the string is formatted #FFFFFF
+		byte a = 255;//assume fully visible unless specified in hex
+		byte r = byte.Parse(hex.Substring(0,2), System.Globalization.NumberStyles.HexNumber);
+		byte g = byte.Parse(hex.Substring(2,2), System.Globalization.NumberStyles.HexNumber);
+		byte b = byte.Parse(hex.Substring(4,2), System.Globalization.NumberStyles.HexNumber);
+		//Only use alpha if the string has enough characters
+		if(hex.Length == 8){
+			a = byte.Parse(hex.Substring(6,2), System.Globalization.NumberStyles.HexNumber);
+		}
+		return new Color32(r,g,b,a);
+	}
 }
 
 [System.Serializable]
 public class EnemiesTypesLevelUpCondition : LevelUpCondition
 {
-	public List<EnemiesPercent> enemies;
+	[XmlArray("EnemiesPercents"), XmlArrayItem("EnemiesPercent")]
+	public List<EnemiesPercent> enemies = new List<EnemiesPercent>();
 }
 
 [System.Serializable]
 public class EnemiesPercent
 {
-	public GameObject enemy;
+	public enum EnemyNames { Blu, Charger, Ziggy, Spiral, Follower, Legion }
+
+	public GameObject enemy
+	{
+		get 
+		{
+			GameObject obj = null;
+
+			switch(name)
+			{
+				case EnemyNames.Blu:
+					obj = LevelDesign.Instance.blu;
+					break;
+
+				case EnemyNames.Ziggy:
+					obj = LevelDesign.Instance.ziggy;
+					break;
+
+				case EnemyNames.Charger:
+					obj = LevelDesign.Instance.charger;
+					break;
+
+				case EnemyNames.Spiral:
+					obj = LevelDesign.Instance.spiral;
+					break;
+
+				case EnemyNames.Legion:
+					obj = LevelDesign.Instance.legion;
+					break;
+
+				case EnemyNames.Follower:
+					obj = LevelDesign.Instance.follower;
+					break;
+			}
+
+			return obj;
+		}
+	}
+
+	public EnemyNames name;
 	public float percent;
 }
 
@@ -739,31 +828,103 @@ public class EnemiesAttributesLevelUpCondition
 	public int points;
 	public float vel;
 	public float life;
+	public int maxEnemiesAttributeLevel;
 }
 
 [System.Serializable]
 public class BossLevelUpCondition
 {
+	[XmlArray("tiers"), XmlArrayItem("tier")]
+	public BossTier[] tiers;
+
+	[XmlElement("infinityBoss")]
+	public BossTier infinityTier;
+}
+
+[System.Serializable]
+public class BossTier
+{
 	public int kills;
-	[Range(0, 1f)]
 	public float bossMeteor;
-	[Range(0, 1f)]
 	public float bossTwins;
-	[Range(0, 1f)]
 	public float bossIllusion;
 }
 
 [System.Serializable]
-public class ItemLevelUpCondition : LevelUpCondition
+public class ItemLevelUpCondition
+{
+	public float spawnTimeMin;
+	public float spawnTimeMax;
+
+	public RandomBetweenTwoConst spawnTime
+	{
+		get { return new RandomBetweenTwoConst(spawnTimeMin, spawnTimeMax); }
+	}
+
+	[XmlArray("tiers"), XmlArrayItem("tier")]
+	public ItemTier[] itemTier;
+}
+
+[System.Serializable]
+public class ItemTier : LevelUpCondition
 {
 	public float chanceToSpawn;
+
+	[XmlArray("itensPercent"), XmlArrayItem("itemPercent")]
 	public List<ItemPercent> itens;
 }
 
 [System.Serializable]
 public class ItemPercent
 {
-	public GameObject item;
+	public enum ItensNames { PlasmaOrbPP, PlasmaOrbP, PlasmaOrbM, PlasmaOrbG, DeathRay, Frozen, Invencibility, LevelUp }
+
+	public GameObject item
+	{
+		get
+		{
+			GameObject obj = null;
+
+			switch(name)
+			{
+				case ItensNames.PlasmaOrbPP:
+					obj = LevelDesign.Instance.plasmaOrbPP;
+					break;
+
+				case ItensNames.PlasmaOrbP:
+					obj = LevelDesign.Instance.plasmaOrbP;
+					break;
+
+				case ItensNames.PlasmaOrbM:
+					obj = LevelDesign.Instance.plasmaOrbM;
+					break;
+
+				case ItensNames.PlasmaOrbG:
+					obj = LevelDesign.Instance.plasmaOrbG;
+					break;
+
+				case ItensNames.Frozen:
+					obj = LevelDesign.Instance.frozen;
+					break;
+
+				case ItensNames.DeathRay:
+					obj = LevelDesign.Instance.deathRay;
+					break;
+
+				case ItensNames.Invencibility:
+					obj = LevelDesign.Instance.invencibility;
+					break;
+
+				case ItensNames.LevelUp:
+					obj = LevelDesign.Instance.levelUp;
+					break;
+			}
+
+			return obj;
+		}
+	}
+
+	public ItensNames name;
 	public float percent;
 }
 
@@ -771,4 +932,14 @@ public class ItemPercent
 public class LevelFloatList
 {
 	public float value;
+}
+
+[System.Serializable]
+public class ShopItens
+{
+	[XmlArray("range"), XmlArrayItem("value")]	
+	public List<float> range;
+
+	[XmlArray("damage"), XmlArrayItem("value")]
+	public List<float> damage;
 }
