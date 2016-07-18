@@ -37,7 +37,7 @@ public class Ranking : MonoBehaviour
 		//globalInfo.SetActive(false);
 		//friendsInfo.SetActive(false);
 
-		#if GAMECENTER_IMPLEMENTED
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		if(GameCenterController.IsPlayerAuthenticated())
 			GetRanks();
 		#endif
@@ -45,18 +45,29 @@ public class Ranking : MonoBehaviour
 
 	void OnDestroy()
 	{
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		GameCenterController.OnPlayerAuthenticated -= GetRanks;
+		#else
+
+		#endif
 	}
 
 	void Start()
 	{
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		GameCenterController.OnPlayerAuthenticated += GetRanks;
-		//FacebookController.OnLoggedIn += GetRanks;
+		#else
+
+		#endif
 	}
 
 	public void AuthenticatePlayer()
 	{
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		GameCenterController.AuthenticatePlayer();
+		#else
+
+		#endif
 	}
 
 	private void GetRanks()
@@ -80,14 +91,26 @@ public class Ranking : MonoBehaviour
 	{
 		Debug.Log("Getting Global ranking...");
 
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		yield return StartCoroutine(GameCenterController.GetPlayerGlobalPosition(SetGlobalRank));
+		#elif UNITY_ANDROID
+
+		#else
+		yield return null;
+		#endif
 	}
 
 	private IEnumerator GetFriendsRank()
 	{
 		Debug.Log("Getting Friends ranking...");
 
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		yield return StartCoroutine(GameCenterController.GetPlayerFriendsPosition(SetFriendsRank));
+		#elif UNITY_ANDROID
+
+		#else
+		yield return null;
+		#endif
 	}
 
 	private void SetGlobalRank(int score, int maxRange)
@@ -181,14 +204,22 @@ public class Ranking : MonoBehaviour
 
 	public void OpenGlobalRank()
 	{
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		GameCenterController.ShowLeaderboards(GameCenterController.Instance.leaderboardID);
+		#else
+
+		#endif
 		//general.SetActive(false);
 		//globalRanking.SetActive(true);
 	}
 
 	public void OpenFriendsRank()
 	{
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		GameCenterController.ShowLeaderboards(GameCenterController.Instance.leaderboardID);
+		#else
+
+		#endif
 		//general.SetActive(false);
 		//friendsRanking.SetActive(true);
 	}

@@ -25,6 +25,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -68,8 +69,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue
-    x: 866
-    y: 128
+    x: 386
+    y: 136
     width: 91
     height: 128
     borderLeft: 0
@@ -159,8 +160,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-circle
-    x: 238
-    y: 375
+    x: 251
+    y: 610
     width: 128
     height: 128
     borderLeft: 0
@@ -186,7 +187,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button-rect-blue
     x: 480
-    y: 817
+    y: 609
     width: 256
     height: 103
     borderLeft: 0
@@ -238,7 +239,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button-rect-gold
     x: 480
-    y: 609
+    y: 921
     width: 256
     height: 103
     borderLeft: 60
@@ -263,8 +264,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-rect-green-wide
-    x: 1521
-    y: 948
+    x: 1887
+    y: 1002
     width: 128
     height: 22
     borderLeft: 0
@@ -277,7 +278,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button-rect-silver
     x: 480
-    y: 921
+    y: 817
     width: 256
     height: 103
     borderLeft: 0
@@ -342,7 +343,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: creepypedia_unlocked
     x: 737
-    y: 779
+    y: 902
     width: 128
     height: 122
     borderLeft: 0
@@ -367,8 +368,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: day2
-    x: 251
-    y: 610
+    x: 238
+    y: 375
     width: 128
     height: 128
     borderLeft: 0
@@ -420,7 +421,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: day6
     x: 737
-    y: 650
+    y: 773
     width: 122
     height: 128
     borderLeft: 0
@@ -471,8 +472,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gray
-    x: 386
-    y: 136
+    x: 866
+    y: 128
     width: 91
     height: 128
     borderLeft: 0
@@ -601,8 +602,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-disabled
-    x: 238
-    y: 272
+    x: 251
+    y: 507
     width: 128
     height: 102
     borderLeft: 0
@@ -693,7 +694,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-orb
     x: 737
-    y: 527
+    y: 650
     width: 128
     height: 122
     borderLeft: 0
@@ -732,7 +733,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: icon-range
     x: 737
-    y: 902
+    y: 527
     width: 128
     height: 122
     borderLeft: 0
@@ -770,8 +771,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-soundFX
-    x: 251
-    y: 507
+    x: 238
+    y: 272
     width: 128
     height: 102
     borderLeft: 0
@@ -952,8 +953,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button
-    x: 1887
-    y: 1002
+    x: 1521
+    y: 948
     width: 128
     height: 22
     borderLeft: 0

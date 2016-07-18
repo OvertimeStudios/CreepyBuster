@@ -3811,7 +3811,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
       propertyPath: aspectRatio
-      value: 1.38834953
+      value: 1.3883495
       objectReference: {fileID: 0}
     - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
       propertyPath: mSpriteName
@@ -20614,7 +20614,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 586772526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -20653,13 +20653,9 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mSprite: {fileID: 21300000, guid: 07f9ec8ed79cb407c9d6f5f33a8a0ff4, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 0}
-  mFixedAspect: 0
-  mPixelSize: 1
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11425342, guid: baa5f4663857540fc93989c812a0343e, type: 2}
+  mSpriteName: background popup
+  mFillCenter: 1
 --- !u!1 &589814236
 GameObject:
   m_ObjectHideFlags: 0
@@ -27168,7 +27164,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
       propertyPath: aspectRatio
-      value: 1.38834953
+      value: 1.3883495
       objectReference: {fileID: 0}
     - target: {fileID: 11415252, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
       propertyPath: mColor.r
@@ -41505,7 +41501,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11403130, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: aspectRatio
-      value: 2.17948723
+      value: 2.1794872
       objectReference: {fileID: 0}
     - target: {fileID: 414278, guid: 47909cb94a4294b1ebe82ee0f1c1ef73, type: 2}
       propertyPath: m_LocalPosition.x
@@ -44574,7 +44570,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3099
+  startingRenderQueue: 3097
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -51869,7 +51865,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
       propertyPath: aspectRatio
-      value: 1.38834953
+      value: 1.3883495
       objectReference: {fileID: 0}
     - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
       propertyPath: mSpriteName
@@ -73514,7 +73510,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
       propertyPath: aspectRatio
-      value: 1.38834953
+      value: 1.3883495
       objectReference: {fileID: 0}
     - target: {fileID: 11491454, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
       propertyPath: mWidth

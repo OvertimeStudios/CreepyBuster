@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using System.Xml;
 using System.Xml.Serialization;
@@ -287,7 +288,7 @@ public class LevelDesign : MonoBehaviour
 
 	public static List<ItemPercent> CurrentItens
 	{
-		get { return Instance.gameBalance.itemLevelUpCondition.itemTier[itemLevel].itens; }
+		get { return Instance.gameBalance.itemLevelUpCondition.itemTier[itemLevel].itens.ToList(); }
 	}
 
 	/// <summary>
@@ -368,7 +369,7 @@ public class LevelDesign : MonoBehaviour
 
 	public static List<EnemiesPercent> CurrentEnemies
 	{
-		get { return Instance.gameBalance.enemiesTypesLevelUpCondition[LevelDesign.EnemiesTypesLevel].enemies; }
+		get { return Instance.gameBalance.enemiesTypesLevelUpCondition[LevelDesign.EnemiesTypesLevel].enemies.ToList(); }
 	}
 
 	public static float EnemiesSpawnTime
@@ -729,7 +730,7 @@ public class GameBalance
 	{
 		var serializer = new XmlSerializer(typeof(GameBalance));
 
-		Debug.Log(text);
+		//Debug.Log(text);
 		return serializer.Deserialize(new StringReader(text)) as GameBalance;
 	}
 }
@@ -766,7 +767,7 @@ public class SpecialAttributes
 public class EnemiesTypesLevelUpCondition : LevelUpCondition
 {
 	[XmlArray("EnemiesPercents"), XmlArrayItem("EnemiesPercent")]
-	public List<EnemiesPercent> enemies = new List<EnemiesPercent>();
+	public EnemiesPercent[] enemies;
 }
 
 [System.Serializable]
@@ -871,7 +872,7 @@ public class ItemTier : LevelUpCondition
 	public float chanceToSpawn;
 
 	[XmlArray("itensPercent"), XmlArrayItem("itemPercent")]
-	public List<ItemPercent> itens;
+	public ItemPercent[] itens;
 }
 
 [System.Serializable]
@@ -938,8 +939,8 @@ public class LevelFloatList
 public class ShopItens
 {
 	[XmlArray("range"), XmlArrayItem("value")]	
-	public List<float> range;
+	public float[] range;
 
 	[XmlArray("damage"), XmlArrayItem("value")]
-	public List<float> damage;
+	public float[] damage;
 }

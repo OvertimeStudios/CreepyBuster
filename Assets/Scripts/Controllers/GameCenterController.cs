@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-#if GAMECENTER_IMPLEMENTED
+#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 using Prime31;
 #endif
 
@@ -43,7 +43,7 @@ public class GameCenterController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		#if GAMECENTER_IMPLEMENTED
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		Debug.Log("Authenticating Local Player");
 		GameCenterManager.playerAuthenticatedEvent += OnPlayerAthenticated;
 
@@ -53,6 +53,7 @@ public class GameCenterController : MonoBehaviour
 
 	private static void OnPlayerAthenticated()
 	{
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		Debug.Log("Player successfully authenticated");
 
 		if(OnPlayerAuthenticated != null)
@@ -60,24 +61,29 @@ public class GameCenterController : MonoBehaviour
 
 		GameCenterBinding.retrieveFriends( true, true );
 		GameCenterBinding.loadLeaderboardTitles();
+		#endif
 	}
 
 	public static void AuthenticatePlayer()
 	{
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		if(!GameCenterBinding.isPlayerAuthenticated())
 			GameCenterBinding.authenticateLocalPlayer();
+		#endif
 	}
 
 	public static bool IsPlayerAuthenticated()
 	{
-		#if GAMECENTER_IMPLEMENTED
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		return GameCenterBinding.isPlayerAuthenticated();
+		#else
+		return false;
 		#endif
 	}
 
 	public static IEnumerator GetUserScore(System.Action<long> result)
 	{
-		#if GAMECENTER_IMPLEMENTED
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		if(GameCenterBinding.isPlayerAuthenticated())
 		{
 			isSearchingPlayerScore = true;
@@ -100,16 +106,20 @@ public class GameCenterController : MonoBehaviour
 
 			result(0);
 		}
-
+		#else
+		yield return null;
+		result(0);
 		#endif
 	}
 
+	#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 	private static void OnPlayerScoreLoaded(GameCenterRetrieveScoresResult result)
 	{
 		playerScore = result.scores[0].value;
 
 		isSearchingPlayerScore = false;
 	}
+	#endif
 
 	private static void OnPlayerScoreFailed(string errmsg)
 	{
@@ -122,7 +132,7 @@ public class GameCenterController : MonoBehaviour
 
 	public static IEnumerator GetPlayerGlobalPosition(System.Action<int, int> result)
 	{
-		#if GAMECENTER_IMPLEMENTED
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		if(GameCenterBinding.isPlayerAuthenticated())
 		{
 			isSearchingPlayerGlobalPosition = true;
@@ -145,35 +155,39 @@ public class GameCenterController : MonoBehaviour
 
 			result(0, 0);
 		}
-
+		#else
+		yield return null;
+		result(0, 0);
 		#endif
 	}
 
-private static void OnPlayerGlobalScoresLoaded(GameCenterRetrieveScoresResult result)
-{
-	Debug.Log(string.Format("Did recieved OnPlayerGlobalScoresLoaded. Total results: {0}: \n" +
-		"alias: {1}; \n" +
-		"id: {2}; \n" +
-		"rank: {3} \n" +
-		"maxRange: {4}", result.scores.Count, result.scores[0].alias, result.scores[0].playerId, result.scores[0].rank, result.scores[0].maxRange));
-	playerGlobalPosition = result.scores[0].rank;
-	playerGlobalMaxRange = result.scores[0].maxRange;
+	#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+	private static void OnPlayerGlobalScoresLoaded(GameCenterRetrieveScoresResult result)
+	{
+		Debug.Log(string.Format("Did recieved OnPlayerGlobalScoresLoaded. Total results: {0}: \n" +
+			"alias: {1}; \n" +
+			"id: {2}; \n" +
+			"rank: {3} \n" +
+			"maxRange: {4}", result.scores.Count, result.scores[0].alias, result.scores[0].playerId, result.scores[0].rank, result.scores[0].maxRange));
+		playerGlobalPosition = result.scores[0].rank;
+		playerGlobalMaxRange = result.scores[0].maxRange;
 
-	isSearchingPlayerGlobalPosition = false;
-}
+		isSearchingPlayerGlobalPosition = false;
+	}
+	#endif
 
-private static void OnPlayerGlobalScoresFailed(string errmsg)
-{
-	playerGlobalPosition = 0;
+	private static void OnPlayerGlobalScoresFailed(string errmsg)
+	{
+		playerGlobalPosition = 0;
 
-	isSearchingPlayerGlobalPosition = false;
+		isSearchingPlayerGlobalPosition = false;
 
-	Debug.Log("Error on Global Score: " + errmsg);
-}
+		Debug.Log("Error on Global Score: " + errmsg);
+	}
 
 	public static IEnumerator GetPlayerFriendsPosition(System.Action<int, int> result)
 	{
-		#if GAMECENTER_IMPLEMENTED
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		if(GameCenterBinding.isPlayerAuthenticated())
 		{
 			Debug.Log("GameCenterController.GetPlayerFriendsPosition");
@@ -198,10 +212,13 @@ private static void OnPlayerGlobalScoresFailed(string errmsg)
 			Debug.LogError("Player is not authenticated");
 			result(0, 0);
 		}
-
+		#else
+		yield return null;
+		result(0, 0);
 		#endif
 	}
 
+	#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 	private static void OnPlayerFriendsScoresLoaded(GameCenterRetrieveScoresResult result)
 	{
 		foreach(GameCenterScore gcScore in result.scores)
@@ -213,6 +230,7 @@ private static void OnPlayerGlobalScoresFailed(string errmsg)
 		playerFriendsMaxRange = result.scores.Count;
 		isSearchingPlayerFriendsPosition = false;
 	}
+	#endif
 
 	private static void OnPlayerFriendsScoresFailed(string errmsg)
 	{
@@ -225,7 +243,7 @@ private static void OnPlayerGlobalScoresFailed(string errmsg)
 
 	public static void ShowLeaderboards()
 	{
-		#if GAMECENTER_IMPLEMENTED
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		if(GameCenterBinding.isPlayerAuthenticated())
 			GameCenterBinding.showLeaderboardWithTimeScope( GameCenterLeaderboardTimeScope.AllTime );
 		#endif
@@ -233,7 +251,7 @@ private static void OnPlayerGlobalScoresFailed(string errmsg)
 
 	public static void ShowLeaderboards(string _leaderboardID)
 	{
-		#if GAMECENTER_IMPLEMENTED
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		if(GameCenterBinding.isPlayerAuthenticated())
 			GameCenterBinding.showLeaderboardWithTimeScope( GameCenterLeaderboardTimeScope.AllTime);
 		#endif
@@ -242,7 +260,7 @@ private static void OnPlayerGlobalScoresFailed(string errmsg)
 	public static void SendScore(long score, string leaderboardID)
 	{
 		Debug.Log("Sending score: " + score);
-		#if GAMECENTER_IMPLEMENTED
+		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
 		GameCenterBinding.reportScore(score, leaderboardID);
 		#endif
 	}
