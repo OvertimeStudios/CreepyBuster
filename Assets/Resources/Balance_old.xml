@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- EnemyNames
+Blu,      - C1
+Spiral,   - C2
+Ziggy,    - C3
+Charger,  - C4	
+Legion,   - C5
+Follower, - C7
+-->
+
+<!-- ItensNames
+PlasmaOrbPP,
+PlasmaOrbP,
+PlasmaOrbM,
+PlasmaOrbG,
+LevelUp,
+Invencibility,
+DeathRay,
+Frozen
+-->
+
+<balance>
+	<!-- PLAYER -->
+	<player>
+		<levelUpCondition>
+			<killStreak>0</killStreak>
+			<maxRays>1</maxRays>
+			<colorhex>FF7373FF</colorhex>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<killStreak>6</killStreak>
+			<maxRays>2</maxRays>
+			<colorhex>FFA273FF</colorhex>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<killStreak>13</killStreak>
+			<maxRays>3</maxRays>
+			<colorhex>78FF73FF</colorhex>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<killStreak>19</killStreak>
+			<maxRays>4</maxRays>
+			<colorhex>73BDFFFF</colorhex>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<killStreak>25</killStreak>
+			<maxRays>5</maxRays>
+			<colorhex>C373FFFF</colorhex>
+		</levelUpCondition>
+	</player>
+	<!-- END PLAYER -->
+	
+	<!-- SPECIAL -->
+	<special>
+		<streak>20</streak>
+		<duration>5</duration>
+		<bonusDamage>1</bonusDamage>
+		<bonusTarget>1</bonusTarget>
+		<colorhex>FFFFFFFF</colorhex>
+	</special>
+	<!-- END SPECIAL -->
+
+	<!-- ENEMIES -->
+	<enemiesTypes>
+		<levelUpCondition>
+			<points>0</points>
+			<killStreak>0</killStreak>
+			<name>Blu</name>
+			<percent>1</percent>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>5</points>
+			<killStreak>5</killStreak>
+			<name>Blu</name>
+			<percent>0.86</percent>
+		</levelUpCondition>
+	</enemiesTypes>
+
+	<enemiesSpawn>
+		<levelUpCondition>
+			<points>0</points>
+			<killStreak>0</killStreak>
+			<quantity>1</quantity>
+			<time>1.6</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>5</points>
+			<killStreak>5</killStreak>
+			<quantity>2</quantity>
+			<time>2.7</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>15</points>
+			<killStreak>11</killStreak>
+			<quantity>2</quantity>
+			<time>2.7</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>25</points>
+			<killStreak>19</killStreak>
+			<quantity>3</quantity>
+			<time>3.3</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>45</points>
+			<killStreak>30</killStreak>
+			<quantity>2</quantity>
+			<time>2.6</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>60</points>
+			<killStreak>45</killStreak>
+			<quantity>2</quantity>
+			<time>3</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>85</points>
+			<killStreak>60</killStreak>
+			<quantity>3</quantity>
+			<time>3.3</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>115</points>
+			<killStreak>85</killStreak>
+			<quantity>2</quantity>
+			<time>2.2</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>140</points>
+			<killStreak>115</killStreak>
+			<quantity>3</quantity>
+			<time>3.5</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>180</points>
+			<killStreak>145</killStreak>
+			<quantity>2</quantity>
+			<time>2.2</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>240</points>
+			<killStreak>190</killStreak>
+			<quantity>3</quantity>
+			<time>3.4</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>300</points>
+			<killStreak>230</killStreak>
+			<quantity>3</quantity>
+			<time>3.2</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>400</points>
+			<killStreak>300</killStreak>
+			<quantity>4</quantity>
+			<time>4.1</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>500</points>
+			<killStreak>380</killStreak>
+			<quantity>4</quantity>
+			<time>3.9</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>650</points>
+			<killStreak>470</killStreak>
+			<quantity>4</quantity>
+			<time>3.4</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>800</points>
+			<killStreak>580</killStreak>
+			<quantity>5</quantity>
+			<time>3.5</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>1000</points>
+			<killStreak>690</killStreak>
+			<quantity>5</quantity>
+			<time>3</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>1300</points>
+			<killStreak>800</killStreak>
+			<quantity>6</quantity>
+			<time>2.6</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>1600</points>
+			<killStreak>1000</killStreak>
+			<quantity>6</quantity>
+			<time>2.3</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>2400</points>
+			<killStreak>1200</killStreak>
+			<quantity>7</quantity>
+			<time>2.5</time>
+		</levelUpCondition>
+
+		<levelUpCondition>
+			<points>3000</points>
+			<killStreak>1800</killStreak>
+			<quantity>7</quantity>
+			<time>2.1</time>
+		</levelUpCondition>
+
+	</enemiesSpawn>
+
+	<enemiesAttributes>
+		<points>43</points>
+		<vel>0.065</vel>
+		<life>0.06</life>
+		<maxEnemiesAttributeLevel>15</maxEnemiesAttributeLevel>
+	</enemiesAttributes>
+	<!-- END ENEMIES -->
+
+	<!-- BOSS -->
+	<boss>
+		<tiers>
+			<tier>
+				<kills>65</kills>
+				<bossMeteor>0.85</bossMeteor>
+				<bossTwins>0.15</bossTwins>
+				<bossIllusion>0</bossIllusion>
+			</tier>
+
+			<tier>
+				<kills>210</kills>
+				<bossMeteor>0.15</bossMeteor>
+				<bossTwins>0.75</bossTwins>
+				<bossIllusion>0.1</bossIllusion>
+			</tier>
+
+			<tier>
+				<kills>325</kills>
+				<bossMeteor>0.15</bossMeteor>
+				<bossTwins>0</bossTwins>
+				<bossIllusion>0.85</bossIllusion>
+			</tier>
+
+			<tier>
+				<kills>550</kills>
+				<bossMeteor>0.55</bossMeteor>
+				<bossTwins>0.3</bossTwins>
+				<bossIllusion>0.15</bossIllusion>
+			</tier>
+
+			<tier>
+				<kills>850</kills>
+				<bossMeteor>0</bossMeteor>
+				<bossTwins>0.65</bossTwins>
+				<bossIllusion>0.35</bossIllusion>
+			</tier>
+
+			<tier>
+				<kills>1100</kills>
+				<bossMeteor>0.35</bossMeteor>
+				<bossTwins>0.35</bossTwins>
+				<bossIllusion>0.3</bossIllusion>
+			</tier>
+
+			<tier>
+				<kills>1400</kills>
+				<bossMeteor>0.5</bossMeteor>
+				<bossTwins>0.4</bossTwins>
+				<bossIllusion>0.1</bossIllusion>
+			</tier>
+
+			<tier>
+				<kills>1800</kills>
+				<bossMeteor>0.35</bossMeteor>
+				<bossTwins>0.1</bossTwins>
+				<bossIllusion>0.55</bossIllusion>
+			</tier>
+
+		</tiers>
+
+
+		<infinityBoss>
+			<kills>500</kills>
+			<bossMeteor>0.33</bossMeteor>
+			<bossTwins>0.33</bossTwins>
+			<bossIllusion>0.33</bossIllusion>
+		</infinityBoss>
+	</boss>
+	<!-- END BOSS -->
+
+	<!-- ITENS -->
+	<itens>
+		<spawnTimeMin>3</spawnTimeMin>
+		<spawnTimeMax>6</spawnTimeMax>
+
+		<tiers>
+			<tier> <!-- Level 1 -->
+				<points>0</points>
+				<killStreak>0</killStreak>
+				<chanceToSpawn>0.3</chanceToSpawn>
+				<name>PlasmaOrbPP</name>
+				<percent>0.9</percent>
+			</tier>
+
+			<tier>  <!-- Level 2 -->
+				<points>30</points>
+				<killStreak>22</killStreak>
+				<chanceToSpawn>0.25</chanceToSpawn>
+				<name>PlasmaOrbPP</name>
+				<percent>0.3</percent>
+			</tier>
+
+		</tiers>
+	</itens>
+	<!-- END ITENS -->
+
+	<!-- SHOP -->
+	<shop>
+		<range>
+			<value>2.25</value>
+			<value>2.45</value>
+			<value>2.65</value>
+			<value>2.9</value>
+		</range>
+
+		<damage>
+			<value>1</value>
+			<value>1.2</value>
+			<value>1.4</value>
+			<value>1.6</value>
+		</damage>
+	</shop>
+	<!-- END SHOP -->
+</balance>

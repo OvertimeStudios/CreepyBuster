@@ -144,7 +144,7 @@ public class LevelDesign : MonoBehaviour
 	/// </summary>
 	public static int MaxEnemyTypesLevel
 	{
-		get { return Instance.gameBalance.enemiesTypesLevelUpCondition.Length - 1; }
+		get { return Instance.gameBalance.enemiesTypesLevelUpCondition.Count - 1; }
 	}
 
 	/// <summary>
@@ -304,7 +304,7 @@ public class LevelDesign : MonoBehaviour
 	/// </summary>
 	public static int MaxItemLevel
 	{
-		get { return Instance.gameBalance.itemLevelUpCondition.itemTier.Length - 1; }
+		get { return Instance.gameBalance.itemLevelUpCondition.itemTier.Count - 1; }
 	}
 	
 	/// <summary>
@@ -660,8 +660,8 @@ public class LevelDesign : MonoBehaviour
 [System.Serializable]
 public class LevelUpCondition
 {
-	public int points;
-	public int killStreak;
+	public int points = -1;
+	public int killStreak = -1;
 }
 
 [System.Serializable]
@@ -700,7 +700,9 @@ public class GameBalance
 	public SpecialAttributes specialAttributes;
 
 	[XmlArray("enemiesTypes"), XmlArrayItem("levelUpCondition")]
-	public EnemiesTypesLevelUpCondition[] enemiesTypesLevelUpCondition;
+	public EnemiesTypesLevelUpConditionTemp[] enemiesTypesLevelUpConditionTemp;
+
+	public List<EnemiesTypesLevelUpCondition> enemiesTypesLevelUpCondition;
 
 	[XmlArray("enemiesSpawn"), XmlArrayItem("levelUpCondition")]
 	public EnemiesSpawnLevelUpCondition[] enemiesSpawnLevelUpCondition;
@@ -717,21 +719,39 @@ public class GameBalance
 	[XmlElement("shop")]
 	public ShopItens shopItens;
 
-	public static GameBalance Load(string path)
-	{
-		var serializer = new XmlSerializer(typeof(GameBalance));
-		using(var stream = new FileStream(path, FileMode.Open))
-		{
-			return serializer.Deserialize(stream) as GameBalance;
-		}
-	}
-
 	public static GameBalance LoadFromText(string text)
 	{
 		var serializer = new XmlSerializer(typeof(GameBalance));
 
-		//Debug.Log(text);
-		return serializer.Deserialize(new StringReader(text)) as GameBalance;
+		GameBalance _gameBalance = serializer.Deserialize(new StringReader(text)) as GameBalance;
+
+		_gameBalance.ArrangeEnemyArray();
+		_gameBalance.itemLevelUpCondition.ArrangeArray();
+
+		return _gameBalance;
+	}
+
+	public void ArrangeEnemyArray()
+	{
+		enemiesTypesLevelUpCondition = new List<EnemiesTypesLevelUpCondition>();
+		foreach(EnemiesTypesLevelUpConditionTemp temp in enemiesTypesLevelUpConditionTemp)
+		{
+			if(temp.killStreak >= 0)//new tier
+			{
+				EnemiesTypesLevelUpCondition newTier = new EnemiesTypesLevelUpCondition();
+				newTier.killStreak = temp.killStreak;
+				newTier.points = temp.points;
+				newTier.enemies = new List<EnemiesPercent>();
+
+				enemiesTypesLevelUpCondition.Add(newTier);
+			}
+
+			EnemiesPercent enemyPercent = new EnemiesPercent();
+			enemyPercent.name = temp.name;
+			enemyPercent.percent = temp.percent;
+
+			enemiesTypesLevelUpCondition[enemiesTypesLevelUpCondition.Count - 1].enemies.Add(enemyPercent);
+		}
 	}
 }
 
@@ -763,11 +783,17 @@ public class SpecialAttributes
 	}
 }
 
+public class EnemiesTypesLevelUpConditionTemp : LevelUpCondition
+{
+	public EnemiesPercent.EnemyNames name;
+	public float percent;
+}
+
 [System.Serializable]
 public class EnemiesTypesLevelUpCondition : LevelUpCondition
 {
-	[XmlArray("EnemiesPercents"), XmlArrayItem("EnemiesPercent")]
-	public EnemiesPercent[] enemies;
+	//[XmlArray("EnemiesPercents"), XmlArrayItem("EnemiesPercent")]
+	public List<EnemiesPercent> enemies;
 }
 
 [System.Serializable]
@@ -863,7 +889,41 @@ public class ItemLevelUpCondition
 	}
 
 	[XmlArray("tiers"), XmlArrayItem("tier")]
-	public ItemTier[] itemTier;
+	public ItemTierTemp[] itemTierTemp;
+
+	public List<ItemTier> itemTier;
+
+	public void ArrangeArray()
+	{
+		itemTier = new List<ItemTier>();
+		foreach(ItemTierTemp temp in itemTierTemp)
+		{
+			if(temp.killStreak >= 0)//new tier
+			{
+				ItemTier newItemTier = new ItemTier();
+				newItemTier.killStreak = temp.killStreak;
+				newItemTier.points = temp.points;
+				newItemTier.chanceToSpawn = temp.chanceToSpawn;
+				newItemTier.itens = new List<ItemPercent>();
+
+				itemTier.Add(newItemTier);
+			}
+
+			ItemPercent itemPercent = new ItemPercent();
+			itemPercent.name = temp.name;
+			itemPercent.percent = temp.percent;
+
+			itemTier[itemTier.Count - 1].itens.Add(itemPercent);
+		}
+	}
+}
+
+public class ItemTierTemp : LevelUpCondition
+{
+	public float chanceToSpawn;
+
+	public ItemPercent.ItensNames name;
+	public float percent;
 }
 
 [System.Serializable]
@@ -871,8 +931,8 @@ public class ItemTier : LevelUpCondition
 {
 	public float chanceToSpawn;
 
-	[XmlArray("itensPercent"), XmlArrayItem("itemPercent")]
-	public ItemPercent[] itens;
+	//[XmlArray("itensPercent"), XmlArrayItem("itemPercent")]
+	public List<ItemPercent> itens;
 }
 
 [System.Serializable]
