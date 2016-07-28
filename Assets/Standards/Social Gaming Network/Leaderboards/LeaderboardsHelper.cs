@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 
-#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 using Prime31;
 #endif
 
-public class GameCenterController : MonoBehaviour 
+public class LeaderboardsHelper : MonoBehaviour 
 {
+
 	#region EVENTS
 	public static Action OnPlayerAuthenticated;
 	#endregion
@@ -27,13 +27,13 @@ public class GameCenterController : MonoBehaviour
 	public string leaderboardID;
 
 	#region singleton
-	private static GameCenterController instance;
-	public static GameCenterController Instance
+	private static LeaderboardsHelper instance;
+	public static LeaderboardsHelper Instance
 	{
 		get
 		{
 			if(instance == null)
-				instance = GameObject.FindObjectOfType<GameCenterController>();
+				instance = GameObject.FindObjectOfType<LeaderboardsHelper>();
 
 			return instance;
 		}
@@ -43,7 +43,7 @@ public class GameCenterController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		Debug.Log("Authenticating Local Player");
 		GameCenterManager.playerAuthenticatedEvent += OnPlayerAthenticated;
 
@@ -53,7 +53,7 @@ public class GameCenterController : MonoBehaviour
 
 	private static void OnPlayerAthenticated()
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		Debug.Log("Player successfully authenticated");
 
 		if(OnPlayerAuthenticated != null)
@@ -66,7 +66,7 @@ public class GameCenterController : MonoBehaviour
 
 	public static void AuthenticatePlayer()
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		if(!GameCenterBinding.isPlayerAuthenticated())
 			GameCenterBinding.authenticateLocalPlayer();
 		#endif
@@ -74,7 +74,7 @@ public class GameCenterController : MonoBehaviour
 
 	public static bool IsPlayerAuthenticated()
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		return GameCenterBinding.isPlayerAuthenticated();
 		#else
 		return false;
@@ -83,7 +83,7 @@ public class GameCenterController : MonoBehaviour
 
 	public static IEnumerator GetUserScore(System.Action<long> result)
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		if(GameCenterBinding.isPlayerAuthenticated())
 		{
 			isSearchingPlayerScore = true;
@@ -112,7 +112,7 @@ public class GameCenterController : MonoBehaviour
 		#endif
 	}
 
-	#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+	#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 	private static void OnPlayerScoreLoaded(GameCenterRetrieveScoresResult result)
 	{
 		playerScore = result.scores[0].value;
@@ -132,7 +132,7 @@ public class GameCenterController : MonoBehaviour
 
 	public static IEnumerator GetPlayerGlobalPosition(System.Action<int, int> result)
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		if(GameCenterBinding.isPlayerAuthenticated())
 		{
 			isSearchingPlayerGlobalPosition = true;
@@ -161,7 +161,7 @@ public class GameCenterController : MonoBehaviour
 		#endif
 	}
 
-	#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+	#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 	private static void OnPlayerGlobalScoresLoaded(GameCenterRetrieveScoresResult result)
 	{
 		Debug.Log(string.Format("Did recieved OnPlayerGlobalScoresLoaded. Total results: {0}: \n" +
@@ -187,7 +187,7 @@ public class GameCenterController : MonoBehaviour
 
 	public static IEnumerator GetPlayerFriendsPosition(System.Action<int, int> result)
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		if(GameCenterBinding.isPlayerAuthenticated())
 		{
 			Debug.Log("GameCenterController.GetPlayerFriendsPosition");
@@ -218,7 +218,7 @@ public class GameCenterController : MonoBehaviour
 		#endif
 	}
 
-	#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+	#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 	private static void OnPlayerFriendsScoresLoaded(GameCenterRetrieveScoresResult result)
 	{
 		foreach(GameCenterScore gcScore in result.scores)
@@ -243,7 +243,7 @@ public class GameCenterController : MonoBehaviour
 
 	public static void ShowLeaderboards()
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		if(GameCenterBinding.isPlayerAuthenticated())
 			GameCenterBinding.showLeaderboardWithTimeScope( GameCenterLeaderboardTimeScope.AllTime );
 		#endif
@@ -251,16 +251,16 @@ public class GameCenterController : MonoBehaviour
 
 	public static void ShowLeaderboards(string _leaderboardID)
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		if(GameCenterBinding.isPlayerAuthenticated())
 			GameCenterBinding.showLeaderboardWithTimeScope( GameCenterLeaderboardTimeScope.AllTime);
 		#endif
 	}
-		
+
 	public static void SendScore(long score, string leaderboardID)
 	{
 		Debug.Log("Sending score: " + score);
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		GameCenterBinding.reportScore(score, leaderboardID);
 		#endif
 	}

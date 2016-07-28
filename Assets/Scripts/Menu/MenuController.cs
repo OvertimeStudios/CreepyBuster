@@ -135,7 +135,7 @@ public class MenuController : MonoBehaviour
 
 		Global.OnHighScoreUpdated += UpdateScore;
 
-		GameCenterController.OnPlayerAuthenticated += SendFirstScore;
+		LeaderboardsHelper.OnPlayerAuthenticated += SendFirstScore;
 	}
 
 	void OnDisable()
@@ -149,13 +149,13 @@ public class MenuController : MonoBehaviour
 
 		Global.OnHighScoreUpdated -= UpdateScore;
 
-		GameCenterController.OnPlayerAuthenticated -= SendFirstScore;
+		LeaderboardsHelper.OnPlayerAuthenticated -= SendFirstScore;
 	}
 
 	private void SendFirstScore()
 	{
 		//HACK: the first time player enter game, he doesn't have any registered score on leaderboard. So, entry a 0 value.
-		GameCenterController.SendScore(Global.HighScore, GameCenterController.Instance.leaderboardID);
+		LeaderboardsHelper.SendScore(Global.HighScore, LeaderboardsHelper.Instance.leaderboardID);
 
 		StartCoroutine(GetUserScore());
 	}
@@ -163,7 +163,7 @@ public class MenuController : MonoBehaviour
 	private IEnumerator GetUserScore()
 	{
 		long score = 0;
-		yield return StartCoroutine(GameCenterController.GetUserScore(value => score = value));
+		yield return StartCoroutine(LeaderboardsHelper.GetUserScore(value => score = value));
 
 		if((int)score > Global.HighScore)
 			Global.HighScore = (int)score;
@@ -467,7 +467,12 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToAchievements()
 	{
-		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
+		#if ACHIEVEMENTS_IMPLEMENTED
+		if(AchievementsHelper.IsPlayerAuthenticated())
+			AchievementsHelper.OpenAchievements();
+		#endif
+
+		/*if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
@@ -476,7 +481,7 @@ public class MenuController : MonoBehaviour
 		lastMenu = activeMenu;
 		activeMenu = Menus.Achievements;
 		
-		MoveScreen (true);
+		MoveScreen (true);*/
 	}
 
 	public void MoveToCreepypedia()

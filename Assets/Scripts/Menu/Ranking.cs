@@ -21,8 +21,8 @@ public class Ranking : MonoBehaviour
 	public GameObject globalInfo;
 	public GameObject friendsInfo;
 
-	public GameObject globalFacebook;
-	public GameObject friendsFacebook;
+	public GameObject globalLogin;
+	public GameObject friendsLogin;
 
 	void OnEnable()
 	{
@@ -34,19 +34,35 @@ public class Ranking : MonoBehaviour
 		globalRanking.SetActive(false);
 		friendsRanking.SetActive(false);
 		
-		//globalInfo.SetActive(false);
-		//friendsInfo.SetActive(false);
+		globalInfo.SetActive(LeaderboardsHelper.IsPlayerAuthenticated());
+		friendsInfo.SetActive(LeaderboardsHelper.IsPlayerAuthenticated());
 
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
-		if(GameCenterController.IsPlayerAuthenticated())
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+		if(LeaderboardsHelper.IsPlayerAuthenticated())
 			GetRanks();
+		else
+		{
+			#if UNITY_IOS
+			globalLogin.GetComponentInChildren<UISprite>().spriteName = "game-center-badge";
+			globalLogin.GetComponentInChildren<UILabel>().text = Localization.Get("GAMECENTER_LOGIN");
+
+			friendsLogin.GetComponentInChildren<UISprite>().spriteName = "game-center-badge";
+			friendsLogin.GetComponentInChildren<UILabel>().text = Localization.Get("GAMECENTER_LOGIN");
+			#else
+			globalLogin.GetComponentInChildren<UISprite>().spriteName = "google-play-badge";
+			globalLogin.GetComponentInChildren<UILabel>().text = Localization.Get("GOOGLEPLAY_LOGIN");
+
+			friendsLogin.GetComponentInChildren<UISprite>().spriteName = "google-play-badge";
+			friendsLogin.GetComponentInChildren<UILabel>().text = Localization.Get("GOOGLEPLAY_LOGIN");
+			#endif
+		}
 		#endif
 	}
 
 	void OnDestroy()
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
-		GameCenterController.OnPlayerAuthenticated -= GetRanks;
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+		LeaderboardsHelper.OnPlayerAuthenticated -= GetRanks;
 		#else
 
 		#endif
@@ -54,8 +70,8 @@ public class Ranking : MonoBehaviour
 
 	void Start()
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
-		GameCenterController.OnPlayerAuthenticated += GetRanks;
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+		LeaderboardsHelper.OnPlayerAuthenticated += GetRanks;
 		#else
 
 		#endif
@@ -63,8 +79,8 @@ public class Ranking : MonoBehaviour
 
 	public void AuthenticatePlayer()
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
-		GameCenterController.AuthenticatePlayer();
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+		LeaderboardsHelper.AuthenticatePlayer();
 		#else
 
 		#endif
@@ -75,8 +91,8 @@ public class Ranking : MonoBehaviour
 		worldRank.text = Localization.Get("LOADING");
 		friendsRank.text = Localization.Get("LOADING");
 
-		globalFacebook.SetActive(false);
-		friendsFacebook.SetActive(false);
+		globalLogin.SetActive(false);
+		friendsLogin.SetActive(false);
 
 		StartCoroutine(LoadRanks());
 	}
@@ -91,8 +107,8 @@ public class Ranking : MonoBehaviour
 	{
 		Debug.Log("Getting Global ranking...");
 
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
-		yield return StartCoroutine(GameCenterController.GetPlayerGlobalPosition(SetGlobalRank));
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+		yield return StartCoroutine(LeaderboardsHelper.GetPlayerGlobalPosition(SetGlobalRank));
 		#elif UNITY_ANDROID
 
 		#else
@@ -104,8 +120,8 @@ public class Ranking : MonoBehaviour
 	{
 		Debug.Log("Getting Friends ranking...");
 
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
-		yield return StartCoroutine(GameCenterController.GetPlayerFriendsPosition(SetFriendsRank));
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+		yield return StartCoroutine(LeaderboardsHelper.GetPlayerFriendsPosition(SetFriendsRank));
 		#elif UNITY_ANDROID
 
 		#else
@@ -204,8 +220,8 @@ public class Ranking : MonoBehaviour
 
 	public void OpenGlobalRank()
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
-		GameCenterController.ShowLeaderboards(GameCenterController.Instance.leaderboardID);
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+		LeaderboardsHelper.ShowLeaderboards(LeaderboardsHelper.Instance.leaderboardID);
 		#else
 
 		#endif
@@ -215,8 +231,8 @@ public class Ranking : MonoBehaviour
 
 	public void OpenFriendsRank()
 	{
-		#if GAMECENTER_IMPLEMENTED && UNITY_IOS
-		GameCenterController.ShowLeaderboards(GameCenterController.Instance.leaderboardID);
+		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+		LeaderboardsHelper.ShowLeaderboards(LeaderboardsHelper.Instance.leaderboardID);
 		#else
 
 		#endif

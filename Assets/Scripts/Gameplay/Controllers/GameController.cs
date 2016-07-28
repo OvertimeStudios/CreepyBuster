@@ -541,9 +541,9 @@ public class GameController : MonoBehaviour
 			#endif
 			*/
 
-			#if GAMECENTER_IMPLEMENTED
-			if(GameCenterController.IsPlayerAuthenticated())
-				GameCenterController.SendScore(Global.HighScore, GameCenterController.Instance.leaderboardID);
+			#if LEADERBOARDS_IMPLEMENTED
+			if(LeaderboardsHelper.IsPlayerAuthenticated())
+				LeaderboardsHelper.SendScore(Global.HighScore, LeaderboardsHelper.Instance.leaderboardID);
 			#endif
 		}
 		
