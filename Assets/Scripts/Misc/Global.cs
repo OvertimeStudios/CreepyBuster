@@ -72,8 +72,6 @@ public class Global : MonoBehaviour
 	private const string TIME_SPECIAL5 = "timeSpecial5";
 	private const string TIME_SPECIAL6 = "timeSpecial6";
 	private const string FACEBOOKID = "facebookID";
-	private const string DAILY_REWARD_DAY = "dailyRewardDay";
-	private const string DAILY_REWARD_NEXT_TIME = "dailyRewardNextTime";
 	private const string DEATHRAY_USABLE = "deathRayUsable";
 	private const string INVENCIBLE_USABLE = "invencibleUsable";
 	private const string LEVELUP_USABLE = "levelUpUsable";
@@ -1040,38 +1038,6 @@ public class Global : MonoBehaviour
 		set
 		{
 			PlayerPrefs.SetString(FACEBOOKID, value);
-			PlayerPrefs.Save();
-		}
-	}
-
-	public static int DailyRewardDay
-	{
-		get
-		{
-			if(!PlayerPrefs.HasKey(DAILY_REWARD_DAY))
-				return 0;
-
-			return PlayerPrefs.GetInt(DAILY_REWARD_DAY);
-		}
-		set
-		{
-			PlayerPrefs.SetInt(DAILY_REWARD_DAY, value);
-			PlayerPrefs.Save();
-		}
-	}
-
-	public static string DailyRewardNextTime
-	{
-		get
-		{
-			if(!PlayerPrefs.HasKey(DAILY_REWARD_NEXT_TIME))
-				return "";
-			
-			return PlayerPrefs.GetString(DAILY_REWARD_NEXT_TIME);
-		}
-		set
-		{
-			PlayerPrefs.SetString(DAILY_REWARD_NEXT_TIME, value);
 			PlayerPrefs.Save();
 		}
 	}

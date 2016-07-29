@@ -4,6 +4,9 @@ using System.Collections;
 
 public class DailyRewardController : MonoBehaviour 
 {
+	private const string DAILY_REWARD_DAY = "dailyRewardDay";
+	private const string DAILY_REWARD_NEXT_TIME = "dailyRewardNextTime";
+
 	public GameObject dailyRewardObject;
 	public int[] orbsReward;
 
@@ -13,14 +16,46 @@ public class DailyRewardController : MonoBehaviour
 	private static DateTime rewardCooldownTime;
 
 	#region get / set
+	public static int DailyRewardDay
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(DAILY_REWARD_DAY))
+				return 0;
+
+			return PlayerPrefs.GetInt(DAILY_REWARD_DAY);
+		}
+		set
+		{
+			PlayerPrefs.SetInt(DAILY_REWARD_DAY, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	public static string DailyRewardNextTime
+	{
+		get
+		{
+			if(!PlayerPrefs.HasKey(DAILY_REWARD_NEXT_TIME))
+				return "";
+
+			return PlayerPrefs.GetString(DAILY_REWARD_NEXT_TIME);
+		}
+		set
+		{
+			PlayerPrefs.SetString(DAILY_REWARD_NEXT_TIME, value);
+			PlayerPrefs.Save();
+		}
+	}
+
 	public DateTime RewardCooldownTime
 	{
 		get 
 		{
 			if (object.Equals(rewardCooldownTime,default(DateTime)))
 			{
-				if(!string.IsNullOrEmpty(Global.DailyRewardNextTime))
-					rewardCooldownTime = DateTime.Parse(Global.DailyRewardNextTime);
+				if(!string.IsNullOrEmpty(DailyRewardNextTime))
+					rewardCooldownTime = DateTime.Parse(DailyRewardNextTime);
 				else 
 					rewardCooldownTime = DateTime.UtcNow;
 			}
@@ -66,7 +101,7 @@ public class DailyRewardController : MonoBehaviour
 	public static void SetRewardCooldownTime (DateTime dateTime)
 	{
 		rewardCooldownTime = dateTime;
-		Global.DailyRewardNextTime = dateTime.ToString();
+		DailyRewardNextTime = dateTime.ToString();
 	}
 	#endregion
 
@@ -78,8 +113,11 @@ public class DailyRewardController : MonoBehaviour
 	private void CheckReward() 
 	{
 		if(RewardCooldownLeft/3600f <= -24f)
-			Global.DailyRewardDay = 0;
-
+		{
+			DailyRewardDay = 0;
+			SetRewardCooldownTime(DateTime.UtcNow);
+		}
+		
 		if(IsReady)
 			ShowReward();
 	}
@@ -98,15 +136,14 @@ public class DailyRewardController : MonoBehaviour
 			UILabel orbs = t.FindChild("Orbs").GetComponent<UILabel>();
 			TweenScale tween = t.GetComponent<TweenScale>();
 			UIButton button = t.GetComponent<UIButton>();
-			
-			
+
 			blue.SetActive(false);
 			green.SetActive(false);
 			gray.SetActive(false);
 			
-			if(i < Global.DailyRewardDay)
+			if(i < DailyRewardDay)
 				gray.SetActive(true);
-			else if(i == Global.DailyRewardDay)
+			else if(i == DailyRewardDay)
 			{
 				orbsToCollect = orbsReward[i];
 				tween.enabled = true;
@@ -131,11 +168,12 @@ public class DailyRewardController : MonoBehaviour
 
 		Global.TotalOrbs += orbsToCollect;
 
-		Global.DailyRewardDay++;
+		DailyRewardDay++;
 
-		if(Global.DailyRewardDay > 6)
-			Global.DailyRewardDay = 0;
+		if(DailyRewardDay > 6)
+			DailyRewardDay = 0;
 
+		Debug.Log("CollectReward()");
 		SetRewardCooldownTime(RewardCooldownTime.AddHours(24f));
 
 		dailyRewardObject.SetActive(false);
