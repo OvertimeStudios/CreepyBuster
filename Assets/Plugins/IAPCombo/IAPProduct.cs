@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID || UNITY_TVOS
 
 namespace Prime31
 {
@@ -15,7 +15,7 @@ namespace Prime31
 		public string currencyCode { get; private set; }
 	
 	
-#if UNITY_IOS
+#if UNITY_IOS || UNITY_TVOS
 		public IAPProduct( StoreKitProduct prod )
 		{
 			productId = prod.productIdentifier;

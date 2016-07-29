@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Prime31;
 
 
-#if UNITY_IOS
+#if UNITY_IOS || UNITY_TVOS
 
 namespace Prime31
 {

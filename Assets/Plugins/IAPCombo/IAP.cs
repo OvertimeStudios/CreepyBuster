@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID || UNITY_TVOS
 
 namespace Prime31
 {
@@ -28,7 +28,7 @@ namespace Prime31
 	
 		static IAP()
 		{
-#if UNITY_IOS
+#if UNITY_IOS || UNITY_TVOS
 			// product list
 			StoreKitManager.productListReceivedEvent += ( products ) =>
 			{
@@ -147,7 +147,7 @@ namespace Prime31
 	
 #if UNITY_ANDROID
 			GoogleIAB.queryInventory( androidSkus );
-#elif UNITY_IOS
+#elif UNITY_IOS || UNITY_TVOS
 			StoreKitBinding.requestProductData( iosProductIdentifiers );
 #endif
 		}
@@ -162,7 +162,7 @@ namespace Prime31
 	
 #if UNITY_ANDROID
 			GoogleIAB.purchaseProduct( productId, CONSUMABLE_PAYLOAD );
-#elif UNITY_IOS
+#elif UNITY_IOS || UNITY_TVOS
 			StoreKitBinding.purchaseProduct( productId, 1 );
 #endif
 		}
@@ -177,7 +177,7 @@ namespace Prime31
 	
 #if UNITY_ANDROID
 			GoogleIAB.purchaseProduct( productId, NON_CONSUMABLE_PAYLOAD );
-#elif UNITY_IOS
+#elif UNITY_IOS || UNITY_TVOS
 			StoreKitBinding.purchaseProduct( productId, 1 );
 #endif
 		}
@@ -191,7 +191,7 @@ namespace Prime31
 			_purchaseCompletionAction = null;
 			_purchaseRestorationAction = completionHandler;
 	
-#if UNITY_IOS
+#if UNITY_IOS || UNITY_TVOS
 			StoreKitBinding.restoreCompletedTransactions();
 #endif
 		}

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Prime31;
 
 
-#if UNITY_IOS
+#if UNITY_IOS || UNITY_TVOS
 public enum StoreKitTransactionState
 {
     Purchasing,    // Transaction is being added to the server queue.
@@ -22,6 +22,7 @@ namespace Prime31
 	    public string productIdentifier;
 		public string transactionIdentifier;
 	    public string base64EncodedTransactionReceipt;
+		public string applicationUsername;
 	    public int quantity;
 		public int downloads;
 		public StoreKitTransactionState transactionState;
@@ -66,6 +67,9 @@ namespace Prime31
 	
 			if( dict.ContainsKey( "base64EncodedReceipt" ) )
 	        	transaction.base64EncodedTransactionReceipt = dict["base64EncodedReceipt"].ToString();
+			
+			if( dict.ContainsKey( "applicationUsername" ) )
+				transaction.applicationUsername = dict["applicationUsername"].ToString();
 	
 			if( dict.ContainsKey( "quantity" ) )
 	        	transaction.quantity = int.Parse( dict["quantity"].ToString() );

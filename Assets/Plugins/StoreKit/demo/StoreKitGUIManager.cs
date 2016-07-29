@@ -8,7 +8,7 @@ namespace Prime31
 {
 	public class StoreKitGUIManager : MonoBehaviourGUI
 	{
-#if UNITY_IOS
+#if UNITY_IOS || UNITY_TVOS
 		private List<StoreKitProduct> _products;
 
 
@@ -84,13 +84,20 @@ namespace Prime31
 
 			if( GUILayout.Button( "Get Saved Transactions" ) )
 			{
-				List<StoreKitTransaction> transactionList = StoreKitBinding.getAllSavedTransactions();
+				var transactionList = StoreKitBinding.getAllSavedTransactions();
 
 				// Print all the transactions to the console
 				Debug.Log( "\ntotal transaction received: " + transactionList.Count );
 
 				foreach( StoreKitTransaction transaction in transactionList )
 					Debug.Log( transaction.ToString() + "\n" );
+			}
+
+
+			if( GUILayout.Button( "Get Current Transactions" ) )
+			{
+				var transactionList = StoreKitBinding.getAllCurrentTransactions();
+				Utils.logObject( transactionList );
 			}
 
 

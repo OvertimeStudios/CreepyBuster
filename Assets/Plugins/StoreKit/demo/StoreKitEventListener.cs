@@ -8,7 +8,7 @@ namespace Prime31
 {
 	public class StoreKitEventListener : MonoBehaviour
 	{
-#if UNITY_IOS
+#if UNITY_IOS || UNITY_TVOS
 		void OnEnable()
 		{
 			// Listens to all the StoreKit events. All event listeners MUST be removed before this object is disposed!

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 
-#if UNITY_IOS
+#if UNITY_IOS || UNITY_TVOS
 
 namespace Prime31
 {
@@ -15,7 +15,7 @@ namespace Prime31
 
 		public static bool canMakePayments()
 		{
-			if( Application.platform == RuntimePlatform.IPhonePlayer )
+			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				return _storeKitCanMakePayments();
 			return false;
 		}
@@ -28,7 +28,7 @@ namespace Prime31
 		// The recommended implementation is to use a one-way hash of the user's account name to calculate the value for this property.
 	    public static void setApplicationUsername( string applicationUserName )
 	    {
-	        if( Application.platform == RuntimePlatform.IPhonePlayer )
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitSetApplicationUsername( applicationUserName );
 	    }
 
@@ -39,7 +39,7 @@ namespace Prime31
 		// iOS 7+ only. Returns the location of the App Store receipt file. If called on an older iOS version it returns null.
 	    public static string getAppStoreReceiptLocation()
 	    {
-	        if( Application.platform == RuntimePlatform.IPhonePlayer )
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				return _storeKitGetAppStoreReceiptUrl();
 
 			return null;
@@ -52,7 +52,7 @@ namespace Prime31
 		// Refreshes the app store receipt. Resuts in the refreshReceiptSucceeded/Failed event firing.
 		public static void refreshReceipt()
 		{
-			if( Application.platform == RuntimePlatform.IPhonePlayer )
+			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitRefreshReceipt();
 		}
 
@@ -63,7 +63,7 @@ namespace Prime31
 		// By default, the transactionUpdatedEvent will not be called to avoid excessive string allocations. If you pass true to this method it will be called.
 		public static void setShouldSendTransactionUpdateEvents( bool sendTransactionUpdateEvents )
 		{
-			if( Application.platform == RuntimePlatform.IPhonePlayer )
+			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitSendTransactionUpdateEvents( sendTransactionUpdateEvents );
 		}
 
@@ -74,7 +74,7 @@ namespace Prime31
 		// Enables/disables high detail logs
 		public static void enableHighDetailLogs( bool shouldEnable )
 		{
-			if( Application.platform == RuntimePlatform.IPhonePlayer )
+			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitEnableHighDetailLogs( shouldEnable );
 		}
 
@@ -85,7 +85,7 @@ namespace Prime31
 		// Accepts an array of product identifiers. All of the products you have for sale should be requested in one call.
 	    public static void requestProductData( string[] productIdentifiers )
 	    {
-	        if( Application.platform == RuntimePlatform.IPhonePlayer )
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitRequestProductData( string.Join( ",", productIdentifiers ) );
 	    }
 
@@ -96,7 +96,7 @@ namespace Prime31
 		// Purchases the given product and quantity
 	    public static void purchaseProduct( string productIdentifier, int quantity )
 	    {
-	        if( Application.platform == RuntimePlatform.IPhonePlayer )
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitPurchaseProduct( productIdentifier, quantity );
 	    }
 
@@ -107,7 +107,7 @@ namespace Prime31
 		// Finishes any pending transactions that were being tracked
 	    public static void finishPendingTransactions()
 	    {
-	        if( Application.platform == RuntimePlatform.IPhonePlayer )
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitFinishPendingTransactions();
 	    }
 
@@ -118,7 +118,7 @@ namespace Prime31
 		// Force finishes any and all pending transactions including those being tracked and any random transactions in Apple's queue
 		public static void forceFinishPendingTransactions()
 		{
-			if( Application.platform == RuntimePlatform.IPhonePlayer )
+			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitForceFinishPendingTransactions();
 		}
 
@@ -129,7 +129,7 @@ namespace Prime31
 		// Finishes the pending transaction identified by the transactionIdentifier
 	    public static void finishPendingTransaction( string transactionIdentifier )
 	    {
-	        if( Application.platform == RuntimePlatform.IPhonePlayer )
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitFinishPendingTransaction( transactionIdentifier );
 	    }
 
@@ -140,7 +140,7 @@ namespace Prime31
 		// Pauses any pending downloads
 	    public static void pauseDownloads()
 	    {
-	        if( Application.platform == RuntimePlatform.IPhonePlayer )
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitPauseDownloads();
 	    }
 
@@ -151,7 +151,7 @@ namespace Prime31
 		// Resumes any pending paused downloads
 	    public static void resumeDownloads()
 	    {
-	        if( Application.platform == RuntimePlatform.IPhonePlayer )
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitResumeDownloads();
 	    }
 
@@ -162,7 +162,7 @@ namespace Prime31
 		// Cancels any pending downloads
 	    public static void cancelDownloads()
 	    {
-	        if( Application.platform == RuntimePlatform.IPhonePlayer )
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitCancelDownloads();
 	    }
 
@@ -175,7 +175,7 @@ namespace Prime31
 		// purchaseSuccessfulEvent fire for when restoration is complete.
 	    public static void restoreCompletedTransactions()
 	    {
-	        if( Application.platform == RuntimePlatform.IPhonePlayer )
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitRestoreCompletedTransactions();
 	    }
 
@@ -186,7 +186,7 @@ namespace Prime31
 		// Returns a list of all the transactions that occured on this device.  They are stored in the Document directory.
 	    public static List<StoreKitTransaction> getAllSavedTransactions()
 	    {
-	        if( Application.platform == RuntimePlatform.IPhonePlayer )
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 			{
 				// Grab the transactions and parse them out
 				var json = _storeKitGetAllSavedTransactions();
@@ -195,7 +195,24 @@ namespace Prime31
 
 			return new List<StoreKitTransaction>();
 	    }
+		
 
+	    [DllImport("__Internal")]
+	    private static extern string _storeKitGetAllCurrentTransactions();
+
+		// Returns a list of all the transactions that are currently in the queue
+	    public static List<StoreKitTransaction> getAllCurrentTransactions()
+	    {
+	        if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
+			{
+				// Grab the transactions and parse them out
+				var json = _storeKitGetAllCurrentTransactions();
+				return StoreKitTransaction.transactionsFromJson( json );
+			}
+
+			return new List<StoreKitTransaction>();
+	    }
+	
 
 		[DllImport("__Internal")]
 		private static extern void _storeKitDisplayStoreWithProductId( string productId, string affiliateToken );
@@ -203,7 +220,7 @@ namespace Prime31
 		// iOS 6+ only! Displays the App Store with the given productId in app. The affiliateToken parameter will only work on iOS 8+.
 		public static void displayStoreWithProductId( string productId, string affiliateToken = null )
 		{
-			if( Application.platform == RuntimePlatform.IPhonePlayer )
+			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
 				_storeKitDisplayStoreWithProductId( productId, affiliateToken );
 		}
 
