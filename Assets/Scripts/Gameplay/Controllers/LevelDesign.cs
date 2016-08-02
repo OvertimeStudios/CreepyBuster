@@ -59,7 +59,14 @@ public class LevelDesign : MonoBehaviour
 	private static int itemLevel = 0;
 	#endregion
 
+	private static bool isLoaded = false;
+
 	#region get / set
+
+	public static bool IsLoaded
+	{
+		get { return isLoaded; }
+	}
 
 	#region playerLevel
 	/// <summary>
@@ -232,6 +239,45 @@ public class LevelDesign : MonoBehaviour
 
 	#endregion
 
+	#region enemies stats
+	public static EnemyStats GetEnemyStats(EnemiesPercent.EnemyNames type)
+	{
+		EnemyStats enemyStats = null;
+		switch(type)
+		{
+			case EnemiesPercent.EnemyNames.Blu:
+				enemyStats = Instance.gameBalance.blu;
+				break;
+
+			case EnemiesPercent.EnemyNames.Spiral:
+				enemyStats = Instance.gameBalance.spiral;
+				break;
+
+			case EnemiesPercent.EnemyNames.Charger:
+				enemyStats = Instance.gameBalance.charger;
+				break;
+
+			case EnemiesPercent.EnemyNames.Ziggy:
+				enemyStats = Instance.gameBalance.ziggy;
+				break;
+
+			case EnemiesPercent.EnemyNames.Follower:
+				enemyStats = Instance.gameBalance.follower;
+				break;
+
+			case EnemiesPercent.EnemyNames.Legion:
+				enemyStats = Instance.gameBalance.legion;
+				break;
+
+			case EnemiesPercent.EnemyNames.LegionMinion:
+				enemyStats = Instance.gameBalance.legionMinion;
+				break;
+		}
+
+		return enemyStats;
+	}
+	#endregion
+
 	#region Boss
 	public static int NextKillToBossBattle
 	{
@@ -337,16 +383,19 @@ public class LevelDesign : MonoBehaviour
 	#endregion
 
 	#region Shop Upgrades
+	public static float CurrentRay
+	{
+		get
+		{
+			return Instance.gameBalance.shopItens.ray[Global.RayLevel].value;
+		}
+	}
+
 	public static float CurrentDamage
 	{
 		get
 		{
-			int up = 0;
-
-			for(byte i = 0; i < Global.DamageLevel; i++)
-				up++;
-
-			return Instance.gameBalance.shopItens.damage[up];
+			return Instance.gameBalance.shopItens.damage[Global.DamageLevel].value;
 		}
 	}
 
@@ -354,13 +403,23 @@ public class LevelDesign : MonoBehaviour
 	{
 		get
 		{
-			int up = 0;
-
-			for(byte i = 0; i < Global.RangeLevel; i++)
-				up++;
-			
-			return Instance.gameBalance.shopItens.range[up];
+			return Instance.gameBalance.shopItens.range[Global.RangeLevel].value;
 		}
+	}
+
+	public static List<ShopItem> RayUpgrades
+	{
+		get { return Instance.gameBalance.shopItens.ray; }
+	}
+
+	public static List<ShopItem> DamageUpgrades
+	{
+		get { return Instance.gameBalance.shopItens.damage; }
+	}
+
+	public static List<ShopItem> RangeUpgrades
+	{
+		get { return Instance.gameBalance.shopItens.range; }
 	}
 
 	#endregion
@@ -514,6 +573,8 @@ public class LevelDesign : MonoBehaviour
 	{
 		//Load xml which contains all balance
 		gameBalance = GameBalance.LoadFromText(((TextAsset) Resources.Load("Balance")).text);
+
+		isLoaded = true;
 	}
 
 	private void PlayerLevelUp()
@@ -719,6 +780,17 @@ public class GameBalance
 	[XmlElement("shop")]
 	public ShopItens shopItens;
 
+	[XmlArray("enemiesStats"), XmlArrayItem("enemyStats")]
+	public List<EnemyStatsTemp> enemyStatsTemp;
+
+	public EnemyStats blu = new EnemyStats();
+	public EnemyStats follower = new EnemyStats();
+	public EnemyStats spiral = new EnemyStats();
+	public EnemyStats charger = new EnemyStats();
+	public EnemyStats ziggy = new EnemyStats();
+	public EnemyStats legion = new EnemyStats();
+	public EnemyStats legionMinion = new EnemyStats();
+
 	public static GameBalance LoadFromText(string text)
 	{
 		var serializer = new XmlSerializer(typeof(GameBalance));
@@ -751,6 +823,58 @@ public class GameBalance
 			enemyPercent.percent = temp.percent;
 
 			enemiesTypesLevelUpCondition[enemiesTypesLevelUpCondition.Count - 1].enemies.Add(enemyPercent);
+		}
+
+		//enemies stats
+		EnemyStats enemy = null;
+
+		foreach(EnemyStatsTemp temp in enemyStatsTemp)
+		{
+			if(temp.name != EnemiesPercent.EnemyNames.None)//new tier
+			{
+				switch(temp.name)
+				{
+					case EnemiesPercent.EnemyNames.Blu:
+						enemy = blu;
+						break;
+
+					case EnemiesPercent.EnemyNames.Follower:
+						enemy = follower;
+						break;
+
+					case EnemiesPercent.EnemyNames.Ziggy:
+						enemy = ziggy;
+						break;
+
+					case EnemiesPercent.EnemyNames.Charger:
+						enemy = charger;
+						break;
+
+					case EnemiesPercent.EnemyNames.Spiral:
+						enemy = spiral;
+						break;
+
+					case EnemiesPercent.EnemyNames.Legion:
+						enemy = legion;
+						break;
+
+					case EnemiesPercent.EnemyNames.LegionMinion:
+						enemy = legionMinion;
+						break;
+				}
+
+				enemy.life = temp.life;
+				enemy.vel = temp.vel;
+				enemy.score = temp.score;
+				enemy.chanceToDrop = temp.chanceToDrop;
+				enemy.itens = new List<ItemPercent>();
+			}
+
+			ItemPercent item = new ItemPercent();
+			item.name = temp.itemName;
+			item.percent = temp.percent;
+
+			enemy.itens.Add(item);
 		}
 	}
 }
@@ -799,7 +923,7 @@ public class EnemiesTypesLevelUpCondition : LevelUpCondition
 [System.Serializable]
 public class EnemiesPercent
 {
-	public enum EnemyNames { Blu, Charger, Ziggy, Spiral, Follower, Legion }
+	public enum EnemyNames { Blu, Charger, Ziggy, Spiral, Follower, Legion, LegionMinion, Meteor, Legiworm, LegiwornBody, Psyquor, PsyquorCopy, None }
 
 	public GameObject enemy
 	{
@@ -998,9 +1122,41 @@ public class LevelFloatList
 [System.Serializable]
 public class ShopItens
 {
-	[XmlArray("range"), XmlArrayItem("value")]	
-	public float[] range;
+	[XmlArray("ray"), XmlArrayItem("upgrade")]	
+	public List<ShopItem> ray;
 
-	[XmlArray("damage"), XmlArrayItem("value")]
-	public float[] damage;
+	[XmlArray("range"), XmlArrayItem("upgrade")]	
+	public List<ShopItem> range;
+
+	[XmlArray("damage"), XmlArrayItem("upgrade")]
+	public List<ShopItem> damage;
+}
+
+[System.Serializable]
+public class ShopItem
+{
+	public float value;
+	public int price;
+}
+
+[System.Serializable]
+public class EnemyStats
+{
+	public float life;
+	public float vel;
+	public int score;
+	public float chanceToDrop;
+
+	public List<ItemPercent> itens;
+}
+
+public class EnemyStatsTemp
+{
+	public EnemiesPercent.EnemyNames name = EnemiesPercent.EnemyNames.None;
+	public float life;
+	public float vel;
+	public int score;
+	public float chanceToDrop;
+	public ItemPercent.ItensNames itemName;
+	public float percent;
 }

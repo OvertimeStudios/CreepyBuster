@@ -56,8 +56,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blank
-    x: 1087
-    y: 426
+    x: 1081
+    y: 204
     width: 32
     height: 32
     borderLeft: 0
@@ -70,7 +70,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: blue
     x: 386
-    y: 7
+    y: 136
     width: 91
     height: 128
     borderLeft: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
     paddingTop: 11
     paddingBottom: 11
   - name: "Bota\u0301o_FB"
-    x: 1124
+    x: 1115
     y: 971
     width: 254
     height: 53
@@ -108,7 +108,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "Bota\u0301o_FB_small"
-    x: 1635
+    x: 1626
     y: 972
     width: 127
     height: 52
@@ -147,7 +147,7 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 0
   - name: BOTAO-FORCE
-    x: 866
+    x: 986
     y: 905
     width: 128
     height: 119
@@ -173,8 +173,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-circle-glow
-    x: 737
-    y: 898
+    x: 480
+    y: 16
     width: 128
     height: 126
     borderLeft: 0
@@ -187,7 +187,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button-rect-blue
     x: 480
-    y: 609
+    y: 713
     width: 256
     height: 103
     borderLeft: 0
@@ -212,8 +212,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-rect-blue-wide
-    x: 1893
-    y: 1002
+    x: 1217
+    y: 948
     width: 128
     height: 22
     borderLeft: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button-rect-bronze
     x: 480
-    y: 713
+    y: 609
     width: 256
     height: 103
     borderLeft: 0
@@ -264,8 +264,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-rect-green-wide
-    x: 1893
-    y: 979
+    x: 1346
+    y: 948
     width: 128
     height: 22
     borderLeft: 0
@@ -290,8 +290,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button-square-blue
-    x: 480
-    y: 16
+    x: 737
+    y: 898
     width: 128
     height: 126
     borderLeft: 0
@@ -316,8 +316,8 @@ MonoBehaviour:
     paddingTop: 15
     paddingBottom: 20
   - name: Consumables
-    x: 1301
-    y: 860
+    x: 1115
+    y: 617
     width: 88
     height: 110
     borderLeft: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: creepypedia_unlocked
     x: 737
-    y: 528
+    y: 405
     width: 128
     height: 122
     borderLeft: 0
@@ -368,8 +368,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: day2
-    x: 238
-    y: 375
+    x: 251
+    y: 610
     width: 128
     height: 128
     borderLeft: 0
@@ -382,7 +382,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: day3
     x: 866
-    y: 278
+    y: 638
     width: 116
     height: 128
     borderLeft: 0
@@ -395,7 +395,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: day4
     x: 866
-    y: 407
+    y: 767
     width: 116
     height: 128
     borderLeft: 0
@@ -434,7 +434,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: day7
     x: 866
-    y: 776
+    y: 896
     width: 119
     height: 128
     borderLeft: 0
@@ -446,8 +446,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: estrela
-    x: 1601
-    y: 847
+    x: 1115
+    y: 23
     width: 61
     height: 58
     borderLeft: 0
@@ -472,8 +472,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: game-center-badge
-    x: 480
-    y: 209
+    x: 238
+    y: 375
     width: 128
     height: 128
     borderLeft: 0
@@ -498,8 +498,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gray
-    x: 995
-    y: 330
+    x: 866
+    y: 122
     width: 91
     height: 128
     borderLeft: 0
@@ -524,8 +524,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: hand
-    x: 1214
-    y: 856
+    x: 1115
+    y: 728
     width: 86
     height: 114
     borderLeft: 0
@@ -537,7 +537,7 @@ MonoBehaviour:
     paddingTop: 7
     paddingBottom: 7
   - name: hud-bar
-    x: 1379
+    x: 1370
     y: 976
     width: 255
     height: 48
@@ -563,8 +563,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon_arrow
-    x: 995
-    y: 459
+    x: 986
+    y: 237
     width: 128
     height: 93
     borderLeft: 0
@@ -576,8 +576,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-achievements
-    x: 995
-    y: 783
+    x: 866
+    y: 380
     width: 109
     height: 128
     borderLeft: 0
@@ -589,8 +589,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-atom
-    x: 995
-    y: 553
+    x: 986
+    y: 331
     width: 128
     height: 100
     borderLeft: 0
@@ -603,7 +603,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-brush
     x: 386
-    y: 136
+    y: 7
     width: 91
     height: 128
     borderLeft: 0
@@ -615,8 +615,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-creepypedia
-    x: 251
-    y: 610
+    x: 480
+    y: 209
     width: 128
     height: 128
     borderLeft: 0
@@ -641,8 +641,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-dollar
-    x: 1390
-    y: 853
+    x: 1115
+    y: 499
     width: 75
     height: 117
     borderLeft: 0
@@ -654,8 +654,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-facebook
-    x: 866
-    y: 1
+    x: 1754
+    y: 997
     width: 127
     height: 27
     borderLeft: 0
@@ -667,8 +667,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-flag-brazil
-    x: 1671
-    y: 905
+    x: 1115
+    y: 171
     width: 65
     height: 65
     borderLeft: 0
@@ -680,8 +680,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 1
   - name: icon-flag-EUA
-    x: 1531
-    y: 901
+    x: 1115
+    y: 302
     width: 69
     height: 69
     borderLeft: 0
@@ -693,8 +693,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-info
-    x: 1737
-    y: 882
+    x: 1115
+    y: 82
     width: 45
     height: 88
     borderLeft: 0
@@ -707,7 +707,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-music
     x: 866
-    y: 29
+    y: 509
     width: 114
     height: 128
     borderLeft: 0
@@ -720,7 +720,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: icon-orb
     x: 737
-    y: 405
+    y: 528
     width: 128
     height: 122
     borderLeft: 0
@@ -745,7 +745,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-overtimehub
-    x: 1124
+    x: 1115
     y: 843
     width: 89
     height: 127
@@ -771,8 +771,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-settings
-    x: 866
-    y: 653
+    x: 986
+    y: 782
     width: 122
     height: 122
     borderLeft: 0
@@ -810,8 +810,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-vibrate
-    x: 866
-    y: 536
+    x: 986
+    y: 665
     width: 128
     height: 116
     borderLeft: 0
@@ -823,8 +823,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-video
-    x: 995
-    y: 20
+    x: 866
+    y: 29
     width: 108
     height: 92
     borderLeft: 0
@@ -836,8 +836,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon-videoplus
-    x: 866
-    y: 158
+    x: 986
+    y: 545
     width: 124
     height: 119
     borderLeft: 0
@@ -849,8 +849,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 3
   - name: icon-x
-    x: 1601
-    y: 906
+    x: 1115
+    y: 237
     width: 69
     height: 64
     borderLeft: 0
@@ -888,7 +888,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: minion_branco
-    x: 1828
+    x: 1882
     y: 978
     width: 64
     height: 46
@@ -901,7 +901,7 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 4
   - name: minion_transparente
-    x: 1763
+    x: 1947
     y: 978
     width: 64
     height: 46
@@ -914,8 +914,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 3
   - name: Orb_Promo
-    x: 995
-    y: 113
+    x: 986
+    y: 20
     width: 124
     height: 92
     borderLeft: 0
@@ -927,8 +927,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: ray
-    x: 995
-    y: 654
+    x: 866
+    y: 251
     width: 106
     height: 128
     borderLeft: 0
@@ -940,8 +940,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: ray2
-    x: 1466
-    y: 844
+    x: 1115
+    y: 372
     width: 64
     height: 126
     borderLeft: 0
@@ -979,7 +979,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button
-    x: 1783
+    x: 1475
     y: 948
     width: 128
     height: 22
@@ -1005,8 +1005,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Ribbon
-    x: 995
-    y: 206
+    x: 986
+    y: 113
     width: 94
     height: 123
     borderLeft: 0
@@ -1018,8 +1018,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 0
   - name: seta
-    x: 995
-    y: 912
+    x: 986
+    y: 432
     width: 128
     height: 112
     borderLeft: 0
@@ -1044,8 +1044,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 2
   - name: slider
-    x: 1124
-    y: 586
+    x: 1205
+    y: 714
     width: 11
     height: 256
     borderLeft: 0

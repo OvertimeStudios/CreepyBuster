@@ -1235,7 +1235,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3076
+  startingRenderQueue: 3071
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -4689,7 +4689,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3096
+  startingRenderQueue: 3091
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -4777,89 +4777,6 @@ MonoBehaviour:
   mAtlas: {fileID: 11422020, guid: faa1e6083f33a44f78bc23167b609bec, type: 2}
   mSpriteName: icon-atom
   mFillCenter: 1
---- !u!1 &150641616
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 150641617}
-  - 114: {fileID: 150641618}
-  m_Layer: 5
-  m_Name: 2D Sprite
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &150641617
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 150641616}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 1632596896}
-  m_RootOrder: 0
---- !u!114 &150641618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 150641616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 4
-  mWidth: 100
-  mHeight: 100
-  mDepth: 31
-  autoResizeBoxCollider: 0
-  hideIfOffScreen: 0
-  keepAspectRatio: 0
-  aspectRatio: 1
-  mType: 0
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
-  mFlip: 0
-  centerType: 1
-  leftType: 1
-  rightType: 1
-  bottomType: 1
-  topType: 1
-  mSprite: {fileID: 21300000, guid: 004153b2c46ea4a9caa8e1d24b2b2769, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 0}
-  mFixedAspect: 0
-  mPixelSize: 1
-  nextSprite: {fileID: 0}
 --- !u!1 &151972532
 GameObject:
   m_ObjectHideFlags: 0
@@ -10921,7 +10838,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3096
+  startingRenderQueue: 3091
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -15381,7 +15298,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3096
+  startingRenderQueue: 3091
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -15808,7 +15725,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3089
+  startingRenderQueue: 3084
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -16813,7 +16730,7 @@ Prefab:
       propertyPath: price
       value: 250
       objectReference: {fileID: 0}
-    - target: {fileID: 11463640, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
+    - target: {fileID: 0}
       propertyPath: mSprite
       value: 
       objectReference: {fileID: 21300000, guid: 8fe1786f23bc84ec9aaea0f91598ab02,
@@ -16825,6 +16742,10 @@ Prefab:
     - target: {fileID: 11424830, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
       propertyPath: mText
       value: DEATH RAY
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418790, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
+      propertyPath: mSpriteName
+      value: Death_Ray
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
@@ -19967,6 +19888,85 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!1 &645987954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 645987955}
+  - 114: {fileID: 645987956}
+  m_Layer: 5
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &645987955
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 645987954}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1632596896}
+  m_RootOrder: 0
+--- !u!114 &645987956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 645987954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  updateAnchors: 1
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 100
+  mHeight: 100
+  mDepth: 31
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+  mFlip: 0
+  centerType: 1
+  leftType: 1
+  rightType: 1
+  bottomType: 1
+  topType: 1
+  mAtlas: {fileID: 11425342, guid: baa5f4663857540fc93989c812a0343e, type: 2}
+  mSpriteName: Invencible_estrela
+  mFillCenter: 1
 --- !u!1 &649780712
 GameObject:
   m_ObjectHideFlags: 0
@@ -27450,7 +27450,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3096
+  startingRenderQueue: 3091
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -35623,7 +35623,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3096
+  startingRenderQueue: 3091
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -41895,7 +41895,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3096
+  startingRenderQueue: 3091
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -42683,11 +42683,15 @@ Prefab:
       propertyPath: itemType
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 11463640, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
+    - target: {fileID: 0}
       propertyPath: mSprite
       value: 
       objectReference: {fileID: 21300000, guid: 155bc664d5a1a4fac96444a955c3fa6f,
         type: 3}
+    - target: {fileID: 11418790, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
+      propertyPath: mSpriteName
+      value: Freeze
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
   m_IsPrefabParent: 0
@@ -49264,7 +49268,7 @@ Prefab:
       propertyPath: price
       value: 150
       objectReference: {fileID: 0}
-    - target: {fileID: 11463640, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
+    - target: {fileID: 0}
       propertyPath: mSprite
       value: 
       objectReference: {fileID: 21300000, guid: 6e0144834102544a99917d830b7194bb,
@@ -49280,6 +49284,10 @@ Prefab:
     - target: {fileID: 11456960, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
       propertyPath: itemType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418790, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
+      propertyPath: mSpriteName
+      value: Invencible_borda
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
@@ -49747,7 +49755,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3091
+  startingRenderQueue: 3086
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -50612,10 +50620,6 @@ Prefab:
       propertyPath: m_Name
       value: Level Up
       objectReference: {fileID: 0}
-    - target: {fileID: 11424830, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
-      propertyPath: mText
-      value: LEVEL UP
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
   m_IsPrefabParent: 0
@@ -50853,7 +50857,7 @@ Prefab:
       propertyPath: price
       value: 300
       objectReference: {fileID: 0}
-    - target: {fileID: 11463640, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
+    - target: {fileID: 0}
       propertyPath: mSprite
       value: 
       objectReference: {fileID: 21300000, guid: 7227210157da3407abdc0de38e329bd3,
@@ -50865,6 +50869,10 @@ Prefab:
     - target: {fileID: 11456960, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
       propertyPath: itemType
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418790, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
+      propertyPath: mSpriteName
+      value: Shield
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 733c9dd037ae6408fb22edfd2b170b0e, type: 2}
@@ -51142,7 +51150,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3080
+  startingRenderQueue: 3075
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -57079,7 +57087,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3078
+  startingRenderQueue: 3073
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -59277,7 +59285,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3096
+  startingRenderQueue: 3091
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -63802,7 +63810,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3094
+  startingRenderQueue: 3089
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0

@@ -4,6 +4,8 @@ using System;
 
 public class MoveStraight : EnemyMovement 
 {
+	public EnemiesPercent.EnemyNames type;
+
 	public float vel;
 	private Vector2 lastVelocityBeforeFrozen;
 
@@ -34,6 +36,11 @@ public class MoveStraight : EnemyMovement
 	{
 		base.Start ();
 
+		//load stats
+		EnemyStats stats = LevelDesign.GetEnemyStats(type);
+		if(stats != null)
+			vel = stats.vel;
+		
 		vel += LevelDesign.EnemiesBonusVel;
 
 		GetComponent<Rigidbody2D> ().velocity = transform.right * vel;

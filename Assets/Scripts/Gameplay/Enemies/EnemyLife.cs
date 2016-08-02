@@ -11,6 +11,8 @@ public class EnemyLife : MonoBehaviour
 
 	private bool alreadyDead;
 
+	public EnemiesPercent.EnemyNames type;
+
 	public float life;
 	public int score;
 	public bool countAsStreak = true;
@@ -86,6 +88,16 @@ public class EnemyLife : MonoBehaviour
 	// Use this for initialization
 	protected virtual void Start () 
 	{
+		//load stats
+		EnemyStats stats = LevelDesign.GetEnemyStats(type);
+		if(stats != null)
+		{
+			life = stats.life;
+			score = stats.score;
+			chanceToDrop = stats.chanceToDrop;
+			itens = stats.itens;
+		}
+
 		alreadyDead = false;
 		spriteRenderer = transform.FindChild ("Sprite").GetComponent<SpriteRenderer> ();
 

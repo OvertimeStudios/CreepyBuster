@@ -31,7 +31,18 @@ public class ItemShop : MonoBehaviour
 
 	private bool IsMaxLevel
 	{
-		get	{ return CurrentLevel == price.Count; }
+		get	{ return CurrentLevel == upgrades.Count - 1; }
+	}
+
+	public int Price
+	{
+		//get price for the next item so it's the "Upgrade's price"
+		get { return upgrades[CurrentLevel + 1].price; }
+	}
+
+	public float Value
+	{
+		get { return upgrades[CurrentLevel].value; }
 	}
 	#endregion
 
@@ -45,7 +56,7 @@ public class ItemShop : MonoBehaviour
 	}
 
 	public Type type;
-	public List<int> price;
+	public List<ShopItem> upgrades;
 	public int level = 0;
 
 	private UILabel priceLabel;
@@ -65,29 +76,39 @@ public class ItemShop : MonoBehaviour
 		Global.OnPurchasesCleared -= ClearPurchase;
 	}
 
-	void Start()
+	IEnumerator Start()
 	{
+		while(!LevelDesign.IsLoaded)
+			yield return null;
+
+		upgrades.Clear();
+
 		//verify if it is already purchased
 		switch(type)
 		{
 			case Type.Ray:
 				level = Global.RayLevel;
+				upgrades = LevelDesign.RayUpgrades;
 			break;
 				
 			case Type.Range:
 				level = Global.RangeLevel;
+				upgrades = LevelDesign.RangeUpgrades;
 			break;
 				
 			case Type.Damage:
 				level = Global.DamageLevel;
+				upgrades = LevelDesign.DamageUpgrades;
 			break;
 		}
+
+		Debug.Log(string.Format("{0}: {1} / {2} - {3}", type, CurrentLevel, upgrades.Count, Value));
 
 		description = transform.FindChild ("Description").GetComponent<UILabel> ();
 		priceLabel = transform.FindChild ("Price").FindChild("Label").GetComponent<UILabel> ();
 		levelLabel = transform.FindChild ("Level").GetComponent<UILabel> ();
 
-		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", price[CurrentLevel]);
+		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", Price);
 		levelLabel.text = Localization.Get("LEVEL") + " " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 	}
 
@@ -95,7 +116,7 @@ public class ItemShop : MonoBehaviour
 	{
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
-		Debug.Log("Trying to buy: " + type.ToString() + " for " + string.Format("{0:0,0}", price[CurrentLevel]) + " orbs.");
+		Debug.Log("Trying to buy: " + type.ToString() + " for " + string.Format("{0:0,0}", Price) + " orbs.");
 
 		if(IsMaxLevel) 
 		{
@@ -104,25 +125,25 @@ public class ItemShop : MonoBehaviour
 		}
 
 		#if INFINITY_ORBS
-		if (Global.TotalOrbs >= price[CurrentLevel])
-			Popup.ShowYesNo (string.Format(Localization.Get("BUY_ITEM"),description.text, string.Format ("{0:0,0}", price[CurrentLevel])), PurchaseAccepted, PurchaseDeclined);
+		if (Global.TotalOrbs >= Price)
+			Popup.ShowYesNo (string.Format(Localization.Get("BUY_ITEM"),description.text, string.Format ("{0:0,0}", Price)), PurchaseAccepted, PurchaseDeclined);
 		else
 			Popup.ShowYesNo ("You may don't have enough orbs, but you are cheating, who cares? Wanna buy?", PurchaseAccepted, PurchaseDeclined);
 		#else
-		if (Global.TotalOrbs >= price[CurrentLevel])
-			Popup.ShowYesNo (string.Format(Localization.Get("BUY_ITEM"),description.text, string.Format ("{0:0,0}", price[CurrentLevel])), PurchaseAccepted, PurchaseDeclined);
+		if (Global.TotalOrbs >= Price)
+			Popup.ShowYesNo (string.Format(Localization.Get("BUY_ITEM"),description.text, string.Format ("{0:0,0}", Price)), PurchaseAccepted, PurchaseDeclined);
 		else
-			Popup.ShowOk (string.Format(Localization.Get("STORE_NOT_ENOUGH_ORBS"), string.Format ("{0:0,0}", (price[CurrentLevel] - Global.TotalOrbs))), null);
+			Popup.ShowOk (string.Format(Localization.Get("STORE_NOT_ENOUGH_ORBS"), string.Format ("{0:0,0}", (Price - Global.TotalOrbs))), null);
 		#endif
 	}
 
 	public void PurchaseAccepted()
 	{
-		if(Global.TotalOrbs >= price[CurrentLevel])
+		if(Global.TotalOrbs >= Price)
 		{
-			Debug.Log("You spent " + price[CurrentLevel] + " on " + type.ToString());
-			Global.OrbsSpent += price[CurrentLevel];
-			Global.TotalOrbs -= price[CurrentLevel];
+			Debug.Log("You spent " + Price + " on " + type.ToString());
+			Global.OrbsSpent += Price;
+			Global.TotalOrbs -= Price;
 
 			UnlockProperty();
 		}
@@ -159,7 +180,7 @@ public class ItemShop : MonoBehaviour
 				break;
 		}
 
-		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", price[CurrentLevel]);
+		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", Price);
 		levelLabel.text = Localization.Get("LEVEL") + " " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 
 		if (OnItemBought != null)
@@ -170,7 +191,7 @@ public class ItemShop : MonoBehaviour
 	{
 		level = 0;
 
-		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", price[CurrentLevel]);
+		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", Price);
 		levelLabel.text = Localization.Get("LEVEL") + " " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 	}
 }

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Follow : EnemyMovement 
 {
+	public EnemiesPercent.EnemyNames type;
+
 	public float vel;
 
 	private Transform player;
@@ -35,6 +37,11 @@ public class Follow : EnemyMovement
 	protected override void Start () 
 	{
 		base.Start ();
+
+		//load stats
+		EnemyStats stats = LevelDesign.GetEnemyStats(type);
+		if(stats != null)
+			vel = stats.vel;
 
 		isSlowed = GameController.IsSlowedDown;
 
