@@ -223,11 +223,6 @@ public class MenuController : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKey (KeyCode.LeftControl) && Input.GetKey (KeyCode.Escape))
-		{
-			Global.ClearPurchasedOnly();
-		}
-
 		if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.Escape))
 		{
 			Global.Reset();
