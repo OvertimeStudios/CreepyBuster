@@ -110,7 +110,7 @@ public class Ranking : MonoBehaviour
 		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		yield return StartCoroutine(LeaderboardsHelper.GetPlayerGlobalPosition(SetGlobalRank));
 		#elif UNITY_ANDROID
-		yield return null;
+
 		#else
 		yield return null;
 		#endif
@@ -123,7 +123,7 @@ public class Ranking : MonoBehaviour
 		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 		yield return StartCoroutine(LeaderboardsHelper.GetPlayerFriendsPosition(SetFriendsRank));
 		#elif UNITY_ANDROID
-		yield return null;
+
 		#else
 		yield return null;
 		#endif
