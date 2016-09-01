@@ -59,7 +59,17 @@ namespace Prime31
 		{
 			setToastSettings( placement );
 		}
+		
+		
+		// Android only. Sets the max number of conflict resolution retries
+		public static void setMaxSnapshotConflictResolveRetries( int maxRetries )
+		{
+			if( Application.platform != RuntimePlatform.Android )
+				return;
 
+			_plugin.Call( "setMaxSnapshotConflictResolveRetries", maxRetries );
+		}
+		
 
 		// Android only. Enables high detail logs
 		public static void enableDebugLog( bool shouldEnable )
@@ -157,8 +167,8 @@ namespace Prime31
 			if( Application.platform == RuntimePlatform.Android )
 				_plugin.Call( "loadPlayer", playerId );
 		}
-		
-		
+
+
 		// Android only. Loads the player status. Results in the loadPlayerStatsSucceeded/FailedEvent firing.
 		public static void loadPlayerStats( bool forceReload = false )
 		{
@@ -288,6 +298,17 @@ namespace Prime31
 				return;
 
 			_plugin.Call( "loadScoresForLeaderboard", leaderboardId, (int)timeScope, isSocial, personalWindow );
+		}
+
+
+		// Android only. Loads more scores for the given leaderboard. Note that loadScoresForLeaderboard must first be called before you can load more scores for a leaderboard.
+		// Fires the loadScoresFailed/Succeeded event when complete.
+		public static void loadMoreScoresForLeaderboard( string leaderboardId )
+		{
+			if( Application.platform != RuntimePlatform.Android )
+				return;
+
+			_plugin.Call( "loadMoreScoresForLeaderboard", leaderboardId );
 		}
 
 
