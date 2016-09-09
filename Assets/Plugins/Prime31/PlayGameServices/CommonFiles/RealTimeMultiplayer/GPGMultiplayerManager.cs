@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using Prime31;
 
 
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_ANDROID
 namespace Prime31
 {
 	public enum GPGRoomUpdateStatus

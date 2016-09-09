@@ -80,7 +80,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	public void Play()
 	{
-		if(DailyRewardController.IsActive || Popup.IsActive) return;
+		if(DailyRewardController.IsActive || Popup.IsActive || Plasmette.IsSpinning) return;
 
 		#if ADMOB_IMPLEMENTED
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);

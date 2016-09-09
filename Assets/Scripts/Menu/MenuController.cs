@@ -381,7 +381,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToShop()
 	{
-		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive || Plasmette.IsSpinning) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
@@ -399,7 +399,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToSettings()
 	{
-		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive || Plasmette.IsSpinning) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
@@ -444,7 +444,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToHUBConnection()
 	{
-		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive || Plasmette.IsSpinning) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);

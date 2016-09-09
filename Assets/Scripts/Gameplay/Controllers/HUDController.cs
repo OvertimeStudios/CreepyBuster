@@ -160,7 +160,6 @@ public class HUDController : MonoBehaviour
 		Vector3 playerLastPosition = AttackTargets.Instance.transform.position;
 		playerLastPosition = Camera.main.WorldToViewportPoint(playerLastPosition);
 
-		Debug.Log(playerLastPosition.y);
 		if(playerLastPosition.y > 0.7f)
 			paused.position = UICamera.mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, paused.position.z));
 		else

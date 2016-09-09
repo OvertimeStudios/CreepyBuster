@@ -26,6 +26,7 @@ public class EnemyLife : MonoBehaviour
 	public bool inLight = false;
 
 	private GameObject lightning;
+	private Coroutine lightningAnimation;
 	private SpriteRenderer spriteRenderer;
 	protected List<SpriteRenderer> brilhos;
 	public Color basicColor = Color.yellow;
@@ -150,6 +151,9 @@ public class EnemyLife : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.AttackStart);
 
 		lightning.SetActive (true);
+
+		//do a lerp to give player feeling the lightning is going from his finger to enemy
+		lightningAnimation = StartCoroutine(AnimateLightning());
 	}
 
 	public void OnLightExit()
@@ -168,6 +172,28 @@ public class EnemyLife : MonoBehaviour
 		}
 
 		lightning.SetActive (false);
+
+		if(lightningAnimation != null)
+			StopCoroutine(lightningAnimation);
+
+	}
+
+
+	/// <summary>
+	/// Animates the lightning. Do a lerp to give player feeling the lightning is going from his finger to enemy
+	/// </summary>
+	/// <returns>The lightning.</returns>
+	private IEnumerator AnimateLightning()
+	{
+		lightning.transform.position = AttackTargets.Instance.transform.position;
+
+		while(Vector3.Distance(AttackTargets.Instance.transform.position, transform.position) > 0.3f)
+		{
+			lightning.transform.position = Vector3.Lerp(lightning.transform.position, transform.position, 0.1f);
+			yield return null;
+		}
+
+		lightning.transform.position = transform.position;
 	}
 
 	private void UpdateColor()
