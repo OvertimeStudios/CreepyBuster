@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 
 #if CLOUDDATA_IMPLEMENTED
 using Prime31;
@@ -7,6 +9,148 @@ using Prime31;
 
 public class DataCloudPrefs
 {
+	private static System.DateTime epochStart = new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc);
+	const string TIMESTAMP = "_timestamp";
+
+	#region Action
+	#if UNITY_ANDROID
+	public static Action OnFinishedLoading;
+	#endif
+	#endregion
+
+	#if UNITY_ANDROID
+	private static Dictionary<string, object> snapshotKeys = new Dictionary<string, object>();
+	private static string _snapshotSaveName;
+	private static bool isLoaded = false;
+
+	/// <summary>
+	/// Android Only! Load all values into a Dictionary<string, object>
+	/// </summary>
+	/// <param name="keys">All Keys present in PlayerPrefs.GetX(key).</param>
+	public static void Load(string snapshotSaveName)
+	{
+		if(isLoaded)
+		{
+			Debug.LogWarning("DataCloudPrefs already loaded. Load just once per run");
+			return;
+		}
+
+		#if CLOUDDATA_IMPLEMENTED
+			#if UNITY_ANDROID
+			_snapshotSaveName = snapshotSaveName;
+			snapshotKeys.Clear();
+
+			if(PlayGameServices.isSignedIn())
+				LoadSnapshots();
+			else
+			{
+				GPGManager.authenticationSucceededEvent += AuthenticationSuccess;
+				GPGManager.authenticationFailedEvent += AuthenticationFailed;
+				
+				PlayGameServices.authenticate();
+			}
+			#endif
+		#endif
+	}
+
+	private static void AuthenticationSuccess(string msg)
+	{
+		Debug.Log("Authentication success: " + msg);
+		LoadSnapshots();
+	}
+
+	private static void AuthenticationFailed(string msg)
+	{
+		Debug.Log("Authentication failed: " + msg);
+
+		if(PlayerPrefs.HasKey(_snapshotSaveName))
+			snapshotKeys = Json.decode<Dictionary<string,object>>(PlayerPrefs.GetString(_snapshotSaveName));
+
+		isLoaded = true;
+		if(OnFinishedLoading != null)
+			OnFinishedLoading();
+	}
+
+	private static void LoadSnapshots()
+	{
+		GPGManager.loadSnapshotSucceededEvent += LoadSnapshotSuccess;
+		GPGManager.loadSnapshotFailedEvent += LoadSnapshotFail;
+		GPGManager.saveSnapshotSucceededEvent += SaveSnapshopSuccess;
+		GPGManager.saveSnapshotFailedEvent += SaveSnapshopFail;
+
+		PlayGameServices.loadSnapshot(_snapshotSaveName);
+	}
+
+	private static void LoadSnapshotSuccess(GPGSnapshot snapshot)
+	{
+		if(snapshot.hasDataAvailable)
+		{
+			if(PlayerPrefs.HasKey(TIMESTAMP))
+			{
+				Debug.Log(string.Format("Local TIMESTAMP: {0} / SNAPSHOT TIMESTAMP: {1}", (double)PlayerPrefs.GetFloat(TIMESTAMP), snapshot.metadata.lastModifiedTimestamp));
+				if((double)PlayerPrefs.GetFloat(TIMESTAMP) > snapshot.metadata.lastModifiedTimestamp)
+				{
+					Debug.Log("Loaded from PlayerPrefs: " + PlayerPrefs.GetString(_snapshotSaveName));
+					snapshotKeys = Json.decode<Dictionary<string,object>>(PlayerPrefs.GetString(_snapshotSaveName));
+				}
+				else
+				{
+					Debug.Log("Loaded from Snapshot: " + System.Text.Encoding.UTF8.GetString(snapshot.snapshotData));
+					snapshotKeys = Json.decode<Dictionary<string,object>>(System.Text.Encoding.UTF8.GetString(snapshot.snapshotData));	
+				}
+			}
+			else
+			{
+				Debug.Log("Loaded from Snapshot: " + System.Text.Encoding.UTF8.GetString(snapshot.snapshotData));
+				snapshotKeys = Json.decode<Dictionary<string,object>>(System.Text.Encoding.UTF8.GetString(snapshot.snapshotData));
+			}
+
+			if(snapshotKeys == null)
+				snapshotKeys = new Dictionary<string, object>();
+
+			isLoaded = true;
+			if(OnFinishedLoading != null)
+				OnFinishedLoading();
+		}
+
+		Debug.Log("Load Snapshot Success. Snapshot count: " + snapshotKeys.Count);
+	}
+
+	private static void LoadSnapshotFail(string msg)
+	{
+		if(PlayerPrefs.HasKey(_snapshotSaveName))
+			snapshotKeys = Json.decode<Dictionary<string,object>>(PlayerPrefs.GetString(_snapshotSaveName));
+
+		isLoaded = true;
+		if(OnFinishedLoading != null)
+			OnFinishedLoading();
+
+		Debug.Log("Load Snapshot Fail");
+	}
+
+	private static void SaveSnapshopSuccess()
+	{
+		Debug.Log("Save Snapshot Sucess");
+	}
+
+	private static void SaveSnapshopFail(string msg)
+	{
+		Debug.Log("Save Snapshot Failed: " + msg);
+	}
+	#endif
+
+	public static bool IsLoaded
+	{
+		get
+		{
+			#if UNITY_IOS || UNITY_EDITOR
+			return true;
+			#elif UNITY_ANDROID
+			return isLoaded;
+			#endif
+		}
+	}
+
 	public static bool HasKey(string key)
 	{
 		#if CLOUDDATA_IMPLEMENTED
@@ -15,7 +159,8 @@ public class DataCloudPrefs
 			if(P31Prefs.hasKey(key))
 				return P31Prefs.hasKey(key);
 			#elif UNITY_ANDROID
-
+			if(snapshotKeys.ContainsKey(key))
+				return snapshotKeys.ContainsKey(key);
 			#endif
 
 		#endif
@@ -30,7 +175,10 @@ public class DataCloudPrefs
 			#if UNITY_IOS
 			P31Prefs.setInt(key, value);
 			#elif UNITY_ANDROID
-
+			if(snapshotKeys.ContainsKey(key))
+				snapshotKeys[key] = value;
+			else
+				snapshotKeys.Add(key, value);
 			#endif
 
 		#endif
@@ -46,7 +194,10 @@ public class DataCloudPrefs
 			#if UNITY_IOS
 			P31Prefs.setFloat(key, value);
 			#elif UNITY_ANDROID
-
+			if(snapshotKeys.ContainsKey(key))
+				snapshotKeys[key] = value;
+			else
+				snapshotKeys.Add(key, value);
 			#endif
 
 		#endif
@@ -62,7 +213,10 @@ public class DataCloudPrefs
 			#if UNITY_IOS
 			P31Prefs.setString(key, value);
 			#elif UNITY_ANDROID
-
+			if(snapshotKeys.ContainsKey(key))
+				snapshotKeys[key] = value;
+			else
+				snapshotKeys.Add(key, value);
 			#endif
 
 		#endif
@@ -80,7 +234,8 @@ public class DataCloudPrefs
 			if(P31Prefs.hasKey(key))
 				return P31Prefs.getInt(key);
 			#elif UNITY_ANDROID
-			
+			if(snapshotKeys.ContainsKey(key))
+				return int.Parse(snapshotKeys[key].ToString());
 			#endif
 
 		#endif
@@ -96,7 +251,8 @@ public class DataCloudPrefs
 			if(P31Prefs.hasKey(key))
 				return P31Prefs.getFloat(key);
 			#elif UNITY_ANDROID
-
+			if(snapshotKeys.ContainsKey(key))
+				return float.Parse(snapshotKeys[key].ToString());
 			#endif
 
 		#endif
@@ -112,27 +268,41 @@ public class DataCloudPrefs
 			if(P31Prefs.hasKey(key))
 				return P31Prefs.getString(key);
 			#elif UNITY_ANDROID
-
+			if(snapshotKeys.ContainsKey(key))
+				return snapshotKeys[key].ToString();
 			#endif
 
 		#endif
-
+		
 		return PlayerPrefs.GetString(key);
 	}
 
 	public static void DeleteKey(string key)
 	{
 		#if CLOUDDATA_IMPLEMENTED
-
 			#if UNITY_IOS
 			P31Prefs.removeObjectForKey(key);
 			#elif UNITY_ANDROID
-
+			snapshotKeys.Remove(key);
 			#endif
-
 		#endif
 
 		PlayerPrefs.DeleteKey(key);
+		PlayerPrefs.Save();
+	}
+		
+	public static void Save()
+	{
+		#if CLOUDDATA_IMPLEMENTED
+			#if UNITY_IOS
+			
+			#elif UNITY_ANDROID
+			Debug.Log("***SAVING SNAPSHOT " + _snapshotSaveName + "(" + snapshotKeys.Count + ") " + snapshotKeys.toJson());
+			PlayGameServices.saveSnapshot(_snapshotSaveName, true, System.Text.Encoding.UTF8.GetBytes(snapshotKeys.toJson()), "");
+			#endif
+		#endif
+
+		PlayerPrefs.SetFloat(TIMESTAMP, (float)DateTime.UtcNow.Subtract(epochStart).TotalMilliseconds);
 		PlayerPrefs.Save();
 	}
 
@@ -143,12 +313,11 @@ public class DataCloudPrefs
 			#if UNITY_IOS
 			P31Prefs.removeAll();
 			#elif UNITY_ANDROID
-
+			snapshotKeys.Clear();
+			PlayGameServices.deleteSnapshot(_snapshotSaveName);
 			#endif
-
 		#endif
 
 		PlayerPrefs.DeleteAll();
-		PlayerPrefs.Save();
 	}
 }

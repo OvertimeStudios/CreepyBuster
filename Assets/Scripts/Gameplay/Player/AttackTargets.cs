@@ -290,6 +290,8 @@ public class AttackTargets : MonoBehaviour
 
 	private void LoseAllTargets()
 	{
+		if(targets == null) return;
+
 		foreach (Transform t in targets)
 		{
 			if(t == null) continue;
@@ -297,7 +299,7 @@ public class AttackTargets : MonoBehaviour
 			t.GetComponent<EnemyLife> ().OnLightExit ();
 		}
 
-		targets = new List<Transform> ();
+		targets.Clear();
 	}
 
 	private IEnumerator StopSpecial(float waitTime)

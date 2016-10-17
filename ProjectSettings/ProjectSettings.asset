@@ -94,15 +94,15 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.overtimestudios.creepybuster
-  bundleVersion: 0.1
+  bundleVersion: 1.3.a1
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   xboxOneDisableKinectGpuReservation: 0
   singlePassStereoRendering: 0
   protectGraphicsMemory: 0
-  AndroidBundleVersionCode: 13
+  AndroidBundleVersionCode: 14
   AndroidMinSdkVersion: 15
-  AndroidPreferredInstallLocation: 1
+  AndroidPreferredInstallLocation: 0
   aotOptions: 
   apiCompatibilityLevel: 1
   stripEngineCode: 1
@@ -165,7 +165,7 @@ PlayerSettings:
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: /Users/jota/GitHub/OvertimeStudios/overtimestudios.keystore
-  AndroidKeyaliasName: overtime studios
+  AndroidKeyaliasName: creepy buster
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 0
@@ -345,7 +345,7 @@ PlayerSettings:
     1: 
     2: 
     4: EVERYPLAY_IPHONE;UNITYANALYTICS_IMPLEMENTED;FACEBOOK_IMPLEMENTED;EVERYPLAY_IMPLEMENTED;DB_IMPLEMENTED;IAP_IMPLEMENTED;ADMOB_IMPLEMENTED;LEADERBOARDS_IMPLEMENTED;ACHIEVEMENTS_IMPLEMENTED;CLOUDDATA_IMPLEMENTED
-    7: EVERYPLAY_ANDROID;UNITYANALYTICS_IMPLEMENTED;UNITYADS_IMPLEMENTED;FACEBOOK_IMPLEMENTED;EVERYPLAY_IMPLEMENTED;IAP_IMPLEMENTED;DB_IMPLEMENTED;ADMOB_IMPLEMENTED
+    7: EVERYPLAY_ANDROID;UNITYANALYTICS_IMPLEMENTED;UNITYADS_IMPLEMENTED;FACEBOOK_IMPLEMENTED;EVERYPLAY_IMPLEMENTED;IAP_IMPLEMENTED;DB_IMPLEMENTED;ADMOB_IMPLEMENTED;CLOUDDATA_IMPLEMENTED
     25: 
   metroPackageName: LightTests
   metroPackageVersion: 

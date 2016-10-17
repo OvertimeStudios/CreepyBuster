@@ -3,6 +3,8 @@ using System.Collections;
 
 public class LoadingScreen : MonoBehaviour 
 {
+	public string snapshotSaveName = "insert_snapshot_name_here";
+
 	public string sceneToLoad;
 	
 	private AsyncOperation async;
@@ -17,6 +19,8 @@ public class LoadingScreen : MonoBehaviour
 		logo.SetActive(false);
 		#endif
 
+		DataCloudPrefs.Load(snapshotSaveName);
+
 		StartCoroutine (Load ());
 	}
 	
@@ -25,8 +29,13 @@ public class LoadingScreen : MonoBehaviour
 		float startLoadTime = Time.time;
 
 		async = Application.LoadLevelAsync(sceneToLoad);
+		async.allowSceneActivation = false;
 
-		yield return async;
+		//wait for google play finished loading
+		while(!DataCloudPrefs.IsLoaded)
+			yield return null;
+
+		async.allowSceneActivation = true;
 
 		Debug.Log("Loading Complete in " + (Time.time - startLoadTime) + " seconds.");
 	}

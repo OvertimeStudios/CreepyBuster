@@ -470,6 +470,8 @@ public class GameController : MonoBehaviour
 
 		MenuController.Instance.gameObject.SetActive(true);
 
+		DataCloudPrefs.Save();
+
 		if (OnGameOver != null)
 			OnGameOver ();
 
