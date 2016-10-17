@@ -37,7 +37,7 @@ public class Ranking : MonoBehaviour
 		globalInfo.SetActive(LeaderboardsHelper.IsPlayerAuthenticated());
 		friendsInfo.SetActive(LeaderboardsHelper.IsPlayerAuthenticated());
 
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED
 		if(LeaderboardsHelper.IsPlayerAuthenticated())
 			GetRanks();
 		else
@@ -79,11 +79,7 @@ public class Ranking : MonoBehaviour
 
 	public void AuthenticatePlayer()
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		LeaderboardsHelper.AuthenticatePlayer();
-		#else
-
-		#endif
+		LeaderboardsHelper.Authenticate();
 	}
 
 	private void GetRanks()
@@ -220,10 +216,8 @@ public class Ranking : MonoBehaviour
 
 	public void OpenGlobalRank()
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		LeaderboardsHelper.ShowLeaderboards(LeaderboardsHelper.Instance.leaderboardID);
-		#else
-
+		#if LEADERBOARDS_IMPLEMENTED
+		LeaderboardsHelper.OpenLeaderboards();
 		#endif
 		//general.SetActive(false);
 		//globalRanking.SetActive(true);
@@ -231,10 +225,8 @@ public class Ranking : MonoBehaviour
 
 	public void OpenFriendsRank()
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		LeaderboardsHelper.ShowLeaderboards(LeaderboardsHelper.Instance.leaderboardID);
-		#else
-
+		#if LEADERBOARDS_IMPLEMENTED
+		LeaderboardsHelper.OpenLeaderboards();
 		#endif
 		//general.SetActive(false);
 		//friendsRanking.SetActive(true);

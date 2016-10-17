@@ -155,7 +155,7 @@ public class MenuController : MonoBehaviour
 	private void SendFirstScore()
 	{
 		//HACK: the first time player enter game, he doesn't have any registered score on leaderboard. So, entry a 0 value.
-		LeaderboardsHelper.SendScore(Global.HighScore, LeaderboardsHelper.Instance.leaderboardID);
+		LeaderboardsHelper.SendScore(Global.HighScore);
 
 		StartCoroutine(GetUserScore());
 	}

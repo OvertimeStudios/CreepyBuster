@@ -155,6 +155,8 @@ public class Plasmette : MonoBehaviour
 
 	private void ChangeColor()
 	{
-		rangeSprite.color = LevelDesign.CurrentColor;
+		Color c = LevelDesign.CurrentColor;
+		c.a = 0.6f;
+		rangeSprite.color = c;
 	}
 }

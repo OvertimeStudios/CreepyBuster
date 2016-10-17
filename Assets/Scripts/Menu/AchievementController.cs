@@ -49,7 +49,7 @@ public class AchievementItem
 		Menu,
 	}
 
-	public string identifier;
+	public StoresID identifier;
 	public Type type;
 	public int value;
 
@@ -57,10 +57,20 @@ public class AchievementItem
 
 	public void Update()
 	{
+		#if UNITY_IOS
 		percent = Mathf.Min((float)GetParameter() / (float)value, 1);
+		Debug.Log(string.Format("Updating achievement {0} {1} ({2}): {3}% ({4}/{5})", type, value, identifier.iOS, (percent * 100), (float)GetParameter(), (float)value));
+		AchievementsHelper.ReportAchievement(identifier.iOS, percent * 100f);
+		#elif UNITY_ANDROID
+		float param = (float)GetParameter();
 
-		Debug.Log(string.Format("Updating achievement {0} {1} ({2}): {3}% ({4}/{5})", type, value, identifier, (percent * 100), (float)GetParameter(), (float)value));
-		AchievementsHelper.ReportAchievement(identifier, percent * 100f);
+		if(type == Type.Hours) param = Mathf.Floor(param/60f);
+		if(type == Type.EnergySpent) param = Mathf.Floor(param / 2f);
+
+		Debug.Log(string.Format("Updating achievement {0} {1} ({2}): {3}% ({4}/{5})", type, value, identifier.android, param, (float)GetParameter(), (float)value));
+
+		AchievementsHelper.ReportAchievement(identifier.android, param);
+		#endif
 	}
 
 	private float GetParameter()

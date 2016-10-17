@@ -2,13 +2,17 @@
 using System;
 using System.Collections;
 
-#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+#if LEADERBOARDS_IMPLEMENTED && (UNITY_IOS || UNITY_ANDROID)
 using Prime31;
 #endif
 
+/// <summary>
+/// Leaderboards helper.
+/// 
+/// Add it to a Game Object on scene.
+/// </summary>
 public class LeaderboardsHelper : MonoBehaviour 
 {
-
 	#region EVENTS
 	public static Action OnPlayerAuthenticated;
 	#endregion
@@ -24,7 +28,7 @@ public class LeaderboardsHelper : MonoBehaviour
 	public static long playerScore;
 	private static bool isSearchingPlayerScore = false;
 
-	public string leaderboardID;
+	public StoresID defaultLeaderboard;
 
 	#region singleton
 	private static LeaderboardsHelper instance;
@@ -40,76 +44,125 @@ public class LeaderboardsHelper : MonoBehaviour
 	}
 	#endregion
 
+	void Awake()
+	{
+		if(instance != null)
+		{
+			Destroy(gameObject);
+			return;
+		}
+
+		instance = this;
+
+		transform.parent = null;
+		DontDestroyOnLoad(gameObject);
+
+		#if ACHIEVEMENTS_IMPLEMENTED
+			#if UNITY_IOS
+			GameCenterManager.playerAuthenticatedEvent += OnPlayerAthenticated;
+			#elif UNITY_ANDROID
+			GPGManager.authenticationSucceededEvent += OnPlayerAthenticated;
+			#endif
+		#endif
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		Debug.Log("Authenticating Local Player");
-		GameCenterManager.playerAuthenticatedEvent += OnPlayerAthenticated;
+		#if LEADERBOARDS_IMPLEMENTED
 
+			Debug.Log("Authenticating Local Player");
+
+			Authenticate();
+
+		#endif
+	}
+
+	public static void Authenticate()
+	{
+		#if UNITY_IOS
 		GameCenterBinding.authenticateLocalPlayer();
+		#elif UNITY_ANDROID
+		PlayGameServices.authenticate();
 		#endif
 	}
 
 	private static void OnPlayerAthenticated()
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		Debug.Log("Player successfully authenticated");
-
-		if(OnPlayerAuthenticated != null)
-			OnPlayerAuthenticated();
-
-		GameCenterBinding.retrieveFriends( true, true );
-		GameCenterBinding.loadLeaderboardTitles();
-		#endif
+		OnPlayerAthenticated("");
 	}
 
-	public static void AuthenticatePlayer()
+	private static void OnPlayerAthenticated(string msg)
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		if(!GameCenterBinding.isPlayerAuthenticated())
-			GameCenterBinding.authenticateLocalPlayer();
+		#if LEADERBOARDS_IMPLEMENTED
+
+			#if UNITY_IOS
+			Debug.Log("Player successfully authenticated");
+
+			if(OnPlayerAuthenticated != null)
+				OnPlayerAuthenticated();
+
+			GameCenterBinding.retrieveFriends( true, true );
+			GameCenterBinding.loadLeaderboardTitles();
+
+			#elif UNITY_ANDROID
+			
+			#endif
+
 		#endif
 	}
 
 	public static bool IsPlayerAuthenticated()
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		return GameCenterBinding.isPlayerAuthenticated();
-		#else
-		return false;
+		#if LEADERBOARDS_IMPLEMENTED
+
+			#if UNITY_IOS
+			return GameCenterBinding.isPlayerAuthenticated();
+			#elif UNITY_ANDROID
+			return PlayGameServices.isSignedIn();
+			#endif
+
 		#endif
+
+		return false;
 	}
 
 	public static IEnumerator GetUserScore(System.Action<long> result)
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		if(GameCenterBinding.isPlayerAuthenticated())
-		{
-			isSearchingPlayerScore = true;
+		#if LEADERBOARDS_IMPLEMENTED
 
-			GameCenterManager.scoresForPlayerIdLoadedEvent += OnPlayerScoreLoaded;
-			GameCenterManager.retrieveScoresForPlayerIdFailedEvent += OnPlayerScoreFailed;
-			GameCenterBinding.retrieveScoresForPlayerId(GameCenterBinding.playerIdentifier(), Instance.leaderboardID);
+			#if UNITY_IOS
+			if(GameCenterBinding.isPlayerAuthenticated())
+			{
+				isSearchingPlayerScore = true;
 
-			while(isSearchingPlayerScore)
-				yield return null;
+				GameCenterManager.scoresForPlayerIdLoadedEvent += OnPlayerScoreLoaded;
+				GameCenterManager.retrieveScoresForPlayerIdFailedEvent += OnPlayerScoreFailed;
+				GameCenterBinding.retrieveScoresForPlayerId(GameCenterBinding.playerIdentifier(), Instance.defaultLeaderboard.iOS);
 
-			GameCenterManager.scoresForPlayerIdLoadedEvent -= OnPlayerScoreLoaded;
-			GameCenterManager.retrieveScoresForPlayerIdFailedEvent -= OnPlayerScoreFailed;
+				while(isSearchingPlayerScore)
+					yield return null;
 
-			result(playerScore);
-		}
-		else
-		{
-			Debug.LogError("Player is not authenticated");
+				GameCenterManager.scoresForPlayerIdLoadedEvent -= OnPlayerScoreLoaded;
+				GameCenterManager.retrieveScoresForPlayerIdFailedEvent -= OnPlayerScoreFailed;
 
+				result(playerScore);
+			}
+			else
+			{
+				Debug.LogError("Player is not authenticated");
+
+				result(0);
+			}
+			#elif UNITY_ANDROID
+			yield return null;
 			result(0);
-		}
-		#else
+			#endif
+
+		#endif
+
 		yield return null;
 		result(0);
-		#endif
 	}
 
 	#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
@@ -132,33 +185,40 @@ public class LeaderboardsHelper : MonoBehaviour
 
 	public static IEnumerator GetPlayerGlobalPosition(System.Action<int, int> result)
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		if(GameCenterBinding.isPlayerAuthenticated())
-		{
-			isSearchingPlayerGlobalPosition = true;
+		#if LEADERBOARDS_IMPLEMENTED
 
-			GameCenterManager.scoresForPlayerIdLoadedEvent += OnPlayerGlobalScoresLoaded;
-			GameCenterManager.retrieveScoresForPlayerIdFailedEvent += OnPlayerGlobalScoresFailed;
-			GameCenterBinding.retrieveScoresForPlayerId(GameCenterBinding.playerIdentifier(), Instance.leaderboardID);
+			#if UNITY_IOS
+			if(GameCenterBinding.isPlayerAuthenticated())
+			{
+				isSearchingPlayerGlobalPosition = true;
 
-			while(isSearchingPlayerGlobalPosition)
-				yield return null;
+				GameCenterManager.scoresForPlayerIdLoadedEvent += OnPlayerGlobalScoresLoaded;
+				GameCenterManager.retrieveScoresForPlayerIdFailedEvent += OnPlayerGlobalScoresFailed;
+				GameCenterBinding.retrieveScoresForPlayerId(GameCenterBinding.playerIdentifier(), Instance.defaultLeaderboard.iOS);
 
-			GameCenterManager.scoresForPlayerIdLoadedEvent -= OnPlayerGlobalScoresLoaded;
-			GameCenterManager.retrieveScoresForPlayerIdFailedEvent -= OnPlayerGlobalScoresFailed;
+				while(isSearchingPlayerGlobalPosition)
+					yield return null;
 
-			result(playerGlobalPosition, playerGlobalMaxRange);
-		}
-		else
-		{
-			Debug.LogError("Player is not authenticated");
+				GameCenterManager.scoresForPlayerIdLoadedEvent -= OnPlayerGlobalScoresLoaded;
+				GameCenterManager.retrieveScoresForPlayerIdFailedEvent -= OnPlayerGlobalScoresFailed;
 
+				result(playerGlobalPosition, playerGlobalMaxRange);
+			}
+			else
+			{
+				Debug.LogError("Player is not authenticated");
+
+				result(0, 0);
+			}
+			#elif UNITY_ANDROID
+			yield return null;
 			result(0, 0);
-		}
-		#else
+			#endif
+
+		#endif
+
 		yield return null;
 		result(0, 0);
-		#endif
 	}
 
 	#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
@@ -187,35 +247,42 @@ public class LeaderboardsHelper : MonoBehaviour
 
 	public static IEnumerator GetPlayerFriendsPosition(System.Action<int, int> result)
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		if(GameCenterBinding.isPlayerAuthenticated())
-		{
-			Debug.Log("GameCenterController.GetPlayerFriendsPosition");
-			isSearchingPlayerFriendsPosition = true;
+		#if LEADERBOARDS_IMPLEMENTED
 
-			GameCenterManager.scoresLoadedEvent += OnPlayerFriendsScoresLoaded;
-			GameCenterManager.retrieveScoresFailedEvent += OnPlayerFriendsScoresFailed;
-			GameCenterBinding.retrieveScores(true, GameCenterLeaderboardTimeScope.AllTime, 1, 100, Instance.leaderboardID);
+			#if UNITY_IOS
+			if(GameCenterBinding.isPlayerAuthenticated())
+			{
+				Debug.Log("GameCenterController.GetPlayerFriendsPosition");
+				isSearchingPlayerFriendsPosition = true;
 
-			while(isSearchingPlayerFriendsPosition)
-				yield return null;
+				GameCenterManager.scoresLoadedEvent += OnPlayerFriendsScoresLoaded;
+				GameCenterManager.retrieveScoresFailedEvent += OnPlayerFriendsScoresFailed;
+				GameCenterBinding.retrieveScores(true, GameCenterLeaderboardTimeScope.AllTime, 1, 100, Instance.defaultLeaderboard.iOS);
 
-			Debug.Log("Finish search");
+				while(isSearchingPlayerFriendsPosition)
+					yield return null;
 
-			GameCenterManager.scoresLoadedEvent -= OnPlayerFriendsScoresLoaded;
-			GameCenterManager.retrieveScoresFailedEvent -= OnPlayerFriendsScoresFailed;
+				Debug.Log("Finish search");
 
-			result(playerFriendsPosition, playerFriendsMaxRange);
-		}
-		else
-		{
-			Debug.LogError("Player is not authenticated");
+				GameCenterManager.scoresLoadedEvent -= OnPlayerFriendsScoresLoaded;
+				GameCenterManager.retrieveScoresFailedEvent -= OnPlayerFriendsScoresFailed;
+
+				result(playerFriendsPosition, playerFriendsMaxRange);
+			}
+			else
+			{
+				Debug.LogError("Player is not authenticated");
+				result(0, 0);
+			}
+			#elif UNITY_ANDROID
+			yield return null;
 			result(0, 0);
-		}
-		#else
+			#endif
+
+		#endif
+
 		yield return null;
 		result(0, 0);
-		#endif
 	}
 
 	#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
@@ -241,27 +308,66 @@ public class LeaderboardsHelper : MonoBehaviour
 		Debug.Log("Error on Friends Score: " + errmsg);
 	}
 
-	public static void ShowLeaderboards()
+	public static void OpenLeaderboards()
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		if(GameCenterBinding.isPlayerAuthenticated())
-			GameCenterBinding.showLeaderboardWithTimeScope( GameCenterLeaderboardTimeScope.AllTime );
+		#if LEADERBOARDS_IMPLEMENTED
+
+			#if UNITY_IOS
+			if(GameCenterBinding.isPlayerAuthenticated())
+				GameCenterBinding.showLeaderboardWithTimeScope( GameCenterLeaderboardTimeScope.AllTime );
+
+			#elif UNITY_ANDROID
+			if(PlayGameServices.isSignedIn())
+				PlayGameServices.showLeaderboards();
+			#endif
+
 		#endif
 	}
 
-	public static void ShowLeaderboards(string _leaderboardID)
+	public static void OpenLeaderboards(string leaderboardID)
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		if(GameCenterBinding.isPlayerAuthenticated())
-			GameCenterBinding.showLeaderboardWithTimeScope( GameCenterLeaderboardTimeScope.AllTime);
+		#if LEADERBOARDS_IMPLEMENTED
+
+			#if UNITY_IOS
+			if(GameCenterBinding.isPlayerAuthenticated())
+				GameCenterBinding.showLeaderboardWithTimeScope( GameCenterLeaderboardTimeScope.AllTime);
+			else
+				GameCenterBinding.authenticateLocalPlayer();
+			#elif UNITY_ANDROID
+			if(PlayGameServices.isSignedIn())
+				PlayGameServices.showLeaderboard(leaderboardID);
+			else
+				PlayGameServices.authenticate();
+			#endif
+
+		#endif
+
+	}
+
+	public static void SendScore(long score)
+	{
+		#if LEADERBOARDS_IMPLEMENTED
+
+			#if UNITY_IOS
+			SendScore(score, Instance.defaultLeaderboard.iOS);
+			#elif UNITY_ANDROID
+			SendScore(score, Instance.defaultLeaderboard.android);
+			#endif
+
 		#endif
 	}
 
 	public static void SendScore(long score, string leaderboardID)
 	{
 		Debug.Log("Sending score: " + score);
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		GameCenterBinding.reportScore(score, leaderboardID);
+		#if LEADERBOARDS_IMPLEMENTED
+
+			#if UNITY_IOS
+			GameCenterBinding.reportScore(score, leaderboardID);
+			#elif UNITY_ANDROID
+			PlayGameServices.submitScore(leaderboardID, score);
+			#endif
+
 		#endif
 	}
 }

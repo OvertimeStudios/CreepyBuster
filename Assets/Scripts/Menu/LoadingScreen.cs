@@ -19,29 +19,30 @@ public class LoadingScreen : MonoBehaviour
 		logo.SetActive(false);
 		#endif
 
-		DataCloudPrefs.Load(snapshotSaveName);
-
 		StartCoroutine (Load ());
 	}
 	
 	private IEnumerator Load() 
 	{
-		float startLoadTime = Time.time;
-
-		async = Application.LoadLevelAsync(sceneToLoad);
-		async.allowSceneActivation = false;
+		DataCloudPrefs.Load(snapshotSaveName);
 
 		//wait for google play finished loading
 		while(!DataCloudPrefs.IsLoaded)
 			yield return null;
+		
+		float startLoadTime = Time.time;
 
+		async = Application.LoadLevelAsync(sceneToLoad);
 		async.allowSceneActivation = true;
+
+		yield return async;
 
 		Debug.Log("Loading Complete in " + (Time.time - startLoadTime) + " seconds.");
 	}
 
 	void Update()
 	{
-		Debug.Log(async.progress);
+		//if(async != null)
+			//Debug.Log(async.progress);
 	}
 }
