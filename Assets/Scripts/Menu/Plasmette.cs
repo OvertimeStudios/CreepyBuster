@@ -133,6 +133,8 @@ public class Plasmette : MonoBehaviour
 	
 	private IEnumerator BackToNormalScale()
 	{
+		myTransform.rotation = Quaternion.identity;
+
 		while(Mathf.Abs(plasmetteTransform.localScale.x - originalScale.x) > 0.05f)
 		{
 			plasmetteTransform.localScale += Vector3.one * Time.deltaTime;

@@ -48,7 +48,8 @@ public class EveryplayController : MonoBehaviour
 
 			instance = this;
 		}
-		
+
+		transform.parent = null;
 		DontDestroyOnLoad (gameObject);
 	}
 	

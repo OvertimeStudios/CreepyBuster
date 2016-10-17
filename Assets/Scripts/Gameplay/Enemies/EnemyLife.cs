@@ -189,7 +189,7 @@ public class EnemyLife : MonoBehaviour
 
 		while(Vector3.Distance(AttackTargets.Instance.transform.position, transform.position) > 0.3f)
 		{
-			lightning.transform.position = Vector3.Lerp(lightning.transform.position, transform.position, 0.1f);
+			lightning.transform.position = Vector3.Lerp(lightning.transform.position, transform.position, 0.25f);
 			yield return null;
 		}
 

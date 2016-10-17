@@ -238,7 +238,7 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return DataCloudPrefs.GetString(LANGUAGE);
+			return DataCloudPrefs.HasKey(LANGUAGE) ? DataCloudPrefs.GetString(LANGUAGE) : "English";
 		}
 
 		set

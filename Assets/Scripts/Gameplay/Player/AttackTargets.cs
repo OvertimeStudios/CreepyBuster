@@ -19,6 +19,7 @@ public class AttackTargets : MonoBehaviour
 	private float specialCounter;
 
 	private static bool isSpecial;
+	private Transform myTransform;
 
 	private int layerMask;
 
@@ -27,6 +28,7 @@ public class AttackTargets : MonoBehaviour
 	private bool isAttacking;
 
 	public float damage;
+	public CircleCollider2D attackCollider;
 
 	private CircleCollider2D range;
 
@@ -92,10 +94,12 @@ public class AttackTargets : MonoBehaviour
 	{
 		instance = this;
 
-		layerMask = LayerMask.NameToLayer ("AttackCollider");
+		layerMask = 1 << LayerMask.NameToLayer ("AttackCollider");
 
 		isAttacking = false;
 		isSpecial = false;
+
+		myTransform = transform;
 
 		AudioSource[] audioSources = GetComponents<AudioSource>();
 		audioSourceAttack = audioSources[0];
@@ -149,12 +153,23 @@ public class AttackTargets : MonoBehaviour
 			else if(LevelDesign.PlayerLevel == 4)
 				GameController.timeOnSpecial5 += Time.deltaTime;
 		}
+	}
 
-		enemiesInRange.Clear ();
+	private void GetEnemiesInRange()
+	{
+		enemiesInRange.Clear();
+
+		Collider2D[] colliders = new Collider2D[50];
+		int enemiesInRangeCount = Physics2D.OverlapCircleNonAlloc((Vector2)myTransform.position + attackCollider.offset, attackCollider.radius, colliders, layerMask);
+
+		for(int i = 0; i < enemiesInRangeCount; i++)
+			enemiesInRange.Add (colliders[i].transform.parent);
 	}
 
 	private void GetTargets ()
 	{
+		GetEnemiesInRange();
+
 		List<Transform> newTargets = new List<Transform> ();
 
 		if (GameController.gameOver) 
@@ -168,7 +183,7 @@ public class AttackTargets : MonoBehaviour
 			{
 				if(t == null) continue;
 
-				//don't apply damage to those enemies who doesn't show up yet
+				//don't apply damage to those enemies who doesn't show up yet or are dead
 				if(!t.GetComponent<EnemyLife>().IsDamagable) continue;
 
 				//LevelDesign.MaxRays is handling the extra ray from special
@@ -180,6 +195,7 @@ public class AttackTargets : MonoBehaviour
 					{
 						if(nt == null) continue;
 
+						//get closer enemy
 						if(Vector3.Distance(transform.position, t.position) < Vector3.Distance(transform.position, nt.position))
 						{
 							newTargets.Remove(nt);
@@ -190,7 +206,7 @@ public class AttackTargets : MonoBehaviour
 				}
 			}
 		}
-
+			
 		//see if they are new
 		foreach(Transform nt in newTargets)
 		{
@@ -200,6 +216,7 @@ public class AttackTargets : MonoBehaviour
 				nt.GetComponent<EnemyLife>().OnLightEnter();
 		}
 
+		//if they are targeting and not in new targets, it means they are not going to be attacked anymore, so call OnLightExit
 		foreach(Transform t in targets)
 		{
 			if(t == null) continue;
@@ -323,14 +340,6 @@ public class AttackTargets : MonoBehaviour
 
 		if(enemiesInRange != null)
 			enemiesInRange.Clear ();
-	}
-	
-
-	void OnTriggerStay2D(Collider2D col)
-	{
-		if(col.gameObject.layer != layerMask) return;
-
-		enemiesInRange.Add (col.transform.parent);
 	}
 
 	//enemy collided with player finger

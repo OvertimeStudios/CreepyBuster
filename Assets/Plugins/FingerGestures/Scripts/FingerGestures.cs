@@ -504,7 +504,10 @@ public class FingerGestures : MonoBehaviour
     void Start()
     {
         if( makePersistent )
+		{
+			transform.parent = null;
             DontDestroyOnLoad( this.gameObject );
+		}
     }
     
     // this is called after Awake() OR after the script is recompiled (Recompile > Disable > Enable)

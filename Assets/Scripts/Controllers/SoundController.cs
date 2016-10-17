@@ -134,11 +134,9 @@ public class SoundController : MonoBehaviour
 			Destroy(gameObject);
 			return;
 		}
-		else
-		{
-			instance = this;
-		}
 
+		instance = this;
+		transform.parent = null;
 		DontDestroyOnLoad (gameObject);
 
 		AudioSource[] sources = GetComponents<AudioSource>();
