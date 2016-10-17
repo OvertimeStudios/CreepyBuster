@@ -45,8 +45,6 @@ MonoBehaviour:
   pixelPerfect: 0
   takeRandomShots: 1
   textureFormat: 4
-  dontDestroyOnLoad: 1
-  allowOneInstanceOnly: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

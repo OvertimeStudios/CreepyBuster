@@ -91,7 +91,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 			else
 				Ask();
 		}
-		else if(!AdsHelper.IsRewardedVideoReady)
+		else if(!AdMobHelper.IsRewardedVideoReady)
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		#endif
 	}
@@ -100,7 +100,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		Debug.Log("Ask");
 		#if ADMOB_IMPLEMENTED
-		if(AdsHelper.IsRewardedVideoReady)
+		if(AdMobHelper.IsRewardedVideoReady)
 			Popup.ShowYesNo(string.Format(Localization.Get("VIDEO_TO_ORBS"), orbsToGive), ShowAd, null);
 		else
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
@@ -113,7 +113,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		Debug.Log("Showing Ad");
 		#if ADMOB_IMPLEMENTED
-		AdsHelper.ShowRewardedAd (GiveReward);
+		AdMobHelper.ShowRewardedVideo (GiveReward);
 		#else
 		Popup.ShowBlank("Unity Ads not implemented", 2f);
 		#endif
@@ -122,8 +122,8 @@ public class RewardedVideoPlayer : MonoBehaviour
 	public static void ShowAd(Action handleFinish)
 	{
 		#if ADMOB_IMPLEMENTED
-		if(AdsHelper.IsRewardedVideoReady)
-			AdsHelper.ShowRewardedAd(handleFinish);
+		if(AdMobHelper.IsRewardedVideoReady)
+			AdMobHelper.ShowRewardedVideo(handleFinish);
 		else
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		#else

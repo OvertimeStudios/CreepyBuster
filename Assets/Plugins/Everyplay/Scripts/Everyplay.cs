@@ -150,31 +150,6 @@ public class Everyplay : MonoBehaviour
     private const string nativeMethodSource = "__Internal";
 #endif
 
-    // For some time we want to support calling Everyplay with the old SharedInstance.
-    // This requires us to use a EveryplayLegacy instance wrapper.
-    // We can deprecate SharedInstance and notify the user when
-    // using the old way. After some time we can remove it totally.
-    [Obsolete("Calling Everyplay with SharedInstance is deprecated, you may remove SharedInstance.")]
-    public static EveryplayLegacy SharedInstance
-    {
-        get
-        {
-            // Reference to EveryplayInstance to make sure the real instance exists, also create a legacy wrapper
-            if (EveryplayInstance != null)
-            {
-                if (everyplayLegacy == null)
-                {
-                    // Add legacy wrapper only when SharedInstance is referenced
-                    everyplayLegacy = everyplayInstance.gameObject.AddComponent<EveryplayLegacy>();
-                }
-            }
-            return everyplayLegacy;
-        }
-    }
-
-    private static EveryplayLegacy everyplayLegacy = null;
-
-    // The real singleton, SharedInstance is for legacy support only
     private static Everyplay everyplayInstance = null;
 
     private static Everyplay EveryplayInstance
@@ -193,6 +168,8 @@ public class Everyplay : MonoBehaviour
 
                         if (everyplayGameObject != null)
                         {
+                            everyplayGameObject.name = everyplayGameObject.name + everyplayGameObject.GetInstanceID();
+
                             everyplayInstance = everyplayGameObject.AddComponent<Everyplay>();
 
                             if (everyplayInstance != null)
@@ -204,7 +181,7 @@ public class Everyplay : MonoBehaviour
                                 #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
                                 try
                                 {
-                                    InitEveryplay(settings.clientId, settings.clientSecret, settings.redirectURI);
+                                    InitEveryplay(settings.clientId, settings.clientSecret, settings.redirectURI, everyplayGameObject.name);
                                 }
                                 catch (DllNotFoundException)
                                 {
@@ -507,12 +484,34 @@ public class Everyplay : MonoBehaviour
         }
     }
 
+    public static void SetAudioResamplerQuality(int quality)
+    {
+        if (EveryplayInstance != null && hasMethods == true)
+        {
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
+            EveryplaySetAudioResamplerQuality(quality);
+            #endif
+            #endif
+        }
+    }
+
     public static void SetMaxRecordingMinutesLength(int minutes)
     {
         if (EveryplayInstance != null && hasMethods == true)
         {
             #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
             EveryplaySetMaxRecordingMinutesLength(minutes);
+            #endif
+        }
+    }
+
+    public static void SetMaxRecordingSecondsLength(int seconds)
+    {
+        if (EveryplayInstance != null && hasMethods == true)
+        {
+            #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
+            EveryplaySetMaxRecordingSecondsLength(seconds);
             #endif
         }
     }
@@ -744,7 +743,8 @@ public class Everyplay : MonoBehaviour
             #elif EVERYPLAY_ANDROID_ENABLED
             if (texture != null)
             {
-                EveryplayFaceCamSetTargetTextureId(texture.GetNativeTextureID());
+                int textureId = texture.GetNativeTexturePtr().ToInt32();
+                EveryplayFaceCamSetTargetTextureId(textureId);
                 EveryplayFaceCamSetTargetTextureWidth(texture.width);
                 EveryplayFaceCamSetTargetTextureHeight(texture.height);
             }
@@ -842,7 +842,8 @@ public class Everyplay : MonoBehaviour
             #elif EVERYPLAY_ANDROID_ENABLED
             if (texture != null)
             {
-                EveryplaySetThumbnailTargetTextureId(currentThumbnailTargetTexture.GetNativeTextureID());
+                int textureId = currentThumbnailTargetTexture.GetNativeTexturePtr().ToInt32();
+                EveryplaySetThumbnailTargetTextureId(textureId);
                 EveryplaySetThumbnailTargetTextureWidth(currentThumbnailTargetTexture.width);
                 EveryplaySetThumbnailTargetTextureHeight(currentThumbnailTargetTexture.height);
             }
@@ -1080,14 +1081,15 @@ public class Everyplay : MonoBehaviour
 
     private void EveryplayReadyForRecording(string jsonMsg)
     {
-        if (ReadyForRecording != null)
-        {
-            Dictionary<string, object> dict = EveryplayDictionaryExtensions.JsonToDictionary(jsonMsg);
-            bool enabled;
+        Dictionary<string, object> dict = EveryplayDictionaryExtensions.JsonToDictionary(jsonMsg);
+        bool enabled;
 
-            if (EveryplayDictionaryExtensions.TryGetValue(dict, "enabled", out enabled))
+        if (EveryplayDictionaryExtensions.TryGetValue(dict, "enabled", out enabled))
+        {
+            readyForRecording = enabled;
+
+            if (ReadyForRecording != null)
             {
-                readyForRecording = enabled;
                 ReadyForRecording(enabled);
             }
         }
@@ -1238,7 +1240,7 @@ public class Everyplay : MonoBehaviour
 
     #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
     [DllImport(nativeMethodSource)]
-    public static extern void InitEveryplay(string clientId, string clientSecret, string redirectURI);
+    private static extern void InitEveryplay(string clientId, string clientSecret, string redirectURI, string gameObjectName);
     #endif
 
     #if EVERYPLAY_BINDINGS_ENABLED
@@ -1300,6 +1302,9 @@ public class Everyplay : MonoBehaviour
 
     [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetMaxRecordingMinutesLength(int minutes);
+
+    [DllImport(nativeMethodSource)]
+    private static extern void EveryplaySetMaxRecordingSecondsLength(int seconds);
 
     [DllImport(nativeMethodSource)]
     private static extern void EveryplaySetLowMemoryDevice(bool state);
@@ -1413,7 +1418,7 @@ public class Everyplay : MonoBehaviour
 
     #if EVERYPLAY_RESET_BINDINGS_ENABLED
     [DllImport(nativeMethodSource)]
-    public static extern void ResetEveryplay();
+    private static extern void ResetEveryplay();
     #endif
 
     #elif EVERYPLAY_ANDROID_ENABLED
@@ -1421,48 +1426,48 @@ public class Everyplay : MonoBehaviour
     private static AndroidJavaObject everyplayUnity;
 
     #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
-    public static void InitEveryplay(string clientId, string clientSecret, string redirectURI)
+    private static void InitEveryplay(string clientId, string clientSecret, string redirectURI, string gameObjectName)
     {
         AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         AndroidJavaObject activity = jc.GetStatic<AndroidJavaObject>("currentActivity");
         everyplayUnity = new AndroidJavaObject("com.everyplay.Everyplay.unity.EveryplayUnity3DWrapper");
-        everyplayUnity.Call("initEveryplay", activity, clientId, clientSecret, redirectURI);
+        everyplayUnity.Call("initEveryplay", activity, clientId, clientSecret, redirectURI, gameObjectName);
     }
 
     #endif
 
     #if EVERYPLAY_BINDINGS_ENABLED
-    public static void EveryplayShow()
+    private static void EveryplayShow()
     {
         everyplayUnity.Call<bool>("showEveryplay");
     }
 
-    public static void EveryplayShowWithPath(string path)
+    private static void EveryplayShowWithPath(string path)
     {
         everyplayUnity.Call<bool>("showEveryplay", path);
     }
 
-    public static void EveryplayPlayVideoWithURL(string url)
+    private static void EveryplayPlayVideoWithURL(string url)
     {
         everyplayUnity.Call("playVideoWithURL", url);
     }
 
-    public static void EveryplayPlayVideoWithDictionary(string dic)
+    private static void EveryplayPlayVideoWithDictionary(string dic)
     {
         everyplayUnity.Call("playVideoWithDictionary", dic);
     }
 
-    public static string EveryplayAccountAccessToken()
+    private static string EveryplayAccountAccessToken()
     {
         return everyplayUnity.Call<string>("getAccessToken");
     }
 
-    public static void EveryplayShowSharingModal()
+    private static void EveryplayShowSharingModal()
     {
         everyplayUnity.Call("showSharingModal");
     }
 
-    public static void EveryplayPlayLastRecording()
+    private static void EveryplayPlayLastRecording()
     {
         everyplayUnity.Call("playLastRecording");
     }
@@ -1470,87 +1475,97 @@ public class Everyplay : MonoBehaviour
     #endif
 
     #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
-    public static void EveryplayStartRecording()
+    private static void EveryplayStartRecording()
     {
         everyplayUnity.Call("startRecording");
     }
 
-    public static void EveryplayStopRecording()
+    private static void EveryplayStopRecording()
     {
         everyplayUnity.Call("stopRecording");
     }
 
-    public static void EveryplayPauseRecording()
+    private static void EveryplayPauseRecording()
     {
         everyplayUnity.Call("pauseRecording");
     }
 
-    public static void EveryplayResumeRecording()
+    private static void EveryplayResumeRecording()
     {
         everyplayUnity.Call("resumeRecording");
     }
 
-    public static bool EveryplayIsRecording()
+    private static bool EveryplayIsRecording()
     {
         return everyplayUnity.Call<bool>("isRecording");
     }
 
-    public static bool EveryplayIsRecordingSupported()
+    private static bool EveryplayIsRecordingSupported()
     {
         return everyplayUnity.Call<bool>("isRecordingSupported");
     }
 
-    public static bool EveryplayIsPaused()
+    private static bool EveryplayIsPaused()
     {
         return everyplayUnity.Call<bool>("isPaused");
     }
 
-    public static bool EveryplaySnapshotRenderbuffer()
+    private static bool EveryplaySnapshotRenderbuffer()
     {
         return everyplayUnity.Call<bool>("snapshotRenderbuffer");
     }
 
-    public static void EveryplaySetMetadata(string json)
+    private static void EveryplaySetMetadata(string json)
     {
         everyplayUnity.Call("setMetadata", json);
     }
 
-    public static void EveryplaySetTargetFPS(int fps)
+    private static void EveryplaySetTargetFPS(int fps)
     {
         everyplayUnity.Call("setTargetFPS", fps);
     }
 
-    public static void EveryplaySetMotionFactor(int factor)
+    private static void EveryplaySetMotionFactor(int factor)
     {
         everyplayUnity.Call("setMotionFactor", factor);
     }
 
-    public static void EveryplaySetMaxRecordingMinutesLength(int minutes)
+    private static void EveryplaySetAudioResamplerQuality(int quality)
+    {
+        everyplayUnity.Call("setAudioResamplerQuality", quality);
+    }
+
+    private static void EveryplaySetMaxRecordingMinutesLength(int minutes)
     {
         everyplayUnity.Call("setMaxRecordingMinutesLength", minutes);
     }
 
-    public static void EveryplaySetLowMemoryDevice(bool state)
+    private static void EveryplaySetMaxRecordingSecondsLength(int seconds)
+    {
+        everyplayUnity.Call("setMaxRecordingSecondsLength", seconds);
+    }
+
+    private static void EveryplaySetLowMemoryDevice(bool state)
     {
         everyplayUnity.Call("setLowMemoryDevice", state ? 1 : 0);
     }
 
-    public static void EveryplaySetDisableSingleCoreDevices(bool state)
+    private static void EveryplaySetDisableSingleCoreDevices(bool state)
     {
         everyplayUnity.Call("setDisableSingleCoreDevices", state ? 1 : 0);
     }
 
-    public static bool EveryplayIsSupported()
+    private static bool EveryplayIsSupported()
     {
         return everyplayUnity.Call<bool>("isSupported");
     }
 
-    public static bool EveryplayIsSingleCoreDevice()
+    private static bool EveryplayIsSingleCoreDevice()
     {
         return everyplayUnity.Call<bool>("isSingleCoreDevice");
     }
 
-    public static int EveryplayGetUserInterfaceIdiom()
+    private static int EveryplayGetUserInterfaceIdiom()
     {
         return everyplayUnity.Call<int>("getUserInterfaceIdiom");
     }
@@ -1558,122 +1573,122 @@ public class Everyplay : MonoBehaviour
     #endif
 
     #if EVERYPLAY_FACECAM_BINDINGS_ENABLED
-    public static bool EveryplayFaceCamIsVideoRecordingSupported()
+    private static bool EveryplayFaceCamIsVideoRecordingSupported()
     {
         return everyplayUnity.Call<bool>("faceCamIsVideoRecordingSupported");
     }
 
-    public static bool EveryplayFaceCamIsAudioRecordingSupported()
+    private static bool EveryplayFaceCamIsAudioRecordingSupported()
     {
         return everyplayUnity.Call<bool>("faceCamIsAudioRecordingSupported");
     }
 
-    public static bool EveryplayFaceCamIsHeadphonesPluggedIn()
+    private static bool EveryplayFaceCamIsHeadphonesPluggedIn()
     {
         return everyplayUnity.Call<bool>("faceCamIsHeadphonesPluggedIn");
     }
 
-    public static bool EveryplayFaceCamIsSessionRunning()
+    private static bool EveryplayFaceCamIsSessionRunning()
     {
         return everyplayUnity.Call<bool>("faceCamIsSessionRunning");
     }
 
-    public static bool EveryplayFaceCamIsRecordingPermissionGranted()
+    private static bool EveryplayFaceCamIsRecordingPermissionGranted()
     {
         return everyplayUnity.Call<bool>("faceCamIsRecordingPermissionGranted");
     }
 
-    public static float EveryplayFaceCamAudioPeakLevel()
+    private static float EveryplayFaceCamAudioPeakLevel()
     {
         return everyplayUnity.Call<float>("faceCamAudioPeakLevel");
     }
 
-    public static float EveryplayFaceCamAudioPowerLevel()
+    private static float EveryplayFaceCamAudioPowerLevel()
     {
         return everyplayUnity.Call<float>("faceCamAudioPowerLevel");
     }
 
-    public static void EveryplayFaceCamSetMonitorAudioLevels(bool enabled)
+    private static void EveryplayFaceCamSetMonitorAudioLevels(bool enabled)
     {
         everyplayUnity.Call("faceCamSetSetMonitorAudioLevels", enabled);
     }
 
-    public static void EveryplayFaceCamSetRecordingMode(int mode)
+    private static void EveryplayFaceCamSetRecordingMode(int mode)
     {
         everyplayUnity.Call("faceCamSetRecordingMode", mode);
     }
 
-    public static void EveryplayFaceCamSetAudioOnly(bool audioOnly)
+    private static void EveryplayFaceCamSetAudioOnly(bool audioOnly)
     {
         everyplayUnity.Call("faceCamSetAudioOnly", audioOnly);
     }
 
-    public static void EveryplayFaceCamSetPreviewVisible(bool visible)
+    private static void EveryplayFaceCamSetPreviewVisible(bool visible)
     {
         everyplayUnity.Call("faceCamSetPreviewVisible", visible);
     }
 
-    public static void EveryplayFaceCamSetPreviewScaleRetina(bool autoScale)
+    private static void EveryplayFaceCamSetPreviewScaleRetina(bool autoScale)
     {
         Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name + " not available on Android");
     }
 
-    public static void EveryplayFaceCamSetPreviewSideWidth(int width)
+    private static void EveryplayFaceCamSetPreviewSideWidth(int width)
     {
         everyplayUnity.Call("faceCamSetPreviewSideWidth", width);
     }
 
-    public static void EveryplayFaceCamSetPreviewBorderWidth(int width)
+    private static void EveryplayFaceCamSetPreviewBorderWidth(int width)
     {
         everyplayUnity.Call("faceCamSetPreviewBorderWidth", width);
     }
 
-    public static void EveryplayFaceCamSetPreviewPositionX(int x)
+    private static void EveryplayFaceCamSetPreviewPositionX(int x)
     {
         everyplayUnity.Call("faceCamSetPreviewPositionX", x);
     }
 
-    public static void EveryplayFaceCamSetPreviewPositionY(int y)
+    private static void EveryplayFaceCamSetPreviewPositionY(int y)
     {
         everyplayUnity.Call("faceCamSetPreviewPositionY", y);
     }
 
-    public static void EveryplayFaceCamSetPreviewBorderColor(float r, float g, float b, float a)
+    private static void EveryplayFaceCamSetPreviewBorderColor(float r, float g, float b, float a)
     {
         everyplayUnity.Call("faceCamSetPreviewBorderColor", r, g, b, a);
     }
 
-    public static void EveryplayFaceCamSetPreviewOrigin(int origin)
+    private static void EveryplayFaceCamSetPreviewOrigin(int origin)
     {
         everyplayUnity.Call("faceCamSetPreviewOrigin", origin);
     }
 
-    public static void EveryplayFaceCamSetTargetTextureId(int textureId)
+    private static void EveryplayFaceCamSetTargetTextureId(int textureId)
     {
         everyplayUnity.Call("faceCamSetTargetTextureId", textureId);
     }
 
-    public static void EveryplayFaceCamSetTargetTextureWidth(int textureWidth)
+    private static void EveryplayFaceCamSetTargetTextureWidth(int textureWidth)
     {
         everyplayUnity.Call("faceCamSetTargetTextureWidth", textureWidth);
     }
 
-    public static void EveryplayFaceCamSetTargetTextureHeight(int textureHeight)
+    private static void EveryplayFaceCamSetTargetTextureHeight(int textureHeight)
     {
         everyplayUnity.Call("faceCamSetTargetTextureHeight", textureHeight);
     }
 
-    public static void EveryplayFaceCamStartSession()
+    private static void EveryplayFaceCamStartSession()
     {
         everyplayUnity.Call("faceCamStartSession");
     }
 
-    public static void EveryplayFaceCamRequestRecordingPermission()
+    private static void EveryplayFaceCamRequestRecordingPermission()
     {
         everyplayUnity.Call("faceCamRequestRecordingPermission");
     }
 
-    public static void EveryplayFaceCamStopSession()
+    private static void EveryplayFaceCamStopSession()
     {
         everyplayUnity.Call("faceCamStopSession");
     }
@@ -1681,22 +1696,22 @@ public class Everyplay : MonoBehaviour
     #endif
 
     #if EVERYPLAY_BINDINGS_ENABLED || EVERYPLAY_CORE_BINDINGS_ENABLED
-    public static void EveryplaySetThumbnailTargetTextureId(int textureId)
+    private static void EveryplaySetThumbnailTargetTextureId(int textureId)
     {
         everyplayUnity.Call("setThumbnailTargetTextureId", textureId);
     }
 
-    public static void EveryplaySetThumbnailTargetTextureWidth(int textureWidth)
+    private static void EveryplaySetThumbnailTargetTextureWidth(int textureWidth)
     {
         everyplayUnity.Call("setThumbnailTargetTextureWidth", textureWidth);
     }
 
-    public static void EveryplaySetThumbnailTargetTextureHeight(int textureHeight)
+    private static void EveryplaySetThumbnailTargetTextureHeight(int textureHeight)
     {
         everyplayUnity.Call("setThumbnailTargetTextureHeight", textureHeight);
     }
 
-    public static void EveryplayTakeThumbnail()
+    private static void EveryplayTakeThumbnail()
     {
         everyplayUnity.Call("takeThumbnail");
     }

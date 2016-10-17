@@ -10,6 +10,7 @@ using GoogleMobileAds.Api;
 /// </summary>
 public class AdMobHelper : MonoBehaviour 
 {
+	//MD5 UDID
 	public DeviceID[] testDevices;
 
 	public float timeout = 5f;
@@ -17,8 +18,9 @@ public class AdMobHelper : MonoBehaviour
 	[Header("Banner")]
 	public string bannerAndroid;
 	public string bannerIOS;
-	private static AdsHelper.AdSize _adSize;
-	private static AdsHelper.AdPosition _adPosition;
+
+	private static AdSize _adSize;
+	private static AdPosition _adPosition;
 
 	[Header("Interstitial")]
 	public string interstitialAndroid;
@@ -44,7 +46,7 @@ public class AdMobHelper : MonoBehaviour
 		{
 			if(instance == null)
 				instance = GameObject.FindObjectOfType<AdMobHelper>();
-			
+
 			return instance;
 		}
 	}
@@ -95,7 +97,7 @@ public class AdMobHelper : MonoBehaviour
 		if(!string.IsNullOrEmpty(rewardedVideoAndroid) || !string.IsNullOrEmpty(rewardedVideoIOS))
 		{
 			rewardBasedVideo = RewardBasedVideoAd.Instance;
-			
+
 
 			CreateRewardedVideoRequest();
 
@@ -141,7 +143,7 @@ public class AdMobHelper : MonoBehaviour
 	}
 
 	#region BANNER
-	public static void ShowBanner(AdsHelper.AdSize adSize, AdsHelper.AdPosition adPosition)
+	public static void ShowBanner(AdSize adSize, AdPosition adPosition)
 	{
 		Debug.Log("Show Banner Ad");
 		#if ADMOB_IMPLEMENTED
@@ -179,14 +181,16 @@ public class AdMobHelper : MonoBehaviour
 		#endif
 
 		// Create a 320x50 banner at the top of the screen.
-		bannerView = new BannerView(adUnitId, GetGoogleAPIAdSize(_adSize), (GoogleMobileAds.Api.AdPosition)System.Enum.Parse(typeof(GoogleMobileAds.Api.AdPosition), _adPosition.ToString()));
+		bannerView = new BannerView(adUnitId, _adSize, _adPosition);
 		// Create an) empty ad request.
 		AdRequest.Builder request = new AdRequest.Builder();
 
 		//add test devices
 		foreach(DeviceID device in Instance.testDevices)
 			request.AddTestDevice(device.id);
-		
+
+		request.AddTestDevice(AdRequest.TestDeviceSimulator);
+
 		// Load the banner with the request.
 		bannerView.LoadAd(request.Build());
 
@@ -204,40 +208,11 @@ public class AdMobHelper : MonoBehaviour
 	}
 
 	#if ADMOB_IMPLEMENTED
-	private static GoogleMobileAds.Api.AdSize GetGoogleAPIAdSize(AdsHelper.AdSize adSize)
-	{
-		GoogleMobileAds.Api.AdSize googleAdSize = null;
-
-		switch(adSize)
-		{
-			case AdsHelper.AdSize.Banner:
-				googleAdSize = GoogleMobileAds.Api.AdSize.Banner;
-				break;
-
-			case AdsHelper.AdSize.IABBanner:
-				googleAdSize = GoogleMobileAds.Api.AdSize.IABBanner;
-				break;
-
-			case AdsHelper.AdSize.Leaderboard:
-				googleAdSize = GoogleMobileAds.Api.AdSize.Leaderboard;
-				break;
-
-			case AdsHelper.AdSize.MediumRectangle:
-				googleAdSize = GoogleMobileAds.Api.AdSize.MediumRectangle;
-				break;
-
-			case AdsHelper.AdSize.SmartBanner:
-				googleAdSize = GoogleMobileAds.Api.AdSize.SmartBanner;
-				break;
-		}
-		return googleAdSize;
-	}
-
 	private static void HandleOnBannerLoaded(object sender, EventArgs e)
 	{
-		#if ADMOB_IMPLEMENTED
+	#if ADMOB_IMPLEMENTED
 		Debug.Log("Rewarded Video Loaded Successfully");
-		#endif
+	#endif
 	}
 
 	#if ADMOB_IMPLEMENTED
@@ -254,35 +229,35 @@ public class AdMobHelper : MonoBehaviour
 
 	private static IEnumerator WaitAndCreateBannerRequest(float waitTime)
 	{
-		#if ADMOB_IMPLEMENTED
+	#if ADMOB_IMPLEMENTED
 		yield return new WaitForSeconds(waitTime);
 
 		CreateBannerRequest();
-		#else
-		yield return null;
-		#endif
+	#else
+	yield return null;
+	#endif
 	}
 
 	private static void HandleOnBannerOpened(object sender, EventArgs e)
 	{
-		#if ADMOB_IMPLEMENTED
-			Debug.Log("Rewarded Video Opened");
-		#endif
+	#if ADMOB_IMPLEMENTED
+		Debug.Log("Rewarded Video Opened");
+	#endif
 	}
 
 	private static void HandleOnBannerClosed(object sender, EventArgs e)
 	{
-		#if ADMOB_IMPLEMENTED
-			Debug.Log("Rewarded Video Closed");
-			CreateInterstitialRequest();
-		#endif
+	#if ADMOB_IMPLEMENTED
+		Debug.Log("Rewarded Video Closed");
+		CreateInterstitialRequest();
+	#endif
 	}
 
 	private static void HandleOnBannerLeavingApplication(object sender, EventArgs e)
 	{
-		#if ADMOB_IMPLEMENTED
-			Debug.Log("Rewarded Video Left Application");
-		#endif
+	#if ADMOB_IMPLEMENTED
+		Debug.Log("Rewarded Video Left Application");
+	#endif
 	}
 
 	#endif
@@ -415,7 +390,7 @@ public class AdMobHelper : MonoBehaviour
 		}
 		#endif
 	}
-		
+
 	private static void CreateRewardedVideoRequest()
 	{
 		#if ADMOB_IMPLEMENTED
@@ -434,15 +409,15 @@ public class AdMobHelper : MonoBehaviour
 		AdRequest.Builder request = new AdRequest.Builder();
 		rewardBasedVideo.LoadAd(request.Build(), adUnitId);
 		#endif
-	}
+		}
 
-	private static void HandleRewardBasedVideoLoaded(object sender, EventArgs e)
-	{
+		private static void HandleRewardBasedVideoLoaded(object sender, EventArgs e)
+		{
 		#if ADMOB_IMPLEMENTED
 		Debug.Log("Rewarded Video Loaded Successfully");
 		#endif
 	}
-	
+
 	#if ADMOB_IMPLEMENTED
 	private static void HandleRewardBasedVideoFailedToLoad(object sender, AdFailedToLoadEventArgs args)
 	{

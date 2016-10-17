@@ -626,8 +626,8 @@ public class GameController : MonoBehaviour
 		Debug.Log("ShowContinueScreen()");
 
 		#if ADMOB_IMPLEMENTED
-		Debug.Log(string.Format("AdsHelper.IsRewardedVideoReady? {0}",AdsHelper.IsRewardedVideoReady));
-		if (continues == 0 && AdsHelper.IsRewardedVideoReady)
+		Debug.Log(string.Format("AdMobHelper.IsRewardedVideoReady? {0}",AdMobHelper.IsRewardedVideoReady));
+		if (continues == 0 && AdMobHelper.IsRewardedVideoReady)
 			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), ShowAdToContinue, ShowEndScreen, false);
 		else
 		{
@@ -652,7 +652,7 @@ public class GameController : MonoBehaviour
 
 	private void ShowAdToContinue()
 	{
-		AdsHelper.ShowRewardedAd(ContinuePlaying);
+		AdMobHelper.ShowRewardedVideo(ContinuePlaying);
 	}
 
 	private void ShowEndScreen()

@@ -172,8 +172,9 @@ namespace Prime31
 
 			if( GUILayout.Button( "Post Score" ) )
 			{
-				Debug.Log( "about to report a random score for leaderboard: " + _leaderboards[0].leaderboardId );
-				GameCenterBinding.reportScore( Random.Range( 1, 99999 ), _leaderboards[0].leaderboardId );
+				var leaderboardId = _leaderboards[Random.Range( 0, _leaderboards.Count )].leaderboardId;
+				Debug.Log( "about to report a random score for leaderboard: " + leaderboardId );
+				GameCenterBinding.reportScore( Random.Range( 1, 99999 ), leaderboardId );
 			}
 
 
@@ -194,7 +195,7 @@ namespace Prime31
 			if( GUILayout.Button( "Get Scores for Me" ) )
 			{
 				foreach( var leaderboard in _leaderboards )
-					GameCenterBinding.retrieveScoresForPlayerId( GameCenterBinding.playerIdentifier(), leaderboard.leaderboardId );
+					GameCenterBinding.retrieveScoresForPlayerIds( new string[] { GameCenterBinding.playerIdentifier() }, leaderboard.leaderboardId );
 			}
 		}
 

@@ -575,9 +575,9 @@ public class MenuController : MonoBehaviour
 		if(Global.IsAdFree) return;
 
 		#if ADMOB_IMPLEMENTED
-		Debug.Log(string.Format("Try to show ads (gamesCount % gamesToShowAd == 0 && AdsHelper.IsInterstitialReady) = {0} % {1} = {2} && {3}", gamesCount, gamesToShowAd, (gamesCount % gamesToShowAd), AdsHelper.IsInterstitialReady));
-		if(gamesCount % gamesToShowAd == 0 && AdsHelper.IsInterstitialReady)
-			AdsHelper.ShowInstertitialAd();
+		Debug.Log(string.Format("Try to show ads (gamesCount % gamesToShowAd == 0 && AdsHelper.IsInterstitialReady) = {0} % {1} = {2} && {3}", gamesCount, gamesToShowAd, (gamesCount % gamesToShowAd), AdMobHelper.IsInterstitialReady));
+		if(gamesCount % gamesToShowAd == 0 && AdMobHelper.IsInterstitialReady)
+			AdMobHelper.ShowInterstitial();
 		#endif
 	}
 

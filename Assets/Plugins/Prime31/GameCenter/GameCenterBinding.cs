@@ -3,7 +3,6 @@ using System.Collections;
 using System.Runtime.InteropServices;
 
 
-
 #if UNITY_IOS || UNITY_TVOS
 public enum GameCenterLeaderboardTimeScope
 {
@@ -19,7 +18,6 @@ public enum GameCenterViewControllerState
 	Achievements,
 	Challenges
 }
-
 
 
 namespace Prime31
@@ -102,6 +100,17 @@ namespace Prime31
 
 
 		[DllImport("__Internal")]
+		private static extern void _gameCenterRetrieveRecentPlayers( bool loadProfileImages, bool loadLargeProfileImages );
+
+		// iOS 10+ only! Sends off a request to get any recent players (the closest thing to friends in iOS 10) and optionally loads profile images asynchronously
+		public static void retrieveRecentPlayers( bool loadProfileImages, bool loadLargeProfileImages = true )
+		{
+			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
+				_gameCenterRetrieveRecentPlayers( loadProfileImages, loadLargeProfileImages );
+		}
+
+
+		[DllImport("__Internal")]
 	    private static extern void _gameCenterLoadPlayerData( string playerIds, bool loadProfileImages, bool loadLargeProfileImages );
 
 		// Gets GameCenterPlayer objects for all the given playerIds and optionally loads the profile images asynchronously
@@ -126,7 +135,7 @@ namespace Prime31
 		[DllImport("__Internal")]
 		private static extern void _gameCenterShowGameCenterViewController( int viewState, int timeScope, string leaderboardId );
 
-		// iOS 6+ only! Shows a specific Game Center view controller. timeScope and leaderboardId are only valid for GameCenterViewControllerState.Leaderboards
+		// Shows a specific Game Center view controller. timeScope and leaderboardId are only valid for GameCenterViewControllerState.Leaderboards
 		public static void showGameCenterViewController( GameCenterViewControllerState viewState )
 		{
 			showGameCenterViewController( viewState, GameCenterLeaderboardTimeScope.AllTime, null );
@@ -240,36 +249,28 @@ namespace Prime31
 	    }
 
 
-		[DllImport("__Internal")]
-	    private static extern void _gameCenterRetrieveScoresForPlayerId( string playerId );
-
-		// Sends a request to get the current scores for the given playerId. scoresForPlayerIdLoadedEvent/retrieveScoresForPlayerIdFailedEvent will fire with the results.
+		[System.Obsolete( "Use retrieveScoresForPlayerIds" )]
 	    public static void retrieveScoresForPlayerId( string playerId )
 	    {
-			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
-				_gameCenterRetrieveScoresForPlayerId( playerId );
+			retrieveScoresForPlayerIds( new string[] { playerId }, null );
 	    }
 
 
-		[DllImport("__Internal")]
-	    private static extern void _gameCenterRetrieveScoresForPlayerIdAndLeaderboard( string playerId, string leaderboardId );
-
-		// Sends a request to get the current scores for the given playerId and leaderboardId. scoresForPlayerIdLoadedEvent/retrieveScoresForPlayerIdFailedEvent will fire with the results.
+		[System.Obsolete( "Use retrieveScoresForPlayerIds" )]
 	    public static void retrieveScoresForPlayerId( string playerId, string leaderboardId )
 	    {
-			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
-				_gameCenterRetrieveScoresForPlayerIdAndLeaderboard( playerId, leaderboardId );
+			retrieveScoresForPlayerIds( new string[] { playerId }, leaderboardId );
 	    }
 
 
 		[DllImport("__Internal")]
-	    private static extern void _gameCenterRetrieveScoresForPlayerIds( string playerIds, string leaderboardId );
+	    private static extern void _gameCenterRetrieveScoresForPlayerIds( string playerIds, string leaderboardId, bool friendsOnly );
 
-		// Sends a request to get the current scores for the given playerIds and leaderboardId. scoresForPlayerIdLoadedEvent/retrieveScoresForPlayerIdFailedEvent will fire with the results.
-	    public static void retrieveScoresForPlayerIds( string[] playerIdArray, string leaderboardId )
+		// Sends a request to get the current scores for the given playerIds and leaderboardId. scoresForPlayerIdsLoadedEvent/retrieveScoresForPlayerIdsFailedEvent will fire with the results.
+	    public static void retrieveScoresForPlayerIds( string[] playerIdArray, string leaderboardId, bool friendsOnly = false )
 	    {
 			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
-				_gameCenterRetrieveScoresForPlayerIds( string.Join( ",", playerIdArray ), leaderboardId );
+				_gameCenterRetrieveScoresForPlayerIds( string.Join( ",", playerIdArray ), leaderboardId, friendsOnly );
 	    }
 
 		#endregion;
@@ -335,7 +336,7 @@ namespace Prime31
 		[DllImport("__Internal")]
 		private static extern void _gameCenterShowCompletionBannerForAchievements();
 
-		// Shows a completion banner for achievements if when reported they are at 100%.  Only has an effect on iOS 5+
+		// Shows a completion banner for achievements if when reported they are at 100%
 	    public static void showCompletionBannerForAchievements()
 	    {
 			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
@@ -361,7 +362,7 @@ namespace Prime31
 		[DllImport("__Internal")]
 		private static extern void _gameCenterLoadReceivedChallenges();
 
-		// Sends a request to load all received challenges. iOS 6+ only
+		// Sends a request to load all received challenges
 	    public static void loadReceivedChallenges()
 	    {
 			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
@@ -372,7 +373,7 @@ namespace Prime31
 		[DllImport("__Internal")]
 		private static extern void _gameCenterIssueScoreChallenge( System.Int64 score, System.Int64 context, string leaderboardId, string playerIds, string message );
 
-		// iOS 6+ only! Issues a score challenge to the given players for the leaderboard
+		// Issues a score challenge to the given players for the leaderboard
 	    public static void issueScoreChallenge( System.Int64 score, System.Int64 context, string leaderboardId, string[] playerIds, string message )
 	    {
 			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
@@ -383,7 +384,7 @@ namespace Prime31
 		[DllImport("__Internal")]
 		private static extern void _gameCenterSelectChallengeablePlayerIDsForAchievement( string identifier, string playerIds );
 
-		// iOS 6+ only! Checks the given playerIds to see if any are eligible for the achievement challenge
+		// Checks the given playerIds to see if any are eligible for the achievement challenge
 	    public static void selectChallengeablePlayerIDsForAchievement( string identifier, string[] playerIds)
 	    {
 			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )
@@ -394,7 +395,7 @@ namespace Prime31
 		[DllImport("__Internal")]
 		private static extern void _gameCenterIssueAchievementChallenge( string identifier, string playerIds, string message );
 
-		// iOS 6+ only! Issues an achievement challenge to the players for the given identifier
+		// Issues an achievement challenge to the players for the given identifier
 	    public static void issueAchievementChallenge( string identifier, string[] playerIds, string message )
 	    {
 			if( Application.platform == RuntimePlatform.IPhonePlayer || (int)Application.platform == 31 )

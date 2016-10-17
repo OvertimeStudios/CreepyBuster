@@ -12,7 +12,7 @@ public class AdMobController : MonoBehaviour
 
 	private void ShowBannerAd()
 	{
-		AdsHelper.ShowBannerAd(AdsHelper.AdSize.Banner, AdsHelper.AdPosition.Bottom);
+		AdMobHelper.ShowBanner(GoogleMobileAds.Api.AdSize.Banner, GoogleMobileAds.Api.AdPosition.Bottom);
 	}
 	#endif
 }

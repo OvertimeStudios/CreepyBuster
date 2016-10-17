@@ -33,8 +33,8 @@ namespace Prime31
 			GameCenterManager.reportScoreFinishedEvent += reportScoreFinished;
 			GameCenterManager.retrieveScoresFailedEvent += retrieveScoresFailed;
 			GameCenterManager.scoresLoadedEvent += scoresLoaded;
-			GameCenterManager.retrieveScoresForPlayerIdFailedEvent += retrieveScoresForPlayerIdFailed;
-			GameCenterManager.scoresForPlayerIdLoadedEvent += scoresForPlayerIdLoaded;
+			GameCenterManager.retrieveScoresForPlayerIdsFailedEvent += retrieveScoresForPlayerIdsFailed;
+			GameCenterManager.scoresForPlayerIdsLoadedEvent += scoresForPlayerIdsLoaded;
 
 			// Achievements
 			GameCenterManager.reportAchievementFailedEvent += reportAchievementFailed;
@@ -81,8 +81,8 @@ namespace Prime31
 			GameCenterManager.reportScoreFinishedEvent -= reportScoreFinished;
 			GameCenterManager.retrieveScoresFailedEvent -= retrieveScoresFailed;
 			GameCenterManager.scoresLoadedEvent -= scoresLoaded;
-			GameCenterManager.retrieveScoresForPlayerIdFailedEvent -= retrieveScoresForPlayerIdFailed;
-			GameCenterManager.scoresForPlayerIdLoadedEvent -= scoresForPlayerIdLoaded;
+			GameCenterManager.retrieveScoresForPlayerIdsFailedEvent -= retrieveScoresForPlayerIdsFailed;
+			GameCenterManager.scoresForPlayerIdsLoadedEvent -= scoresForPlayerIdsLoaded;
 
 			// Achievements
 			GameCenterManager.reportAchievementFailedEvent -= reportAchievementFailed;
@@ -212,15 +212,15 @@ namespace Prime31
 		}
 
 
-		void retrieveScoresForPlayerIdFailed( string error )
+		void retrieveScoresForPlayerIdsFailed( string error )
 		{
 			Debug.Log( "retrieveScoresForPlayerIdFailedEvent: " + error );
 		}
 
 
-		void scoresForPlayerIdLoaded( GameCenterRetrieveScoresResult retrieveScoresResult )
+		void scoresForPlayerIdsLoaded( GameCenterRetrieveScoresResult retrieveScoresResult )
 		{
-			Debug.Log( "scoresForPlayerIdLoadedEvent" );
+			Debug.Log( "scoresForPlayerIdsLoadedEvent" );
 			Prime31.Utils.logObject( retrieveScoresResult );
 		}
 
