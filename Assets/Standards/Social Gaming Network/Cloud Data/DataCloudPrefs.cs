@@ -21,6 +21,8 @@ public class DataCloudPrefs
 	#if UNITY_ANDROID
 	private static Dictionary<string, object> snapshotKeys = new Dictionary<string, object>();
 	private static string _snapshotSaveName;
+	#endif
+
 	private static bool isLoaded = false;
 
 	/// <summary>
@@ -53,6 +55,7 @@ public class DataCloudPrefs
 		#endif
 	}
 
+	#if UNITY_ANDROID
 	private static void AuthenticationSuccess(string msg)
 	{
 		Debug.Log("Authentication success: " + msg);
@@ -80,6 +83,7 @@ public class DataCloudPrefs
 
 		PlayGameServices.loadSnapshot(_snapshotSaveName);
 	}
+
 
 	private static void LoadSnapshotSuccess(GPGSnapshot snapshot)
 	{

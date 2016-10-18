@@ -128,13 +128,15 @@ public class Ranking : MonoBehaviour
 	private void SetGlobalRank(int score, int maxRange)
 	{
 		//TODO: Localization
-		worldRank.text = (score <= 0) ? "Fail to load rank" : "#" + score + " of " + maxRange;
+		worldRank.text = (score <= 0) ? "Fail to load rank" : "#" + score;
+		worldRank.text += (maxRange > 0) ? " of " + maxRange : "";
 	}
 
 	private void SetFriendsRank(int score, int maxRange)
 	{
 		//TODO: Localization
-		friendsRank.text = (score <= 0) ? "Fail to load rank" : "#" + score + " of " + maxRange;
+		friendsRank.text = (score <= 0) ? "Fail to load rank" : "#" + score;
+		friendsRank.text = (maxRange > 0) ? " of " + maxRange : "";
 	}
 
 	//old methods

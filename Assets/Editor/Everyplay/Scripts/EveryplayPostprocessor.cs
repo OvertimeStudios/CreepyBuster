@@ -43,6 +43,15 @@ public static class EveryplayPostprocessor
     [PostProcessBuild(1080)]
     public static void OnPostProcessBuild(BuildTarget target, string path)
     {
+        if (path.StartsWith("./") || !path.StartsWith("/"))   // Fix three erroneous path cases on Unity 5.4f03
+        {
+            path = Path.Combine(Application.dataPath.Replace("Assets", ""), path.Replace("./", ""));
+        }
+        else if (path.Contains("./"))
+        {
+            path = path.Replace("./", "");
+        }
+
         EveryplaySettings settings = EveryplaySettingsEditor.LoadEveryplaySettings();
 
         if (settings != null)
@@ -77,6 +86,15 @@ public static class EveryplayPostprocessor
     [PostProcessBuild(-10)]
     public static void OnPostProcessBuildEarly(BuildTarget target, string path)
     {
+        if (path.StartsWith("./") || !path.StartsWith("/"))   // Fix three erroneous path cases on Unity 5.4f03
+        {
+            path = Path.Combine(Application.dataPath.Replace("Assets", ""), path.Replace("./", ""));
+        }
+        else if (path.Contains("./"))
+        {
+            path = path.Replace("./", "");
+        }
+
         EveryplayLegacyCleanup.Clean(false);
 
         if (target == kBuildTarget_iOS || target == BuildTarget.Android)
@@ -244,6 +262,51 @@ public static class EveryplayPostprocessor
 
             if (dict != null)
             {
+                // Add camera usage description for iOS 10
+                PListItem cameraUsageDescription = GetPlistItem(dict, "NSCameraUsageDescription");
+
+                if (cameraUsageDescription == null)
+                {
+                    XmlElement key = xmlDocument.CreateElement("key");
+                    key.InnerText = "NSCameraUsageDescription";
+
+                    XmlElement str = xmlDocument.CreateElement("string");
+                    str.InnerText = "Everyplay requires access to the camera";
+
+                    dict.AppendChild(key);
+                    dict.AppendChild(str);
+                }
+
+                // Add microphone usage description for iOS 10
+                PListItem microphoneUsageDescription = GetPlistItem(dict, "NSMicrophoneUsageDescription");
+
+                if (microphoneUsageDescription == null)
+                {
+                    XmlElement key = xmlDocument.CreateElement("key");
+                    key.InnerText = "NSMicrophoneUsageDescription";
+
+                    XmlElement str = xmlDocument.CreateElement("string");
+                    str.InnerText = "Everyplay requires access to the microphone";
+
+                    dict.AppendChild(key);
+                    dict.AppendChild(str);
+                }
+
+                // Add photo library usage description for iOS 10
+                PListItem photoLibraryUsageDescription = GetPlistItem(dict, "NSPhotoLibraryUsageDescription");
+
+                if (photoLibraryUsageDescription == null)
+                {
+                    XmlElement key = xmlDocument.CreateElement("key");
+                    key.InnerText = "NSPhotoLibraryUsageDescription";
+
+                    XmlElement str = xmlDocument.CreateElement("string");
+                    str.InnerText = "Everyplay requires access to the photo library";
+
+                    dict.AppendChild(key);
+                    dict.AppendChild(str);
+                }
+
                 // Add Facebook application id if not defined
 
                 PListItem facebookAppId = GetPlistItem(dict, "FacebookAppID");

@@ -46087,7 +46087,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: testDevices.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 466906, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: m_LocalPosition.x
@@ -46176,6 +46176,14 @@ Prefab:
     - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: testDevices.Array.data[3].id
       value: 2302EF189723AE209580DAA46068A803
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: testDevices.Array.data[4].name
+      value: Guto Zenfone5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: testDevices.Array.data[4].id
+      value: 427E8D86F43F1F8DD54C847D5C5C0E47
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}

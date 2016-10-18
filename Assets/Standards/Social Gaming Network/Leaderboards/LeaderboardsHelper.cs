@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 #if LEADERBOARDS_IMPLEMENTED && (UNITY_IOS || UNITY_ANDROID)
 using Prime31;
@@ -62,6 +63,8 @@ public class LeaderboardsHelper : MonoBehaviour
 			GameCenterManager.playerAuthenticatedEvent += OnPlayerAthenticated;
 			#elif UNITY_ANDROID
 			GPGManager.authenticationSucceededEvent += OnPlayerAthenticated;
+			GPGManager.submitScoreSucceededEvent += SubmitScoreSuccess;
+			GPGManager.submitScoreFailedEvent += SubmitScoreFailed;
 			#endif
 		#endif
 	}
@@ -99,9 +102,6 @@ public class LeaderboardsHelper : MonoBehaviour
 			#if UNITY_IOS
 			Debug.Log("Player successfully authenticated");
 
-			if(OnPlayerAuthenticated != null)
-				OnPlayerAuthenticated();
-
 			GameCenterBinding.retrieveFriends( true, true );
 			GameCenterBinding.loadLeaderboardTitles();
 
@@ -110,6 +110,10 @@ public class LeaderboardsHelper : MonoBehaviour
 			#endif
 
 		#endif
+
+		if(OnPlayerAuthenticated != null)
+			OnPlayerAuthenticated();
+		
 	}
 
 	public static bool IsPlayerAuthenticated()
@@ -192,15 +196,17 @@ public class LeaderboardsHelper : MonoBehaviour
 			{
 				isSearchingPlayerGlobalPosition = true;
 
-				GameCenterManager.scoresForPlayerIdLoadedEvent += OnPlayerGlobalScoresLoaded;
-				GameCenterManager.retrieveScoresForPlayerIdFailedEvent += OnPlayerGlobalScoresFailed;
-				GameCenterBinding.retrieveScoresForPlayerId(GameCenterBinding.playerIdentifier(), Instance.defaultLeaderboard.iOS);
+				GameCenterManager.scoresForPlayerIdsLoadedEvent += OnPlayerGlobalScoresLoaded;
+				GameCenterManager.retrieveScoresForPlayerIdsFailedEvent += OnPlayerGlobalScoresFailed;
+				
+				GameCenterBinding.retrieveScoresForPlayerIds(new string[1] { GameCenterBinding.playerIdentifier() }, Instance.defaultLeaderboard.iOS, false);
+				//GameCenterBinding.retrieveScoresForPlayerId(GameCenterBinding.playerIdentifier(), Instance.defaultLeaderboard.iOS);
 
 				while(isSearchingPlayerGlobalPosition)
 					yield return null;
 
-				GameCenterManager.scoresForPlayerIdLoadedEvent -= OnPlayerGlobalScoresLoaded;
-				GameCenterManager.retrieveScoresForPlayerIdFailedEvent -= OnPlayerGlobalScoresFailed;
+				GameCenterManager.scoresForPlayerIdsLoadedEvent -= OnPlayerGlobalScoresLoaded;
+				GameCenterManager.retrieveScoresForPlayerIdsFailedEvent -= OnPlayerGlobalScoresFailed;
 
 				result(playerGlobalPosition, playerGlobalMaxRange);
 			}
@@ -211,8 +217,27 @@ public class LeaderboardsHelper : MonoBehaviour
 				result(0, 0);
 			}
 			#elif UNITY_ANDROID
-			yield return null;
-			result(0, 0);
+			if(PlayGameServices.isSignedIn())
+			{
+				isSearchingPlayerGlobalPosition = true;
+
+				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent += OnPlayerGlobalScoresLoaded;
+				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent += OnPlayerGlobalScoresFailed;
+				PlayGameServices.loadCurrentPlayerLeaderboardScore(Instance.defaultLeaderboard.android, GPGLeaderboardTimeScope.AllTime, false);
+
+				while(isSearchingPlayerGlobalPosition)
+					yield return null;
+
+				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent += OnPlayerGlobalScoresLoaded;
+				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent += OnPlayerGlobalScoresFailed;
+
+				result(playerGlobalPosition, playerGlobalMaxRange);
+			}
+			else
+			{
+				Debug.LogError("Player is not authenticated");
+				result(0, 0);
+			}
 			#endif
 
 		#endif
@@ -221,7 +246,8 @@ public class LeaderboardsHelper : MonoBehaviour
 		result(0, 0);
 	}
 
-	#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+	#if LEADERBOARDS_IMPLEMENTED
+	#if UNITY_IOS
 	private static void OnPlayerGlobalScoresLoaded(GameCenterRetrieveScoresResult result)
 	{
 		Debug.Log(string.Format("Did recieved OnPlayerGlobalScoresLoaded. Total results: {0}: \n" +
@@ -234,7 +260,7 @@ public class LeaderboardsHelper : MonoBehaviour
 
 		isSearchingPlayerGlobalPosition = false;
 	}
-	#endif
+
 
 	private static void OnPlayerGlobalScoresFailed(string errmsg)
 	{
@@ -244,6 +270,32 @@ public class LeaderboardsHelper : MonoBehaviour
 
 		Debug.Log("Error on Global Score: " + errmsg);
 	}
+	#elif UNITY_ANDROID
+
+	private static void OnPlayerGlobalScoresLoaded(GPGScore score)
+	{
+		Debug.Log("OnPlayerGlobalScoresLoaded Sucess");
+
+		playerGlobalPosition = playerFriendsPosition = (int)score.rank;
+		playerGlobalMaxRange = playerFriendsMaxRange = 0;
+
+		isSearchingPlayerGlobalPosition = false;
+		isSearchingPlayerFriendsPosition = false;
+	}
+
+
+	private static void OnPlayerGlobalScoresFailed(string leaderboardID, string msg)
+	{
+		playerGlobalPosition = 0;
+		playerGlobalMaxRange = 0;
+
+		isSearchingPlayerGlobalPosition = false;
+		isSearchingPlayerFriendsPosition = false;
+
+		Debug.Log("Error on Global Score: " + msg);
+	}
+	#endif
+	#endif
 
 	public static IEnumerator GetPlayerFriendsPosition(System.Action<int, int> result)
 	{
@@ -255,17 +307,18 @@ public class LeaderboardsHelper : MonoBehaviour
 				Debug.Log("GameCenterController.GetPlayerFriendsPosition");
 				isSearchingPlayerFriendsPosition = true;
 
-				GameCenterManager.scoresLoadedEvent += OnPlayerFriendsScoresLoaded;
-				GameCenterManager.retrieveScoresFailedEvent += OnPlayerFriendsScoresFailed;
-				GameCenterBinding.retrieveScores(true, GameCenterLeaderboardTimeScope.AllTime, 1, 100, Instance.defaultLeaderboard.iOS);
+				GameCenterManager.scoresForPlayerIdsLoadedEvent += OnPlayerFriendsScoresLoaded;
+				GameCenterManager.retrieveScoresForPlayerIdsFailedEvent += OnPlayerFriendsScoresFailed;
+				GameCenterBinding.retrieveScoresForPlayerIds(new string[1] { GameCenterBinding.playerIdentifier() }, Instance.defaultLeaderboard.iOS, true);
+				//GameCenterBinding.retrieveScores(true, GameCenterLeaderboardTimeScope.AllTime, 1, 100, Instance.defaultLeaderboard.iOS);
 
 				while(isSearchingPlayerFriendsPosition)
 					yield return null;
 
 				Debug.Log("Finish search");
 
-				GameCenterManager.scoresLoadedEvent -= OnPlayerFriendsScoresLoaded;
-				GameCenterManager.retrieveScoresFailedEvent -= OnPlayerFriendsScoresFailed;
+				GameCenterManager.scoresForPlayerIdsLoadedEvent -= OnPlayerFriendsScoresLoaded;
+				GameCenterManager.retrieveScoresForPlayerIdsFailedEvent -= OnPlayerFriendsScoresFailed;
 
 				result(playerFriendsPosition, playerFriendsMaxRange);
 			}
@@ -275,8 +328,27 @@ public class LeaderboardsHelper : MonoBehaviour
 				result(0, 0);
 			}
 			#elif UNITY_ANDROID
-			yield return null;
-			result(0, 0);
+			if(PlayGameServices.isSignedIn())
+			{
+				isSearchingPlayerFriendsPosition = true;
+
+				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent += OnPlayerGlobalScoresLoaded;
+				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent += OnPlayerGlobalScoresFailed;
+				PlayGameServices.loadCurrentPlayerLeaderboardScore(Instance.defaultLeaderboard.android, GPGLeaderboardTimeScope.AllTime, true);
+
+				while(isSearchingPlayerFriendsPosition)
+					yield return null;
+
+				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent -= OnPlayerGlobalScoresLoaded;
+				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent -= OnPlayerGlobalScoresFailed;
+
+				result(playerGlobalPosition, playerGlobalMaxRange);
+			}
+			else
+			{
+				Debug.LogError("Player is not authenticated");
+				result(0, 0);
+			}
 			#endif
 
 		#endif
@@ -288,16 +360,17 @@ public class LeaderboardsHelper : MonoBehaviour
 	#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 	private static void OnPlayerFriendsScoresLoaded(GameCenterRetrieveScoresResult result)
 	{
-		foreach(GameCenterScore gcScore in result.scores)
-		{
-			if(gcScore.playerId == GameCenterBinding.playerIdentifier())
-				playerFriendsPosition = gcScore.rank;
-		}
+		Debug.Log(string.Format("Did recieved OnPlayerGlobalScoresLoaded. Total results: {0}: \n" +
+			"alias: {1}; \n" +
+			"id: {2}; \n" +
+			"rank: {3} \n" +
+			"maxRange: {4}", result.scores.Count, result.scores[0].alias, result.scores[0].playerId, result.scores[0].rank, result.scores[0].maxRange));
+		playerGlobalPosition = result.scores[0].rank;
+		playerGlobalMaxRange = result.scores[0].maxRange;
 
-		playerFriendsMaxRange = result.scores.Count;
 		isSearchingPlayerFriendsPosition = false;
 	}
-	#endif
+
 
 	private static void OnPlayerFriendsScoresFailed(string errmsg)
 	{
@@ -307,6 +380,7 @@ public class LeaderboardsHelper : MonoBehaviour
 
 		Debug.Log("Error on Friends Score: " + errmsg);
 	}
+	#endif
 
 	public static void OpenLeaderboards()
 	{
@@ -369,5 +443,15 @@ public class LeaderboardsHelper : MonoBehaviour
 			#endif
 
 		#endif
+	}
+
+	private static void SubmitScoreSuccess(string leaderboardID, Dictionary<string, object> dic)
+	{
+		Debug.Log("Submit Score Success");
+	}
+
+	private static void SubmitScoreFailed(string leaderboardID, string msg)
+	{
+		Debug.Log("Submit Score Failed: " + msg);
 	}
 }
