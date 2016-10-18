@@ -8745,7 +8745,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11477230, guid: 0d2c107a8a58a4fee9da0c4359453a94, type: 2}
       propertyPath: defaultLeaderboard.android
-      value: CgkI6KC4jKUcEAIQAQ
+      value: CgkIl4-_i_YJEAIQAQ
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0d2c107a8a58a4fee9da0c4359453a94, type: 2}
