@@ -360,13 +360,13 @@ public class LeaderboardsHelper : MonoBehaviour
 	#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
 	private static void OnPlayerFriendsScoresLoaded(GameCenterRetrieveScoresResult result)
 	{
-		Debug.Log(string.Format("Did recieved OnPlayerGlobalScoresLoaded. Total results: {0}: \n" +
+		Debug.Log(string.Format("Did recieved OnPlayerFriendsScoresLoaded. Total results: {0}: \n" +
 			"alias: {1}; \n" +
 			"id: {2}; \n" +
 			"rank: {3} \n" +
 			"maxRange: {4}", result.scores.Count, result.scores[0].alias, result.scores[0].playerId, result.scores[0].rank, result.scores[0].maxRange));
-		playerGlobalPosition = result.scores[0].rank;
-		playerGlobalMaxRange = result.scores[0].maxRange;
+		playerFriendsPosition = result.scores[0].rank;
+		playerFriendsMaxRange = result.scores[0].maxRange;
 
 		isSearchingPlayerFriendsPosition = false;
 	}
