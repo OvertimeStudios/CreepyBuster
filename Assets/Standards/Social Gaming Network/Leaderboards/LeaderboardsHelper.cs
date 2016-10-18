@@ -207,7 +207,7 @@ public class LeaderboardsHelper : MonoBehaviour
 
 				GameCenterManager.scoresForPlayerIdsLoadedEvent -= OnPlayerGlobalScoresLoaded;
 				GameCenterManager.retrieveScoresForPlayerIdsFailedEvent -= OnPlayerGlobalScoresFailed;
-
+				
 				result(playerGlobalPosition, playerGlobalMaxRange);
 			}
 			else
@@ -224,12 +224,12 @@ public class LeaderboardsHelper : MonoBehaviour
 				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent += OnPlayerGlobalScoresLoaded;
 				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent += OnPlayerGlobalScoresFailed;
 				PlayGameServices.loadCurrentPlayerLeaderboardScore(Instance.defaultLeaderboard.android, GPGLeaderboardTimeScope.AllTime, false);
-
+				
 				while(isSearchingPlayerGlobalPosition)
 					yield return null;
 
-				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent += OnPlayerGlobalScoresLoaded;
-				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent += OnPlayerGlobalScoresFailed;
+				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent -= OnPlayerGlobalScoresLoaded;
+				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent -= OnPlayerGlobalScoresFailed;
 
 				result(playerGlobalPosition, playerGlobalMaxRange);
 			}
@@ -238,12 +238,15 @@ public class LeaderboardsHelper : MonoBehaviour
 				Debug.LogError("Player is not authenticated");
 				result(0, 0);
 			}
+			#else
+			yield return null;
+			result(0, 0);
 			#endif
 
-		#endif
-
+		#else
 		yield return null;
 		result(0, 0);
+		#endif
 	}
 
 	#if LEADERBOARDS_IMPLEMENTED
@@ -274,13 +277,12 @@ public class LeaderboardsHelper : MonoBehaviour
 
 	private static void OnPlayerGlobalScoresLoaded(GPGScore score)
 	{
-		Debug.Log("OnPlayerGlobalScoresLoaded Sucess");
+		Debug.Log("OnPlayerGlobalScoresLoaded Success");
 
-		playerGlobalPosition = playerFriendsPosition = (int)score.rank;
-		playerGlobalMaxRange = playerFriendsMaxRange = 0;
+		playerGlobalPosition = (int)score.rank;
+		playerGlobalMaxRange = 0;
 
 		isSearchingPlayerGlobalPosition = false;
-		isSearchingPlayerFriendsPosition = false;
 	}
 
 
@@ -290,7 +292,6 @@ public class LeaderboardsHelper : MonoBehaviour
 		playerGlobalMaxRange = 0;
 
 		isSearchingPlayerGlobalPosition = false;
-		isSearchingPlayerFriendsPosition = false;
 
 		Debug.Log("Error on Global Score: " + msg);
 	}
@@ -304,7 +305,6 @@ public class LeaderboardsHelper : MonoBehaviour
 			#if UNITY_IOS
 			if(GameCenterBinding.isPlayerAuthenticated())
 			{
-				Debug.Log("GameCenterController.GetPlayerFriendsPosition");
 				isSearchingPlayerFriendsPosition = true;
 
 				GameCenterManager.scoresForPlayerIdsLoadedEvent += OnPlayerFriendsScoresLoaded;
@@ -314,8 +314,6 @@ public class LeaderboardsHelper : MonoBehaviour
 
 				while(isSearchingPlayerFriendsPosition)
 					yield return null;
-
-				Debug.Log("Finish search");
 
 				GameCenterManager.scoresForPlayerIdsLoadedEvent -= OnPlayerFriendsScoresLoaded;
 				GameCenterManager.retrieveScoresForPlayerIdsFailedEvent -= OnPlayerFriendsScoresFailed;
@@ -331,16 +329,16 @@ public class LeaderboardsHelper : MonoBehaviour
 			if(PlayGameServices.isSignedIn())
 			{
 				isSearchingPlayerFriendsPosition = true;
-
-				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent += OnPlayerGlobalScoresLoaded;
-				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent += OnPlayerGlobalScoresFailed;
+				
+				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent += OnPlayerFriendsScoresLoaded;
+				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent += OnPlayerFriendsScoresFailed;
 				PlayGameServices.loadCurrentPlayerLeaderboardScore(Instance.defaultLeaderboard.android, GPGLeaderboardTimeScope.AllTime, true);
-
+				
 				while(isSearchingPlayerFriendsPosition)
 					yield return null;
 
-				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent -= OnPlayerGlobalScoresLoaded;
-				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent -= OnPlayerGlobalScoresFailed;
+				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent -= OnPlayerFriendsScoresLoaded;
+				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent -= OnPlayerFriendsScoresFailed;
 
 				result(playerGlobalPosition, playerGlobalMaxRange);
 			}
@@ -349,15 +347,18 @@ public class LeaderboardsHelper : MonoBehaviour
 				Debug.LogError("Player is not authenticated");
 				result(0, 0);
 			}
+			#else
+			yield return null;
+			result(0, 0);
 			#endif
-
-		#endif
-
+		#else
 		yield return null;
 		result(0, 0);
+		#endif
 	}
 
-	#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+	#if LEADERBOARDS_IMPLEMENTED
+	#if UNITY_IOS
 	private static void OnPlayerFriendsScoresLoaded(GameCenterRetrieveScoresResult result)
 	{
 		Debug.Log(string.Format("Did recieved OnPlayerFriendsScoresLoaded. Total results: {0}: \n" +
@@ -380,6 +381,28 @@ public class LeaderboardsHelper : MonoBehaviour
 
 		Debug.Log("Error on Friends Score: " + errmsg);
 	}
+	#elif UNITY_ANDROID
+	private static void OnPlayerFriendsScoresLoaded(GPGScore score)
+	{
+		Debug.Log("OnPlayerGlobalScoresLoaded Sucess");
+
+		playerFriendsPosition = (int)score.rank;
+		playerFriendsMaxRange = 0;
+
+		isSearchingPlayerFriendsPosition = false;
+	}
+
+
+	private static void OnPlayerFriendsScoresFailed(string leaderboardID, string msg)
+	{
+		playerFriendsPosition = 0;
+		playerFriendsMaxRange = 0;
+
+		isSearchingPlayerFriendsPosition = false;
+
+		Debug.Log("Error on Global Score: " + msg);
+	}
+	#endif
 	#endif
 
 	public static void OpenLeaderboards()

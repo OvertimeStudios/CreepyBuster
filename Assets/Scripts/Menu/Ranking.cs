@@ -103,11 +103,9 @@ public class Ranking : MonoBehaviour
 	{
 		Debug.Log("Getting Global ranking...");
 
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED
 		yield return StartCoroutine(LeaderboardsHelper.GetPlayerGlobalPosition(SetGlobalRank));
-		#elif UNITY_ANDROID
-		yield return null;
-		#else
+		#elif
 		yield return null;
 		#endif
 	}
@@ -116,27 +114,27 @@ public class Ranking : MonoBehaviour
 	{
 		Debug.Log("Getting Friends ranking...");
 
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
+		#if LEADERBOARDS_IMPLEMENTED
 		yield return StartCoroutine(LeaderboardsHelper.GetPlayerFriendsPosition(SetFriendsRank));
-		#elif UNITY_ANDROID
-		yield return null;
-		#else
+		#elif
 		yield return null;
 		#endif
 	}
 
 	private void SetGlobalRank(int score, int maxRange)
 	{
+		Debug.Log(string.Format("Rankings.SetGlobalRank({0}, {1})", score, maxRange));
 		//TODO: Localization
-		worldRank.text = (score <= 0) ? "Fail to load rank" : "#" + score;
+		worldRank.text = (score <= 0) ? "Error" : "#" + score;
 		worldRank.text += (maxRange > 0) ? " of " + maxRange : "";
 	}
 
 	private void SetFriendsRank(int score, int maxRange)
 	{
+		Debug.Log(string.Format("Rankings.SetFriendsRank({0}, {1})", score, maxRange));
 		//TODO: Localization
-		friendsRank.text = (score <= 0) ? "Fail to load rank" : "#" + score;
-		friendsRank.text = (maxRange > 0) ? " of " + maxRange : "";
+		friendsRank.text = (score <= 0) ? "Error" : "#" + score;
+		friendsRank.text += (maxRange > 0) ? " of " + maxRange : "";
 	}
 
 	//old methods
