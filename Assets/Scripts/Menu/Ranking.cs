@@ -126,7 +126,7 @@ public class Ranking : MonoBehaviour
 		Debug.Log(string.Format("Rankings.SetGlobalRank({0}, {1})", score, maxRange));
 		//TODO: Localization
 		worldRank.text = (score <= 0) ? "Error" : "#" + score;
-		worldRank.text += (maxRange > 0) ? " of " + maxRange : "";
+		//worldRank.text += (maxRange > 0) ? " of " + maxRange : "";
 	}
 
 	private void SetFriendsRank(int score, int maxRange)
@@ -134,7 +134,7 @@ public class Ranking : MonoBehaviour
 		Debug.Log(string.Format("Rankings.SetFriendsRank({0}, {1})", score, maxRange));
 		//TODO: Localization
 		friendsRank.text = (score <= 0) ? "Error" : "#" + score;
-		friendsRank.text += (maxRange > 0) ? " of " + maxRange : "";
+		//friendsRank.text += (maxRange > 0) ? " of " + maxRange : "";
 	}
 
 	//old methods

@@ -235,3 +235,4 @@ DAILYMISSION_FROZEN,Collect {0} Freeze,Coletar {0} Congelar
 DAILYMISSION_COMPLETED,"You have just completed ""{0}"" mission. You earned {1} orbs","Você concluiu a missão ""{0}"". Você ganhou {1} orbes"
 COMPLETED,COMPLETED,CONCLUÍDO
 QUIT_GAME,Are you sure you want to quit?,Tem certeza de que deseja sair do jogo?
+PLASMA_ORB_REWARD, PLASMA ORB REWARD, RECOMPENSA DE PLASMA ORBE
