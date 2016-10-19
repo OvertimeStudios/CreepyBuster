@@ -55,7 +55,6 @@ public class EveryplayController : MonoBehaviour
 	
 	void Start()
 	{
-		if(instance != null) return;
 		Debug.Log("**** START EVERYPLAYCONTROLLER ****");
 
 		EveryplayHelper.SetLowMemoryDevice(true);
