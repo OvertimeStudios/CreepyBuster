@@ -118,7 +118,7 @@ public class ChargeBehaviour : EnemyMovement
 		{
 			myRigidbody.velocity *= 0.95f;
 
-			if(myRigidbody.velocity.magnitude < 0.2f)
+			if(myRigidbody.velocity.magnitude < 0.5f)
 			{
 				//back to normal state
 				myAnimator.SetInteger ("State", 0);

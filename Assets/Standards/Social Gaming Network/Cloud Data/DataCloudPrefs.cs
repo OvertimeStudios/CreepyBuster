@@ -363,7 +363,7 @@ public class DataCloudPrefs
 				return P31Prefs.getBool(key);
 			#elif UNITY_ANDROID
 			if(snapshotKeys.ContainsKey(key))
-				return int.Parse(snapshotKeys[key]) == 1;
+				return int.Parse(snapshotKeys[key].ToString()) == 1;
 			#endif
 
 		#endif
@@ -380,7 +380,7 @@ public class DataCloudPrefs
 				return P31Prefs.getBool(key);
 			#elif UNITY_ANDROID
 			if(snapshotKeys.ContainsKey(key))
-				return int.Parse(snapshotKeys[key]) == 1;
+				return int.Parse(snapshotKeys[key].ToString()) == 1;
 			#endif
 
 		#endif
