@@ -45,7 +45,7 @@ public class Settings : MonoBehaviour
 		HandleLoginSection ();
 
 		#if FACEBOOK_IMPLEMENTED
-		FacebookController.OnLoggedIn += HandleLoginSection;
+		FacebookController.OnJustLoggedIn += HandleLoginSection;
 		FacebookController.OnLoggedOut += HandleLoginSection;
 		#endif
 	}
@@ -53,7 +53,7 @@ public class Settings : MonoBehaviour
 	void OnDisable()
 	{
 		#if FACEBOOK_IMPLEMENTED
-		FacebookController.OnLoggedIn -= HandleLoginSection;
+		FacebookController.OnJustLoggedIn -= HandleLoginSection;
 		FacebookController.OnLoggedOut -= HandleLoginSection;
 		#endif
 	}

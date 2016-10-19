@@ -229,6 +229,41 @@ public class DataCloudPrefs
 		PlayerPrefs.Save();
 	}
 
+	public static void SetBool(string key, bool value)
+	{
+		#if CLOUDDATA_IMPLEMENTED
+
+			#if UNITY_IOS
+			P31Prefs.setBool(key, value);
+			#elif UNITY_ANDROID
+			if(snapshotKeys.ContainsKey(key))
+				snapshotKeys[key] = value ? 1 : 0;
+			else
+				snapshotKeys.Add(key, value ? 1 : 0);
+			#endif
+
+		#endif
+
+		PlayerPrefs.SetInt(key, value ? 1 : 0);
+		PlayerPrefs.Save();
+	}
+
+	public static int GetInt(string key, int defaultValue)
+	{
+		#if CLOUDDATA_IMPLEMENTED
+
+			#if UNITY_IOS
+			if(P31Prefs.hasKey(key))
+				return P31Prefs.getInt(key);
+			#elif UNITY_ANDROID
+			if(snapshotKeys.ContainsKey(key))
+				return int.Parse(snapshotKeys[key].ToString());
+			#endif
+
+		#endif
+
+		return PlayerPrefs.GetInt(key, defaultValue);
+	}
 
 	public static int GetInt(string key)
 	{
@@ -245,6 +280,23 @@ public class DataCloudPrefs
 		#endif
 
 		return PlayerPrefs.GetInt(key);
+	}
+
+	public static float GetFloat(string key, float defaultValue)
+	{
+		#if CLOUDDATA_IMPLEMENTED
+
+			#if UNITY_IOS
+			if(P31Prefs.hasKey(key))
+				return P31Prefs.getFloat(key);
+			#elif UNITY_ANDROID
+			if(snapshotKeys.ContainsKey(key))
+				return float.Parse(snapshotKeys[key].ToString());
+			#endif
+
+		#endif
+
+		return PlayerPrefs.GetFloat(key, defaultValue);
 	}
 
 	public static float GetFloat(string key)
@@ -264,6 +316,27 @@ public class DataCloudPrefs
 		return PlayerPrefs.GetFloat(key);
 	}
 
+	public static string GetString(string key, string defaultValue)
+	{
+		#if CLOUDDATA_IMPLEMENTED
+
+			#if UNITY_IOS
+			if(P31Prefs.hasKey(key))
+				return P31Prefs.getString(key);
+			else
+				return defaultValue;
+			#elif UNITY_ANDROID
+			if(snapshotKeys.ContainsKey(key))
+				return snapshotKeys[key].ToString();
+			else
+				return defaultValue;
+			#endif
+
+		#endif
+
+		return PlayerPrefs.GetString(key, defaultValue);
+	}
+
 	public static string GetString(string key)
 	{
 		#if CLOUDDATA_IMPLEMENTED
@@ -279,6 +352,40 @@ public class DataCloudPrefs
 		#endif
 		
 		return PlayerPrefs.GetString(key);
+	}
+
+	public static bool GetBool(string key)
+	{
+		#if CLOUDDATA_IMPLEMENTED
+
+			#if UNITY_IOS
+			if(P31Prefs.hasKey(key))
+				return P31Prefs.getBool(key);
+			#elif UNITY_ANDROID
+			if(snapshotKeys.ContainsKey(key))
+				return int.Parse(snapshotKeys[key]) == 1;
+			#endif
+
+		#endif
+
+		return PlayerPrefs.GetInt(key) == 1;
+	}
+
+	public static bool GetBool(string key, bool defaultValue)
+	{
+		#if CLOUDDATA_IMPLEMENTED
+
+			#if UNITY_IOS
+			if(P31Prefs.hasKey(key))
+				return P31Prefs.getBool(key);
+			#elif UNITY_ANDROID
+			if(snapshotKeys.ContainsKey(key))
+				return int.Parse(snapshotKeys[key]) == 1;
+			#endif
+
+		#endif
+
+		return PlayerPrefs.GetInt(key, defaultValue ? 1 : 0) == 1;
 	}
 
 	public static void DeleteKey(string key)

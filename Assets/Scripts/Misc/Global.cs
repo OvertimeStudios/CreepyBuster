@@ -212,7 +212,7 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return DataCloudPrefs.GetInt(MUSIC_ON) == 1;
+			return DataCloudPrefs.GetInt(MUSIC_ON, 1) == 1;
 		}
 
 		set
@@ -225,7 +225,7 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return DataCloudPrefs.GetInt(SOUNDFX_ON) == 1;
+			return DataCloudPrefs.GetInt(SOUNDFX_ON, 1) == 1;
 		}
 		
 		set
@@ -251,7 +251,7 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return DataCloudPrefs.GetInt(VIBRATE) == 1;
+			return DataCloudPrefs.GetInt(VIBRATE, 1) == 1;
 		}
 		
 		set

@@ -54,6 +54,7 @@ public class MenuController : MonoBehaviour
 	private UILabel highScore;
 
 	public static bool goToShop = false;
+	private static bool isMenuActive = true;
 
 	private int achievementOrbsToGive;
 	private int dailyMissionOrbsToGive;
@@ -122,6 +123,10 @@ public class MenuController : MonoBehaviour
 		get { return activeMenu; }
 	}
 
+	public static bool IsMenuActive
+	{
+		get { return isMenuActive; }
+	}
 	#endregion
 
 	void OnEnable()
@@ -262,6 +267,7 @@ public class MenuController : MonoBehaviour
 
 			gamesCount++;
 
+			isMenuActive = true;
 			if(OnPanelClosed != null)
 				OnPanelClosed();
 
@@ -332,6 +338,8 @@ public class MenuController : MonoBehaviour
 
 	public void OpenPanel()
 	{
+		isMenuActive = false;
+
 		wallTop.enabled = wallBottom.enabled = true;
 		
 		wallTop.PlayForward();

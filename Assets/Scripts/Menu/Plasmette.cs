@@ -54,13 +54,12 @@ public class Plasmette : MonoBehaviour
 
 	void OnFingerHover(FingerHoverEvent e)
 	{
-		if(GameController.isGameRunning || MenuController.activeMenu != MenuController.Menus.Main || Popup.IsActive || DailyRewardController.IsActive) return;
+		//if(GameController.isGameRunning || MenuController.activeMenu != MenuController.Menus.Main || Popup.IsActive || DailyRewardController.IsActive) return;
+
+		if(!(MenuController.IsMenuActive && MenuController.activeMenu == MenuController.Menus.Main)) return;
 
 		if(e.Phase == FingerHoverPhase.Enter)
 			spinningCoroutine = StartCoroutine(StartSpinning());
-
-		//if(e.Phase == FingerHoverPhase.Exit)
-			//StopSpinning();
 	}
 
 	void Update()
@@ -79,24 +78,24 @@ public class Plasmette : MonoBehaviour
 			}
 
 			rangeTransform.position = new Vector3(pos.x, pos.y, pos.z);
-		}
 
-		//animate alpha on range
-		if(Mathf.Abs(rangeTween.value.x) > Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f)
-		{
-			float total = Mathf.Abs(rangeTween.to.x - rangeTween.from.x) - (Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f);
-			float part = Mathf.Abs(rangeTween.value.x) - (Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f);
-			float percent = 1 - (part / total);
+			//animate alpha on range
+			if(Mathf.Abs(rangeTween.value.x) > Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f)
+			{
+				float total = Mathf.Abs(rangeTween.to.x - rangeTween.from.x) - (Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f);
+				float part = Mathf.Abs(rangeTween.value.x) - (Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f);
+				float percent = 1 - (part / total);
 
-			Color c = rangeSprite.color;
-			c.a = originalRangeAlpha * percent;
-			rangeSprite.color = c;
-		}
-		else
-		{
-			Color c = rangeSprite.color;
-			c.a = originalRangeAlpha;
-			rangeSprite.color = c;
+				Color c = rangeSprite.color;
+				c.a = originalRangeAlpha * percent;
+				rangeSprite.color = c;
+			}
+			else
+			{
+				Color c = rangeSprite.color;
+				c.a = originalRangeAlpha;
+				rangeSprite.color = c;
+			}
 		}
 	}
 	
