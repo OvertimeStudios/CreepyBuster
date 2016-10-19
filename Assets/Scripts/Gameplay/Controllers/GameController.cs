@@ -637,7 +637,7 @@ public class GameController : MonoBehaviour
 			Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("INFINITY_ORBS_TO_PLAY"), PayContinueOrbs, ShowEndScreen);
 			#else
 			float orbsToPay = (orbsToContinue * Mathf.Pow(2, continues));
-
+			Debug.Log("orbsToPay: " + orbsToPay);
 			if(Global.TotalOrbs >= orbsToPay)
 				Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + string.Format(Localization.Get ("WANT_TO_SPEND"), orbsToPay) + "\n \n (" + string.Format(Localization.Get ("YOU_HAVE"), Global.TotalOrbs) + ")", PayContinueOrbs, ShowEndScreen);
 			else
@@ -678,7 +678,6 @@ public class GameController : MonoBehaviour
 	private void VideoWatched()
 	{
 		continuesVideo++;
-		ContinuePlaying ();
 	}
 
 	private void PayContinueOrbs()
@@ -694,7 +693,7 @@ public class GameController : MonoBehaviour
 	{
 		continues++;
 
-		Debug.Log ("ContinuePlaying");
+		Debug.Log ("ContinuePlaying. continues used: " + continues);
 
 		ReachMaxLevel();
 

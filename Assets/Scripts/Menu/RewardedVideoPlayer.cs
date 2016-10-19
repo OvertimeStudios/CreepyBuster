@@ -111,7 +111,6 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	public void ShowAd()
 	{
-		Debug.Log("Showing Ad");
 		#if ADMOB_IMPLEMENTED
 		AdMobHelper.ShowRewardedVideo (GiveReward);
 		#else
@@ -148,9 +147,10 @@ public class RewardedVideoPlayer : MonoBehaviour
 	
 	private void GiveOrbs()
 	{
-		Debug.Log("Give Orbs");
 		Global.TotalOrbs += orbsToGive;
-		
+
+		Debug.Log(string.Format("Give {0} orbs. Total: {1}", orbsToGive, Global.TotalOrbs));
+
 		Popup.ShowOk (string.Format(Localization.Get("YOU_RECEIVED"), orbsToGive));
 	}
 	

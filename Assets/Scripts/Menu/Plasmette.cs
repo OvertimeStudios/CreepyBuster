@@ -23,6 +23,7 @@ public class Plasmette : MonoBehaviour
 	private Vector3 originalPosition;
 
 	private TweenScale rangeTween;
+	private float originalRangeAlpha;
 
 	public static bool IsSpinning
 	{
@@ -38,7 +39,8 @@ public class Plasmette : MonoBehaviour
 		myAnimator = GetComponentInChildren<Animator>();
 		myCollider = GetComponent<Collider2D>();
 
-		rangeTween = GetComponentInChildren<TweenScale>();
+		rangeTween = rangeSprite.GetComponent<TweenScale>();
+		originalRangeAlpha = rangeSprite.color.a;
 
 		originalScale = plasmetteTransform.localScale;
 		originalPosition = plasmetteTransform.position;
@@ -78,6 +80,24 @@ public class Plasmette : MonoBehaviour
 
 			rangeTransform.position = new Vector3(pos.x, pos.y, pos.z);
 		}
+
+		//animate alpha on range
+		if(Mathf.Abs(rangeTween.value.x) > Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f)
+		{
+			float total = Mathf.Abs(rangeTween.to.x - rangeTween.from.x) - (Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f);
+			float part = Mathf.Abs(rangeTween.value.x) - (Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f);
+			float percent = 1 - (part / total);
+
+			Color c = rangeSprite.color;
+			c.a = originalRangeAlpha * percent;
+			rangeSprite.color = c;
+		}
+		else
+		{
+			Color c = rangeSprite.color;
+			c.a = originalRangeAlpha;
+			rangeSprite.color = c;
+		}
 	}
 	
 	private IEnumerator StartSpinning()
@@ -86,7 +106,8 @@ public class Plasmette : MonoBehaviour
 			myAudioSource.Play();
 
 		myAnimator.SetInteger("State", 3);
-		
+		myCollider.enabled = false;
+
 		float time = 0;
 		float rotVel = 0;
 		float scale = originalScale.x;
@@ -106,9 +127,8 @@ public class Plasmette : MonoBehaviour
 		
 		spinningCoroutine = null;
 		MenuController.Instance.OpenPanel();
-		myAnimator.SetInteger("State", 4);
+		//myAnimator.SetInteger("State", 4);
 
-		myCollider.enabled = false;
 		plasmetteTransform.gameObject.SetActive(false);
 		rangeTransform.gameObject.SetActive(true);
 
@@ -135,7 +155,7 @@ public class Plasmette : MonoBehaviour
 	{
 		myTransform.rotation = Quaternion.identity;
 
-		while(Mathf.Abs(plasmetteTransform.localScale.x - originalScale.x) > 0.05f)
+		while(plasmetteTransform.localScale.x < originalScale.x)
 		{
 			plasmetteTransform.localScale += Vector3.one * Time.deltaTime;
 			yield return null;

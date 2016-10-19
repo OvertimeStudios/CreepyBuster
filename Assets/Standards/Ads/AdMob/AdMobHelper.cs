@@ -32,6 +32,10 @@ public class AdMobHelper : MonoBehaviour
 
 	private static Action _onComplete;
 
+	#if UNITY_ANDROID
+	private static bool onCompleteFlag = false;
+	#endif
+
 	#if ADMOB_IMPLEMENTED
 	private static RewardBasedVideoAd rewardBasedVideo;
 	private static InterstitialAd interstitial;
@@ -211,7 +215,7 @@ public class AdMobHelper : MonoBehaviour
 	private static void HandleOnBannerLoaded(object sender, EventArgs e)
 	{
 	#if ADMOB_IMPLEMENTED
-		Debug.Log("Rewarded Video Loaded Successfully");
+		Debug.Log("Banner Loaded Successfully");
 	#endif
 	}
 
@@ -219,7 +223,7 @@ public class AdMobHelper : MonoBehaviour
 	private static void HandleOnBannerFailedToLoad(object sender, AdFailedToLoadEventArgs args)
 	{
 
-		Debug.Log("Rewarded Video Failed to load: " + args.Message);
+		Debug.Log("Banner Failed to load: " + args.Message);
 		// Handle the ad failed to load event.
 
 		Instance.StartCoroutine(WaitAndCreateInterstitialRequest(Instance.timeout));
@@ -241,14 +245,14 @@ public class AdMobHelper : MonoBehaviour
 	private static void HandleOnBannerOpened(object sender, EventArgs e)
 	{
 	#if ADMOB_IMPLEMENTED
-		Debug.Log("Rewarded Video Opened");
+		Debug.Log("Banner Opened");
 	#endif
 	}
 
 	private static void HandleOnBannerClosed(object sender, EventArgs e)
 	{
 	#if ADMOB_IMPLEMENTED
-		Debug.Log("Rewarded Video Closed");
+		Debug.Log("Banner Closed");
 		CreateInterstitialRequest();
 	#endif
 	}
@@ -256,7 +260,7 @@ public class AdMobHelper : MonoBehaviour
 	private static void HandleOnBannerLeavingApplication(object sender, EventArgs e)
 	{
 	#if ADMOB_IMPLEMENTED
-		Debug.Log("Rewarded Video Left Application");
+		Debug.Log("Banner Left Application");
 	#endif
 	}
 
@@ -314,7 +318,7 @@ public class AdMobHelper : MonoBehaviour
 	private static void HandleOnInterstitialLoaded(object sender, EventArgs e)
 	{
 		#if ADMOB_IMPLEMENTED
-		Debug.Log("Rewarded Video Loaded Successfully");
+		Debug.Log("Instertitial Loaded Successfully");
 		#endif
 	}
 
@@ -322,7 +326,7 @@ public class AdMobHelper : MonoBehaviour
 	private static void HandleOnInterstitialFailedToLoad(object sender, AdFailedToLoadEventArgs args)
 	{
 
-		Debug.Log("Rewarded Video Failed to load: " + args.Message);
+		Debug.Log("Instertitial Failed to load: " + args.Message);
 		// Handle the ad failed to load event.
 
 		Instance.StartCoroutine(WaitAndCreateInterstitialRequest(Instance.timeout));
@@ -344,14 +348,14 @@ public class AdMobHelper : MonoBehaviour
 	private static void HandleOnInterstitialOpened(object sender, EventArgs e)
 	{
 		#if ADMOB_IMPLEMENTED
-		Debug.Log("Rewarded Video Opened");
+		Debug.Log("Instertitial Opened");
 		#endif
 	}
 
 	private static void HandleOnInterstitialClosed(object sender, EventArgs e)
 	{
 		#if ADMOB_IMPLEMENTED
-		Debug.Log("Rewarded Video Closed");
+		Debug.Log("Instertitial Closed");
 		CreateInterstitialRequest();
 		#endif
 	}
@@ -359,7 +363,7 @@ public class AdMobHelper : MonoBehaviour
 	private static void HandleOnInterstitialLeavingApplication(object sender, EventArgs e)
 	{
 		#if ADMOB_IMPLEMENTED
-		Debug.Log("Rewarded Video Left Application");
+		Debug.Log("Instertitial Left Application");
 		#endif
 	}
 
@@ -371,7 +375,11 @@ public class AdMobHelper : MonoBehaviour
 		get 
 		{
 			#if ADMOB_IMPLEMENTED
-			return rewardBasedVideo != null && rewardBasedVideo.IsLoaded(); 
+				#if UNITY_EDITOR
+				return true;
+				#else
+				return rewardBasedVideo != null && rewardBasedVideo.IsLoaded(); 
+				#endif
 			#else
 			return false;
 			#endif
@@ -388,6 +396,12 @@ public class AdMobHelper : MonoBehaviour
 
 			rewardBasedVideo.Show();
 		}
+
+		#if UNITY_EDITOR
+		if(onComplete != null)
+			onComplete();
+		#endif
+
 		#endif
 	}
 
@@ -460,8 +474,14 @@ public class AdMobHelper : MonoBehaviour
 		#if ADMOB_IMPLEMENTED
 		Debug.Log("Rewarded Video Rewarded");
 
+		#if UNITY_IOS
 		if(_onComplete != null)
 			_onComplete();
+		#elif UNITY_ANDROID
+		//HACK: Admob callbacks aew not called on main thread on android
+		//https://github.com/googleads/googleads-mobile-unity/issues/155
+		onCompleteFlag = true;
+		#endif
 		#endif
 	}
 
@@ -479,6 +499,19 @@ public class AdMobHelper : MonoBehaviour
 		Debug.Log("Rewarded Video Left Application");
 		#endif
 	}
+
+	#if UNITY_ANDROID
+	void Update()
+	{
+		if(onCompleteFlag)
+		{
+			if(_onComplete != null)
+				_onComplete();
+
+			onCompleteFlag = false;
+		}
+	}
+	#endif
 	#endregion
 }
 
