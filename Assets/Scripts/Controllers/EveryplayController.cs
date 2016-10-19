@@ -58,7 +58,7 @@ public class EveryplayController : MonoBehaviour
 		if(instance != null) return;
 		Debug.Log("**** START EVERYPLAYCONTROLLER ****");
 
-		Everyplay.SetLowMemoryDevice(true);
+		EveryplayHelper.SetLowMemoryDevice(true);
 		isReady = false;
 		videoFinished = false;
 	}
@@ -73,55 +73,66 @@ public class EveryplayController : MonoBehaviour
 	public static void StartRecording()
 	{
 		Debug.Log("Start Recording? " + IsReady);
-		if(!Everyplay.IsRecording() && IsReady)
+		/*if(!Everyplay.IsRecording() && IsReady)
 		{
 			Everyplay.SetMaxRecordingMinutesLength(Instance.minutesToRecord);
 
 			Everyplay.StartRecording();
 			videoFinished = false;
-		}
+		}*/
+
+		EveryplayHelper.StartRecording((int)(Instance.minutesToRecord * 60f));
 	}
 	
 	public static void StopRecording()
 	{
 		Debug.Log("Stop Recording");
-		if(Everyplay.IsRecording())
+		/*if(Everyplay.IsRecording())
 		{
 			Everyplay.StopRecording();
 			videoFinished = true;
-		}
+		}*/
+
+		EveryplayHelper.StopRecording();
 	}
 	
 	public static void PauseRecording()
 	{
-		if(!Everyplay.IsPaused())
-			Everyplay.PauseRecording();
+		/*if(!Everyplay.IsPaused())
+			Everyplay.PauseRecording();*/
+
+		EveryplayHelper.PauseRecording();
 	}
 	
 	public static void ResumeRecording()
 	{
-		if(Everyplay.IsPaused())
-			Everyplay.ResumeRecording();
+		/*if(Everyplay.IsPaused())
+			Everyplay.ResumeRecording();*/
+		EveryplayHelper.ResumeRecording();
 	}
 	
 	public static void OpenShareOptions()
 	{
+		
 		OpenShareOptions(null);
 	}
 	
 	public static void OpenShareOptions(Dictionary<string, object> metadata)
 	{
-		if(!videoFinished) return;
+		/*if(!videoFinished) return;
 		
 		if(metadata != null)
 			Everyplay.SetMetadata(metadata);
 		
-		Everyplay.ShowSharingModal();
+		Everyplay.ShowSharingModal();*/
+
+		EveryplayHelper.OpenShareOptions(metadata);
 	}
 	
 	public static void OpenEveryplay()
 	{
-		Everyplay.ShowWithPath("/feed/game");
+		EveryplayHelper.OpenFeed();
+		//Everyplay.ShowWithPath("/feed/game");
 	}
 	
 	public void PlayLastRecording()
@@ -129,7 +140,8 @@ public class EveryplayController : MonoBehaviour
 		GameController.watchedReplay = true;
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		Debug.Log("Video Recorded? " + IsRecorded);
-		if(!IsRecorded)
+
+		if(!EveryplayHelper.IsRecorded)
 		{
 			Popup.ShowOk(Localization.Get("EVERYPLAY_ERROR"));
 			return;
@@ -141,12 +153,14 @@ public class EveryplayController : MonoBehaviour
 	{
 		Debug.Log("Play Last Recording: " + videoFinished);
 		
-		if(!videoFinished) return;
+		/*if(!videoFinished) return;
 		
 		if(metadata != null)
 			Everyplay.SetMetadata(metadata);
 		
-		Everyplay.PlayLastRecording();
+		Everyplay.PlayLastRecording();*/
+
+		EveryplayHelper.PlayLastRecording(metadata);
 	}
 
 	private static void SetMetadata()
