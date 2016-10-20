@@ -24,18 +24,25 @@ public class LoadingScreen : MonoBehaviour
 	
 	private IEnumerator Load() 
 	{
+		float startLoadTime = Time.time;
+
+		Debug.Log("Loading next scene");
+
+		async = Application.LoadLevelAsync(sceneToLoad);
+		async.allowSceneActivation = false;
+
+		while(async.progress < 0.9f)
+			yield return null;
+
+		Debug.Log("DataCloudPrefs.Load from LOADING SCREEN");
+
 		DataCloudPrefs.Load(snapshotSaveName);
 
 		//wait for google play finished loading
 		while(!DataCloudPrefs.IsLoaded)
 			yield return null;
-		
-		float startLoadTime = Time.time;
 
-		async = Application.LoadLevelAsync(sceneToLoad);
 		async.allowSceneActivation = true;
-
-		yield return async;
 
 		Debug.Log("Loading Complete in " + (Time.time - startLoadTime) + " seconds.");
 	}
