@@ -51,6 +51,9 @@ public class LocalizationController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		CurrentLanguage = (Language)System.Enum.Parse (typeof(Language), Global.Language);
+		if(Global.Language == "")
+			CurrentLanguage = (Application.systemLanguage == SystemLanguage.Portuguese) ? Language.Portuguese : Language.English;
+		else
+			CurrentLanguage = (Language)System.Enum.Parse (typeof(Language), Global.Language);
 	}
 }

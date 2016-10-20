@@ -15,8 +15,6 @@ public class Ranking : MonoBehaviour
 	private bool listSorted = false;
 
 	public GameObject general;
-	public GameObject globalRanking;
-	public GameObject friendsRanking;
 
 	public GameObject globalInfo;
 	public GameObject friendsInfo;
@@ -31,8 +29,6 @@ public class Ranking : MonoBehaviour
 		friendsRank.text = "";//Localization.Get("NOT_LOGGED");
 
 		general.SetActive(true);
-		globalRanking.SetActive(false);
-		friendsRanking.SetActive(false);
 		
 		globalInfo.SetActive(LeaderboardsHelper.IsPlayerAuthenticated());
 		friendsInfo.SetActive(LeaderboardsHelper.IsPlayerAuthenticated());

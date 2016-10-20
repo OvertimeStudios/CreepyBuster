@@ -8,11 +8,13 @@ public class AchievementController : MonoBehaviour
 
 	void OnDestroy()
 	{
+		MenuController.OnMenuAchievementUnlocked -= UpdateAllAchievements;
 		GameController.OnGameOver -= UpdateAllAchievements;
 	}
 
 	void Start()
 	{
+		MenuController.OnMenuAchievementUnlocked += UpdateAllAchievements;
 		GameController.OnGameOver += UpdateAllAchievements;
 	}
 

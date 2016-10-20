@@ -7,6 +7,10 @@ using UnityEngine.Advertisements;
 
 public class MenuController : MonoBehaviour 
 {
+	#region Action
+	public static Action OnMenuAchievementUnlocked;
+	#endregion
+
 	public enum Menus
 	{
 		None,
@@ -75,13 +79,12 @@ public class MenuController : MonoBehaviour
 	public Transform settingsScreen;
 	public Transform creditsScreen;
 	public Transform hubConnectionScreen;
-	public Transform achievementsScreen;
 	public Transform creepypediaScreen;
 	public Transform gameStatsScreen;
 	public Transform howToPlayScreen;
 
 	[Header("Menu Achievement")]
-	public Achievement achievement;
+	public int menuAchievementValue = 600;
 
 	[Header("Web")]
 	public GameObject playPlayFun;
@@ -189,7 +192,6 @@ public class MenuController : MonoBehaviour
 		overtimeHubGO.SetActive(false);
 		#endif
 
-
 		instance = this;
 
 		activeMenu = Menus.Main;
@@ -200,7 +202,6 @@ public class MenuController : MonoBehaviour
 		//hide all others menus
 		settingsScreen.gameObject.SetActive (false);
 		creditsScreen.gameObject.SetActive (false);
-		achievementsScreen.gameObject.SetActive (false);
 		creepypediaScreen.gameObject.SetActive (false);
 		gameStatsScreen.gameObject.SetActive (false);
 		howToPlayScreen.gameObject.SetActive(false);
@@ -233,13 +234,18 @@ public class MenuController : MonoBehaviour
 			Global.Reset();
 		}
 
-		//game stats
-		timeSpentOnMenu += Time.deltaTime;
-
-		if(!achievement.unlocked && timeSpentOnMenu >= achievement.value)
+		if(!Global.IsAchievementUnlocked(Achievement.Type.Menu, menuAchievementValue))
 		{
-			achievement.Unlock();
-			ShowAchievements();
+			//game stats
+			timeSpentOnMenu += Time.deltaTime;
+
+			if(timeSpentOnMenu >= menuAchievementValue)
+			{
+				if(OnMenuAchievementUnlocked != null)
+					OnMenuAchievementUnlocked();
+
+				Global.UnlockAchievement(Achievement.Type.Menu, menuAchievementValue);
+			}
 		}
 	}
 
@@ -474,17 +480,6 @@ public class MenuController : MonoBehaviour
 		if(AchievementsHelper.IsPlayerAuthenticated())
 			AchievementsHelper.OpenAchievements();
 		#endif
-
-		/*if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
-
-		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
-
-		ActiveScreen = achievementsScreen.gameObject;
-
-		lastMenu = activeMenu;
-		activeMenu = Menus.Achievements;
-		
-		MoveScreen (true);*/
 	}
 
 	public void MoveToCreepypedia()

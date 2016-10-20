@@ -40,6 +40,12 @@ public class ItemShopHardCurrency : MonoBehaviour
 		IAPHelper.OnProductReceived += UpdatePrices;
 		#endif
 
+		if(pack == Pack.MultiplierOrbs)
+		{
+			if(Global.OrbsMultiplier > 1)
+				Inactivate();
+		}
+
 		#if UNITY_WEBPLAYER
 		gameObject.SetActive(false);
 		#endif
@@ -136,6 +142,9 @@ public class ItemShopHardCurrency : MonoBehaviour
 			case Pack.MultiplierOrbs:
 				Global.OrbsMultiplier = value;
 				Global.IsAdFree = true;
+				
+				Inactivate();
+				
 				#if ADMOB_IMPLEMENTED
 				AdMobHelper.HideBanner();
 				#endif
@@ -143,5 +152,13 @@ public class ItemShopHardCurrency : MonoBehaviour
 					Popup.ShowOk(Localization.Get("PURCHASE_SUCCESS"));
 				break;
 		}
+	}
+
+	private void Inactivate()
+	{
+		foreach(UIButton button in GetComponents<UIButton>())
+			button.isEnabled = false;
+
+		price.text = "---";
 	}
 }

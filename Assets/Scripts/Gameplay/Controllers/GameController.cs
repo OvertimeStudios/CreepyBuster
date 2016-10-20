@@ -326,33 +326,35 @@ public class GameController : MonoBehaviour
 			//game stats
 			creepsKilled++;
 
-			string enemyName = enemy.name;
-			if(enemyName.Contains(BASIC))
+			EnemiesPercent.EnemyNames enemyName = enemy.GetComponent<EnemyLife>().type;
+			if(enemyName == EnemiesPercent.EnemyNames.Blu)
 			{
 				Global.UnlockCreep(CreepData.CreepType.Basic);
 				basicsKilled++;
+
+				Debug.Log("BASIC KILLED: " + basicsKilled);
 			}
-			if(enemyName.Contains(BOOMERANG))
+			if(enemyName == EnemiesPercent.EnemyNames.Spiral)
 			{
 				Global.UnlockCreep(CreepData.CreepType.Boomerang);
 				boomerangsKilled++;
 			}
-			if(enemyName.Contains(ZIGZAG))
+			if(enemyName == EnemiesPercent.EnemyNames.Ziggy)
 			{
 				Global.UnlockCreep(CreepData.CreepType.ZigZag);
 				zigzagsKilled++;
 			}
-			if(enemyName.Contains(CHARGER))
+			if(enemyName == EnemiesPercent.EnemyNames.Charger)
 			{
 				Global.UnlockCreep(CreepData.CreepType.Charger);
 				chargersKilled++;
 			}
-			if(enemyName.Contains(LEGION))
+			if(enemyName == EnemiesPercent.EnemyNames.Legion)
 			{
 				Global.UnlockCreep(CreepData.CreepType.Legion);
 				legionsKilled++;
 			}
-			if(enemyName.Contains(FOLLOWER))
+			if(enemyName == EnemiesPercent.EnemyNames.Follower)
 			{
 				Global.UnlockCreep(CreepData.CreepType.Follower);
 				followersKilled++;
