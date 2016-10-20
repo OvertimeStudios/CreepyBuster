@@ -94,8 +94,8 @@ public class DataCloudPrefs
 				Debug.Log(string.Format("Local TIMESTAMP: {0} / SNAPSHOT TIMESTAMP: {1}", (double)PlayerPrefs.GetFloat(TIMESTAMP), snapshot.metadata.lastModifiedTimestamp));
 				if((double)PlayerPrefs.GetFloat(TIMESTAMP) > snapshot.metadata.lastModifiedTimestamp)
 				{
-					Debug.Log("Loaded from PlayerPrefs: " + PlayerPrefs.GetString(_snapshotSaveName));
-					snapshotKeys = Json.decode<Dictionary<string,object>>(PlayerPrefs.GetString(_snapshotSaveName));
+					Debug.Log("Loaded from PlayerPrefs: " + PlayerPrefs.GetString("_metadata"));
+					snapshotKeys = Json.decode<Dictionary<string,object>>(PlayerPrefs.GetString("_metadata"));
 				}
 				else
 				{
@@ -404,16 +404,19 @@ public class DataCloudPrefs
 		
 	public static void Save()
 	{
+		
 		#if CLOUDDATA_IMPLEMENTED
 			#if UNITY_IOS
-			
+			P31Prefs.synchronize();
 			#elif UNITY_ANDROID
 			Debug.Log("***SAVING SNAPSHOT " + _snapshotSaveName + "(" + snapshotKeys.Count + ") " + snapshotKeys.toJson());
 			PlayGameServices.saveSnapshot(_snapshotSaveName, true, System.Text.Encoding.UTF8.GetBytes(snapshotKeys.toJson()), "");
+
+			PlayerPrefs.SetString(_snapshotSaveName, snapshotKeys.toJson());
+			PlayerPrefs.SetFloat(TIMESTAMP, (float)DateTime.UtcNow.Subtract(epochStart).TotalMilliseconds);
 			#endif
 		#endif
 
-		PlayerPrefs.SetFloat(TIMESTAMP, (float)DateTime.UtcNow.Subtract(epochStart).TotalMilliseconds);
 		PlayerPrefs.Save();
 	}
 

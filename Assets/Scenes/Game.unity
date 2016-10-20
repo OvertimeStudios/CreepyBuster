@@ -888,7 +888,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 21420316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 19, z: 0}
+  m_LocalPosition: {x: 0, y: 19.000854, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -967,7 +967,7 @@ MonoBehaviour:
   mClipSoftness: {x: 4, y: 4}
   mDepth: 21
   mSortingOrder: 0
-  mClipOffset: {x: 0, y: 14.75}
+  mClipOffset: {x: 0, y: 14.749878}
 --- !u!1001 &23115248
 Prefab:
   m_ObjectHideFlags: 0
@@ -6517,7 +6517,7 @@ MonoBehaviour:
   thumb: {fileID: 1133990834}
   mBG: {fileID: 1243247487}
   mFG: {fileID: 1501189210}
-  mValue: 0
+  mValue: 0.00000006215393
   mFill: 3
   numberOfSteps: 0
   onChange: []
@@ -12347,7 +12347,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 454922770}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 146, z: 0}
   m_LocalScale: {x: 0.28273377, y: 0.29811653, z: 0.2827338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12383,15 +12383,15 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 1
-  mWidth: 70
-  mHeight: 1580
+  mPivot: 5
+  mWidth: 1688
+  mHeight: 70
   mDepth: 25
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 0.044303797
-  mType: 1
+  aspectRatio: 24.114286
+  mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
@@ -14115,7 +14115,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 521970242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 20.964417, z: 0}
+  m_LocalPosition: {x: 0, y: 30.564026, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -14194,7 +14194,7 @@ MonoBehaviour:
   mClipSoftness: {x: 4, y: 4}
   mDepth: 24
   mSortingOrder: 0
-  mClipOffset: {x: 0, y: -6.965027}
+  mClipOffset: {x: 0, y: -16.565247}
 --- !u!1 &521973901
 GameObject:
   m_ObjectHideFlags: 0
@@ -17997,7 +17997,7 @@ MonoBehaviour:
   thumb: {fileID: 1502445457}
   mBG: {fileID: 1485896609}
   mFG: {fileID: 1767255138}
-  mValue: 0.00010253203
+  mValue: 0.0001026167
   mFill: 3
   numberOfSteps: 0
   onChange: []
@@ -23697,7 +23697,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 853266234}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 146, z: 0}
   m_LocalScale: {x: 0.28273377, y: 0.29811653, z: 0.2827338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23733,15 +23733,15 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 1
-  mWidth: 70
-  mHeight: 1580
+  mPivot: 5
+  mWidth: 1662
+  mHeight: 70
   mDepth: 25
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 0.044303797
-  mType: 1
+  aspectRatio: 23.742857
+  mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
@@ -26442,7 +26442,7 @@ MonoBehaviour:
   thumb: {fileID: 721526268}
   mBG: {fileID: 853266236}
   mFG: {fileID: 258442856}
-  mValue: 0.0002617982
+  mValue: 0.00026188564
   mFill: 3
   numberOfSteps: 0
   onChange: []
@@ -27570,7 +27570,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plasmette: {fileID: 245961087}
-  leftRightAchievementValue: 60
 --- !u!82 &1036437452
 AudioSource:
   m_ObjectHideFlags: 0
@@ -31805,7 +31804,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1243247485}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 146, z: 0}
   m_LocalScale: {x: 0.28273377, y: 0.29811653, z: 0.2827338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31841,15 +31840,15 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 1
-  mWidth: 70
-  mHeight: 980
+  mPivot: 5
+  mWidth: 1038
+  mHeight: 70
   mDepth: 25
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 0.071428575
-  mType: 1
+  aspectRatio: 14.828571
+  mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
@@ -38672,7 +38671,7 @@ MonoBehaviour:
   thumb: {fileID: 1682781281}
   mBG: {fileID: 454922772}
   mFG: {fileID: 126453588}
-  mValue: 0
+  mValue: 0.000046426765
   mFill: 3
   numberOfSteps: 0
   onChange: []
@@ -38698,7 +38697,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1485896607}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 146, z: 0}
   m_LocalScale: {x: 0.28273377, y: 0.29811653, z: 0.2827338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -38734,15 +38733,15 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 1
-  mWidth: 81
-  mHeight: 1747
+  mPivot: 5
+  mWidth: 1842
+  mHeight: 70
   mDepth: 25
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 0.046365198
-  mType: 1
+  aspectRatio: 26.314285
+  mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
@@ -40486,7 +40485,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: testDevices.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 466906, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: m_LocalPosition.x
@@ -40583,6 +40582,14 @@ Prefab:
     - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: testDevices.Array.data[4].id
       value: 427E8D86F43F1F8DD54C847D5C5C0E47
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: testDevices.Array.data[5].name
+      value: Thomas Device
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: testDevices.Array.data[5].id
+      value: A64A739684991CAE1E6A096BECCB66DF
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
@@ -44130,7 +44137,7 @@ MonoBehaviour:
   mClipSoftness: {x: 4, y: 4}
   mDepth: 25
   mSortingOrder: 0
-  mClipOffset: {x: 13, y: 0}
+  mClipOffset: {x: 13.000122, y: 0}
 --- !u!1 &1651712972
 GameObject:
   m_ObjectHideFlags: 0
@@ -52479,8 +52486,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1941825197}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 146, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -12, y: -77, z: 0}
   m_LocalScale: {x: 0.28273377, y: 0.29811653, z: 0.2827338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -52516,14 +52523,14 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 70
-  mHeight: 1580
+  mWidth: 1580
+  mHeight: 70
   mDepth: 25
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 0.044303797
-  mType: 1
+  aspectRatio: 22.571428
+  mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
@@ -56653,8 +56660,6 @@ MonoBehaviour:
   worldRank: {fileID: 956668601}
   friendsRank: {fileID: 1842270565}
   general: {fileID: 241937959}
-  globalRanking: {fileID: 0}
-  friendsRanking: {fileID: 0}
   globalInfo: {fileID: 1064922484}
   friendsInfo: {fileID: 1437468008}
   globalLogin: {fileID: 1777059906}
@@ -58618,7 +58623,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2122671295}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 260, y: 132.1864, z: 0}
+  m_LocalPosition: {x: 260, y: 132.18652, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:

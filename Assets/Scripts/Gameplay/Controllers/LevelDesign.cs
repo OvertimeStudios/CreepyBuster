@@ -550,7 +550,7 @@ public class LevelDesign : MonoBehaviour
 		GameController.OnRealStreakUpdated += ItensLevelUp;
 		GameController.OnKill += KillCountUpdated;
 
-		GameController.OnGameStart += Reset;
+		MenuController.OnPanelOpened += Reset;
 
 		BossLife.OnBossDied += BossLevelUp;
 	}
@@ -564,7 +564,7 @@ public class LevelDesign : MonoBehaviour
 		GameController.OnRealStreakUpdated -= ItensLevelUp;
 		GameController.OnKill -= KillCountUpdated;
 
-		GameController.OnGameStart -= Reset;
+		MenuController.OnPanelOpened -= Reset;
 
 		BossLife.OnBossDied -= BossLevelUp;
 	}

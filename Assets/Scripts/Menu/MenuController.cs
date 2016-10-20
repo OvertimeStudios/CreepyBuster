@@ -165,7 +165,7 @@ public class MenuController : MonoBehaviour
 		//HACK: the first time player enter game, he doesn't have any registered score on leaderboard. So, entry a 0 value.
 		LeaderboardsHelper.SendScore(Global.HighScore);
 
-		StartCoroutine(GetUserScore());
+		//StartCoroutine(GetUserScore());
 	}
 
 	private IEnumerator GetUserScore()
