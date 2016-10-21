@@ -67,7 +67,7 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 1
   - name: minion_branco
-    x: 814
+    x: 879
     y: 977
     width: 64
     height: 47
@@ -80,7 +80,7 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 4
   - name: minion_transparente
-    x: 879
+    x: 814
     y: 977
     width: 64
     height: 47

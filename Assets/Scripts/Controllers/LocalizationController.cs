@@ -55,5 +55,7 @@ public class LocalizationController : MonoBehaviour
 			CurrentLanguage = (Application.systemLanguage == SystemLanguage.Portuguese) ? Language.Portuguese : Language.English;
 		else
 			CurrentLanguage = (Language)System.Enum.Parse (typeof(Language), Global.Language);
+
+		Debug.Log("***LANGUAGE SELECTED: " + CurrentLanguage);
 	}
 }

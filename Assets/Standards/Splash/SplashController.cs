@@ -6,11 +6,15 @@ public class SplashController : MonoBehaviour
 	public string videoName;
 	public string sceneToLoad;
 
+	private bool readyForChangeScene;
+
 	private AsyncOperation async;
 
 	// Use this for initialization
 	void Start () 
 	{
+		readyForChangeScene = false;
+
 		StartCoroutine(LoadNextLevel());
 		StartCoroutine(PlayFullScreenMovie ());
 	}
@@ -24,7 +28,12 @@ public class SplashController : MonoBehaviour
 
 		async.allowSceneActivation = false;
 
-		yield return async;
+		while(async.progress < 0.9f || !readyForChangeScene)
+			yield return null;
+
+		Debug.Log("Changing scene");
+
+		async.allowSceneActivation = true;
 	}
 
 	IEnumerator PlayFullScreenMovie()
@@ -33,16 +42,16 @@ public class SplashController : MonoBehaviour
 		Handheld.PlayFullScreenMovie (videoName, Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFill);
 		#endif
 
-		yield return new WaitForSeconds (3.0f);
+		yield return new WaitForEndOfFrame();
+		yield return new WaitForEndOfFrame();
 
 		SwitchScene ();
 	}
 
 	private void SwitchScene()
 	{
-		Debug.Log("switching");
-		
-		if (async != null)
-			async.allowSceneActivation = true;
+		Debug.Log("readyForChangeScene");
+
+		readyForChangeScene = true;
 	}
 }

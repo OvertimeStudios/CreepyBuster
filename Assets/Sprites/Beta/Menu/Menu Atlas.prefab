@@ -68,6 +68,45 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: legion
+    x: 577
+    y: 1810
+    width: 238
+    height: 238
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 6
+    paddingRight: 12
+    paddingTop: 5
+    paddingBottom: 1
+  - name: minion_branco
+    x: 816
+    y: 2001
+    width: 64
+    height: 47
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 4
+    paddingBottom: 4
+  - name: minion_transparente
+    x: 816
+    y: 1953
+    width: 64
+    height: 47
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 2
+    paddingBottom: 3
   mPixelSize: 1
   mReplacement: {fileID: 0}
   mCoordinates: 0

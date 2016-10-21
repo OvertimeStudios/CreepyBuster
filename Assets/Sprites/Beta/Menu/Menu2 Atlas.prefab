@@ -67,73 +67,86 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Death_Ray
-    x: 756
-    y: 239
-    width: 249
-    height: 248
+    x: 239
+    y: 111
+    width: 124
+    height: 124
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 4
-    paddingRight: 3
-    paddingTop: 4
-    paddingBottom: 4
+    paddingLeft: 2
+    paddingRight: 2
+    paddingTop: 2
+    paddingBottom: 2
   - name: Freeze
-    x: 505
-    y: 238
-    width: 250
-    height: 249
+    x: 239
+    y: 236
+    width: 125
+    height: 125
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 3
-    paddingRight: 3
-    paddingTop: 3
+    paddingLeft: 2
+    paddingRight: 1
+    paddingTop: 1
     paddingBottom: 0
   - name: Invencible_borda
-    x: 254
-    y: 237
-    width: 250
-    height: 250
+    x: 239
+    y: 362
+    width: 126
+    height: 125
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 3
+    paddingLeft: 1
     paddingRight: 0
-    paddingTop: 3
-    paddingBottom: 3
+    paddingTop: 2
+    paddingBottom: 1
   - name: Invencible_estrela
-    x: 0
-    y: 59
-    width: 172
-    height: 174
+    x: 127
+    y: 161
+    width: 87
+    height: 87
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 41
-    paddingRight: 40
-    paddingTop: 42
-    paddingBottom: 40
+    paddingLeft: 20
+    paddingRight: 20
+    paddingTop: 21
+    paddingBottom: 20
+  - name: legion
+    x: 0
+    y: 249
+    width: 238
+    height: 238
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 6
+    paddingRight: 12
+    paddingTop: 5
+    paddingBottom: 1
   - name: Level_up
     x: 0
-    y: 234
-    width: 253
-    height: 253
+    y: 121
+    width: 126
+    height: 127
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 2
+    paddingTop: 0
+    paddingBottom: 1
   - name: Shield
-    x: 254
-    y: 112
+    x: 366
+    y: 363
     width: 124
     height: 124
     borderLeft: 0

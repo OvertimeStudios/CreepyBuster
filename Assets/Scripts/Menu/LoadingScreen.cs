@@ -16,7 +16,7 @@ public class LoadingScreen : MonoBehaviour
 	void Start () 
 	{
 		#if !UNITY_WEBPLAYER
-		logo.SetActive(false);
+		//logo.SetActive(false);
 		#endif
 
 		StartCoroutine (Load ());
@@ -27,6 +27,8 @@ public class LoadingScreen : MonoBehaviour
 		float startLoadTime = Time.time;
 
 		Debug.Log("Loading next scene");
+
+		yield return new WaitForEndOfFrame();
 
 		async = Application.LoadLevelAsync(sceneToLoad);
 		async.allowSceneActivation = false;

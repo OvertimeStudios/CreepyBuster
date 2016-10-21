@@ -54,10 +54,10 @@ public class ItemShopHardCurrency : MonoBehaviour
 	#if UNITY_ANDROID || UNITY_IOS
 	private void UpdatePrices(IAPProduct product)
 	{
-		Debug.Log("Product Received: " + product.ToString());
 		#if IAP_IMPLEMENTED
 		if(product.productId == productID)
 		{
+			Debug.Log("Product Received: " + product.ToString());
 			this.product = product;
 
 			string priceString = product.price.ToString();
