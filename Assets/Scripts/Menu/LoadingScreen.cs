@@ -13,12 +13,13 @@ public class LoadingScreen : MonoBehaviour
 	public GameObject logo;
 
 	// Use this for initialization
-	void Start () 
+	IEnumerator Start () 
 	{
 		#if !UNITY_WEBPLAYER
 		//logo.SetActive(false);
 		#endif
 
+		yield return new WaitForSeconds(1f);
 		StartCoroutine (Load ());
 	}
 	
@@ -30,7 +31,7 @@ public class LoadingScreen : MonoBehaviour
 
 		yield return new WaitForEndOfFrame();
 
-		async = Application.LoadLevelAsync(sceneToLoad);
+		async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneToLoad);
 		async.allowSceneActivation = false;
 
 		while(async.progress < 0.9f)

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class SplashController : MonoBehaviour 
 {
@@ -7,12 +8,16 @@ public class SplashController : MonoBehaviour
 	public string sceneToLoad;
 
 	private bool readyForChangeScene;
+	#if UNITY_ANDROID
+	private bool isOpenGLReady;
+	#endif
 
 	private AsyncOperation async;
 
 	// Use this for initialization
 	void Start () 
 	{
+		isOpenGLReady = false;
 		readyForChangeScene = false;
 
 		StartCoroutine(LoadNextLevel());
@@ -22,9 +27,9 @@ public class SplashController : MonoBehaviour
 	IEnumerator LoadNextLevel()
 	{
 		if (sceneToLoad != "")
-			async = Application.LoadLevelAsync (sceneToLoad);
+			async = SceneManager.LoadSceneAsync (sceneToLoad);
 		else
-			async = Application.LoadLevelAsync (1);
+			async = SceneManager.LoadSceneAsync (1);
 
 		async.allowSceneActivation = false;
 
