@@ -111,13 +111,13 @@ public class IllusionBossCopy : MonoBehaviour
 	
 	private IEnumerator WaitForArrival()
 	{
-		while(Vector3.Distance(myTransform.position, waypoint) > 0.15f)
+		while(Vector3.Distance(myTransform.position, waypoint) > 0.25f)
 		{
 			myRigidbody2D.velocity = transform.right * IllusionBoss.Velocity;
 			
 			float angle = Mathf.Atan2(waypoint.y - myTransform.position.y, waypoint.x - myTransform.position.x) * Mathf.Rad2Deg;
 			Vector3 eulerAngle = transform.eulerAngles;
-			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.1f);
+			eulerAngle.z = Mathf.LerpAngle (eulerAngle.z, angle, 0.2f);
 			myTransform.eulerAngles = eulerAngle;
 			
 			yield return null;

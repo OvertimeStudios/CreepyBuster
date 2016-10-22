@@ -8,16 +8,12 @@ public class SplashController : MonoBehaviour
 	public string sceneToLoad;
 
 	private bool readyForChangeScene;
-	#if UNITY_ANDROID
-	private bool isOpenGLReady;
-	#endif
 
 	private AsyncOperation async;
 
 	// Use this for initialization
 	void Start () 
 	{
-		isOpenGLReady = false;
 		readyForChangeScene = false;
 
 		StartCoroutine(LoadNextLevel());

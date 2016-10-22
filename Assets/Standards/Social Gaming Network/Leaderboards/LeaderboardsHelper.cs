@@ -340,7 +340,7 @@ public class LeaderboardsHelper : MonoBehaviour
 				GPGManager.loadCurrentPlayerLeaderboardScoreSucceededEvent -= OnPlayerFriendsScoresLoaded;
 				GPGManager.loadCurrentPlayerLeaderboardScoreFailedEvent -= OnPlayerFriendsScoresFailed;
 
-				result(playerGlobalPosition, playerGlobalMaxRange);
+				result(playerFriendsPosition, playerFriendsMaxRange);
 			}
 			else
 			{
@@ -375,7 +375,8 @@ public class LeaderboardsHelper : MonoBehaviour
 
 	private static void OnPlayerFriendsScoresFailed(string errmsg)
 	{
-		playerGlobalPosition = 0;
+		playerFriendsPosition = 0;
+		playerFriendsMaxRange = 0;
 
 		isSearchingPlayerFriendsPosition = false;
 
@@ -384,7 +385,7 @@ public class LeaderboardsHelper : MonoBehaviour
 	#elif UNITY_ANDROID
 	private static void OnPlayerFriendsScoresLoaded(GPGScore score)
 	{
-		Debug.Log("OnPlayerGlobalScoresLoaded Sucess");
+		Debug.Log("OnPlayerFriendsScoresLoaded Sucess");
 
 		playerFriendsPosition = (int)score.rank;
 		playerFriendsMaxRange = 0;
@@ -400,7 +401,7 @@ public class LeaderboardsHelper : MonoBehaviour
 
 		isSearchingPlayerFriendsPosition = false;
 
-		Debug.Log("Error on Global Score: " + msg);
+		Debug.Log("Error on Friends Score: " + msg);
 	}
 	#endif
 	#endif

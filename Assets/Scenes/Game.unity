@@ -3718,13 +3718,13 @@ MonoBehaviour:
   updateAnchors: 2
   mColor: {r: 1, g: 1, b: 1, a: 0.78431374}
   mPivot: 5
-  mWidth: 86
+  mWidth: 85
   mHeight: 32
   mDepth: 34
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.6875
+  aspectRatio: 2.65625
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
@@ -10616,13 +10616,13 @@ MonoBehaviour:
   updateAnchors: 2
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 425
+  mWidth: 408
   mHeight: 214
   mDepth: 22
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.9859813
+  aspectRatio: 1.9065421
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -12200,7 +12200,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 451440998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -12242,13 +12242,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 475
+  mWidth: 457
   mHeight: 776
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 0.6121134
+  aspectRatio: 0.58891755
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -18161,7 +18161,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
-  mText: USADO
+  mText: CAN'T USE
   mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
@@ -26469,7 +26469,7 @@ MonoBehaviour:
   updateAnchors: 2
   mColor: {r: 1, g: 1, b: 1, a: 0.78431374}
   mPivot: 4
-  mWidth: 296
+  mWidth: 295
   mHeight: 111
   mDepth: 32
   autoResizeBoxCollider: 0
@@ -26696,7 +26696,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 961774488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 211, y: 0, z: 0}
+  m_LocalPosition: {x: 203, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -32721,13 +32721,13 @@ MonoBehaviour:
   updateAnchors: 2
   mColor: {r: 1, g: 1, b: 1, a: 0.78431374}
   mPivot: 4
-  mWidth: 214
+  mWidth: 213
   mHeight: 48
   mDepth: 33
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.4583335
+  aspectRatio: 4.4375
   mType: 3
   mFillDirection: 0
   mFillAmount: 1
@@ -41275,7 +41275,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: testDevices.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 466906, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: m_LocalPosition.x
@@ -41380,6 +41380,14 @@ Prefab:
     - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: testDevices.Array.data[5].id
       value: A64A739684991CAE1E6A096BECCB66DF
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: testDevices.Array.data[6].name
+      value: Dovadoni Device
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
+      propertyPath: testDevices.Array.data[6].id
+      value: B00086302D5BC98D1B2FFCDB9DA7B131
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
@@ -52130,7 +52138,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1894660403}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -211, y: 0, z: 0}
+  m_LocalPosition: {x: -202, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -53644,7 +53652,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}
-  mText: USED
+  mText: "N\xC3O PODE USAR"
   mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
@@ -56099,13 +56107,13 @@ MonoBehaviour:
   updateAnchors: 2
   mColor: {r: 1, g: 1, b: 1, a: 0.78431374}
   mPivot: 4
-  mWidth: 217
+  mWidth: 216
   mHeight: 60
   mDepth: 34
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.6166666
+  aspectRatio: 3.6
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11435872, guid: 212de72aadad0415db046d2bdbe3922b, type: 2}

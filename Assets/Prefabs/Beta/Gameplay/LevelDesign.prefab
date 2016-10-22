@@ -41,11 +41,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blu: {fileID: 162664, guid: f9f0352d90b5244848525acba9f47575, type: 2}
-  spiral: {fileID: 148940, guid: f9400ab3e460348a297ea7029c7aa5b0, type: 2}
+  spiral: {fileID: 148940, guid: df412bc40254a417f8560d5f29b6889c, type: 2}
   ziggy: {fileID: 159624, guid: d0d2097b3a8df468696be8129398376a, type: 2}
   charger: {fileID: 130434, guid: 8beb1887f48634da9b3485c2a5c5abbc, type: 2}
   legion: {fileID: 196216, guid: eba8c081812e14fe39140a4ae8ad6a29, type: 2}
   follower: {fileID: 155498, guid: 3f67b0d4956b8417c9ecfaa267ef4930, type: 2}
+  bossMeteor: {fileID: 176214, guid: 7240fa1af9d86448fa15dcfe81856834, type: 2}
+  bossTwins: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
+  bossIllusion: {fileID: 109062, guid: 5a7840d6b72b34d8e9718d23b20562b4, type: 2}
+  plasmaOrbPP: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
+  plasmaOrbP: {fileID: 142570, guid: 373cc9dc78a6e4e55a88461bb01cf653, type: 2}
+  plasmaOrbM: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
+  plasmaOrbG: {fileID: 182814, guid: 67895c14af5e846e4bdcfd012046df13, type: 2}
+  deathRay: {fileID: 193254, guid: 2e742f82ef5604d40ad26f5041c4a5a4, type: 2}
+  invencibility: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
+  frozen: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
+  levelUp: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
+  backgrounds:
+  - {fileID: 102720, guid: 527349e8b2b7542fd835a5d91a4e6e05, type: 2}
   gameBalance:
     playerLevelUpCondition: []
     specialAttributes:
@@ -73,21 +86,51 @@ MonoBehaviour:
       spawnTimeMax: 0
       itemTier: []
     shopItens:
+      ray: []
       range: []
       damage: []
-  bossMeteor: {fileID: 176214, guid: 7240fa1af9d86448fa15dcfe81856834, type: 2}
-  bossTwins: {fileID: 122676, guid: 94ad06f1b8e8b463ca6a6b7a7d6597fd, type: 2}
-  bossIllusion: {fileID: 109062, guid: 5a7840d6b72b34d8e9718d23b20562b4, type: 2}
-  backgrounds:
-  - {fileID: 102720, guid: 527349e8b2b7542fd835a5d91a4e6e05, type: 2}
-  plasmaOrbPP: {fileID: 198166, guid: b3ff4d029aa164a1b9899757c9a8a3cd, type: 2}
-  plasmaOrbP: {fileID: 142570, guid: 373cc9dc78a6e4e55a88461bb01cf653, type: 2}
-  plasmaOrbM: {fileID: 131330, guid: e9328119727c940a6a1c480e0d678f89, type: 2}
-  plasmaOrbG: {fileID: 182814, guid: 67895c14af5e846e4bdcfd012046df13, type: 2}
-  deathRay: {fileID: 193254, guid: 2e742f82ef5604d40ad26f5041c4a5a4, type: 2}
-  invencibility: {fileID: 167472, guid: 471a490bee3814b21a4e72c5aafa697a, type: 2}
-  frozen: {fileID: 163532, guid: ae9adc756e61547578d62c5c618a6e4f, type: 2}
-  levelUp: {fileID: 182190, guid: 239d42e87f3ea4aefb21ec439c36c173, type: 2}
+    blu:
+      life: 0
+      vel: 0
+      score: 0
+      chanceToDrop: 0
+      itens: []
+    follower:
+      life: 0
+      vel: 0
+      score: 0
+      chanceToDrop: 0
+      itens: []
+    spiral:
+      life: 0
+      vel: 0
+      score: 0
+      chanceToDrop: 0
+      itens: []
+    charger:
+      life: 0
+      vel: 0
+      score: 0
+      chanceToDrop: 0
+      itens: []
+    ziggy:
+      life: 0
+      vel: 0
+      score: 0
+      chanceToDrop: 0
+      itens: []
+    legion:
+      life: 0
+      vel: 0
+      score: 0
+      chanceToDrop: 0
+      itens: []
+    legionMinion:
+      life: 0
+      vel: 0
+      score: 0
+      chanceToDrop: 0
+      itens: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

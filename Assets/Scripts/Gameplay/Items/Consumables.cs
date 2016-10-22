@@ -24,12 +24,31 @@ public class Consumables : MonoBehaviour
 		return consumable;
 	}
 
+	private bool CanUse(Transform t)
+	{
+		Item.Type itemType = (Item.Type) System.Enum.Parse(typeof(Item.Type), t.name);
+
+		if(GameController.IsBossTime)
+		{
+			if(itemType == Item.Type.DeathRay || itemType == Item.Type.Frozen)
+				return false;
+		}
+
+		if(itemType == Item.Type.LevelUp && LevelDesign.IsPlayerMaxLevel)
+			return false;
+
+		return true;
+	}
+
 	private bool IsInUse(Transform t)
 	{
 		Item.Type itemType = (Item.Type) System.Enum.Parse(typeof(Item.Type), t.name);
 
 		if(itemType == Item.Type.Shield && GameController.IsShieldActive)
 			return true;
+
+		if(itemType == Item.Type.Invencibility && GameController.IsInvencibleByItem)
+			return true;;
 
 		return false;
 	}
@@ -48,19 +67,25 @@ public class Consumables : MonoBehaviour
 
 			t.FindChild("count").GetComponent<UILabel>().text = consumable.ToString();
 
-			if(IsInUse(t))
+			if(consumable == 0)
+			{
+				OutOfStock(t);
+			}
+			else if(IsInUse(t))
 			{
 				InUse(t);
 			}
-			else if(consumable > 0)
+			else if(!CanUse(t))
+			{
+				LockItem(t);
+			}
+			else
 			{
 				t.FindChild("status").GetComponent<UILabel>().text = Localization.Get("USED");
 				t.GetComponent<UIButton>().enabled = true;
 				t.GetComponent<TweenAlpha>().PlayReverse();
 				t.GetComponent<TweenScale>().PlayReverse();
 			}
-			else
-				OutOfStock(t);
 		}
 	}
 
@@ -81,6 +106,15 @@ public class Consumables : MonoBehaviour
 		t.GetComponent<TweenScale>().PlayForward();
 		t.GetComponentInChildren<UILabel>().enabled = true;
 		t.FindChild("status").GetComponent<UILabel>().text = Localization.Get("OUT_OF_STOCK");
+	}
+
+	private void LockItem(Transform t)
+	{
+		t.GetComponent<UIButton>().enabled = false;
+		t.GetComponent<TweenAlpha>().PlayForward();
+		t.GetComponent<TweenScale>().PlayForward();
+		t.GetComponentInChildren<UILabel>().enabled = true;
+		t.FindChild("status").GetComponent<UILabel>().text = Localization.Get("CANT_USE");
 	}
 
 	private void InUse(Transform t)

@@ -139,18 +139,19 @@ public class ItemShop : MonoBehaviour
 
 	public void PurchaseAccepted()
 	{
+		#if !INFINITY_ORBS
 		if(Global.TotalOrbs >= Price)
 		{
 			Debug.Log("You spent " + Price + " on " + type.ToString());
 			Global.OrbsSpent += Price;
 			Global.TotalOrbs -= Price;
-
 			UnlockProperty();
 		}
+		#endif
 
 		#if INFINITY_ORBS
-		Popup.ShowOk("Bad, bad cheating boy. Here is your 'purchase'. Humpf.");
 		UnlockProperty();
+		Popup.ShowOk("Bad, bad cheating boy. Here is your 'purchase'. Humpf.");
 		#endif
 	}
 

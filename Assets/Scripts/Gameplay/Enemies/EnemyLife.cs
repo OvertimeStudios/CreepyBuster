@@ -21,6 +21,7 @@ public class EnemyLife : MonoBehaviour
 
 	public bool destroyUponDeath = true;
 	public float deathTime = 1f;
+	private bool playSound = true;
 
 	[HideInInspector]
 	public bool inLight = false;
@@ -187,13 +188,15 @@ public class EnemyLife : MonoBehaviour
 	{
 		lightning.transform.position = AttackTargets.Instance.transform.position;
 
-		while(Vector3.Distance(AttackTargets.Instance.transform.position, transform.position) > 0.3f)
+		Transform to = (type == EnemiesPercent.EnemyNames.Spiral) ? spriteRenderer.transform : transform;
+
+		while(Vector3.Distance(AttackTargets.Instance.transform.position, to.position) > 0.3f)
 		{
-			lightning.transform.position = Vector3.Lerp(lightning.transform.position, transform.position, 0.25f);
+			lightning.transform.position = Vector3.Lerp(lightning.transform.position, to.position, 0.25f);
 			yield return null;
 		}
 
-		lightning.transform.position = transform.position;
+		lightning.transform.position = to.position;
 	}
 
 	private void UpdateColor()
@@ -210,8 +213,14 @@ public class EnemyLife : MonoBehaviour
 
 	public virtual void Dead(bool countPoints)
 	{
+		Dead(countPoints, true);
+	}
+
+	public void Dead(bool countPoints, bool playSound)
+	{
 		if(alreadyDead) return;
 
+		this.playSound = playSound;
 		alreadyDead = true;
 
 		foreach(SpriteRenderer brilho in brilhos)
@@ -225,10 +234,11 @@ public class EnemyLife : MonoBehaviour
 			col.enabled = false;
 
 		countAsKill = countPoints;
-		
+
 		StartCoroutine (FadeAway (deathTime));
 
-		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Score);
+		if(playSound)
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Score);
 
 		if (OnDied != null)
 			OnDied (gameObject);
@@ -284,7 +294,8 @@ public class EnemyLife : MonoBehaviour
 			DropOrbs();
 		}
 
-		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.EnemyDie);
+		if(playSound)
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.EnemyDie);
 
 		if(destroyUponDeath)
 		{
