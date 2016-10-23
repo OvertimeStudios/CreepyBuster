@@ -107,7 +107,7 @@ public class Legion : EnemyMovement
 			}
 			else
 			{
-				RemoveMinions(gameObject);
+				RemoveMinions();
 			}
 		}
 	}
@@ -115,15 +115,15 @@ public class Legion : EnemyMovement
 	private void RemoveMinions(GameObject obj)
 	{
 		if(obj == gameObject)
-			RemoveMinions();
+			RemoveMinions(false);
 	}
 
-	private void RemoveMinions()
+	private void RemoveMinions(bool playSound = true)
 	{
 		foreach(Transform t in transform.FindChild("Minions"))
 		{
 			if(!t.GetComponent<EnemyLife>().IsDead)
-				t.GetComponent<EnemyLife>().Dead(false);
+				t.GetComponent<EnemyLife>().Dead(false, playSound);
 		}
 	}
 

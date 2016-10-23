@@ -433,5 +433,6 @@ public class DataCloudPrefs
 		#endif
 
 		PlayerPrefs.DeleteAll();
+		PlayerPrefs.Save();
 	}
 }

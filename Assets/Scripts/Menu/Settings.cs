@@ -104,5 +104,16 @@ public class Settings : MonoBehaviour
 			#endif
 		}
 	}
+
+	public void DeleteSave()
+	{
+		Popup.ShowYesNo("Are you sure you want to delete your save?", ConfirmDeleteSave, null);
+	}
+
+	private void ConfirmDeleteSave()
+	{
+		DataCloudPrefs.DeleteAll();
+		Global.HighScore = 0;
+	}
 }
 	
