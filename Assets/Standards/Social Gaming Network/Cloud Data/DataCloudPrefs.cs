@@ -55,11 +55,36 @@ public class DataCloudPrefs
 		#endif
 	}
 
+	public static void Reload(string snapshotSaveName)
+	{
+		#if CLOUDDATA_IMPLEMENTED
+			#if UNITY_ANDROID
+			_snapshotSaveName = snapshotSaveName;
+			snapshotKeys.Clear();
+			
+			isLoaded = false;
+
+			if(PlayGameServices.isSignedIn())
+				LoadSnapshots();
+			else
+			{
+				GPGManager.authenticationSucceededEvent += AuthenticationSuccess;
+				GPGManager.authenticationFailedEvent += AuthenticationFailed;
+
+				PlayGameServices.authenticate();
+			}
+			#endif
+		#endif
+	}
+
 	#if UNITY_ANDROID
 	private static void AuthenticationSuccess(string msg)
 	{
 		Debug.Log("Authentication success: " + msg);
 		LoadSnapshots();
+
+		GPGManager.authenticationSucceededEvent -= AuthenticationSuccess;
+		GPGManager.authenticationFailedEvent -= AuthenticationFailed;
 	}
 
 	private static void AuthenticationFailed(string msg)
@@ -72,6 +97,9 @@ public class DataCloudPrefs
 		isLoaded = true;
 		if(OnFinishedLoading != null)
 			OnFinishedLoading();
+
+		GPGManager.authenticationSucceededEvent -= AuthenticationSuccess;
+		GPGManager.authenticationFailedEvent -= AuthenticationFailed;
 	}
 
 	private static void LoadSnapshots()
