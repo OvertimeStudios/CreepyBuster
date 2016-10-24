@@ -227,7 +227,7 @@ DAILYMISSION_CHARGER,Kill {0} Charger creepies,Destruir {0} creepys Charger
 DAILYMISSION_LEGION,Kill {0} Legion creepies,Destruir {0} creepys Legion
 DAILYMISSION_FOLLOWER,Kill {0} Follower creepies,Destruir {0} creepys Follower
 DAILYMISSION_BOSS1,Kill {0} Meteormite,Destruir {0} Metormite
-DAILYMISSION_BOSS2,Kill {0} Legiworm,Destruir {0} Legiword
+DAILYMISSION_BOSS2,Kill {0} Legiworm,Destruir {0} Legiworm
 DAILYMISSION_BOSS3,Kill {0} Pysquor,Destruir {0} Psyquor
 DAILYMISSION_LEVELUP,Collect {0} Level Up,Coletar {0} Subir de Nível
 DAILYMISSION_DEATHRAY,Collect {0} Death Ray,Coletar {0} Raio da Morte
