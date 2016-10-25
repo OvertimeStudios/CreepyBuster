@@ -7,17 +7,17 @@
 			<colorhex>FF7373FF</colorhex>
 		</levelUpCondition>
 		<levelUpCondition>
-			<killStreak>6</killStreak>
+			<killStreak>5</killStreak>
 			<maxRays>2</maxRays>
 			<colorhex>FFA273FF</colorhex>
 		</levelUpCondition>
 		<levelUpCondition>
-			<killStreak>13</killStreak>
+			<killStreak>10</killStreak>
 			<maxRays>3</maxRays>
 			<colorhex>78FF73FF</colorhex>
 		</levelUpCondition>
 		<levelUpCondition>
-			<killStreak>19</killStreak>
+			<killStreak>17</killStreak>
 			<maxRays>4</maxRays>
 			<colorhex>73BDFFFF</colorhex>
 		</levelUpCondition>
@@ -37,9 +37,9 @@
 	<enemiesStats>
 		<enemyStats>
 			<name>Blu</name>
-			<life>1.44</life>
+			<life>1.34</life>
 			<vel>1.5</vel>
-			<score>1</score>
+			<score>5</score>
 			<chanceToDrop>0.03</chanceToDrop>
 			<itemName>PlasmaOrbPP</itemName>
 			<percent>0.7</percent>
@@ -54,9 +54,9 @@
 		</enemyStats>
 		<enemyStats>
 			<name>Spiral</name>
-			<life>2</life>
+			<life>1.85</life>
 			<vel>1.2</vel>
-			<score>3</score>
+			<score>7</score>
 			<chanceToDrop>0.09</chanceToDrop>
 			<itemName>PlasmaOrbPP</itemName>
 			<percent>0.15</percent>
@@ -91,9 +91,9 @@
 		</enemyStats>
 		<enemyStats>
 			<name>Ziggy</name>
-			<life>3.1</life>
+			<life>2.25</life>
 			<vel>1.3</vel>
-			<score>2</score>
+			<score>6</score>
 			<chanceToDrop>0.05</chanceToDrop>
 			<itemName>PlasmaOrbP</itemName>
 			<percent>0.4</percent>
@@ -120,9 +120,9 @@
 		</enemyStats>
 		<enemyStats>
 			<name>Charger</name>
-			<life>2.4</life>
+			<life>2.3</life>
 			<vel>1</vel>
-			<score>2</score>
+			<score>10</score>
 			<chanceToDrop>0.08</chanceToDrop>
 			<itemName>PlasmaOrbPP</itemName>
 			<percent>0.15</percent>
@@ -157,9 +157,9 @@
 		</enemyStats>
 		<enemyStats>
 			<name>Follower</name>
-			<life>1.87</life>
+			<life>1.7</life>
 			<vel>1.4</vel>
-			<score>2</score>
+			<score>6</score>
 			<chanceToDrop>0.04</chanceToDrop>
 			<itemName>PlasmaOrbPP</itemName>
 			<percent>0.65</percent>
@@ -174,9 +174,9 @@
 		</enemyStats>
 		<enemyStats>
 			<name>Legion</name>
-			<life>2.51</life>
+			<life>2.2</life>
 			<vel>0.4</vel>
-			<score>2</score>
+			<score>10</score>
 			<chanceToDrop>0.1</chanceToDrop>
 			<itemName>PlasmaOrbPP</itemName>
 			<percent>0.15</percent>
@@ -208,13 +208,6 @@
 		<enemyStats>
 			<itemName>DeathRay</itemName>
 			<percent>0.2</percent>
-		</enemyStats>
-		<enemyStats>
-			<name>LegionMinion</name>
-			<life>0.7</life>
-			<vel>0.6</vel>
-			<score>0</score>
-			<chanceToDrop>0</chanceToDrop>
 		</enemyStats>
 	</enemiesStats>
 	<enemiesTypes>
@@ -327,18 +320,18 @@
 			<percent>0.1</percent>
 		</levelUpCondition>
 		<levelUpCondition>
-			<name>Legion</name>
+			<name>Spiral</name>
 			<percent>0.05</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>140</points>
 			<killStreak>115</killStreak>
 			<name>Blu</name>
-			<percent>0.35</percent>
+			<percent>0.3</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Follower</name>
-			<percent>0.2</percent>
+			<percent>0.35</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Ziggy</name>
@@ -349,32 +342,32 @@
 			<percent>0.15</percent>
 		</levelUpCondition>
 		<levelUpCondition>
-			<name>Spiral</name>
-			<percent>0.1</percent>
+			<name>Legion</name>
+			<percent>0</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>180</points>
 			<killStreak>145</killStreak>
-			<name>Blu</name>
-			<percent>0.2</percent>
+			<name>Legion</name>
+			<percent>0</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Follower</name>
-			<percent>0.3</percent>
+			<percent>0.35</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Ziggy</name>
 			<percent>0.3</percent>
 		</levelUpCondition>
 		<levelUpCondition>
-			<name>Legion</name>
-			<percent>0.2</percent>
+			<name>Charger</name>
+			<percent>0.35</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>240</points>
 			<killStreak>190</killStreak>
 			<name>Blu</name>
-			<percent>0.3</percent>
+			<percent>0.15</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Spiral</name>
@@ -390,11 +383,11 @@
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Legion</name>
-			<percent>0.1</percent>
+			<percent>0.2</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Follower</name>
-			<percent>0.2</percent>
+			<percent>0.25</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>300</points>
@@ -404,7 +397,7 @@
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Follower</name>
-			<percent>0.2</percent>
+			<percent>0.25</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Ziggy</name>
@@ -416,7 +409,7 @@
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Legion</name>
-			<percent>0.2</percent>
+			<percent>0.15</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Spiral</name>
@@ -430,7 +423,7 @@
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Follower</name>
-			<percent>0.2</percent>
+			<percent>0.25</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Ziggy</name>
@@ -438,11 +431,11 @@
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Charger</name>
-			<percent>0.1</percent>
+			<percent>0.15</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Legion</name>
-			<percent>0.2</percent>
+			<percent>0.1</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Spiral</name>
@@ -486,7 +479,7 @@
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Ziggy</name>
-			<percent>0.1</percent>
+			<percent>0.15</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Charger</name>
@@ -494,11 +487,11 @@
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Legion</name>
-			<percent>0.2</percent>
+			<percent>0.1</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Follower</name>
-			<percent>0.2</percent>
+			<percent>0.25</percent>
 		</levelUpCondition>
 	</enemiesTypes>
 	<enemiesSpawn>
@@ -506,31 +499,31 @@
 			<points>0</points>
 			<killStreak>0</killStreak>
 			<quantity>1</quantity>
-			<time>1.6</time>
+			<time>1.7</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>5</points>
 			<killStreak>5</killStreak>
 			<quantity>2</quantity>
-			<time>2.7</time>
+			<time>2.5</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>15</points>
 			<killStreak>11</killStreak>
 			<quantity>2</quantity>
-			<time>2.7</time>
+			<time>2.4</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>25</points>
 			<killStreak>19</killStreak>
 			<quantity>3</quantity>
-			<time>3.3</time>
+			<time>3</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>45</points>
 			<killStreak>30</killStreak>
 			<quantity>2</quantity>
-			<time>2.6</time>
+			<time>2.2</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>60</points>
@@ -542,89 +535,84 @@
 			<points>85</points>
 			<killStreak>60</killStreak>
 			<quantity>3</quantity>
-			<time>3.3</time>
+			<time>3.1</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>115</points>
 			<killStreak>85</killStreak>
 			<quantity>2</quantity>
-			<time>2.2</time>
+			<time>2.1</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>140</points>
 			<killStreak>115</killStreak>
 			<quantity>3</quantity>
-			<time>3.5</time>
+			<time>3</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>180</points>
 			<killStreak>145</killStreak>
 			<quantity>2</quantity>
-			<time>2.2</time>
+			<time>2.6</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>240</points>
 			<killStreak>190</killStreak>
 			<quantity>3</quantity>
-			<time>3.4</time>
+			<time>3</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>300</points>
 			<killStreak>230</killStreak>
 			<quantity>3</quantity>
-			<time>3.2</time>
+			<time>2.8</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>400</points>
 			<killStreak>300</killStreak>
-			<quantity>4</quantity>
-			<time>4.1</time>
+			<quantity>3</quantity>
+			<time>2.7</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>500</points>
 			<killStreak>380</killStreak>
 			<quantity>4</quantity>
-			<time>3.9</time>
+			<time>3.5</time>
 		</levelUpCondition>
 		<levelUpCondition>
 			<points>600</points>
 			<killStreak>470</killStreak>
-			<quantity>5</quantity>
+			<quantity>4</quantity>
 			<time>3.2</time>
 		</levelUpCondition>
 	</enemiesSpawn>
 	<enemiesAttributes>
-		<points>43</points>
-		<vel>0.065</vel>
-		<life>0.6</life>
+		<points>65</points>
+		<vel>0.06</vel>
+		<life>0.1</life>
 		<maxEnemiesAttributeLevel>15</maxEnemiesAttributeLevel>
 	</enemiesAttributes>
 	<boss>
 		<tiers>
 			<tier>
-				<kills>65</kills>
-				<bossMeteor>0.85</bossMeteor>
-				<bossTwins>0.15</bossTwins>
+				<kills>41</kills>
+				<bossMeteor>1</bossMeteor>
+				<bossTwins>0</bossTwins>
 				<bossIllusion>0</bossIllusion>
 			</tier>
 			<tier>
-				<kills>150</kills>
-				<bossMeteor>0.15</bossMeteor>
-				<bossTwins>0.75</bossTwins>
-				<bossIllusion>0.1</bossIllusion>
+				<kills>132</kills>
+				<bossMeteor>0</bossMeteor>
+				<bossTwins>0.8</bossTwins>
+				<bossIllusion>0.2</bossIllusion>
 			</tier>
 			<tier>
-				<kills>350</kills>
-				<bossMeteor>0.15</bossMeteor>
+				<kills>215</kills>
+				<bossMeteor>0</bossMeteor>
 				<bossTwins>0</bossTwins>
-				<bossIllusion>0.85</bossIllusion>
+				<bossIllusion>1</bossIllusion>
 			</tier>
-			<tier>
-				<kills>600</kills>
-				<bossMeteor>0.33</bossMeteor>
-				<bossTwins>0.33</bossTwins>
-				<bossIllusion>0.33</bossIllusion>
-			</tier>
+			<tier/>
 		</tiers>
 		<infinityBoss>
 			<kills>500</kills>
@@ -791,39 +779,39 @@
 			</upgrade>
 			<upgrade>
 				<value>2.3</value>
-				<price>1500</price>
+				<price>500</price>
 			</upgrade>
 			<upgrade>
 				<value>2.35</value>
-				<price>3000</price>
+				<price>1100</price>
 			</upgrade>
 			<upgrade>
 				<value>2.4</value>
-				<price>4500</price>
+				<price>2000</price>
 			</upgrade>
 			<upgrade>
 				<value>2.45</value>
-				<price>6000</price>
+				<price>3200</price>
 			</upgrade>
 			<upgrade>
 				<value>2.5</value>
-				<price>7500</price>
+				<price>4800</price>
 			</upgrade>
 			<upgrade>
 				<value>2.55</value>
-				<price>9000</price>
+				<price>6000</price>
 			</upgrade>
 			<upgrade>
 				<value>2.65</value>
-				<price>10500</price>
+				<price>7100</price>
 			</upgrade>
 			<upgrade>
 				<value>2.8</value>
-				<price>12000</price>
+				<price>8500</price>
 			</upgrade>
 			<upgrade>
 				<value>3</value>
-				<price>15000</price>
+				<price>10000</price>
 			</upgrade>
 		</range>
 		<damage>
@@ -833,39 +821,39 @@
 			</upgrade>
 			<upgrade>
 				<value>1.1</value>
-				<price>1500</price>
+				<price>500</price>
 			</upgrade>
 			<upgrade>
 				<value>1.2</value>
-				<price>3000</price>
+				<price>1100</price>
 			</upgrade>
 			<upgrade>
 				<value>1.3</value>
-				<price>4500</price>
+				<price>2000</price>
 			</upgrade>
 			<upgrade>
 				<value>1.4</value>
-				<price>6000</price>
+				<price>3200</price>
 			</upgrade>
 			<upgrade>
 				<value>1.5</value>
-				<price>7500</price>
+				<price>4800</price>
 			</upgrade>
 			<upgrade>
 				<value>1.6</value>
-				<price>9000</price>
+				<price>6000</price>
 			</upgrade>
 			<upgrade>
 				<value>1.7</value>
-				<price>10500</price>
+				<price>7100</price>
 			</upgrade>
 			<upgrade>
 				<value>1.8</value>
-				<price>12000</price>
+				<price>8500</price>
 			</upgrade>
 			<upgrade>
 				<value>1.9</value>
-				<price>15000</price>
+				<price>10000</price>
 			</upgrade>
 		</damage>
 	</shop>
