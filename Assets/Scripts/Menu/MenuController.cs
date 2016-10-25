@@ -611,7 +611,8 @@ public class MenuController : MonoBehaviour
 		Application.OpenURL("https://play.google.com/store/apps/dev?id=8938813649462154472");
 		//Application.OpenURL("market://dev?id=8938813649462154472");
 		#elif UNITY_IPHONE
-		Application.OpenURL("itms-apps://itunes.apple.com/app/idYOUR_ID");
+		//TODO: change to developer page
+		Application.OpenURL("https://itunes.apple.com/app/id1060148248");
 		#elif UNITY_WEBPLAYER
 		Application.OpenURL("http://www.overtimestudios.com/games.php");
 		#endif
