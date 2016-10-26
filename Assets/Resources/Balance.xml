@@ -367,7 +367,7 @@
 			<points>240</points>
 			<killStreak>190</killStreak>
 			<name>Blu</name>
-			<percent>0.15</percent>
+			<percent>0.2</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Spiral</name>
@@ -375,15 +375,15 @@
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Ziggy</name>
-			<percent>0.1</percent>
-		</levelUpCondition>
-		<levelUpCondition>
-			<name>Charger</name>
 			<percent>0.15</percent>
 		</levelUpCondition>
 		<levelUpCondition>
-			<name>Legion</name>
+			<name>Charger</name>
 			<percent>0.2</percent>
+		</levelUpCondition>
+		<levelUpCondition>
+			<name>Legion</name>
+			<percent>0.05</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Follower</name>
@@ -401,15 +401,15 @@
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Ziggy</name>
-			<percent>0.2</percent>
+			<percent>0.25</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Charger</name>
-			<percent>0.1</percent>
+			<percent>0.15</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Legion</name>
-			<percent>0.15</percent>
+			<percent>0.05</percent>
 		</levelUpCondition>
 		<levelUpCondition>
 			<name>Spiral</name>
