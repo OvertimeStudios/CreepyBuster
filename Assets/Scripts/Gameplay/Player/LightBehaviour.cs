@@ -17,8 +17,6 @@ public class LightBehaviour : MonoBehaviour
 
 	public Transform plasmette;
 
-	[Header("Left/Right Achievement")]
-	public Achievement achievement;
 	private Side side;
 	private float timeOnSide;
 	public static float maxTimeOnSide;
@@ -131,9 +129,6 @@ public class LightBehaviour : MonoBehaviour
 
 		if(timeOnSide > maxTimeOnSide)
 			maxTimeOnSide = timeOnSide;
-
-		if(!achievement.unlocked && maxTimeOnSide >= achievement.value)
-			achievement.Unlock();
 
 		if(side == Side.Left)
 			GameController.leftTime += Time.deltaTime;

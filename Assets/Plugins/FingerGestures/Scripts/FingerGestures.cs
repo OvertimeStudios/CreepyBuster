@@ -504,7 +504,10 @@ public class FingerGestures : MonoBehaviour
     void Start()
     {
         if( makePersistent )
+		{
+			transform.parent = null;
             DontDestroyOnLoad( this.gameObject );
+		}
     }
     
     // this is called after Awake() OR after the script is recompiled (Recompile > Disable > Enable)
@@ -1105,9 +1108,9 @@ iPad mini2    2048x1536 326 ppi
 
 #if UNITY_IPHONE
                 // try to detect some devices that aren't supported by Unity (yet)
-                if( iPhone.generation == iPhoneGeneration.Unknown ||
-                    iPhone.generation == iPhoneGeneration.iPadUnknown ||
-                    iPhone.generation == iPhoneGeneration.iPhoneUnknown )
+                if( UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.Unknown ||
+                    UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.iPadUnknown ||
+                    UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.iPhoneUnknown )
                 {
                     // ipad mini 2 ?
                     if( Screen.width == 2048 && Screen.height == 1536 && screenDPI == 260 )

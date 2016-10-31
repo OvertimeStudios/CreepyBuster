@@ -93,7 +93,7 @@ ACHIEVEMENT_HOURS_TITLE2,Creepy adictive,Viciado em creepy,
 ACHIEVEMENT_HOURS_DESCRIPTION,Complete {0} game hours,Complete {0} horas de jogo,
 ACHIEVEMENT_PLAYS_TITLE1,This is cool!,Isso é demais!,
 ACHIEVEMENT_PLAYS_TITLE2,"Can't complain, you know?","Não tenho do que reclamar, sabe?",
-ACHIEVEMENT_PLAYS_TITLE3,I can't get rid of these creepys!,Não consigo me livrar desses creepys!,
+ACHIEVEMENT_PLAYS_TITLE3,I can't get rid of these creepies!,Não consigo me livrar desses creepys!,
 ACHIEVEMENT_PLAYS_TITLE4,Overly attached player,Jogador grudento,
 ACHIEVEMENT_PLAYS_TITLE5,We got a badass over here,"Ui, calma aí, campeão",
 ACHIEVEMENT_PLAYS_DESCRIPTION,Play {0} games,Jogar {0} partidas,
@@ -184,10 +184,11 @@ DOUBLE_ORBS,DOUBLE ORBS,ORBES EM DOBRO,
 AD_REMOVER,+ AD REMOVER,+ REMOVER PROPAGANDAS,
 LOCKED,LOCKED,BLOQUEADO,
 FACEBOOK_LOGIN,Login with Facebook,Logue-se com o Facebook,
+GAMECENTER_LOGIN,Login with Game Center,Logue-se com o Game Center,
+GOOGLEPLAY_LOGIN,Login with Google Play,Logue-se com o Google Play,
 TUTORIAL_ADD,See more on HOW TO PLAY.,Saiba mais em COMO JOGAR.,
 EVERYPLAY_ERROR,Couldn't record this time,Não foi possível fazer a gravação neste momento
 ADS_FAILED,Ads loading failed, Propaganda não pode ser carregada
-QUIT_GAME,Are you sure you want to quit?,Tem certeza de que deseja sair do jogo?
 PROCESSING,Processing,Processando
 RESTORE_SUCCESS,Products have been successfully restored,Produtos restaurados com sucesso
 RESTORE_FAILED,Restoration failed,Falha na restauração
@@ -207,6 +208,7 @@ DAY,Day,Dia
 USED,USED,USADO
 OUT_OF_STOCK,OUT OF STOCK,ESGOTADO
 IN_USE,IN USE,EM USO
+CANT_USE,CAN'T USE,NÃO PODE USAR
 CONSUMABLES,CONSUMABLES,CONSUMÍVEIS
 DeathRay,DEATH RAY,RAIO DA MORTE
 LevelUp,LEVEL UP,SUBIR DE NÍVEL
@@ -225,7 +227,7 @@ DAILYMISSION_CHARGER,Kill {0} Charger creepies,Destruir {0} creepys Charger
 DAILYMISSION_LEGION,Kill {0} Legion creepies,Destruir {0} creepys Legion
 DAILYMISSION_FOLLOWER,Kill {0} Follower creepies,Destruir {0} creepys Follower
 DAILYMISSION_BOSS1,Kill {0} Meteormite,Destruir {0} Metormite
-DAILYMISSION_BOSS2,Kill {0} Legiworm,Destruir {0} Legiword
+DAILYMISSION_BOSS2,Kill {0} Legiworm,Destruir {0} Legiworm
 DAILYMISSION_BOSS3,Kill {0} Pysquor,Destruir {0} Psyquor
 DAILYMISSION_LEVELUP,Collect {0} Level Up,Coletar {0} Subir de Nível
 DAILYMISSION_DEATHRAY,Collect {0} Death Ray,Coletar {0} Raio da Morte
@@ -233,4 +235,5 @@ DAILYMISSION_INVINCIBILITY,Collect {0} Invincibility,Coletar {0} Invencibilidade
 DAILYMISSION_FROZEN,Collect {0} Freeze,Coletar {0} Congelar
 DAILYMISSION_COMPLETED,"You have just completed ""{0}"" mission. You earned {1} orbs","Você concluiu a missão ""{0}"". Você ganhou {1} orbes"
 COMPLETED,COMPLETED,CONCLUÍDO
-QUIT_GAME,Do you want to quit?,Gostaria de fechar o jogo?
+QUIT_GAME,Are you sure you want to quit?,Tem certeza de que deseja sair do jogo?
+PLASMA_ORB_REWARD, PLASMA ORB REWARD, RECOMPENSA DE PLASMA ORBE

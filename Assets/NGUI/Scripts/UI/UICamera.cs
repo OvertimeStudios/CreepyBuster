@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2015 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -128,30 +128,49 @@ public class UICamera : MonoBehaviour
 	public delegate bool GetKeyStateFunc (KeyCode key);
 	public delegate float GetAxisFunc (string name);
 	public delegate bool GetAnyKeyFunc ();
+	public delegate MouseOrTouch GetMouseDelegate (int button);
+	public delegate MouseOrTouch GetTouchDelegate (int id, bool createIfMissing);
+	public delegate void RemoveTouchDelegate (int id);
 
 	/// <summary>
 	/// GetKeyDown function -- return whether the specified key was pressed this Update().
 	/// </summary>
 
-	static public GetKeyStateFunc GetKeyDown = Input.GetKeyDown;
+	static public GetKeyStateFunc GetKeyDown = delegate(KeyCode key)
+	{
+		if (key >= KeyCode.JoystickButton0 && ignoreControllerInput) return false;
+		return Input.GetKeyDown(key);
+	};
 
 	/// <summary>
 	/// GetKeyDown function -- return whether the specified key was released this Update().
 	/// </summary>
 
-	static public GetKeyStateFunc GetKeyUp = Input.GetKeyUp;
+	static public GetKeyStateFunc GetKeyUp = delegate(KeyCode key)
+	{
+		if (key >= KeyCode.JoystickButton0 && ignoreControllerInput) return false;
+		return Input.GetKeyUp(key);
+	};
 
 	/// <summary>
 	/// GetKey function -- return whether the specified key is currently held.
 	/// </summary>
 
-	static public GetKeyStateFunc GetKey = Input.GetKey;
+	static public GetKeyStateFunc GetKey = delegate(KeyCode key)
+	{
+		if (key >= KeyCode.JoystickButton0 && ignoreControllerInput) return false;
+		return Input.GetKey(key);
+	};
 
 	/// <summary>
 	/// GetAxis function -- return the state of the specified axis.
 	/// </summary>
 
-	static public GetAxisFunc GetAxis = Input.GetAxis;
+	static public GetAxisFunc GetAxis = delegate(string axis)
+	{
+		if (ignoreControllerInput) return 0f;
+		return Input.GetAxis(axis);
+	};
 
 	/// <summary>
 	/// User-settable Input.anyKeyDown
@@ -159,7 +178,51 @@ public class UICamera : MonoBehaviour
 
 	static public GetAnyKeyFunc GetAnyKeyDown;
 
-	public delegate void OnScreenResize ();
+	/// <summary>
+	/// Get the details of the specified mouse button.
+	/// </summary>
+
+	static public GetMouseDelegate GetMouse = delegate(int button) { return mMouse[button]; };
+	
+	/// <summary>
+	/// Get or create a touch event. If you are trying to iterate through a list of active touches, use activeTouches instead.
+	/// </summary>
+
+	static public GetTouchDelegate GetTouch = delegate(int id, bool createIfMissing)
+	{
+		if (id < 0) return GetMouse(-id - 1);
+
+		for (int i = 0, imax = mTouchIDs.Count; i < imax; ++i)
+			if (mTouchIDs[i] == id) return activeTouches[i];
+
+		if (createIfMissing)
+		{
+			MouseOrTouch touch = new MouseOrTouch();
+			touch.pressTime = RealTime.time;
+			touch.touchBegan = true;
+			activeTouches.Add(touch);
+			mTouchIDs.Add(id);
+			return touch;
+		}
+		return null;
+	};
+
+	/// <summary>
+	/// Remove a touch event from the list.
+	/// </summary>
+
+	static public RemoveTouchDelegate RemoveTouch = delegate(int id)
+	{
+		for (int i = 0, imax = mTouchIDs.Count; i < imax; ++i)
+		{
+			if (mTouchIDs[i] == id)
+			{
+				mTouchIDs.RemoveAt(i);
+				activeTouches.RemoveAt(i);
+				return;
+			}
+		}
+	};
 
 	/// <summary>
 	/// Delegate triggered when the screen size changes for any reason.
@@ -167,6 +230,7 @@ public class UICamera : MonoBehaviour
 	/// </summary>
 
 	static public OnScreenResize onScreenResize;
+	public delegate void OnScreenResize ();
 
 	/// <summary>
 	/// Event type -- use "UI" for your user interfaces, and "World" for your game camera.
@@ -187,6 +251,18 @@ public class UICamera : MonoBehaviour
 	/// </summary>
 
 	public LayerMask eventReceiverMask = -1;
+
+	public enum ProcessEventsIn
+	{
+		Update,
+		LateUpdate,
+	}
+
+	/// <summary>
+	/// When events will be processed.
+	/// </summary>
+
+	public ProcessEventsIn processEventsIn = ProcessEventsIn.Update;
 
 	/// <summary>
 	/// If 'true', currently hovered object will be shown in the top left corner.
@@ -358,6 +434,18 @@ public class UICamera : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// If set to 'true', all events will be ignored until set to 'true'.
+	/// </summary>
+
+	static public bool ignoreAllEvents = false;
+
+	/// <summary>
+	/// If set to 'true', controller input will be flat-out ignored. Permanently, for all cameras.
+	/// </summary>
+
+	static public bool ignoreControllerInput = false;
+
 	static bool mDisableController = false;
 	static Vector2 mLastPos = Vector2.zero;
 
@@ -459,21 +547,24 @@ public class UICamera : MonoBehaviour
 		}
 		set
 		{
-			if (value == ControlScheme.Mouse)
+			if (mLastScheme != value)
 			{
-				currentKey = KeyCode.Mouse0;
-			}
-			else if (value == ControlScheme.Controller)
-			{
-				currentKey = KeyCode.JoystickButton0;
-			}
-			else if (value == ControlScheme.Touch)
-			{
-				currentKey = KeyCode.None;
-			}
-			else currentKey = KeyCode.Alpha0;
+				if (value == ControlScheme.Mouse)
+				{
+					currentKey = KeyCode.Mouse0;
+				}
+				else if (value == ControlScheme.Controller)
+				{
+					currentKey = KeyCode.JoystickButton0;
+				}
+				else if (value == ControlScheme.Touch)
+				{
+					currentKey = KeyCode.None;
+				}
+				else currentKey = KeyCode.Alpha0;
 
-			mLastScheme = value;
+				mLastScheme = value;
+			}
 		}
 	}
 
@@ -510,7 +601,7 @@ public class UICamera : MonoBehaviour
 
 					if (mLastScheme == ControlScheme.Mouse)
 					{
-#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
 						Screen.lockCursor = false;
 						Screen.showCursor = true;
 #else
@@ -526,7 +617,7 @@ public class UICamera : MonoBehaviour
 					{
 						if (current != null && current.autoHideCursor)
 						{
-#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
 							Screen.showCursor = false;
 							Screen.lockCursor = true;
 #else
@@ -574,11 +665,7 @@ public class UICamera : MonoBehaviour
 	{
 		get
 		{
-			if (mInputFocus)
-			{
-				if (mSelected && mSelected.activeInHierarchy) return true;
-				mInputFocus = false;
-			}
+			if (mInputFocus && mSelected && mSelected.activeInHierarchy) return true;
 			return false;
 		}
 	}
@@ -666,7 +753,7 @@ public class UICamera : MonoBehaviour
 	/// Caching is always preferable for performance.
 	/// </summary>
 
-#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
 	public Camera cachedCamera { get { if (mCam == null) mCam = camera; return mCam; } }
 #else
 	public Camera cachedCamera { get { if (mCam == null) mCam = GetComponent<Camera>(); return mCam; } }
@@ -768,8 +855,12 @@ public class UICamera : MonoBehaviour
 
 			if (mHover)
 			{
-				if (mHover != controller.current && mHover.GetComponent<UIKeyNavigation>() != null)
-					controller.current = mHover;
+				if (mHover != controller.current)
+				{
+					Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
+					if (mHover.GetComponent<UIKeyNavigation>() != null) controller.current = mHover;
+					Profiler.EndSample();
+				}
 
 				// Locate the appropriate camera for the new object
 				if (statesDiffer)
@@ -811,7 +902,7 @@ public class UICamera : MonoBehaviour
 
 			// Automatically update the object chosen by the controller
 			if (currentScheme == ControlScheme.Controller &&
-				UICamera.current != null && UICamera.current.useController &&
+				UICamera.current != null && (UICamera.current.useController && !ignoreControllerInput) &&
 				UIKeyNavigation.list.size > 0)
 			{
 				for (int i = 0; i < UIKeyNavigation.list.size; ++i)
@@ -920,8 +1011,10 @@ public class UICamera : MonoBehaviour
 
 			if (value != null)
 			{
+				Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
 				UIKeyNavigation nav = value.GetComponent<UIKeyNavigation>();
 				if (nav != null) controller.current = value;
+				Profiler.EndSample();
 			}
 
 			// Set the camera for events
@@ -946,7 +1039,9 @@ public class UICamera : MonoBehaviour
 			// Set the selection
 			if (mSelected)
 			{
+				Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
 				mInputFocus = (mSelected.activeInHierarchy && mSelected.GetComponent<UIInput>() != null);
+				Profiler.EndSample();
 				if (onSelect != null) onSelect(mSelected, true);
 				Notify(mSelected, "OnSelect", true);
 			}
@@ -1097,17 +1192,24 @@ public class UICamera : MonoBehaviour
 
 	static Rigidbody FindRootRigidbody (Transform trans)
 	{
+		Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
+
 		while (trans != null)
 		{
-			if (trans.GetComponent<UIPanel>() != null) return null;
-#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
+			if (trans.GetComponent<UIPanel>() != null) break;
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
 			Rigidbody rb = trans.rigidbody;
 #else
 			Rigidbody rb = trans.GetComponent<Rigidbody>();
 #endif
-			if (rb != null) return rb;
+			if (rb != null)
+			{
+				Profiler.EndSample();
+				return rb;
+			}
 			trans = trans.parent;
 		}
+		Profiler.EndSample();
 		return null;
 	}
 
@@ -1117,17 +1219,24 @@ public class UICamera : MonoBehaviour
 
 	static Rigidbody2D FindRootRigidbody2D (Transform trans)
 	{
+		Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
+
 		while (trans != null)
 		{
-			if (trans.GetComponent<UIPanel>() != null) return null;
-#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
+			if (trans.GetComponent<UIPanel>() != null) break;
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
 			Rigidbody2D rb = trans.rigidbody2D;
 #else
 			Rigidbody2D rb = trans.GetComponent<Rigidbody2D>();
 #endif
-			if (rb != null) return rb;
+			if (rb != null)
+			{
+				Profiler.EndSample();
+				return rb;
+			}
 			trans = trans.parent;
 		}
+		Profiler.EndSample();
 		return null;
 	}
 
@@ -1159,6 +1268,9 @@ public class UICamera : MonoBehaviour
 
 			// Convert to view space
 			currentCamera = cam.cachedCamera;
+#if !UNITY_4_7 && !UNITY_5_0 && !UNITY_5_1 && !UNITY_5_2
+			if (currentCamera.targetDisplay != 0) continue;
+#endif
 			Vector3 pos = currentCamera.ScreenToViewportPoint(inPos);
 			if (float.IsNaN(pos.x) || float.IsNaN(pos.y)) continue;
 
@@ -1179,7 +1291,7 @@ public class UICamera : MonoBehaviour
 					lastWorldPosition = lastHit.point;
 					mRayHitObject = lastHit.collider.gameObject;
 
-					if (!list[0].eventsGoToColliders)
+					if (!cam.eventsGoToColliders)
 					{
 						Rigidbody rb = FindRootRigidbody(mRayHitObject.transform);
 						if (rb != null) mRayHitObject = rb.gameObject;
@@ -1197,7 +1309,9 @@ public class UICamera : MonoBehaviour
 					for (int b = 0; b < hits.Length; ++b)
 					{
 						GameObject go = hits[b].collider.gameObject;
+						Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
 						UIWidget w = go.GetComponent<UIWidget>();
+						Profiler.EndSample();
 
 						if (w != null)
 						{
@@ -1243,7 +1357,9 @@ public class UICamera : MonoBehaviour
 				else if (hits.Length == 1)
 				{
 					GameObject go = hits[0].collider.gameObject;
+					Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
 					UIWidget w = go.GetComponent<UIWidget>();
+					Profiler.EndSample();
 
 					if (w != null)
 					{
@@ -1300,7 +1416,9 @@ public class UICamera : MonoBehaviour
 						for (int b = 0; b < hits.Length; ++b)
 						{
 							GameObject go = hits[b].gameObject;
+							Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
 							UIWidget w = go.GetComponent<UIWidget>();
+							Profiler.EndSample();
 
 							if (w != null)
 							{
@@ -1343,7 +1461,9 @@ public class UICamera : MonoBehaviour
 					else if (hits.Length == 1)
 					{
 						GameObject go = hits[0].gameObject;
+						Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
 						UIWidget w = go.GetComponent<UIWidget>();
+						Profiler.EndSample();
 
 						if (w != null)
 						{
@@ -1514,52 +1634,6 @@ public class UICamera : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Get the details of the specified mouse button.
-	/// </summary>
-
-	static public MouseOrTouch GetMouse (int button) { return mMouse[button]; }
-
-	/// <summary>
-	/// Get or create a touch event. If you are trying to iterate through a list of active touches, use activeTouches instead.
-	/// </summary>
-
-	static public MouseOrTouch GetTouch (int id, bool createIfMissing = false)
-	{
-		if (id < 0) return GetMouse(-id - 1);
-
-		for (int i = 0, imax = mTouchIDs.Count; i < imax; ++i)
-			if (mTouchIDs[i] == id) return activeTouches[i];
-
-		if (createIfMissing)
-		{
-			MouseOrTouch touch = new MouseOrTouch();
-			touch.pressTime = RealTime.time;
-			touch.touchBegan = true;
-			activeTouches.Add(touch);
-			mTouchIDs.Add(id);
-			return touch;
-		}
-		return null;
-	}
-
-	/// <summary>
-	/// Remove a touch event from the list.
-	/// </summary>
-
-	static public void RemoveTouch (int id)
-	{
-		for (int i = 0, imax = mTouchIDs.Count; i < imax; ++i)
-		{
-			if (mTouchIDs[i] == id)
-			{
-				mTouchIDs.RemoveAt(i);
-				activeTouches.RemoveAt(i);
-				return;
-			}
-		}
-	}
-
-	/// <summary>
 	/// Add this camera to the list.
 	/// </summary>
 
@@ -1598,8 +1672,8 @@ public class UICamera : MonoBehaviour
 				string s = args[i];
 				if (s == "-noMouse") useMouse = false;
 				else if (s == "-noTouch") useTouch = false;
-				else if (s == "-noController") useController = false;
-				else if (s == "-noJoystick") useController = false;
+				else if (s == "-noController") { useController = false; ignoreControllerInput = true; }
+				else if (s == "-noJoystick") { useController = false; ignoreControllerInput = true; }
 				else if (s == "-useMouse") useMouse = true;
 				else if (s == "-useTouch") useTouch = true;
 				else if (s == "-useController") useController = true;
@@ -1635,6 +1709,8 @@ public class UICamera : MonoBehaviour
 	
 	void Start ()
 	{
+		list.Sort(CompareFunc);
+
 		if (eventType != EventType.World_3D && cachedCamera.transparencySortMode != TransparencySortMode.Orthographic)
 			cachedCamera.transparencySortMode = TransparencySortMode.Orthographic;
 
@@ -1644,29 +1720,20 @@ public class UICamera : MonoBehaviour
 			if (fallThrough == null)
 			{
 				UIRoot root = NGUITools.FindInParents<UIRoot>(gameObject);
-
-				if (root != null)
-				{
-					fallThrough = root.gameObject;
-				}
-				else
-				{
-					Transform t = transform;
-					fallThrough = (t.parent != null) ? t.parent.gameObject : gameObject;
-				}
+				fallThrough = (root != null) ? root.gameObject : gameObject;
 			}
 			cachedCamera.eventMask = 0;
 
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX
 			// Automatically disable controller-based input if the game starts with a non-zero controller input.
 			// This most commonly happens with Thrustmaster and other similar joystick types.
-			if (disableControllerCheck && useController && handlesEvents)
+			if (!ignoreControllerInput && disableControllerCheck && useController && handlesEvents)
 			{
 				disableControllerCheck = false;
-				if (!string.IsNullOrEmpty(horizontalAxisName) && Mathf.Abs(GetAxis(horizontalAxisName)) > 0.1f) useController = false;
-				else if (!string.IsNullOrEmpty(verticalAxisName) && Mathf.Abs(GetAxis(verticalAxisName)) > 0.1f) useController = false;
-				else if (!string.IsNullOrEmpty(horizontalPanAxisName) && Mathf.Abs(GetAxis(horizontalPanAxisName)) > 0.1f) useController = false;
-				else if (!string.IsNullOrEmpty(verticalPanAxisName) && Mathf.Abs(GetAxis(verticalPanAxisName)) > 0.1f) useController = false;
+				if (!string.IsNullOrEmpty(horizontalAxisName) && Mathf.Abs(GetAxis(horizontalAxisName)) > 0.1f) ignoreControllerInput = true;
+				else if (!string.IsNullOrEmpty(verticalAxisName) && Mathf.Abs(GetAxis(verticalAxisName)) > 0.1f) ignoreControllerInput = true;
+				else if (!string.IsNullOrEmpty(horizontalPanAxisName) && Mathf.Abs(GetAxis(horizontalPanAxisName)) > 0.1f) ignoreControllerInput = true;
+				else if (!string.IsNullOrEmpty(verticalPanAxisName) && Mathf.Abs(GetAxis(verticalPanAxisName)) > 0.1f) ignoreControllerInput = true;
 			}
 #endif
 		}
@@ -1682,50 +1749,16 @@ public class UICamera : MonoBehaviour
 
 	void Update ()
 	{
+		// Ignore events if asked for
+		if (ignoreAllEvents) return;
+
 		// Only the first UI layer should be processing events
 #if UNITY_EDITOR
 		if (!Application.isPlaying || !handlesEvents) return;
 #else
-		if (!handlesEvents) return;
+        if (!handlesEvents) return;
 #endif
-		current = this;
-		NGUIDebug.debugRaycast = debug;
-
-		// Process touch events first
-		if (useTouch) ProcessTouches ();
-		else if (useMouse) ProcessMouse();
-
-		// Custom input processing
-		if (onCustomInput != null) onCustomInput();
-
-		// Update the keyboard and joystick events
-		if ((useKeyboard || useController) && !disableController) ProcessOthers();
-
-		// If it's time to show a tooltip, inform the object we're hovering over
-		if (useMouse && mHover != null)
-		{
-			float scroll = !string.IsNullOrEmpty(scrollAxisName) ? GetAxis(scrollAxisName) : 0f;
-
-			if (scroll != 0f)
-			{
-				if (onScroll != null) onScroll(mHover, scroll);
-				Notify(mHover, "OnScroll", scroll);
-			}
-
-			if (showTooltips && mTooltipTime != 0f && !UIPopupList.isOpen && mMouse[0].dragged == null &&
-				(mTooltipTime < RealTime.time || GetKey(KeyCode.LeftShift) || GetKey(KeyCode.RightShift)))
-			{
-				currentTouch = mMouse[0];
-				currentTouchID = -1;
-				ShowTooltip(mHover);
-			}
-		}
-
-		if (mTooltip != null && !NGUITools.GetActive(mTooltip))
-			ShowTooltip(null);
-
-		current = null;
-		currentTouchID = -100;
+		if (processEventsIn == ProcessEventsIn.Update) ProcessEvents();
 	}
 
 	/// <summary>
@@ -1739,6 +1772,8 @@ public class UICamera : MonoBehaviour
 #else
 		if (!handlesEvents) return;
 #endif
+		if (processEventsIn == ProcessEventsIn.LateUpdate) ProcessEvents();
+
 		int w = Screen.width;
 		int h = Screen.height;
 
@@ -1752,6 +1787,52 @@ public class UICamera : MonoBehaviour
 			if (onScreenResize != null)
 				onScreenResize();
 		}
+	}
+
+	/// <summary>
+	/// Process all events.
+	/// </summary>
+
+	void ProcessEvents ()
+	{
+		current = this;
+		NGUIDebug.debugRaycast = debug;
+
+		// Process touch events first
+		if (useTouch) ProcessTouches();
+		else if (useMouse) ProcessMouse();
+
+		// Custom input processing
+		if (onCustomInput != null) onCustomInput();
+
+		// Update the keyboard and joystick events
+		if ((useKeyboard || useController) && !disableController && !ignoreControllerInput) ProcessOthers();
+
+		// If it's time to show a tooltip, inform the object we're hovering over
+		if (useMouse && mHover != null)
+		{
+			float scroll = !string.IsNullOrEmpty(scrollAxisName) ? GetAxis(scrollAxisName) : 0f;
+
+			if (scroll != 0f)
+			{
+				if (onScroll != null) onScroll(mHover, scroll);
+				Notify(mHover, "OnScroll", scroll);
+			}
+
+			if (currentScheme == ControlScheme.Mouse && showTooltips && mTooltipTime != 0f && !UIPopupList.isOpen && mMouse[0].dragged == null &&
+				(mTooltipTime < RealTime.time || GetKey(KeyCode.LeftShift) || GetKey(KeyCode.RightShift)))
+			{
+				currentTouch = mMouse[0];
+				currentTouchID = -1;
+				ShowTooltip(mHover);
+			}
+		}
+
+		if (mTooltip != null && !NGUITools.GetActive(mTooltip))
+			ShowTooltip(null);
+
+		current = null;
+		currentTouchID = -100;
 	}
 
 	/// <summary>
@@ -1898,7 +1979,7 @@ public class UICamera : MonoBehaviour
 		if (!isPressed && highlightChanged)
 		{
 			currentTouch = mMouse[0];
-			mTooltipTime = RealTime.time + tooltipDelay;
+			mTooltipTime = Time.unscaledTime + tooltipDelay;
 			currentTouchID = -1;
 			currentKey = KeyCode.Mouse0;
 			hoveredObject = currentTouch.current;
@@ -1968,7 +2049,6 @@ public class UICamera : MonoBehaviour
 
 			bool pressed = (phase == TouchPhase.Began) || currentTouch.touchBegan;
 			bool unpressed = (phase == TouchPhase.Canceled) || (phase == TouchPhase.Ended);
-			currentTouch.touchBegan = false;
 			currentTouch.delta = position - currentTouch.pos;
 			currentTouch.pos = position;
 			currentKey = KeyCode.None;
@@ -1989,6 +2069,7 @@ public class UICamera : MonoBehaviour
 			// If the touch has ended, remove it from the list
 			if (unpressed) RemoveTouch(currentTouchID);
 
+			currentTouch.touchBegan = false;
 			currentTouch.last = null;
 			currentTouch = null;
 
@@ -2114,7 +2195,7 @@ public class UICamera : MonoBehaviour
 		KeyCode lastKey = KeyCode.None;
 
 		// Handle controller events
-		if (useController)
+		if (useController && !ignoreControllerInput)
 		{
 			// Automatically choose the first available selection object
 			if (!disableController && currentScheme == ControlScheme.Controller && (currentTouch.current == null || !currentTouch.current.activeInHierarchy))
@@ -2187,8 +2268,8 @@ public class UICamera : MonoBehaviour
 				if (!GetKeyDown(key)) continue;
 
 				if (!useKeyboard && key < KeyCode.Mouse0) continue;
-				if (!useController && key >= KeyCode.JoystickButton0) continue;
-				if (!useMouse && (key >= KeyCode.Mouse0 || key <= KeyCode.Mouse6)) continue;
+				if ((!useController || ignoreControllerInput) && key >= KeyCode.JoystickButton0) continue;
+				if (!useMouse && (key >= KeyCode.Mouse0 && key <= KeyCode.Mouse6)) continue;
 
 				currentKey = key;
 				if (onKey != null) onKey(currentTouch.current, key);
@@ -2209,6 +2290,7 @@ public class UICamera : MonoBehaviour
 		if (pressed)
 		{
 			if (mTooltip != null) ShowTooltip(null);
+			mTooltipTime = Time.unscaledTime + tooltipDelay;
 			currentTouch.pressStarted = true;
 			if (onPress != null && currentTouch.pressed)
 				onPress(currentTouch.pressed, false);
@@ -2229,8 +2311,6 @@ public class UICamera : MonoBehaviour
 
 			Notify(currentTouch.pressed, "OnPress", true);
 
-			if (mTooltip != null) ShowTooltip(null);
-
 			// Change the selection
 			if (mSelected != currentTouch.pressed)
 			{
@@ -2249,14 +2329,18 @@ public class UICamera : MonoBehaviour
 
 				if (currentTouch.pressed != null)
 				{
+					Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
 					UIKeyNavigation nav = currentTouch.pressed.GetComponent<UIKeyNavigation>();
+					Profiler.EndSample();
 					if (nav != null) controller.current = currentTouch.pressed;
 				}
 
 				// Set the selection
 				if (mSelected)
 				{
+					Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
 					mInputFocus = (mSelected.activeInHierarchy && mSelected.GetComponent<UIInput>() != null);
+					Profiler.EndSample();
 					if (onSelect != null) onSelect(mSelected, true);
 					Notify(mSelected, "OnSelect", true);
 				}
@@ -2366,15 +2450,22 @@ public class UICamera : MonoBehaviour
 			Notify(currentTouch.pressed, "OnPress", false);
 
 			// Send a hover message to the object
-			if (isMouse && HasCollider(currentTouch.pressed))
+			if (isMouse)
 			{
-				// OnHover is sent to restore the visual state
-				if (mHover == currentTouch.current)
+				Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
+				var hasCollider = HasCollider(currentTouch.pressed);
+				Profiler.EndSample();
+
+				if (hasCollider)
 				{
-					if (onHover != null) onHover(currentTouch.current, true);
-					Notify(currentTouch.current, "OnHover", true);
+					// OnHover is sent to restore the visual state
+					if (mHover == currentTouch.current)
+					{
+						if (onHover != null) onHover(currentTouch.current, true);
+						Notify(currentTouch.current, "OnHover", true);
+					}
+					else hoveredObject = currentTouch.current;
 				}
-				else hoveredObject = currentTouch.current;
 			}
 
 			// If the button/touch was released on the same object, consider it a click and select it
@@ -2427,7 +2518,7 @@ public class UICamera : MonoBehaviour
 
 	public void ProcessTouch (bool pressed, bool released)
 	{
-		if (pressed) mTooltipTime = Time.unscaledTime + tooltipDelay;
+		if (released) mTooltipTime = 0f;
 
 		// Whether we're using the mouse
 		bool isMouse = (currentScheme == ControlScheme.Mouse);
@@ -2444,14 +2535,15 @@ public class UICamera : MonoBehaviour
 			ProcessPress(pressed, click, drag);
 
 			// Hold event = show tooltip
-			if (currentTouch.pressed == currentTouch.current && mTooltipTime != 0f &&
-				currentTouch.clickNotification != ClickNotification.None &&
-				!currentTouch.dragStarted && currentTouch.deltaTime > tooltipDelay)
+			if (currentTouch.deltaTime > tooltipDelay)
 			{
-				mTooltipTime = 0f;
-				currentTouch.clickNotification = ClickNotification.None;
-				if (longPressTooltip) ShowTooltip(currentTouch.pressed);
-				Notify(currentTouch.current, "OnLongPress", null);
+				if (currentTouch.pressed == currentTouch.current && mTooltipTime != 0f && !currentTouch.dragStarted)
+				{
+					mTooltipTime = 0f;
+					currentTouch.clickNotification = ClickNotification.None;
+					if (longPressTooltip) ShowTooltip(currentTouch.pressed);
+					Notify(currentTouch.current, "OnLongPress", null);
+				}
 			}
 		}
 		else if (isMouse || pressed || released)
@@ -2460,6 +2552,13 @@ public class UICamera : MonoBehaviour
 			if (released) ProcessRelease(isMouse, drag);
 		}
 	}
+
+	/// <summary>
+	/// Cancel the next tooltip, preventing it from being shown.
+	/// Moving the mouse again will reset this counter.
+	/// </summary>
+
+	static public void CancelNextTooltip () { mTooltipTime = 0f; }
 
 	/// <summary>
 	/// Show or hide the tooltip.

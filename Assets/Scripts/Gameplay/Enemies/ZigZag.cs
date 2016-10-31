@@ -11,6 +11,7 @@ public class ZigZag : EnemyMovement
 
 	private Rigidbody2D myRigidbody2D;
 
+	public EnemiesPercent.EnemyNames type;
 	public float vel;
 	private float angle;
 
@@ -53,6 +54,11 @@ public class ZigZag : EnemyMovement
 	{
 		base.Start ();
 
+		//load stats
+		EnemyStats stats = LevelDesign.GetEnemyStats(type);
+		if(stats != null)
+			vel = stats.vel;
+		
 		isSlowed = GameController.IsSlowedDown;
 
 		myRigidbody2D = GetComponent<Rigidbody2D> ();

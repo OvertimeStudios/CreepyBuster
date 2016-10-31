@@ -72,8 +72,6 @@ public class Global : MonoBehaviour
 	private const string TIME_SPECIAL5 = "timeSpecial5";
 	private const string TIME_SPECIAL6 = "timeSpecial6";
 	private const string FACEBOOKID = "facebookID";
-	private const string DAILY_REWARD_DAY = "dailyRewardDay";
-	private const string DAILY_REWARD_NEXT_TIME = "dailyRewardNextTime";
 	private const string DEATHRAY_USABLE = "deathRayUsable";
 	private const string INVENCIBLE_USABLE = "invencibleUsable";
 	private const string LEVELUP_USABLE = "levelUpUsable";
@@ -91,21 +89,7 @@ public class Global : MonoBehaviour
 	private static bool isLoaded;
 
 	#region game variables
-	private static int highScore;
 	private static int sessionsScore;
-	private static int totalOrbs;
-	private static int rayLevel;
-	private static int damageLevel;
-	private static int rangeLevel;
-	private static int musicOn;
-	private static int soundOn;
-	private static int vibrate;
-	private static int orbsMultiplier;
-
-	private static int firstTimeTutorial;
-	private static int tutorialEnabled;
-
-	private static string language;
 	#endregion
 
 	#region session variables
@@ -144,18 +128,12 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!isLoaded)
-				Load ();
-
-			return PlayerPrefs.GetInt(HIGH_SCORE);
+			return DataCloudPrefs.GetInt(HIGH_SCORE);
 		}
 
 		set
 		{
-			highScore = value;
-
-			PlayerPrefs.SetInt (HIGH_SCORE, highScore);
-			PlayerPrefs.Save ();
+			DataCloudPrefs.SetInt(HIGH_SCORE, value);
 
 			if(OnHighScoreUpdated != null)
 				OnHighScoreUpdated();
@@ -166,9 +144,6 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!isLoaded)
-				Load ();
-
 			return sessionsScore;
 		}
 		set
@@ -185,18 +160,12 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!isLoaded)
-				Load ();
-			
-			return totalOrbs;
+			return DataCloudPrefs.GetInt(TOTAL_ORBS);
 		}
 		
 		set
 		{
-			totalOrbs = value;
-			
-			PlayerPrefs.SetInt (TOTAL_ORBS, totalOrbs);
-			PlayerPrefs.Save ();
+			DataCloudPrefs.SetInt(TOTAL_ORBS, value);
 
 			if(OnOrbUpdated != null)
 				OnOrbUpdated();
@@ -207,17 +176,11 @@ public class Global : MonoBehaviour
 	{
 		get 
 		{
-			if(!isLoaded)
-				Load ();
-
-			return rayLevel;
+			return DataCloudPrefs.GetInt(RAY_LEVEL);
 		}
 		set
 		{
-			rayLevel = value;
-
-			PlayerPrefs.SetInt (RAY_LEVEL, rayLevel);
-			PlayerPrefs.Save ();
+			DataCloudPrefs.SetInt(RAY_LEVEL, value);
 		}
 	}
 
@@ -225,17 +188,11 @@ public class Global : MonoBehaviour
 	{
 		get 
 		{
-			if(!isLoaded)
-				Load ();
-			
-			return rangeLevel;
+			return DataCloudPrefs.GetInt(RANGE_LEVEL);
 		}
 		set
 		{
-			rangeLevel = value;
-			
-			PlayerPrefs.SetInt (RANGE_LEVEL, rangeLevel);
-			PlayerPrefs.Save ();
+			DataCloudPrefs.SetInt(RANGE_LEVEL, value);
 		}
 	}
 
@@ -243,17 +200,11 @@ public class Global : MonoBehaviour
 	{
 		get 
 		{
-			if(!isLoaded)
-				Load ();
-			
-			return damageLevel;
+			return DataCloudPrefs.GetInt(DAMAGE_LEVEL);
 		}
 		set
 		{
-			damageLevel = value;
-			
-			PlayerPrefs.SetInt (DAMAGE_LEVEL, damageLevel);
-			PlayerPrefs.Save ();
+			DataCloudPrefs.SetInt (DAMAGE_LEVEL, value);
 		}
 	}
 
@@ -261,18 +212,12 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!isLoaded)
-				Load ();
-
-			return musicOn == 1;
+			return DataCloudPrefs.GetInt(MUSIC_ON, 1) == 1;
 		}
 
 		set
 		{
-			musicOn = (value == true) ? 1 : 0;
-
-			PlayerPrefs.SetInt (MUSIC_ON, musicOn);
-			PlayerPrefs.Save ();
+			DataCloudPrefs.SetInt (MUSIC_ON, (value == true) ? 1 : 0);
 		}
 	}
 
@@ -280,18 +225,12 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!isLoaded)
-				Load ();
-
-			return soundOn == 1;
+			return DataCloudPrefs.GetInt(SOUNDFX_ON, 1) == 1;
 		}
 		
 		set
 		{
-			soundOn = (value == true) ? 1 : 0;
-			
-			PlayerPrefs.SetInt (SOUNDFX_ON, soundOn);
-			PlayerPrefs.Save ();
+			DataCloudPrefs.SetInt (SOUNDFX_ON, (value == true) ? 1 : 0);
 		}
 	}
 
@@ -299,18 +238,12 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!isLoaded)
-				Load();
-
-			return language;
+			return DataCloudPrefs.HasKey(LANGUAGE) ? DataCloudPrefs.GetString(LANGUAGE) : "";
 		}
 
 		set
 		{
-			language = value;
-
-			PlayerPrefs.SetString(LANGUAGE, language);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetString(LANGUAGE, value);
 		}
 	}
 
@@ -318,34 +251,33 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!isLoaded)
-				Load ();
-			
-			return vibrate == 1;
+			return DataCloudPrefs.GetInt(VIBRATE, 1) == 1;
 		}
 		
 		set
 		{
-			vibrate = (value == true) ? 1 : 0;
-			
-			PlayerPrefs.SetInt (VIBRATE, vibrate);
-			PlayerPrefs.Save ();
+			DataCloudPrefs.SetInt (VIBRATE, (value == true) ? 1 : 0);
 		}
 	}
 
 	public static bool FirstPlay
 	{
-		get { return !PlayerPrefs.HasKey (FIRST_PLAY); }
+		get 
+		{
+			return !DataCloudPrefs.HasKey (FIRST_PLAY); 
+		}
 	}
 
 	public static bool Rated
 	{
-		get { return PlayerPrefs.HasKey (RATED); }
+		get 
+		{ 
+			return DataCloudPrefs.HasKey (RATED); 
+		}
 
 		set
 		{
-			PlayerPrefs.SetInt(RATED, 1);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(RATED, 1);
 		}
 	}
 
@@ -353,18 +285,12 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!isLoaded)
-				Load ();
-
-			return firstTimeTutorial == 1;
+			return DataCloudPrefs.GetInt(FIRST_TIME_TUTORIAL) == 1;
 		}
 
 		set
 		{
-			firstTimeTutorial = (value == true) ? 1 : 0;
-			
-			PlayerPrefs.SetInt (FIRST_TIME_TUTORIAL, firstTimeTutorial);
-			PlayerPrefs.Save ();
+			DataCloudPrefs.SetInt (FIRST_TIME_TUTORIAL, (value == true) ? 1 : 0);
 		}
 	}
 
@@ -372,20 +298,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!isLoaded)
-				Load ();
-			
-			return tutorialEnabled == 1;
+			return DataCloudPrefs.GetInt(TUTORIAL_ENABLED) == 1;
 		}
 		
 		set
 		{
-			tutorialEnabled = (value == true) ? 1 : 0;
-
 			Debug.Log("IsTutorialEnabled? " + IsTutorialEnabled);
 
-			PlayerPrefs.SetInt (TUTORIAL_ENABLED, tutorialEnabled);
-			PlayerPrefs.Save ();
+			DataCloudPrefs.SetInt (TUTORIAL_ENABLED, (value == true) ? 1 : 0);
 		}
 	}
 
@@ -393,18 +313,12 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!isLoaded)
-				Load ();
-			
-			return Mathf.Max (1, orbsMultiplier);
+			return Mathf.Max (1, DataCloudPrefs.GetInt(ORBS_MULTIPLIER));
 		}
 		
 		set
 		{
-			orbsMultiplier = value;
-			
-			PlayerPrefs.SetInt (ORBS_MULTIPLIER, orbsMultiplier);
-			PlayerPrefs.Save ();
+			DataCloudPrefs.SetInt (ORBS_MULTIPLIER, value);
 		}
 	}
 
@@ -412,72 +326,52 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!isLoaded)
-				Load ();
-
-			if(!PlayerPrefs.HasKey(ADS_FREE))
+			if(!DataCloudPrefs.HasKey(ADS_FREE))
 				return false;
 
-			return PlayerPrefs.GetInt(ADS_FREE) == 1;
+			return DataCloudPrefs.GetInt(ADS_FREE) == 1;
 		}
 
 		set
 		{
-			PlayerPrefs.SetInt(ADS_FREE, (value == true) ? 1 : 0);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(ADS_FREE, (value == true) ? 1 : 0);
 		}
 	}
 
 	public static bool IsCreepUnlocked(CreepData.CreepType type)
 	{
-		if(!isLoaded)
-			Load ();
-
-		if(!PlayerPrefs.HasKey(type.ToString() + CREEP_UNLOCKED))
-			return false;
-
-		return true;
+		return DataCloudPrefs.HasKey(type.ToString() + CREEP_UNLOCKED);
 	}
 
 	public static void UnlockCreep(CreepData.CreepType type)
 	{
-		PlayerPrefs.SetInt(type.ToString() + CREEP_UNLOCKED, 1);
-		PlayerPrefs.Save();
+		DataCloudPrefs.SetInt(type.ToString() + CREEP_UNLOCKED, 1);
 	}
 
 	public static bool IsAchievementUnlocked(Achievement.Type type, int value)
 	{
-		if(!isLoaded)
-			Load ();
-		
-		if(!PlayerPrefs.HasKey(type.ToString() + value))
-			return false;
-		
-		return true;
+		return DataCloudPrefs.HasKey(type.ToString() + value);
 	}
 	
 	public static void UnlockAchievement(Achievement.Type type, int value)
 	{
-		PlayerPrefs.SetInt(type.ToString() + value, 1);
-		PlayerPrefs.Save();
+		DataCloudPrefs.SetInt(type.ToString() + value, 1);
 	}
 
 	public static void LockAchievement(Achievement.Type type, int value)
 	{
-		PlayerPrefs.DeleteKey(type.ToString() + value);
-		PlayerPrefs.Save();
+		DataCloudPrefs.DeleteKey(type.ToString() + value);
 	}
 
 	public static int BasicsKilled
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(BASICS_KILLED);
+			return DataCloudPrefs.GetInt(BASICS_KILLED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(BASICS_KILLED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(BASICS_KILLED, value);
 		}
 	}
 
@@ -485,12 +379,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(BOOMERANGS_KILLED);
+			return DataCloudPrefs.GetInt(BOOMERANGS_KILLED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(BOOMERANGS_KILLED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(BOOMERANGS_KILLED, value);
 		}
 	}
 
@@ -498,12 +391,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(ZIGZAGS_KILLED);
+			return DataCloudPrefs.GetInt(ZIGZAGS_KILLED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(ZIGZAGS_KILLED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(ZIGZAGS_KILLED, value);
 		}
 	}
 
@@ -511,12 +403,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(CHARGERS_KILLED);
+			return DataCloudPrefs.GetInt(CHARGERS_KILLED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(CHARGERS_KILLED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(CHARGERS_KILLED, value);
 		}
 	}
 
@@ -524,12 +415,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(LEGIONS_KILLED);
+			return DataCloudPrefs.GetInt(LEGIONS_KILLED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(LEGIONS_KILLED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(LEGIONS_KILLED, value);
 		}
 	}
 
@@ -537,12 +427,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(FOLLOWERS_KILLED);
+			return DataCloudPrefs.GetInt(FOLLOWERS_KILLED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(FOLLOWERS_KILLED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(FOLLOWERS_KILLED, value);
 		}
 	}
 
@@ -550,12 +439,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(BOSS1_KILLED);
+			return DataCloudPrefs.GetInt(BOSS1_KILLED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(BOSS1_KILLED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(BOSS1_KILLED, value);
 		}
 	}
 
@@ -563,12 +451,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(BOSS2_KILLED);
+			return DataCloudPrefs.GetInt(BOSS2_KILLED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(BOSS2_KILLED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(BOSS2_KILLED, value);
 		}
 	}
 
@@ -576,12 +463,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(BOSS3_KILLED);
+			return DataCloudPrefs.GetInt(BOSS3_KILLED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(BOSS3_KILLED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(BOSS3_KILLED, value);
 		}
 	}
 
@@ -589,12 +475,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(MAX_STREAK);
+			return DataCloudPrefs.GetInt(MAX_STREAK);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(MAX_STREAK, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(MAX_STREAK, value);
 		}
 	}
 	
@@ -602,12 +487,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(GAMES_PLAYED);
+			return DataCloudPrefs.GetInt(GAMES_PLAYED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(GAMES_PLAYED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(GAMES_PLAYED, value);
 		}
 	}
 
@@ -615,12 +499,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(TIME_PLAYED);
+			return DataCloudPrefs.GetInt(TIME_PLAYED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(TIME_PLAYED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(TIME_PLAYED, value);
 		}
 	}
 
@@ -628,12 +511,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(ENERGY_SPENT);
+			return DataCloudPrefs.GetInt(ENERGY_SPENT);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(ENERGY_SPENT, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(ENERGY_SPENT, value);
 		}
 	}
 
@@ -641,12 +523,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(UPGRADES);
+			return DataCloudPrefs.GetInt(UPGRADES);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(UPGRADES, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(UPGRADES, value);
 		}
 	}
 
@@ -654,12 +535,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(LEFT_RIGHT);
+			return DataCloudPrefs.GetInt(LEFT_RIGHT);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(LEFT_RIGHT, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(LEFT_RIGHT, value);
 		}
 	}
 
@@ -667,12 +547,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(ORBS_COLLECTED);
+			return DataCloudPrefs.GetInt(ORBS_COLLECTED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(ORBS_COLLECTED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(ORBS_COLLECTED, value);
 		}
 	}
 
@@ -680,12 +559,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(ORBS_SPENT);
+			return DataCloudPrefs.GetInt(ORBS_SPENT);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(ORBS_SPENT, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(ORBS_SPENT, value);
 		}
 	}
 
@@ -693,12 +571,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(ORBS_MISSED);
+			return DataCloudPrefs.GetInt(ORBS_MISSED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(ORBS_MISSED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(ORBS_MISSED, value);
 		}
 	}
 
@@ -706,12 +583,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(BOSS_ENCOUNTERS);
+			return DataCloudPrefs.GetInt(BOSS_ENCOUNTERS);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(BOSS_ENCOUNTERS, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(BOSS_ENCOUNTERS, value);
 		}
 	}
 
@@ -719,12 +595,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(LEVELUP_COLLECTED);
+			return DataCloudPrefs.GetInt(LEVELUP_COLLECTED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(LEVELUP_COLLECTED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(LEVELUP_COLLECTED, value);
 		}
 	}
 
@@ -732,12 +607,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(FROZEN_COLLECTED);
+			return DataCloudPrefs.GetInt(FROZEN_COLLECTED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(FROZEN_COLLECTED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(FROZEN_COLLECTED, value);
 		}
 	}
 
@@ -745,12 +619,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(INVENCIBILITY_COLLECTED);
+			return DataCloudPrefs.GetInt(INVENCIBILITY_COLLECTED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(INVENCIBILITY_COLLECTED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(INVENCIBILITY_COLLECTED, value);
 		}
 	}
 
@@ -758,12 +631,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(DEATH_RAY_COLLECTED);
+			return DataCloudPrefs.GetInt(DEATH_RAY_COLLECTED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(DEATH_RAY_COLLECTED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(DEATH_RAY_COLLECTED, value);
 		}
 	}
 
@@ -771,12 +643,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(POWER_UPS_MISSED);
+			return DataCloudPrefs.GetInt(POWER_UPS_MISSED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(POWER_UPS_MISSED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(POWER_UPS_MISSED, value);
 		}
 	}
 
@@ -784,12 +655,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(HITS_BY_BASIC);
+			return DataCloudPrefs.GetInt(HITS_BY_BASIC);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(HITS_BY_BASIC, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(HITS_BY_BASIC, value);
 		}
 	}
 
@@ -797,12 +667,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(HITS_BY_BOOMERANG);
+			return DataCloudPrefs.GetInt(HITS_BY_BOOMERANG);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(HITS_BY_BOOMERANG, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(HITS_BY_BOOMERANG, value);
 		}
 	}
 
@@ -810,12 +679,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(HITS_BY_ZIGZAG);
+			return DataCloudPrefs.GetInt(HITS_BY_ZIGZAG);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(HITS_BY_ZIGZAG, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(HITS_BY_ZIGZAG, value);
 		}
 	}
 
@@ -823,12 +691,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(HITS_BY_CHARGER);
+			return DataCloudPrefs.GetInt(HITS_BY_CHARGER);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(HITS_BY_CHARGER, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(HITS_BY_CHARGER, value);
 		}
 	}
 
@@ -836,12 +703,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(HITS_BY_LEGION);
+			return DataCloudPrefs.GetInt(HITS_BY_LEGION);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(HITS_BY_LEGION, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(HITS_BY_LEGION, value);
 		}
 	}
 
@@ -849,12 +715,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(HITS_BY_FOLLOWER);
+			return DataCloudPrefs.GetInt(HITS_BY_FOLLOWER);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(HITS_BY_FOLLOWER, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(HITS_BY_FOLLOWER, value);
 		}
 	}
 
@@ -862,12 +727,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(HITS_BY_BOSS1);
+			return DataCloudPrefs.GetInt(HITS_BY_BOSS1);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(HITS_BY_BOSS1, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(HITS_BY_BOSS1, value);
 		}
 	}
 
@@ -875,12 +739,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(HITS_BY_BOSS2);
+			return DataCloudPrefs.GetInt(HITS_BY_BOSS2);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(HITS_BY_BOSS2, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(HITS_BY_BOSS2, value);
 		}
 	}
 
@@ -888,12 +751,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(HITS_BY_BOSS3);
+			return DataCloudPrefs.GetInt(HITS_BY_BOSS3);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(HITS_BY_BOSS3, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(HITS_BY_BOSS3, value);
 		}
 	}
 
@@ -901,12 +763,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(ENEMIES_MISSED);
+			return DataCloudPrefs.GetInt(ENEMIES_MISSED);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(ENEMIES_MISSED, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(ENEMIES_MISSED, value);
 		}
 	}
 
@@ -914,12 +775,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(LONGEST_MATCH);
+			return DataCloudPrefs.GetInt(LONGEST_MATCH);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(LONGEST_MATCH, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(LONGEST_MATCH, value);
 		}
 	}
 
@@ -927,12 +787,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(TIME_ON_LEFT);
+			return DataCloudPrefs.GetInt(TIME_ON_LEFT);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(TIME_ON_LEFT, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(TIME_ON_LEFT, value);
 		}
 	}
 
@@ -940,12 +799,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(TIME_ON_RIGHT);
+			return DataCloudPrefs.GetInt(TIME_ON_RIGHT);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(TIME_ON_RIGHT, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(TIME_ON_RIGHT, value);
 		}
 	}
 
@@ -953,12 +811,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(TIME_SPECIAL1);
+			return DataCloudPrefs.GetInt(TIME_SPECIAL1);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(TIME_SPECIAL1, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(TIME_SPECIAL1, value);
 		}
 	}
 
@@ -966,12 +823,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(TIME_SPECIAL2);
+			return DataCloudPrefs.GetInt(TIME_SPECIAL2);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(TIME_SPECIAL2, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(TIME_SPECIAL2, value);
 		}
 	}
 
@@ -979,12 +835,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(TIME_SPECIAL3);
+			return DataCloudPrefs.GetInt(TIME_SPECIAL3);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(TIME_SPECIAL3, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(TIME_SPECIAL3, value);
 		}
 	}
 
@@ -992,12 +847,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(TIME_SPECIAL4);
+			return DataCloudPrefs.GetInt(TIME_SPECIAL4);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(TIME_SPECIAL4, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(TIME_SPECIAL4, value);
 		}
 	}
 
@@ -1005,12 +859,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(TIME_SPECIAL5);
+			return DataCloudPrefs.GetInt(TIME_SPECIAL5);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(TIME_SPECIAL5, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(TIME_SPECIAL5, value);
 		}
 	}
 
@@ -1018,12 +871,11 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			return PlayerPrefs.GetInt(TIME_SPECIAL6);
+			return DataCloudPrefs.GetInt(TIME_SPECIAL6);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(TIME_SPECIAL6, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(TIME_SPECIAL6, value);
 		}
 	}
 
@@ -1031,48 +883,15 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(FACEBOOKID))
+			if(!DataCloudPrefs.HasKey(FACEBOOKID))
 				return "";
 
-			return PlayerPrefs.GetString(FACEBOOKID);
+			return DataCloudPrefs.GetString(FACEBOOKID);
 		}
 
 		set
 		{
-			PlayerPrefs.SetString(FACEBOOKID, value);
-			PlayerPrefs.Save();
-		}
-	}
-
-	public static int DailyRewardDay
-	{
-		get
-		{
-			if(!PlayerPrefs.HasKey(DAILY_REWARD_DAY))
-				return 0;
-
-			return PlayerPrefs.GetInt(DAILY_REWARD_DAY);
-		}
-		set
-		{
-			PlayerPrefs.SetInt(DAILY_REWARD_DAY, value);
-			PlayerPrefs.Save();
-		}
-	}
-
-	public static string DailyRewardNextTime
-	{
-		get
-		{
-			if(!PlayerPrefs.HasKey(DAILY_REWARD_NEXT_TIME))
-				return "";
-			
-			return PlayerPrefs.GetString(DAILY_REWARD_NEXT_TIME);
-		}
-		set
-		{
-			PlayerPrefs.SetString(DAILY_REWARD_NEXT_TIME, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetString(FACEBOOKID, value);
 		}
 	}
 
@@ -1080,15 +899,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(DEATHRAY_USABLE))
+			if(!DataCloudPrefs.HasKey(DEATHRAY_USABLE))
 				return 0;
 
-			return PlayerPrefs.GetInt(DEATHRAY_USABLE);
+			return DataCloudPrefs.GetInt(DEATHRAY_USABLE);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(DEATHRAY_USABLE, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(DEATHRAY_USABLE, value);
 		}
 	}
 
@@ -1096,15 +914,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(INVENCIBLE_USABLE))
+			if(!DataCloudPrefs.HasKey(INVENCIBLE_USABLE))
 				return 0;
 			
-			return PlayerPrefs.GetInt(INVENCIBLE_USABLE);
+			return DataCloudPrefs.GetInt(INVENCIBLE_USABLE);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(INVENCIBLE_USABLE, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(INVENCIBLE_USABLE, value);
 		}
 	}
 
@@ -1112,15 +929,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(FROZEN_USABLE))
+			if(!DataCloudPrefs.HasKey(FROZEN_USABLE))
 				return 0;
 			
-			return PlayerPrefs.GetInt(FROZEN_USABLE);
+			return DataCloudPrefs.GetInt(FROZEN_USABLE);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(FROZEN_USABLE, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(FROZEN_USABLE, value);
 		}
 	}
 
@@ -1128,15 +944,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(LEVELUP_USABLE))
+			if(!DataCloudPrefs.HasKey(LEVELUP_USABLE))
 				return 0;
 			
-			return PlayerPrefs.GetInt(LEVELUP_USABLE);
+			return DataCloudPrefs.GetInt(LEVELUP_USABLE);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(LEVELUP_USABLE, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(LEVELUP_USABLE, value);
 		}
 	}
 
@@ -1144,15 +959,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(SHIELD_USABLE))
+			if(!DataCloudPrefs.HasKey(SHIELD_USABLE))
 				return 0;
 			
-			return PlayerPrefs.GetInt(SHIELD_USABLE);
+			return DataCloudPrefs.GetInt(SHIELD_USABLE);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(SHIELD_USABLE, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(SHIELD_USABLE, value);
 		}
 	}
 
@@ -1160,15 +974,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(DAILY_MISSION_TIME))
+			if(!DataCloudPrefs.HasKey(DAILY_MISSION_TIME))
 				return "";
 			
-			return PlayerPrefs.GetString(DAILY_MISSION_TIME);
+			return DataCloudPrefs.GetString(DAILY_MISSION_TIME);
 		}
 		set
 		{
-			PlayerPrefs.SetString(DAILY_MISSION_TIME, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetString(DAILY_MISSION_TIME, value);
 		}
 	}
 
@@ -1176,15 +989,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(MISSION1_COMPLETED))
+			if(!DataCloudPrefs.HasKey(MISSION1_COMPLETED))
 				return false;
 			
-			return PlayerPrefs.GetInt(MISSION1_COMPLETED) == 1;
+			return DataCloudPrefs.GetInt(MISSION1_COMPLETED) == 1;
 		}
 		set
 		{
-			PlayerPrefs.SetInt(MISSION1_COMPLETED, (value == true) ? 1 : 0);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(MISSION1_COMPLETED, (value == true) ? 1 : 0);
 		}
 	}
 
@@ -1192,15 +1004,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(MISSION1_ID))
+			if(!DataCloudPrefs.HasKey(MISSION1_ID))
 				return -1;
 			
-			return PlayerPrefs.GetInt(MISSION1_ID);
+			return DataCloudPrefs.GetInt(MISSION1_ID);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(MISSION1_ID, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(MISSION1_ID, value);
 		}
 	}
 
@@ -1208,15 +1019,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(MISSION2_COMPLETED))
+			if(!DataCloudPrefs.HasKey(MISSION2_COMPLETED))
 				return false;
-			
-			return PlayerPrefs.GetInt(MISSION2_COMPLETED) == 1;
+
+			return DataCloudPrefs.GetInt(MISSION2_COMPLETED) == 1;
 		}
 		set
 		{
-			PlayerPrefs.SetInt(MISSION2_COMPLETED, (value == true) ? 1 : 0);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(MISSION2_COMPLETED, (value == true) ? 1 : 0);
 		}
 	}
 	
@@ -1224,15 +1034,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(MISSION2_ID))
+			if(!DataCloudPrefs.HasKey(MISSION2_ID))
 				return -1;
-			
-			return PlayerPrefs.GetInt(MISSION2_ID);
+
+			return DataCloudPrefs.GetInt(MISSION2_ID);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(MISSION2_ID, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(MISSION2_ID, value);
 		}
 	}
 
@@ -1240,15 +1049,14 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(MISSION3_COMPLETED))
+			if(!DataCloudPrefs.HasKey(MISSION3_COMPLETED))
 				return false;
-			
-			return PlayerPrefs.GetInt(MISSION3_COMPLETED) == 1;
+
+			return DataCloudPrefs.GetInt(MISSION3_COMPLETED) == 1;
 		}
 		set
 		{
-			PlayerPrefs.SetInt(MISSION3_COMPLETED, (value == true) ? 1 : 0);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(MISSION3_COMPLETED, (value == true) ? 1 : 0);
 		}
 	}
 	
@@ -1256,105 +1064,21 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
-			if(!PlayerPrefs.HasKey(MISSION3_ID))
+			if(!DataCloudPrefs.HasKey(MISSION3_ID))
 				return -1;
-			
-			return PlayerPrefs.GetInt(MISSION3_ID);
+
+			return DataCloudPrefs.GetInt(MISSION3_ID);
 		}
 		set
 		{
-			PlayerPrefs.SetInt(MISSION3_ID, value);
-			PlayerPrefs.Save();
+			DataCloudPrefs.SetInt(MISSION3_ID, value);
 		}
 	}
 	#endregion
 
-	private static void Load()
-	{
-		if(isLoaded) return;
-
-		sessionsScore = 0;
-
-		if(FirstPlay)
-		{
-			PlayerPrefs.SetInt(FIRST_PLAY, 1);
-			
-			//initialize
-			highScore = 0;
-			totalOrbs = 0;
-			rayLevel = 0;
-			rangeLevel = 0;
-			damageLevel = 0;
-			musicOn = 1;
-			soundOn = 1;
-			vibrate = 1;
-			firstTimeTutorial = 1;
-			tutorialEnabled = 1;
-			orbsMultiplier = 1;
-			
-			if(Application.systemLanguage == SystemLanguage.Portuguese)
-				language = LocalizationController.Language.Portuguese.ToString();
-			else
-				language = LocalizationController.Language.English.ToString();
-			
-			SaveAll();
-		}
-		else
-		{
-			highScore = PlayerPrefs.GetInt(HIGH_SCORE);
-			totalOrbs = PlayerPrefs.GetInt(TOTAL_ORBS);
-			rayLevel = PlayerPrefs.GetInt(RAY_LEVEL);
-			rangeLevel = PlayerPrefs.GetInt(RANGE_LEVEL);
-			damageLevel = PlayerPrefs.GetInt(DAMAGE_LEVEL);
-			musicOn = PlayerPrefs.GetInt(MUSIC_ON);
-			soundOn = PlayerPrefs.GetInt(SOUNDFX_ON);
-			vibrate = PlayerPrefs.GetInt(VIBRATE);
-			firstTimeTutorial = PlayerPrefs.GetInt(FIRST_TIME_TUTORIAL);
-			tutorialEnabled = PlayerPrefs.GetInt(TUTORIAL_ENABLED);
-			orbsMultiplier = PlayerPrefs.GetInt(ORBS_MULTIPLIER);
-
-			language = PlayerPrefs.GetString(LANGUAGE);
-		}
-
-		isLoaded = true;
-	}
-
-	public static void ClearPurchasedOnly()
-	{
-		damageLevel = 0;
-		rangeLevel = 0;
-		rayLevel = 0;
-
-		SaveAll ();
-
-		if(OnPurchasesCleared != null)
-			OnPurchasesCleared();
-
-		Popup.ShowBlank("Purchases Reseted", 1f);
-	}
-
-	private static void SaveAll()
-	{
-		PlayerPrefs.SetInt (HIGH_SCORE, highScore);
-		PlayerPrefs.SetInt (TOTAL_ORBS, totalOrbs);
-		PlayerPrefs.SetInt (RAY_LEVEL, rayLevel);
-		PlayerPrefs.SetInt (RANGE_LEVEL, rangeLevel);
-		PlayerPrefs.SetInt (DAMAGE_LEVEL, damageLevel);
-		PlayerPrefs.SetInt (MUSIC_ON, musicOn);
-		PlayerPrefs.SetInt (SOUNDFX_ON, soundOn);
-		PlayerPrefs.SetString (LANGUAGE, language);
-		PlayerPrefs.SetInt (VIBRATE, vibrate);
-		PlayerPrefs.SetInt(FIRST_TIME_TUTORIAL, firstTimeTutorial);
-		PlayerPrefs.SetInt(TUTORIAL_ENABLED, tutorialEnabled);
-		PlayerPrefs.SetInt(ORBS_MULTIPLIER, orbsMultiplier);
-
-		PlayerPrefs.Save ();
-	}
-
 	public static void Reset()
 	{
-		PlayerPrefs.DeleteAll ();
-		PlayerPrefs.Save ();
+		DataCloudPrefs.DeleteAll ();
 
 		Popup.ShowBlank("Player Prefs Reseted", 1f);
 	}

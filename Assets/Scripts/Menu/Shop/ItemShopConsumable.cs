@@ -75,7 +75,7 @@ public class ItemShopConsumable : MonoBehaviour
 		
 		#if INFINITY_ORBS
 		if (Global.TotalOrbs >= price)
-			Popup.ShowYesNo (string.Format(Localization.Get("BUY_ITEM"),description.text, string.Format ("{0:0,0}", price[CurrentLevel])), PurchaseAccepted, PurchaseDeclined);
+			Popup.ShowYesNo (string.Format(Localization.Get("BUY_ITEM"),Localization.Get(itemType.ToString()), string.Format ("{0:0,0}", price)), PurchaseAccepted, PurchaseDeclined);
 		else
 			Popup.ShowYesNo ("You may don't have enough orbs, but you are cheating, who cares? Wanna buy?", PurchaseAccepted, PurchaseDeclined);
 		#else
@@ -88,8 +88,10 @@ public class ItemShopConsumable : MonoBehaviour
 
 	private void PurchaseAccepted()
 	{
+		#if !INFINITY_ORBS
 		Global.OrbsSpent += price;
 		Global.TotalOrbs -= price;
+		#endif
 
 		UnlockProperty();
 	}

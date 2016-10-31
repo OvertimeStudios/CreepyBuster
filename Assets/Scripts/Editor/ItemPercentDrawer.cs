@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(ItemPercent))]
+//[CustomPropertyDrawer(typeof(ItemPercent))]
 public class ItemPercentDrawer : PropertyDrawer 
 {
 	public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 

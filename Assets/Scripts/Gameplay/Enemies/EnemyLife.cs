@@ -11,6 +11,8 @@ public class EnemyLife : MonoBehaviour
 
 	private bool alreadyDead;
 
+	public EnemiesPercent.EnemyNames type;
+
 	public float life;
 	public int score;
 	public bool countAsStreak = true;
@@ -19,11 +21,13 @@ public class EnemyLife : MonoBehaviour
 
 	public bool destroyUponDeath = true;
 	public float deathTime = 1f;
+	private bool playSound = true;
 
 	[HideInInspector]
 	public bool inLight = false;
 
 	private GameObject lightning;
+	private Coroutine lightningAnimation;
 	private SpriteRenderer spriteRenderer;
 	protected List<SpriteRenderer> brilhos;
 	public Color basicColor = Color.yellow;
@@ -86,6 +90,16 @@ public class EnemyLife : MonoBehaviour
 	// Use this for initialization
 	protected virtual void Start () 
 	{
+		//load stats
+		EnemyStats stats = LevelDesign.GetEnemyStats(type);
+		if(stats != null)
+		{
+			life = stats.life;
+			score = stats.score;
+			chanceToDrop = stats.chanceToDrop;
+			itens = stats.itens;
+		}
+
 		alreadyDead = false;
 		spriteRenderer = transform.FindChild ("Sprite").GetComponent<SpriteRenderer> ();
 
@@ -138,6 +152,9 @@ public class EnemyLife : MonoBehaviour
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.AttackStart);
 
 		lightning.SetActive (true);
+
+		//do a lerp to give player feeling the lightning is going from his finger to enemy
+		lightningAnimation = StartCoroutine(AnimateLightning());
 	}
 
 	public void OnLightExit()
@@ -156,6 +173,30 @@ public class EnemyLife : MonoBehaviour
 		}
 
 		lightning.SetActive (false);
+
+		if(lightningAnimation != null)
+			StopCoroutine(lightningAnimation);
+
+	}
+
+
+	/// <summary>
+	/// Animates the lightning. Do a lerp to give player feeling the lightning is going from his finger to enemy
+	/// </summary>
+	/// <returns>The lightning.</returns>
+	private IEnumerator AnimateLightning()
+	{
+		lightning.transform.position = AttackTargets.Instance.transform.position;
+
+		Transform to = (type == EnemiesPercent.EnemyNames.Spiral) ? spriteRenderer.transform : transform;
+
+		while(Vector3.Distance(AttackTargets.Instance.transform.position, to.position) > 0.3f)
+		{
+			lightning.transform.position = Vector3.Lerp(lightning.transform.position, to.position, 0.25f);
+			yield return null;
+		}
+
+		lightning.transform.position = to.position;
 	}
 
 	private void UpdateColor()
@@ -172,8 +213,14 @@ public class EnemyLife : MonoBehaviour
 
 	public virtual void Dead(bool countPoints)
 	{
+		Dead(countPoints, true);
+	}
+
+	public void Dead(bool countPoints, bool playSound)
+	{
 		if(alreadyDead) return;
 
+		this.playSound = playSound;
 		alreadyDead = true;
 
 		foreach(SpriteRenderer brilho in brilhos)
@@ -187,10 +234,11 @@ public class EnemyLife : MonoBehaviour
 			col.enabled = false;
 
 		countAsKill = countPoints;
-		
+
 		StartCoroutine (FadeAway (deathTime));
 
-		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Score);
+		if(playSound)
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Score);
 
 		if (OnDied != null)
 			OnDied (gameObject);
@@ -246,7 +294,8 @@ public class EnemyLife : MonoBehaviour
 			DropOrbs();
 		}
 
-		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.EnemyDie);
+		if(playSound)
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.EnemyDie);
 
 		if(destroyUponDeath)
 		{

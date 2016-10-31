@@ -1,5 +1,10 @@
 #import <Foundation/Foundation.h>
+#if __has_include(<Everyplay/Everyplay.h>)
 #import <Everyplay/Everyplay.h>
+#elif __has_include(<EveryplayCore/EveryplayCore.h>)
+#define EVERYPLAY_COMPAT_WRAPPER 1
+#import <EveryplayCore/EveryplayCore.h>
+#endif
 
 #if UNITY_VERSION >= 430
 #import "AppDelegateListener.h"
@@ -8,7 +13,9 @@
 @interface EveryplayUnity : NSObject<EveryplayDelegate> {
 #endif
     BOOL displayLinkPaused;
+#if TARGET_OS_IPHONE && TARGET_OS_IOS
     UIInterfaceOrientation currentOrientation;
+#endif
 }
 
 + (EveryplayUnity *)sharedInstance;

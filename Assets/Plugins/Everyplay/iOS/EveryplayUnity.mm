@@ -3,6 +3,10 @@
 #define EVERYPLAY_GLES_WRAPPER
 #import "EveryplayGlesSupport.h"
 
+#if !EVERYPLAY_CORE_BUILD || (EVERYPLAY_CORE_BUILD && !EVERYPLAY_NO_FACECAM_SUPPORT)
+#define EVERYPLAY_FACECAM_BINDINGS_ENABLED 1
+#endif
+
 #if UNITY_VERSION >= 463
 #define EVERYPLAY_IS_METAL (UnitySelectedRenderingAPI() == apiMetal)
 #else
@@ -12,7 +16,7 @@
 void UnitySendMessage(const char *obj, const char *method, const char *msg);
 
 extern "C" {
-char *EveryplayCopyString(const char *string) {
+static char *EveryplayCopyString(const char *string) {
     if (string != NULL) {
         char *res = strdup(string);
         return res;
@@ -21,16 +25,17 @@ char *EveryplayCopyString(const char *string) {
     return NULL;
 }
 
-NSString *EveryplayCreateNSString(const char *string) {
+static NSString *EveryplayCreateNSString(const char *string) {
     return string ? [NSString stringWithUTF8String:string] : [NSString stringWithUTF8String:""];
 }
 
-NSURL *EveryplayCreateNSURL(const char *string) {
+static NSURL *EveryplayCreateNSURL(const char *string) {
     return [NSURL URLWithString:EveryplayCreateNSString(string)];
 }
 }
 
 static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
+static const char *everyplayGameObjectName = NULL;
 
 @implementation EveryplayUnity
 
@@ -42,6 +47,36 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
 
 + (EveryplayUnity *)sharedInstance {
     return everyplayUnity;
+}
+
++ (NSString *)jsonFromDictionary:(NSDictionary *)dictionary {
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
+    if (error == nil) {
+        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    } else {
+        EveryplayLog(@"Failed generating JSON: %@", error);
+    }
+    return nil;
+}
+
++ (NSDictionary *)dictionaryFromJson:(NSString *)json {
+    if (json != nil) {
+        NSError *error = nil;
+        NSData *jsonData = [json dataUsingEncoding:NSUTF8StringEncoding];
+
+        id jsonParsedObj = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+
+        if (error == nil) {
+            if ([jsonParsedObj isKindOfClass:[NSDictionary class]]) {
+                return (NSDictionary *) jsonParsedObj;
+            }
+        } else {
+            EveryplayLog(@"Failed parsing JSON: %@", error);
+        }
+    }
+
+    return nil;
 }
 
 - (id)init {
@@ -58,20 +93,25 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
 #if UNITY_VERSION >= 430
         UnityRegisterAppDelegateListener(self);
 #endif
+        [Everyplay initWithDelegate:self];
     }
     return self;
 }
 
+#if !EVERYPLAY_CORE_BUILD
 - (void)setClientId:(NSString *)clientId andClientSecret:(NSString *)clientSecret andRedirectURI:(NSString *)redirectURI {
-    [Everyplay initWithDelegate:self];
     [Everyplay setClientId:clientId clientSecret:clientSecret redirectURI:redirectURI];
-
     EveryplayLog(@"Everyplay init from Unity with client ID: %@ and client secret: %@ and redirect URI: %@", clientId, clientSecret, redirectURI);
 }
 
+#endif
+
 - (void)everyplayShown {
     ELOG;
+
+#if TARGET_OS_IPHONE && TARGET_OS_IOS
     currentOrientation = UnityGetGLViewController().interfaceOrientation;
+#endif
     UnityPause(true);
 #if UNITY_VERSION < 450
     CADisplayLink *displayLink = (CADisplayLink *) _displayLink;
@@ -101,6 +141,7 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
     }
     UnityPause(false);
 
+#if TARGET_OS_IPHONE && TARGET_OS_IOS
     /* Force orientation check, orientation could have changed while Unity was paused */
     UIInterfaceOrientation newOrientation = UnityGetGLViewController().interfaceOrientation;
     if (currentOrientation != newOrientation) {
@@ -112,73 +153,100 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
         UnityGLInvalidateState();
 #endif
     }
+#endif
 
-    UnitySendMessage("Everyplay", "EveryplayHidden", "");
+    if (everyplayGameObjectName != NULL) {
+        UnitySendMessage(everyplayGameObjectName, "EveryplayHidden", "");
+    }
 }
 
 - (void)everyplayReadyForRecording:(NSNumber *)enabled {
     ELOG;
-    NSString *jsonMsg = [NSString stringWithFormat:@"{ \"enabled\":%d }", [enabled intValue]];
-    UnitySendMessage("Everyplay", "EveryplayReadyForRecording", [jsonMsg UTF8String]);
+    if (everyplayGameObjectName != NULL) {
+        NSString *jsonMsg = [EveryplayUnity jsonFromDictionary:@{@"enabled": enabled}];
+        UnitySendMessage(everyplayGameObjectName, "EveryplayReadyForRecording", [jsonMsg UTF8String]);
+    }
 }
 
 - (void)everyplayRecordingStarted {
     ELOG;
-    UnitySendMessage("Everyplay", "EveryplayRecordingStarted", "");
+    if (everyplayGameObjectName != NULL) {
+        UnitySendMessage(everyplayGameObjectName, "EveryplayRecordingStarted", "");
+    }
 }
 
 - (void)everyplayRecordingStopped {
     ELOG;
-    UnitySendMessage("Everyplay", "EveryplayRecordingStopped", "");
+    if (everyplayGameObjectName != NULL) {
+        UnitySendMessage(everyplayGameObjectName, "EveryplayRecordingStopped", "");
+    }
 }
 
+#if EVERYPLAY_FACECAM_BINDINGS_ENABLED
 - (void)everyplayFaceCamSessionStarted {
     ELOG;
-    UnitySendMessage("Everyplay", "EveryplayFaceCamSessionStarted", "");
+    if (everyplayGameObjectName != NULL) {
+        UnitySendMessage(everyplayGameObjectName, "EveryplayFaceCamSessionStarted", "");
+    }
 }
 
 - (void)everyplayFaceCamRecordingPermission:(NSNumber *)granted {
     ELOG;
-    NSString *jsonMsg = [NSString stringWithFormat:@"{ \"granted\":%d }", [granted intValue]];
-    UnitySendMessage("Everyplay", "EveryplayFaceCamRecordingPermission", [jsonMsg UTF8String]);
+    if (everyplayGameObjectName != NULL) {
+        NSString *jsonMsg = [EveryplayUnity jsonFromDictionary:@{@"granted": granted}];
+        UnitySendMessage(everyplayGameObjectName, "EveryplayFaceCamRecordingPermission", [jsonMsg UTF8String]);
+    }
 }
 
 - (void)everyplayFaceCamSessionStopped {
     ELOG;
-    UnitySendMessage("Everyplay", "EveryplayFaceCamSessionStopped", "");
+    if (everyplayGameObjectName != NULL) {
+        UnitySendMessage(everyplayGameObjectName, "EveryplayFaceCamSessionStopped", "");
+    }
 }
+
+#endif
 
 - (void)everyplayThumbnailReadyAtTextureId:(NSNumber *)textureId portraitMode:(NSNumber *)portrait {
     ELOG;
-    NSString *jsonMsg = [NSString stringWithFormat:@"{ \"textureId\":%d,\"portrait\":%d }", [textureId intValue], [portrait intValue]];
-    UnitySendMessage("Everyplay", "EveryplayThumbnailReadyAtTextureId", [jsonMsg UTF8String]);
+    if (everyplayGameObjectName != NULL) {
+        NSString *jsonMsg = [EveryplayUnity jsonFromDictionary:@{@"textureId": textureId, @"portrait": portrait}];
+        UnitySendMessage(everyplayGameObjectName, "EveryplayThumbnailReadyAtTextureId", [jsonMsg UTF8String]);
+    }
 }
 
 - (void)everyplayMetalThumbnailReadyAtTexture:(id)texture portraitMode:(NSNumber *)portrait {
     ELOG;
-    if (texture != nil) {
+    if (everyplayGameObjectName != NULL && texture != nil) {
         uintptr_t texturePtr = (uintptr_t) (__bridge void *) texture;
-        NSString *jsonMsg = [NSString stringWithFormat:@"{ \"texturePtr\":%lu,\"portrait\":%d }", texturePtr, [portrait intValue]];
-        UnitySendMessage("Everyplay", "EveryplayThumbnailTextureReady", [jsonMsg UTF8String]);
+        NSString *jsonMsg = [EveryplayUnity jsonFromDictionary:@{@"texturePtr": [NSNumber numberWithLong:texturePtr], @"portrait": portrait}];
+        UnitySendMessage(everyplayGameObjectName, "EveryplayThumbnailTextureReady", [jsonMsg UTF8String]);
     }
 }
 
+#if !EVERYPLAY_CORE_BUILD
 - (void)everyplayUploadDidStart:(NSNumber *)videoId {
     ELOG;
-    NSString *jsonMsg = [NSString stringWithFormat:@"{ \"videoId\":%d }", [videoId intValue]];
-    UnitySendMessage("Everyplay", "EveryplayUploadDidStart", [jsonMsg UTF8String]);
+    if (everyplayGameObjectName != NULL) {
+        NSString *jsonMsg = [EveryplayUnity jsonFromDictionary:@{@"videoId": videoId}];
+        UnitySendMessage(everyplayGameObjectName, "EveryplayUploadDidStart", [jsonMsg UTF8String]);
+    }
 }
 
 - (void)everyplayUploadDidProgress:(NSNumber *)videoId progress:(NSNumber *)progress {
     ELOG;
-    NSString *jsonMsg = [NSString stringWithFormat:@"{ \"videoId\":%d,\"progress\":%f }", [videoId intValue], [progress floatValue]];
-    UnitySendMessage("Everyplay", "EveryplayUploadDidProgress", [jsonMsg UTF8String]);
+    if (everyplayGameObjectName != NULL) {
+        NSString *jsonMsg = [EveryplayUnity jsonFromDictionary:@{@"videoId": videoId, @"progress": progress}];
+        UnitySendMessage(everyplayGameObjectName, "EveryplayUploadDidProgress", [jsonMsg UTF8String]);
+    }
 }
 
 - (void)everyplayUploadDidComplete:(NSNumber *)videoId {
     ELOG;
-    NSString *jsonMsg = [NSString stringWithFormat:@"{ \"videoId\":%d }", [videoId intValue]];
-    UnitySendMessage("Everyplay", "EveryplayUploadDidComplete", [jsonMsg UTF8String]);
+    if (everyplayGameObjectName != NULL) {
+        NSString *jsonMsg = [EveryplayUnity jsonFromDictionary:@{@"videoId": videoId}];
+        UnitySendMessage(everyplayGameObjectName, "EveryplayUploadDidComplete", [jsonMsg UTF8String]);
+    }
 }
 
 #if UNITY_VERSION >= 430
@@ -188,16 +256,29 @@ static EveryplayUnity *everyplayUnity = [EveryplayUnity sharedInstance];
 }
 
 #endif
+#endif
 
 @end
 
 extern "C" {
-void InitEveryplay(const char *clientId, const char *clientSecret, const char *redirectURI) {
+void InitEveryplay(const char *clientId, const char *clientSecret, const char *redirectURI, const char *gameObjectName) {
     if (everyplayUnity != nil) {
+#if !EVERYPLAY_CORE_BUILD
         [everyplayUnity setClientId:EveryplayCreateNSString(clientId) andClientSecret:EveryplayCreateNSString(clientSecret) andRedirectURI:EveryplayCreateNSString(redirectURI)];
+#endif
+    }
+
+    if (gameObjectName != NULL) {
+        if (everyplayGameObjectName != NULL) {
+            free((char *) everyplayGameObjectName);
+            everyplayGameObjectName = NULL;
+        }
+
+        everyplayGameObjectName = strdup(gameObjectName);
     }
 }
 
+#if !EVERYPLAY_CORE_BUILD
 void EveryplayShow() {
     [[Everyplay sharedInstance] showEveryplay];
 }
@@ -207,41 +288,35 @@ void EveryplayShowWithPath(const char *path) {
     [[Everyplay sharedInstance] showEveryplayWithPath:pathString];
 }
 
-void EveryplayShowSharingModal() {
-    [[Everyplay sharedInstance] showEveryplaySharingModal];
-}
-
 void EveryplayPlayVideoWithURL(const char *url) {
     NSURL *urlUrl = EveryplayCreateNSURL(url);
     [[Everyplay sharedInstance] playVideoWithURL:urlUrl];
 }
 
 void EveryplayPlayVideoWithDictionary(const char *dic) {
-    Class jsonSerializationClass = NSClassFromString(@"NSJSONSerialization");
+    if (dic != NULL) {
+        NSString *strValue = EveryplayCreateNSString(dic);
+        NSDictionary *dictionary = [EveryplayUnity dictionaryFromJson:strValue];
 
-    if (!jsonSerializationClass) {
-        return;
-    }
-
-    NSString *strValue = EveryplayCreateNSString(dic);
-
-    NSError *jsonError = nil;
-    NSData *jsonData = [strValue dataUsingEncoding:NSUTF8StringEncoding];
-
-    id jsonParsedObj = [jsonSerializationClass JSONObjectWithData:jsonData options:0 error:&jsonError];
-
-    if (jsonError == nil) {
-        if ([jsonParsedObj isKindOfClass:[NSDictionary class]]) {
-            [[Everyplay sharedInstance] playVideoWithDictionary:(NSDictionary *) jsonParsedObj];
+        if (dictionary != nil) {
+            [[Everyplay sharedInstance] playVideoWithDictionary:dictionary];
         }
-    } else {
-        EveryplayLog(@"Failed parsing JSON: %@", jsonError);
     }
 }
 
 char *EveryplayAccountAccessToken() {
     return EveryplayCopyString([[[Everyplay account] accessToken] UTF8String]);
 }
+
+void EveryplayShowSharingModal() {
+    [[Everyplay sharedInstance] showEveryplaySharingModal];
+}
+
+void EveryplayPlayLastRecording() {
+    [[Everyplay sharedInstance] playLastRecording];
+}
+
+#endif
 
 void EveryplayStartRecording() {
     [[[Everyplay sharedInstance] capture] startRecording];
@@ -281,32 +356,14 @@ bool EveryplaySnapshotRenderbuffer() {
     return ret;
 }
 
-void EveryplayPlayLastRecording() {
-    [[Everyplay sharedInstance] playLastRecording];
-}
-
 void EveryplaySetMetadata(const char *val) {
-    Class jsonSerializationClass = NSClassFromString(@"NSJSONSerialization");
+    if (val != NULL) {
+        NSString *strValue = EveryplayCreateNSString(val);
+        NSDictionary *dictionary = [EveryplayUnity dictionaryFromJson:strValue];
 
-    if (!jsonSerializationClass) {
-        return;
-    }
-
-    NSString *strValue = EveryplayCreateNSString(val);
-
-    EveryplayLog(@"Set metadata %@", strValue);
-
-    NSError *jsonError = nil;
-    NSData *jsonData = [strValue dataUsingEncoding:NSUTF8StringEncoding];
-
-    id jsonParsedObj = [jsonSerializationClass JSONObjectWithData:jsonData options:0 error:&jsonError];
-
-    if (jsonError == nil) {
-        if ([jsonParsedObj isKindOfClass:[NSDictionary class]]) {
-            [[Everyplay sharedInstance] mergeSessionDeveloperData:(NSDictionary *) jsonParsedObj];
+        if (dictionary != nil) {
+            [[Everyplay sharedInstance] mergeSessionDeveloperData:dictionary];
         }
-    } else {
-        EveryplayLog(@"Failed parsing JSON: %@", jsonError);
     }
 }
 
@@ -320,6 +377,10 @@ void EveryplaySetMotionFactor(int factor) {
 
 void EveryplaySetMaxRecordingMinutesLength(int minutes) {
     [[Everyplay sharedInstance] capture].maxRecordingMinutesLength = minutes;
+}
+
+void EveryplaySetMaxRecordingSecondsLength(int seconds) {
+    [[Everyplay sharedInstance] capture].maxRecordingSecondsLength = seconds;
 }
 
 void EveryplaySetLowMemoryDevice(bool state) {
@@ -338,6 +399,11 @@ bool EveryplayIsSingleCoreDevice() {
     return [[[Everyplay sharedInstance] capture] isSingleCoreDevice];
 }
 
+int EveryplayGetUserInterfaceIdiom() {
+    return (int) [[UIDevice currentDevice] userInterfaceIdiom];
+}
+
+#if EVERYPLAY_FACECAM_BINDINGS_ENABLED
 bool EveryplayFaceCamIsVideoRecordingSupported() {
     return [[[Everyplay sharedInstance] faceCam] isVideoRecordingSupported];
 }
@@ -358,10 +424,6 @@ bool EveryplayFaceCamIsRecordingPermissionGranted() {
     return [[[Everyplay sharedInstance] faceCam] isRecordingPermissionGranted];
 }
 
-int EveryplayGetUserInterfaceIdiom() {
-    return (int) [[UIDevice currentDevice] userInterfaceIdiom];
-}
-
 float EveryplayFaceCamAudioPeakLevel() {
     return [[[Everyplay sharedInstance] faceCam] audioPeakLevel];
 }
@@ -372,6 +434,10 @@ float EveryplayFaceCamAudioPowerLevel() {
 
 void EveryplayFaceCamSetMonitorAudioLevels(bool enabled) {
     [[[Everyplay sharedInstance] faceCam] setMonitorAudioLevels:enabled];
+}
+
+void EveryplayFaceCamSetRecordingMode(int mode) {
+    [[[Everyplay sharedInstance] faceCam] setRecordingMode:static_cast<EveryplayFaceCamRecordingMode>(mode)];
 }
 
 void EveryplayFaceCamSetAudioOnly(bool audioOnly) {
@@ -455,6 +521,8 @@ void EveryplayFaceCamStopSession() {
     [[[Everyplay sharedInstance] faceCam] stopSession];
 }
 
+#endif
+
 void EveryplaySetThumbnailTargetTexture(void *texturePtr) {
     if (texturePtr != NULL) {
         if (EVERYPLAY_IS_METAL == true) {
@@ -489,5 +557,20 @@ void EveryplaySetThumbnailTargetTextureHeight(int textureHeight) {
 
 void EveryplayTakeThumbnail() {
     [[[Everyplay sharedInstance] capture] takeThumbnail];
+}
+
+void EveryplayUnityRenderEvent(int eventID) {
+    const int EPSR = 0x45505352;
+
+    // EveryplayLog("UnityRenderEvent: %x", eventID);
+    if (eventID == EPSR) {
+        EveryplaySnapshotRenderbuffer();
+    }
+}
+
+typedef void (*UnityRenderingEvent)(int eventId);
+
+UnityRenderingEvent EveryplayGetUnityRenderEventPtr() {
+    return EveryplayUnityRenderEvent;
 }
 }

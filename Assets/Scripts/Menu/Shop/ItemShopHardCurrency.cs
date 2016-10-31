@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-#if IAP_IMPLEMENTED
 using Prime31;
-#endif
+using System;
 
 public class ItemShopHardCurrency : MonoBehaviour 
 {
@@ -27,27 +26,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 	public UILabel price;
 	public UILabel currency;
 
-	#if IAP_IMPLEMENTED
 	private IAPProduct product;
-	#endif
-
-	void OnEnable()
-	{
-		//UpdatePrices();
-
-		#if IAP_IMPLEMENTED
-		Settings.OnProductRestored += Restore;
-		IAPHelper.OnProductReceived += UpdatePrices;
-		#endif
-	}
-
-	void OnDisable()
-	{
-		#if IAP_IMPLEMENTED
-		Settings.OnProductRestored -= Restore;
-		IAPHelper.OnProductReceived += UpdatePrices;
-		#endif
-	}
 
 	void Start()
 	{
@@ -55,6 +34,17 @@ public class ItemShopHardCurrency : MonoBehaviour
 		//currency = transform.FindChild("Price").FindChild("currency").GetComponent<UILabel>();
 		//price = transform.FindChild("Price").FindChild("Label").GetComponent<UILabel>();
 		#endif
+
+		#if IAP_IMPLEMENTED
+		Settings.OnProductRestored += Restore;
+		IAPHelper.OnProductReceived += UpdatePrices;
+		#endif
+
+		if(pack == Pack.MultiplierOrbs)
+		{
+			if(Global.OrbsMultiplier > 1)
+				Inactivate();
+		}
 
 		#if UNITY_WEBPLAYER
 		gameObject.SetActive(false);
@@ -67,11 +57,12 @@ public class ItemShopHardCurrency : MonoBehaviour
 		#if IAP_IMPLEMENTED
 		if(product.productId == productID)
 		{
+			Debug.Log("Product Received: " + product.ToString());
 			this.product = product;
 
 			string priceString = product.price.ToString();
 
-			currency.text = priceString.Substring(0, priceString.IndexOf("$") + 1);
+			currency.text = CurrencyTools.GetCurrencySymbol(product.currencyCode);
 			price.text = priceString.Substring(priceString.IndexOf("$") + 1);
 		}
 		#endif
@@ -110,7 +101,8 @@ public class ItemShopHardCurrency : MonoBehaviour
 		#if UNITY_EDITOR
 		Debug.Log("Running on Unity Editor");
 		#else
-		UnityAnalyticsHelper.Transaction(product.productId, decimal.Parse(price.text), product.currencyCode);
+		if(!Debug.isDebugBuild)
+			UnityAnalyticsHelper.Transaction(product.productId, decimal.Parse(price.text), product.currencyCode);
 		#endif
 
 		Unlock();
@@ -122,11 +114,19 @@ public class ItemShopHardCurrency : MonoBehaviour
 		if(type == Type.Consumable) return;
 
 		if(productID == product.productId)
-			Unlock();
+		{
+			Debug.Log("**** RESTORING PRODUCT: " + product.productId);
+			Unlock(false);
+		}
 	}
 	#endif
 
 	private void Unlock()
+	{
+		Unlock(true);
+	}
+
+	private void Unlock(bool showSuccessMessage)
 	{
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.ShopBuy);
 
@@ -135,17 +135,30 @@ public class ItemShopHardCurrency : MonoBehaviour
 			case Pack.OrbsPack:
 				Global.OrbsCollected += value;
 				Global.TotalOrbs += value;
-				Popup.ShowOk (string.Format(Localization.Get("YOU_RECEIVED"), value));
+				if(showSuccessMessage)
+					Popup.ShowOk (string.Format(Localization.Get("YOU_RECEIVED"), value));
 				break;
 				
 			case Pack.MultiplierOrbs:
 				Global.OrbsMultiplier = value;
 				Global.IsAdFree = true;
+				
+				Inactivate();
+				
 				#if ADMOB_IMPLEMENTED
 				AdMobHelper.HideBanner();
 				#endif
-				Popup.ShowOk(Localization.Get("PURCHASE_SUCCESS"));
+				if(showSuccessMessage)
+					Popup.ShowOk(Localization.Get("PURCHASE_SUCCESS"));
 				break;
 		}
+	}
+
+	private void Inactivate()
+	{
+		foreach(UIButton button in GetComponents<UIButton>())
+			button.isEnabled = false;
+
+		price.text = "---";
 	}
 }

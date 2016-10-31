@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(PlayerLevelUpCondition))]
+//[CustomPropertyDrawer(typeof(PlayerLevelUpCondition))]
 public class PlayerLevelUpConditionDrawer : PropertyDrawer 
 {
 	public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 

@@ -7,6 +7,10 @@ using UnityEngine.Advertisements;
 
 public class MenuController : MonoBehaviour 
 {
+	#region Action
+	public static Action OnMenuAchievementUnlocked;
+	#endregion
+
 	public enum Menus
 	{
 		None,
@@ -54,6 +58,7 @@ public class MenuController : MonoBehaviour
 	private UILabel highScore;
 
 	public static bool goToShop = false;
+	private static bool isMenuActive = true;
 
 	private int achievementOrbsToGive;
 	private int dailyMissionOrbsToGive;
@@ -74,13 +79,12 @@ public class MenuController : MonoBehaviour
 	public Transform settingsScreen;
 	public Transform creditsScreen;
 	public Transform hubConnectionScreen;
-	public Transform achievementsScreen;
 	public Transform creepypediaScreen;
 	public Transform gameStatsScreen;
 	public Transform howToPlayScreen;
 
 	[Header("Menu Achievement")]
-	public Achievement achievement;
+	public int menuAchievementValue = 600;
 
 	[Header("Web")]
 	public GameObject playPlayFun;
@@ -122,6 +126,10 @@ public class MenuController : MonoBehaviour
 		get { return activeMenu; }
 	}
 
+	public static bool IsMenuActive
+	{
+		get { return isMenuActive; }
+	}
 	#endregion
 
 	void OnEnable()
@@ -134,6 +142,8 @@ public class MenuController : MonoBehaviour
 		MenuController.OnPanelClosed += ShowRate;
 
 		Global.OnHighScoreUpdated += UpdateScore;
+
+		LeaderboardsHelper.OnPlayerAuthenticated += SendFirstScore;
 	}
 
 	void OnDisable()
@@ -146,6 +156,25 @@ public class MenuController : MonoBehaviour
 		MenuController.OnPanelClosed -= ShowRate;
 
 		Global.OnHighScoreUpdated -= UpdateScore;
+
+		LeaderboardsHelper.OnPlayerAuthenticated -= SendFirstScore;
+	}
+
+	private void SendFirstScore()
+	{
+		//HACK: the first time player enter game, he doesn't have any registered score on leaderboard. So, entry a 0 value.
+		LeaderboardsHelper.SendScore(Global.HighScore);
+
+		//StartCoroutine(GetUserScore());
+	}
+
+	private IEnumerator GetUserScore()
+	{
+		long score = 0;
+		yield return StartCoroutine(LeaderboardsHelper.GetUserScore(value => score = value));
+
+		if((int)score > Global.HighScore)
+			Global.HighScore = (int)score;
 	}
 
 	// Use this for initialization
@@ -163,7 +192,6 @@ public class MenuController : MonoBehaviour
 		overtimeHubGO.SetActive(false);
 		#endif
 
-
 		instance = this;
 
 		activeMenu = Menus.Main;
@@ -174,7 +202,6 @@ public class MenuController : MonoBehaviour
 		//hide all others menus
 		settingsScreen.gameObject.SetActive (false);
 		creditsScreen.gameObject.SetActive (false);
-		achievementsScreen.gameObject.SetActive (false);
 		creepypediaScreen.gameObject.SetActive (false);
 		gameStatsScreen.gameObject.SetActive (false);
 		howToPlayScreen.gameObject.SetActive(false);
@@ -202,23 +229,23 @@ public class MenuController : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKey (KeyCode.LeftControl) && Input.GetKey (KeyCode.Escape))
-		{
-			Global.ClearPurchasedOnly();
-		}
-
 		if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.Escape))
 		{
 			Global.Reset();
 		}
 
-		//game stats
-		timeSpentOnMenu += Time.deltaTime;
-
-		if(!achievement.unlocked && timeSpentOnMenu >= achievement.value)
+		if(!Global.IsAchievementUnlocked(Achievement.Type.Menu, menuAchievementValue))
 		{
-			achievement.Unlock();
-			ShowAchievements();
+			//game stats
+			timeSpentOnMenu += Time.deltaTime;
+
+			if(timeSpentOnMenu >= menuAchievementValue)
+			{
+				if(OnMenuAchievementUnlocked != null)
+					OnMenuAchievementUnlocked();
+
+				Global.UnlockAchievement(Achievement.Type.Menu, menuAchievementValue);
+			}
 		}
 	}
 
@@ -246,6 +273,7 @@ public class MenuController : MonoBehaviour
 
 			gamesCount++;
 
+			isMenuActive = true;
 			if(OnPanelClosed != null)
 				OnPanelClosed();
 
@@ -316,6 +344,8 @@ public class MenuController : MonoBehaviour
 
 	public void OpenPanel()
 	{
+		isMenuActive = false;
+
 		wallTop.enabled = wallBottom.enabled = true;
 		
 		wallTop.PlayForward();
@@ -365,7 +395,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToShop()
 	{
-		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive || Plasmette.IsSpinning) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
@@ -383,7 +413,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToSettings()
 	{
-		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive || Plasmette.IsSpinning) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 
@@ -428,7 +458,7 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToHUBConnection()
 	{
-		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
+		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive || Plasmette.IsSpinning) return;
 
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.MenuIn);
@@ -446,16 +476,10 @@ public class MenuController : MonoBehaviour
 
 	public void MoveToAchievements()
 	{
-		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive) return;
-
-		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
-
-		ActiveScreen = achievementsScreen.gameObject;
-
-		lastMenu = activeMenu;
-		activeMenu = Menus.Achievements;
-		
-		MoveScreen (true);
+		#if ACHIEVEMENTS_IMPLEMENTED
+		if(AchievementsHelper.IsPlayerAuthenticated())
+			AchievementsHelper.OpenAchievements();
+		#endif
 	}
 
 	public void MoveToCreepypedia()
@@ -553,9 +577,10 @@ public class MenuController : MonoBehaviour
 	{
 		if(Global.IsAdFree) return;
 
-		#if UNITYADS_IMPLEMENTED
-		if(gamesCount % gamesToShowAd == 0)
-			UnityAdsHelper.ShowSimpleAd();
+		#if ADMOB_IMPLEMENTED
+		Debug.Log(string.Format("Try to show ads (gamesCount % gamesToShowAd == 0 && AdsHelper.IsInterstitialReady) = {0} % {1} = {2} && {3}", gamesCount, gamesToShowAd, (gamesCount % gamesToShowAd), AdMobHelper.IsInterstitialReady));
+		if(gamesCount % gamesToShowAd == 0 && AdMobHelper.IsInterstitialReady)
+			AdMobHelper.ShowInterstitial();
 		#endif
 	}
 
@@ -586,7 +611,8 @@ public class MenuController : MonoBehaviour
 		Application.OpenURL("https://play.google.com/store/apps/dev?id=8938813649462154472");
 		//Application.OpenURL("market://dev?id=8938813649462154472");
 		#elif UNITY_IPHONE
-		Application.OpenURL("itms-apps://itunes.apple.com/app/idYOUR_ID");
+		//TODO: change to developer page
+		Application.OpenURL("https://itunes.apple.com/app/id1060148248");
 		#elif UNITY_WEBPLAYER
 		Application.OpenURL("http://www.overtimestudios.com/games.php");
 		#endif

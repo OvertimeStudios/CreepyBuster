@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 4757570a02ca348658bdea00ac883aaa
+guid: e16493cd5ad174d3b98c1745f96e6e50
 folderAsset: yes
-timeCreated: 1447439860
+timeCreated: 1476479176
 licenseType: Free
 PluginImporter:
   serializedVersion: 1
@@ -10,6 +10,22 @@ PluginImporter:
   isPreloaded: 0
   platformData:
     Any:
+      enabled: 0
+      settings: {}
+    Editor:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+    OSXIntel:
+      enabled: 1
+      settings: {}
+    OSXIntel64:
+      enabled: 1
+      settings: {}
+    OSXUniversal:
+      enabled: 1
+      settings: {}
+    iOS:
       enabled: 1
       settings: {}
   userData: 

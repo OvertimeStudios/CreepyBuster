@@ -4,15 +4,15 @@ using System.Collections;
 public class AdMobController : MonoBehaviour 
 {
 	#if ADMOB_IMPLEMENTED
-	void OnEnable()
+	void Start()
 	{
 		if(!Global.IsAdFree)
-			MenuController.OnPanelOpened += AdMobHelper.ShowBanner;
+			ShowBannerAd();
 	}
 
-	void OnDisable()
+	private void ShowBannerAd()
 	{
-		MenuController.OnPanelOpened -= AdMobHelper.ShowBanner;
+		AdMobHelper.ShowBanner(GoogleMobileAds.Api.AdSize.Banner, GoogleMobileAds.Api.AdPosition.Bottom);
 	}
 	#endif
 }

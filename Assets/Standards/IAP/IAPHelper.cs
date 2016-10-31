@@ -22,7 +22,7 @@ public class IAPHelper : MonoBehaviour
 	public string androidPublicKey;
 	public string[] productsID;
 
-	#if IAP_IMPLEMENTED
+#if IAP_IMPLEMENTED
 	private static bool isRestoring;
 
 	private static List<IAPProduct> productsReceived;
@@ -70,7 +70,6 @@ public class IAPHelper : MonoBehaviour
 	#region get / set (HELPERS)
 	public static IAPProduct GetProduct(string productID)
 	{
-		Debug.Log(ProductsData);
 		if(ProductsData == null)
 			return null;
 		
@@ -129,14 +128,14 @@ public class IAPHelper : MonoBehaviour
 		GoogleIABManager.purchaseFailedEvent += PurchaseFailed;
 		GoogleIABManager.queryInventorySucceededEvent += QueryInventorySucceededEvent;
 		GoogleIABManager.queryInventoryFailedEvent += QueryInventoryFailedEvent;
-		#elif UNITY_IPHONE && IAP_INTEGRATED
+		#elif UNITY_IPHONE && IAP_IMPLEMENTED
 		StoreKitManager.purchaseSuccessfulEvent += PurchaseSuccessful;
 		StoreKitManager.purchaseCancelledEvent += PurchaseCancelled;
 		StoreKitManager.purchaseFailedEvent += PurchaseFailed;
-		StoreKitManager.productListReceivedEvent += productListReceivedEvent;
-		StoreKitManager.productListRequestFailedEvent += productListRequestFailed;
-		StoreKitManager.restoreTransactionsFinishedEvent += restoreTransactionsFinishedEvent;
-		StoreKitManager.restoreTransactionsFailedEvent += restoreTransactionsFailedEvent;
+		StoreKitManager.productListReceivedEvent += ProductListReceivedEvent;
+		StoreKitManager.productListRequestFailedEvent += ProductListRequestFailed;
+		StoreKitManager.restoreTransactionsFinishedEvent += RestoreTransactionsFinishedEvent;
+		StoreKitManager.restoreTransactionsFailedEvent += RestoreTransactionsFailedEvent;
 		#endif
 
 		if(!string.IsNullOrEmpty(androidPublicKey))
@@ -146,18 +145,13 @@ public class IAPHelper : MonoBehaviour
 	// Initializes the billing system. Call this at app launch to prepare the IAP system.
 	public static void Init()
 	{
-		#if UNITY_ANDROID
-		if(Debug.isDebugBuild)
-			GoogleIAB.enableLogging(true);
-
-		Debug.Log("**************GoogleIAB.init*********");
-
-		GoogleIAB.init( Instance.androidPublicKey );
-		#endif
+		Init (Instance.androidPublicKey, Instance.productsID);
 	}
 
 	public static void Init( string androidPublicKey, string[] productsID)
 	{
+		Debug.Log("*************Init*********");
+
 		Instance.productsID = productsID;
 		Instance.androidPublicKey = androidPublicKey;
 
@@ -166,6 +160,9 @@ public class IAPHelper : MonoBehaviour
 			GoogleIAB.enableLogging(true);
 
 		GoogleIAB.init( androidPublicKey );
+
+		#elif UNITY_IOS
+		IAPHelper.RequestProductData(null);
 		#endif
 	}
 	
@@ -174,7 +171,9 @@ public class IAPHelper : MonoBehaviour
 	{
 		if(Debug.isDebugBuild && (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor))
 		{
-			callback(IAPState.Failed, "Not supported on Unity. Please run into build");
+			if(callback != null)
+				callback(IAPState.Failed, "Not supported on Unity. Please run into build");
+			
 			return;
 		}
 
@@ -194,7 +193,7 @@ public class IAPHelper : MonoBehaviour
 		#if UNITY_ANDROID
 		GoogleIAB.queryInventory( Instance.productsID );
 		#elif UNITY_IOS
-		StoreKitBinding.requestProductData( iosProductIdentifiers );
+		StoreKitBinding.requestProductData( Instance.productsID );
 		#elif UNITY_EDITOR
 
 		#endif
@@ -261,6 +260,9 @@ public class IAPHelper : MonoBehaviour
 		_callback = callback;
 
 		isRestoring = true;
+
+		if(_callback != null)
+			_callback(IAPState.Processing, "");
 
 		#if UNITY_IOS
 		StoreKitBinding.restoreCompletedTransactions();
@@ -364,6 +366,96 @@ public class IAPHelper : MonoBehaviour
 		Debug.Log("************QueryInventoryFailedEvent************ " + errmsg);
 	}
 #endif
+
+#if UNITY_IOS
+	private static void ProductListReceivedEvent(List<StoreKitProduct> purchases)
+	{
+		Debug.Log("************ProductListReceivedEvent************");
+		List<IAPProduct> products = new List<IAPProduct>();
+
+		foreach(StoreKitProduct info in purchases)
+		{
+			IAPProduct p = new IAPProduct(info);
+			products.Add(p);
+
+			Debug.Log("NEW PRODUCT RECEIVED: " + p.ToString());
+
+			if(OnProductReceived != null)
+				OnProductReceived(p);
+		}
+
+		productsReceived = products;
+
+		Debug.Log("************Products received total: " + purchases.Count);
+
+		if(_callback != null)
+			_callback(IAPState.Success, "");
+	}
+
+	private static void ProductListRequestFailed(string errmsg)
+	{
+		if(_callback != null)
+			_callback(IAPState.Success, "");
+
+		Debug.Log("************ProductListRequestFailed************ " + errmsg);
+	}
+
+	private static void PurchaseSuccessful(StoreKitTransaction transaction)
+	{
+		Debug.Log("****PURCHASE SUCCESSFUL");
+		if(_callback != null)
+			_callback(IAPState.Success, "");
+	}
+
+	private static void PurchaseCancelled(string errmsg)
+	{
+		Debug.Log("****PURCHASE CANCELLED");
+		if(_callback != null)
+			_callback(IAPState.Cancelled, errmsg);
+	}
+
+	private static void PurchaseFailed(string errmsg)
+	{
+		Debug.Log("****PURCHASE FAILED");
+		if(_callback != null)
+			_callback(IAPState.Failed, errmsg);
+	}
+
+	private static void RestoreTransactionsFinishedEvent()
+	{
+		List<IAPProduct> products = new List<IAPProduct>();
+
+		foreach(StoreKitTransaction transaction in StoreKitBinding.getAllSavedTransactions())
+		{
+			foreach(IAPProduct product in productsReceived)
+			{
+				if(transaction.productIdentifier == product.productId)
+				{
+					products.Add(product);
+
+					Debug.Log("**** PRODUCT RESTORED: " + transaction.productIdentifier);
+					break;
+				}
+			}
+		}
+
+		productsRestored = products;
+
+		if(_callback != null)
+			_callback(IAPState.Success, "");
+
+		Debug.Log( "restoreTransactionsFinished" );
+	}
+
+	private static void RestoreTransactionsFailedEvent(string errMsg)
+	{
+		if(_callback != null)
+			_callback(IAPState.Failed, errMsg);
+
+
+	}
+#endif
+
 #endif
 }
 

@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(ItemLevelUpCondition))]
+//[CustomPropertyDrawer(typeof(ItemTier))]
 public class ItemLevelUpConditionDrawer : PropertyDrawer 
 {
 	public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 

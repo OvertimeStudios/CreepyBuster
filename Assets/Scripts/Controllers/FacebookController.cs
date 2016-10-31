@@ -12,6 +12,7 @@ public class FacebookController : MonoBehaviour
 	#if FACEBOOK_IMPLEMENTED
 	#region Actions
 	public static event Action OnLoggedIn;
+	public static event Action OnJustLoggedIn;
 	public static event Action OnLoggedOut;
 	#endregion
 
@@ -148,6 +149,9 @@ public class FacebookController : MonoBehaviour
 			yield return null;
 		}
 
+		if(OnJustLoggedIn != null)
+			OnJustLoggedIn();
+
 		foreach (string perm in Facebook.Unity.AccessToken.CurrentAccessToken.Permissions) 
 			Debug.Log(perm);
 
@@ -181,7 +185,8 @@ public class FacebookController : MonoBehaviour
 
 			Global.FacebookID = fbUser.id;
 
-			FacebookHelper.GetFacebookFriends(FetchUserFriendsCallback);
+			//no more need. Friends are handled via game center
+			//FacebookHelper.GetFacebookFriends(FetchUserFriendsCallback);
 		}
 	}
 
@@ -224,7 +229,9 @@ public class FacebookController : MonoBehaviour
 
 	public void LikeUs()
 	{
-		Application.OpenURL("fb://page/" + 1663775267187885);
+		Application.OpenURL("http://facebook.com/1663775267187885");
+			
+		//Application.OpenURL("fb://facewebmodal/f?href=" + "https://www.facebook.com/overtimestudios/");
 		//Application.OpenURL("https://www.facebook.com/" + 1663775267187885);
 	}
 

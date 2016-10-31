@@ -13,8 +13,8 @@ public class OnOffBehaviour : MonoBehaviour
 
 	private enum State
 	{
-		OFF,
-		ON,
+		OFF = 0,
+		ON = 1,
 	}
 
 	private Transform onButton;
@@ -46,16 +46,16 @@ public class OnOffBehaviour : MonoBehaviour
 	void OnEnable()
 	{
 		if (type == Type.Music)
-			state = (State)Global.IsMusicOn.GetHashCode();
+			state = (State)(Global.IsMusicOn ? 1 : 0);
 		
 		else if (type == Type.SoundFX)
-			state = (State)Global.IsSoundOn.GetHashCode();
+			state = (State)(Global.IsSoundOn ? 1 : 0);
 		
 		else if(type == Type.Tutorial)
 			state = (State)Global.IsTutorialEnabled.GetHashCode();
 
 		else if(type == Type.Vibrate)
-			state = (State)Global.CanVibrate.GetHashCode();
+			state = (State)(Global.CanVibrate ? 1 : 0);
 		
 		//turn selection to 'off' or 
 		if (state == State.OFF)

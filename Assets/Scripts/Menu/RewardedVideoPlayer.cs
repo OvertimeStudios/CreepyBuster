@@ -39,7 +39,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		get 
 		{
-			#if UNITYADS_IMPLEMENTED
+			#if ADMOB_IMPLEMENTED
 			return RewardCooldownLeft <= 0;
 			#else
 			return false;
@@ -80,9 +80,9 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	public void Play()
 	{
-		if(DailyRewardController.IsActive || Popup.IsActive) return;
+		if(DailyRewardController.IsActive || Popup.IsActive || Plasmette.IsSpinning) return;
 
-		#if UNITYADS_IMPLEMENTED
+		#if ADMOB_IMPLEMENTED
 		SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
 		if(IsReady)
 		{
@@ -91,19 +91,16 @@ public class RewardedVideoPlayer : MonoBehaviour
 			else
 				Ask();
 		}
-		else if(!UnityAdsHelper.isSupported)
-			Popup.ShowOk(Localization.Get("ADS_FAILED"));
-		else if(!UnityAdsHelper.isInitialized)
-			Popup.ShowOk(Localization.Get("ADS_FAILED"));
-		else
+		else if(!AdMobHelper.IsRewardedVideoReady)
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		#endif
 	}
 
 	private void Ask()
 	{
-		#if UNITYADS_IMPLEMENTED
-		if(UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
+		Debug.Log("Ask");
+		#if ADMOB_IMPLEMENTED
+		if(AdMobHelper.IsRewardedVideoReady)
 			Popup.ShowYesNo(string.Format(Localization.Get("VIDEO_TO_ORBS"), orbsToGive), ShowAd, null);
 		else
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
@@ -114,8 +111,8 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	public void ShowAd()
 	{
-		#if UNITYADS_IMPLEMENTED
-		UnityAdsHelper.ShowRewardedAd (GiveReward);
+		#if ADMOB_IMPLEMENTED
+		AdMobHelper.ShowRewardedVideo (GiveReward);
 		#else
 		Popup.ShowBlank("Unity Ads not implemented", 2f);
 		#endif
@@ -123,9 +120,9 @@ public class RewardedVideoPlayer : MonoBehaviour
 
 	public static void ShowAd(Action handleFinish)
 	{
-		#if UNITYADS_IMPLEMENTED
-		if(UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
-			UnityAdsHelper.ShowRewardedAd(handleFinish);
+		#if ADMOB_IMPLEMENTED
+		if(AdMobHelper.IsRewardedVideoReady)
+			AdMobHelper.ShowRewardedVideo(handleFinish);
 		else
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		#else
@@ -135,13 +132,15 @@ public class RewardedVideoPlayer : MonoBehaviour
 	
 	private void GiveReward()
 	{
+		Debug.Log("Give Reward");
 		if (reward == Rewards.Orbs)
 			GiveOrbs ();
 		else if (reward == Rewards.PlayAgain)
 			RevivePlayer ();
 		else if(reward == Rewards.DoubleOrbs)
 			DoubleOrbs();
-		
+
+		Debug.Log("rewardCooldown: " + rewardCooldown);
 		if(rewardCooldown > 0)
 			SetRewardCooldownTime(DateTime.UtcNow.AddSeconds(rewardCooldown));
 	}
@@ -149,7 +148,9 @@ public class RewardedVideoPlayer : MonoBehaviour
 	private void GiveOrbs()
 	{
 		Global.TotalOrbs += orbsToGive;
-		
+
+		Debug.Log(string.Format("Give {0} orbs. Total: {1}", orbsToGive, Global.TotalOrbs));
+
 		Popup.ShowOk (string.Format(Localization.Get("YOU_RECEIVED"), orbsToGive));
 	}
 	

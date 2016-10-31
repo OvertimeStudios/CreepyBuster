@@ -3,6 +3,8 @@ using System.Collections;
 
 public class LoadingScreen : MonoBehaviour 
 {
+	public string snapshotSaveName = "insert_snapshot_name_here";
+
 	public string sceneToLoad;
 	
 	private AsyncOperation async;
@@ -11,12 +13,13 @@ public class LoadingScreen : MonoBehaviour
 	public GameObject logo;
 
 	// Use this for initialization
-	void Start () 
+	IEnumerator Start () 
 	{
 		#if !UNITY_WEBPLAYER
-		logo.SetActive(false);
+		//logo.SetActive(false);
 		#endif
 
+		yield return new WaitForSeconds(1f);
 		StartCoroutine (Load ());
 	}
 	
@@ -24,15 +27,32 @@ public class LoadingScreen : MonoBehaviour
 	{
 		float startLoadTime = Time.time;
 
-		async = Application.LoadLevelAsync(sceneToLoad);
+		Debug.Log("Loading next scene");
 
-		yield return async;
+		yield return new WaitForEndOfFrame();
+
+		async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneToLoad);
+		async.allowSceneActivation = false;
+
+		while(async.progress < 0.9f)
+			yield return null;
+
+		Debug.Log("DataCloudPrefs.Load from LOADING SCREEN");
+
+		DataCloudPrefs.Load(snapshotSaveName);
+
+		//wait for google play finished loading
+		while(!DataCloudPrefs.IsLoaded)
+			yield return null;
+
+		async.allowSceneActivation = true;
 
 		Debug.Log("Loading Complete in " + (Time.time - startLoadTime) + " seconds.");
 	}
 
 	void Update()
 	{
-		Debug.Log(async.progress);
+		//if(async != null)
+			//Debug.Log(async.progress);
 	}
 }

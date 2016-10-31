@@ -45,7 +45,7 @@ public class Settings : MonoBehaviour
 		HandleLoginSection ();
 
 		#if FACEBOOK_IMPLEMENTED
-		FacebookController.OnLoggedIn += HandleLoginSection;
+		FacebookController.OnJustLoggedIn += HandleLoginSection;
 		FacebookController.OnLoggedOut += HandleLoginSection;
 		#endif
 	}
@@ -53,7 +53,7 @@ public class Settings : MonoBehaviour
 	void OnDisable()
 	{
 		#if FACEBOOK_IMPLEMENTED
-		FacebookController.OnLoggedIn -= HandleLoginSection;
+		FacebookController.OnJustLoggedIn -= HandleLoginSection;
 		FacebookController.OnLoggedOut -= HandleLoginSection;
 		#endif
 	}
@@ -103,6 +103,17 @@ public class Settings : MonoBehaviour
 			}
 			#endif
 		}
+	}
+
+	public void DeleteSave()
+	{
+		Popup.ShowYesNo("Are you sure you want to delete your save?", ConfirmDeleteSave, null);
+	}
+
+	private void ConfirmDeleteSave()
+	{
+		DataCloudPrefs.DeleteAll();
+		Global.HighScore = 0;
 	}
 }
 	

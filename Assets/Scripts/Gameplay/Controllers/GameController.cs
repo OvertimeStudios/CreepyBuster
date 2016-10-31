@@ -326,33 +326,35 @@ public class GameController : MonoBehaviour
 			//game stats
 			creepsKilled++;
 
-			string enemyName = enemy.name;
-			if(enemyName.Contains(BASIC))
+			EnemiesPercent.EnemyNames enemyName = enemy.GetComponent<EnemyLife>().type;
+			if(enemyName == EnemiesPercent.EnemyNames.Blu)
 			{
 				Global.UnlockCreep(CreepData.CreepType.Basic);
 				basicsKilled++;
+
+				Debug.Log("BASIC KILLED: " + basicsKilled);
 			}
-			if(enemyName.Contains(BOOMERANG))
+			if(enemyName == EnemiesPercent.EnemyNames.Spiral)
 			{
 				Global.UnlockCreep(CreepData.CreepType.Boomerang);
 				boomerangsKilled++;
 			}
-			if(enemyName.Contains(ZIGZAG))
+			if(enemyName == EnemiesPercent.EnemyNames.Ziggy)
 			{
 				Global.UnlockCreep(CreepData.CreepType.ZigZag);
 				zigzagsKilled++;
 			}
-			if(enemyName.Contains(CHARGER))
+			if(enemyName == EnemiesPercent.EnemyNames.Charger)
 			{
 				Global.UnlockCreep(CreepData.CreepType.Charger);
 				chargersKilled++;
 			}
-			if(enemyName.Contains(LEGION))
+			if(enemyName == EnemiesPercent.EnemyNames.Legion)
 			{
 				Global.UnlockCreep(CreepData.CreepType.Legion);
 				legionsKilled++;
 			}
-			if(enemyName.Contains(FOLLOWER))
+			if(enemyName == EnemiesPercent.EnemyNames.Follower)
 			{
 				Global.UnlockCreep(CreepData.CreepType.Follower);
 				followersKilled++;
@@ -470,6 +472,8 @@ public class GameController : MonoBehaviour
 
 		MenuController.Instance.gameObject.SetActive(true);
 
+		DataCloudPrefs.Save();
+
 		if (OnGameOver != null)
 			OnGameOver ();
 
@@ -534,9 +538,15 @@ public class GameController : MonoBehaviour
 		{
 			Global.HighScore = Score;
 
+			/*
 			#if FACEBOOK_IMPLEMENTED && DB_IMPLEMENTED
 			if(FacebookController.IsLoggedIn)
 				StartCoroutine(DBHandler.UpdateUserScore(DBHandler.User.id, Score));
+			#endif
+			*/
+
+			#if LEADERBOARDS_IMPLEMENTED
+			LeaderboardsHelper.SendScore(Score);
 			#endif
 		}
 		
@@ -618,9 +628,9 @@ public class GameController : MonoBehaviour
 
 		Debug.Log("ShowContinueScreen()");
 
-		#if UNITYADS_IMPLEMENTED
-		Debug.Log(string.Format("UnityAdsHelper.IsReady({0})? {1}",UnityAdsHelper.REWARDED_VIDEO, UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO)));
-		if (continues == 0 && UnityAdsHelper.IsReady(UnityAdsHelper.REWARDED_VIDEO))
+		#if ADMOB_IMPLEMENTED
+		Debug.Log(string.Format("AdMobHelper.IsRewardedVideoReady? {0}",AdMobHelper.IsRewardedVideoReady));
+		if (continues == 0 && AdMobHelper.IsRewardedVideoReady)
 			Popup.ShowVideoNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("VIDEO_TO_PLAY"), ShowAdToContinue, ShowEndScreen, false);
 		else
 		{
@@ -629,13 +639,13 @@ public class GameController : MonoBehaviour
 			Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get("INFINITY_ORBS_TO_PLAY"), PayContinueOrbs, ShowEndScreen);
 			#else
 			float orbsToPay = (orbsToContinue * Mathf.Pow(2, continues));
-
+			Debug.Log("orbsToPay: " + orbsToPay);
 			if(Global.TotalOrbs >= orbsToPay)
 				Popup.ShowYesNo(Localization.Get(causeOfDeath.ToString()) + "\n \n" + string.Format(Localization.Get ("WANT_TO_SPEND"), orbsToPay) + "\n \n (" + string.Format(Localization.Get ("YOU_HAVE"), Global.TotalOrbs) + ")", PayContinueOrbs, ShowEndScreen);
 			else
 				Popup.ShowOk(Localization.Get(causeOfDeath.ToString()) + "\n \n" + Localization.Get ("NOT_ENOUGH_ORBS"), ShowEndScreen);
 			#endif
-		#if UNITYADS_IMPLEMENTED
+		#if ADMOB_IMPLEMENTED
 		}
 		#endif
 
@@ -645,7 +655,7 @@ public class GameController : MonoBehaviour
 
 	private void ShowAdToContinue()
 	{
-		UnityAdsHelper.ShowRewardedAd(ContinuePlaying);
+		AdMobHelper.ShowRewardedVideo(ContinuePlaying);
 	}
 
 	private void ShowEndScreen()
@@ -670,7 +680,6 @@ public class GameController : MonoBehaviour
 	private void VideoWatched()
 	{
 		continuesVideo++;
-		ContinuePlaying ();
 	}
 
 	private void PayContinueOrbs()
@@ -686,7 +695,7 @@ public class GameController : MonoBehaviour
 	{
 		continues++;
 
-		Debug.Log ("ContinuePlaying");
+		Debug.Log ("ContinuePlaying. continues used: " + continues);
 
 		ReachMaxLevel();
 

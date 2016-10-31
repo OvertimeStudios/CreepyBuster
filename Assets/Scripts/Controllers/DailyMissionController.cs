@@ -399,8 +399,8 @@ public class DailyMissionController : MonoBehaviour
 		//added 24 more hours
 		SetRewardCooldownTime(RewardCooldownTime.AddHours(24f));
 
-		BuildMissions();
 		Reset();
+		BuildMissions();
 	}
 
 	private void BuildMissions()

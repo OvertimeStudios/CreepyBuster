@@ -76,7 +76,7 @@ public class Achievement : MonoBehaviour
 	void Start () 
 	{
 		LocalizationController.OnChanged += LanguageChanged;
-		GameController.OnGameOver += VerifyUnlockment;
+		//GameController.OnGameOver += VerifyUnlockment;
 
 		unlocked = Global.IsAchievementUnlocked(type, value);
 

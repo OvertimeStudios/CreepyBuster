@@ -7,6 +7,7 @@ public class RandomMovement : EnemyMovement
 {
 	Rigidbody2D myRigidbody2D;
 
+	public EnemiesPercent.EnemyNames type;
 	public float vel;
 	public RandomBetweenTwoConst timeToChangeVel;
 
@@ -55,6 +56,11 @@ public class RandomMovement : EnemyMovement
 	{
 		base.Start ();
 
+		//load stats
+		EnemyStats stats = LevelDesign.GetEnemyStats(type);
+		if(stats != null)
+			vel = stats.vel;
+		
 		isSlowed = GameController.IsSlowedDown;
 
 		vel += LevelDesign.EnemiesBonusVel;

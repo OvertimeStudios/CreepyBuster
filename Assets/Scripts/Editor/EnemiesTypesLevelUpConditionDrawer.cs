@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(EnemiesTypesLevelUpCondition))]
+//[CustomPropertyDrawer(typeof(EnemiesTypesLevelUpCondition))]
 public class EnemiesTypesLevelUpConditionDrawer : PropertyDrawer 
 {
 	public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
