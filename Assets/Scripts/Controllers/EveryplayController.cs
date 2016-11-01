@@ -42,6 +42,7 @@ public class EveryplayController : MonoBehaviour
 			Everyplay.ReadyForRecording += OnReadyForRecording;
 			GameController.OnGameStart += StartRecording;
 			GameController.OnPause += PauseRecording;
+			GameController.OnShowContinueScreen += PauseRecording;
 			GameController.OnResume += ResumeRecording;
 			GameController.OnShowEndScreen += StopRecording;
 			GameController.OnShowEndScreen += SetMetadata;

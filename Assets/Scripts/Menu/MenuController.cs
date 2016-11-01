@@ -609,10 +609,9 @@ public class MenuController : MonoBehaviour
 
 		#if UNITY_ANDROID
 		Application.OpenURL("https://play.google.com/store/apps/dev?id=8938813649462154472");
-		//Application.OpenURL("market://dev?id=8938813649462154472");
 		#elif UNITY_IPHONE
 		//TODO: change to developer page
-		Application.OpenURL("https://itunes.apple.com/app/id1060148248");
+		Application.OpenURL("https://itunes.apple.com/developer/id1060148247");
 		#elif UNITY_WEBPLAYER
 		Application.OpenURL("http://www.overtimestudios.com/games.php");
 		#endif
