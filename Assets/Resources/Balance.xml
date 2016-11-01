@@ -601,18 +601,17 @@
 				<bossIllusion>0</bossIllusion>
 			</tier>
 			<tier>
-				<kills>132</kills>
+				<kills>134</kills>
 				<bossMeteor>0</bossMeteor>
-				<bossTwins>0.8</bossTwins>
-				<bossIllusion>0.2</bossIllusion>
+				<bossTwins>1</bossTwins>
+				<bossIllusion>0</bossIllusion>
 			</tier>
 			<tier>
-				<kills>215</kills>
+				<kills>288</kills>
 				<bossMeteor>0</bossMeteor>
 				<bossTwins>0</bossTwins>
 				<bossIllusion>1</bossIllusion>
 			</tier>
-			<tier/>
 		</tiers>
 		<infinityBoss>
 			<kills>500</kills>
