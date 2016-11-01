@@ -31,6 +31,8 @@ public class AdMobHelper : MonoBehaviour
 	public string rewardedVideoIOS;
 
 	private static Action _onComplete;
+	private static Action _onStarted;
+	private static Action _onFinished;
 
 	#if UNITY_ANDROID
 	private static bool onCompleteFlag = false;
@@ -227,7 +229,6 @@ public class AdMobHelper : MonoBehaviour
 		// Handle the ad failed to load event.
 
 		Instance.StartCoroutine(WaitAndCreateInterstitialRequest(Instance.timeout));
-
 	}
 	#endif
 
@@ -388,8 +389,20 @@ public class AdMobHelper : MonoBehaviour
 
 	public static void ShowRewardedVideo(Action onComplete)
 	{
+		ShowRewardedVideo(onComplete, null, null);
+	}
+
+	public static void ShowRewardedVideo(Action onComplete, Action onStarted, Action onFinished)
+	{
 		#if ADMOB_IMPLEMENTED
 		Debug.Log("rewardBasedVideo.IsLoaded() = " + rewardBasedVideo.IsLoaded());
+
+		if(onStarted != null)
+			_onStarted = onStarted;
+
+		if(onFinished != null)
+			_onFinished = onFinished;
+
 		if(rewardBasedVideo.IsLoaded())
 		{
 			_onComplete = onComplete;
@@ -423,10 +436,10 @@ public class AdMobHelper : MonoBehaviour
 		AdRequest.Builder request = new AdRequest.Builder();
 		rewardBasedVideo.LoadAd(request.Build(), adUnitId);
 		#endif
-		}
+	}
 
-		private static void HandleRewardBasedVideoLoaded(object sender, EventArgs e)
-		{
+	private static void HandleRewardBasedVideoLoaded(object sender, EventArgs e)
+	{
 		#if ADMOB_IMPLEMENTED
 		Debug.Log("Rewarded Video Loaded Successfully");
 		#endif
@@ -466,6 +479,9 @@ public class AdMobHelper : MonoBehaviour
 	{
 		#if ADMOB_IMPLEMENTED
 		Debug.Log("Rewarded Video Started");
+
+		if(_onStarted != null)
+			_onStarted();
 		#endif
 	}
 
@@ -489,6 +505,9 @@ public class AdMobHelper : MonoBehaviour
 	{
 		#if ADMOB_IMPLEMENTED
 		Debug.Log("Rewarded Video Closed");
+		if(_onFinished != null)
+			_onFinished();
+
 		CreateRewardedVideoRequest();
 		#endif
 	}

@@ -112,7 +112,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	public void ShowAd()
 	{
 		#if ADMOB_IMPLEMENTED
-		AdMobHelper.ShowRewardedVideo (GiveReward);
+		AdMobHelper.ShowRewardedVideo (GiveReward, SoundController.Instance.MuteForAds, SoundController.Instance.UnmuteForAds);
 		#else
 		Popup.ShowBlank("Unity Ads not implemented", 2f);
 		#endif
@@ -122,7 +122,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		#if ADMOB_IMPLEMENTED
 		if(AdMobHelper.IsRewardedVideoReady)
-			AdMobHelper.ShowRewardedVideo(handleFinish);
+			AdMobHelper.ShowRewardedVideo(handleFinish, SoundController.Instance.MuteForAds, SoundController.Instance.UnmuteForAds);
 		else
 			Popup.ShowOk(Localization.Get("ADS_FAILED"));
 		#else

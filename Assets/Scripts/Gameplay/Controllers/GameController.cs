@@ -655,7 +655,7 @@ public class GameController : MonoBehaviour
 
 	private void ShowAdToContinue()
 	{
-		AdMobHelper.ShowRewardedVideo(ContinuePlaying);
+		AdMobHelper.ShowRewardedVideo(ContinuePlaying, SoundController.Instance.MuteForAds, SoundController.Instance.UnmuteForAds);
 	}
 
 	private void ShowEndScreen()

@@ -6,7 +6,7 @@ public class Yolo : MonoBehaviour
 	public void WatchVideo()
 	{
 		if(AdMobHelper.IsRewardedVideoReady)
-			AdMobHelper.ShowRewardedVideo(OnCompleteHandler);
+			AdMobHelper.ShowRewardedVideo(OnCompleteHandler, SoundController.Instance.MuteForAds, SoundController.Instance.UnmuteForAds);
 	}
 
 	private void OnCompleteHandler()

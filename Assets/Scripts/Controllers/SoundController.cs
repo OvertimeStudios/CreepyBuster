@@ -512,4 +512,22 @@ public class SoundController : MonoBehaviour
 		soundFXMute = false;
 		audioSourceSoundFX.mute = false;
 	}
+
+	public void MuteForAds()
+	{
+		audioSourceMusic.mute = true;
+		audioSourceMusic2.mute = true;
+		audioSourceMusic3.mute = true;
+
+		audioSourceSoundFX.mute = true;
+	}
+
+	public void UnmuteForAds()
+	{
+		audioSourceMusic.mute = musicMute;
+		audioSourceMusic2.mute = musicMute;
+		audioSourceMusic3.mute = musicMute;
+
+		audioSourceSoundFX.mute = soundFXMute;
+	}
 }
