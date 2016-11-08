@@ -127,6 +127,8 @@ public class SoundController : MonoBehaviour
 
 	private bool isCrossFading = false;
 
+	private float[] musicsLastVolume;
+
 	void Awake()
 	{
 		if(instance != null && instance != this)
@@ -154,6 +156,7 @@ public class SoundController : MonoBehaviour
 
 	void Start()
 	{
+		musicsLastVolume = new float[4];
 		audioSourceMusic.Play();
 	}
 
@@ -515,19 +518,24 @@ public class SoundController : MonoBehaviour
 
 	public void MuteForAds()
 	{
-		audioSourceMusic.mute = true;
-		audioSourceMusic2.mute = true;
-		audioSourceMusic3.mute = true;
+		musicsLastVolume[0] = audioSourceMusic.volume;
+		musicsLastVolume[1] = audioSourceMusic2.volume;
+		musicsLastVolume[2] = audioSourceMusic3.volume;
+		musicsLastVolume[3] = audioSourceSoundFX.volume;
 
-		audioSourceSoundFX.mute = true;
+		audioSourceMusic.volume = 0;
+		audioSourceMusic2.volume = 0;
+		audioSourceMusic3.volume = 0;
+
+		audioSourceSoundFX.volume = 0;
 	}
 
 	public void UnmuteForAds()
 	{
-		audioSourceMusic.mute = musicMute;
-		audioSourceMusic2.mute = musicMute;
-		audioSourceMusic3.mute = musicMute;
+		audioSourceMusic.volume = musicsLastVolume[0];
+		audioSourceMusic2.volume = musicsLastVolume[1];
+		audioSourceMusic3.volume = musicsLastVolume[2];
 
-		audioSourceSoundFX.mute = soundFXMute;
+		audioSourceSoundFX.volume = musicsLastVolume[3];
 	}
 }

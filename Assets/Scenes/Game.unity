@@ -10616,13 +10616,13 @@ MonoBehaviour:
   updateAnchors: 2
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 453
+  mWidth: 408
   mHeight: 214
   mDepth: 22
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.9859813
+  aspectRatio: 1.9065421
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -26696,7 +26696,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 961774488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 225, y: 0, z: 0}
+  m_LocalPosition: {x: 203, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -41275,7 +41275,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11418102, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: testDevices.Array.size
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 466906, guid: f7ac308f20b0e4b548fd8ff9703bbf43, type: 2}
       propertyPath: m_LocalPosition.x
@@ -52138,7 +52138,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1894660403}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -225, y: 0, z: 0}
+  m_LocalPosition: {x: -202, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:

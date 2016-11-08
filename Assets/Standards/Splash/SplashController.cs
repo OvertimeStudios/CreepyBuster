@@ -12,11 +12,15 @@ public class SplashController : MonoBehaviour
 	private AsyncOperation async;
 
 	// Use this for initialization
-	void Start () 
+	IEnumerator Start () 
 	{
 		readyForChangeScene = false;
 
 		StartCoroutine(LoadNextLevel());
+
+		while(Application.isShowingSplashScreen)
+			yield return null;
+
 		StartCoroutine(PlayFullScreenMovie ());
 	}
 
