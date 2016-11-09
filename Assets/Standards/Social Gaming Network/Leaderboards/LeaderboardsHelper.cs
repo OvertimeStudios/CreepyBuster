@@ -307,16 +307,21 @@ public class LeaderboardsHelper : MonoBehaviour
 			{
 				isSearchingPlayerFriendsPosition = true;
 
-				GameCenterManager.scoresForPlayerIdsLoadedEvent += OnPlayerFriendsScoresLoaded;
+				/*GameCenterManager.scoresForPlayerIdsLoadedEvent += OnPlayerFriendsScoresLoaded;
 				GameCenterManager.retrieveScoresForPlayerIdsFailedEvent += OnPlayerFriendsScoresFailed;
-				GameCenterBinding.retrieveScoresForPlayerIds(new string[1] { GameCenterBinding.playerIdentifier() }, Instance.defaultLeaderboard.iOS, true);
-				//GameCenterBinding.retrieveScores(true, GameCenterLeaderboardTimeScope.AllTime, 1, 100, Instance.defaultLeaderboard.iOS);
+				GameCenterBinding.retrieveScoresForPlayerIds(new string[1] { GameCenterBinding.playerIdentifier() }, Instance.defaultLeaderboard.iOS, true);*/
+
+				GameCenterManager.scoresLoadedEvent += OnPlayerFriendsScoresLoaded;
+				GameCenterManager.retrieveScoresFailedEvent += OnPlayerFriendsScoresFailed;
+				GameCenterBinding.retrieveScores(true, GameCenterLeaderboardTimeScope.AllTime, 1, 100, Instance.defaultLeaderboard.iOS);
 
 				while(isSearchingPlayerFriendsPosition)
 					yield return null;
 
-				GameCenterManager.scoresForPlayerIdsLoadedEvent -= OnPlayerFriendsScoresLoaded;
-				GameCenterManager.retrieveScoresForPlayerIdsFailedEvent -= OnPlayerFriendsScoresFailed;
+				GameCenterManager.scoresLoadedEvent -= OnPlayerFriendsScoresLoaded;
+				GameCenterManager.retrieveScoresFailedEvent -= OnPlayerFriendsScoresFailed;
+				/*GameCenterManager.scoresForPlayerIdsLoadedEvent -= OnPlayerFriendsScoresLoaded;
+				GameCenterManager.retrieveScoresForPlayerIdsFailedEvent -= OnPlayerFriendsScoresFailed;*/
 
 				result(playerFriendsPosition, playerFriendsMaxRange);
 			}
@@ -361,13 +366,32 @@ public class LeaderboardsHelper : MonoBehaviour
 	#if UNITY_IOS
 	private static void OnPlayerFriendsScoresLoaded(GameCenterRetrieveScoresResult result)
 	{
-		Debug.Log(string.Format("Did recieved OnPlayerFriendsScoresLoaded. Total results: {0}: \n" +
-			"alias: {1}; \n" +
-			"id: {2}; \n" +
-			"rank: {3} \n" +
-			"maxRange: {4}", result.scores.Count, result.scores[0].alias, result.scores[0].playerId, result.scores[0].rank, result.scores[0].maxRange));
-		playerFriendsPosition = result.scores[0].rank;
-		playerFriendsMaxRange = result.scores[0].maxRange;
+		Debug.Log("OnPlayerFriendsScoresLoaded");
+
+		playerFriendsPosition = 0;
+		playerFriendsMaxRange = 0;
+
+		foreach(GameCenterScore score in result.scores)
+		{
+			if(score.playerId == GameCenterBinding.playerIdentifier())
+			{
+				playerFriendsPosition = score.rank;
+				playerFriendsMaxRange = score.maxRange;
+
+				Debug.Log(string.Format("Did recieved OnPlayerFriendsScoresLoaded. Total results: {0}: \n" +
+				"alias: {1}; \n" +
+				"id: {2}; \n" +
+				"rank: {3} \n" +
+				"maxRange: {4}", result.scores.Count, score.alias, score.playerId, score.rank, score.maxRange));
+
+				break;
+			}
+		}
+	
+		if(playerFriendsPosition == 0)
+		{
+			Debug.Log("Couldn't find player in search criteria");
+		}
 
 		isSearchingPlayerFriendsPosition = false;
 	}
