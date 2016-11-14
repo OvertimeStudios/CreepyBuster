@@ -30,7 +30,7 @@ public class EndScreen : MonoBehaviour
 
 	void OnEnable()
 	{
-		#if UNITY_WEBPLAYER
+		#if UNITY_WEBGL
 		rewardButton.gameObject.SetActive(false);
 		watchReplay.SetActive(false);
 		shopButton.SetActive(false);

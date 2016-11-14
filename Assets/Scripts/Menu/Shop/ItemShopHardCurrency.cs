@@ -26,7 +26,9 @@ public class ItemShopHardCurrency : MonoBehaviour
 	public UILabel price;
 	public UILabel currency;
 
+	#if IAP_IMPLEMENTED
 	private IAPProduct product;
+	#endif
 
 	void Start()
 	{
@@ -46,7 +48,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 				Inactivate();
 		}
 
-		#if UNITY_WEBPLAYER
+		#if UNITY_WEBGL
 		gameObject.SetActive(false);
 		#endif
 	}
@@ -100,7 +102,7 @@ public class ItemShopHardCurrency : MonoBehaviour
 	{
 		#if UNITY_EDITOR
 		Debug.Log("Running on Unity Editor");
-		#else
+		#elif !UNITY_WEBGL
 		if(!Debug.isDebugBuild)
 			UnityAnalyticsHelper.Transaction(product.productId, decimal.Parse(price.text), product.currencyCode);
 		#endif

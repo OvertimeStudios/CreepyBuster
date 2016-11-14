@@ -71,7 +71,7 @@ public class ScreenFeedback : MonoBehaviour
 		Instance.damage.enabled = true;
 		Instance.damage.alpha = 1;
 
-		#if !UNITY_WEBPLAYER
+		#if !UNITY_WEBGL
 		if(Global.CanVibrate)
 			Handheld.Vibrate ();
 		#endif

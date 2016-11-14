@@ -19,8 +19,10 @@ public class AdMobHelper : MonoBehaviour
 	public string bannerAndroid;
 	public string bannerIOS;
 
+	#if IAP_IMPLEMENTED
 	private static AdSize _adSize;
 	private static AdPosition _adPosition;
+	#endif
 
 	[Header("Interstitial")]
 	public string interstitialAndroid;
@@ -149,6 +151,7 @@ public class AdMobHelper : MonoBehaviour
 	}
 
 	#region BANNER
+	#if IAP_IMPLEMENTED
 	public static void ShowBanner(AdSize adSize, AdPosition adPosition)
 	{
 		Debug.Log("Show Banner Ad");
@@ -166,6 +169,7 @@ public class AdMobHelper : MonoBehaviour
 
 		#endif
 	}
+	#endif
 
 	public static void HideBanner()
 	{

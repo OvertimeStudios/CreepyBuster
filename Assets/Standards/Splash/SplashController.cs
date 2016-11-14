@@ -43,7 +43,7 @@ public class SplashController : MonoBehaviour
 
 	IEnumerator PlayFullScreenMovie()
 	{
-		#if !UNITY_WEBPLAYER
+		#if !UNITY_WEBGL
 		Handheld.PlayFullScreenMovie (videoName, Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFill);
 		#endif
 

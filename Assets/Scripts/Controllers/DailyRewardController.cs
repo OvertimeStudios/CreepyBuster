@@ -107,7 +107,9 @@ public class DailyRewardController : MonoBehaviour
 
 	void Start()
 	{
+		#if !UNITY_WEBGL
 		CheckReward();
+		#endif
 	}
 
 	private void CheckReward() 

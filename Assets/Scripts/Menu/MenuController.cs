@@ -180,11 +180,11 @@ public class MenuController : MonoBehaviour
 	// Use this for initialization
 	IEnumerator Start ()
 	{
-		#if !UNITY_WEBPLAYER || !PLAYPLAYFUN
+		#if !UNITY_WEBGL || !PLAYPLAYFUN
 		playPlayFun.SetActive(false);
 		#endif
 
-		#if UNITY_WEBPLAYER
+		#if UNITY_WEBGL
 		shopButton.SetActive(false);
 		overtimeHubButton.SetActive(false);
 		highScoreMenu.SetActive(false);
@@ -289,7 +289,7 @@ public class MenuController : MonoBehaviour
 
 	public void ShowAchievements()
 	{
-		#if !UNITY_WEBPLAYER
+		#if !UNITY_WEBGL
 		List<AchievementUnlocked> achievements = Achievement.achievementRecentUnlocked;
 
 		if(achievements.Count > 0)
@@ -317,7 +317,7 @@ public class MenuController : MonoBehaviour
 
 	public void ShowDailyMissions()
 	{
-		#if !UNITY_WEBPLAYER
+		#if !UNITY_WEBGL
 		List<DailyMission> dailyMission = DailyMissionController.missionRecentUnlocked;
 		
 		if(dailyMission.Count > 0)
@@ -612,7 +612,7 @@ public class MenuController : MonoBehaviour
 		#elif UNITY_IPHONE
 		//TODO: change to developer page
 		Application.OpenURL("https://itunes.apple.com/developer/id1060148247");
-		#elif UNITY_WEBPLAYER
+		#elif UNITY_WEBGL
 		Application.OpenURL("http://www.overtimestudios.com/games.php");
 		#endif
 	}

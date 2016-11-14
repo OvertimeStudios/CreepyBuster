@@ -52,6 +52,7 @@ public class FacebookController : MonoBehaviour
 	// Use this for initialization
 	void Awake () 
 	{
+		#if !UNITY_WEBGL
 		Debug.Log("Is FB Inisitalized? " + FB.IsInitialized);
 
 		if(!FB.IsInitialized)
@@ -61,6 +62,7 @@ public class FacebookController : MonoBehaviour
 		}
 		else
 			FacebookHelper.ActivateApp();
+		#endif
 	}
 
 	private IEnumerator WaitForAlreadyLogin()

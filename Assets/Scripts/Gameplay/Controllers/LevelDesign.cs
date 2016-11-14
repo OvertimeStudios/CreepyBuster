@@ -294,7 +294,7 @@ public class LevelDesign : MonoBehaviour
 	{
 		get	
 		{ 
-			#if UNITY_WEBPLAYER
+			#if UNITY_WEBGL
 			return Instance.bossMeteor;
 			#else
 

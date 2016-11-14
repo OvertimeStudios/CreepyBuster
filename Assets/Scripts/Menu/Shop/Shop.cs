@@ -14,7 +14,6 @@ public class Shop : MonoBehaviour
 	private TweenPosition tween;
 
 	[Header("Web")]
-	public GameObject packsLine;
 	public GameObject goToUpgade;
 	public GameObject goToPacks;
 
@@ -24,8 +23,7 @@ public class Shop : MonoBehaviour
 		tween = GetComponentInChildren<TweenPosition>();
 		ItemShop.OnItemBought += VerifyAchievement;
 
-		#if UNITY_WEBPLAYER
-		packsLine.SetActive(false);
+		#if UNITY_WEBGL
 		goToUpgade.SetActive(false);
 		goToPacks.SetActive(false);
 		#endif

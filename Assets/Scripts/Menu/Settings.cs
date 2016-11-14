@@ -32,7 +32,7 @@ public class Settings : MonoBehaviour
 
 	void Start()
 	{
-		#if UNITY_WEBPLAYER
+		#if UNITY_WEBGL
 		fbLogin.SetActive(false);
 		fbLogout.SetActive(false);
 		likeUs.SetActive(false);
@@ -42,7 +42,9 @@ public class Settings : MonoBehaviour
 
 	void OnEnable()
 	{
+		#if !UNITY_WEBGL
 		HandleLoginSection ();
+		#endif
 
 		#if FACEBOOK_IMPLEMENTED
 		FacebookController.OnJustLoggedIn += HandleLoginSection;

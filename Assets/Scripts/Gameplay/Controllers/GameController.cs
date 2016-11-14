@@ -53,7 +53,7 @@ public class GameController : MonoBehaviour
 	public static event Action OnContinuePlaying;
 	public static event Action OnPause;
 	public static event Action OnResume;
-	#if UNITY_WEBPLAYER
+	#if UNITY_WEBGL
 	public static event Action OnDemoOver;
 	#endif
 
@@ -671,7 +671,7 @@ public class GameController : MonoBehaviour
 		if (OnShowEndScreen != null)
 			OnShowEndScreen ();
 
-		#if UNITY_WEBPLAYER
+		#if UNITY_WEBGL
 		if(IsBossTime)
 			EndDemo();
 		#endif
@@ -1005,7 +1005,7 @@ public class GameController : MonoBehaviour
 			boss3Killed++;
 		}
 
-		#if UNITY_WEBPLAYER
+		#if UNITY_WEBGL
 		EndDemo();
 		#endif
 	}
@@ -1167,7 +1167,7 @@ public class GameController : MonoBehaviour
 		SpawnController.enemiesInGame.Clear ();
 	}
 
-	#if UNITY_WEBPLAYER
+	#if UNITY_WEBGL
 	private static void EndDemo()
 	{
 		Time.timeScale = 0;
@@ -1176,10 +1176,14 @@ public class GameController : MonoBehaviour
 			OnDemoOver();
 	}
 
-	public void ShowGamePage()
+	public void ShowAndroidGamePage()
 	{
 		Application.OpenURL("https://play.google.com/store/apps/details?id=com.overtimestudios.creepybuster");
-		GameOver();
+	}
+
+	public void ShowIOSGamePage()
+	{
+		Application.OpenURL("https://itunes.apple.com/app/id1060148248");
 	}
 	#endif
 }

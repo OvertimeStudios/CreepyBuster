@@ -101,7 +101,7 @@ public class Ranking : MonoBehaviour
 
 		#if LEADERBOARDS_IMPLEMENTED
 		yield return StartCoroutine(LeaderboardsHelper.GetPlayerGlobalPosition(SetGlobalRank));
-		#elif
+		#else
 		yield return null;
 		#endif
 	}
@@ -112,7 +112,7 @@ public class Ranking : MonoBehaviour
 
 		#if LEADERBOARDS_IMPLEMENTED
 		yield return StartCoroutine(LeaderboardsHelper.GetPlayerFriendsPosition(SetFriendsRank));
-		#elif
+		#else
 		yield return null;
 		#endif
 	}

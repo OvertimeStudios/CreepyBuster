@@ -45,7 +45,7 @@ public class HUDController : MonoBehaviour
 		AttackTargets.OnSpecialEnded += UpdateColor;
 		AttackTargets.OnSpecialTimerUpdated += OnSpecialTimerUpdated;
 
-		#if UNITY_WEBPLAYER
+		#if UNITY_WEBGL
 		GameController.OnDemoOver += ShowDemoScreen;
 		#endif
 
@@ -73,7 +73,7 @@ public class HUDController : MonoBehaviour
 		AttackTargets.OnSpecialEnded -= UpdateColor;
 		AttackTargets.OnSpecialTimerUpdated -= OnSpecialTimerUpdated;
 
-		#if UNITY_WEBPLAYER
+		#if UNITY_WEBGL
 		GameController.OnDemoOver -= ShowDemoScreen;
 		#endif
 
@@ -130,7 +130,7 @@ public class HUDController : MonoBehaviour
 
 		//Global.TotalOrbs += totalOrbsFromPoints;
 
-		#if UNITY_WEBPLAYER
+		#if UNITY_WEBGL
 		if(!GameController.IsBossTime)
 		#endif
 		endScreen.SetActive (true);
@@ -139,7 +139,7 @@ public class HUDController : MonoBehaviour
 
 	private void HideEndScreen()
 	{
-		#if UNITY_WEBPLAYER
+		#if UNITY_WEBGL
 		demoScreen.SetActive(false);
 		#endif
 
@@ -192,7 +192,7 @@ public class HUDController : MonoBehaviour
 		pauseScreen.SetActive(false);
 	}
 
-	#if UNITY_WEBPLAYER
+	#if UNITY_WEBGL
 	private void ShowDemoScreen()
 	{
 		demoScreen.SetActive(true);

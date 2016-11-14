@@ -15,7 +15,7 @@ public class LoadingScreen : MonoBehaviour
 	// Use this for initialization
 	IEnumerator Start () 
 	{
-		#if !UNITY_WEBPLAYER
+		#if !UNITY_WEBGL
 		//logo.SetActive(false);
 		#endif
 

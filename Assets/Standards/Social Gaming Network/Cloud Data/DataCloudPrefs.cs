@@ -175,10 +175,10 @@ public class DataCloudPrefs
 	{
 		get
 		{
-			#if UNITY_IOS || UNITY_EDITOR
-			return true;
-			#elif UNITY_ANDROID
+			#if UNITY_ANDROID
 			return isLoaded;
+			#else
+			return true;
 			#endif
 		}
 	}

@@ -73,7 +73,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 		if(RewardCooldownLeft > rewardCooldown)
 			ResetRewardCooldownTime ();
 
-		#if UNITY_WEBPLAYER
+		#if UNITY_WEBGL
 		gameObject.SetActive(false);
 		#endif
 	}
