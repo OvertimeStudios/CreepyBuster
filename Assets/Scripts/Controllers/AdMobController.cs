@@ -6,8 +6,8 @@ public class AdMobController : MonoBehaviour
 	#if ADMOB_IMPLEMENTED
 	void Start()
 	{
-		if(!Global.IsAdFree)
-			ShowBannerAd();
+		//if(!Global.IsAdFree)
+			//ShowBannerAd();
 	}
 
 	private void ShowBannerAd()

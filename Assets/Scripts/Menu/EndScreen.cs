@@ -20,6 +20,8 @@ public class EndScreen : MonoBehaviour
 	public GameObject battleStats;
 	public GameObject watchReplay;
 	public GameObject shopButton;
+	public GameObject newShopItemBuyable;
+	public ItemShop[] itensShop;
 
 	public UILabel kills;
 	public UILabel orbsCollected;
@@ -58,6 +60,18 @@ public class EndScreen : MonoBehaviour
 
 		Global.TotalOrbs += totalOrbs;
 		Global.OrbsCollected += totalOrbs;
+
+		//verification of "!" on SHOP button
+		bool hasNewUpgradeToBuy = false;
+		foreach(ItemShop itemShop in itensShop)
+		{
+			if(!itemShop.IsMaxLevel && Global.TotalOrbs >= itemShop.Price)
+			{
+				hasNewUpgradeToBuy = true;
+				break;
+			}
+		}
+		newShopItemBuyable.SetActive(hasNewUpgradeToBuy);
 
 		//fill game stats
 		kills.text = GameController.KillCount.ToString();
@@ -101,6 +115,18 @@ public class EndScreen : MonoBehaviour
 			button.isEnabled = false;
 
 		rewardGlow.enabled = false;
+
+		//redo verification of "!" on SHOP button
+		bool hasNewUpgradeToBuy = false;
+		foreach(ItemShop itemShop in itensShop)
+		{
+			if(Global.TotalOrbs >= itemShop.Price)
+			{
+				hasNewUpgradeToBuy = true;
+				break;
+			}
+		}
+		newShopItemBuyable.SetActive(hasNewUpgradeToBuy);
 	}
 
 	public void OpenBattleStats()

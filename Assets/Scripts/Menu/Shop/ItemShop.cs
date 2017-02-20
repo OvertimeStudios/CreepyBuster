@@ -29,7 +29,7 @@ public class ItemShop : MonoBehaviour
 		}
 	}
 
-	private bool IsMaxLevel
+	public bool IsMaxLevel
 	{
 		get	{ return CurrentLevel == upgrades.Count - 1; }
 	}
@@ -37,7 +37,7 @@ public class ItemShop : MonoBehaviour
 	public int Price
 	{
 		//get price for the next item so it's the "Upgrade's price"
-		get { return upgrades[CurrentLevel + 1].price; }
+		get { return (upgrades.Count == 0) ? 0 : upgrades[CurrentLevel + 1].price; }
 	}
 
 	public float Value
@@ -69,6 +69,9 @@ public class ItemShop : MonoBehaviour
 
 		if(levelLabel != null)
 			levelLabel.text = Localization.Get("LEVEL") + " " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
+
+		//Debug.Log(string.Format("!IsMaxLevel ({0}) && Global.TotalOrbs > Price ({1})", !IsMaxLevel, Global.TotalOrbs >= Price));
+		transform.FindChild("!").gameObject.SetActive(!IsMaxLevel && Global.TotalOrbs >= Price);
 	}
 
 	void OnDisable()

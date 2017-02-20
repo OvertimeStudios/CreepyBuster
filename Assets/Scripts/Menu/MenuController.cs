@@ -138,7 +138,7 @@ public class MenuController : MonoBehaviour
 
 		GameController.OnGameOver += ClosePanel;
 		GameController.OnGameOver += UpdateScore;
-		MenuController.OnPanelClosed += ShowAds;
+		//MenuController.OnPanelClosed += ShowAds;
 		MenuController.OnPanelClosed += ShowRate;
 
 		Global.OnHighScoreUpdated += UpdateScore;
@@ -152,7 +152,7 @@ public class MenuController : MonoBehaviour
 
 		GameController.OnGameOver -= ClosePanel;
 		GameController.OnGameOver -= UpdateScore;
-		MenuController.OnPanelClosed -= ShowAds;
+		//MenuController.OnPanelClosed -= ShowAds;
 		MenuController.OnPanelClosed -= ShowRate;
 
 		Global.OnHighScoreUpdated -= UpdateScore;
@@ -281,7 +281,7 @@ public class MenuController : MonoBehaviour
 
 			if(goToShop)
 			{
-				MoveToShop();
+				MoveToShop(true);
 				goToShop = false;
 			}
 		}
@@ -393,7 +393,7 @@ public class MenuController : MonoBehaviour
 		MoveScreen ();
 	}
 
-	public void MoveToShop()
+	public void MoveToShop(bool toUpgrades = false)
 	{
 		if(menuTween.isActiveAndEnabled || DailyRewardController.IsActive || Popup.IsActive || Plasmette.IsSpinning) return;
 
@@ -409,6 +409,10 @@ public class MenuController : MonoBehaviour
 		shopScreen.gameObject.SetActive(true);
 
 		MoveScreen ();
+
+		//move to upgrades session
+		if(toUpgrades)
+			Shop.Instance.GoToUpgrade();
 	}
 
 	public void MoveToSettings()

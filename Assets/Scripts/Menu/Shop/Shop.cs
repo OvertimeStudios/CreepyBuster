@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Shop : MonoBehaviour 
+public class Shop : Singleton<Shop> 
 {
 	[Header("Shop Achievement")]
 	public Achievement achievement;
