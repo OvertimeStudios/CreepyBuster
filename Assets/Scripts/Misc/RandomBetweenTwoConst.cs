@@ -20,6 +20,6 @@ public class RandomBetweenTwoConst
 
 	public float Random()
 	{
-		return UnityEngine.Random.Range(min, max);
+		return UnityEngine.Random.Range((float)min, (float)max);
 	}
 }

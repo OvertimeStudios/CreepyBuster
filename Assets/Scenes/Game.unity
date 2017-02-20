@@ -18428,7 +18428,7 @@ MonoBehaviour:
   thumb: {fileID: 1502445457}
   mBG: {fileID: 1485896609}
   mFG: {fileID: 1767255138}
-  mValue: 0.8213537
+  mValue: 0.0001026167
   mFill: 3
   numberOfSteps: 0
   onChange: []
