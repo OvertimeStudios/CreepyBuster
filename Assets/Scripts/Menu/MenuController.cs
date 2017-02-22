@@ -331,6 +331,8 @@ public class MenuController : MonoBehaviour
 			
 			DailyMissionController.missionRecentUnlocked.Remove(dm);
 		}
+		else
+			DailyMissionController.Instance.ShowPopup();
 		#endif
 	}
 	
@@ -338,7 +340,8 @@ public class MenuController : MonoBehaviour
 	{
 		Debug.Log(dailyMissionOrbsToGive);
 		Global.TotalOrbs += dailyMissionOrbsToGive;
-		
+
+		//call recursively if there is more than 1 daily mission completed
 		ShowDailyMissions();
 	}
 

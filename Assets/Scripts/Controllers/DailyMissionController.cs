@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class DailyMissionController : MonoBehaviour 
+public class DailyMissionController : Singleton<DailyMissionController>
 {
 	private int rewardCooldown;
 	private static DateTime rewardCooldownTime;
@@ -12,6 +12,12 @@ public class DailyMissionController : MonoBehaviour
 	public UILabel countdown;
 	public Color countdownNormalColor;
 	public Transform missions;
+
+	[Header("Popup")]
+	public GameObject popup;
+	public UILabel countdownPopup;
+	public Color missionCompleteColor;
+	public Transform[] missionsPopup;
 
 	public static List<DailyMission> missionRecentUnlocked  = new List<DailyMission>();
 
@@ -356,38 +362,57 @@ public class DailyMissionController : MonoBehaviour
 		}
 	}
 
-	void Start()
+	IEnumerator Start()
 	{
 		MenuController.OnPanelClosed += BuildMissions;
+
+		yield return new WaitForEndOfFrame();
+
+		if(!DailyRewardController.IsActive)
+			popup.SetActive(true);
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		if(MenuController.CurrentMenu != MenuController.Menus.HUBConnection) return;
-
-		if(RewardCooldownLeft >= 0)
+		if(MenuController.CurrentMenu == MenuController.Menus.HUBConnection || popup.activeInHierarchy)
 		{
-			int timeLeft = RewardCooldownLeft;
+			if(RewardCooldownLeft >= 0)
+			{
+				int timeLeft = RewardCooldownLeft;
 
-			int hours = (int)(timeLeft / 3600f);
-			timeLeft -= (int)(hours * 3600f);
+				int hours = (int)(timeLeft / 3600f);
+				timeLeft -= (int)(hours * 3600f);
 
-			int minutes = (int)(timeLeft / 60f);
-			timeLeft -= (int)(minutes * 60f);
+				int minutes = (int)(timeLeft / 60f);
+				timeLeft -= (int)(minutes * 60f);
 
-			int seconds = (int)timeLeft;
+				int seconds = (int)timeLeft;
 
-			countdown.text = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
+				//update popup only
+				if(popup.activeInHierarchy)
+				{
+					countdownPopup.text = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
 
-			if(RewardCooldownLeft < 3600)
-				countdown.color = Color.red;
+					if(RewardCooldownLeft < 3600)
+						countdownPopup.color = Color.red;
+					else
+						countdownPopup.color = countdownNormalColor;
+				}
+				else//update HUB Connection only
+				{
+					countdown.text = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
+
+					if(RewardCooldownLeft < 3600)
+						countdown.color = Color.red;
+					else
+						countdown.color = countdownNormalColor;
+				}
+			}
 			else
-				countdown.color = countdownNormalColor;
-		}
-		else
-		{
-			SortNewMissions();
+			{
+				SortNewMissions();
+			}
 		}
 	}
 
@@ -405,8 +430,20 @@ public class DailyMissionController : MonoBehaviour
 
 	private void BuildMissions()
 	{
-		foreach(DailyMissionObject mission in MissionObjects)
+		for(byte i = 0; i < MissionObjects.Length; i++)
+		{
+			DailyMissionObject mission = MissionObjects[i];
 			mission.Build();
+
+			//update mission on popup
+			missionsPopup[i].FindChild("Descricao").GetComponent<UILabel>().text = (mission.IsCompleted) ? Localization.Get("COMPLETED") : mission.Description;
+			missionsPopup[i].FindChild("reward").GetComponent<UILabel>().text = "+" + mission.Reward;
+			missionsPopup[i].FindChild("Progresso").GetComponent<UILabel>().text = string.Format("{0}/{1} \n {2}%", mission.Progress, mission.Value, (Mathf.Round(Mathf.Min((mission.Progress/mission.Value) * 100f, 100f))));
+
+			//change color if completed
+			missionsPopup[i].FindChild("Descricao").GetComponent<UILabel>().color = 
+					missionsPopup[i].FindChild("Progresso").GetComponent<UILabel>().color = (mission.IsCompleted) ? missionCompleteColor : countdownNormalColor;
+		}
 	}
 
 	private void Reset()
@@ -427,5 +464,15 @@ public class DailyMissionController : MonoBehaviour
 		DeathRayCollected = 0;
 		LevelUpCollected = 0;
 		FrozenCollected = 0;
+	}
+
+	public void ShowPopup()
+	{
+		popup.SetActive(true);
+	}
+
+	public void ClosePopup()
+	{
+		popup.SetActive(false);
 	}
 }

@@ -4,6 +4,38 @@ using System.Collections.Generic;
 
 public class DailyMissionObject : MonoBehaviour 
 {
+	#region Get  / Set
+	private DailyMission CurrentMission
+	{
+		get { return missions[GetMissionID()]; }
+	}
+
+	public string Description
+	{
+		get { return CurrentMission.Description; }
+	}
+
+	public int Reward
+	{
+		get { return CurrentMission.reward; }
+	}
+
+	public int Value
+	{
+		get { return CurrentMission.value; }
+	}
+
+	public float Progress
+	{
+		get { return GetParameter(); }
+	}
+
+	public bool IsCompleted
+	{
+		get { return GetParameter() / CurrentMission.value > 1; }
+	}
+	#endregion
+
 	public List<DailyMission> missions;
 
 	private DailyMission currentMission;
