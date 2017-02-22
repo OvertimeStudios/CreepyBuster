@@ -5,50 +5,55 @@ using System.Collections;
 public class Star : MonoBehaviour 
 {
 	#region Action
-	public static Action OnOutOfScreen;
+	//public static Action OnOutOfScreen;
 	#endregion
+
+	[HideInInspector]
+	public StarsGenerator generator;
 
 	private Transform myTransform;
 	private float parallax;
 	private float maxY;
-	private float velx;
 
-	void Start()
+	private float upToBottomDistance = 0;
+
+	IEnumerator Start()
 	{
 		myTransform = transform;
 
-		parallax = ((transform.localScale.x / StarsGenerator.Instance.starsScale.max - StarsGenerator.Instance.starsScale.min) * 0.9f) + 0.1f;
+		while(generator == null)
+			yield return null;
 
-		//velx = UnityEngine.Random.Range(-0.3f, 0.3f);
-		maxY = Camera.main.ViewportToWorldPoint(new Vector3(0, -0.2f, 0)).y;
+		parallax = ((transform.localScale.x / generator.starsScale.max - generator.starsScale.min) * 0.9f) + 0.1f;
 
+		maxY = generator.myCamera.ViewportToWorldPoint(new Vector3(0, -0.1f, 0)).y;
+
+		if(upToBottomDistance == 0)
+			upToBottomDistance = Mathf.Abs(generator.myCamera.ViewportToWorldPoint(new Vector3(0, 1.1f, 0)).y - maxY);
+
+		//check bounds on coroutine - on update consumes too much processing
 		StartCoroutine(CheckOutOfBounds());
 	}
 
 	void Update()
 	{
-		myTransform.Translate(velx * Time.deltaTime, -StarsGenerator.Instance.vel * parallax * Time.deltaTime, 0, Space.World);
+		if(generator == null) return;
 
-		/*Debug.Log(myTransform.position.y + " > " + maxY);
-		if(myTransform.position.y < maxY)
-		{
-			if(OnOutOfScreen != null)
-				OnOutOfScreen();
-
-			Destroy(gameObject);
-		}*/
+		myTransform.Translate(0, -generator.vel * parallax * Time.deltaTime, 0, Space.World);
 	}
 
 	private IEnumerator CheckOutOfBounds()
 	{
+		Debug.Log("CheckOutOfBounds");
 		yield return new WaitForSeconds(3f);
+
+		Debug.Log("CheckOutOfBounds 3 sec");
 
 		if(myTransform.position.y < maxY)
 		{
-			if(OnOutOfScreen != null)
-				OnOutOfScreen();
+			myTransform.position += new Vector3(0, upToBottomDistance, 0);
 
-			Destroy(gameObject);
+			//Destroy(gameObject);
 		}
 
 		StartCoroutine(CheckOutOfBounds());

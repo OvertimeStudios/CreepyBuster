@@ -3,9 +3,6 @@ using System.Collections;
 
 public class Shop : Singleton<Shop> 
 {
-	[Header("Shop Achievement")]
-	public Achievement achievement;
-
 	[Header("Filter")]
 	public UIProgressBar progressBar;
 	public float upgradePosition;
@@ -33,11 +30,12 @@ public class Shop : Singleton<Shop>
 	{
 		Global.UpgradesBought++;
 
-		if(!achievement.unlocked && Global.UpgradesBought == achievement.value)
+		AchievementController.Instance.UpdateAllAchievements();
+		/*if(!achievement.unlocked && Global.UpgradesBought == achievement.value)
 		{
 			achievement.Unlock();
 			MenuController.Instance.ShowAchievements();
-		}
+		}*/
 	}
 
 	public void GoToUpgrade()

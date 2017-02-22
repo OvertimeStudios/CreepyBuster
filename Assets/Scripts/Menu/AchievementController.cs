@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class AchievementController : MonoBehaviour 
+public class AchievementController : Singleton<AchievementController> 
 {
 	public List<AchievementItem> achievements;
 

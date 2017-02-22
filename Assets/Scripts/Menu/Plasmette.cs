@@ -56,7 +56,7 @@ public class Plasmette : MonoBehaviour
 	{
 		//if(GameController.isGameRunning || MenuController.activeMenu != MenuController.Menus.Main || Popup.IsActive || DailyRewardController.IsActive) return;
 
-		if(!(MenuController.IsMenuActive && MenuController.activeMenu == MenuController.Menus.Main) || Popup.IsActive || DailyRewardController.IsActive) return;
+		if(!(MenuController.IsMenuActive && MenuController.activeMenu == MenuController.Menus.Main) || Popup.IsActive || DailyRewardController.IsActive || DailyMissionController.Instance.IsPopupActive) return;
 
 		if(e.Phase == FingerHoverPhase.Enter)
 			spinningCoroutine = StartCoroutine(StartSpinning());

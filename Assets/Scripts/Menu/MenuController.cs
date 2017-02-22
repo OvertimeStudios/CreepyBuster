@@ -277,13 +277,13 @@ public class MenuController : MonoBehaviour
 			if(OnPanelClosed != null)
 				OnPanelClosed();
 
-			ShowAchievements();
-
 			if(goToShop)
 			{
 				MoveToShop(true);
 				goToShop = false;
 			}
+			else
+				ShowAchievements();
 		}
 	}
 

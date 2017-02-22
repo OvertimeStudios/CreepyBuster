@@ -62,6 +62,11 @@ public class DailyMissionController : Singleton<DailyMissionController>
 	{
 		get { return RewardCooldownLeft <= 0; }
 	}
+
+	public bool IsPopupActive
+	{
+		get { return popup.activeInHierarchy; }
+	}
 	#endregion
 
 	#region cooldown function
