@@ -20,6 +20,8 @@ public class Follow : EnemyMovement
 		GameController.OnSlowDownFade += RemoveSlow;
 		GameController.OnFrozenCollected += ApplyFrozen;
 		GameController.OnFrozenFade += RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed += ApplyFrozen;
+		ConsumablesController.OnAllItensUsed += RemoveFrozen;
 	}
 	
 	protected override void OnDisable()
@@ -31,6 +33,8 @@ public class Follow : EnemyMovement
 		GameController.OnSlowDownFade -= RemoveSlow;
 		GameController.OnFrozenCollected -= ApplyFrozen;
 		GameController.OnFrozenFade -= RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed -= ApplyFrozen;
+		ConsumablesController.OnAllItensUsed -= RemoveFrozen;
 	}
 
 	// Use this for initialization
@@ -96,6 +100,7 @@ public class Follow : EnemyMovement
 	
 	private void RemoveFrozen()
 	{
-		isFrozen = false;
+		if(!ConsumablesController.IsUsingConsumables && !GameController.IsFrozen)
+			isFrozen = false;
 	}
 }

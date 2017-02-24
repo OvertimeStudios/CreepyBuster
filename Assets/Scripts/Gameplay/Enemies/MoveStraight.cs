@@ -18,6 +18,8 @@ public class MoveStraight : EnemyMovement
 		GameController.OnSlowDownFade += RemoveSlow;
 		GameController.OnFrozenCollected += ApplyFrozen;
 		GameController.OnFrozenFade += RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed += ApplyFrozen;
+		ConsumablesController.OnAllItensUsed += RemoveFrozen;
 	}
 	
 	protected override void OnDisable()
@@ -29,6 +31,8 @@ public class MoveStraight : EnemyMovement
 		GameController.OnSlowDownFade -= RemoveSlow;
 		GameController.OnFrozenCollected -= ApplyFrozen;
 		GameController.OnFrozenFade -= RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed -= ApplyFrozen;
+		ConsumablesController.OnAllItensUsed -= RemoveFrozen;
 	}
 
 	// Use this for initialization
@@ -71,12 +75,15 @@ public class MoveStraight : EnemyMovement
 
 	private void ApplyFrozen()
 	{
-		lastVelocityBeforeFrozen = GetComponent<Rigidbody2D> ().velocity;
+		if(GetComponent<Rigidbody2D> ().velocity != Vector2.zero)
+			lastVelocityBeforeFrozen = GetComponent<Rigidbody2D> ().velocity;
+		
 		GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
 	}
 	
 	private void RemoveFrozen()
 	{
-		GetComponent<Rigidbody2D> ().velocity = lastVelocityBeforeFrozen;
+		if(!ConsumablesController.IsUsingConsumables && !GameController.IsFrozen)
+			GetComponent<Rigidbody2D> ().velocity = lastVelocityBeforeFrozen;
 	}
 }

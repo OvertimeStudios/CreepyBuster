@@ -18,6 +18,8 @@ public class BoomerangBehaviour : MonoBehaviour
 		GameController.OnSlowDownFade += RemoveSlow;
 		GameController.OnFrozenCollected += ApplyFrozen;
 		GameController.OnFrozenFade += RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed += ApplyFrozen;
+		ConsumablesController.OnAllItensUsed += RemoveFrozen;
 	}
 	
 	void OnDisable()
@@ -27,6 +29,8 @@ public class BoomerangBehaviour : MonoBehaviour
 		GameController.OnSlowDownFade -= RemoveSlow;
 		GameController.OnFrozenCollected -= ApplyFrozen;
 		GameController.OnFrozenFade -= RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed -= ApplyFrozen;
+		ConsumablesController.OnAllItensUsed -= RemoveFrozen;
 	}
 
 	// Use this for initialization
@@ -75,8 +79,11 @@ public class BoomerangBehaviour : MonoBehaviour
 	
 	private void RemoveFrozen()
 	{
-		innerRotate.rotVel = originalInnerRotate;
-		outterRotate.rotVel = originalOutterRotate;
-		myTailAnimator.speed = originalTailAnimatorSpeed;
+		if(!ConsumablesController.IsUsingConsumables && !GameController.IsFrozen)
+		{
+			innerRotate.rotVel = originalInnerRotate;
+			outterRotate.rotVel = originalOutterRotate;
+			myTailAnimator.speed = originalTailAnimatorSpeed;
+		}
 	}
 }

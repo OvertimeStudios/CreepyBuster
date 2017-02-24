@@ -1044,6 +1044,37 @@ public class GameController : MonoBehaviour
 		Debug.Log("Collected " + itemType.ToString());
 	}
 
+	public void SpawnItem(Item.Type itemType)
+	{
+		GameObject prefab = null;
+
+		switch(itemType)
+		{
+			case Item.Type.LevelUp:
+				prefab = ConsumablesController.Instance.levelUpSpinPrefab;
+				break;
+
+			case Item.Type.Invencibility:
+				prefab = ConsumablesController.Instance.InvincibilitySpinPrefab;
+				break;
+
+			case Item.Type.DeathRay:
+				prefab = ConsumablesController.Instance.deathRaySpinPrefab;
+				break;
+
+			case Item.Type.Frozen:
+				prefab = ConsumablesController.Instance.frozenSpinPrefab;
+				break;
+
+			case Item.Type.Shield:
+				prefab = ConsumablesController.Instance.shieldSpinPrefab;
+				break;
+		}
+
+		(Instantiate(prefab, player.transform.position, Quaternion.identity) as GameObject).transform.parent = player.transform.FindChild("power-ups");
+
+	}
+
 	public void UseItem(Item.Type itemType)
 	{
 		switch(itemType)
@@ -1094,6 +1125,13 @@ public class GameController : MonoBehaviour
 				ScreenFeedback.ShowShield();
 			break;
 		}
+
+		//remove form list if it is consumable
+		ConsumablesController.ItemUsed(itemType);
+
+		//ended
+		if(!ConsumablesController.IsUsingConsumables)
+		{}
 	}
 
 	private void UseInvencibility(float invencibleTime)

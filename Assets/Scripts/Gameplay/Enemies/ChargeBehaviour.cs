@@ -61,6 +61,8 @@ public class ChargeBehaviour : EnemyMovement
 		GameController.OnSlowDownFade += RemoveSlow;
 		GameController.OnFrozenCollected += ApplyFrozen;
 		GameController.OnFrozenFade += RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed += ApplyFrozen;
+		ConsumablesController.OnAllItensUsed += RemoveFrozen;
 	}
 
 	protected override void OnDisable()
@@ -74,6 +76,8 @@ public class ChargeBehaviour : EnemyMovement
 		GameController.OnSlowDownFade -= RemoveSlow;
 		GameController.OnFrozenCollected -= ApplyFrozen;
 		GameController.OnFrozenFade -= RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed -= ApplyFrozen;
+		ConsumablesController.OnAllItensUsed -= RemoveFrozen;
 	}
 
 	private IEnumerator LightNextBrilho()
@@ -180,8 +184,11 @@ public class ChargeBehaviour : EnemyMovement
 	
 	private void RemoveFrozen()
 	{
-		isFrozen = false;
+		if(!ConsumablesController.IsUsingConsumables && !GameController.IsFrozen)
+		{
+			isFrozen = false;
 
-		myRigidbody.velocity = lastVelocityBeforeFrozen;
+			myRigidbody.velocity = lastVelocityBeforeFrozen;
+		}
 	}
 }

@@ -32,6 +32,8 @@ public class RandomMovement : EnemyMovement
 		GameController.OnSlowDownFade += RemoveSlow;
 		GameController.OnFrozenCollected += ApplyFrozen;
 		GameController.OnFrozenFade += RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed += ApplyFrozen;
+		ConsumablesController.OnAllItensUsed += RemoveFrozen;
 
 		GetComponent<Rigidbody2D>().isKinematic = false;
 
@@ -47,6 +49,8 @@ public class RandomMovement : EnemyMovement
 		GameController.OnSlowDownFade -= RemoveSlow;
 		GameController.OnFrozenCollected -= ApplyFrozen;
 		GameController.OnFrozenFade -= RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed -= ApplyFrozen;
+		ConsumablesController.OnAllItensUsed -= RemoveFrozen;
 
 		StopAllCoroutines();
 	}
@@ -214,7 +218,10 @@ public class RandomMovement : EnemyMovement
 	
 	private void RemoveFrozen()
 	{
-		isFrozen = false;
-		GetComponent<Rigidbody2D> ().velocity = transform.right * vel;
+		if(!ConsumablesController.IsUsingConsumables && !GameController.IsFrozen)
+		{
+			isFrozen = false;
+			GetComponent<Rigidbody2D> ().velocity = transform.right * vel;
+		}
 	}
 }

@@ -2,10 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Consumables : MonoBehaviour 
+public class Consumables : Singleton<Consumables> 
 {
-	private List<Item.Type> itensToUse;
-
 	private int GetQuantity(Item.Type itemType)
 	{
 		int consumable = 0;
@@ -56,7 +54,8 @@ public class Consumables : MonoBehaviour
 	// Use this for initialization
 	void OnEnable () 
 	{
-		GameController.OnResume += UseItens;
+		GameController.OnResume -= ConsumablesController.Instance.UseItens;
+		GameController.OnResume += ConsumablesController.Instance.UseItens;
 
 		foreach(Transform t in transform)
 		{
@@ -67,7 +66,7 @@ public class Consumables : MonoBehaviour
 
 			t.FindChild("count").GetComponent<UILabel>().text = consumable.ToString();
 
-			if(consumable == 0)
+			if(consumable <= 0)
 			{
 				OutOfStock(t);
 			}
@@ -91,12 +90,7 @@ public class Consumables : MonoBehaviour
 
 	void OnDisable()
 	{
-		GameController.OnResume -= UseItens;
-	}
-
-	void Start()
-	{
-		itensToUse = new List<Item.Type>();
+		
 	}
 
 	private void OutOfStock(Transform t)
@@ -139,7 +133,7 @@ public class Consumables : MonoBehaviour
 			UIButton.current.GetComponent<TweenAlpha>().PlayReverse();
 			UIButton.current.GetComponent<TweenScale>().PlayReverse();
 
-			itensToUse.Remove((Item.Type) System.Enum.Parse(typeof(Item.Type), UIButton.current.name));
+			ConsumablesController.itensToUse.Remove((Item.Type) System.Enum.Parse(typeof(Item.Type), UIButton.current.name));
 
 			UIButton.current.transform.FindChild("count").GetComponent<UILabel>().text = consumable.ToString();
 		}
@@ -148,7 +142,7 @@ public class Consumables : MonoBehaviour
 			UIButton.current.GetComponent<TweenAlpha>().PlayForward();
 			UIButton.current.GetComponent<TweenScale>().PlayForward();
 
-			itensToUse.Add((Item.Type) System.Enum.Parse(typeof(Item.Type), UIButton.current.name));
+			ConsumablesController.itensToUse.Add((Item.Type) System.Enum.Parse(typeof(Item.Type), UIButton.current.name));
 
 			UIButton.current.transform.FindChild("count").GetComponent<UILabel>().text = (consumable - 1).ToString();
 		}
@@ -164,24 +158,5 @@ public class Consumables : MonoBehaviour
 		}
 	}
 
-	private void UseItens()
-	{
-		foreach(Item.Type itemType in itensToUse)
-		{
-			GameController.Instance.UseItem(itemType);
 
-			if(itemType == Item.Type.DeathRay)
-				Global.DeathRayConsumable--;
-			if(itemType == Item.Type.Invencibility)
-				Global.InvencibleConsumable--;
-			if(itemType == Item.Type.Frozen)
-				Global.FrozenConsumable--;
-			if(itemType == Item.Type.LevelUp)
-				Global.LevelUpConsumable--;
-			if(itemType == Item.Type.Shield)
-				Global.ShieldConsumable--;
-		}
-
-		itensToUse.Clear();
-	}
 }

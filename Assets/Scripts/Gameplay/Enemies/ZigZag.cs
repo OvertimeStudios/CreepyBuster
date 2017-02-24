@@ -35,6 +35,8 @@ public class ZigZag : EnemyMovement
 		GameController.OnSlowDownFade += RemoveSlow;
 		GameController.OnFrozenCollected += ApplyFrozen;
 		GameController.OnFrozenFade += RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed += ApplyFrozen;
+		ConsumablesController.OnAllItensUsed += RemoveFrozen;
 	}
 	
 	protected override void OnDisable()
@@ -45,6 +47,8 @@ public class ZigZag : EnemyMovement
 		GameController.OnSlowDownFade -= RemoveSlow;
 		GameController.OnFrozenCollected -= ApplyFrozen;
 		GameController.OnFrozenFade -= RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed -= ApplyFrozen;
+		ConsumablesController.OnAllItensUsed -= RemoveFrozen;
 		
 		StopAllCoroutines();
 	}
@@ -164,7 +168,8 @@ public class ZigZag : EnemyMovement
 	
 	private void RemoveFrozen()
 	{
-		isFrozen = false;
+		if(!ConsumablesController.IsUsingConsumables && !GameController.IsFrozen)
+			isFrozen = false;
 	}
 
 	void OnDied(GameObject enemy)

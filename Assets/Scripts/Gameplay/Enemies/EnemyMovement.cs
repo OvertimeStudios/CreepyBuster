@@ -15,16 +15,20 @@ public class EnemyMovement : MonoBehaviour
 	{
 		GameController.OnSlowDownCollected += OnSlowDownCollected;
 		GameController.OnSlowDownFade += OnSlowDownFade;
-		GameController.OnFrozenCollected += OnFrozenCollected;
-		GameController.OnFrozenFade += OnFrozenFade;
+		GameController.OnFrozenCollected += ApplyFrozen;
+		GameController.OnFrozenFade += RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed += ApplyFrozen;
+		ConsumablesController.OnAllItensUsed += RemoveFrozen;
 	}
 
 	protected virtual void OnDisable()
 	{
 		GameController.OnSlowDownCollected -= OnSlowDownCollected;
 		GameController.OnSlowDownFade -= OnSlowDownFade;
-		GameController.OnFrozenCollected -= OnFrozenCollected;
-		GameController.OnFrozenFade -= OnFrozenFade;
+		GameController.OnFrozenCollected -= ApplyFrozen;
+		GameController.OnFrozenFade -= RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed -= ApplyFrozen;
+		ConsumablesController.OnAllItensUsed -= RemoveFrozen;
 	}
 
 	protected virtual void Start()
@@ -57,16 +61,19 @@ public class EnemyMovement : MonoBehaviour
 			GetComponent<EnemyLife>().Dead(false, false);
 	}
 
-	private void OnFrozenCollected()
+	private void ApplyFrozen()
 	{
 		if(myAnimator != null)
 			myAnimator.speed = 0;
 	}
 
-	private void OnFrozenFade()
+	private void RemoveFrozen()
 	{
 		if(myAnimator != null)
-			myAnimator.speed = originalAnimatorSpeed;
+		{
+			if(!ConsumablesController.IsUsingConsumables && !GameController.IsFrozen)
+				myAnimator.speed = originalAnimatorSpeed;
+		}
 	}
 
 	private void OnSlowDownCollected()

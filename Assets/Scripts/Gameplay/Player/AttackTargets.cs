@@ -29,6 +29,7 @@ public class AttackTargets : MonoBehaviour
 
 	public float damage;
 	public CircleCollider2D attackCollider;
+	public CircleCollider2D collisionCollider;
 
 	private CircleCollider2D range;
 
@@ -76,6 +77,8 @@ public class AttackTargets : MonoBehaviour
 		GameController.OnGameStart += GetRange;
 		GameController.OnFingerHit += OnFingerHit;
 		FingerDetector.OnFingerUpEvent += OnFingerUp;
+		ConsumablesController.OnAnyItemUsed += RemoveCollider;
+		ConsumablesController.OnAllItensUsed += RestoreCollider;
 	}
 
 	void OnDisable()
@@ -85,6 +88,8 @@ public class AttackTargets : MonoBehaviour
 		GameController.OnGameStart -= GetRange;
 		GameController.OnFingerHit -= OnFingerHit;
 		FingerDetector.OnFingerUpEvent -= OnFingerUp;
+		ConsumablesController.OnAnyItemUsed -= RemoveCollider;
+		ConsumablesController.OnAllItensUsed -= RestoreCollider;
 
 		LoseAllTargets();
 	}
@@ -158,6 +163,8 @@ public class AttackTargets : MonoBehaviour
 	private void GetEnemiesInRange()
 	{
 		enemiesInRange.Clear();
+
+		if(!attackCollider.enabled) return;
 
 		Collider2D[] colliders = new Collider2D[50];
 		int enemiesInRangeCount = Physics2D.OverlapCircleNonAlloc((Vector2)myTransform.position + attackCollider.offset, attackCollider.radius, colliders, layerMask);
@@ -354,5 +361,17 @@ public class AttackTargets : MonoBehaviour
 			if(!GameController.IsBossTime)
 				col.gameObject.GetComponent<EnemyLife>().Dead(false);
 		}
+	}
+
+	private void RemoveCollider()
+	{
+		attackCollider.enabled = false;
+		collisionCollider.enabled = false;
+	}
+
+	private void RestoreCollider()
+	{
+		attackCollider.enabled = true;
+		collisionCollider.enabled = true;
 	}
 }

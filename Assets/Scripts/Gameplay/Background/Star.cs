@@ -44,10 +44,7 @@ public class Star : MonoBehaviour
 
 	private IEnumerator CheckOutOfBounds()
 	{
-		Debug.Log("CheckOutOfBounds");
 		yield return new WaitForSeconds(3f);
-
-		Debug.Log("CheckOutOfBounds 3 sec");
 
 		if(myTransform.position.y < maxY)
 		{

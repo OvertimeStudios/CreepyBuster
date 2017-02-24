@@ -11,7 +11,7 @@ public class LightBehaviour : MonoBehaviour
 	}
 
 	private ParticleRenderer[] particleRenderers;
-	private SpriteRenderer outter;
+	//private SpriteRenderer outter;
 	private TrailRenderer trailRenderer;
 	private Transform myTransform;
 
@@ -66,7 +66,7 @@ public class LightBehaviour : MonoBehaviour
 	{
 		myTransform = transform;
 		trailRenderer = transform.FindChild("Trail Renderer").GetComponent<TrailRenderer>();
-		outter = transform.FindChild("Outter").GetComponent<SpriteRenderer>();
+		//outter = transform.FindChild("Outter").GetComponent<SpriteRenderer>();
 		particleRenderers = GetComponentsInChildren<ParticleRenderer> ();
 
 		UpdateColor ();
@@ -83,7 +83,7 @@ public class LightBehaviour : MonoBehaviour
 		c.a = 0.2f;
 		trailRenderer.material.SetColor("_TintColor", c);
 
-		outter.color = LevelDesign.CurrentColor;
+		//outter.color = LevelDesign.CurrentColor;
 
 		AudioSource aSource = GetComponent<AudioSource>();
 		if(LevelDesign.PlayerLevel == 0)

@@ -28,6 +28,8 @@ public class Legion : EnemyMovement
 		GameController.OnSlowDownFade += RemoveSlow;
 		GameController.OnFrozenCollected += ApplyFrozen;
 		GameController.OnFrozenFade += RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed += ApplyFrozen;
+		ConsumablesController.OnAllItensUsed += RemoveFrozen;
 	}
 	
 	protected override void OnDisable()
@@ -36,10 +38,12 @@ public class Legion : EnemyMovement
 
 		EnemyLife.OnDied -= OnDied;
 		EnemyMovement.OnOutOfScreen -= RemoveMinions;
-		GameController.OnSlowDownCollected += ApplySlow;
-		GameController.OnSlowDownFade += RemoveSlow;
-		GameController.OnFrozenCollected += ApplyFrozen;
-		GameController.OnFrozenFade += RemoveFrozen;
+		GameController.OnSlowDownCollected -= ApplySlow;
+		GameController.OnSlowDownFade -= RemoveSlow;
+		GameController.OnFrozenCollected -= ApplyFrozen;
+		GameController.OnFrozenFade -= RemoveFrozen;
+		ConsumablesController.OnAnyItemUsed -= ApplyFrozen;
+		ConsumablesController.OnAllItensUsed -= RemoveFrozen;
 	}
 
 	// Use this for initialization
@@ -147,7 +151,10 @@ public class Legion : EnemyMovement
 	
 	private void RemoveFrozen()
 	{
-		innerRotate.rotVel = innerRotate.originalVel;
-		outterRotate.rotVel = innerRotate.originalVel;
+		if(!ConsumablesController.IsUsingConsumables && !GameController.IsFrozen)
+		{
+			innerRotate.rotVel = innerRotate.originalVel;
+			outterRotate.rotVel = innerRotate.originalVel;
+		}
 	}
 }
