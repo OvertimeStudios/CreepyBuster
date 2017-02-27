@@ -469,7 +469,7 @@ public class LevelDesign : MonoBehaviour
 
 	public static bool IsSpecialReady
 	{
-		get { return LevelDesign.PlayerLevel >= Instance.gameBalance.playerLevelUpCondition.Length - 1 && GameController.StreakCount >= NextStreakToPlayerLevelUp; }
+		get { return LevelDesign.PlayerLevel >= Instance.gameBalance.playerLevelUpCondition.Length - 1 && GameController.EnergyCount >= NextStreakToPlayerLevelUp; }
 	}
 
 	public static bool IsPlayerFullyUpgraded
@@ -543,7 +543,7 @@ public class LevelDesign : MonoBehaviour
 
 	void OnEnable()
 	{
-		GameController.OnStreakUpdated += PlayerLevelUp;
+		GameController.OnEnergyUpdated += PlayerLevelUp;
 		GameController.OnRealStreakUpdated += EnemiesTypesLevelUp;
 		GameController.OnRealStreakUpdated += EnemiesSpawnLevelUp;
 		GameController.OnRealStreakUpdated += EnemiesAttributesLevelUp;
@@ -557,7 +557,7 @@ public class LevelDesign : MonoBehaviour
 
 	void OnDisable()
 	{
-		GameController.OnStreakUpdated -= PlayerLevelUp;
+		GameController.OnEnergyUpdated -= PlayerLevelUp;
 		GameController.OnRealStreakUpdated -= EnemiesTypesLevelUp;
 		GameController.OnRealStreakUpdated -= EnemiesSpawnLevelUp;
 		GameController.OnRealStreakUpdated -= EnemiesAttributesLevelUp;
@@ -582,7 +582,7 @@ public class LevelDesign : MonoBehaviour
 		//don't level up anymore if it's not fully upgraded
 		if(IsPlayerMaxLevel && !IsPlayerFullyUpgraded) return;
 
-		if(GameController.StreakCount >= LevelDesign.NextStreakToPlayerLevelUp)
+		if(GameController.EnergyCount >= LevelDesign.NextStreakToPlayerLevelUp)
 		{
 			//call Action on set method
 			PlayerLevel = Mathf.Clamp(PlayerLevel + 1, 0, MaxPlayerLevel);

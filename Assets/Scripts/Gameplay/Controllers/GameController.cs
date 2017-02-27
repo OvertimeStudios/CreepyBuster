@@ -37,6 +37,7 @@ public class GameController : MonoBehaviour
 	/// Occurs when on streak updated - after OnScoreUpdated
 	/// </summary>
 	public static event Action OnKill;
+	public static event Action OnEnergyUpdated;
 	public static event Action OnStreakUpdated;
 	public static event Action OnRealStreakUpdated;
 	public static event Action OnGameOver;
@@ -147,6 +148,11 @@ public class GameController : MonoBehaviour
 	private static int streakCount;
 
 	/// <summary>
+	/// the energy count to use on 3D touch. It also will guide the UI.
+	/// </summary>
+	private static int energyCount;
+
+	/// <summary>
 	/// Sometimes player increase streakCount by itens (i.e. Item.Type.LevelUp). This propertie count only kill streak
 	/// </summary>
 	private static int realStreakCount;
@@ -177,6 +183,19 @@ public class GameController : MonoBehaviour
 	public static int KillCount
 	{
 		get { return enemiesKillCount; }
+	}
+
+	public static int EnergyCount
+	{
+		get { return energyCount; }
+
+		set 
+		{
+			energyCount = value;
+
+			if(OnEnergyUpdated != null)
+				OnEnergyUpdated();
+		}
 	}
 
 	public static int StreakCount
@@ -375,7 +394,10 @@ public class GameController : MonoBehaviour
 
 				//call Action on set method
 				if(!AttackTargets.IsSpecialActive)
+				{
 					StreakCount++;
+					EnergyCount++;
+				}
 			}
 		}
 	}
@@ -439,7 +461,7 @@ public class GameController : MonoBehaviour
 
 	private void LoseStacks()
 	{
-		StreakCount = LevelDesign.LastLevelPlayerStreak;
+		EnergyCount = StreakCount = LevelDesign.LastLevelPlayerStreak;
 		LevelDesign.PlayerLevel = Mathf.Max(LevelDesign.PlayerLevel - 1, 0);
 		realStreakCount = 0;
 		specialStreak = 0;
@@ -715,7 +737,9 @@ public class GameController : MonoBehaviour
 	private void ReachMaxLevel()
 	{
 		while(!LevelDesign.IsPlayerMaxLevel)
-			StreakCount = LevelDesign.NextStreakToPlayerLevelUp;
+		{
+			EnergyCount = StreakCount = LevelDesign.NextStreakToPlayerLevelUp;
+		}
 	}
 
 	private IEnumerator WaitForFingerDown()
@@ -816,6 +840,7 @@ public class GameController : MonoBehaviour
 		Debug.Log ("Reset");
 		enemiesKillCount = 0;
 		score = 0;
+		EnergyCount = 0;
 		StreakCount = 0;
 		realStreakCount = 0;
 		specialStreak = 0;
@@ -1081,7 +1106,7 @@ public class GameController : MonoBehaviour
 		{
 			case Item.Type.LevelUp:
 				SoundController.Instance.PlaySoundFX(SoundController.SoundFX.PowerUpCollected, SoundController.SoundFX.LevelUp);
-				StreakCount = LevelDesign.NextStreakToPlayerLevelUp;
+				EnergyCount = StreakCount = LevelDesign.NextStreakToPlayerLevelUp;
 			break;
 				
 			case Item.Type.Invencibility:
@@ -1127,11 +1152,8 @@ public class GameController : MonoBehaviour
 		}
 
 		//remove form list if it is consumable
-		ConsumablesController.ItemUsed(itemType);
-
-		//ended
-		if(!ConsumablesController.IsUsingConsumables)
-		{}
+		if(ConsumablesController.IsUsingConsumables)
+			ConsumablesController.ItemUsed(itemType);
 	}
 
 	private void UseInvencibility(float invencibleTime)

@@ -28,19 +28,19 @@ public class HUDController : MonoBehaviour
 	void OnEnable()
 	{
 		MenuController.OnPanelOpened += OnScoreUpdated;
-		MenuController.OnPanelOpened += OnStreakUpdated;
+		MenuController.OnPanelOpened += OnEnergyUpdated;
 		MenuController.OnPanelOpened += UpdateColor;
 		MenuController.OnPanelOpened += UpdateLevelNumber;
 
 		GameController.OnScoreUpdated += OnScoreUpdated;
-		GameController.OnStreakUpdated += OnStreakUpdated;
+		GameController.OnEnergyUpdated += OnEnergyUpdated;
 		GameController.OnShowEndScreen += ShowEndScreen;
 		GameController.OnGameOver += HideEndScreen;
 		LevelDesign.OnPlayerLevelUp += UpdateColor;
 		LevelDesign.OnPlayerLevelUp += UpdateLevelNumber;
 		GameController.OnLoseStacks += UpdateColor;
 		GameController.OnLoseStacks += UpdateLevelNumber;
-		GameController.OnLoseStacks += OnStreakUpdated;
+		GameController.OnLoseStacks += OnEnergyUpdated;
 		AttackTargets.OnSpecialStarted += UpdateColor;
 		AttackTargets.OnSpecialEnded += UpdateColor;
 		AttackTargets.OnSpecialTimerUpdated += OnSpecialTimerUpdated;
@@ -56,19 +56,19 @@ public class HUDController : MonoBehaviour
 	void OnDisable()
 	{
 		MenuController.OnPanelOpened -= OnScoreUpdated;
-		MenuController.OnPanelOpened -= OnStreakUpdated;
+		MenuController.OnPanelOpened -= OnEnergyUpdated;
 		MenuController.OnPanelOpened -= UpdateColor;
 		MenuController.OnPanelOpened -= UpdateLevelNumber;
 
 		GameController.OnScoreUpdated -= OnScoreUpdated;
-		GameController.OnStreakUpdated -= OnStreakUpdated;
+		GameController.OnEnergyUpdated -= OnEnergyUpdated;
 		GameController.OnShowEndScreen -= ShowEndScreen;
 		GameController.OnGameOver -= HideEndScreen;
 		LevelDesign.OnPlayerLevelUp -= UpdateColor;
 		LevelDesign.OnPlayerLevelUp -= UpdateLevelNumber;
 		GameController.OnLoseStacks -= UpdateColor;
 		GameController.OnLoseStacks -= UpdateLevelNumber;
-		GameController.OnLoseStacks -= OnStreakUpdated;
+		GameController.OnLoseStacks -= OnEnergyUpdated;
 		AttackTargets.OnSpecialStarted -= UpdateColor;
 		AttackTargets.OnSpecialEnded -= UpdateColor;
 		AttackTargets.OnSpecialTimerUpdated -= OnSpecialTimerUpdated;
@@ -94,12 +94,12 @@ public class HUDController : MonoBehaviour
 		score.text = GameController.Score.ToString();
 	}
 
-	void OnStreakUpdated()
+	void OnEnergyUpdated()
 	{
 		if (LevelDesign.IsPlayerMaxLevel && LevelDesign.PlayerLevel != 4)
 			levelBar.fillAmount = 1;
 		else
-			levelBar.fillAmount = ((float)GameController.StreakCount - LevelDesign.CurrentPlayerLevelUnlockStreak) / (float)LevelDesign.StreakDifferenceToNextPlayerLevel;
+			levelBar.fillAmount = ((float)GameController.EnergyCount - LevelDesign.CurrentPlayerLevelUnlockStreak) / (float)LevelDesign.StreakDifferenceToNextPlayerLevel;
 	}
 
 	void OnSpecialTimerUpdated(float percent)
