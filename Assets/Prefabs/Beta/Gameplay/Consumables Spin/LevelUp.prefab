@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  spinVel: 300
+  spinVel: 360
   approachVel: -1.8
   particleColor: {r: 1, g: 0.80689657, b: 0, a: 1}
 --- !u!212 &212000010651017388
