@@ -150,7 +150,7 @@ public class GameController : MonoBehaviour
 	/// <summary>
 	/// the energy count to use on 3D touch. It also will guide the UI.
 	/// </summary>
-	private static int energyCount;
+	private static float energyCount;
 
 	/// <summary>
 	/// Sometimes player increase streakCount by itens (i.e. Item.Type.LevelUp). This propertie count only kill streak
@@ -185,7 +185,7 @@ public class GameController : MonoBehaviour
 		get { return enemiesKillCount; }
 	}
 
-	public static int EnergyCount
+	public static float EnergyCount
 	{
 		get { return energyCount; }
 
@@ -393,10 +393,10 @@ public class GameController : MonoBehaviour
 				RealStreakCount++;
 
 				//call Action on set method
-				if(!AttackTargets.IsSpecialActive)
+				if(!AttackTargets.IsSpecialActive && !TouchPressure.IsUsingBonusDamage)
 				{
 					StreakCount++;
-					EnergyCount++;
+					EnergyCount = Mathf.Min(EnergyCount + 1, LevelDesign.StreakDifferenceToNextPlayerLevel + LevelDesign.CurrentPlayerLevelUnlockStreak);
 				}
 			}
 		}

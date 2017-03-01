@@ -96,7 +96,7 @@ public class HUDController : MonoBehaviour
 
 	void OnEnergyUpdated()
 	{
-		if (LevelDesign.IsPlayerMaxLevel && LevelDesign.PlayerLevel != 4)
+		if (LevelDesign.IsPlayerMaxLevel && LevelDesign.PlayerLevel != 4 && !TouchPressure.IsPressureSupported)
 			levelBar.fillAmount = 1;
 		else
 			levelBar.fillAmount = ((float)GameController.EnergyCount - LevelDesign.CurrentPlayerLevelUnlockStreak) / (float)LevelDesign.StreakDifferenceToNextPlayerLevel;

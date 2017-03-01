@@ -196,10 +196,17 @@ public class TutorialController : MonoBehaviour
 		//One more thing: got hit
 		yield return new WaitForSeconds(ShowNextText());*/
 
-		string tutorial = Localization.Get("TUTORIAL");
+		string tutorial = "";
 
-		if(Global.IsFirstTimeTutorial)
-			tutorial += " " + Localization.Get("TUTORIAL_ADD");
+		if(Global.GamesPlayed % 3 == 0)
+			tutorial = Localization.Get("TUTORIAL_3DTOUCH");
+		else
+		{
+			tutorial = Localization.Get("TUTORIAL");
+
+			if(Global.IsFirstTimeTutorial)
+				tutorial += " " + Localization.Get("TUTORIAL_ADD");
+		}
 
 		tutorialText.text = tutorial;
 

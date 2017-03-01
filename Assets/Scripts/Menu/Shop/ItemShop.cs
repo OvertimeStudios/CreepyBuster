@@ -156,6 +156,9 @@ public class ItemShop : MonoBehaviour
 		UnlockProperty();
 		Popup.ShowOk("Bad, bad cheating boy. Here is your 'purchase'. Humpf.");
 		#endif
+
+		//remove or maintain "!"
+		transform.FindChild("!").gameObject.SetActive(!IsMaxLevel && Global.TotalOrbs >= Price);
 	}
 
 	public void PurchaseDeclined()

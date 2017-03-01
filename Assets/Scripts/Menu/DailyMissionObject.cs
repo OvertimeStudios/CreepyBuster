@@ -85,14 +85,19 @@ public class DailyMissionObject : MonoBehaviour
 		currentMission = missions[GetMissionID()];
 		bool completed = GetMissionCompleted();
 
-		transform.FindChild("Completed").gameObject.SetActive(completed);
-		transform.FindChild("Normal").gameObject.SetActive(!completed);
+		//transform.FindChild("Completed").gameObject.SetActive(completed);
+		//transform.FindChild("Normal").gameObject.SetActive(!completed);
 
 		Debug.Log(currentMission.mission + " = " + GetParameter() + " / " + currentMission.value + " (" + Mathf.Min(GetParameter() / (float)currentMission.value, 1) + ")");
 
-		transform.FindChild("Normal").FindChild("Description").GetComponent<UILabel>().text = currentMission.Description;
+		transform.FindChild("Normal").FindChild("Description").GetComponent<UILabel>().text = (completed) ? Localization.Get("COMPLETED") : currentMission.Description;
+		transform.FindChild("Normal").FindChild("Description").GetComponent<UILabel>().color = (completed) ? DailyMissionController.Instance.missionCompleteColor : DailyMissionController.Instance.countdownNormalColor;
+
 		transform.FindChild("Normal").FindChild("reward").GetComponent<UILabel>().text = "+" + currentMission.reward.ToString();
 		transform.FindChild("Normal").FindChild("bg-green").GetComponent<UISprite>().fillAmount = Mathf.Min(GetParameter() / (float)currentMission.value, 1);
+
+		transform.FindChild("Normal").FindChild("reward").GetComponent<UILabel>().enabled = !completed;
+		transform.FindChild("Normal").FindChild("orb icon").GetComponent<UISprite>().enabled = !completed;
 	}
 
 	private void VerifyUnlockment()

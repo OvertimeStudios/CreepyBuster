@@ -40,7 +40,6 @@ public class StarsGenerator : MonoBehaviour
 
 	public void GenerateNewStar()
 	{
-		Debug.Log("Generate New Star");
 		Vector3 pos = myCamera.ViewportToWorldPoint(new Vector3(Random.Range(0, 1f), Random.Range(1.0f, 1.2f), 0));
 		pos.z = 0;
 		Quaternion rot = Quaternion.Euler(0, 0, Random.Range(0, 360f));
@@ -55,7 +54,6 @@ public class StarsGenerator : MonoBehaviour
 	{
 		if(this == null) return;
 
-		Debug.Log("Generate New Star");
 		Vector3 pos = myCamera.ViewportToWorldPoint(new Vector3(Random.Range(0.3f, 0.7f), Random.Range(0.3f, 0.7f), 0));
 		pos.z = 0;
 		Quaternion rot = Quaternion.Euler(0, 0, Random.Range(0, 360f));

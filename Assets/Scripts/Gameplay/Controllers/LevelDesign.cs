@@ -76,10 +76,8 @@ public class LevelDesign : MonoBehaviour
 	{
 		get 
 		{
-			if (!IsPlayerMaxLevel) 
-			{
+			if (LevelDesign.PlayerLevel < 4) 
 				return Instance.gameBalance.playerLevelUpCondition [LevelDesign.PlayerLevel + 1].killStreak - Instance.gameBalance.playerLevelUpCondition [LevelDesign.PlayerLevel].killStreak;
-			}
 
 			return Instance.gameBalance.specialAttributes.streak;
 		}
@@ -460,7 +458,7 @@ public class LevelDesign : MonoBehaviour
 	{
 		get 
 		{
-			if(AttackTargets.IsSpecialActive)
+			if(AttackTargets.IsSpecialActive || TouchPressure.IsUsingBonusDamage)
 				return Instance.gameBalance.specialAttributes.color;
 			else
 				return Instance.gameBalance.playerLevelUpCondition [LevelDesign.PlayerLevel].color; 

@@ -447,7 +447,7 @@ public class DailyMissionController : Singleton<DailyMissionController>
 
 			//change color if completed
 			missionsPopup[i].FindChild("Descricao").GetComponent<UILabel>().color = 
-					missionsPopup[i].FindChild("Progresso").GetComponent<UILabel>().color = (mission.IsCompleted) ? missionCompleteColor : countdownNormalColor;
+				missionsPopup[i].FindChild("Progresso").GetComponent<UILabel>().color = (mission.IsCompleted) ? missionCompleteColor : countdownNormalColor;
 		}
 	}
 

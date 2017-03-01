@@ -31,6 +31,7 @@ public class ScreenFeedback : MonoBehaviour
 	private UI2DSprite invencibility;
 	private UISprite blank;
 	private UI2DSprite shield;
+	private UI2DSprite pressureTouch;
 
 	private static AudioSource myAudioSource;
 
@@ -54,6 +55,7 @@ public class ScreenFeedback : MonoBehaviour
 		invencibility = transform.FindChild ("Invencibility").GetComponent<UI2DSprite> ();
 		blank = transform.FindChild ("Blank").GetComponent<UISprite> ();
 		shield = transform.FindChild("Shield").GetComponent<UI2DSprite>();
+		pressureTouch = transform.FindChild("3DTouch").GetComponent<UI2DSprite>();
 
 		myAudioSource = GetComponent<AudioSource>();
 
@@ -62,8 +64,15 @@ public class ScreenFeedback : MonoBehaviour
 		invencibility.enabled = false;
 		blank.enabled = false;
 		shield.enabled = false;
+		pressureTouch.enabled = false;
 
 		GameController.OnReset += Reset;
+	}
+
+	void Update()
+	{
+		if(Instance.pressureTouch.enabled)
+			Instance.pressureTouch.alpha = TouchPressure.PressurePercent;
 	}
 
 	public static void ShowDamage(float time)
@@ -121,6 +130,17 @@ public class ScreenFeedback : MonoBehaviour
 	public static void HideShield()
 	{
 		Instance.shield.enabled = false;
+	}
+
+	public static void Show3DTouch()
+	{
+		Debug.Log("ScreenFeedback.Show3DTouch()");
+		Instance.pressureTouch.enabled = true;
+	}
+
+	public static void Hide3DTouch()
+	{
+		Instance.pressureTouch.enabled = false;
 	}
 
 	private static void PauseSound()

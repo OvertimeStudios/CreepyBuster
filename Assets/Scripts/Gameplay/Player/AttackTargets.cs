@@ -48,7 +48,7 @@ public class AttackTargets : MonoBehaviour
 	{
 		get
 		{
-			return Instance.damage + ((IsSpecialActive) ? LevelDesign.Instance.gameBalance.specialAttributes.bonusDamage : 0);
+			return Instance.damage + ((IsSpecialActive) ? LevelDesign.Instance.gameBalance.specialAttributes.bonusDamage : 0) + TouchPressure.TouchDamage;
 		}
 	}
 	#endregion

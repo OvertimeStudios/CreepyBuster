@@ -77,6 +77,8 @@ public class EnemyLife : MonoBehaviour
 		AttackTargets.OnSpecialEnded += UpdateColor;
 		LevelDesign.OnPlayerLevelUp += UpdateColor;
 		GameController.OnLoseStacks += UpdateColor;
+		TouchPressure.On3DTouchStart += UpdateColor;
+		TouchPressure.On3DTouchEnd += UpdateColor;
 	}
 
 	protected virtual void OnDisable()
@@ -85,6 +87,8 @@ public class EnemyLife : MonoBehaviour
 		AttackTargets.OnSpecialEnded -= UpdateColor;
 		LevelDesign.OnPlayerLevelUp -= UpdateColor;
 		GameController.OnLoseStacks -= UpdateColor;
+		TouchPressure.On3DTouchStart -= UpdateColor;
+		TouchPressure.On3DTouchEnd -= UpdateColor;
 	}
 
 	// Use this for initialization
