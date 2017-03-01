@@ -38,6 +38,7 @@ public class HUDController : MonoBehaviour
 		GameController.OnGameOver += HideEndScreen;
 		LevelDesign.OnPlayerLevelUp += UpdateColor;
 		LevelDesign.OnPlayerLevelUp += UpdateLevelNumber;
+		LevelDesign.OnPlayerLevelUp += OnEnergyUpdated;
 		GameController.OnLoseStacks += UpdateColor;
 		GameController.OnLoseStacks += UpdateLevelNumber;
 		GameController.OnLoseStacks += OnEnergyUpdated;
@@ -66,6 +67,7 @@ public class HUDController : MonoBehaviour
 		GameController.OnGameOver -= HideEndScreen;
 		LevelDesign.OnPlayerLevelUp -= UpdateColor;
 		LevelDesign.OnPlayerLevelUp -= UpdateLevelNumber;
+		LevelDesign.OnPlayerLevelUp -= OnEnergyUpdated;
 		GameController.OnLoseStacks -= UpdateColor;
 		GameController.OnLoseStacks -= UpdateLevelNumber;
 		GameController.OnLoseStacks -= OnEnergyUpdated;
