@@ -112,7 +112,7 @@ public class FacebookController : MonoBehaviour
 			{
 				"public_profile",
 				"email",
-				"user_friends"
+				"user_friends",
 			};
 
 			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Click);
@@ -227,6 +227,32 @@ public class FacebookController : MonoBehaviour
 	private void AllFriendsScoreLoaded()
 	{
 		Debug.Log("All Friends Score Successfuly Loaded");
+	}
+
+	public static void GetAllTimeFriendsRank(Action<int> result)
+	{
+		//FacebookHelper.QueryScores(QueryAllTimeFriendsScoresCallback);
+	}
+
+	private void QueryAllTimeFriendsScoresCallback(IResult result)
+	{
+		if(result.Error != null)
+		{
+			Debug.Log ("FB API error response:\n" + result.Error + " \n" + result.RawResult);
+		}
+		else
+		{
+			IDictionary<string, object> data = result.ResultDictionary;
+			List<object> scoreList = (List<object>) data["data"];
+
+			foreach(object obj in scoreList)
+			{
+				var entry = (Dictionary<string, object>)obj;
+				var user = (Dictionary<string, object>) entry["user"];
+
+				Debug.Log(user["name"].ToString() + ", " + entry["score"].ToString());
+			}
+		}
 	}
 
 	public void LikeUs()

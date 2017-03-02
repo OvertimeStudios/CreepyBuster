@@ -30,52 +30,32 @@ public class Ranking : MonoBehaviour
 
 		general.SetActive(true);
 		
-		globalInfo.SetActive(LeaderboardsHelper.IsPlayerAuthenticated());
-		friendsInfo.SetActive(LeaderboardsHelper.IsPlayerAuthenticated());
+		globalInfo.SetActive(FacebookHelper.IsUserLoggedIn);
+		friendsInfo.SetActive(FacebookHelper.IsUserLoggedIn);
 
 		#if LEADERBOARDS_IMPLEMENTED
-		if(LeaderboardsHelper.IsPlayerAuthenticated())
+		if(FacebookHelper.IsUserLoggedIn)
 			GetRanks();
-		else
-		{
-			#if UNITY_IOS
-			globalLogin.GetComponentInChildren<UISprite>().spriteName = "game-center-badge";
-			globalLogin.GetComponentInChildren<UILabel>().text = Localization.Get("GAMECENTER_LOGIN");
-
-			friendsLogin.GetComponentInChildren<UISprite>().spriteName = "game-center-badge";
-			friendsLogin.GetComponentInChildren<UILabel>().text = Localization.Get("GAMECENTER_LOGIN");
-			#else
-			globalLogin.GetComponentInChildren<UISprite>().spriteName = "google-play-badge";
-			globalLogin.GetComponentInChildren<UILabel>().text = Localization.Get("GOOGLEPLAY_LOGIN");
-
-			friendsLogin.GetComponentInChildren<UISprite>().spriteName = "google-play-badge";
-			friendsLogin.GetComponentInChildren<UILabel>().text = Localization.Get("GOOGLEPLAY_LOGIN");
-			#endif
-		}
 		#endif
 	}
 
 	void OnDestroy()
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		LeaderboardsHelper.OnPlayerAuthenticated -= GetRanks;
-		#else
-
+		#if LEADERBOARDS_IMPLEMENTED
+		FacebookController.OnJustLoggedIn -= GetRanks;
 		#endif
 	}
 
 	void Start()
 	{
-		#if LEADERBOARDS_IMPLEMENTED && UNITY_IOS
-		LeaderboardsHelper.OnPlayerAuthenticated += GetRanks;
-		#else
-
-		#endif
+		
 	}
 
 	public void AuthenticatePlayer()
 	{
-		LeaderboardsHelper.Authenticate();
+		#if LEADERBOARDS_IMPLEMENTED
+		FacebookController.Instance.Login();
+		#endif
 	}
 
 	private void GetRanks()
@@ -91,7 +71,7 @@ public class Ranking : MonoBehaviour
 
 	private IEnumerator LoadRanks()
 	{
-		yield return StartCoroutine(GetGlobalRank());
+		//yield return StartCoroutine(GetGlobalRank());
 		yield return StartCoroutine(GetFriendsRank());
 	}
 
@@ -100,7 +80,7 @@ public class Ranking : MonoBehaviour
 		Debug.Log("Getting Global ranking...");
 
 		#if LEADERBOARDS_IMPLEMENTED
-		yield return StartCoroutine(LeaderboardsHelper.GetPlayerGlobalPosition(SetGlobalRank));
+		yield return null;
 		#else
 		yield return null;
 		#endif
@@ -111,25 +91,25 @@ public class Ranking : MonoBehaviour
 		Debug.Log("Getting Friends ranking...");
 
 		#if LEADERBOARDS_IMPLEMENTED
-		yield return StartCoroutine(LeaderboardsHelper.GetPlayerFriendsPosition(SetFriendsRank));
+		yield return StartCoroutine(FacebookHelper.GetAllTimeFriendsRank(SetFriendsRank));
 		#else
 		yield return null;
 		#endif
 	}
 
-	private void SetGlobalRank(int score, int maxRange)
+	private void SetGlobalRank(int rank)
 	{
-		Debug.Log(string.Format("Rankings.SetGlobalRank({0}, {1})", score, maxRange));
+		Debug.Log(string.Format("Rankings.SetGlobalRank({0})", rank));
 		//TODO: Localization
-		worldRank.text = (score <= 0) ? "Error" : "#" + score;
+		worldRank.text = (rank <= 0) ? "Error" : "#" + rank;
 		//worldRank.text += (maxRange > 0) ? " of " + maxRange : "";
 	}
 
-	private void SetFriendsRank(int score, int maxRange)
+	private void SetFriendsRank(int rank)
 	{
-		Debug.Log(string.Format("Rankings.SetFriendsRank({0}, {1})", score, maxRange));
+		Debug.Log(string.Format("Rankings.SetFriendsRank({0})", rank));
 		//TODO: Localization
-		friendsRank.text = (score <= 0) ? "Error" : "#" + score;
+		friendsRank.text = (rank <= 0) ? "Error" : "#" + rank;
 		//friendsRank.text += (maxRange > 0) ? " of " + maxRange : "";
 	}
 
