@@ -568,7 +568,7 @@ public class GameController : MonoBehaviour
 			*/
 
 			#if LEADERBOARDS_IMPLEMENTED
-			LeaderboardsHelper.SendScore(Score);
+			GameSparksController.SendScore(Score);
 			#endif
 		}
 		

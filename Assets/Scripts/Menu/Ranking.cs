@@ -9,8 +9,12 @@ using Facebook.Unity;
 public class Ranking : MonoBehaviour 
 {
 	public UILabel highScore;
-	public UILabel worldRank;
-	public UILabel friendsRank;
+	public UILabel worldAllTimeRank;
+	public UILabel worldDailyRank;
+	public UILabel worldLoading;
+	public UILabel friendsAllTimeRank;
+	public UILabel friendsDailyRank;
+	public UILabel friendsLoading;
 
 	private bool listSorted = false;
 
@@ -25,62 +29,84 @@ public class Ranking : MonoBehaviour
 	void OnEnable()
 	{
 		highScore.text = Global.HighScore.ToString();
-		worldRank.text = "";//Localization.Get("NOT_LOGGED");
-		friendsRank.text = "";//Localization.Get("NOT_LOGGED");
+		worldAllTimeRank.text = "";
+		worldDailyRank.text = "";
+		worldLoading.enabled = GameSparksController.IsUserLoggedIn;
+		friendsAllTimeRank.text = "";
+		friendsDailyRank.text = "";
+		friendsLoading.enabled = GameSparksController.IsUserLoggedIn;
 
 		general.SetActive(true);
 		
-		globalInfo.SetActive(FacebookHelper.IsUserLoggedIn);
-		friendsInfo.SetActive(FacebookHelper.IsUserLoggedIn);
+		globalInfo.SetActive(GameSparksController.IsUserLoggedIn);
+		friendsInfo.SetActive(GameSparksController.IsUserLoggedIn);
 
 		#if LEADERBOARDS_IMPLEMENTED
-		if(FacebookHelper.IsUserLoggedIn)
-			GetRanks();
+		if(FacebookController.IsLoggedIn)
+		{
+			if(GameSparksController.IsUserLoggedIn)
+				GetRanks();
+			else
+			{
+				GameSparksController.OnUserGSLogin += GetRanks;
+				GameSparksController.Instance.GSFacebookLogin();
+			}
+		}
+		else
+			GameSparksController.OnUserGSLogin += GetRanks;
 		#endif
+	}
+
+	void OnDisable()
+	{
+		GameSparksController.OnUserGSLogin -= GetRanks;
 	}
 
 	void OnDestroy()
 	{
 		#if LEADERBOARDS_IMPLEMENTED
-		FacebookController.OnJustLoggedIn -= GetRanks;
+		GameSparksController.OnUserGSLogin -= GetRanks;
 		#endif
-	}
-
-	void Start()
-	{
-		
 	}
 
 	public void AuthenticatePlayer()
 	{
 		#if LEADERBOARDS_IMPLEMENTED
-		FacebookController.Instance.Login();
+
 		#endif
 	}
 
 	private void GetRanks()
 	{
-		worldRank.text = Localization.Get("LOADING");
-		friendsRank.text = Localization.Get("LOADING");
+		GameSparksController.OnUserGSLogin -= GetRanks;
 
 		globalLogin.SetActive(false);
 		friendsLogin.SetActive(false);
+		worldLoading.enabled = true;
+		friendsLoading.enabled = true;
 
 		StartCoroutine(LoadRanks());
 	}
 
 	private IEnumerator LoadRanks()
 	{
-		//yield return StartCoroutine(GetGlobalRank());
+		Debug.Log("Load Ranks");
+		yield return StartCoroutine(GetGlobalRank());
 		yield return StartCoroutine(GetFriendsRank());
 	}
 
 	private IEnumerator GetGlobalRank()
 	{
-		Debug.Log("Getting Global ranking...");
+		Debug.Log("Getting All Time Global ranking...");
 
 		#if LEADERBOARDS_IMPLEMENTED
-		yield return null;
+		int allTimeRank = 0;
+		int dailyRank = 0;
+
+		yield return StartCoroutine(GameSparksController.GetUserAllTimeWorldRank((res) => allTimeRank = res));
+		yield return StartCoroutine(GameSparksController.GetUserDailyWorldRank((res) => dailyRank = res));
+
+		SetGlobalRank(allTimeRank, dailyRank);
 		#else
 		yield return null;
 		#endif
@@ -88,130 +114,63 @@ public class Ranking : MonoBehaviour
 
 	private IEnumerator GetFriendsRank()
 	{
-		Debug.Log("Getting Friends ranking...");
+		Debug.Log("Getting All Time Friends ranking...");
 
 		#if LEADERBOARDS_IMPLEMENTED
-		yield return StartCoroutine(FacebookHelper.GetAllTimeFriendsRank(SetFriendsRank));
+		int allTimeRank = 0;
+		int dailyRank = 0;
+
+		yield return StartCoroutine(GameSparksController.GetUserAllTimeFriendsRank((res) => allTimeRank = res));
+		yield return StartCoroutine(GameSparksController.GetUserDailyFriendsRank((res) => dailyRank = res));
+
+		SetFriendsRank(allTimeRank, dailyRank);
 		#else
 		yield return null;
 		#endif
 	}
 
-	private void SetGlobalRank(int rank)
+	private void SetGlobalRank(int allTimeRank, int dailyRank)
 	{
-		Debug.Log(string.Format("Rankings.SetGlobalRank({0})", rank));
-		//TODO: Localization
-		worldRank.text = (rank <= 0) ? "Error" : "#" + rank;
-		//worldRank.text += (maxRange > 0) ? " of " + maxRange : "";
+		Debug.Log(string.Format("Rankings.SetGlobalRank({0},{1})", allTimeRank, dailyRank));
+
+		worldAllTimeRank.text = (allTimeRank <= 0) ? "Error" : "#" + allTimeRank;
+		worldDailyRank.text = (dailyRank <= 0) ? "Error" : "#" + dailyRank;
+
+		worldLoading.enabled = false;
+
+		if(allTimeRank > 0 || dailyRank > 0)
+			globalInfo.SetActive(true);
 	}
 
-	private void SetFriendsRank(int rank)
+	private void SetFriendsRank(int allTimeRank, int dailyRank)
 	{
-		Debug.Log(string.Format("Rankings.SetFriendsRank({0})", rank));
-		//TODO: Localization
-		friendsRank.text = (rank <= 0) ? "Error" : "#" + rank;
-		//friendsRank.text += (maxRange > 0) ? " of " + maxRange : "";
+		Debug.Log(string.Format("Rankings.SetFriendsRank({0},{1})", allTimeRank, dailyRank));
+
+		friendsAllTimeRank.text = (allTimeRank <= 0) ? "Error" : "#" + allTimeRank;
+		friendsDailyRank.text = (dailyRank <= 0) ? "Error" : "#" + dailyRank;
+
+		friendsLoading.enabled = false;
+
+		if(allTimeRank > 0 || dailyRank > 0)
+			friendsInfo.SetActive(true);
 	}
-
-	//old methods
-	/*private IEnumerator GetGlobalRank()
-	{
-		Debug.Log("Getting Global ranking...");
-		while(!DBController.allInformationLoaded)
-			yield return null;
-
-		int rank = 0;
-		yield return StartCoroutine(DBHandler.GetUserGlobalRanking(DBHandler.User.id, value => rank = value));
-
-		FacebookController.User.rank = rank;
-
-		worldRank.text = "#" + rank;
-		globalInfo.SetActive(true);
-	}
-
-	private IEnumerator GetFriendsRank()
-	{
-		Debug.Log("Getting Friends ranking...");
-
-		if(!listSorted)
-		{
-			if(!FacebookController.User.friendsScoreLoaded)
-				Debug.Log("Not all friends score are loaded");
-
-			while(!FacebookController.User.friendsScoreLoaded || !DBController.allInformationLoaded)
-				yield return null;
-
-			string list = "Friends before sort";
-			for(byte i = 0; i < FacebookController.User.friends.Count; i++)
-			{
-				FacebookFriend friend = FacebookController.User.friends[i];
-				list += "\n" + friend.ToString();
-			}
-
-			Debug.Log(list);
-
-			FacebookController.User.friends.Sort();
-			FacebookController.User.friends.Reverse();
-
-			for(byte i = 0; i < FacebookController.User.friends.Count; i++)
-			{
-				FacebookFriend friend = FacebookController.User.friends[i];
-
-				friend.rank = (i + 1);
-
-				if(i > 0)
-				{
-					FacebookFriend lastFriend = FacebookController.User.friends[i - 1];
-					if(friend.score == lastFriend.score)
-						friend.rank = lastFriend.rank;
-				}
-			}
-
-			list = "Friends after sort";
-			for(byte i = 0; i < FacebookController.User.friends.Count; i++)
-			{
-				FacebookFriend friend = FacebookController.User.friends[i];
-				list += "\n" + friend.ToString();
-			}
-			
-			Debug.Log(list);
-
-			listSorted = true;
-		}
-
-		int rank = 0;
-		foreach(FacebookFriend friend in FacebookController.User.friends)
-		{
-			if(friend.id == FacebookController.User.id)
-				rank = friend.rank;
-		}
-
-		friendsRank.text = "#" + rank;
-		friendsInfo.SetActive(true);
-	}*/
 
 	public void OpenGlobalRank()
 	{
 		#if LEADERBOARDS_IMPLEMENTED
-		LeaderboardsHelper.OpenLeaderboards();
+
 		#endif
-		//general.SetActive(false);
-		//globalRanking.SetActive(true);
 	}
 
 	public void OpenFriendsRank()
 	{
 		#if LEADERBOARDS_IMPLEMENTED
-		LeaderboardsHelper.OpenLeaderboards();
+
 		#endif
-		//general.SetActive(false);
-		//friendsRanking.SetActive(true);
 	}
 
 	public void CloseRank()
 	{
-		general.SetActive(true);
-		//globalRanking.SetActive(false);
-		//friendsRanking.SetActive(false);
+		
 	}
 }

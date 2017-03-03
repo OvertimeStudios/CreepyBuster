@@ -143,7 +143,7 @@ public class MenuController : MonoBehaviour
 
 		Global.OnHighScoreUpdated += UpdateScore;
 
-		LeaderboardsHelper.OnPlayerAuthenticated += SendFirstScore;
+		GameSparksController.OnUserGSLogin += SendFirstScore;
 	}
 
 	void OnDisable()
@@ -157,13 +157,13 @@ public class MenuController : MonoBehaviour
 
 		Global.OnHighScoreUpdated -= UpdateScore;
 
-		LeaderboardsHelper.OnPlayerAuthenticated -= SendFirstScore;
+		GameSparksController.OnUserGSLogin -= SendFirstScore;
 	}
 
 	private void SendFirstScore()
 	{
 		//HACK: the first time player enter game, he doesn't have any registered score on leaderboard. So, entry a 0 value.
-		LeaderboardsHelper.SendScore(Global.HighScore);
+		GameSparksController.SendScore(Global.HighScore);
 
 		//StartCoroutine(GetUserScore());
 	}

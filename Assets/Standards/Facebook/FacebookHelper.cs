@@ -34,7 +34,7 @@ public class FacebookHelper : MonoBehaviour
 
 	public static bool IsUserLoggedIn
 	{
-		get { return Global.FacebookID != ""; }
+		get { return FB.IsLoggedIn; }
 	}
 	#endregion
 

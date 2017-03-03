@@ -26,12 +26,17 @@ public class FacebookController : MonoBehaviour
 
 	public static bool IsLoggedIn
 	{
-		get { return Global.FacebookID != ""; }
+		get { return FacebookHelper.IsUserLoggedIn; }
 	}
 	
 	public static string FacebookID
 	{
 		get { return Global.FacebookID; }
+	}
+
+	public static string AccessTokenForSession
+	{
+		get { return AccessToken.CurrentAccessToken.TokenString; }
 	}
 	#endregion
 
