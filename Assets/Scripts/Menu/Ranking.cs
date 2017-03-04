@@ -40,8 +40,8 @@ public class Ranking : Singleton<Ranking>
 
 		general.SetActive(true);
 		
-		globalInfo.SetActive(GameSparksController.IsUserLoggedIn);
-		friendsInfo.SetActive(GameSparksController.IsUserLoggedIn);
+		globalInfo.SetActive(FacebookController.IsLoggedIn);
+		friendsInfo.SetActive(FacebookController.IsLoggedIn);
 
 		#if LEADERBOARDS_IMPLEMENTED
 		if(FacebookController.IsLoggedIn)
@@ -55,12 +55,16 @@ public class Ranking : Singleton<Ranking>
 			}
 		}
 		else
+		{
+			FacebookController.OnJustLoggedIn += UserLoginOnFacebook;
 			GameSparksController.OnUserGSLogin += GetRanks;
+		}
 		#endif
 	}
 
 	void OnDisable()
 	{
+		FacebookController.OnJustLoggedIn -= UserLoginOnFacebook;
 		GameSparksController.OnUserGSLogin -= GetRanks;
 	}
 
@@ -75,6 +79,14 @@ public class Ranking : Singleton<Ranking>
 	{
 		general.SetActive(true);
 		globalRank.SetActive(false);
+	}
+
+	private void UserLoginOnFacebook()
+	{
+		FacebookController.OnJustLoggedIn -= UserLoginOnFacebook;
+
+		globalInfo.SetActive(false);
+		friendsInfo.SetActive(false);
 	}
 
 	public void AuthenticatePlayer()

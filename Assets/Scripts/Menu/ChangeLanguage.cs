@@ -5,6 +5,8 @@ public class ChangeLanguage : MonoBehaviour
 {
 	public UIButton portuguese;
 	public UIButton english;
+	public UIButton italian;
+	public UIButton russian;
 	public TweenPosition tween;
 
 	[HideInInspector]
@@ -36,6 +38,10 @@ public class ChangeLanguage : MonoBehaviour
 			LocalizationController.CurrentLanguage = LocalizationController.Language.Portuguese;
 		else if (UIButton.current == english)
 			LocalizationController.CurrentLanguage = LocalizationController.Language.English;
+		else if(UIButton.current == italian)
+			LocalizationController.CurrentLanguage = LocalizationController.Language.Italian;
+		else if(UIButton.current == russian)
+			LocalizationController.CurrentLanguage = LocalizationController.Language.Russian;
 	}
 
 	public void OpenClose()

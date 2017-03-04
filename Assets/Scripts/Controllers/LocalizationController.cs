@@ -26,6 +26,8 @@ public class LocalizationController : MonoBehaviour
 	{
 		English,
 		Portuguese,
+		Italian,
+		Russian,
 	}
 
 	/// <summary>
@@ -52,7 +54,18 @@ public class LocalizationController : MonoBehaviour
 	void Start () 
 	{
 		if(Global.Language == "")
-			CurrentLanguage = (Application.systemLanguage == SystemLanguage.Portuguese) ? Language.Portuguese : Language.English;
+		{
+			Language initialLanguage = Language.English;
+
+			if(Application.systemLanguage == SystemLanguage.Portuguese)
+				initialLanguage = Language.Portuguese;
+			else if(Application.systemLanguage == SystemLanguage.Italian)
+				initialLanguage = Language.Italian;
+			else if(Application.systemLanguage == SystemLanguage.Russian)
+				initialLanguage = Language.Russian;
+			
+			CurrentLanguage = initialLanguage;
+		}
 		else
 			CurrentLanguage = (Language)System.Enum.Parse (typeof(Language), Global.Language);
 
