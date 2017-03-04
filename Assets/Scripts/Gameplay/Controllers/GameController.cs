@@ -566,11 +566,11 @@ public class GameController : MonoBehaviour
 				StartCoroutine(DBHandler.UpdateUserScore(DBHandler.User.id, Score));
 			#endif
 			*/
-
-			#if LEADERBOARDS_IMPLEMENTED
-			GameSparksController.SendScore(Score);
-			#endif
 		}
+
+		#if LEADERBOARDS_IMPLEMENTED
+		GameSparksController.SendScore(Score);
+		#endif
 		
 		if (Score > Global.SessionScore)
 			Global.SessionScore = Score;

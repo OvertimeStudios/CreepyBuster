@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Facebook.Unity;
 #endif
 
-public class Ranking : MonoBehaviour 
+public class Ranking : Singleton<Ranking> 
 {
 	public UILabel highScore;
 	public UILabel worldAllTimeRank;
@@ -19,6 +19,8 @@ public class Ranking : MonoBehaviour
 	private bool listSorted = false;
 
 	public GameObject general;
+	public GameObject globalRank;
+	public GameObject friendsRank;
 
 	public GameObject globalInfo;
 	public GameObject friendsInfo;
@@ -67,6 +69,12 @@ public class Ranking : MonoBehaviour
 		#if LEADERBOARDS_IMPLEMENTED
 		GameSparksController.OnUserGSLogin -= GetRanks;
 		#endif
+	}
+
+	void Start()
+	{
+		general.SetActive(true);
+		globalRank.SetActive(false);
 	}
 
 	public void AuthenticatePlayer()
@@ -158,19 +166,23 @@ public class Ranking : MonoBehaviour
 	public void OpenGlobalRank()
 	{
 		#if LEADERBOARDS_IMPLEMENTED
-
+		general.SetActive(false);
+		globalRank.SetActive(true);
 		#endif
 	}
 
 	public void OpenFriendsRank()
 	{
 		#if LEADERBOARDS_IMPLEMENTED
-
+		general.SetActive(false);
+		friendsRank.SetActive(true);
 		#endif
 	}
 
 	public void CloseRank()
 	{
-		
+		general.SetActive(true);
+		globalRank.SetActive(false);
+		friendsRank.SetActive(false);
 	}
 }
