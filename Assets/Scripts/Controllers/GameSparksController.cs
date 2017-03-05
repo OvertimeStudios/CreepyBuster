@@ -10,7 +10,7 @@ public class GameSparksController : Singleton<GameSparksController>
 	private static System.DateTime epochStart = new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc);
 
 	#region Action
-	public static Action OnUserGSLogin;
+	public static Action<bool> OnUserGSLogin;
 	#endregion
 
 	#region Get / Set
@@ -66,7 +66,7 @@ public class GameSparksController : Singleton<GameSparksController>
 			Debug.Log("Logged in successfully!");
 
 			if(OnUserGSLogin != null)
-				OnUserGSLogin();
+				OnUserGSLogin((bool)authResponse.NewPlayer);
 		}
 	}
 

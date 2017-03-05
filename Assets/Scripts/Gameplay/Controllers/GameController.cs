@@ -557,16 +557,7 @@ public class GameController : MonoBehaviour
 			Global.MaxStreak = maxStreak;
 
 		if (Score > Global.HighScore)
-		{
 			Global.HighScore = Score;
-
-			/*
-			#if FACEBOOK_IMPLEMENTED && DB_IMPLEMENTED
-			if(FacebookController.IsLoggedIn)
-				StartCoroutine(DBHandler.UpdateUserScore(DBHandler.User.id, Score));
-			#endif
-			*/
-		}
 
 		#if LEADERBOARDS_IMPLEMENTED
 		GameSparksController.SendScore(Score);

@@ -160,12 +160,15 @@ public class MenuController : MonoBehaviour
 		GameSparksController.OnUserGSLogin -= SendFirstScore;
 	}
 
-	private void SendFirstScore()
+	private void SendFirstScore(bool newPlayer)
 	{
-		//HACK: the first time player enter game, he doesn't have any registered score on leaderboard. So, entry a 0 value.
-		GameSparksController.SendScore(Global.HighScore);
-
-		//StartCoroutine(GetUserScore());
+		if(newPlayer)
+		{
+			//HACK: the first time player enter game, he doesn't have any registered score on leaderboard. So, entry a 0 value.
+			GameSparksController.SendScore(Global.HighScore);
+		}
+		else
+			GameSparksController.SendScore(0);
 	}
 
 	private IEnumerator GetUserScore()

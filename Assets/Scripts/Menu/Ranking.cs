@@ -39,6 +39,8 @@ public class Ranking : Singleton<Ranking>
 		friendsLoading.enabled = GameSparksController.IsUserLoggedIn;
 
 		general.SetActive(true);
+		globalRank.SetActive(false);
+		friendsRank.SetActive(false);
 		
 		globalInfo.SetActive(FacebookController.IsLoggedIn);
 		friendsInfo.SetActive(FacebookController.IsLoggedIn);
@@ -79,6 +81,7 @@ public class Ranking : Singleton<Ranking>
 	{
 		general.SetActive(true);
 		globalRank.SetActive(false);
+		friendsRank.SetActive(false);
 	}
 
 	private void UserLoginOnFacebook()
@@ -96,7 +99,7 @@ public class Ranking : Singleton<Ranking>
 		#endif
 	}
 
-	private void GetRanks()
+	private void GetRanks(bool newPlayer = false)
 	{
 		GameSparksController.OnUserGSLogin -= GetRanks;
 
