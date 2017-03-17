@@ -419,7 +419,7 @@ public class IllusionBoss : MonoBehaviour
 
 			Time.timeScale = 0.2f;
 			
-			cameraShake.Shake(bossLife.deathTime);
+			cameraShake.Shake(bossLife.deathTime / Time.timeScale);
 			ScreenFeedback.ShowBlank(bossLife.deathTime, 0.5f);
 
 			//Color color = brilhos[0].GetComponent<SpriteRenderer>().color;

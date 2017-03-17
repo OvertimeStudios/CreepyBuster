@@ -206,7 +206,7 @@ public class BossMeteoro : MonoBehaviour
 
 			Time.timeScale = 0.2f;
 
-			cameraShake.Shake(enemyLife.deathTime);
+			cameraShake.Shake(enemyLife.deathTime / Time.timeScale);
 			ScreenFeedback.ShowBlank(enemyLife.deathTime, 0.5f);
 
 			SpriteRenderer olho = brilhoOlho.GetComponent<SpriteRenderer>();

@@ -265,6 +265,7 @@ MonoBehaviour:
   score: 0
   countAsStreak: 0
   countAsKill: 1
+  runDeathAnimation: 0
   destroyUponDeath: 1
   deathTime: 2
   inLight: 0

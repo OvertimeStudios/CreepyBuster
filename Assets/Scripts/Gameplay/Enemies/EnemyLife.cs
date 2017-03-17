@@ -19,6 +19,7 @@ public class EnemyLife : MonoBehaviour
 	[HideInInspector]
 	public bool countAsKill = true;
 
+	public bool runDeathAnimation = true;
 	public bool destroyUponDeath = true;
 	public float deathTime = 1f;
 	private bool playSound = true;
@@ -239,7 +240,11 @@ public class EnemyLife : MonoBehaviour
 
 		countAsKill = countPoints;
 
-		StartCoroutine (FadeAway (deathTime));
+
+		if(runDeathAnimation)
+			StartCoroutine(RunDeathAnimation());
+		else
+			StartCoroutine (FadeAway (deathTime));
 
 		if(playSound)
 			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.Score);
@@ -291,6 +296,38 @@ public class EnemyLife : MonoBehaviour
 		spriteRenderer.material.SetFloat("_FlashAmount", 1);
 
 		//Time.timeScale = 1f;
+
+		if(GameController.isGameRunning)
+		{
+			SpawnItem ();
+			DropOrbs();
+		}
+
+		if(playSound)
+			SoundController.Instance.PlaySoundFX(SoundController.SoundFX.EnemyDie);
+
+		if(destroyUponDeath)
+		{
+			if(explosion != null)
+				Instantiate(explosion, transform.position, Quaternion.identity);
+
+			foreach(SpriteRenderer sp in spritesToWhite)
+				Destroy (sp.transform.parent.gameObject);
+		}
+	}
+
+	protected IEnumerator RunDeathAnimation()
+	{
+		foreach(SpriteRenderer brilho in brilhos)
+			brilho.gameObject.SetActive(false);
+
+		Animator animator = spriteRenderer.GetComponent<Animator> ();
+		animator.SetBool("IsDead", true);
+
+		yield return new WaitForEndOfFrame();
+
+		while(animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1 || animator.IsInTransition(0))
+			yield return null;
 
 		if(GameController.isGameRunning)
 		{

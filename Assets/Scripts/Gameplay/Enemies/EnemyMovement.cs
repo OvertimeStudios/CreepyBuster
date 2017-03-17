@@ -9,7 +9,8 @@ public class EnemyMovement : MonoBehaviour
 	protected EnemyLife enemyLife;
 	protected Animator myAnimator;
 
-	private float originalAnimatorSpeed;
+	[HideInInspector]
+	public float originalAnimatorSpeed;
 
 	protected virtual void OnEnable()
 	{
@@ -17,6 +18,7 @@ public class EnemyMovement : MonoBehaviour
 		GameController.OnSlowDownFade += OnSlowDownFade;
 		GameController.OnFrozenCollected += ApplyFrozen;
 		GameController.OnFrozenFade += RemoveFrozen;
+		EnemyLife.OnDied += OnDied;
 		ConsumablesController.OnAnyItemUsed += ApplyFrozen;
 		ConsumablesController.OnAllItensUsed += RemoveFrozen;
 	}
@@ -27,6 +29,7 @@ public class EnemyMovement : MonoBehaviour
 		GameController.OnSlowDownFade -= OnSlowDownFade;
 		GameController.OnFrozenCollected -= ApplyFrozen;
 		GameController.OnFrozenFade -= RemoveFrozen;
+		EnemyLife.OnDied -= OnDied;
 		ConsumablesController.OnAnyItemUsed -= ApplyFrozen;
 		ConsumablesController.OnAllItensUsed -= RemoveFrozen;
 	}
@@ -72,7 +75,10 @@ public class EnemyMovement : MonoBehaviour
 		if(myAnimator != null)
 		{
 			if(!ConsumablesController.IsUsingConsumables && !GameController.IsFrozen)
+			{
+				//TODO: death animation not playing after frozen
 				myAnimator.speed = originalAnimatorSpeed;
+			}
 		}
 	}
 
@@ -86,5 +92,16 @@ public class EnemyMovement : MonoBehaviour
 	{
 		if(myAnimator != null)
 			myAnimator.speed = originalAnimatorSpeed;
+	}
+
+	private void OnDied(GameObject obj)
+	{
+		if(obj == gameObject)
+		{
+			Debug.Log("Is Dead!");
+
+			if(GameController.IsFrozen && myAnimator != null)
+				myAnimator.speed = originalAnimatorSpeed;
+		}
 	}
 }
