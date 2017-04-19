@@ -25886,158 +25886,158 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievements:
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killcreeps1
-      android: CgkIl4-_i_YJEAIQAg
+      iOS: it.tinygames.mightycreepers.killcreeps1
+      android: Cgklo_35h_AHEAIQAA
     type: 0
     value: 10
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killcreeps2
-      android: CgkIl4-_i_YJEAIQAw
+      iOS: it.tinygames.mightycreepers.killcreeps2
+      android: Cgklo_35h_AHEAIQAQ
     type: 0
     value: 100
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killcreeps3
-      android: CgkIl4-_i_YJEAIQBA
+      iOS: it.tinygames.mightycreepers.killcreeps3
+      android: Cgklo_35h_AHEAIQAg
     type: 0
     value: 1000
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killcreeps4
-      android: CgkIl4-_i_YJEAIQBQ
+      iOS: it.tinygames.mightycreepers.killcreeps4
+      android: Cgklo_35h_AHEAIQAw
     type: 0
     value: 5000
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killcreeps5
-      android: CgkIl4-_i_YJEAIQBg
+      iOS: it.tinygames.mightycreepers.killcreeps5
+      android: Cgklo_35h_AHEAIQBA
     type: 0
     value: 10000
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killblu
-      android: CgkIl4-_i_YJEAIQBw
+      iOS: it.tinygames.mightycreepers.killblu
+      android: Cgklo_35h_AHEAIQBQ
     type: 1
     value: 1000
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killspiral
-      android: CgkIl4-_i_YJEAIQCA
+      iOS: it.tinygames.mightycreepers.killspiral
+      android: Cgklo_35h_AHEAIQBg
     type: 2
     value: 200
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killziggy
-      android: CgkIl4-_i_YJEAIQCQ
+      iOS: it.tinygames.mightycreepers.killziggy
+      android: Cgklo_35h_AHEAIQBw
     type: 3
     value: 250
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killcharger
-      android: CgkIl4-_i_YJEAIQCg
+      iOS: it.tinygames.mightycreepers.killcharger
+      android: Cgklo_35h_AHEAIQCA
     type: 4
     value: 250
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killlegion
-      android: CgkIl4-_i_YJEAIQCw
+      iOS: it.tinygames.mightycreepers.killlegion
+      android: Cgklo_35h_AHEAIQCQ
     type: 5
     value: 200
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killfollower
-      android: CgkIl4-_i_YJEAIQDA
+      iOS: it.tinygames.mightycreepers.killfollower
+      android: Cgklo_35h_AHEAIQCg
     type: 6
     value: 800
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killboss1
-      android: CgkIl4-_i_YJEAIQDQ
+      iOS: it.tinygames.mightycreepers.killboss1
+      android: Cgklo_35h_AHEAIQCw
     type: 7
     value: 1
   - identifier:
       iOS: com.overtimestudios.creepybuster.achievements.killboss2
-      android: CgkIl4-_i_YJEAIQDg
+      android: Cgklo_35h_AHEAIQDA
     type: 8
     value: 1
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killboss3
-      android: CgkIl4-_i_YJEAIQDw
+      iOS: it.tinygames.mightycreepers.killboss3
+      android: Cgklo_35h_AHEAIQDQ
     type: 9
     value: 1
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.killstreak
-      android: CgkIl4-_i_YJEAIQEA
+      iOS: it.tinygames.mightycreepers.killstreak
+      android: Cgklo_35h_AHEAIQDg
     type: 10
     value: 175
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.points1
-      android: CgkIl4-_i_YJEAIQEQ
+      iOS: it.tinygames.mightycreepers.points1
+      android: Cgklo_35h_AHEAIQDw
     type: 11
     value: 150
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.points2
-      android: CgkIl4-_i_YJEAIQEg
+      iOS: it.tinygames.mightycreepers.points2
+      android: Cgklo_35h_AHEAIQEA
     type: 11
     value: 350
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.points3
-      android: CgkIl4-_i_YJEAIQEw
+      iOS: it.tinygames.mightycreepers.points3
+      android: Cgklo_35h_AHEAIQEQ
     type: 11
     value: 500
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.points4
-      android: CgkIl4-_i_YJEAIQFA
+      iOS: it.tinygames.mightycreepers.points4
+      android: Cgklo_35h_AHEAIQEg
     type: 11
     value: 750
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.points5
-      android: CgkIl4-_i_YJEAIQFQ
+      iOS: it.tinygames.mightycreepers.points5
+      android: Cgklo_35h_AHEAIQEw
     type: 11
     value: 1000
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.hour1
-      android: CgkIl4-_i_YJEAIQFg
+      iOS: it.tinygames.mightycreepers.hour1
+      android: Cgklo_35h_AHEAIQFA
     type: 12
     value: 18000
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.hour2
-      android: CgkIl4-_i_YJEAIQFw
+      iOS: it.tinygames.mightycreepers.hour2
+      android: Cgklo_35h_AHEAIQFQ
     type: 12
     value: 108000
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.games1
-      android: CgkIl4-_i_YJEAIQGA
+      iOS: it.tinygames.mightycreepers.games1
+      android: Cgklo_35h_AHEAIQFg
     type: 13
     value: 5
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.games2
-      android: CgkIl4-_i_YJEAIQGQ
+      iOS: it.tinygames.mightycreepers.games2
+      android: Cgklo_35h_AHEAIQFw
     type: 13
     value: 25
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.games3
-      android: CgkIl4-_i_YJEAIQGg
+      iOS: it.tinygames.mightycreepers.games3
+      android: Cgklo_35h_AHEAIQGA
     type: 13
     value: 100
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.games4
-      android: CgkIl4-_i_YJEAIQGw
+      iOS: it.tinygames.mightycreepers.games4
+      android: Cgklo_35h_AHEAIQGQ
     type: 13
     value: 300
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.games5
-      android: CgkIl4-_i_YJEAIQHA
+      iOS: it.tinygames.mightycreepers.games5
+      android: Cgklo_35h_AHEAIQGg
     type: 13
     value: 600
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.upgrades
-      android: CgkIl4-_i_YJEAIQHQ
+      iOS: it.tinygames.mightycreepers.upgrades
+      android: Cgklo_35h_AHEAIQGw
     type: 16
     value: 21
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.leftright
-      android: CgkIl4-_i_YJEAIQHg
+      iOS: it.tinygames.mightycreepers.leftright
+      android: Cgklo_35h_AHEAIQHA
     type: 17
     value: 60
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.energy
-      android: CgkIl4-_i_YJEAIQHw
+      iOS: it.tinygames.mightycreepers.energy
+      android: Cgklo_35h_AHEAIQHQ
     type: 15
     value: 17280
   - identifier:
-      iOS: com.overtimestudios.creepybuster.achievements.menu
-      android: CgkIl4-_i_YJEAIQIA
+      iOS: it.tinygames.mightycreepers.menu
+      android: Cgklo_35h_AHEAIQHg
     type: 18
     value: 600
 --- !u!1 &802080238
