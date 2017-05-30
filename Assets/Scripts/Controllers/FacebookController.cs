@@ -116,7 +116,6 @@ public class FacebookController : MonoBehaviour
 			List<string> perms = new List<string>()
 			{
 				"public_profile",
-				"email",
 				"user_friends",
 			};
 

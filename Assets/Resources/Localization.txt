@@ -246,3 +246,13 @@ MEDIUM,MEDIUM,MÉDIO
 HARD,HARD,DIFÍCIL
 ALL_TIME,ALL TIME,GERAL
 DAILY,DAILY,DIÁRIO
+WANT_TUTORIAL,Do you want to go through the tutorial?,Quer passar pelo tutorial?
+TUTORIAL_1,"Welcome to tutorial level.","Bem vindo ao nível de tutorial"
+TUTORIAL_2,"Only two rules: don't let enemies hit your finger and destroy them with your ray",Apenas uma regra: não deixe os inimigos pegarem seu dedo e destrua-os com seu raio
+TUTORIAL_3,"Look, an enemy! Approach and burn him to death!","Olhe, um inimigo! Aproxime-se e queime-o até morrer"
+TUTORIAL_4,Great! Try this one.,Ótimo! Tente este agora.
+TUTORIAL_5,"Excelent! Whenever you kill an enemy, your ray level will grow up. Try to reach level 2.","Excelente! Sempre que matar um inimigo, você aumentará seu nível do raio. Tente chegar ao nível 2"
+TUTORIAL_6,"On level 2, you have 2 rays. Try it out.","No nível 2, você tem 2 raios. Teste-os."
+TUTORIAL_7,"You can use FORCE TOUCH to increase your damage at cost of energy.","Você pode usar o FORCE TOUCH para aumentar seu dano gastando sua energia."
+TUTORIAL_8,"Destroy this enemy with FORCE TOUCH", "Destrua esse inimigo com o FORCE TOUCH"
+TUTORIAL_9,"Nice! One more thing: if you got hit, you'll lose your level. If you are already at level 1, it's GAME OVER. Good luck!","Legal! Mais uma coisa: se você for pego, você perderá seu nível. Se você já estiver no nível 1, é FIM DE JOGO. Boa sorte!"

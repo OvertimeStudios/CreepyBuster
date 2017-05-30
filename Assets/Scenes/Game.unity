@@ -41578,21 +41578,35 @@ MonoBehaviour:
   hudCamera: {fileID: 860026963}
   tutorial: {fileID: 1074819523}
   texts:
-  - text: TUTORIAL_1
-    time: 6
-  - text: TUTORIAL_2
-    time: 4
-  - text: TUTORIAL_3
-    time: 2
-  - text: TUTORIAL_4
-    time: 0
-  - text: TUTORIAL_5
+  - alias: Welcome
+    text: TUTORIAL_1
     time: 3
-  - text: TUTORIAL_6
+  - alias: Two rules
+    text: TUTORIAL_2
+    time: 5
+  - alias: Spawn Basic
+    text: TUTORIAL_3
     time: 2
-  - text: TUTORIAL_7
+  - alias: Spawn Follower
+    text: TUTORIAL_4
+    time: 0
+  - alias: Grind to level 2
+    text: TUTORIAL_5
+    time: 3
+  - alias: Spawn 2 basic
+    text: TUTORIAL_6
+    time: 2
+  - alias: You can use FORCE TOUCH
+    text: TUTORIAL_7
+    time: 5
+  - alias: Destroy with FORCE TOUCH
+    text: TUTORIAL_8
+    time: 2
+  - alias: GAME OVER explanation
+    text: TUTORIAL_9
     time: 7
-  runTutorial: 0
+  runTutorial: 1
+  runEverySession: 1
 --- !u!1 &1394213477
 GameObject:
   m_ObjectHideFlags: 0

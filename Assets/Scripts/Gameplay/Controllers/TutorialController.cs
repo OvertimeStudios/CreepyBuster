@@ -23,10 +23,13 @@ public class TutorialController : MonoBehaviour
 	private int textsNumber = 0;
 
 	public bool runTutorial = true;
+	public bool runEverySession = true;
+	private static bool tutorialCompleted = false;
 	public static bool running;
 	public static bool canTakeOffFinger;
+	private static bool used3DTouch;
 
-	//private static Answer firstTimeTutorial;
+	private static Answer tutorialAnswer;
 
 	#region singleton
 	private static TutorialController instance;
@@ -67,8 +70,9 @@ public class TutorialController : MonoBehaviour
 		textsNumber = 0;
 		doubleEnemy = false;
 		canTakeOffFinger = false;
+		used3DTouch = false;
 
-		if(GameController.isGameRunning)
+		if(GameController.isGameRunning && runTutorial)
 			StartCoroutine (Run ());
 
 		StartCoroutine(ActivateTutorialGameObject());
@@ -99,6 +103,9 @@ public class TutorialController : MonoBehaviour
 	{
 		instance = this;
 		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
+
+		if(runEverySession)
+			Global.IsTutorialEnabled = true;
 	}
 
 	void Update()
@@ -123,94 +130,130 @@ public class TutorialController : MonoBehaviour
 
 	private void YesTutorial()
 	{
-		//firstTimeTutorial = Answer.Yes;
+		tutorialAnswer = Answer.Yes;
 	}
 
 	private void NoTutorial()
 	{
-		//firstTimeTutorial = Answer.No;
+		tutorialAnswer = Answer.No;
 	}
 
 	private IEnumerator Run()
 	{
 		running = true;
 
-		/*if(Global.IsFirstTimeTutorial)
+		if(runEverySession || Global.IsFirstTimeTutorial)
 		{
-			firstTimeTutorial = Answer.None;
+			tutorialAnswer = Answer.None;
 
-			Popup.ShowYesNo(Localization.Get("WANT_TUTORIAL"), YesTutorial, NoTutorial, true);
+			//show popup to confirm tutorial
+			/*Popup.ShowYesNo(Localization.Get("WANT_TUTORIAL"), YesTutorial, NoTutorial, true);
 
-			while(firstTimeTutorial == Answer.None)
+			while(tutorialAnswer == Answer.None)
+			{
+				//Debug.Log("Waiting for answer");
+				yield return null;
+			}
+
+			if(tutorialAnswer == Answer.No)
+			{
+				End ();
+				yield break;
+			}*/
+
+			//first rule
+			yield return new WaitForSeconds(ShowNextText());
+
+			canTakeOffFinger = true;
+
+			//second rule
+			yield return new WaitForSeconds(ShowNextText());
+
+			//look, an enemy!
+			yield return new WaitForSeconds(ShowNextText());
+
+			SpawnEnemy (basicEnemy);
+
+			while (enemyCounter > 0)
 				yield return null;
 
-			if(firstTimeTutorial == Answer.No)
-				End ();
+			//Great! 
+			yield return new WaitForSeconds(ShowNextText());
+
+			SpawnEnemy (followerEnemy);
+
+			while (enemyCounter > 0)
+				yield return null;
+
+			//Excelent! level up
+			yield return new WaitForSeconds(ShowNextText());
+
+			while (LevelDesign.PlayerLevel < 1)
+			{
+				if(enemyCounter == 0)
+					SpawnEnemy(followerEnemy);
+
+				yield return null;
+			}
+
+			//2 rays
+			yield return new WaitForSeconds(ShowNextText());
+
+			doubleEnemy = true;
+			SpawnEnemy (basicEnemy);
+			SpawnEnemy (basicEnemy);
+
+			while (enemyCounter > 0)
+				yield return null;
+
+			//force touch (iOS only)
+			if(Input.touchPressureSupported)
+			{
+				yield return new WaitForSeconds(ShowNextText());
+
+				SpawnEnemy (basicEnemy);
+
+				while (enemyCounter > 0 || !used3DTouch)
+				{
+					if(!used3DTouch)
+					{
+						if(Input.touchCount > 0)
+						{
+							if(Input.GetTouch(0).pressure > 1f)
+								used3DTouch = true;
+						}
+					}
+
+					yield return null;
+				}
+			}
+			else
+			{
+				SkipNextTutorial();
+				SkipNextTutorial();
+			}
+
+			//One more thing: got hit
+			yield return new WaitForSeconds(ShowNextText());
 		}
-
-		//first rule
-		yield return new WaitForSeconds(ShowNextText());
-
-		canTakeOffFinger = true;
-
-		//second rule
-		yield return new WaitForSeconds(ShowNextText());
-
-		//look, an enemy!
-		yield return new WaitForSeconds(ShowNextText());
-
-		SpawnEnemy (basicEnemy);
-
-		while (enemyCounter > 0)
-			yield return null;
-
-		//Great! 
-		yield return new WaitForSeconds(ShowNextText());
-
-		SpawnEnemy (followerEnemy);
-
-		while (enemyCounter > 0)
-			yield return null;
-
-		//Excelent! level up
-		yield return new WaitForSeconds(ShowNextText());
-
-		while (LevelDesign.PlayerLevel < 1)
-		{
-			if(enemyCounter == 0)
-				SpawnEnemy(followerEnemy);
-
-			yield return null;
-		}
-
-		//2 rays
-		yield return new WaitForSeconds(ShowNextText());
-
-		doubleEnemy = true;
-		SpawnEnemy (basicEnemy);
-		SpawnEnemy (basicEnemy);
-
-		while (enemyCounter > 0)
-			yield return null;
-
-		//One more thing: got hit
-		yield return new WaitForSeconds(ShowNextText());*/
-
-		string tutorial = "";
-
-		if(Global.GamesPlayed % 3 == 0)
-			tutorial = Localization.Get("TUTORIAL_3DTOUCH");
 		else
 		{
-			tutorial = Localization.Get("TUTORIAL");
+			string tutorial = "";
 
-			if(Global.IsFirstTimeTutorial)
-				tutorial += " " + Localization.Get("TUTORIAL_ADD");
+			if(Global.GamesPlayed % 3 == 0)
+				tutorial = Localization.Get("TUTORIAL_3DTOUCH");
+			else
+			{
+				tutorial = Localization.Get("TUTORIAL");
+
+				if(Global.IsFirstTimeTutorial)
+					tutorial += " " + Localization.Get("TUTORIAL_ADD");
+			}
+
+			tutorialText.text = tutorial;
+
+			yield return new WaitForSeconds(5f);
 		}
-
-		tutorialText.text = tutorial;
-
-		yield return new WaitForSeconds(5f);
 
 		End();
 	}
@@ -219,6 +262,7 @@ public class TutorialController : MonoBehaviour
 	{
 		running = false;
 
+		Instance.runEverySession = false;
 		Global.IsTutorialEnabled = false;
 		Global.IsFirstTimeTutorial = false;
 		Hide ();
@@ -226,6 +270,7 @@ public class TutorialController : MonoBehaviour
 
 	private float ShowNextText()
 	{
+		Debug.Log("Show Next Text");
 		TutorialText tText = texts [textsNumber];
 
 		tutorialText.text = Localization.Get(tText.text);
@@ -235,16 +280,24 @@ public class TutorialController : MonoBehaviour
 		return tText.time;
 	}
 
+	private void SkipNextTutorial()
+	{
+		textsNumber++;
+	}
+
 	private void SpawnEnemy(GameObject enemy)
 	{
 		SpawnController.SpawnEnemy (enemy);
 
 		enemyCounter++;
+
+		Debug.Log("SpawnEnemy " + enemyCounter);
 	}
 
 	private void EnemyDied(GameObject enemy)
 	{
 		enemyCounter--;
+		Debug.Log("EnemyDied " + enemyCounter);
 	}
 
 	private void EnemyOutOfScreen(GameObject enemy)
@@ -260,11 +313,10 @@ public class TutorialController : MonoBehaviour
 		else
 		{
 			SpawnEnemy (basicEnemy);
-
-
 		}
 
-		enemyCounter--;
+		//enemyCounter--;
+		Debug.Log("EnemyOutOfScreen " + enemyCounter);
 
 		if(!tutorialText.text.Contains("Try again"))
 			tutorialText.text = "Try again! \n" + tutorialText.text;
@@ -290,6 +342,7 @@ public class TutorialController : MonoBehaviour
 [System.Serializable]
 public class TutorialText
 {
+	public string alias;
 	public string text;
 	public float time;
 }

@@ -298,6 +298,8 @@ public class Global : MonoBehaviour
 	{
 		get
 		{
+			Debug.Log("IsTutorialEnabled? " + (DataCloudPrefs.GetInt(TUTORIAL_ENABLED) == 1));
+
 			return DataCloudPrefs.GetInt(TUTORIAL_ENABLED) == 1;
 		}
 		

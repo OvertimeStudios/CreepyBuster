@@ -382,12 +382,13 @@ public class EnemyLife : MonoBehaviour
 		}
 	}
 
+	//TODO: verify this bug.
 	//this shouldn't be here, but sometimes OnDied isn't called, so we force call OnDestroy
 	void OnDestroy()
 	{
 		if(IsDead) return;
 
-		if (OnDied != null)
-			OnDied (gameObject);
+		//if (OnDied != null)
+			//OnDied (gameObject);
 	}
 }

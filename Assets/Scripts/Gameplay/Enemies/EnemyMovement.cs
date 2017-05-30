@@ -98,8 +98,6 @@ public class EnemyMovement : MonoBehaviour
 	{
 		if(obj == gameObject)
 		{
-			Debug.Log("Is Dead!");
-
 			if(GameController.IsFrozen && myAnimator != null)
 				myAnimator.speed = originalAnimatorSpeed;
 		}

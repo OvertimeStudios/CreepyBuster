@@ -783,8 +783,8 @@ public class GameController : MonoBehaviour
 		Reset ();
 		gameObject.SetActive (true);
 
-		//if(Global.IsTutorialEnabled)
-		TutorialController.Instance.gameObject.SetActive(true);
+		if(Global.IsTutorialEnabled)
+			TutorialController.Instance.gameObject.SetActive(true);
 
 		if (FingerDetector.IsFingerDown)
 		{
@@ -823,7 +823,7 @@ public class GameController : MonoBehaviour
 			OnGameStart ();
 
 		//if (Global.IsTutorialEnabled)
-			//TutorialController.Instance.gameObject.SetActive (true);
+			TutorialController.Instance.gameObject.SetActive (true);
 	}
 
 	private void Reset()
