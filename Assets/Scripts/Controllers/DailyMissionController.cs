@@ -372,9 +372,6 @@ public class DailyMissionController : Singleton<DailyMissionController>
 		MenuController.OnPanelClosed += BuildMissions;
 
 		yield return new WaitForEndOfFrame();
-
-		if(!DailyRewardController.IsActive)
-			popup.SetActive(true);
 	}
 
 	// Update is called once per frame
@@ -473,7 +470,8 @@ public class DailyMissionController : Singleton<DailyMissionController>
 
 	public void ShowPopup()
 	{
-		popup.SetActive(true);
+		if(!DailyRewardController.IsActive)
+			popup.SetActive(true);
 	}
 
 	public void ClosePopup()

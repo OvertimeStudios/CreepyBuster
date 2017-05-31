@@ -306,7 +306,7 @@ public class MenuController : MonoBehaviour
 
 			Achievement.achievementRecentUnlocked.Remove(a);
 		}
-		else
+		else if(!DailyRewardController.CheckReward())
 			ShowDailyMissions();
 		#endif
 	}

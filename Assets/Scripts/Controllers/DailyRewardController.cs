@@ -10,9 +10,9 @@ public class DailyRewardController : MonoBehaviour
 	public GameObject dailyRewardObject;
 	public int[] orbsReward;
 
-	private int orbsToCollect;
+	private static int orbsToCollect;
 
-	private int rewardCooldown;
+	private static int rewardCooldown;
 	private static DateTime rewardCooldownTime;
 
 	#region get / set
@@ -48,7 +48,7 @@ public class DailyRewardController : MonoBehaviour
 		}
 	}
 
-	public DateTime RewardCooldownTime
+	public static DateTime RewardCooldownTime
 	{
 		get 
 		{
@@ -64,7 +64,7 @@ public class DailyRewardController : MonoBehaviour
 		}
 	}
 
-	public int RewardCooldownLeft
+	public static int RewardCooldownLeft
 	{
 		get
 		{
@@ -72,7 +72,7 @@ public class DailyRewardController : MonoBehaviour
 		}
 	}
 	
-	public bool IsReady
+	public static bool IsReady
 	{
 		get { return RewardCooldownLeft <= 0; }
 	}
@@ -108,20 +108,24 @@ public class DailyRewardController : MonoBehaviour
 	void Start()
 	{
 		#if !UNITY_WEBGL
-		CheckReward();
+		//CheckReward();
 		#endif
 	}
 
-	private void CheckReward() 
+	public static bool CheckReward() 
 	{
 		if(RewardCooldownLeft/3600f <= -24f)
 		{
 			DailyRewardDay = 0;
 			SetRewardCooldownTime(DateTime.UtcNow);
 		}
-		
+
+		bool ready = IsReady;
+
 		if(IsReady)
-			ShowReward();
+			Instance.ShowReward();
+
+		return ready;
 	}
 
 	private void ShowReward()
