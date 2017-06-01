@@ -609,7 +609,8 @@ MonoBehaviour:
   vel: 0.2
   acceleration: 0.1
   starPrefab: {fileID: 1000012581639468, guid: db5533ae1de01459cb2c03a5c02bbd26, type: 2}
-  starsQuantity: 50
+  myCamera: {fileID: 0}
+  starsQuantity: 100
   starsScale:
-    min: 0.05
-    max: 0.2
+    min: 0.02
+    max: 0.1

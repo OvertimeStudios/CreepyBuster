@@ -53,6 +53,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 0}
+  alpha:
+    min: 0.4
+    max: 1
+  moveDistance: 0.05
 --- !u!212 &212000012460031564
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -49,7 +49,7 @@ public class StarMenu : MonoBehaviour
 
 		velx = generator.vel * Mathf.Cos(angle);
 		vely = generator.vel * Mathf.Sin(angle);
-		velScale = Mathf.Min(velx, vely);
+		velScale = Mathf.Min(velx, vely) * 0.3f;
 
 		//check bounds on coroutine - on update consumes too much processing
 		StartCoroutine(CheckOutOfBounds());

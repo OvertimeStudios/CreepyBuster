@@ -32382,6 +32382,7 @@ GameObject:
   - 114: {fileID: 1036437450}
   - 114: {fileID: 1036437451}
   - 114: {fileID: 1036437456}
+  - 114: {fileID: 1036437457}
   - 58: {fileID: 1036437453}
   - 58: {fileID: 1036437454}
   - 82: {fileID: 1036437452}
@@ -32623,6 +32624,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyConsumption: 1
   bonusDamage: 0.5
+--- !u!114 &1036437457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1036437448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd32209c611d646f3aad4c6d50d52a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1037100161 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 157726, guid: 31011cd1a71a14e22bf352d3e868e0a9, type: 2}
