@@ -50,6 +50,8 @@ public class Popup : MonoBehaviour
 		video = transform.FindChild ("Video").gameObject;
 		descricao = transform.FindChild ("Descricao").GetComponent<UILabel>();
 
+		transform.localPosition = Vector3.zero;
+
 		Hide ();
 	}
 

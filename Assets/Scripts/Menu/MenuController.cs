@@ -82,6 +82,9 @@ public class MenuController : MonoBehaviour
 	public Transform creepypediaScreen;
 	public Transform gameStatsScreen;
 	public Transform howToPlayScreen;
+	public GameObject plasmettes;
+	public TweenPosition plasmettesTween;
+	public TweenPosition storyModeTween;
 
 	[Header("Menu Achievement")]
 	public int menuAchievementValue = 600;
@@ -262,6 +265,7 @@ public class MenuController : MonoBehaviour
 
 			hud.SetActive (true);
 			menu.SetActive (false);
+			plasmettes.SetActive(false);
 
 			if(OnPanelOpened != null)
 				OnPanelOpened();
@@ -277,6 +281,7 @@ public class MenuController : MonoBehaviour
 			gamesCount++;
 
 			isMenuActive = true;
+			plasmettes.SetActive(true);
 			if(OnPanelClosed != null)
 				OnPanelClosed();
 
@@ -353,7 +358,7 @@ public class MenuController : MonoBehaviour
 		isMenuActive = false;
 
 		wallTop.enabled = wallBottom.enabled = true;
-		
+
 		wallTop.PlayForward();
 		wallBottom.PlayForward();
 
@@ -574,6 +579,18 @@ public class MenuController : MonoBehaviour
 			
 			menuTween.PlayForward ();
 		}
+	}
+
+	public void MoveToStoryMode()
+	{
+		plasmettesTween.PlayForward();
+		storyModeTween.PlayForward();
+	}
+
+	public void MoveToMainMenuFromStoryMode()
+	{
+		plasmettesTween.PlayReverse();
+		storyModeTween.PlayReverse();
 	}
 
 	public void OnMenuTransitionFinished()

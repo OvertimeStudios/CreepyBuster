@@ -26,6 +26,12 @@ public class GameController : MonoBehaviour
 		LifeOut,
 	}
 
+	public enum GameMode
+	{
+		Story,
+		Endless,
+	}
+
 	public static event Action OnGameStart;
 
 	/// <summary>
@@ -128,6 +134,8 @@ public class GameController : MonoBehaviour
 	public static float timeOnSpecial4;
 	public static float timeOnSpecial5;
 	public static float timeOnSpecial6;
+
+	public static GameMode gameMode;
 	#endregion
 
 	#region analytics variables
@@ -913,6 +921,7 @@ public class GameController : MonoBehaviour
 	{
 		if(Popup.IsActive || !isGameRunning)return;
 
+		Debug.Log("OnFingerDown");
 		if(!isPaused || (isPaused && e.Selection != null && e.Selection.layer == LayerMask.NameToLayer("Tap&Hold")))
 			ResumeGame();
 	}

@@ -8,8 +8,6 @@ public class Plasmette : MonoBehaviour
 	public float timeSpinning;
 	public float finalScale;
 	public Transform plasmetteTransform;
-	public Transform rangeTransform;
-	public SpriteRenderer rangeSprite;
 
 	private Collider2D myCollider;
 	private Animator myAnimator;
@@ -33,69 +31,26 @@ public class Plasmette : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		rangeTransform.gameObject.SetActive(false);
 		myAudioSource = GetComponent<AudioSource>();
 		myTransform = transform;
 		myAnimator = GetComponentInChildren<Animator>();
 		myCollider = GetComponent<Collider2D>();
 
-		rangeTween = rangeSprite.GetComponent<TweenScale>();
-		originalRangeAlpha = rangeSprite.color.a;
-
 		originalScale = plasmetteTransform.localScale;
 		originalPosition = plasmetteTransform.position;
 
 		MenuController.OnPanelClosed += Reactivate;
-
-		GameController.OnGameStart += ChangeColor;
-		LevelDesign.OnPlayerLevelUp += ChangeColor;
-		GameController.OnLoseStacks += ChangeColor;
 	}
 
 	void OnFingerHover(FingerHoverEvent e)
 	{
-		//if(GameController.isGameRunning || MenuController.activeMenu != MenuController.Menus.Main || Popup.IsActive || DailyRewardController.IsActive) return;
-
 		if(!(MenuController.IsMenuActive && MenuController.activeMenu == MenuController.Menus.Main) || Popup.IsActive || DailyRewardController.IsActive || DailyMissionController.Instance.IsPopupActive) return;
 
-		if(e.Phase == FingerHoverPhase.Enter)
-			spinningCoroutine = StartCoroutine(StartSpinning());
-	}
-
-	void Update()
-	{
-		//position plasmette under finger
-		if(GameController.isGameRunning)
+		if(e.Phase == FingerHoverPhase.Enter && e.Selection == gameObject)
 		{
-			Vector3 pos;
-			if(Input.touches.Length > 0)
-			{
-				pos = Camera.main.ScreenToWorldPoint (new Vector3 (Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 5));
-			}
-			else
-			{
-				pos = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 5));
-			}
+			spinningCoroutine = StartCoroutine(StartSpinning());
 
-			rangeTransform.position = new Vector3(pos.x, pos.y, pos.z);
-
-			//animate alpha on range
-			if(Mathf.Abs(rangeTween.value.x) > Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f)
-			{
-				float total = Mathf.Abs(rangeTween.to.x - rangeTween.from.x) - (Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f);
-				float part = Mathf.Abs(rangeTween.value.x) - (Mathf.Abs(rangeTween.to.x - rangeTween.from.x) * 0.8f);
-				float percent = 1 - (part / total);
-
-				Color c = rangeSprite.color;
-				c.a = originalRangeAlpha * percent;
-				rangeSprite.color = c;
-			}
-			else
-			{
-				Color c = rangeSprite.color;
-				c.a = originalRangeAlpha;
-				rangeSprite.color = c;
-			}
+			GameController.gameMode = GameController.GameMode.Endless;
 		}
 	}
 	
@@ -126,12 +81,8 @@ public class Plasmette : MonoBehaviour
 		
 		spinningCoroutine = null;
 		MenuController.Instance.OpenPanel();
-		//myAnimator.SetInteger("State", 4);
 
 		plasmetteTransform.gameObject.SetActive(false);
-		rangeTransform.gameObject.SetActive(true);
-
-		rangeTransform.localScale = new Vector3(LevelDesign.CurrentRange, LevelDesign.CurrentRange, LevelDesign.CurrentRange);
 	}
 	
 	private void StopSpinning()
@@ -165,17 +116,9 @@ public class Plasmette : MonoBehaviour
 
 	private void Reactivate()
 	{
-		rangeTransform.gameObject.SetActive(false);
 		myCollider.enabled = true;
 		plasmetteTransform.gameObject.SetActive(true);
 
 		StartCoroutine(BackToNormalScale());
-	}
-
-	private void ChangeColor()
-	{
-		Color c = LevelDesign.CurrentColor;
-		c.a = 0.6f;
-		rangeSprite.color = c;
 	}
 }

@@ -15,6 +15,11 @@ public class Star : MonoBehaviour
 	public RandomBetweenTwoConst alpha;
 	public float moveDistance = 20f;
 
+	void OnDestroy()
+	{
+		PlayerPosition.OnUpdated -= UpdatePosition;
+	}
+
 	IEnumerator Start()
 	{
 		myTransform = transform;
