@@ -831,6 +831,7 @@ public class GameController : MonoBehaviour
 			OnGameStart ();
 
 		//if (Global.IsTutorialEnabled)
+		if(gameMode == GameMode.Endless)
 			TutorialController.Instance.gameObject.SetActive (true);
 	}
 

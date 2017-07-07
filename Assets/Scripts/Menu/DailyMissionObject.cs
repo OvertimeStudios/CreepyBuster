@@ -88,7 +88,7 @@ public class DailyMissionObject : MonoBehaviour
 		//transform.FindChild("Completed").gameObject.SetActive(completed);
 		//transform.FindChild("Normal").gameObject.SetActive(!completed);
 
-		Debug.Log(currentMission.mission + " = " + GetParameter() + " / " + currentMission.value + " (" + Mathf.Min(GetParameter() / (float)currentMission.value, 1) + ")");
+		//Debug.Log(currentMission.mission + " = " + GetParameter() + " / " + currentMission.value + " (" + Mathf.Min(GetParameter() / (float)currentMission.value, 1) + ")");
 
 		transform.FindChild("Normal").FindChild("Description").GetComponent<UILabel>().text = (completed) ? Localization.Get("COMPLETED") : currentMission.Description;
 		transform.FindChild("Normal").FindChild("Description").GetComponent<UILabel>().color = (completed) ? DailyMissionController.Instance.missionCompleteColor : DailyMissionController.Instance.countdownNormalColor;

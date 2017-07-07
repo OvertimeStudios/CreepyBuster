@@ -92,14 +92,31 @@ public class SpawnController : MonoBehaviour
 
 	public void StartSpawn()
 	{
-		StartCoroutine ("SpawnEnemies", LevelDesign.EnemiesSpawnTime);
-		StartCoroutine ("SpawnItens", LevelDesign.ItemSpawnTime);
+		if(GameController.gameMode == GameController.GameMode.Endless)
+		{
+			StartCoroutine ("SpawnEnemies", LevelDesign.EnemiesSpawnTime);
+			StartCoroutine ("SpawnItens", LevelDesign.ItemSpawnTime);
+		}
+		else if(GameController.gameMode == GameController.GameMode.Story)
+		{
+			StartCoroutine("SpawnEnemiesStory");
+		}
 	}
 
 	public void StopSpawn()
 	{
 		StopCoroutine ("SpawnEnemies");
 		StopCoroutine ("SpawnItens");
+
+		StopCoroutine("SpawnEnemiesStory");
+	}
+
+	private IEnumerator SpawnEnemiesStory()
+	{
+		while(SpawnController.EnemiesInGame > 0)
+			yield return null;
+
+		StartCoroutine("SpawnEnemiesStory");
 	}
 	
 	private IEnumerator SpawnEnemies(float waitTime)

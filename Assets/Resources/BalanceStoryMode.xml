@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<balance>
+	<tiers>
+		<tier>
+			<world>1</world>
+			<level>1</level>
+			<wave>1</wave>
+			<enemy>Blu</enemy>
+			<time>0</time>
+		</tier>
+		<tier>
+			<enemy>Blu</enemy>
+			<time>0</time>
+		</tier>
+
+		<tier>
+			<wave>2</wave>
+			<enemy>Blu</enemy>
+			<time>0</time>
+		</tier>
+		<tier>
+			<enemy>Blu</enemy>
+			<time>0</time>
+		</tier>
+		<tier>
+			<enemy>Blu</enemy>
+			<time>2</time>
+		</tier>
+		<tier>
+			<enemy>Blu</enemy>
+			<time>2</time>
+		</tier>
+
+		<tier>
+			<wave>3</wave>
+			<enemy>Blu</enemy>
+			<time>0</time>
+		</tier>
+		<tier>
+			<enemy>Blu</enemy>
+			<time>2</time>
+		</tier>
+		<tier>
+			<enemy>Blu</enemy>
+			<time>2</time>
+		</tier>
+		<tier>
+			<enemy>Blu</enemy>
+			<time>2</time>
+		</tier>
+
+		<tier>
+			<level>2</level>
+			<wave>1</wave>
+			<enemy>Blu</enemy>
+			<time>0</time>
+		</tier>
+
+		<tier>
+			<enemy>Blu</enemy>
+			<time>0</time>
+		</tier>
+		<tier>
+			<enemy>Follower</enemy>
+			<time>0</time>
+		</tier>
+	</tiers>
+
+</balance>
