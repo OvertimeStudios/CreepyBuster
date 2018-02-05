@@ -47,7 +47,7 @@ public class GlobalRanking : MonoBehaviour
 		UIGrid grid = GetComponentInChildren<UIGrid>();
 		grid.transform.DestroyChildren();
 
-		transform.FindChild("Loading").gameObject.SetActive(true);
+		transform.Find("Loading").gameObject.SetActive(true);
 
 		yield return StartCoroutine(GameSparksController.GetAllTimeWorldList((list) => topUsers = list));
 
@@ -65,10 +65,10 @@ public class GlobalRanking : MonoBehaviour
 			else
 				rank = Instantiate(normalRank) as GameObject;
 			
-			UILabel nomeLabel = rank.transform.FindChild("Name").GetComponent<UILabel>();
-			UILabel scoreLabel = rank.transform.FindChild("Score").GetComponent<UILabel>();
-			UILabel rankLabel = rank.transform.FindChild("Rank").GetComponent<UILabel>();
-			UITexture picture = rank.transform.FindChild("Picture").GetComponent<UITexture>();
+			UILabel nomeLabel = rank.transform.Find("Name").GetComponent<UILabel>();
+			UILabel scoreLabel = rank.transform.Find("Score").GetComponent<UILabel>();
+			UILabel rankLabel = rank.transform.Find("Rank").GetComponent<UILabel>();
+			UITexture picture = rank.transform.Find("Picture").GetComponent<UITexture>();
 			
 			nomeLabel.text = user.name;
 			scoreLabel.text = Localization.Get("SCORE") + ": " + user.score;
@@ -98,10 +98,10 @@ public class GlobalRanking : MonoBehaviour
 
 			GameObject rank = Instantiate(normalRank) as GameObject;
 			
-			UILabel nomeLabel = rank.transform.FindChild("Name").GetComponent<UILabel>();
-			UILabel scoreLabel = rank.transform.FindChild("Score").GetComponent<UILabel>();
-			UILabel rankLabel = rank.transform.FindChild("Rank").GetComponent<UILabel>();
-			UITexture picture = rank.transform.FindChild("Picture").GetComponent<UITexture>();
+			UILabel nomeLabel = rank.transform.Find("Name").GetComponent<UILabel>();
+			UILabel scoreLabel = rank.transform.Find("Score").GetComponent<UILabel>();
+			UILabel rankLabel = rank.transform.Find("Rank").GetComponent<UILabel>();
+			UITexture picture = rank.transform.Find("Picture").GetComponent<UITexture>();
 			
 			nomeLabel.text = player.name;
 			scoreLabel.text = Localization.Get("SCORE") + ": " + player.score;
@@ -114,7 +114,7 @@ public class GlobalRanking : MonoBehaviour
 		
 		grid.GetComponent<UIGrid>().Reposition();
 
-		transform.FindChild("Loading").gameObject.SetActive(false);
+		transform.Find("Loading").gameObject.SetActive(false);
 
 		isLoaded = true;
 	}
@@ -132,7 +132,7 @@ public class GlobalRanking : MonoBehaviour
 		UIGrid grid = GetComponentInChildren<UIGrid>();
 		grid.transform.DestroyChildren();
 
-		transform.FindChild("Loading").gameObject.SetActive(true);
+		transform.Find("Loading").gameObject.SetActive(true);
 
 		yield return StartCoroutine(GameSparksController.GetDailyWorldList((list) => topUsers = list));
 
@@ -150,10 +150,10 @@ public class GlobalRanking : MonoBehaviour
 			else
 				rank = Instantiate(normalRank) as GameObject;
 
-			UILabel nomeLabel = rank.transform.FindChild("Name").GetComponent<UILabel>();
-			UILabel scoreLabel = rank.transform.FindChild("Score").GetComponent<UILabel>();
-			UILabel rankLabel = rank.transform.FindChild("Rank").GetComponent<UILabel>();
-			UITexture picture = rank.transform.FindChild("Picture").GetComponent<UITexture>();
+			UILabel nomeLabel = rank.transform.Find("Name").GetComponent<UILabel>();
+			UILabel scoreLabel = rank.transform.Find("Score").GetComponent<UILabel>();
+			UILabel rankLabel = rank.transform.Find("Rank").GetComponent<UILabel>();
+			UITexture picture = rank.transform.Find("Picture").GetComponent<UITexture>();
 
 			nomeLabel.text = user.name;
 			scoreLabel.text = Localization.Get("SCORE") + ": " + user.score;
@@ -183,10 +183,10 @@ public class GlobalRanking : MonoBehaviour
 
 			GameObject rank = Instantiate(normalRank) as GameObject;
 
-			UILabel nomeLabel = rank.transform.FindChild("Name").GetComponent<UILabel>();
-			UILabel scoreLabel = rank.transform.FindChild("Score").GetComponent<UILabel>();
-			UILabel rankLabel = rank.transform.FindChild("Rank").GetComponent<UILabel>();
-			UITexture picture = rank.transform.FindChild("Picture").GetComponent<UITexture>();
+			UILabel nomeLabel = rank.transform.Find("Name").GetComponent<UILabel>();
+			UILabel scoreLabel = rank.transform.Find("Score").GetComponent<UILabel>();
+			UILabel rankLabel = rank.transform.Find("Rank").GetComponent<UILabel>();
+			UITexture picture = rank.transform.Find("Picture").GetComponent<UITexture>();
 
 			nomeLabel.text = player.name;
 			scoreLabel.text = Localization.Get("SCORE") + ": " + player.score;
@@ -199,7 +199,7 @@ public class GlobalRanking : MonoBehaviour
 
 		grid.GetComponent<UIGrid>().Reposition();
 
-		transform.FindChild("Loading").gameObject.SetActive(false);
+		transform.Find("Loading").gameObject.SetActive(false);
 
 		isLoaded = true;
 	}

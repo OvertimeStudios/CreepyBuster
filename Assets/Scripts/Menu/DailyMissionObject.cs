@@ -90,14 +90,14 @@ public class DailyMissionObject : MonoBehaviour
 
 		//Debug.Log(currentMission.mission + " = " + GetParameter() + " / " + currentMission.value + " (" + Mathf.Min(GetParameter() / (float)currentMission.value, 1) + ")");
 
-		transform.FindChild("Normal").FindChild("Description").GetComponent<UILabel>().text = (completed) ? Localization.Get("COMPLETED") : currentMission.Description;
-		transform.FindChild("Normal").FindChild("Description").GetComponent<UILabel>().color = (completed) ? DailyMissionController.Instance.missionCompleteColor : DailyMissionController.Instance.countdownNormalColor;
+		transform.Find("Normal").Find("Description").GetComponent<UILabel>().text = (completed) ? Localization.Get("COMPLETED") : currentMission.Description;
+		transform.Find("Normal").Find("Description").GetComponent<UILabel>().color = (completed) ? DailyMissionController.Instance.missionCompleteColor : DailyMissionController.Instance.countdownNormalColor;
 
-		transform.FindChild("Normal").FindChild("reward").GetComponent<UILabel>().text = "+" + currentMission.reward.ToString();
-		transform.FindChild("Normal").FindChild("bg-green").GetComponent<UISprite>().fillAmount = Mathf.Min(GetParameter() / (float)currentMission.value, 1);
+		transform.Find("Normal").Find("reward").GetComponent<UILabel>().text = "+" + currentMission.reward.ToString();
+		transform.Find("Normal").Find("bg-green").GetComponent<UISprite>().fillAmount = Mathf.Min(GetParameter() / (float)currentMission.value, 1);
 
-		transform.FindChild("Normal").FindChild("reward").GetComponent<UILabel>().enabled = !completed;
-		transform.FindChild("Normal").FindChild("orb icon").GetComponent<UISprite>().enabled = !completed;
+		transform.Find("Normal").Find("reward").GetComponent<UILabel>().enabled = !completed;
+		transform.Find("Normal").Find("orb icon").GetComponent<UISprite>().enabled = !completed;
 	}
 
 	private void VerifyUnlockment()
@@ -124,7 +124,7 @@ public class DailyMissionObject : MonoBehaviour
 
 	private void LanguageChanged()
 	{
-		transform.FindChild("Normal").FindChild("Description").GetComponent<UILabel>().text = currentMission.Description;
+		transform.Find("Normal").Find("Description").GetComponent<UILabel>().text = currentMission.Description;
 	}
 
 	private bool GetMissionCompleted()

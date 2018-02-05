@@ -71,7 +71,7 @@ public class ItemShop : MonoBehaviour
 			levelLabel.text = Localization.Get("LEVEL") + " " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
 
 		//Debug.Log(string.Format("!IsMaxLevel ({0}) && Global.TotalOrbs > Price ({1})", !IsMaxLevel, Global.TotalOrbs >= Price));
-		transform.FindChild("!").gameObject.SetActive(!IsMaxLevel && Global.TotalOrbs >= Price);
+		transform.Find("!").gameObject.SetActive(!IsMaxLevel && Global.TotalOrbs >= Price);
 	}
 
 	void OnDisable()
@@ -107,9 +107,9 @@ public class ItemShop : MonoBehaviour
 
 		Debug.Log(string.Format("{0}: {1} / {2} - {3}", type, CurrentLevel, upgrades.Count, Value));
 
-		description = transform.FindChild ("Description").GetComponent<UILabel> ();
-		priceLabel = transform.FindChild ("Price").FindChild("Label").GetComponent<UILabel> ();
-		levelLabel = transform.FindChild ("Level").GetComponent<UILabel> ();
+		description = transform.Find ("Description").GetComponent<UILabel> ();
+		priceLabel = transform.Find ("Price").Find("Label").GetComponent<UILabel> ();
+		levelLabel = transform.Find ("Level").GetComponent<UILabel> ();
 
 		priceLabel.text = (IsMaxLevel) ? "-----" : string.Format("{0:0,0}", Price);
 		levelLabel.text = Localization.Get("LEVEL") + " " + ((IsMaxLevel) ? "MAX" : (CurrentLevel + 1).ToString());
@@ -158,7 +158,7 @@ public class ItemShop : MonoBehaviour
 		#endif
 
 		//remove or maintain "!"
-		transform.FindChild("!").gameObject.SetActive(!IsMaxLevel && Global.TotalOrbs >= Price);
+		transform.Find("!").gameObject.SetActive(!IsMaxLevel && Global.TotalOrbs >= Price);
 	}
 
 	public void PurchaseDeclined()

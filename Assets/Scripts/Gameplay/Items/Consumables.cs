@@ -64,7 +64,7 @@ public class Consumables : Singleton<Consumables>
 			Item.Type itemType = (Item.Type) System.Enum.Parse(typeof(Item.Type), t.name);
 			int consumable = GetQuantity(itemType);
 
-			t.FindChild("count").GetComponent<UILabel>().text = consumable.ToString();
+			t.Find("count").GetComponent<UILabel>().text = consumable.ToString();
 
 			if(consumable <= 0)
 			{
@@ -80,7 +80,7 @@ public class Consumables : Singleton<Consumables>
 			}
 			else
 			{
-				t.FindChild("status").GetComponent<UILabel>().text = Localization.Get("USED");
+				t.Find("status").GetComponent<UILabel>().text = Localization.Get("USED");
 				t.GetComponent<UIButton>().enabled = true;
 				t.GetComponent<TweenAlpha>().PlayReverse();
 				t.GetComponent<TweenScale>().PlayReverse();
@@ -99,7 +99,7 @@ public class Consumables : Singleton<Consumables>
 		t.GetComponent<TweenAlpha>().PlayForward();
 		t.GetComponent<TweenScale>().PlayForward();
 		t.GetComponentInChildren<UILabel>().enabled = true;
-		t.FindChild("status").GetComponent<UILabel>().text = Localization.Get("OUT_OF_STOCK");
+		t.Find("status").GetComponent<UILabel>().text = Localization.Get("OUT_OF_STOCK");
 	}
 
 	private void LockItem(Transform t)
@@ -108,7 +108,7 @@ public class Consumables : Singleton<Consumables>
 		t.GetComponent<TweenAlpha>().PlayForward();
 		t.GetComponent<TweenScale>().PlayForward();
 		t.GetComponentInChildren<UILabel>().enabled = true;
-		t.FindChild("status").GetComponent<UILabel>().text = Localization.Get("CANT_USE");
+		t.Find("status").GetComponent<UILabel>().text = Localization.Get("CANT_USE");
 	}
 
 	private void InUse(Transform t)
@@ -117,7 +117,7 @@ public class Consumables : Singleton<Consumables>
 		t.GetComponent<TweenAlpha>().PlayForward();
 		t.GetComponent<TweenScale>().PlayForward();
 		t.GetComponentInChildren<UILabel>().enabled = true;
-		t.FindChild("status").GetComponent<UILabel>().text = Localization.Get("IN_USE");
+		t.Find("status").GetComponent<UILabel>().text = Localization.Get("IN_USE");
 	}
 
 	public void SelectPowerUp()
@@ -135,7 +135,7 @@ public class Consumables : Singleton<Consumables>
 
 			ConsumablesController.itensToUse.Remove((Item.Type) System.Enum.Parse(typeof(Item.Type), UIButton.current.name));
 
-			UIButton.current.transform.FindChild("count").GetComponent<UILabel>().text = consumable.ToString();
+			UIButton.current.transform.Find("count").GetComponent<UILabel>().text = consumable.ToString();
 		}
 		else
 		{
@@ -144,7 +144,7 @@ public class Consumables : Singleton<Consumables>
 
 			ConsumablesController.itensToUse.Add((Item.Type) System.Enum.Parse(typeof(Item.Type), UIButton.current.name));
 
-			UIButton.current.transform.FindChild("count").GetComponent<UILabel>().text = (consumable - 1).ToString();
+			UIButton.current.transform.Find("count").GetComponent<UILabel>().text = (consumable - 1).ToString();
 		}
 	}
 

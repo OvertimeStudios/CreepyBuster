@@ -221,10 +221,12 @@ namespace Prime31
 			}
 
 
-			public string toString()
+#if UNITY_2017_1_OR_NEWER
+			public override string toString()
 			{
 				return "RealTimeMessageReceivedListener class instance from Unity";
 			}
+#endif
 		}
 
 		#endregion

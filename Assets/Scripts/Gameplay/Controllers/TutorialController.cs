@@ -102,7 +102,7 @@ public class TutorialController : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
-		tutorialText = tutorial.FindChild("Text").GetComponent<UILabel> ();
+		tutorialText = tutorial.Find("Text").GetComponent<UILabel> ();
 
 		if(runEverySession)
 			Global.IsTutorialEnabled = true;

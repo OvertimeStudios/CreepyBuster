@@ -38,11 +38,11 @@ public class IllusionBossCopy : MonoBehaviour
 	{
 		readyToAttack = false;
 
-		sprite = transform.FindChild("Sprite").GetComponent<SpriteRenderer>();
+		sprite = transform.Find("Sprite").GetComponent<SpriteRenderer>();
 		myTransform = transform;
 		myRigidbody2D = GetComponent<Rigidbody2D>();
 		myColliders = GetComponentsInChildren<Collider2D>();
-		spawnPosition = transform.FindChild("Spawn");
+		spawnPosition = transform.Find("Spawn");
 
 		brilhos = new List<GameObject>();
 		foreach(Transform brilho in sprite.transform)

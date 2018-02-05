@@ -44,11 +44,11 @@ public class Popup : MonoBehaviour
 	{
 		instance = this;
 
-		yes = transform.FindChild ("Yes").gameObject;
-		no = transform.FindChild ("No").gameObject;
-		ok = transform.FindChild ("Ok").gameObject;
-		video = transform.FindChild ("Video").gameObject;
-		descricao = transform.FindChild ("Descricao").GetComponent<UILabel>();
+		yes = transform.Find ("Yes").gameObject;
+		no = transform.Find ("No").gameObject;
+		ok = transform.Find ("Ok").gameObject;
+		video = transform.Find ("Video").gameObject;
+		descricao = transform.Find ("Descricao").GetComponent<UILabel>();
 
 		transform.localPosition = Vector3.zero;
 

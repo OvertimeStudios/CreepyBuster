@@ -113,10 +113,72 @@ public class SpawnController : MonoBehaviour
 
 	private IEnumerator SpawnEnemiesStory()
 	{
+		List<EnemyWave> enemiesToSpawn = LevelDesignStoryMode.GetWave(GameController.world, GameController.level, GameController.wave);
+
+		float timeToNextSpawn = 0;
+
+		while(enemiesToSpawn.Count > 0)
+		{
+			for(int i = 0; i < enemiesToSpawn.Count; i++)
+			{
+				EnemyWave enemyWave = enemiesToSpawn[i];
+					
+				if(enemyWave.timeToSpawn - timeToNextSpawn > 0)
+				{
+					timeToNextSpawn = enemyWave.timeToSpawn - timeToNextSpawn;
+					break;
+				}
+					
+				SpawnEnemy(GetEnemyObject(enemyWave.enemy));
+
+				enemiesInGame.RemoveAt(i);
+
+				i--;
+			}
+
+			yield return new WaitForSeconds(timeToNextSpawn);
+		}
+
 		while(SpawnController.EnemiesInGame > 0)
 			yield return null;
 
+		GameController.wave++;
+
 		StartCoroutine("SpawnEnemiesStory");
+	}
+
+	private GameObject GetEnemyObject(EnemiesPercent.EnemyNames enemyName)
+	{
+		GameObject obj = null;
+
+		switch(enemyName)
+		{
+		case EnemiesPercent.EnemyNames.Blu:
+			obj = LevelDesign.Instance.blu;
+			break;
+
+		case EnemiesPercent.EnemyNames.Ziggy:
+			obj = LevelDesign.Instance.ziggy;
+			break;
+
+		case EnemiesPercent.EnemyNames.Charger:
+			obj = LevelDesign.Instance.charger;
+			break;
+
+		case EnemiesPercent.EnemyNames.Spiral:
+			obj = LevelDesign.Instance.spiral;
+			break;
+
+		case EnemiesPercent.EnemyNames.Legion:
+			obj = LevelDesign.Instance.legion;
+			break;
+
+		case EnemiesPercent.EnemyNames.Follower:
+			obj = LevelDesign.Instance.follower;
+			break;
+		}
+
+		return obj;
 	}
 	
 	private IEnumerator SpawnEnemies(float waitTime)

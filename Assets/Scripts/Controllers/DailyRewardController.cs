@@ -130,16 +130,16 @@ public class DailyRewardController : MonoBehaviour
 
 	private void ShowReward()
 	{
-		Transform rewards = dailyRewardObject.transform.FindChild("Rewards");
+		Transform rewards = dailyRewardObject.transform.Find("Rewards");
 		
 		for(byte i = 0; i < rewards.childCount; i++)
 		{
 			Transform t = rewards.GetChild(i);
-			GameObject blue = t.FindChild("Blue").gameObject;
-			GameObject green = t.FindChild("Green").gameObject;
-			GameObject gray = t.FindChild("Gray").gameObject;
-			UILabel day = t.FindChild("Day").GetComponent<UILabel>();
-			UILabel orbs = t.FindChild("Orbs").GetComponent<UILabel>();
+			GameObject blue = t.Find("Blue").gameObject;
+			GameObject green = t.Find("Green").gameObject;
+			GameObject gray = t.Find("Gray").gameObject;
+			UILabel day = t.Find("Day").GetComponent<UILabel>();
+			UILabel orbs = t.Find("Orbs").GetComponent<UILabel>();
 			TweenScale tween = t.GetComponent<TweenScale>();
 			UIButton button = t.GetComponent<UIButton>();
 

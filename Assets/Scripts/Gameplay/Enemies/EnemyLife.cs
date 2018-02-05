@@ -106,7 +106,7 @@ public class EnemyLife : MonoBehaviour
 		}
 
 		alreadyDead = false;
-		spriteRenderer = transform.FindChild ("Sprite").GetComponent<SpriteRenderer> ();
+		spriteRenderer = transform.Find ("Sprite").GetComponent<SpriteRenderer> ();
 
 		if(!spritesToWhite.Contains(spriteRenderer))
 			spritesToWhite.Add(spriteRenderer);
@@ -120,7 +120,7 @@ public class EnemyLife : MonoBehaviour
 		foreach(SpriteRenderer brilho in brilhos)
 			brilho.color = basicColor;
 
-		lightning = transform.FindChild ("Lightning Emitter").gameObject;
+		lightning = transform.Find ("Lightning Emitter").gameObject;
 		lightning.SetActive (false);
 		lightning.GetComponent<LightningBolt> ().target = AttackTargets.Instance.transform;
 		lightning.GetComponent<ParticleRenderer>().material.SetColor ("_TintColor", LevelDesign.CurrentColor);

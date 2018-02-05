@@ -438,13 +438,13 @@ public class DailyMissionController : Singleton<DailyMissionController>
 			mission.Build();
 
 			//update mission on popup
-			missionsPopup[i].FindChild("Descricao").GetComponent<UILabel>().text = (mission.IsCompleted) ? Localization.Get("COMPLETED") : mission.Description;
-			missionsPopup[i].FindChild("reward").GetComponent<UILabel>().text = "+" + mission.Reward;
-			missionsPopup[i].FindChild("Progresso").GetComponent<UILabel>().text = string.Format("{0}/{1} \n {2}%", mission.Progress, mission.Value, (Mathf.Round(Mathf.Min((mission.Progress/mission.Value) * 100f, 100f))));
+			missionsPopup[i].Find("Descricao").GetComponent<UILabel>().text = (mission.IsCompleted) ? Localization.Get("COMPLETED") : mission.Description;
+			missionsPopup[i].Find("reward").GetComponent<UILabel>().text = "+" + mission.Reward;
+			missionsPopup[i].Find("Progresso").GetComponent<UILabel>().text = string.Format("{0}/{1} \n {2}%", mission.Progress, mission.Value, (Mathf.Round(Mathf.Min((mission.Progress/mission.Value) * 100f, 100f))));
 
 			//change color if completed
-			missionsPopup[i].FindChild("Descricao").GetComponent<UILabel>().color = 
-				missionsPopup[i].FindChild("Progresso").GetComponent<UILabel>().color = (mission.IsCompleted) ? missionCompleteColor : countdownNormalColor;
+			missionsPopup[i].Find("Descricao").GetComponent<UILabel>().color = 
+				missionsPopup[i].Find("Progresso").GetComponent<UILabel>().color = (mission.IsCompleted) ? missionCompleteColor : countdownNormalColor;
 		}
 	}
 

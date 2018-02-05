@@ -71,8 +71,8 @@ public class RandomMovement : EnemyMovement
 
 		myRigidbody2D = GetComponent<Rigidbody2D> ();
 
-		if(transform.FindChild("Sprite") != null)
-			spriteRenderer = transform.FindChild("Sprite").GetComponent<SpriteRenderer>();
+		if(transform.Find("Sprite") != null)
+			spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
 
 		myRigidbody2D.velocity = transform.right * vel;
 

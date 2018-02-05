@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_ANDROID
 // Contains the raw data from the Room native class: http://developer.android.com/reference/com/google/android/gms/games/multiplayer/realtime/Room.html
 
 namespace Prime31

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_ANDROID
 
 namespace Prime31
 {

@@ -5,70 +5,11 @@ application's manifest, adding the necessary activity and permissions
 required for displaying ads.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.unity"
+    package="com.google.unity.ads"
     android:versionName="1.0"
     android:versionCode="1">
-  <uses-sdk android:minSdkVersion="9"
+  <uses-sdk android:minSdkVersion="14"
       android:targetSdkVersion="19" />
-  <!-- Google Mobile Ads Permissions -->
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
-<uses-permission android:name="android.permission.VIBRATE" />
-<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-  <!-- Uncomment to add billing for in-app purchase ads -->
-  <!--<uses-permission android:name="com.android.vending.BILLING"/> -->
   <application>
-  <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
-  <meta-data android:name="applovin.sdk.key"
-       android:value="vXSLen7i4aBcZhE3VPTn1UVMl8hfrq_kLS3-EBgIntwKZ8O3XyqTQKw9ScpHQp0mG4lUFQo0HhLrqkvMfiw51q"  />
-    <!-- Denote the referenced Google Play services version -->
-    <meta-data android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />
-    <!-- Google Mobile Ads Activity -->
-    <activity android:name="com.google.android.gms.ads.AdActivity"
-        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-        android:theme="@android:style/Theme.Translucent" />
-    <!-- InAppPurchase Activity -->
-    <activity android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"
-        android:theme="@style/Theme.IAPTheme"/>
-
-        <activity android:name="com.jirbo.adcolony.AdColonyOverlay"
-android:configChanges="keyboardHidden|orientation|screenSize"
-android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
-
-<activity android:name="com.jirbo.adcolony.AdColonyFullscreen"
-android:configChanges="keyboardHidden|orientation|screenSize"
-android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-
-<activity android:name="com.jirbo.adcolony.AdColonyBrowser"
-android:configChanges="keyboardHidden|orientation|screenSize"
-android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-
-<activity android:name="com.chartboost.sdk.CBImpressionActivity"
-               android:excludeFromRecents="true"
-               android:hardwareAccelerated="true"
-               android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-               android:configChanges="keyboardHidden|orientation|screenSize" />
-
-               <activity
-android:name="com.vdopia.ads.lw.LVDOAdActivity"
-android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" >
-</activity>
-<activity
-android:name="com.vdopia.ads.lw.mraid.LVDOBrowserActivity"      android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" >
-</activity>
-
-<activity android:name="com.applovin.adview.AppLovinInterstitialActivity" />
-<activity android:name="com.applovin.adview.AppLovinConfirmationActivity" />
-
- <activity
- android:name="com.vungle.publisher.FullScreenAdActivity"
- android:configChanges="keyboardHidden|orientation|screenSize"
- android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
-
-
   </application>
 </manifest>

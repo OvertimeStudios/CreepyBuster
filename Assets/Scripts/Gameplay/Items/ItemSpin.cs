@@ -14,7 +14,7 @@ public class ItemSpin : MonoBehaviour
 	void Start()
 	{
 		myTransform = transform;
-		iconTransform = transform.FindChild("icon");
+		iconTransform = transform.Find("icon");
 	}
 
 	void FixedUpdate()

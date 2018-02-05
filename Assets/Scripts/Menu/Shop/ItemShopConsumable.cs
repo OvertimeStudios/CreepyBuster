@@ -54,8 +54,8 @@ public class ItemShopConsumable : MonoBehaviour
 
 	void Start()
 	{
-		stockLabel = transform.FindChild("Stock").GetComponent<UILabel>();
-		priceLabel = transform.FindChild ("Price").FindChild("Label").GetComponent<UILabel> ();
+		stockLabel = transform.Find("Stock").GetComponent<UILabel>();
+		priceLabel = transform.Find ("Price").Find("Label").GetComponent<UILabel> ();
 
 		stockLabel.text = Localization.Get("STOCK") + ": " + ((IsMaxStock) ? "MAX" : CurrentStock.ToString());
 		priceLabel.text = (IsMaxStock) ? "-----" : string.Format("{0:0,0}", price);

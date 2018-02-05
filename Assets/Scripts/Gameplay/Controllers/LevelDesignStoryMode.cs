@@ -9,6 +9,26 @@ using System.IO;
 
 public class LevelDesignStoryMode : MonoBehaviour 
 {
+	#region singleton
+	private static LevelDesignStoryMode instance;
+	public static LevelDesignStoryMode Instance
+	{
+		get
+		{
+			if(instance == null)
+				instance = GameObject.FindObjectOfType<LevelDesignStoryMode>();
+
+			return instance;
+		}
+	}
+	#endregion
+
+
+	public static List<EnemyWave> GetWave(int world, int level, int wave)
+	{
+		return Instance.balance.worldBalance[world - 1].levels[level - 1].waves[wave - 1].enemies;
+	}
+
 	public StoryModeBalance balance;
 
 	// Use this for initialization

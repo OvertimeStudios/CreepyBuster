@@ -76,6 +76,10 @@ public class GameController : MonoBehaviour
 
 	private static bool isPaused;
 
+	public static int world;
+	public static int level;
+	public static int wave;
+
 	public float timeInvencibleAfterDamage;
 	public float timeToShowGameOverScreen;
 	public int orbsToContinue;
@@ -492,8 +496,6 @@ public class GameController : MonoBehaviour
 		GameOver();
 	}
 
-
-
 	public void GameOver()
 	{
 		isGameRunning = false;
@@ -788,6 +790,8 @@ public class GameController : MonoBehaviour
 		SoundController.Instance.CrossFadeMusic(SoundController.Musics.GameTheme, 1f);
 
 		isGameRunning = true;
+		level = 1;
+		wave = 1;
 		Reset ();
 		gameObject.SetActive (true);
 
@@ -830,7 +834,6 @@ public class GameController : MonoBehaviour
 		if (OnGameStart != null)
 			OnGameStart ();
 
-		//if (Global.IsTutorialEnabled)
 		if(gameMode == GameMode.Endless)
 			TutorialController.Instance.gameObject.SetActive (true);
 	}
@@ -1097,7 +1100,7 @@ public class GameController : MonoBehaviour
 				break;
 		}
 
-		(Instantiate(prefab, player.transform.position, Quaternion.identity) as GameObject).transform.parent = player.transform.FindChild("power-ups");
+		(Instantiate(prefab, player.transform.position, Quaternion.identity) as GameObject).transform.parent = player.transform.Find("power-ups");
 
 	}
 

@@ -68,7 +68,7 @@ public class RewardedVideoPlayer : MonoBehaviour
 	{
 		rewardCooldownTime = RewardCooldownTime;
 
-		countdown = transform.FindChild ("Countdown").GetComponent<UILabel> ();
+		countdown = transform.Find ("Countdown").GetComponent<UILabel> ();
 
 		if(RewardCooldownLeft > rewardCooldown)
 			ResetRewardCooldownTime ();

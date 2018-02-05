@@ -36,7 +36,7 @@ public class ChargeBehaviour : EnemyMovement
 
 		brilhos = new List<GameObject> ();
 
-		foreach (Transform t in transform.FindChild("Sprite"))
+		foreach (Transform t in transform.Find("Sprite"))
 			brilhos.Add (t.gameObject);
 
 		for (byte i = 1; i < brilhos.Count; i++)

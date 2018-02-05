@@ -152,12 +152,12 @@ public class HUDController : MonoBehaviour
 	{
 		pauseScreen.SetActive(true);
 
-		Transform ring = pauseScreen.transform.FindChild("Ring");
-		Transform arrow = pauseScreen.transform.FindChild("Arrow");
-		Transform hold = pauseScreen.transform.FindChild("Hold To Continue");
-		Transform doubleTap = pauseScreen.transform.FindChild("Double Tap");
-		Transform paused = pauseScreen.transform.FindChild("Game Paused");
-		Transform consumables = pauseScreen.transform.FindChild("Consumables");
+		Transform ring = pauseScreen.transform.Find("Ring");
+		Transform arrow = pauseScreen.transform.Find("Arrow");
+		Transform hold = pauseScreen.transform.Find("Hold To Continue");
+		Transform doubleTap = pauseScreen.transform.Find("Double Tap");
+		Transform paused = pauseScreen.transform.Find("Game Paused");
+		Transform consumables = pauseScreen.transform.Find("Consumables");
 
 		Vector3 playerLastPosition = AttackTargets.Instance.transform.position;
 		playerLastPosition = Camera.main.WorldToViewportPoint(playerLastPosition);

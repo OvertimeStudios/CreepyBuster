@@ -19,7 +19,7 @@ public class OrbCounter : MonoBehaviour
 	
 	void UpdateLabel()
 	{
-		orbs = transform.FindChild ("Orb Label").GetComponent<UILabel> ();
+		orbs = transform.Find ("Orb Label").GetComponent<UILabel> ();
 		
 		orbs.text = Global.TotalOrbs.ToString ();
 	}

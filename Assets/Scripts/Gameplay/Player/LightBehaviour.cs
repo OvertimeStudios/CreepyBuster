@@ -65,7 +65,7 @@ public class LightBehaviour : MonoBehaviour
 	void Start () 
 	{
 		myTransform = transform;
-		trailRenderer = transform.FindChild("Trail Renderer").GetComponent<TrailRenderer>();
+		trailRenderer = transform.Find("Trail Renderer").GetComponent<TrailRenderer>();
 		//outter = transform.FindChild("Outter").GetComponent<SpriteRenderer>();
 		particleRenderers = GetComponentsInChildren<ParticleRenderer> ();
 

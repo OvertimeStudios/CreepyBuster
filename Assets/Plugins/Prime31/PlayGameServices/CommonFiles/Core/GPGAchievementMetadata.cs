@@ -4,7 +4,7 @@ using System.Collections;
 using Prime31;
 
 
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_ANDROID
 
 namespace Prime31
 {

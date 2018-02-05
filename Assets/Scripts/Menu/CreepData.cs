@@ -28,8 +28,8 @@ public class CreepData : MonoBehaviour
 
 	void Awake()
 	{
-		unlockedSprite = transform.FindChild("Unlocked").gameObject;
-		lockedSprite = transform.FindChild("Locked").gameObject;
+		unlockedSprite = transform.Find("Unlocked").gameObject;
+		lockedSprite = transform.Find("Locked").gameObject;
 	}
 
 	void OnEnable()

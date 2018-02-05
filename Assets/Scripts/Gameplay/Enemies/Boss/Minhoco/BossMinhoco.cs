@@ -60,7 +60,7 @@ public class BossMinhoco : MonoBehaviour
 		Build();
 
 		enemyLife = cabecaPiece.GetComponent<EnemyLifeMinhoco>();
-		cabecaBrilho = cabecaPiece.FindChild("Sprite").FindChild("Brilho").gameObject;
+		cabecaBrilho = cabecaPiece.Find("Sprite").Find("Brilho").gameObject;
 		cabecaBrilho.SetActive(false);
 	}
 
@@ -90,7 +90,7 @@ public class BossMinhoco : MonoBehaviour
 
 		corpoPieces.Add(go.transform);
 
-		cabecaPiece.GetComponent<EnemyLife>().spritesToWhite.Add(go.transform.FindChild("Sprite").GetComponent<SpriteRenderer>());
+		cabecaPiece.GetComponent<EnemyLife>().spritesToWhite.Add(go.transform.Find("Sprite").GetComponent<SpriteRenderer>());
 	}
 
 	// Update is called once per frame

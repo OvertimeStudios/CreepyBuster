@@ -59,11 +59,11 @@ public class BossMeteoro : MonoBehaviour
 		enemyLife = GetComponent<BossLife> ();
 		cameraShake = GetComponent<CameraShake> ();
 		randomMovement = GetComponent<RandomMovement> ();
-		myAnimator = transform.FindChild("Sprite").GetComponent<Animator>();
+		myAnimator = transform.Find("Sprite").GetComponent<Animator>();
 
 		brilhos = new List<GameObject> ();
 		
-		foreach (Transform t in transform.FindChild("Sprite"))
+		foreach (Transform t in transform.Find("Sprite"))
 		{
 			if(t.gameObject.name.Contains("Olho"))
 				brilhoOlho = t;

@@ -21,5 +21,7 @@ public class WorldSelect : MonoBehaviour
 	public void Select()
 	{
 		Debug.Log("Selected: " + world);
+		GameController.gameMode = GameController.GameMode.Story;
+		MenuController.Instance.OpenPanel();
 	}
 }

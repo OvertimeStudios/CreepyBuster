@@ -40,12 +40,12 @@ public class BoomerangBehaviour : MonoBehaviour
 			ApplySlow ();
 
 		outterRotate = GetComponent<Rotate> ();
-		innerRotate = transform.FindChild ("Sprite").GetComponent<Rotate> ();
+		innerRotate = transform.Find ("Sprite").GetComponent<Rotate> ();
 
 		originalInnerRotate = innerRotate.rotVel;
 		originalOutterRotate = outterRotate.rotVel;
 
-		myTailAnimator = transform.FindChild ("Sprite").FindChild("Brilho").GetComponent<Animator> ();
+		myTailAnimator = transform.Find ("Sprite").Find("Brilho").GetComponent<Animator> ();
 		originalTailAnimatorSpeed = myTailAnimator.speed;
 	}
 

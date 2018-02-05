@@ -28,14 +28,14 @@ public class OnOffBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Awake () 
 	{
-		onButton = transform.FindChild ("On");
-		offButton = transform.FindChild ("Off");
+		onButton = transform.Find ("On");
+		offButton = transform.Find ("Off");
 
-		if(transform.FindChild ("Selection") != null)
-			selection = transform.FindChild ("Selection").GetComponent<TweenPosition>();
+		if(transform.Find ("Selection") != null)
+			selection = transform.Find ("Selection").GetComponent<TweenPosition>();
 
-		if(transform.FindChild("Disabled") != null)
-			disabled = transform.FindChild("Disabled").gameObject;
+		if(transform.Find("Disabled") != null)
+			disabled = transform.Find("Disabled").gameObject;
 
 		#if UNITY_WEBGL
 		if(type == Type.Vibrate)

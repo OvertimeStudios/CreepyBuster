@@ -125,11 +125,11 @@ public class IllusionBoss : MonoBehaviour
 		transform.position = pos;
 		transform.rotation = Quaternion.Euler(0, 0, -90f);
 
-		mySprite = transform.FindChild("Sprite").GetComponent<SpriteRenderer>();
+		mySprite = transform.Find("Sprite").GetComponent<SpriteRenderer>();
 		myColliders = GetComponentsInChildren<Collider2D>();
 		myTransform = transform;
 		myRigidbody2D = GetComponent<Rigidbody2D>();
-		spawnPosition = transform.FindChild("Spawn");
+		spawnPosition = transform.Find("Spawn");
 		bossLife = GetComponent<BossLife>();
 
 		cameraShake = GetComponent<CameraShake>();

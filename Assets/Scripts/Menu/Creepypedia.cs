@@ -41,7 +41,7 @@ public class Creepypedia : MonoBehaviour
 			child.gameObject.SetActive(false);
 
 		//active correct sprite
-		creeps.FindChild(type.ToString()).gameObject.SetActive(true);
+		creeps.Find(type.ToString()).gameObject.SetActive(true);
 
 		nome.text = name;
 		altura.text = height.ToString();

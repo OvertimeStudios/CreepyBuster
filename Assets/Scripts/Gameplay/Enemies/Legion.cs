@@ -51,7 +51,7 @@ public class Legion : EnemyMovement
 	{
 		base.Start ();
 
-		innerRotate = transform.FindChild ("Sprite").GetComponent<Rotate> ();
+		innerRotate = transform.Find ("Sprite").GetComponent<Rotate> ();
 		outterRotate = GetComponent<Rotate> ();
 
 		int totalRows = Mathf.Min(minionsQty / minionsPerRow);
@@ -71,7 +71,7 @@ public class Legion : EnemyMovement
 				Quaternion rot = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
 
 				GameObject obj = Instantiate(minion) as GameObject;
-				obj.transform.parent = transform.FindChild("Minions");
+				obj.transform.parent = transform.Find("Minions");
 				obj.transform.localPosition = pos;
 				obj.transform.rotation = rot;
 
@@ -90,7 +90,7 @@ public class Legion : EnemyMovement
 
 			if(dropMinionsOnDeath)
 			{
-				foreach(Transform t in transform.FindChild("Minions"))
+				foreach(Transform t in transform.Find("Minions"))
 				{
 					t.parent = transform.parent;
 
@@ -124,7 +124,7 @@ public class Legion : EnemyMovement
 
 	private void RemoveMinions(bool playSound = true)
 	{
-		foreach(Transform t in transform.FindChild("Minions"))
+		foreach(Transform t in transform.Find("Minions"))
 		{
 			if(!t.GetComponent<EnemyLife>().IsDead)
 				t.GetComponent<EnemyLife>().Dead(false, playSound);

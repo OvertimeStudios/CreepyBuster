@@ -11,7 +11,7 @@ public class Achievements : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		Transform grid = transform.FindChild ("Scroll View").FindChild("Grid");
+		Transform grid = transform.Find ("Scroll View").Find("Grid");
 
 		foreach(AchievementStats achievement in achievementsList)
 		{
@@ -19,12 +19,12 @@ public class Achievements : MonoBehaviour
 			newAchievement.parent = grid;
 			newAchievement.localScale = Vector3.one;
 
-			newAchievement.FindChild("Title").GetComponent<UILabel>().text = (achievement.hidden && !achievement.unlocked) ? "???????" : Localization.Get(achievement.title);
-			newAchievement.FindChild("Description").GetComponent<UILabel>().text = (achievement.hidden && !achievement.unlocked) ? " ?????? \n ??????" : Localization.Get(achievement.description);
-			newAchievement.FindChild("Icon").GetComponent<UISprite>().spriteName = achievement.iconName;
+			newAchievement.Find("Title").GetComponent<UILabel>().text = (achievement.hidden && !achievement.unlocked) ? "???????" : Localization.Get(achievement.title);
+			newAchievement.Find("Description").GetComponent<UILabel>().text = (achievement.hidden && !achievement.unlocked) ? " ?????? \n ??????" : Localization.Get(achievement.description);
+			newAchievement.Find("Icon").GetComponent<UISprite>().spriteName = achievement.iconName;
 
 			if(!achievement.unlocked)
-				newAchievement.FindChild("Icon").GetComponent<UISprite>().color = Color.grey;
+				newAchievement.Find("Icon").GetComponent<UISprite>().color = Color.grey;
 		}
 
 		grid.GetComponent<UIGrid> ().Reposition ();

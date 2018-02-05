@@ -50,12 +50,12 @@ public class ScreenFeedback : MonoBehaviour
 	{
 		instance = this;
 
-		frozen = transform.FindChild ("Frozen").GetComponent<UI2DSprite> ();
-		damage = transform.FindChild ("Damage").GetComponent<UI2DSprite> ();
-		invencibility = transform.FindChild ("Invencibility").GetComponent<UI2DSprite> ();
-		blank = transform.FindChild ("Blank").GetComponent<UISprite> ();
-		shield = transform.FindChild("Shield").GetComponent<UI2DSprite>();
-		pressureTouch = transform.FindChild("3DTouch").GetComponent<UI2DSprite>();
+		frozen = transform.Find ("Frozen").GetComponent<UI2DSprite> ();
+		damage = transform.Find ("Damage").GetComponent<UI2DSprite> ();
+		invencibility = transform.Find ("Invencibility").GetComponent<UI2DSprite> ();
+		blank = transform.Find ("Blank").GetComponent<UISprite> ();
+		shield = transform.Find("Shield").GetComponent<UI2DSprite>();
+		pressureTouch = transform.Find("3DTouch").GetComponent<UI2DSprite>();
 
 		myAudioSource = GetComponent<AudioSource>();
 

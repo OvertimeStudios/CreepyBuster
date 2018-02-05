@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Analytics;
-using UnityEngine.Advertisements;
 
 public class MenuController : MonoBehaviour 
 {
@@ -212,9 +211,9 @@ public class MenuController : MonoBehaviour
 		gameStatsScreen.gameObject.SetActive (false);
 		howToPlayScreen.gameObject.SetActive(false);
 
-		wallTop = mainScreen.FindChild ("WallTop").GetComponent<TweenPosition> ();
-		wallBottom = mainScreen.FindChild ("WallBottom").GetComponent<TweenPosition> ();
-		highScore = wallTop.transform.FindChild ("High Score").FindChild ("Score").GetComponent<UILabel> ();
+		wallTop = mainScreen.Find ("WallTop").GetComponent<TweenPosition> ();
+		wallBottom = mainScreen.Find ("WallBottom").GetComponent<TweenPosition> ();
+		highScore = wallTop.transform.Find ("High Score").Find ("Score").GetComponent<UILabel> ();
 
 		hud.SetActive (false);
 		UpdateScore ();

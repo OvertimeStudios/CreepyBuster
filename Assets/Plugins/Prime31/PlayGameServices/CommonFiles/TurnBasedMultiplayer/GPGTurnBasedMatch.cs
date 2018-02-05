@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_ANDROID
 public enum GPGTurnBasedMatchStatus
 {
 	// One or more slots need to be filled by auto-matching; the match cannot

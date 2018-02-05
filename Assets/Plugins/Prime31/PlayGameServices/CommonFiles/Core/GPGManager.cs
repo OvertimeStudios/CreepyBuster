@@ -6,7 +6,7 @@ using Prime31;
 
 
 
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_ANDROID
 
 namespace Prime31
 {
@@ -17,9 +17,6 @@ namespace Prime31
 
 		// Fired when authentication fails
 		public static event Action<string> authenticationFailedEvent;
-
-		// iOS only. Fired when the user signs out. This could happen if in a leaderboard they touch the settings button and logout from there.
-		public static event Action userSignedOutEvent;
 
 		// Fired when data fails to reload for a key. This particular model data is usually the player info or leaderboard/achievement metadata that is auto loaded.
 		public static event Action<string> reloadDataForKeyFailedEvent;
@@ -46,6 +43,9 @@ namespace Prime31
 		// Fired when a call to loadPlayerStats fails. Includes the error message.
 		public static event Action<string> loadPlayerStatsFailedEvent;
 
+		// Fired after an auth token request. Note that this will return either null or the auth token.
+		public static event Action<string> authTokenFetchResultEvent;
+
 
 
 		// ##### ##### ##### ##### ##### ##### #####
@@ -61,7 +61,7 @@ namespace Prime31
 		// Fired when incrementing an achievement fails. Provides the achievementId and the error in that order.
 		public static event Action<string,string> incrementAchievementFailedEvent;
 
-		// Fired when incrementing an achievement succeeds. Provides the achievementId and a bool that lets you know if it was newly unlocked (on iOS, on Android the bool indicates success)
+		// Fired when incrementing an achievement succeeds. Provides the achievementId and a bool that lets you know if it was successful
 		public static event Action<string,bool> incrementAchievementSucceededEvent;
 
 		// Fired when revealing an achievement fails. Provides the achievementId and the error in that order.
@@ -69,6 +69,9 @@ namespace Prime31
 
 		// Fired when revealing an achievement succeeds. The string lets you know the achievementId.
 		public static event Action<string> revealAchievementSucceededEvent;
+		
+		// Fired if you call showVideoCaptureOverlay and the device does not support it
+		public static event Action<string> videoCaptureNotSupportedEvent;
 
 
 
@@ -80,7 +83,7 @@ namespace Prime31
 		public static event Action<string,string> submitScoreFailedEvent;
 
 		// Fired when submitting a scores succeeds. Returns the leaderboardId and a dictionary with some extra data with the fields from
-		// the GPGScoreReport class: https://developers.google.com/games/services/ios/api/interface_g_p_g_score_report
+		// the native GPGScoreReport class (http://cocoadocs.org/docsets/GooglePlayGames/4.4.1/Classes/GPGScoreReport.html)
 		public static event Action<string,Dictionary<string,object>> submitScoreSucceededEvent;
 
 		// Fired when loading scores fails. Provides the leaderboardId and the error in that order.
@@ -107,11 +110,8 @@ namespace Prime31
 		// Fired when a quest is accepted via the quest list screen
 		public static event Action<GPGQuest> questListLauncherAcceptedQuestEvent;
 
-		// Fired when a quest milestone is reached. On iOS, the user needs to manually claim rewards on the quest list screen.
+		// Fired when a quest milestone is reached
 		public static event Action<GPGQuestMilestone> questClaimedRewardsForQuestMilestoneEvent;
-
-		// Android only. Fired when a quest is completed.
-		public static event Action<GPGQuest> questCompletedEvent;
 
 		// Fired when a call to loadAllQuests completes and includes the full quest list
 		public static event Action<List<GPGQuest>> allQuestsLoadedEvent;
@@ -177,12 +177,6 @@ namespace Prime31
 		}
 
 
-		void userSignedOut( string empty )
-		{
-			userSignedOutEvent.fire();
-		}
-
-
 		void reloadDataForKeyFailed( string error )
 		{
 			reloadDataForKeyFailedEvent.fire( error );
@@ -239,6 +233,12 @@ namespace Prime31
 		}
 
 
+		private void authTokenFetchResult( string token )
+		{
+			authTokenFetchResultEvent.fire( token );
+		}
+
+
 		void unlockAchievementFailed( string json )
 		{
 			fireEventWithIdentifierAndError( unlockAchievementFailedEvent, json );
@@ -268,6 +268,13 @@ namespace Prime31
 		void revealAchievementFailed( string json )
 		{
 			fireEventWithIdentifierAndError( revealAchievementFailedEvent, json );
+		}
+		
+		
+		void videoCaptureNotSupported( string error )
+		{
+			if( videoCaptureNotSupportedEvent != null )
+				videoCaptureNotSupportedEvent( error );
 		}
 
 
@@ -349,13 +356,6 @@ namespace Prime31
 		{
 			if( questClaimedRewardsForQuestMilestoneEvent != null )
 				questClaimedRewardsForQuestMilestoneEvent( Json.decode<GPGQuestMilestone>( json ) );
-		}
-
-
-		void questCompleted( string json )
-		{
-			if( questCompletedEvent != null )
-				questCompletedEvent( Json.decode<GPGQuest>( json ) );
 		}
 
 
