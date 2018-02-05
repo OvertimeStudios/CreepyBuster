@@ -22,7 +22,7 @@ using GoogleMobileAds.Common;
 
 namespace GoogleMobileAds.Android
 {
-    internal class CustomInAppPurchaseListener : AndroidJavaProxy
+	/*internal class CustomInAppPurchaseListener : AndroidJavaProxy
     {
         public ICustomInAppPurchaseProcessor inAppPurchaseProcessor;
 
@@ -36,7 +36,7 @@ namespace GoogleMobileAds.Android
             CustomInAppPurchase wrappedResult = new CustomInAppPurchase(result);
             inAppPurchaseProcessor.ProcessInAppPurchase(wrappedResult);
         }
-    }
+    }*/
 }
 
 #endif
