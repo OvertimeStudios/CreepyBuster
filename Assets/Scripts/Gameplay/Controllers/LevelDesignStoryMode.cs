@@ -23,10 +23,10 @@ public class LevelDesignStoryMode : MonoBehaviour
 	}
 	#endregion
 
-
 	public static List<EnemyWave> GetWave(int world, int level, int wave)
 	{
-		return Instance.balance.worldBalance[world - 1].levels[level - 1].waves[wave - 1].enemies;
+        Debug.Log(string.Format("Trying to get wave to world {0} level {1} wave {2}", (world + 1), level, wave));
+		return Instance.balance.worldBalance[world].levels[level - 1].waves[wave - 1].enemies;
 	}
 
 	public StoryModeBalance balance;

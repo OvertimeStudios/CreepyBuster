@@ -115,28 +115,32 @@ public class SpawnController : MonoBehaviour
 	{
 		List<EnemyWave> enemiesToSpawn = LevelDesignStoryMode.GetWave(GameController.world, GameController.level, GameController.wave);
 
-		float timeToNextSpawn = 0;
-
+        float totalSpawnTime = 0;
+        float timeToNextSpawn = 0;
 		while(enemiesToSpawn.Count > 0)
 		{
+            timeToNextSpawn = enemiesToSpawn[0].timeToSpawn - timeToNextSpawn;
+            totalSpawnTime += timeToNextSpawn;
+            Debug.Log(Time.time + ": timeToNextSpawn: " + timeToNextSpawn);
+            yield return new WaitForSeconds(timeToNextSpawn);
+
 			for(int i = 0; i < enemiesToSpawn.Count; i++)
 			{
 				EnemyWave enemyWave = enemiesToSpawn[i];
 					
-				if(enemyWave.timeToSpawn - timeToNextSpawn > 0)
+                //next group of enemies to spawn
+                if(enemyWave.timeToSpawn - totalSpawnTime > 0)
 				{
-					timeToNextSpawn = enemyWave.timeToSpawn - timeToNextSpawn;
 					break;
 				}
-					
+				
+                Debug.Log(Time.time + ": Spawning " + enemyWave.enemy);
 				SpawnEnemy(GetEnemyObject(enemyWave.enemy));
 
-				enemiesInGame.RemoveAt(i);
+                enemiesToSpawn.RemoveAt(i);
 
 				i--;
 			}
-
-			yield return new WaitForSeconds(timeToNextSpawn);
 		}
 
 		while(SpawnController.EnemiesInGame > 0)
@@ -144,6 +148,7 @@ public class SpawnController : MonoBehaviour
 
 		GameController.wave++;
 
+        Debug.Log("Ended wave, next wave");
 		StartCoroutine("SpawnEnemiesStory");
 	}
 
