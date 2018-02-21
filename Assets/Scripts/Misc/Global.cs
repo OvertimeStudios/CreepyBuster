@@ -84,6 +84,7 @@ public class Global : MonoBehaviour
 	private const string MISSION2_ID = "mission2ID";
 	private const string MISSION3_COMPLETED = "mission3Completed";
 	private const string MISSION3_ID = "mission3ID";
+    private const string WORLD_LEVEL_COMPLETION = "World{0}LevelCompletion";
 	#endregion
 
 	private static bool isLoaded;
@@ -1076,6 +1077,17 @@ public class Global : MonoBehaviour
 			DataCloudPrefs.SetInt(MISSION3_ID, value);
 		}
 	}
+
+    public static int GetWorldLevelCompletion(int world)
+    {
+        return DataCloudPrefs.GetInt(string.Format(WORLD_LEVEL_COMPLETION, world), -1);
+    }
+
+    public static void SetWorldLevelCompletion(int world, int level)
+    {
+        Debug.Log(string.Format("Trying to save world {0} level {1} completion. Saved {2}", world, level, Mathf.Max(GetWorldLevelCompletion(world), level)));
+        DataCloudPrefs.SetInt(string.Format(WORLD_LEVEL_COMPLETION, world), Mathf.Max(GetWorldLevelCompletion(world), level));
+    }
 	#endregion
 
 	public static void Reset()

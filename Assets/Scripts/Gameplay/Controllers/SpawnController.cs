@@ -69,6 +69,7 @@ public class SpawnController : MonoBehaviour
 		EnemyMovement.OnOutOfScreen += RemoveEnemy;
 		EnemyLife.OnDied += RemoveEnemy;
 		Legion.OnMinionSpawned += AddEnemy;	
+        BossLife.OnBossDied += BossDied;
 	}
 
 	void OnDisable()
@@ -81,6 +82,7 @@ public class SpawnController : MonoBehaviour
 		EnemyMovement.OnOutOfScreen -= RemoveEnemy;
 		EnemyLife.OnDied -= RemoveEnemy;
 		Legion.OnMinionSpawned -= AddEnemy;	
+        BossLife.OnBossDied -= BossDied;
 	}
 
 	// Use this for initialization
@@ -134,7 +136,6 @@ public class SpawnController : MonoBehaviour
 					break;
 				}
 				
-                Debug.Log(Time.time + ": Spawning " + enemyWave.enemy);
 				SpawnEnemy(GetEnemyObject(enemyWave.enemy));
 
                 enemiesToSpawn.RemoveAt(i);
@@ -151,17 +152,19 @@ public class SpawnController : MonoBehaviour
         if(!isFinalWave)
         {
 			GameController.wave++;
-            Debug.Log("Ended wave, next wave");
         }
         else if(!isFinalLevel)
         {
+            Global.SetWorldLevelCompletion(GameController.world, GameController.level);
+
             GameController.wave = 0;
             GameController.level++;
-            Debug.Log("Ended level, next level");
+
         }
 
         if(isFinalWave && isFinalLevel)
         {
+            Global.SetWorldLevelCompletion(GameController.world, GameController.level);
             Debug.Log("Spawn Boss!");
             SpawnBoss();
         }
@@ -170,6 +173,14 @@ public class SpawnController : MonoBehaviour
             StartCoroutine("SpawnEnemiesStory");
         }
 	}
+
+    private void BossDied(GameObject gameObject)
+    {
+        if(GameController.gameMode == GameController.GameMode.Story)
+        {
+            Global.SetWorldLevelCompletion(GameController.world, 5);
+        }
+    }
 
 	private GameObject GetEnemyObject(EnemiesPercent.EnemyNames enemyName)
 	{

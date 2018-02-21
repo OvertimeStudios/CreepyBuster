@@ -65,6 +65,27 @@
 			<enemy>Follower</enemy>
 			<time>0</time>
 		</tier>
+
+        <tier>
+            <level>3</level>
+            <wave>1</wave>
+            <enemy>Blu</enemy>
+            <time>0</time>
+        </tier>
+
+        <tier>
+            <level>4</level>
+            <wave>1</wave>
+            <enemy>Blu</enemy>
+            <time>0</time>
+        </tier>
+
+        <tier>
+            <level>5</level>
+            <wave>1</wave>
+            <enemy>Blu</enemy>
+            <time>0</time>
+        </tier>
 	</tiers>
 
 </balance>
