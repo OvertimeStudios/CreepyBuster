@@ -26,7 +26,7 @@ public class LevelDesignStoryMode : MonoBehaviour
 	public static List<EnemyWave> GetWave(int world, int level, int wave)
 	{
         Debug.Log(string.Format("Trying to get wave to world {0} level {1} wave {2}", (world + 1), (level + 1), (wave + 1)));
-		return Instance.balance.worldBalance[world].levels[level].waves[wave].enemies;
+        return new List<EnemyWave>(Instance.balance.worldBalance[world].levels[level].waves[wave].enemies);
 	}
 
     public static bool IsFinalWave(int world, int level, int wave)

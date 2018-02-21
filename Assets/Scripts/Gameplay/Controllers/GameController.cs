@@ -1002,14 +1002,12 @@ public class GameController : MonoBehaviour
 
 		yield return new WaitForSeconds(3f);
 
-		SoundController.Instance.PlayMusic(SoundController.Musics.BossTheme);
-
 		bossEncounters++;
 
 		SpawnController.SpawnBoss ();
 	}
 
-	public static void BossDied(GameObject boss)
+	public void BossDied(GameObject boss)
 	{
 		SoundController.Instance.CrossFadeMusic(SoundController.Musics.GameTheme, 1f);
 		bossTime = false;
@@ -1030,6 +1028,12 @@ public class GameController : MonoBehaviour
 			Global.UnlockCreep(CreepData.CreepType.Illusion);
 			boss3Killed++;
 		}
+
+        if(gameMode == GameMode.Story)
+        {
+            //TODO: make a proper menu to end story mode
+            GameOver();
+        }
 
 		#if UNITY_WEBGL
 		EndDemo();

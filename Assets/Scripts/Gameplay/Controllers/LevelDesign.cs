@@ -296,20 +296,44 @@ public class LevelDesign : MonoBehaviour
 			return Instance.bossMeteor;
 			#else
 
-			BossTier currentLevelUpCondition = (bossLevel < Instance.gameBalance.bossLevelUpCondition.tiers.Length) ? Instance.gameBalance.bossLevelUpCondition.tiers[bossLevel] : Instance.gameBalance.bossLevelUpCondition.infinityTier;
+            GameObject boss = null;
 
-			float maxPercent = currentLevelUpCondition.bossIllusion + currentLevelUpCondition.bossMeteor + currentLevelUpCondition.bossTwins;
+            if(GameController.gameMode == GameController.GameMode.Endless)
+            {
+                BossTier currentLevelUpCondition = (bossLevel < Instance.gameBalance.bossLevelUpCondition.tiers.Length) ? Instance.gameBalance.bossLevelUpCondition.tiers[bossLevel] : Instance.gameBalance.bossLevelUpCondition.infinityTier;
 
-			float rnd = UnityEngine.Random.Range(0f, maxPercent);
+                float maxPercent = currentLevelUpCondition.bossIllusion + currentLevelUpCondition.bossMeteor + currentLevelUpCondition.bossTwins;
 
-			if(rnd < currentLevelUpCondition.bossMeteor)
-				return Instance.bossMeteor;
-			else if(rnd < currentLevelUpCondition.bossTwins + currentLevelUpCondition.bossMeteor)
-				return Instance.bossTwins;
-			else
-				return Instance.bossIllusion;
+                float rnd = UnityEngine.Random.Range(0f, maxPercent);
+
+                if (rnd < currentLevelUpCondition.bossMeteor)
+                    boss = Instance.bossMeteor;
+                else if (rnd < currentLevelUpCondition.bossTwins + currentLevelUpCondition.bossMeteor)
+                    boss = Instance.bossTwins;
+                else
+                    boss = Instance.bossIllusion;
+            }
+            else if(GameController.gameMode == GameController.GameMode.Story)
+            {
+                
+                switch (GameController.world)
+                {
+                    case 0:
+                        boss = Instance.bossMeteor;
+                        break;
+
+                    case 1:
+                        boss = Instance.bossTwins;
+                        break;
+
+                    case 2:
+                        boss = Instance.bossIllusion;
+                        break;
+                }
+            }
+
+            return boss;
 			#endif
-			
 		}
 	}
 

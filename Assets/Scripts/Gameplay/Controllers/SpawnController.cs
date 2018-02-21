@@ -162,7 +162,8 @@ public class SpawnController : MonoBehaviour
 
         if(isFinalWave && isFinalLevel)
         {
-            Debug.Log("End WORLD!");
+            Debug.Log("Spawn Boss!");
+            SpawnBoss();
         }
         else
         {
@@ -216,8 +217,10 @@ public class SpawnController : MonoBehaviour
 		Vector3 pos = new Vector3 (0.5f, 1.3f, 0);
 		pos = Camera.main.ViewportToWorldPoint (pos);
 		pos.z = 0f;
-		
-		boss = Instantiate (LevelDesign.CurrentBoss, pos, Quaternion.identity) as GameObject; 
+
+        boss = Instantiate (LevelDesign.CurrentBoss, pos, Quaternion.identity) as GameObject; 
+
+        SoundController.Instance.PlayMusic(SoundController.Musics.BossTheme);
 	}
 
 	public static void SpawnEnemy(GameObject enemy)

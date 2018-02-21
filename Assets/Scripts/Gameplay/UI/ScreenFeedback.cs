@@ -45,8 +45,14 @@ public class ScreenFeedback : MonoBehaviour
 		StopAllCoroutines ();
 	}
 
-	// Use this for initialization
-	void Start () 
+    private void OnEnable()
+    {
+        blank.alpha = 0;
+        blank.enabled = false;
+    }
+
+    // Use this for initialization
+    void Start () 
 	{
 		instance = this;
 
