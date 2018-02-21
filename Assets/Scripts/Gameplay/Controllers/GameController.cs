@@ -787,8 +787,8 @@ public class GameController : MonoBehaviour
 		SoundController.Instance.CrossFadeMusic(SoundController.Musics.GameTheme, 1f);
 
 		isGameRunning = true;
-		level = 1;
-		wave = 1;
+		level = 0;
+		wave = 0;
 		Reset ();
 		gameObject.SetActive (true);
 

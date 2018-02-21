@@ -121,7 +121,7 @@ public class SpawnController : MonoBehaviour
 		{
             timeToNextSpawn = enemiesToSpawn[0].timeToSpawn - timeToNextSpawn;
             totalSpawnTime += timeToNextSpawn;
-            Debug.Log(Time.time + ": timeToNextSpawn: " + timeToNextSpawn);
+
             yield return new WaitForSeconds(timeToNextSpawn);
 
 			for(int i = 0; i < enemiesToSpawn.Count; i++)
@@ -146,10 +146,28 @@ public class SpawnController : MonoBehaviour
 		while(SpawnController.EnemiesInGame > 0)
 			yield return null;
 
-		GameController.wave++;
+        bool isFinalWave = LevelDesignStoryMode.IsFinalWave(GameController.world, GameController.level, GameController.wave);
+        bool isFinalLevel = LevelDesignStoryMode.IsFinalLevel(GameController.world, GameController.level);
+        if(!isFinalWave)
+        {
+			GameController.wave++;
+            Debug.Log("Ended wave, next wave");
+        }
+        else if(!isFinalLevel)
+        {
+            GameController.wave = 0;
+            GameController.level++;
+            Debug.Log("Ended level, next level");
+        }
 
-        Debug.Log("Ended wave, next wave");
-		StartCoroutine("SpawnEnemiesStory");
+        if(isFinalWave && isFinalLevel)
+        {
+            Debug.Log("End WORLD!");
+        }
+        else
+        {
+            StartCoroutine("SpawnEnemiesStory");
+        }
 	}
 
 	private GameObject GetEnemyObject(EnemiesPercent.EnemyNames enemyName)
