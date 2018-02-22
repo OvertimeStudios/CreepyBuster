@@ -117,6 +117,8 @@ public class SpawnController : MonoBehaviour
 	{
 		List<EnemyWave> enemiesToSpawn = LevelDesignStoryMode.GetWave(GameController.world, GameController.level, GameController.wave);
 
+        FollowFingerText.Show(string.Format("Level {0}\nWave {1}", GameController.level + 1, GameController.wave + 1), 2f);
+
         float totalSpawnTime = 0;
         float timeToNextSpawn = 0;
 		while(enemiesToSpawn.Count > 0)
@@ -166,7 +168,10 @@ public class SpawnController : MonoBehaviour
         {
             Global.SetWorldLevelCompletion(GameController.world, GameController.level);
             Debug.Log("Spawn Boss!");
-            SpawnBoss();
+
+            FollowFingerText.Show("Boss Time!!!", 2f);
+
+            StartCoroutine(SpawnBossWithDelay(2f));
         }
         else
         {
@@ -222,6 +227,13 @@ public class SpawnController : MonoBehaviour
 
 		SpawnEnemies ();
 	}
+
+    public static IEnumerator SpawnBossWithDelay(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        SpawnBoss();
+    }
 
 	public static void SpawnBoss()
 	{
