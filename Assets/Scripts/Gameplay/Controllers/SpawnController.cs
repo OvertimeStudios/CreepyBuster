@@ -117,7 +117,10 @@ public class SpawnController : MonoBehaviour
 	{
 		List<EnemyWave> enemiesToSpawn = LevelDesignStoryMode.GetWave(GameController.world, GameController.level, GameController.wave);
 
-        FollowFingerText.Show(string.Format("Level {0}\nWave {1}", GameController.level + 1, GameController.wave + 1), 2f);
+        string hexLevelColor = ColorToHex(Color.Lerp(Color.yellow, Color.red, (float)GameController.level / (float)Mathf.Max((LevelDesignStoryMode.TotalLevels(GameController.world) - 1), 1f)));
+        string hexWaveColor = ColorToHex(Color.Lerp(Color.yellow, Color.red, (float)GameController.wave / (float)Mathf.Max((LevelDesignStoryMode.TotalWaves(GameController.world, GameController.level) - 1), 1f)));
+
+        FollowFingerText.Show(string.Format("[{0}FF]Level {1}[-]\n[{2}FF]Wave {3}[-]", hexLevelColor, GameController.level + 1, hexWaveColor, GameController.wave + 1), 2f);
 
         float totalSpawnTime = 0;
         float timeToNextSpawn = 0;
@@ -169,7 +172,7 @@ public class SpawnController : MonoBehaviour
             Global.SetWorldLevelCompletion(GameController.world, GameController.level);
             Debug.Log("Spawn Boss!");
 
-            FollowFingerText.Show("Boss Time!!!", 2f);
+            FollowFingerText.Show("[FF0000FF]Boss Time!!![-]", 2f);
 
             StartCoroutine(SpawnBossWithDelay(2f));
         }
@@ -178,6 +181,13 @@ public class SpawnController : MonoBehaviour
             StartCoroutine("SpawnEnemiesStory");
         }
 	}
+
+    // Note that Color32 and Color implictly convert to each other. You may pass a Color object to this method without first casting it.
+    string ColorToHex(Color32 color)
+    {
+        string hex = color.r.ToString("X2") + color.g.ToString("X2") + color.b.ToString("X2");
+        return hex;
+    }
 
     private void BossDied(GameObject gameObject)
     {

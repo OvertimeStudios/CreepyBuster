@@ -31,12 +31,22 @@ public class LevelDesignStoryMode : MonoBehaviour
 
     public static bool IsFinalWave(int world, int level, int wave)
     {
-        return Instance.balance.worldBalance[world].levels[level].waves.Count - 1 == wave;
+        return TotalWaves(world, level) - 1 == wave;
     }
 
     public static bool IsFinalLevel(int world, int level)
     {
-        return Instance.balance.worldBalance[world].levels.Count - 1 == level;
+        return TotalLevels(world) - 1 == level;
+    }
+
+    public static int TotalLevels(int world)
+    {
+        return Instance.balance.worldBalance[world].levels.Count;
+    }
+
+    public static int TotalWaves(int world, int level)
+    {
+        return Instance.balance.worldBalance[world].levels[level].waves.Count;
     }
 
 	public StoryModeBalance balance;
