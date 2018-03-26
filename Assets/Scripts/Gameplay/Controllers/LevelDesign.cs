@@ -32,6 +32,7 @@ public class LevelDesign : MonoBehaviour
 	public GameObject bossMeteor;
 	public GameObject bossTwins;
 	public GameObject bossIllusion;
+    public GameObject boss4;
 
 	[Header("Item")]
 	public GameObject plasmaOrbPP;
@@ -310,8 +311,10 @@ public class LevelDesign : MonoBehaviour
                     boss = Instance.bossMeteor;
                 else if (rnd < currentLevelUpCondition.bossTwins + currentLevelUpCondition.bossMeteor)
                     boss = Instance.bossTwins;
-                else
+                else if (rnd < currentLevelUpCondition.bossIllusion + currentLevelUpCondition.bossTwins + currentLevelUpCondition.bossMeteor)
                     boss = Instance.bossIllusion;
+                else
+                    boss = Instance.boss4;
             }
             else if(GameController.gameMode == GameController.GameMode.Story)
             {
@@ -328,6 +331,10 @@ public class LevelDesign : MonoBehaviour
 
                     case 2:
                         boss = Instance.bossIllusion;
+                        break;
+
+                    case 3:
+                        boss = Instance.boss4;
                         break;
                 }
             }
@@ -945,7 +952,7 @@ public class EnemiesTypesLevelUpCondition : LevelUpCondition
 [System.Serializable]
 public class EnemiesPercent
 {
-	public enum EnemyNames { Blu, Charger, Ziggy, Spiral, Follower, Legion, LegionMinion, Meteor, Legiworm, LegiwornBody, Psyquor, PsyquorCopy, None }
+	public enum EnemyNames { Blu, Charger, Ziggy, Spiral, Follower, Legion, LegionMinion, Meteor, Legiworm, LegiwornBody, Psyquor, PsyquorCopy, Boss4, None }
 
 	public GameObject enemy
 	{
@@ -1021,6 +1028,7 @@ public class BossTier
 	public float bossMeteor;
 	public float bossTwins;
 	public float bossIllusion;
+    public float boss4;
 }
 
 [System.Serializable]
