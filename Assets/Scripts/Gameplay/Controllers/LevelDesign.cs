@@ -952,7 +952,7 @@ public class EnemiesTypesLevelUpCondition : LevelUpCondition
 [System.Serializable]
 public class EnemiesPercent
 {
-	public enum EnemyNames { Blu, Charger, Ziggy, Spiral, Follower, Legion, LegionMinion, Meteor, Legiworm, LegiwornBody, Psyquor, PsyquorCopy, Boss4, None }
+	public enum EnemyNames { None, Blu, Charger, Ziggy, Spiral, Follower, Legion, LegionMinion, Meteor, Legiworm, LegiwornBody, Psyquor, PsyquorCopy, Boss4 }
 
 	public GameObject enemy
 	{

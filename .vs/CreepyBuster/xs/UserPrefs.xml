@@ -1,13 +1,11 @@
 ﻿<Properties StartupConfiguration="{07C505EB-B9C3-D958-610F-523BD22B27F1}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Gameplay/Enemies/Boss/Boss 4/Boss4.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/BalanceStoryMode.xml">
     <Files>
-      <File FileName="Assets/Scripts/Gameplay/Enemies/Boss/Boss 4/Boss4.cs" Line="41" Column="13" />
-      <File FileName="Assets/Scripts/Gameplay/Enemies/Boss/Meteoro/BossMeteoro.cs" Line="124" Column="32" />
-      <File FileName="Assets/Resources/Balance.xml" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Gameplay/Controllers/LevelDesign.cs" Line="955" Column="149" />
-      <File FileName="Assets/Scripts/Gameplay/Enemies/Boss/Boss 4/Boss4Life.cs" Line="5" Column="34" />
-      <File FileName="Assets/Scripts/Gameplay/Enemies/Boss/BossLife.cs" Line="5" Column="34" />
-      <File FileName="Assets/Scripts/Gameplay/Enemies/EnemyLife.cs" Line="14" Column="34" />
+      <File FileName="Assets/Scripts/Gameplay/Controllers/LevelDesignStoryMode.cs" Line="129" Column="34" />
+      <File FileName="Assets/Scripts/Gameplay/Controllers/LevelDesign.cs" Line="987" Column="12" />
+      <File FileName="Assets/Scripts/Gameplay/Enemies/Follow.cs" Line="17" Column="9" />
+      <File FileName="Assets/Scripts/Gameplay/Controllers/SpawnController.cs" Line="155" Column="92" />
+      <File FileName="Assets/Resources/BalanceStoryMode.xml" Line="18" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

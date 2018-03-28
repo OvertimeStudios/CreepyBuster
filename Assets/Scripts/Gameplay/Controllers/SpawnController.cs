@@ -141,7 +141,10 @@ public class SpawnController : MonoBehaviour
 					break;
 				}
 				
-				SpawnEnemy(GetEnemyObject(enemyWave.enemy));
+                if(enemyWave.enemy != EnemiesPercent.EnemyNames.None)
+                {
+					SpawnEnemy(GetEnemyObject(enemyWave.enemy));
+                }
 
                 enemiesToSpawn.RemoveAt(i);
 
@@ -149,17 +152,21 @@ public class SpawnController : MonoBehaviour
 			}
 		}
 
-		while(SpawnController.EnemiesInGame > 0)
-			yield return null;
-
         bool isFinalWave = LevelDesignStoryMode.IsFinalWave(GameController.world, GameController.level, GameController.wave);
         bool isFinalLevel = LevelDesignStoryMode.IsFinalLevel(GameController.world, GameController.level);
         if(!isFinalWave)
         {
+            //uncomment this if you want to game wait for each wave to finish to start next one
+            /*while(SpawnController.EnemiesInGame > 0)
+                yield return null;*/
+            
 			GameController.wave++;
         }
         else if(!isFinalLevel)
         {
+            while (SpawnController.EnemiesInGame > 0)
+                yield return null;
+            
             Global.SetWorldLevelCompletion(GameController.world, GameController.level);
 
             GameController.wave = 0;
@@ -169,6 +176,9 @@ public class SpawnController : MonoBehaviour
 
         if(isFinalWave && isFinalLevel)
         {
+            while (SpawnController.EnemiesInGame > 0)
+                yield return null;
+            
             Global.SetWorldLevelCompletion(GameController.world, GameController.level);
             Debug.Log("Spawn Boss!");
 

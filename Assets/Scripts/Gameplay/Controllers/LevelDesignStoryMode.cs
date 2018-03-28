@@ -110,6 +110,7 @@ public class StoryModeBalance
 				lastLevelCreated.waves.Add(lastWaveCreated);
 			}
 
+            Debug.Log(balanceXML.enemy);
 			EnemyWave enemyWave = new EnemyWave();
 			enemyWave.enemy = balanceXML.enemy;
 			enemyWave.timeToSpawn = balanceXML.time;

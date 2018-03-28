@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalAnimatorSpeed: 0
-  type: 7
+  type: 13
   vel: 0
   timeToChangeVel:
     min: 2
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62628f3fad4d4f23803e10f62661b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 12
+  type: 13
   life: 10
   score: 0
   countAsStreak: 0
